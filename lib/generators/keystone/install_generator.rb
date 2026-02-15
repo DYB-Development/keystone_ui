@@ -5,7 +5,7 @@ module Keystone
     desc "Set up Keystone UI in your Rails application"
 
     TAILWIND_IMPORT = '@import "tailwindcss";'
-    SOURCE_MARKER = "/* keystone:source */"
+    KEYSTONE_IMPORT = '@import "./keystone_source.css";'
 
     def setup_tailwind
       say ""
@@ -40,11 +40,20 @@ module Keystone
         changed = true
       end
 
-      # Inject marker comment (path is resolved at boot time by Railtie initializer)
+      # Remove legacy marker comment (replaced by @import for keystone_source.css)
+      legacy_marker = "/* keystone:source */"
       content = css_path.read # re-read after removals
-      unless content.include?(SOURCE_MARKER)
-        inject_into_file css_path, "#{SOURCE_MARKER}\n", after: /#{Regexp.escape(TAILWIND_IMPORT)}\n/
-        say "  ✔ Added Keystone source marker", :green
+      if content.include?(legacy_marker)
+        gsub_file css_path, /#{Regexp.escape(legacy_marker)}.*\n?/, ""
+        say "  ✔ Removed legacy source marker", :green
+        changed = true
+      end
+
+      # Inject @import for keystone_source.css (written at boot by engine initializer)
+      content = css_path.read # re-read after removals
+      unless content.include?(KEYSTONE_IMPORT)
+        inject_into_file css_path, "#{KEYSTONE_IMPORT}\n", after: /#{Regexp.escape(TAILWIND_IMPORT)}\n/
+        say "  ✔ Added Keystone source import", :green
         changed = true
       end
 

@@ -4,20 +4,19 @@ module KeystoneUi
   class Engine < ::Rails::Engine
     config.autoload_paths << root.join("app/components")
 
-    # Inject @source with the gem's component path into application.css
+    # Write a separate keystone_source.css with the gem's @source directive
     # so Tailwind can scan component files during asset compilation.
     # Runs during app boot (before assets:precompile triggers tailwindcss:build).
     initializer "keystone_ui.tailwind_source" do
-      css_path = Rails.root.join("app/assets/tailwind/application.css")
+      tailwind_dir = Rails.root.join("app/assets/tailwind")
+      css_path = tailwind_dir.join("application.css")
       next unless css_path.exist?
 
-      content = css_path.read
-      marker = "/* keystone:source */"
-      next unless content.include?(marker)
+      keystone_import = '@import "./keystone_source.css";'
+      next unless css_path.read.include?(keystone_import)
 
-      source_line = "#{marker} @source \"#{root}/app/components/**/*.{erb,rb}\";"
-      updated = content.sub(/#{Regexp.escape(marker)}.*$/, source_line)
-      css_path.write(updated)
+      source_css = tailwind_dir.join("keystone_source.css")
+      source_css.write(%(@source "#{root}/app/components/**/*.{erb,rb}";\n))
     end
   end
 end
