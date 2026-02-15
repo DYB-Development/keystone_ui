@@ -29,8 +29,8 @@ RSpec.describe Keystone::InstallGenerator do
     expect(described_class.instance_methods).to include(:setup_tailwind)
   end
 
-  it "uses a marker comment for build-time source injection" do
-    expect(described_class::SOURCE_MARKER).to eq("/* keystone:source */")
+  it "uses an @import for keystone_source.css" do
+    expect(described_class::KEYSTONE_IMPORT).to eq('@import "./keystone_source.css";')
   end
 
   it "does not inject local gem paths" do
