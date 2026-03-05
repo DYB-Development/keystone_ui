@@ -11,7 +11,7 @@ module Keystone
         full: ""
       }.freeze
 
-      PADDING_CLASSES = "px-4 sm:px-6 lg:px-8"
+      PADDING_CLASSES = "px-4 py-4 sm:px-6 lg:px-8"
 
       def initialize(max_width: :full, padding: :standard)
         @max_width = max_width

@@ -3,10 +3,18 @@
 require "spec_helper"
 
 RSpec.describe Keystone::Ui::PageComponent do
-  it "includes responsive padding by default" do
+  it "includes responsive horizontal padding by default" do
     component = described_class.new
 
-    expect(component.classes).to include("px-4 sm:px-6 lg:px-8")
+    expect(component.classes).to include("px-4")
+    expect(component.classes).to include("sm:px-6")
+    expect(component.classes).to include("lg:px-8")
+  end
+
+  it "includes vertical padding by default" do
+    component = described_class.new
+
+    expect(component.classes).to include("py-4")
   end
 
   it "omits padding when padding: :none" do
