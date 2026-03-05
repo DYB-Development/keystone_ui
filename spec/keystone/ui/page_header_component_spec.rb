@@ -56,4 +56,15 @@ RSpec.describe Keystone::Ui::PageHeaderComponent do
 
     expect(component.action_url).to be_nil
   end
+
+  it "hides wrapper on mobile with hidden sm:block" do
+    expect(described_class::WRAPPER_CLASSES).to include("hidden")
+    expect(described_class::WRAPPER_CLASSES).to include("sm:block")
+  end
+
+  it "hides actions on mobile with page-header-actions hidden sm:block" do
+    expect(described_class::ACTIONS_CLASSES).to include("page-header-actions")
+    expect(described_class::ACTIONS_CLASSES).to include("hidden")
+    expect(described_class::ACTIONS_CLASSES).to include("sm:block")
+  end
 end
