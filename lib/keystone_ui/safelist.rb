@@ -21,7 +21,8 @@ module Keystone
       Keystone::Ui::NavItemComponent,
       Keystone::Ui::BottomNavItemComponent,
       Keystone::Ui::NavbarComponent,
-      Keystone::Ui::BottomNavComponent
+      Keystone::Ui::BottomNavComponent,
+      Keystone::Ui::SettingsLinkComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)
