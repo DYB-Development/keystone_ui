@@ -1,0 +1,71 @@
+/* Bottom navigation bar */
+.bottom-nav {
+  background: var(--base-bg-low);
+  border-top: 1px solid var(--base-border-tertiary);
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  left: 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  position: fixed;
+  right: 0;
+  z-index: 40;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: inherit;
+  }
+}
+
+.bottom-nav-item {
+  align-items: center;
+  color: var(--base-text-tertiary);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  justify-content: center;
+  min-height: 56px;
+  padding: 8px 4px;
+  text-decoration: none;
+
+  &:hover,
+  &:active {
+    color: var(--base-text-secondary);
+  }
+
+  &.active {
+    color: var(--text-primary);
+  }
+
+  svg {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+.bottom-nav-label {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+/* Add padding to main content for bottom nav on mobile */
+@media (max-width: 1023px) {
+  main {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom));
+  }
+
+  .hotwire-native .bottom-nav {
+    display: none;
+  }
+
+  .hotwire-native main {
+    padding-bottom: 0;
+  }
+}

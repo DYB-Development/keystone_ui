@@ -16,7 +16,13 @@ module KeystoneUi
       next unless css_path.read.include?(keystone_import)
 
       source_css = tailwind_dir.join("keystone_source.css")
-      source_css.write(%(@source "#{root}/app/components/**/*.{erb,rb}";\n))
+      lines = [%(@source "#{root}/app/components/**/*.{erb,rb}";)]
+
+      # Import component CSS files shipped with the gem
+      nav_css = root.join("app/assets/tailwind/keystone_ui_engine/nav.css")
+      lines << %(@import "#{nav_css}";) if nav_css.exist?
+
+      source_css.write(lines.join("\n") + "\n")
     end
   end
 end
