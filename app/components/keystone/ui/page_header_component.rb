@@ -8,11 +8,13 @@ module Keystone
       SUBTITLE_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400"
       ACTIONS_CLASSES = "mt-4 sm:mt-0 sm:ml-4 flex-shrink-0"
 
-      attr_reader :title
+      attr_reader :title, :action_url, :action_label
 
-      def initialize(title:, subtitle: nil)
+      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new")
         @title = title
         @subtitle = subtitle
+        @action_url = action_url
+        @action_label = action_label
         @action_block = nil
       end
 

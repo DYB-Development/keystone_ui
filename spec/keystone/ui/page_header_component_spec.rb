@@ -32,4 +32,28 @@ RSpec.describe Keystone::Ui::PageHeaderComponent do
     component.before_render
     expect(component.action?).to be true
   end
+
+  it "exposes action_url when provided" do
+    component = described_class.new(title: "Lists", action_url: "/lists/new")
+
+    expect(component.action_url).to eq("/lists/new")
+  end
+
+  it "defaults action_label to Add new" do
+    component = described_class.new(title: "Lists", action_url: "/lists/new")
+
+    expect(component.action_label).to eq("Add new")
+  end
+
+  it "accepts custom action_label" do
+    component = described_class.new(title: "Lists", action_url: "/lists/new", action_label: "New list")
+
+    expect(component.action_label).to eq("New list")
+  end
+
+  it "returns nil for action_url when not provided" do
+    component = described_class.new(title: "Lists")
+
+    expect(component.action_url).to be_nil
+  end
 end
