@@ -13,4 +13,9 @@ RSpec.describe "KeystoneUi::Engine" do
     expect(source).to include("keystone_source.css")
     expect(source).to include("app/components/**/*.{erb,rb}")
   end
+
+  it "imports nav.css in keystone_source.css" do
+    expect(source).to include("nav.css")
+    expect(source).to include('@import "#{nav_css}"')
+  end
 end
