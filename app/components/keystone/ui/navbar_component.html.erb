@@ -1,0 +1,34 @@
+<nav class="<%= nav_classes %>">
+  <% if mobile_left? %>
+    <div class="lg:hidden flex items-center">
+      <%= mobile_left %>
+    </div>
+  <% end %>
+
+  <% if logo? %>
+    <div class="logo">
+      <%= logo %>
+    </div>
+  <% end %>
+
+  <% if mobile_center? %>
+    <span class="absolute left-1/2 -translate-x-1/2 font-semibold text-gray-900 dark:text-white lg:hidden truncate max-w-[60%]">
+      <%= mobile_center %>
+    </span>
+  <% end %>
+
+  <% if desktop_links? %>
+    <div class="nav-container hidden lg:flex">
+      <nav><%= desktop_links %></nav>
+      <% if desktop_right? %>
+        <nav><%= desktop_right %></nav>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if mobile_right? %>
+    <div class="nav-user-controls ml-auto">
+      <%= mobile_right %>
+    </div>
+  <% end %>
+</nav>
