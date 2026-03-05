@@ -68,4 +68,24 @@ module KeystoneUiHelper
   def ui_mobile_actions(**args, &block)
     render Keystone::Ui::MobileActionsComponent.new(**args), &block
   end
+
+  def ui_navbar(**args, &block)
+    render Keystone::Ui::NavbarComponent.new(**args), &block
+  end
+
+  def ui_nav_item(**args)
+    render Keystone::Ui::NavItemComponent.new(**args)
+  end
+
+  def ui_bottom_nav(**args, &block)
+    render Keystone::Ui::BottomNavComponent.new(**args), &block
+  end
+
+  def ui_bottom_nav_item(**args)
+    render Keystone::Ui::BottomNavItemComponent.new(**args)
+  end
+
+  def ui_settings_link(**args)
+    render Keystone::Ui::SettingsLinkComponent.new(**args)
+  end
 end
