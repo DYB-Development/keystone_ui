@@ -1,3 +1,7 @@
+<% if action_url %>
+  <% content_for :mobile_action_url, action_url %>
+  <% content_for :mobile_action_label, action_label %>
+<% end %>
 <div class="<%= WRAPPER_CLASSES %>">
   <div>
     <h1 class="<%= TITLE_CLASSES %>"><%= @title %></h1>
