@@ -10,6 +10,22 @@ unless defined?(ViewComponent)
       def set_content_block(&block)
         @__content_block = block
       end
+
+      def self.renders_one(name, **_opts)
+        # Stub: register slot name for testing, provide predicate
+        @registered_slots ||= {}
+        @registered_slots[name] = :one
+        define_method(:"#{name}?") { false }
+      end
+
+      def self.renders_many(name, **_opts)
+        @registered_slots ||= {}
+        @registered_slots[name] = :many
+      end
+
+      def self.registered_slots
+        @registered_slots || {}
+      end
     end
   end
 end
@@ -27,4 +43,9 @@ require_relative "../app/components/keystone/ui/textarea_component"
 require_relative "../app/components/keystone/ui/form_field_component"
 require_relative "../app/components/keystone/ui/page_header_component"
 require_relative "../app/components/keystone/ui/alert_component"
+require_relative "../app/components/keystone/ui/nav_item_component"
+require_relative "../app/components/keystone/ui/bottom_nav_item_component"
+require_relative "../app/components/keystone/ui/navbar_component"
+require_relative "../app/components/keystone/ui/bottom_nav_component"
+require_relative "../app/components/keystone/ui/settings_link_component"
 require_relative "../lib/keystone_ui/safelist"
