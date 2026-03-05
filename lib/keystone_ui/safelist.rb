@@ -17,7 +17,8 @@ module Keystone
       Keystone::Ui::TextareaComponent,
       Keystone::Ui::FormFieldComponent,
       Keystone::Ui::PageHeaderComponent,
-      Keystone::Ui::AlertComponent
+      Keystone::Ui::AlertComponent,
+      Keystone::Ui::NavItemComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)
