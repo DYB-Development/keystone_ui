@@ -26,9 +26,10 @@ module Keystone
       #   <% if content_for?(:form_page) %>
       #     <%= ui_mobile_header_left %>
       #   <% end %>
-      def initialize(title:, back_url:)
+      def initialize(title:, back_url:, subtitle: nil)
         @title = title
         @back_url = back_url
+        @subtitle = subtitle
       end
     end
   end
