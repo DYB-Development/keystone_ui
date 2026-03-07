@@ -11,6 +11,10 @@
   right: 0;
   z-index: 40;
 
+  @media (min-width: 1024px) {
+    display: none;
+  }
+
   &::after {
     content: '';
     position: absolute;
