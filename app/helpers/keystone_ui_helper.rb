@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 module KeystoneUiHelper
+  def ui_accordion(**args)
+    render Keystone::Ui::AccordionComponent.new(**args)
+  end
+
   def ui_card(**args)
     render Keystone::Ui::CardComponent.new(**args)
   end

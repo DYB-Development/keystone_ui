@@ -1,0 +1,19 @@
+<div class="<%= classes %>" data-controller="accordion">
+  <% items.each_with_index do |item, index| %>
+    <div class="<%= item_classes %>">
+      <button
+        type="button"
+        class="<%= button_classes %>"
+        data-action="click->accordion#toggle"
+        data-index="<%= index %>">
+        <span class="pr-4"><%= item[:question] %></span>
+        <span class="<%= icon_classes %>" data-accordion-target="icon" data-index="<%= index %>">
+          <%= caret_icon.html_safe %>
+        </span>
+      </button>
+      <div class="<%= answer_classes %>" data-accordion-target="answer" data-index="<%= index %>">
+        <p><%= item[:answer] %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
