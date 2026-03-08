@@ -9,6 +9,7 @@ module Keystone
       Keystone::Ui::TabSwitcherComponent,
       Keystone::Ui::StatCardComponent,
       Keystone::Ui::ChartCardComponent,
+      Keystone::Ui::CtaBannerComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
       Keystone::Ui::DataTableComponent,
