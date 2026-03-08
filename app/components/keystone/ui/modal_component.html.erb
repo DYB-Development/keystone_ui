@@ -1,0 +1,13 @@
+<div data-controller="modal" data-modal-target="backdrop" class="<%= backdrop_classes %>" data-action="click->modal#closeOnBackdrop">
+  <div class="<%= panel_classes %>">
+    <div class="<%= header_classes %>">
+      <h3 class="<%= title_classes %>"><%= title %></h3>
+      <button type="button" data-action="click->modal#close" class="<%= close_button_classes %>" aria-label="Close">
+        <%= close_icon.html_safe %>
+      </button>
+    </div>
+    <div class="<%= body_classes %>">
+      <%= content %>
+    </div>
+  </div>
+</div>
