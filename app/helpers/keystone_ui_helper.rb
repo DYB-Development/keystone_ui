@@ -29,6 +29,10 @@ module KeystoneUiHelper
     render Keystone::Ui::HeroComponent.new(**args), &block
   end
 
+  def ui_modal(**args, &block)
+    render Keystone::Ui::ModalComponent.new(**args), &block
+  end
+
   def ui_card(**args)
     render Keystone::Ui::CardComponent.new(**args)
   end
