@@ -1,0 +1,14 @@
+<div data-controller="tab-switcher">
+  <div class="<%= classes %>">
+    <% tabs.each_with_index do |tab, index| %>
+      <button
+        type="button"
+        class="<%= tab_classes %>"
+        data-tab-switcher-target="tab"
+        data-action="click->tab-switcher#select"
+        data-index="<%= index %>"
+        <%= "data-active" if index == 0 %>><%= tab %></button>
+    <% end %>
+  </div>
+  <%= content %>
+</div>
