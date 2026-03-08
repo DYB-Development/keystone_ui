@@ -1,0 +1,9 @@
+<div class="<%= classes %>">
+  <h2 class="<%= title_classes %>"><%= title %></h2>
+  <% if subtitle? %>
+    <p class="<%= subtitle_classes %>"><%= subtitle %></p>
+  <% end %>
+  <div class="<%= actions_classes %>">
+    <%= content %>
+  </div>
+</div>
