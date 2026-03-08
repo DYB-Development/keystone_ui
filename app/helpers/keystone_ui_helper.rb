@@ -73,6 +73,10 @@ module KeystoneUiHelper
     render Keystone::Ui::TextareaComponent.new(**args)
   end
 
+  def ui_select(**args)
+    render Keystone::Ui::SelectComponent.new(**args)
+  end
+
   def ui_form_field(**args)
     render Keystone::Ui::FormFieldComponent.new(**args)
   end

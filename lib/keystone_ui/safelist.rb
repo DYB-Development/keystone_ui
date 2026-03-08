@@ -13,6 +13,7 @@ module Keystone
       Keystone::Ui::FeatureGridComponent,
       Keystone::Ui::HeroComponent,
       Keystone::Ui::ModalComponent,
+      Keystone::Ui::SelectComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
       Keystone::Ui::DataTableComponent,
