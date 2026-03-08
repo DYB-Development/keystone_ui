@@ -21,6 +21,10 @@ module KeystoneUiHelper
     render Keystone::Ui::CtaBannerComponent.new(**args), &block
   end
 
+  def ui_feature_grid(**args)
+    render Keystone::Ui::FeatureGridComponent.new(**args)
+  end
+
   def ui_card(**args)
     render Keystone::Ui::CardComponent.new(**args)
   end

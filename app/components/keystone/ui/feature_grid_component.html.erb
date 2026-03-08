@@ -1,0 +1,17 @@
+<div>
+  <h2 class="<%= title_classes %>"><%= title %></h2>
+  <% if subtitle? %>
+    <p class="<%= subtitle_classes %>"><%= subtitle %></p>
+  <% end %>
+  <div class="<%= classes %>">
+    <% features.each do |feature| %>
+      <div class="<%= card_classes %>">
+        <div class="<%= icon_classes %>">
+          <%= feature[:icon].html_safe %>
+        </div>
+        <h3 class="<%= card_title_classes %>"><%= feature[:title] %></h3>
+        <p class="<%= card_description_classes %>"><%= feature[:description] %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
