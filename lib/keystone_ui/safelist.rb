@@ -6,6 +6,7 @@ module Keystone
     # The safelist_spec verifies this list matches Keystone::Ui components.
     COMPONENTS = [
       Keystone::Ui::AccordionComponent,
+      Keystone::Ui::TabSwitcherComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
       Keystone::Ui::DataTableComponent,
