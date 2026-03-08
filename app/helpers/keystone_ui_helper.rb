@@ -25,6 +25,10 @@ module KeystoneUiHelper
     render Keystone::Ui::FeatureGridComponent.new(**args)
   end
 
+  def ui_hero(**args, &block)
+    render Keystone::Ui::HeroComponent.new(**args), &block
+  end
+
   def ui_card(**args)
     render Keystone::Ui::CardComponent.new(**args)
   end
