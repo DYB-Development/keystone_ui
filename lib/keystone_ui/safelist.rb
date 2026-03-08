@@ -10,6 +10,7 @@ module Keystone
       Keystone::Ui::StatCardComponent,
       Keystone::Ui::ChartCardComponent,
       Keystone::Ui::CtaBannerComponent,
+      Keystone::Ui::FeatureGridComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
       Keystone::Ui::DataTableComponent,
