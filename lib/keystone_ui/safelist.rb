@@ -15,6 +15,7 @@ module Keystone
       Keystone::Ui::ModalComponent,
       Keystone::Ui::SelectComponent,
       Keystone::Ui::BadgeComponent,
+      Keystone::Ui::CopyButtonComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
       Keystone::Ui::DataTableComponent,
@@ -41,7 +42,7 @@ module Keystone
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)
-    SKIP_CONSTANTS = %i[TYPE_MAP ELLIPSIS_ICON BACK_ICON CARET_ICON CLOSE_ICON].freeze
+    SKIP_CONSTANTS = %i[TYPE_MAP ELLIPSIS_ICON BACK_ICON CARET_ICON CLOSE_ICON COPY_ICON].freeze
 
     # Classes used in Ruby methods or ERB templates, not in frozen constants.
     # These cannot be auto-extracted and must be listed manually.
