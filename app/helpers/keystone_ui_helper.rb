@@ -37,6 +37,10 @@ module KeystoneUiHelper
     render Keystone::Ui::BadgeComponent.new(**args)
   end
 
+  def ui_copy_button(**args)
+    render Keystone::Ui::CopyButtonComponent.new(**args)
+  end
+
   def ui_card(**args)
     render Keystone::Ui::CardComponent.new(**args)
   end
