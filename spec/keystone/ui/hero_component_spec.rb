@@ -1,0 +1,62 @@
+# frozen_string_literal: true
+
+require "spec_helper"
+
+RSpec.describe Keystone::Ui::HeroComponent do
+  it "exposes title" do
+    component = described_class.new(title: "Welcome")
+
+    expect(component.title).to eq("Welcome")
+  end
+
+  it "exposes subtitle when provided" do
+    component = described_class.new(title: "X", subtitle: "Subtext here.")
+
+    expect(component.subtitle?).to be true
+    expect(component.subtitle).to eq("Subtext here.")
+  end
+
+  it "returns false for subtitle? when not provided" do
+    component = described_class.new(title: "X")
+
+    expect(component.subtitle?).to be false
+  end
+
+  it "exposes badge when provided" do
+    component = described_class.new(title: "X", badge: "New")
+
+    expect(component.badge?).to be true
+    expect(component.badge).to eq("New")
+  end
+
+  it "returns false for badge? when not provided" do
+    component = described_class.new(title: "X")
+
+    expect(component.badge?).to be false
+  end
+
+  it "exposes wrapper classes" do
+    component = described_class.new(title: "X")
+
+    expect(component.classes).to include("min-h-screen")
+  end
+
+  it "exposes title classes" do
+    component = described_class.new(title: "X")
+
+    expect(component.title_classes).to include("font-bold")
+    expect(component.title_classes).to include("tracking-tight")
+  end
+
+  it "supports centered layout" do
+    component = described_class.new(title: "X", layout: :centered)
+
+    expect(component.content_classes).to include("text-center")
+  end
+
+  it "defaults to split layout" do
+    component = described_class.new(title: "X")
+
+    expect(component.content_classes).to include("lg:grid-cols-2")
+  end
+end
