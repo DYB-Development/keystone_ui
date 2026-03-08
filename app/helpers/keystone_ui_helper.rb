@@ -33,6 +33,10 @@ module KeystoneUiHelper
     render Keystone::Ui::ModalComponent.new(**args), &block
   end
 
+  def ui_badge(**args)
+    render Keystone::Ui::BadgeComponent.new(**args)
+  end
+
   def ui_card(**args)
     render Keystone::Ui::CardComponent.new(**args)
   end
