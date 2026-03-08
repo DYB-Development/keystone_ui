@@ -13,6 +13,10 @@ module KeystoneUiHelper
     render Keystone::Ui::StatCardComponent.new(**args)
   end
 
+  def ui_chart_card(**args, &block)
+    render Keystone::Ui::ChartCardComponent.new(**args), &block
+  end
+
   def ui_card(**args)
     render Keystone::Ui::CardComponent.new(**args)
   end
