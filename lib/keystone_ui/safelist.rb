@@ -8,6 +8,7 @@ module Keystone
       Keystone::Ui::AccordionComponent,
       Keystone::Ui::TabSwitcherComponent,
       Keystone::Ui::StatCardComponent,
+      Keystone::Ui::ChartCardComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
       Keystone::Ui::DataTableComponent,
