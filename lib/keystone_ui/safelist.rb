@@ -18,6 +18,7 @@ module Keystone
       Keystone::Ui::FormFieldComponent,
       Keystone::Ui::PageHeaderComponent,
       Keystone::Ui::AlertComponent,
+      Keystone::Ui::NavDropdownComponent,
       Keystone::Ui::NavItemComponent,
       Keystone::Ui::BottomNavItemComponent,
       Keystone::Ui::NavbarComponent,

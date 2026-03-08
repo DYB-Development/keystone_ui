@@ -77,6 +77,10 @@ module KeystoneUiHelper
     render Keystone::Ui::NavItemComponent.new(**args)
   end
 
+  def ui_nav_dropdown(**args, &block)
+    render Keystone::Ui::NavDropdownComponent.new(**args), &block
+  end
+
   def ui_bottom_nav(**args, &block)
     render Keystone::Ui::BottomNavComponent.new(**args), &block
   end
