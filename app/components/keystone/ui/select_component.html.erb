@@ -1,0 +1,8 @@
+<select <%= tag_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %>>
+  <% if include_blank %>
+    <option value=""><%= include_blank %></option>
+  <% end %>
+  <% options.each do |label, value| %>
+    <option value="<%= value %>" <%= "selected" if selected.to_s == value.to_s %>><%= label %></option>
+  <% end %>
+</select>
