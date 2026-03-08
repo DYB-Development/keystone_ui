@@ -12,15 +12,12 @@ module Keystone
         @shadow = shadow
       end
 
+      BASE_CLASSES = "border border-gray-200 bg-white dark:bg-zinc-900 dark:border-zinc-700"
+      SHADOW_CLASS = "shadow-sm"
+
       def classes
-        tokens = [
-          RADIUS_CLASSES.fetch(@radius),
-          "border border-gray-200",
-          "bg-white",
-          PADDING_CLASSES.fetch(@padding),
-          "dark:bg-zinc-900 dark:border-zinc-700"
-        ]
-        tokens << "shadow-sm" if @shadow
+        tokens = [RADIUS_CLASSES.fetch(@radius), BASE_CLASSES, PADDING_CLASSES.fetch(@padding)]
+        tokens << SHADOW_CLASS if @shadow
         tokens.join(" ")
       end
     end

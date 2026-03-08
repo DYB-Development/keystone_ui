@@ -1,11 +1,11 @@
-<div class="nav-dropdown" data-controller="dropdown">
+<div class="<%= WRAPPER_CLASSES %>" data-controller="dropdown">
   <button type="button"
           data-action="click->dropdown#toggle click@window->dropdown#hide"
           class="<%= trigger_classes %>">
     <%= @title %>
     <%= CARET_ICON.html_safe %>
   </button>
-  <nav data-dropdown-target="menu" class="nav-dropdown-menu hidden">
+  <nav data-dropdown-target="menu" class="<%= MENU_CLASSES %>">
     <%= content %>
   </nav>
 </div>

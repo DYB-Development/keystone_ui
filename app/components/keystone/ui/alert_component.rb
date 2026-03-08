@@ -12,8 +12,11 @@ module Keystone
         error: "bg-red-50 text-red-800 dark:bg-red-900/30 dark:text-red-300"
       }.freeze
 
+      OUTER_CLASSES = "flex"
+      INNER_CLASSES = "flex-1"
       TITLE_CLASSES = "font-semibold"
       MESSAGE_CLASSES = "text-sm"
+      MESSAGE_WITH_TITLE_CLASSES = "text-sm mt-1"
       DISMISS_CLASSES = "ml-auto -mr-1.5 -mt-1.5 inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer"
 
       def initialize(message:, type: :info, title: nil, dismissible: false)

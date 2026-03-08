@@ -33,4 +33,20 @@ RSpec.describe Keystone::Ui::SectionComponent do
 
     expect(component.instance_variable_get(:@action)).to eq(action)
   end
+
+  it "has HEADER_CLASSES with flex layout and spacing" do
+    expect(described_class::HEADER_CLASSES).to include("flex")
+    expect(described_class::HEADER_CLASSES).to include("justify-between")
+    expect(described_class::HEADER_CLASSES).to include("mb-4")
+  end
+
+  it "has TITLE_CLASSES with semibold text styling" do
+    expect(described_class::TITLE_CLASSES).to include("font-semibold")
+    expect(described_class::TITLE_CLASSES).to include("text-lg")
+  end
+
+  it "has ACTION_CLASSES with indigo link styling" do
+    expect(described_class::ACTION_CLASSES).to include("text-indigo-600")
+    expect(described_class::ACTION_CLASSES).to include("hover:text-indigo-900")
+  end
 end

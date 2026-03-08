@@ -1,4 +1,4 @@
-<div class="lg:hidden">
+<div class="<%= WRAPPER_CLASSES %>">
   <%= link_to @back_url, class: BACK_LINK_CLASSES, aria: { label: "Back" } do %>
     <%= BACK_ICON.html_safe %>
   <% end %>
@@ -6,6 +6,6 @@
 <span class="<%= TITLE_CLASSES %>">
   <%= @title %>
   <% if @subtitle.present? %>
-    <span class="block text-xs font-normal text-gray-500 dark:text-gray-400 truncate text-center"><%= @subtitle %></span>
+    <span class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></span>
   <% end %>
 </span>

@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata["source_code_uri"] = "https://github.com/tylercschneider/keystone_ui"
 
-  spec.required_ruby_version = ">= 3.0.0"
+  spec.required_ruby_version = ">= 3.1.0"
 
   spec.files = Dir["lib/**/*", "app/**/*"]
   spec.require_paths = ["lib"]
