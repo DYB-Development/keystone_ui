@@ -11,8 +11,10 @@ module Keystone
         @active = active
       end
 
+      ACTIVE_CLASS = "active"
+
       def link_classes
-        @active ? "active" : ""
+        @active ? ACTIVE_CLASS : ""
       end
     end
   end

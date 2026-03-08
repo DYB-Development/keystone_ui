@@ -9,6 +9,7 @@ module Keystone
         </svg>
       SVG
 
+      WRAPPER_CLASSES = "relative lg:hidden"
       BUTTON_CLASSES = "text-gray-500 dark:text-gray-400"
       DROPDOWN_CLASSES = "hidden absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 dark:bg-zinc-800 dark:ring-white/10"
     end

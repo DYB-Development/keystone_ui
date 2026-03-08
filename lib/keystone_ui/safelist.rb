@@ -23,11 +23,15 @@ module Keystone
       Keystone::Ui::BottomNavItemComponent,
       Keystone::Ui::NavbarComponent,
       Keystone::Ui::BottomNavComponent,
-      Keystone::Ui::SettingsLinkComponent
+      Keystone::Ui::SettingsLinkComponent,
+      Keystone::Ui::FormPageComponent,
+      Keystone::Ui::MobileActionsComponent,
+      Keystone::Ui::MobileHeaderComponent,
+      Keystone::Ui::ShowPageComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)
-    SKIP_CONSTANTS = %i[TYPE_MAP].freeze
+    SKIP_CONSTANTS = %i[TYPE_MAP ELLIPSIS_ICON BACK_ICON CARET_ICON].freeze
 
     # Classes used in Ruby methods or ERB templates, not in frozen constants.
     # These cannot be auto-extracted and must be listed manually.
@@ -41,12 +45,6 @@ module Keystone
       bg-gray-50 dark:bg-gray-800/75
       divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-800/50
       px-3 py-4 text-sm text-gray-500 dark:text-gray-400
-      flex items-center justify-between mb-4
-      text-lg font-semibold text-gray-900 dark:text-white
-      mt-1 text-indigo-600 hover:text-indigo-900
-      dark:text-indigo-400 dark:hover:text-indigo-300
-      flex-1
-      hover:border-indigo-500
     ].freeze
 
     def self.extract_classes_from_hash(hash, classes)

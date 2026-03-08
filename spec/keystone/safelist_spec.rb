@@ -4,7 +4,7 @@ require "spec_helper"
 
 RSpec.describe "Tailwind safelist" do
   # Constants that hold non-CSS values (e.g. HTML type maps)
-  SKIP_CONSTANTS = %i[TYPE_MAP].freeze
+  SKIP_CONSTANTS = %i[TYPE_MAP ELLIPSIS_ICON BACK_ICON CARET_ICON].freeze
 
   def extract_classes_from_constants(klass)
     classes = []
