@@ -14,6 +14,7 @@ module Keystone
       Keystone::Ui::HeroComponent,
       Keystone::Ui::ModalComponent,
       Keystone::Ui::SelectComponent,
+      Keystone::Ui::BadgeComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
       Keystone::Ui::DataTableComponent,
