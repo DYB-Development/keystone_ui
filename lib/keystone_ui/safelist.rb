@@ -5,6 +5,7 @@ module Keystone
     # All component classes to scan for Tailwind CSS classes.
     # The safelist_spec verifies this list matches Keystone::Ui components.
     COMPONENTS = [
+      Keystone::Ui::AccordionComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
       Keystone::Ui::DataTableComponent,
