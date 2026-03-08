@@ -38,7 +38,19 @@ namespace :keystone do
     content = <<~MARKDOWN
       #{section_heading}
 
-      Keystone UI is a ViewComponent gem. Use the helpers below in your ERB views.
+      > **DO NOT** explore the keystone_ui gem source code. This reference is the
+      > complete API. Use only the helpers listed below in your ERB views. All
+      > styling is handled internally by the components — never add Tailwind
+      > classes to override them.
+
+      ### Rules
+      - Mobile-first — primary UI is often a native webview
+      - Use simple labels (e.g. "Create", "Save") not resource-specific ones
+      - Use helpers, not component classes directly
+      - All layout goes through `ui_page`, `ui_grid`, `ui_section`, `ui_panel`
+      - Navigation uses `ui_navbar` with slots, `ui_bottom_nav` for mobile tabs
+
+      ---
 
       ### `ui_card`
 
@@ -68,6 +80,7 @@ namespace :keystone do
       | `href:` | no | `nil` | renders `<a>` when set, `<button>` otherwise |
       | `variant:` | no | `:primary` | `:primary`, `:secondary`, `:danger` |
       | `size:` | no | `:md` | `:sm`, `:md`, `:lg` |
+      | `type:` | no | `:submit` | HTML button type (ignored when `href` is set) |
 
       ### `ui_data_table`
 
@@ -191,8 +204,10 @@ namespace :keystone do
       |-------|----------|---------|
       | `title:` | yes | — |
       | `subtitle:` | no | `nil` |
+      | `action_url:` | no | `nil` | shortcut: renders a default link button |
+      | `action_label:` | no | `"Add new"` | label for `action_url` button |
 
-      Block API: call `header.action { ... }` to add an action slot (e.g. a button) aligned to the right.
+      Block API: call `header.action { ... }` to add a custom action slot (e.g. a button) aligned to the right.
 
       ### `ui_alert`
 
@@ -207,6 +222,211 @@ namespace :keystone do
       | `type:` | no | `:info` | `:info`, `:success`, `:warning`, `:error` |
       | `title:` | no | `nil` | bold title above message |
       | `dismissible:` | no | `false` | shows dismiss button when `true` |
+
+      ### `ui_input`
+
+      ```erb
+      <%= ui_input(name: "email", type: :email, placeholder: "you@example.com") %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `name:` | yes | — | — |
+      | `type:` | no | `:text` | `:text`, `:email`, `:password`, `:number`, etc. |
+      | `value:` | no | `nil` | — |
+      | `placeholder:` | no | `nil` | — |
+      | `disabled:` | no | `false` | — |
+      | `min:` | no | `nil` | min value for number inputs |
+      | `max:` | no | `nil` | max value for number inputs |
+      | `step:` | no | `nil` | step value for number inputs |
+
+      ### `ui_textarea`
+
+      ```erb
+      <%= ui_textarea(name: "description", rows: 5, placeholder: "Enter details…") %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `name:` | yes | — |
+      | `value:` | no | `nil` |
+      | `rows:` | no | `3` |
+      | `placeholder:` | no | `nil` |
+      | `disabled:` | no | `false` |
+
+      ### `ui_form_field`
+
+      ```erb
+      <%= ui_form_field(attribute: :email, label: "Email address", type: :email, required: true) %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `attribute:` | yes | — | — |
+      | `label:` | no | `nil` | auto-derived from attribute if omitted |
+      | `type:` | no | `:text` | `:text`, `:email`, `:password`, `:number`, etc. |
+      | `required:` | no | `false` | — |
+      | `hint:` | no | `nil` | help text below the field |
+      | `placeholder:` | no | `nil` | — |
+      | `min:` | no | `nil` | — |
+      | `max:` | no | `nil` | — |
+
+      ### `ui_form_page`
+
+      Wraps a form page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context.
+
+      ```erb
+      <%= ui_form_page(title: "New Product", back_url: products_path) %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `title:` | yes | — |
+      | `back_url:` | yes | — |
+      | `subtitle:` | no | `nil` |
+
+      ### `ui_show_page`
+
+      Wraps a show/detail page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context.
+
+      ```erb
+      <%= ui_show_page(title: @product.name, back_url: products_path, subtitle: "Details") %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `title:` | yes | — |
+      | `back_url:` | yes | — |
+      | `subtitle:` | no | `nil` |
+
+      ### `ui_navbar`
+
+      Top-level navigation bar with slots for desktop and mobile sections. Sticky by default.
+
+      ```erb
+      <%= ui_navbar do |nav| %>
+        <% nav.with_logo do %>
+          <%= link_to "MyApp", root_path %>
+        <% end %>
+        <% nav.with_desktop_links do %>
+          <%= ui_nav_item(label: "Dashboard", href: root_path, active: true) %>
+          <%= ui_nav_dropdown(title: "Settings", area: "settings") do %>
+            <%= link_to "Profile", profile_path %>
+          <% end %>
+        <% end %>
+        <% nav.with_desktop_right do %>
+          <%= ui_settings_link(label: "Settings", href: settings_path) %>
+        <% end %>
+        <% nav.with_mobile_center do %>
+          <span>MyApp</span>
+        <% end %>
+      <% end %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `sticky:` | no | `true` |
+
+      Slots: `logo`, `desktop_links`, `desktop_right`, `mobile_left`, `mobile_center`, `mobile_right`.
+
+      ### `ui_nav_item`
+
+      A single nav link, used inside `ui_navbar` desktop_links slot.
+
+      ```erb
+      <%= ui_nav_item(label: "Dashboard", href: "/", active: current_page?(root_path)) %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `label:` | yes | — |
+      | `href:` | yes | — |
+      | `active:` | no | `false` |
+
+      ### `ui_nav_dropdown`
+
+      Dropdown menu within the navbar. Uses Stimulus `dropdown` controller.
+
+      ```erb
+      <%= ui_nav_dropdown(title: "More", area: "admin", active: false) do %>
+        <%= link_to "Users", users_path %>
+        <%= link_to "Reports", reports_path %>
+      <% end %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `title:` | yes | — |
+      | `area:` | yes | — |
+      | `active:` | no | `false` |
+
+      ### `ui_bottom_nav`
+
+      Mobile bottom tab bar, hidden on desktop (`lg:hidden`). Wrap `ui_bottom_nav_item` calls inside.
+
+      ```erb
+      <%= ui_bottom_nav do %>
+        <%= ui_bottom_nav_item(label: "Home", href: "/", icon: "<svg>…</svg>", active: true) %>
+        <%= ui_bottom_nav_item(label: "Search", href: "/search", icon: "<svg>…</svg>") %>
+      <% end %>
+      ```
+
+      No params.
+
+      ### `ui_bottom_nav_item`
+
+      A single bottom nav tab.
+
+      ```erb
+      <%= ui_bottom_nav_item(label: "Home", href: "/", icon: "<svg>…</svg>", active: true) %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `label:` | yes | — |
+      | `href:` | yes | — |
+      | `icon:` | yes | raw SVG string |
+      | `active:` | no | `false` |
+
+      ### `ui_mobile_header`
+
+      Mobile header with back link, centered title, and optional subtitle. Hidden on `lg:` screens.
+
+      ```erb
+      <%= ui_mobile_header(title: "Edit Product", back_url: products_path) %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `title:` | yes | — |
+      | `back_url:` | yes | — |
+      | `subtitle:` | no | `nil` |
+
+      ### `ui_mobile_actions`
+
+      Ellipsis dropdown for mobile action menus. Hidden on `lg:` screens.
+
+      ```erb
+      <%= ui_mobile_actions do %>
+        <%= link_to "Edit", edit_product_path(@product) %>
+        <%= link_to "Delete", product_path(@product), data: { turbo_method: :delete } %>
+      <% end %>
+      ```
+
+      No params. Pass action links as block content.
+
+      ### `ui_settings_link`
+
+      Gear icon link for settings navigation.
+
+      ```erb
+      <%= ui_settings_link(label: "Settings", href: settings_path) %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `label:` | yes | — |
+      | `href:` | yes | — |
     MARKDOWN
 
     content.chomp!

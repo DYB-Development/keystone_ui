@@ -33,15 +33,27 @@ RSpec.describe "keystone:claude rake task" do
     expect(content).to include("ui_data_table")
   end
 
-  it "documents all eight components" do
+  it "documents all helpers" do
     Rake::Task["keystone:claude"].invoke
 
     content = File.read(claude_md_path)
-    expect(content).to include("ui_page")
-    expect(content).to include("ui_section")
-    expect(content).to include("ui_grid")
-    expect(content).to include("ui_panel")
-    expect(content).to include("ui_card_link")
+    %w[
+      ui_card ui_button ui_data_table ui_page ui_section ui_grid ui_panel
+      ui_card_link ui_page_header ui_alert ui_input ui_textarea ui_form_field
+      ui_form_page ui_show_page ui_navbar ui_nav_item ui_nav_dropdown
+      ui_bottom_nav ui_bottom_nav_item ui_mobile_header ui_mobile_actions
+      ui_settings_link
+    ].each do |helper|
+      expect(content).to include(helper), "expected CLAUDE.md to document #{helper}"
+    end
+  end
+
+  it "includes the do-not-explore preamble" do
+    Rake::Task["keystone:claude"].invoke
+
+    content = File.read(claude_md_path)
+    expect(content).to include("DO NOT")
+    expect(content).to include("explore the keystone_ui gem source code")
   end
 
   it "documents edge_to_edge parameter for ui_card" do
