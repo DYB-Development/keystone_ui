@@ -5,6 +5,10 @@ module KeystoneUiHelper
     render Keystone::Ui::AccordionComponent.new(**args)
   end
 
+  def ui_tab_switcher(**args, &block)
+    render Keystone::Ui::TabSwitcherComponent.new(**args), &block
+  end
+
   def ui_card(**args)
     render Keystone::Ui::CardComponent.new(**args)
   end
