@@ -68,7 +68,8 @@ module KeystoneUi
     }.freeze
 
     def self.current
-      PALETTE.fetch(KeystoneUi.configuration.accent)
+      accent = KeystoneUi.configuration.accent
+      accent.is_a?(Hash) ? accent : PALETTE.fetch(accent)
     end
 
     def self.[](key)

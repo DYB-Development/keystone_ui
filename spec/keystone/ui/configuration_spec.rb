@@ -48,4 +48,27 @@ RSpec.describe KeystoneUi::Configuration do
       KeystoneUi.configure { |c| c.surface = :purple }
     }.to raise_error(ArgumentError, /unsupported surface/i)
   end
+
+  it "accepts a custom accent hash with all required keys" do
+    custom = {
+      border: "border-[#A0333D]/20",
+      bg: "bg-[#A0333D]/10",
+      text: "text-[#D4636D]",
+      dark_text: "text-[#D4636D]",
+      hover_border: "hover:border-[#A0333D]/50",
+      dark_hover_border: "hover:border-[#A0333D]/50",
+      hover_text: "hover:text-[#E07A83]",
+      dark_hover_text: "hover:text-[#E07A83]"
+    }
+
+    KeystoneUi.configure { |c| c.accent = custom }
+
+    expect(KeystoneUi.configuration.accent).to eq(custom)
+  end
+
+  it "rejects a custom accent hash missing required keys" do
+    expect {
+      KeystoneUi.configure { |c| c.accent = { text: "text-red-500" } }
+    }.to raise_error(ArgumentError, /missing required keys/i)
+  end
 end
