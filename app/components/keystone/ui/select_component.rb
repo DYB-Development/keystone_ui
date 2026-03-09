@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class SelectComponent < ViewComponent::Base
-      BASE_CLASSES = "block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:bg-zinc-900 dark:border-zinc-700 dark:text-white dark:focus:border-indigo-400 dark:focus:ring-indigo-400"
+      BASE_CLASSES = "block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-1 dark:bg-zinc-900 dark:border-zinc-700 dark:text-white"
 
       DISABLED_CLASSES = "cursor-not-allowed bg-gray-50 text-gray-500 dark:bg-zinc-800 dark:text-gray-400"
 
@@ -18,7 +18,8 @@ module Keystone
       end
 
       def classes
-        tokens = [BASE_CLASSES]
+        accent = KeystoneUi::AccentColors.current
+        tokens = [BASE_CLASSES, accent[:focus_border], accent[:focus_ring], accent[:dark_focus_border], accent[:dark_focus_ring]]
         tokens << DISABLED_CLASSES if @disabled
         tokens.join(" ")
       end
