@@ -32,6 +32,7 @@ end
 
 require_relative "../lib/keystone_ui/configuration"
 require_relative "../lib/keystone_ui/accent_colors"
+require_relative "../lib/keystone_ui/surface_colors"
 require_relative "../app/components/keystone/ui/card_component"
 require_relative "../app/components/keystone/ui/button_component"
 require_relative "../app/components/keystone/ui/data_table_component"

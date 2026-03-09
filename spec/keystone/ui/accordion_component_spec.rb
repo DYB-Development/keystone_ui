@@ -57,4 +57,27 @@ RSpec.describe Keystone::Ui::AccordionComponent do
       expect(component.button_classes).not_to include("blue")
     end
   end
+
+  context "surface theming" do
+    after { KeystoneUi.reset_configuration! }
+
+    it "uses zinc surface by default" do
+      component = described_class.new
+
+      expect(component.item_classes).to include("dark:border-zinc-700")
+      expect(component.button_classes).to include("text-gray-900")
+      expect(component.answer_classes).to include("text-gray-600")
+      expect(component.icon_classes).to include("text-gray-400")
+    end
+
+    it "uses slate surface when configured" do
+      KeystoneUi.configure { |c| c.surface = :slate }
+      component = described_class.new
+
+      expect(component.item_classes).to include("dark:border-slate-700")
+      expect(component.button_classes).to include("text-slate-900")
+      expect(component.answer_classes).to include("text-slate-600")
+      expect(component.icon_classes).to include("text-slate-400")
+    end
+  end
 end

@@ -3,9 +3,9 @@
 module Keystone
   module Ui
     class CtaBannerComponent < ViewComponent::Base
-      CARD_CLASSES = "rounded-2xl border border-gray-200 bg-gray-50 px-6 py-12 text-center lg:px-16 lg:py-16 dark:border-zinc-700 dark:bg-zinc-800"
-      TITLE_CLASSES = "mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
-      SUBTITLE_CLASSES = "mx-auto mb-8 max-w-2xl text-lg text-gray-500 dark:text-gray-400"
+      CARD_LAYOUT_CLASSES = "rounded-2xl border px-6 py-12 text-center lg:px-16 lg:py-16"
+      TITLE_BASE_CLASSES = "mb-4 text-3xl font-bold tracking-tight sm:text-4xl"
+      SUBTITLE_BASE_CLASSES = "mx-auto mb-8 max-w-2xl text-lg"
       ACTIONS_CLASSES = "flex flex-wrap justify-center gap-4"
 
       attr_reader :title, :subtitle
@@ -16,15 +16,16 @@ module Keystone
       end
 
       def classes
-        CARD_CLASSES
+        surface = KeystoneUi::SurfaceColors.current
+        "#{CARD_LAYOUT_CLASSES} #{surface[:card_border]} #{surface[:subtle_bg]}"
       end
 
       def title_classes
-        TITLE_CLASSES
+        "#{TITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:heading]}"
       end
 
       def subtitle_classes
-        SUBTITLE_CLASSES
+        "#{SUBTITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:body]}"
       end
 
       def subtitle?

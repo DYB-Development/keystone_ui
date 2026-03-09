@@ -32,4 +32,20 @@ RSpec.describe KeystoneUi::Configuration do
 
     expect(KeystoneUi.configuration.accent).to eq(:cyan)
   end
+
+  it "defaults surface to :zinc" do
+    expect(KeystoneUi.configuration.surface).to eq(:zinc)
+  end
+
+  it "allows setting surface via configure block" do
+    KeystoneUi.configure { |c| c.surface = :slate }
+
+    expect(KeystoneUi.configuration.surface).to eq(:slate)
+  end
+
+  it "rejects unsupported surface colors" do
+    expect {
+      KeystoneUi.configure { |c| c.surface = :purple }
+    }.to raise_error(ArgumentError, /unsupported surface/i)
+  end
 end
