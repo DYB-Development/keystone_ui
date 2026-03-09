@@ -11,7 +11,7 @@ module Keystone
 
       TITLE_CLASSES = "text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl"
       SUBTITLE_CLASSES = "max-w-lg text-lg text-gray-500 dark:text-gray-400"
-      BADGE_CLASSES = "inline-flex w-fit items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-4 py-1.5 text-sm text-blue-600 dark:text-blue-400"
+      BADGE_BASE_CLASSES = "inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
       ACTIONS_CLASSES = "flex flex-wrap gap-4"
 
       attr_reader :title, :subtitle, :badge
@@ -48,7 +48,8 @@ module Keystone
       end
 
       def badge_classes
-        BADGE_CLASSES
+        accent = KeystoneUi::AccentColors.current
+        "#{BADGE_BASE_CLASSES} #{accent[:border]} #{accent[:bg]} #{accent[:text]} #{accent[:dark_text]}"
       end
 
       def badge?

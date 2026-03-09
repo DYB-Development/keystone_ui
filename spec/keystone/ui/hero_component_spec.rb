@@ -59,4 +59,24 @@ RSpec.describe Keystone::Ui::HeroComponent do
 
     expect(component.content_classes).to include("lg:grid-cols-2")
   end
+
+  context "accent theming" do
+    after { KeystoneUi.reset_configuration! }
+
+    it "uses blue accent badge classes by default" do
+      component = described_class.new(title: "X", badge: "New")
+
+      expect(component.badge_classes).to include("border-blue-500/20")
+      expect(component.badge_classes).to include("text-blue-600")
+    end
+
+    it "uses emerald accent badge classes when configured" do
+      KeystoneUi.configure { |c| c.accent = :emerald }
+      component = described_class.new(title: "X", badge: "New")
+
+      expect(component.badge_classes).to include("border-emerald-500/20")
+      expect(component.badge_classes).to include("text-emerald-600")
+      expect(component.badge_classes).not_to include("blue")
+    end
+  end
 end
