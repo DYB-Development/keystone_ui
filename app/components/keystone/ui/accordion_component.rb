@@ -5,7 +5,7 @@ module Keystone
     class AccordionComponent < ViewComponent::Base
       BASE_CLASSES = "flex flex-col gap-4"
       ITEM_CLASSES = "rounded-xl border border-gray-200 dark:border-zinc-700"
-      BUTTON_CLASSES = "flex w-full items-center justify-between px-6 py-4 text-left font-semibold text-gray-900 dark:text-white transition hover:text-blue-600 dark:hover:text-blue-400"
+      BUTTON_BASE_CLASSES = "flex w-full items-center justify-between px-6 py-4 text-left font-semibold text-gray-900 dark:text-white transition"
       ANSWER_CLASSES = "hidden px-6 pb-4 text-sm text-gray-600 dark:text-gray-400"
       ICON_CLASSES = "shrink-0 text-gray-400 transition-transform"
 
@@ -28,7 +28,8 @@ module Keystone
       end
 
       def button_classes
-        BUTTON_CLASSES
+        accent = KeystoneUi::AccentColors.current
+        "#{BUTTON_BASE_CLASSES} #{accent[:hover_text]} #{accent[:dark_hover_text]}"
       end
 
       def answer_classes
