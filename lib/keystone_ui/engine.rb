@@ -6,8 +6,13 @@ module KeystoneUi
 
     # Write a separate keystone_source.css with the gem's @source directive
     # so Tailwind can scan component files during asset compilation.
-    # Runs during app boot (before assets:precompile triggers tailwindcss:build).
-    initializer "keystone_ui.tailwind_source" do
+    #
+    # Uses after_initialize so host app config/initializers (where
+    # KeystoneUi.configure is called) have already run. Dependent engines
+    # that also need the palette should use config.after_initialize too —
+    # Rails runs these in engine dependency order, so KeystoneUi's block
+    # executes before any engine that depends on it.
+    config.after_initialize do
       tailwind_dir = Rails.root.join("app/assets/tailwind")
       css_path = tailwind_dir.join("application.css")
       next unless css_path.exist?
@@ -27,6 +32,13 @@ module KeystoneUi
       KeystoneUi::SurfaceColors::PALETTE.each_value do |surface|
         surface.each_value { |v| palette_classes.concat(v.split) }
       end
+
+      # Include custom accent classes from host app configuration
+      accent = KeystoneUi.configuration.accent
+      if accent.is_a?(Hash)
+        accent.each_value { |v| palette_classes.concat(v.split) }
+      end
+
       lines << %(@source inline("#{palette_classes.uniq.join(" ")}");) if palette_classes.any?
 
       # Import component CSS files shipped with the gem

@@ -9,7 +9,7 @@ RSpec.describe "KeystoneUi::Engine" do
   end
 
   it "writes keystone_source.css with @source path during app boot" do
-    expect(source).to include("keystone_ui.tailwind_source")
+    expect(source).to include("after_initialize")
     expect(source).to include("keystone_source.css")
     expect(source).to include("app/components/**/*.{erb,rb}")
   end

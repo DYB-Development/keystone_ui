@@ -20,6 +20,10 @@ module KeystoneUi
         if missing.any?
           raise ArgumentError, "Custom accent missing required keys: #{missing.join(', ')}"
         end
+        non_string = value.select { |_, v| !v.is_a?(String) }.keys
+        if non_string.any?
+          raise ArgumentError, "Custom accent values must be strings, got non-string for: #{non_string.join(', ')}"
+        end
         @accent = value
       else
         value = value.to_sym
