@@ -11,6 +11,7 @@ module KeystoneUi
         text: "text-blue-600",
         dark_text: "dark:text-blue-400",
         hover_border: "hover:border-blue-500/50",
+        dark_hover_border: "dark:hover:border-blue-500/50",
         hover_text: "hover:text-blue-600",
         dark_hover_text: "dark:hover:text-blue-400"
       },
@@ -20,6 +21,7 @@ module KeystoneUi
         text: "text-emerald-600",
         dark_text: "dark:text-emerald-400",
         hover_border: "hover:border-emerald-500/50",
+        dark_hover_border: "dark:hover:border-emerald-500/50",
         hover_text: "hover:text-emerald-600",
         dark_hover_text: "dark:hover:text-emerald-400"
       },
@@ -29,6 +31,7 @@ module KeystoneUi
         text: "text-cyan-600",
         dark_text: "dark:text-cyan-400",
         hover_border: "hover:border-cyan-500/50",
+        dark_hover_border: "dark:hover:border-cyan-500/50",
         hover_text: "hover:text-cyan-600",
         dark_hover_text: "dark:hover:text-cyan-400"
       },
@@ -38,6 +41,7 @@ module KeystoneUi
         text: "text-indigo-600",
         dark_text: "dark:text-indigo-400",
         hover_border: "hover:border-indigo-500/50",
+        dark_hover_border: "dark:hover:border-indigo-500/50",
         hover_text: "hover:text-indigo-600",
         dark_hover_text: "dark:hover:text-indigo-400"
       },
@@ -47,6 +51,7 @@ module KeystoneUi
         text: "text-violet-600",
         dark_text: "dark:text-violet-400",
         hover_border: "hover:border-violet-500/50",
+        dark_hover_border: "dark:hover:border-violet-500/50",
         hover_text: "hover:text-violet-600",
         dark_hover_text: "dark:hover:text-violet-400"
       },
@@ -56,6 +61,7 @@ module KeystoneUi
         text: "text-rose-600",
         dark_text: "dark:text-rose-400",
         hover_border: "hover:border-rose-500/50",
+        dark_hover_border: "dark:hover:border-rose-500/50",
         hover_text: "hover:text-rose-600",
         dark_hover_text: "dark:hover:text-rose-400"
       }

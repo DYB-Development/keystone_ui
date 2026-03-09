@@ -37,7 +37,7 @@ module Keystone
 
       def card_classes
         accent = KeystoneUi::AccentColors.current
-        "#{CARD_BASE_CLASSES} #{accent[:hover_border]} dark:#{accent[:hover_border]}"
+        "#{CARD_BASE_CLASSES} #{accent[:hover_border]} #{accent[:dark_hover_border]}"
       end
 
       def icon_classes
