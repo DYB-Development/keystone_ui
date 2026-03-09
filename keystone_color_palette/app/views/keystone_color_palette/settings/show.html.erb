@@ -1,0 +1,80 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold <%= KeystoneUi::SurfaceColors[:heading] %> mb-2">Color Palette</h1>
+  <p class="<%= KeystoneUi::SurfaceColors[:body] %> mb-8">Choose a preset theme or customize your own color palette.</p>
+
+  <% if notice %>
+    <div class="mb-6 p-4 rounded-lg <%= KeystoneUi::AccentColors[:bg] %> <%= KeystoneUi::AccentColors[:text] %>">
+      <%= notice %>
+    </div>
+  <% end %>
+
+  <%# Preset Templates %>
+  <h2 class="text-lg font-semibold <%= KeystoneUi::SurfaceColors[:heading] %> mb-4">Themes</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+    <% @templates.each do |name, template| %>
+      <% accent_palette = KeystoneUi::AccentColors::PALETTE[template[:accent]] %>
+      <% surface_palette = KeystoneUi::SurfaceColors::PALETTE[template[:surface]] %>
+      <% is_selected = @current_pref&.template_name == name.to_s %>
+
+      <%= form_tag(settings_path, method: :patch) do %>
+        <%= hidden_field_tag :template_name, name %>
+        <button type="submit" class="w-full text-left rounded-xl border-2 p-4 transition-all hover:shadow-md
+          <%= is_selected ? "#{accent_palette[:border]} ring-2 ring-offset-2 #{accent_palette[:focus_ring]}" : "#{surface_palette[:card_border]}" %>
+          <%= surface_palette[:card_bg] %>">
+
+          <%# Color swatch bar %>
+          <div class="flex gap-1.5 mb-3">
+            <div class="h-8 w-8 rounded-full <%= accent_palette[:solid_bg] %>"></div>
+            <div class="h-8 w-8 rounded-full <%= accent_palette[:bg] %> <%= accent_palette[:border] %> border"></div>
+            <div class="h-8 w-8 rounded-full <%= surface_palette[:subtle_bg] %> border <%= surface_palette[:card_border] %>"></div>
+          </div>
+
+          <h3 class="font-semibold <%= surface_palette[:heading] %>"><%= template[:label] %></h3>
+          <p class="text-sm <%= surface_palette[:body] %>"><%= template[:description] %></p>
+
+          <% if is_selected %>
+            <span class="inline-block mt-2 text-xs font-medium px-2 py-0.5 rounded-full <%= accent_palette[:badge_bg] %> <%= accent_palette[:badge_text] %>">
+              Active
+            </span>
+          <% end %>
+        </button>
+      <% end %>
+    <% end %>
+  </div>
+
+  <%# Custom Palette %>
+  <h2 class="text-lg font-semibold <%= KeystoneUi::SurfaceColors[:heading] %> mb-4">Custom Palette</h2>
+  <div class="rounded-xl border p-6 <%= KeystoneUi::SurfaceColors[:card_border] %> <%= KeystoneUi::SurfaceColors[:card_bg] %>">
+    <%= form_tag(settings_path, method: :patch) do %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium <%= KeystoneUi::SurfaceColors[:heading] %> mb-2">Accent Color</label>
+          <select name="accent" class="w-full rounded-lg border px-3 py-2 <%= KeystoneUi::SurfaceColors[:card_border] %> <%= KeystoneUi::SurfaceColors[:heading] %> bg-white dark:bg-zinc-900 focus:outline-none <%= KeystoneUi::AccentColors[:focus_border] %> <%= KeystoneUi::AccentColors[:focus_ring] %> focus:ring-1">
+            <% @accents.each do |accent| %>
+              <option value="<%= accent %>" <%= "selected" if @current_pref&.accent == accent && @current_pref&.template_name.nil? %>>
+                <%= accent.capitalize %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium <%= KeystoneUi::SurfaceColors[:heading] %> mb-2">Surface Color</label>
+          <select name="surface" class="w-full rounded-lg border px-3 py-2 <%= KeystoneUi::SurfaceColors[:card_border] %> <%= KeystoneUi::SurfaceColors[:heading] %> bg-white dark:bg-zinc-900 focus:outline-none <%= KeystoneUi::AccentColors[:focus_border] %> <%= KeystoneUi::AccentColors[:focus_ring] %> focus:ring-1">
+            <% @surfaces.each do |surface| %>
+              <option value="<%= surface %>" <%= "selected" if @current_pref&.surface == surface && @current_pref&.template_name.nil? %>>
+                <%= surface.capitalize %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <button type="submit" class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium text-white <%= KeystoneUi::AccentColors[:solid_bg] %> <%= KeystoneUi::AccentColors[:solid_hover_bg] %> transition-colors">
+          Apply Custom Palette
+        </button>
+      </div>
+    <% end %>
+  </div>
+</div>

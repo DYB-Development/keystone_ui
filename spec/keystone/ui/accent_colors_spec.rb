@@ -56,4 +56,37 @@ RSpec.describe KeystoneUi::AccentColors do
     expect(described_class[:focus_border]).to eq("focus:border-emerald-500")
     expect(described_class[:link_text]).to eq("text-emerald-600")
   end
+
+  context "with CurrentAttributes override" do
+    before do
+      stub_const("KeystoneUi::Current", Class.new do
+        class << self
+          attr_accessor :accent_override, :surface_override
+        end
+      end)
+    end
+
+    after { KeystoneUi::Current.accent_override = nil }
+
+    it "uses accent_override when set" do
+      KeystoneUi::Current.accent_override = :rose
+
+      expect(described_class[:text]).to eq("text-rose-600")
+      expect(described_class[:solid_bg]).to eq("bg-rose-600")
+    end
+
+    it "falls back to configuration when override is nil" do
+      KeystoneUi.configure { |c| c.accent = :emerald }
+      KeystoneUi::Current.accent_override = nil
+
+      expect(described_class[:text]).to eq("text-emerald-600")
+    end
+
+    it "override takes precedence over configuration" do
+      KeystoneUi.configure { |c| c.accent = :emerald }
+      KeystoneUi::Current.accent_override = :violet
+
+      expect(described_class[:text]).to eq("text-violet-600")
+    end
+  end
 end
