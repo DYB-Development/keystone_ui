@@ -13,7 +13,15 @@ module KeystoneUi
         hover_border: "hover:border-blue-500/50",
         dark_hover_border: "dark:hover:border-blue-500/50",
         hover_text: "hover:text-blue-600",
-        dark_hover_text: "dark:hover:text-blue-400"
+        dark_hover_text: "dark:hover:text-blue-400",
+        badge_bg: "bg-blue-100",
+        badge_text: "text-blue-700",
+        badge_dark_bg: "dark:bg-blue-900/50",
+        badge_dark_text: "dark:text-blue-400",
+        alert_bg: "bg-blue-50",
+        alert_text: "text-blue-800",
+        alert_dark_bg: "dark:bg-blue-900/30",
+        alert_dark_text: "dark:text-blue-300"
       },
       emerald: {
         border: "border-emerald-500/20",
@@ -23,7 +31,15 @@ module KeystoneUi
         hover_border: "hover:border-emerald-500/50",
         dark_hover_border: "dark:hover:border-emerald-500/50",
         hover_text: "hover:text-emerald-600",
-        dark_hover_text: "dark:hover:text-emerald-400"
+        dark_hover_text: "dark:hover:text-emerald-400",
+        badge_bg: "bg-emerald-100",
+        badge_text: "text-emerald-700",
+        badge_dark_bg: "dark:bg-emerald-900/50",
+        badge_dark_text: "dark:text-emerald-400",
+        alert_bg: "bg-emerald-50",
+        alert_text: "text-emerald-800",
+        alert_dark_bg: "dark:bg-emerald-900/30",
+        alert_dark_text: "dark:text-emerald-300"
       },
       cyan: {
         border: "border-cyan-500/20",
@@ -33,7 +49,15 @@ module KeystoneUi
         hover_border: "hover:border-cyan-500/50",
         dark_hover_border: "dark:hover:border-cyan-500/50",
         hover_text: "hover:text-cyan-600",
-        dark_hover_text: "dark:hover:text-cyan-400"
+        dark_hover_text: "dark:hover:text-cyan-400",
+        badge_bg: "bg-cyan-100",
+        badge_text: "text-cyan-700",
+        badge_dark_bg: "dark:bg-cyan-900/50",
+        badge_dark_text: "dark:text-cyan-400",
+        alert_bg: "bg-cyan-50",
+        alert_text: "text-cyan-800",
+        alert_dark_bg: "dark:bg-cyan-900/30",
+        alert_dark_text: "dark:text-cyan-300"
       },
       indigo: {
         border: "border-indigo-500/20",
@@ -43,7 +67,15 @@ module KeystoneUi
         hover_border: "hover:border-indigo-500/50",
         dark_hover_border: "dark:hover:border-indigo-500/50",
         hover_text: "hover:text-indigo-600",
-        dark_hover_text: "dark:hover:text-indigo-400"
+        dark_hover_text: "dark:hover:text-indigo-400",
+        badge_bg: "bg-indigo-100",
+        badge_text: "text-indigo-700",
+        badge_dark_bg: "dark:bg-indigo-900/50",
+        badge_dark_text: "dark:text-indigo-400",
+        alert_bg: "bg-indigo-50",
+        alert_text: "text-indigo-800",
+        alert_dark_bg: "dark:bg-indigo-900/30",
+        alert_dark_text: "dark:text-indigo-300"
       },
       violet: {
         border: "border-violet-500/20",
@@ -53,7 +85,15 @@ module KeystoneUi
         hover_border: "hover:border-violet-500/50",
         dark_hover_border: "dark:hover:border-violet-500/50",
         hover_text: "hover:text-violet-600",
-        dark_hover_text: "dark:hover:text-violet-400"
+        dark_hover_text: "dark:hover:text-violet-400",
+        badge_bg: "bg-violet-100",
+        badge_text: "text-violet-700",
+        badge_dark_bg: "dark:bg-violet-900/50",
+        badge_dark_text: "dark:text-violet-400",
+        alert_bg: "bg-violet-50",
+        alert_text: "text-violet-800",
+        alert_dark_bg: "dark:bg-violet-900/30",
+        alert_dark_text: "dark:text-violet-300"
       },
       rose: {
         border: "border-rose-500/20",
@@ -63,13 +103,25 @@ module KeystoneUi
         hover_border: "hover:border-rose-500/50",
         dark_hover_border: "dark:hover:border-rose-500/50",
         hover_text: "hover:text-rose-600",
-        dark_hover_text: "dark:hover:text-rose-400"
+        dark_hover_text: "dark:hover:text-rose-400",
+        badge_bg: "bg-rose-100",
+        badge_text: "text-rose-700",
+        badge_dark_bg: "dark:bg-rose-900/50",
+        badge_dark_text: "dark:text-rose-400",
+        alert_bg: "bg-rose-50",
+        alert_text: "text-rose-800",
+        alert_dark_bg: "dark:bg-rose-900/30",
+        alert_dark_text: "dark:text-rose-300"
       }
     }.freeze
 
     def self.current
       accent = KeystoneUi.configuration.accent
-      accent.is_a?(Hash) ? accent : PALETTE.fetch(accent)
+      if accent.is_a?(Hash)
+        PALETTE[:blue].merge(accent)
+      else
+        PALETTE.fetch(accent)
+      end
     end
 
     def self.[](key)

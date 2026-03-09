@@ -21,4 +21,16 @@ RSpec.describe Keystone::Ui::TabSwitcherComponent do
     expect(component.tab_classes).to include("rounded-lg")
     expect(component.tab_classes).to include("font-semibold")
   end
+
+  context "with custom accent" do
+    after { KeystoneUi.reset_configuration! }
+
+    it "uses accent colors for active tab state" do
+      KeystoneUi.configure { |c| c.accent = :emerald }
+      component = described_class.new(tabs: ["A"])
+
+      expect(component.tab_classes).to include("text-emerald-600")
+      expect(component.tab_classes).not_to include("text-blue-600")
+    end
+  end
 end
