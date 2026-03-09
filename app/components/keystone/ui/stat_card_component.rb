@@ -12,7 +12,6 @@ module Keystone
         neutral: "text-gray-900 dark:text-white",
         success: "text-green-600 dark:text-green-400",
         danger: "text-red-600 dark:text-red-400",
-        info: "text-blue-600 dark:text-blue-400",
         warning: "text-yellow-600 dark:text-yellow-400"
       }.freeze
 
@@ -34,7 +33,12 @@ module Keystone
       end
 
       def value_classes
-        [VALUE_BASE_CLASSES, VARIANT_CLASSES.fetch(@variant)].join(" ")
+        variant_css = if @variant == :info
+          "#{KeystoneUi::AccentColors[:text]} #{KeystoneUi::AccentColors[:dark_text]}"
+        else
+          VARIANT_CLASSES.fetch(@variant)
+        end
+        "#{VALUE_BASE_CLASSES} #{variant_css}"
       end
 
       def suffix_classes
