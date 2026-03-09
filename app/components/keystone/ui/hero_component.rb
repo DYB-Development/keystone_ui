@@ -9,8 +9,8 @@ module Keystone
       SPLIT_CLASSES = "grid gap-12 lg:grid-cols-2 lg:gap-16 items-center"
       CENTERED_CLASSES = "flex flex-col items-center text-center"
 
-      TITLE_CLASSES = "text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl lg:text-6xl"
-      SUBTITLE_CLASSES = "max-w-lg text-lg text-gray-500 dark:text-gray-400"
+      TITLE_BASE_CLASSES = "text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+      SUBTITLE_BASE_CLASSES = "max-w-lg text-lg"
       BADGE_BASE_CLASSES = "inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
       ACTIONS_CLASSES = "flex flex-wrap gap-4"
 
@@ -36,11 +36,11 @@ module Keystone
       end
 
       def title_classes
-        TITLE_CLASSES
+        "#{TITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:heading]}"
       end
 
       def subtitle_classes
-        SUBTITLE_CLASSES
+        "#{SUBTITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:body]}"
       end
 
       def subtitle?

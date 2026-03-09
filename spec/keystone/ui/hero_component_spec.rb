@@ -79,4 +79,25 @@ RSpec.describe Keystone::Ui::HeroComponent do
       expect(component.badge_classes).not_to include("blue")
     end
   end
+
+  context "surface theming" do
+    after { KeystoneUi.reset_configuration! }
+
+    it "uses gray/zinc surface by default" do
+      component = described_class.new(title: "X", subtitle: "Sub")
+
+      expect(component.title_classes).to include("text-gray-900")
+      expect(component.subtitle_classes).to include("text-gray-500")
+    end
+
+    it "uses slate surface when configured" do
+      KeystoneUi.configure { |c| c.surface = :slate }
+      component = described_class.new(title: "X", subtitle: "Sub")
+
+      expect(component.title_classes).to include("text-slate-900")
+      expect(component.title_classes).not_to include("text-gray-900")
+      expect(component.subtitle_classes).to include("text-slate-500")
+      expect(component.subtitle_classes).to include("dark:text-slate-400")
+    end
+  end
 end
