@@ -18,6 +18,17 @@ module KeystoneUi
       source_css = tailwind_dir.join("keystone_source.css")
       lines = [%(@source "#{root}/app/components/**/*.{erb,rb}";)]
 
+      # Include dynamic palette classes (accent + surface) that Tailwind
+      # can't discover from static file scanning
+      palette_classes = []
+      KeystoneUi::AccentColors::PALETTE.each_value do |accent|
+        accent.each_value { |v| palette_classes.concat(v.split) }
+      end
+      KeystoneUi::SurfaceColors::PALETTE.each_value do |surface|
+        surface.each_value { |v| palette_classes.concat(v.split) }
+      end
+      lines << %(@source inline("#{palette_classes.uniq.join(" ")}");) if palette_classes.any?
+
       # Import component CSS files shipped with the gem
       nav_css = root.join("app/assets/tailwind/keystone_ui_engine/nav.css")
       lines << %(@import "#{nav_css}";) if nav_css.exist?
