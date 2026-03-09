@@ -39,4 +39,22 @@ RSpec.describe Keystone::Ui::AccordionComponent do
 
     expect(component.answer_classes).to include("hidden")
   end
+
+  context "accent theming" do
+    after { KeystoneUi.reset_configuration! }
+
+    it "uses blue hover text by default" do
+      component = described_class.new
+
+      expect(component.button_classes).to include("hover:text-blue-600")
+    end
+
+    it "uses emerald hover text when configured" do
+      KeystoneUi.configure { |c| c.accent = :emerald }
+      component = described_class.new
+
+      expect(component.button_classes).to include("hover:text-emerald-600")
+      expect(component.button_classes).not_to include("blue")
+    end
+  end
 end
