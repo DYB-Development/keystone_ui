@@ -7,7 +7,7 @@ module Keystone
       HEADER_CLASSES = "flex items-center justify-between mb-4"
       TITLE_CLASSES = "text-lg font-semibold text-gray-900 dark:text-white"
       SUBTITLE_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400"
-      ACTION_CLASSES = "text-sm text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
+      ACTION_BASE_CLASSES = "text-sm"
 
       def initialize(title: nil, subtitle: nil, action: nil, spacing: :md)
         @title = title
@@ -18,6 +18,11 @@ module Keystone
 
       def spacing_class
         SPACING_CLASSES.fetch(@spacing)
+      end
+
+      def action_classes
+        accent = KeystoneUi::AccentColors.current
+        "#{ACTION_BASE_CLASSES} #{accent[:link_text]} #{accent[:link_hover_text]} #{accent[:link_dark_text]} #{accent[:link_dark_hover_text]}"
       end
 
       def header?
