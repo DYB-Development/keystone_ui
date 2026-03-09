@@ -71,4 +71,21 @@ RSpec.describe KeystoneUi::Configuration do
       KeystoneUi.configure { |c| c.accent = { text: "text-red-500" } }
     }.to raise_error(ArgumentError, /missing required keys/i)
   end
+
+  it "rejects a custom accent hash with non-string values" do
+    custom = {
+      border: "border-[#A0333D]/20",
+      bg: nil,
+      text: "text-[#D4636D]",
+      dark_text: "text-[#D4636D]",
+      hover_border: "hover:border-[#A0333D]/50",
+      dark_hover_border: "hover:border-[#A0333D]/50",
+      hover_text: "hover:text-[#E07A83]",
+      dark_hover_text: "hover:text-[#E07A83]"
+    }
+
+    expect {
+      KeystoneUi.configure { |c| c.accent = custom }
+    }.to raise_error(ArgumentError, /must be strings/i)
+  end
 end
