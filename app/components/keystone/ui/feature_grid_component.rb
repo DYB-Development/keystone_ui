@@ -4,12 +4,12 @@ module Keystone
   module Ui
     class FeatureGridComponent < ViewComponent::Base
       GRID_CLASSES = "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-      TITLE_CLASSES = "mb-4 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
-      SUBTITLE_CLASSES = "mx-auto mb-16 max-w-2xl text-center text-lg text-gray-500 dark:text-gray-400"
-      CARD_BASE_CLASSES = "rounded-xl border border-gray-200 bg-white p-6 transition dark:border-zinc-700 dark:bg-zinc-800"
+      TITLE_BASE_CLASSES = "mb-4 text-center text-3xl font-bold tracking-tight sm:text-4xl"
+      SUBTITLE_BASE_CLASSES = "mx-auto mb-16 max-w-2xl text-center text-lg"
+      CARD_LAYOUT_CLASSES = "rounded-xl border p-6 transition"
       ICON_BASE_CLASSES = "mb-4 flex size-10 items-center justify-center rounded-lg text-lg"
-      CARD_TITLE_CLASSES = "mb-2 text-lg font-semibold text-gray-900 dark:text-white"
-      CARD_DESCRIPTION_CLASSES = "text-sm text-gray-500 dark:text-gray-400"
+      CARD_TITLE_BASE_CLASSES = "mb-2 text-lg font-semibold"
+      CARD_DESCRIPTION_BASE_CLASSES = "text-sm"
 
       attr_reader :title, :subtitle, :features
 
@@ -24,11 +24,11 @@ module Keystone
       end
 
       def title_classes
-        TITLE_CLASSES
+        "#{TITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:heading]}"
       end
 
       def subtitle_classes
-        SUBTITLE_CLASSES
+        "#{SUBTITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:body]}"
       end
 
       def subtitle?
@@ -36,8 +36,9 @@ module Keystone
       end
 
       def card_classes
+        surface = KeystoneUi::SurfaceColors.current
         accent = KeystoneUi::AccentColors.current
-        "#{CARD_BASE_CLASSES} #{accent[:hover_border]} #{accent[:dark_hover_border]}"
+        "#{CARD_LAYOUT_CLASSES} #{surface[:card_border]} #{surface[:card_bg]} #{accent[:hover_border]} #{accent[:dark_hover_border]}"
       end
 
       def icon_classes
@@ -46,11 +47,11 @@ module Keystone
       end
 
       def card_title_classes
-        CARD_TITLE_CLASSES
+        "#{CARD_TITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:heading]}"
       end
 
       def card_description_classes
-        CARD_DESCRIPTION_CLASSES
+        "#{CARD_DESCRIPTION_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:body]}"
       end
     end
   end
