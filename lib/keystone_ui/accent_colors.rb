@@ -21,7 +21,19 @@ module KeystoneUi
         alert_bg: "bg-blue-50",
         alert_text: "text-blue-800",
         alert_dark_bg: "dark:bg-blue-900/30",
-        alert_dark_text: "dark:text-blue-300"
+        alert_dark_text: "dark:text-blue-300",
+        solid_bg: "bg-blue-600",
+        solid_hover_bg: "hover:bg-blue-500",
+        focus_border: "focus:border-blue-500",
+        focus_ring: "focus:ring-blue-500",
+        dark_focus_border: "dark:focus:border-blue-400",
+        dark_focus_ring: "dark:focus:ring-blue-400",
+        link_text: "text-blue-600",
+        link_hover_text: "hover:text-blue-900",
+        link_dark_text: "dark:text-blue-400",
+        link_dark_hover_text: "dark:hover:text-blue-300",
+        checkbox: "text-blue-600",
+        checkbox_focus: "focus:ring-blue-500"
       },
       emerald: {
         border: "border-emerald-500/20",
@@ -39,7 +51,19 @@ module KeystoneUi
         alert_bg: "bg-emerald-50",
         alert_text: "text-emerald-800",
         alert_dark_bg: "dark:bg-emerald-900/30",
-        alert_dark_text: "dark:text-emerald-300"
+        alert_dark_text: "dark:text-emerald-300",
+        solid_bg: "bg-emerald-600",
+        solid_hover_bg: "hover:bg-emerald-500",
+        focus_border: "focus:border-emerald-500",
+        focus_ring: "focus:ring-emerald-500",
+        dark_focus_border: "dark:focus:border-emerald-400",
+        dark_focus_ring: "dark:focus:ring-emerald-400",
+        link_text: "text-emerald-600",
+        link_hover_text: "hover:text-emerald-900",
+        link_dark_text: "dark:text-emerald-400",
+        link_dark_hover_text: "dark:hover:text-emerald-300",
+        checkbox: "text-emerald-600",
+        checkbox_focus: "focus:ring-emerald-500"
       },
       cyan: {
         border: "border-cyan-500/20",
@@ -57,7 +81,19 @@ module KeystoneUi
         alert_bg: "bg-cyan-50",
         alert_text: "text-cyan-800",
         alert_dark_bg: "dark:bg-cyan-900/30",
-        alert_dark_text: "dark:text-cyan-300"
+        alert_dark_text: "dark:text-cyan-300",
+        solid_bg: "bg-cyan-600",
+        solid_hover_bg: "hover:bg-cyan-500",
+        focus_border: "focus:border-cyan-500",
+        focus_ring: "focus:ring-cyan-500",
+        dark_focus_border: "dark:focus:border-cyan-400",
+        dark_focus_ring: "dark:focus:ring-cyan-400",
+        link_text: "text-cyan-600",
+        link_hover_text: "hover:text-cyan-900",
+        link_dark_text: "dark:text-cyan-400",
+        link_dark_hover_text: "dark:hover:text-cyan-300",
+        checkbox: "text-cyan-600",
+        checkbox_focus: "focus:ring-cyan-500"
       },
       indigo: {
         border: "border-indigo-500/20",
@@ -75,7 +111,19 @@ module KeystoneUi
         alert_bg: "bg-indigo-50",
         alert_text: "text-indigo-800",
         alert_dark_bg: "dark:bg-indigo-900/30",
-        alert_dark_text: "dark:text-indigo-300"
+        alert_dark_text: "dark:text-indigo-300",
+        solid_bg: "bg-indigo-600",
+        solid_hover_bg: "hover:bg-indigo-500",
+        focus_border: "focus:border-indigo-500",
+        focus_ring: "focus:ring-indigo-500",
+        dark_focus_border: "dark:focus:border-indigo-400",
+        dark_focus_ring: "dark:focus:ring-indigo-400",
+        link_text: "text-indigo-600",
+        link_hover_text: "hover:text-indigo-900",
+        link_dark_text: "dark:text-indigo-400",
+        link_dark_hover_text: "dark:hover:text-indigo-300",
+        checkbox: "text-indigo-600",
+        checkbox_focus: "focus:ring-indigo-500"
       },
       violet: {
         border: "border-violet-500/20",
@@ -93,7 +141,19 @@ module KeystoneUi
         alert_bg: "bg-violet-50",
         alert_text: "text-violet-800",
         alert_dark_bg: "dark:bg-violet-900/30",
-        alert_dark_text: "dark:text-violet-300"
+        alert_dark_text: "dark:text-violet-300",
+        solid_bg: "bg-violet-600",
+        solid_hover_bg: "hover:bg-violet-500",
+        focus_border: "focus:border-violet-500",
+        focus_ring: "focus:ring-violet-500",
+        dark_focus_border: "dark:focus:border-violet-400",
+        dark_focus_ring: "dark:focus:ring-violet-400",
+        link_text: "text-violet-600",
+        link_hover_text: "hover:text-violet-900",
+        link_dark_text: "dark:text-violet-400",
+        link_dark_hover_text: "dark:hover:text-violet-300",
+        checkbox: "text-violet-600",
+        checkbox_focus: "focus:ring-violet-500"
       },
       rose: {
         border: "border-rose-500/20",
@@ -111,7 +171,19 @@ module KeystoneUi
         alert_bg: "bg-rose-50",
         alert_text: "text-rose-800",
         alert_dark_bg: "dark:bg-rose-900/30",
-        alert_dark_text: "dark:text-rose-300"
+        alert_dark_text: "dark:text-rose-300",
+        solid_bg: "bg-rose-600",
+        solid_hover_bg: "hover:bg-rose-500",
+        focus_border: "focus:border-rose-500",
+        focus_ring: "focus:ring-rose-500",
+        dark_focus_border: "dark:focus:border-rose-400",
+        dark_focus_ring: "dark:focus:ring-rose-400",
+        link_text: "text-rose-600",
+        link_hover_text: "hover:text-rose-900",
+        link_dark_text: "dark:text-rose-400",
+        link_dark_hover_text: "dark:hover:text-rose-300",
+        checkbox: "text-rose-600",
+        checkbox_focus: "focus:ring-rose-500"
       }
     }.freeze
 

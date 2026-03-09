@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class CardLinkComponent < ViewComponent::Base
-      BASE_CLASSES = "block rounded-lg border border-gray-200 bg-white hover:border-indigo-500 dark:border-zinc-700 dark:bg-zinc-900"
+      BASE_CLASSES = "block rounded-lg border border-gray-200 bg-white dark:border-zinc-700 dark:bg-zinc-900"
       SHADOW_CLASS = "shadow-sm"
       PADDING_CLASSES = { sm: "p-3", md: "p-4", lg: "p-6" }.freeze
 
@@ -16,7 +16,8 @@ module Keystone
       end
 
       def classes
-        tokens = [BASE_CLASSES, PADDING_CLASSES.fetch(@padding)]
+        accent = KeystoneUi::AccentColors.current
+        tokens = [BASE_CLASSES, accent[:hover_border], PADDING_CLASSES.fetch(@padding)]
         tokens << SHADOW_CLASS if @shadow
         tokens.join(" ")
       end

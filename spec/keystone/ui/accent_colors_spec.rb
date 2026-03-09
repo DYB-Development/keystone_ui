@@ -34,4 +34,26 @@ RSpec.describe KeystoneUi::AccentColors do
     # Keys not in the custom hash fall back to blue
     expect(described_class[:badge_bg]).to eq("bg-blue-100")
   end
+
+  it "includes solid_bg key for button styling" do
+    expect(described_class[:solid_bg]).to eq("bg-blue-600")
+  end
+
+  it "includes focus keys for input styling" do
+    expect(described_class[:focus_border]).to eq("focus:border-blue-500")
+    expect(described_class[:focus_ring]).to eq("focus:ring-blue-500")
+  end
+
+  it "includes link keys for inline link styling" do
+    expect(described_class[:link_text]).to eq("text-blue-600")
+    expect(described_class[:link_hover_text]).to eq("hover:text-blue-900")
+  end
+
+  it "returns accent-appropriate keys for named presets" do
+    KeystoneUi.configure { |c| c.accent = :emerald }
+
+    expect(described_class[:solid_bg]).to eq("bg-emerald-600")
+    expect(described_class[:focus_border]).to eq("focus:border-emerald-500")
+    expect(described_class[:link_text]).to eq("text-emerald-600")
+  end
 end

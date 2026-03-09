@@ -6,7 +6,6 @@ module Keystone
       BASE_CLASSES = "inline-flex items-center justify-center font-semibold rounded-lg border-0 cursor-pointer no-underline"
 
       VARIANT_CLASSES = {
-        primary: "bg-indigo-600 text-white hover:bg-indigo-500",
         secondary: "bg-gray-500 text-white hover:bg-gray-400",
         danger: "bg-red-600 text-white hover:bg-red-500"
       }.freeze
@@ -26,7 +25,13 @@ module Keystone
       end
 
       def classes
-        [BASE_CLASSES, VARIANT_CLASSES.fetch(@variant), SIZE_CLASSES.fetch(@size)].join(" ")
+        variant_css = if @variant == :primary
+          accent = KeystoneUi::AccentColors.current
+          "#{accent[:solid_bg]} text-white #{accent[:solid_hover_bg]}"
+        else
+          VARIANT_CLASSES.fetch(@variant)
+        end
+        [BASE_CLASSES, variant_css, SIZE_CLASSES.fetch(@size)].join(" ")
       end
 
       def tag_name

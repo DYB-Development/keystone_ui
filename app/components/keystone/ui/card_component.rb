@@ -9,7 +9,7 @@ module Keystone
       CTA_CLASSES = "px-4 pb-4 sm:px-6 sm:pb-6"
       TITLE_CLASSES = "text-lg font-semibold text-gray-900 dark:text-white m-0"
       SUMMARY_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400 mb-0"
-      LINK_CLASSES = "text-sm font-medium text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 no-underline"
+      LINK_BASE_CLASSES = "text-sm font-medium no-underline"
 
       def initialize(title:, summary:, link:, cta: "Read more", edge_to_edge: false)
         @title = title
@@ -17,6 +17,11 @@ module Keystone
         @link = link
         @cta = cta
         @edge_to_edge = edge_to_edge
+      end
+
+      def link_classes
+        accent = KeystoneUi::AccentColors.current
+        "#{LINK_BASE_CLASSES} #{accent[:link_text]} #{accent[:link_hover_text]} #{accent[:link_dark_text]}"
       end
 
       private
