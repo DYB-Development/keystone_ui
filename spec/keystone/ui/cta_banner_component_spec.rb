@@ -34,7 +34,6 @@ RSpec.describe Keystone::Ui::CtaBannerComponent do
     component = described_class.new(title: "X")
 
     expect(component.title_classes).to include("font-bold")
-    expect(component.subtitle_classes).to include("text-gray-500")
   end
 
   it "exposes actions wrapper classes" do
@@ -42,5 +41,28 @@ RSpec.describe Keystone::Ui::CtaBannerComponent do
 
     expect(component.actions_classes).to include("flex")
     expect(component.actions_classes).to include("justify-center")
+  end
+
+  context "surface theming" do
+    after { KeystoneUi.reset_configuration! }
+
+    it "uses zinc surface by default" do
+      component = described_class.new(title: "X", subtitle: "Sub")
+
+      expect(component.classes).to include("dark:border-zinc-700")
+      expect(component.classes).to include("dark:bg-zinc-800")
+      expect(component.title_classes).to include("text-gray-900")
+      expect(component.subtitle_classes).to include("text-gray-500")
+    end
+
+    it "uses slate surface when configured" do
+      KeystoneUi.configure { |c| c.surface = :slate }
+      component = described_class.new(title: "X", subtitle: "Sub")
+
+      expect(component.classes).to include("dark:border-slate-700")
+      expect(component.classes).to include("dark:bg-slate-800")
+      expect(component.title_classes).to include("text-slate-900")
+      expect(component.subtitle_classes).to include("text-slate-500")
+    end
   end
 end
