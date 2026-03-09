@@ -50,4 +50,27 @@ RSpec.describe Keystone::Ui::FeatureGridComponent do
 
     expect(component.icon_classes).to include("rounded-lg")
   end
+
+  context "accent theming" do
+    after { KeystoneUi.reset_configuration! }
+
+    it "uses blue accent by default" do
+      component = described_class.new(title: "X", features: features)
+
+      expect(component.card_classes).to include("hover:border-blue-500/50")
+      expect(component.icon_classes).to include("bg-blue-500/10")
+      expect(component.icon_classes).to include("text-blue-600")
+    end
+
+    it "uses emerald accent when configured" do
+      KeystoneUi.configure { |c| c.accent = :emerald }
+      component = described_class.new(title: "X", features: features)
+
+      expect(component.card_classes).to include("hover:border-emerald-500/50")
+      expect(component.icon_classes).to include("bg-emerald-500/10")
+      expect(component.icon_classes).to include("text-emerald-600")
+      expect(component.card_classes).not_to include("blue")
+      expect(component.icon_classes).not_to include("blue")
+    end
+  end
 end

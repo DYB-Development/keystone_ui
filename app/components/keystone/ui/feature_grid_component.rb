@@ -6,8 +6,8 @@ module Keystone
       GRID_CLASSES = "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       TITLE_CLASSES = "mb-4 text-center text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl"
       SUBTITLE_CLASSES = "mx-auto mb-16 max-w-2xl text-center text-lg text-gray-500 dark:text-gray-400"
-      CARD_CLASSES = "rounded-xl border border-gray-200 bg-white p-6 transition hover:border-blue-500/50 dark:border-zinc-700 dark:bg-zinc-800 dark:hover:border-blue-500/50"
-      ICON_CLASSES = "mb-4 flex size-10 items-center justify-center rounded-lg bg-blue-500/10 text-lg text-blue-600 dark:text-blue-400"
+      CARD_BASE_CLASSES = "rounded-xl border border-gray-200 bg-white p-6 transition dark:border-zinc-700 dark:bg-zinc-800"
+      ICON_BASE_CLASSES = "mb-4 flex size-10 items-center justify-center rounded-lg text-lg"
       CARD_TITLE_CLASSES = "mb-2 text-lg font-semibold text-gray-900 dark:text-white"
       CARD_DESCRIPTION_CLASSES = "text-sm text-gray-500 dark:text-gray-400"
 
@@ -36,11 +36,13 @@ module Keystone
       end
 
       def card_classes
-        CARD_CLASSES
+        accent = KeystoneUi::AccentColors.current
+        "#{CARD_BASE_CLASSES} #{accent[:hover_border]} dark:#{accent[:hover_border]}"
       end
 
       def icon_classes
-        ICON_CLASSES
+        accent = KeystoneUi::AccentColors.current
+        "#{ICON_BASE_CLASSES} #{accent[:bg]} #{accent[:text]} #{accent[:dark_text]}"
       end
 
       def card_title_classes
