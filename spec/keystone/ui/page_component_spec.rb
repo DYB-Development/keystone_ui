@@ -41,4 +41,17 @@ RSpec.describe Keystone::Ui::PageComponent do
 
     expect(component.classes).not_to include("mx-auto")
   end
+
+  it "does not include top offset by default" do
+    component = described_class.new
+
+    expect(component.classes).not_to match(/pt-\d+/)
+  end
+
+  it "maps each top_offset value to the correct Tailwind class" do
+    expect(described_class.new(top_offset: :sm).classes).to include("pt-12")
+    expect(described_class.new(top_offset: :md).classes).to include("pt-16")
+    expect(described_class.new(top_offset: :lg).classes).to include("pt-20")
+    expect(described_class.new(top_offset: :xl).classes).to include("pt-24")
+  end
 end
