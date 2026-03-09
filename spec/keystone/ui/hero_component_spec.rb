@@ -60,6 +60,10 @@ RSpec.describe Keystone::Ui::HeroComponent do
     expect(component.content_classes).to include("lg:grid-cols-2")
   end
 
+  it "registers an aside slot" do
+    expect(described_class.registered_slots).to have_key(:aside)
+  end
+
   context "accent theming" do
     after { KeystoneUi.reset_configuration! }
 

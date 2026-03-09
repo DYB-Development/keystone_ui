@@ -14,6 +14,8 @@ module Keystone
       BADGE_BASE_CLASSES = "inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
       ACTIONS_CLASSES = "flex flex-wrap gap-4"
 
+      renders_one :aside
+
       attr_reader :title, :subtitle, :badge
 
       def initialize(title:, subtitle: nil, badge: nil, layout: :split)
