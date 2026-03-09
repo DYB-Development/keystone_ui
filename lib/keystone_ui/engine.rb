@@ -4,15 +4,14 @@ module KeystoneUi
   class Engine < ::Rails::Engine
     config.autoload_paths << root.join("app/components")
 
-    # Placeholder so other engines (e.g. Herald) can order after this.
-    initializer "keystone_ui.tailwind_source" do
-      # CSS writing happens in after_initialize below
-    end
-
     # Write a separate keystone_source.css with the gem's @source directive
     # so Tailwind can scan component files during asset compilation.
-    # Uses after_initialize so host app config/initializers have run first,
-    # ensuring custom accent hashes are included in the source inline.
+    #
+    # Uses after_initialize so host app config/initializers (where
+    # KeystoneUi.configure is called) have already run. Dependent engines
+    # that also need the palette should use config.after_initialize too —
+    # Rails runs these in engine dependency order, so KeystoneUi's block
+    # executes before any engine that depends on it.
     config.after_initialize do
       tailwind_dir = Rails.root.join("app/assets/tailwind")
       css_path = tailwind_dir.join("application.css")
