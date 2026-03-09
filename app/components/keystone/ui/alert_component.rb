@@ -6,7 +6,6 @@ module Keystone
       BASE_CLASSES = "rounded-md p-4"
 
       TYPE_CLASSES = {
-        info: "bg-blue-50 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
         success: "bg-green-50 text-green-800 dark:bg-green-900/30 dark:text-green-300",
         warning: "bg-yellow-50 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
         error: "bg-red-50 text-red-800 dark:bg-red-900/30 dark:text-red-300"
@@ -27,7 +26,13 @@ module Keystone
       end
 
       def classes
-        [BASE_CLASSES, TYPE_CLASSES.fetch(@type)].join(" ")
+        type_css = if @type == :info
+          accent = KeystoneUi::AccentColors.current
+          "#{accent[:alert_bg]} #{accent[:alert_text]} #{accent[:alert_dark_bg]} #{accent[:alert_dark_text]}"
+        else
+          TYPE_CLASSES.fetch(@type)
+        end
+        "#{BASE_CLASSES} #{type_css}"
       end
 
       def message_text
