@@ -42,7 +42,9 @@ RSpec.describe "keystone:claude rake task" do
       ui_card_link ui_page_header ui_alert ui_input ui_textarea ui_form_field
       ui_form_page ui_show_page ui_navbar ui_nav_item ui_nav_dropdown
       ui_bottom_nav ui_bottom_nav_item ui_mobile_header ui_mobile_actions
-      ui_settings_link
+      ui_settings_link ui_select ui_badge ui_stat_card ui_chart_card
+      ui_copy_button ui_modal ui_accordion ui_tab_switcher ui_option_card
+      ui_hero ui_feature_grid ui_cta_banner ui_color_picker
     ].each do |helper|
       expect(content).to include(helper), "expected CLAUDE.md to document #{helper}"
     end

@@ -427,6 +427,205 @@ namespace :keystone do
       |-------|----------|---------|
       | `label:` | yes | — |
       | `href:` | yes | — |
+
+      ### `ui_select`
+
+      Styled `<select>` dropdown.
+
+      ```erb
+      <%= ui_select(name: "status", options: [["Active", "active"], ["Inactive", "inactive"]], selected: "active", include_blank: "Select…") %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `name:` | yes | — |
+      | `options:` | no | `[]` | array of `[label, value]` pairs |
+      | `selected:` | no | `nil` |
+      | `include_blank:` | no | `nil` |
+      | `disabled:` | no | `false` |
+
+      ### `ui_badge`
+
+      Inline status badge.
+
+      ```erb
+      <%= ui_badge(label: "Active", variant: :success) %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `label:` | yes | — | — |
+      | `variant:` | no | `:neutral` | `:neutral`, `:success`, `:danger`, `:warning`, `:info` |
+
+      ### `ui_stat_card`
+
+      Metric card for dashboards.
+
+      ```erb
+      <%= ui_stat_card(label: "Revenue", value: "$42,300", variant: :success, suffix: "/mo") %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `label:` | yes | — | — |
+      | `value:` | yes | — | — |
+      | `variant:` | no | `:neutral` | `:neutral`, `:success`, `:danger`, `:warning`, `:info` |
+      | `suffix:` | no | `nil` | unit label after value |
+
+      ### `ui_chart_card`
+
+      Card wrapper for chart content with title and configurable height.
+
+      ```erb
+      <%= ui_chart_card(title: "Monthly Revenue", height: :lg) do %>
+        <!-- chart content -->
+      <% end %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `title:` | yes | — | — |
+      | `height:` | no | `:md` | `:sm` (h-48), `:md` (h-64), `:lg` (h-96) |
+
+      ### `ui_copy_button`
+
+      Button that copies text to clipboard.
+
+      ```erb
+      <%= ui_copy_button(text: "https://example.com/invite/abc123") %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `text:` | yes | — |
+      | `label:` | no | `"Copy"` |
+      | `success_message:` | no | `"Copied!"` |
+      | `error_message:` | no | `"Failed!"` |
+
+      ### `ui_modal`
+
+      Modal dialog with title, close button, and backdrop.
+
+      ```erb
+      <%= ui_modal(title: "Confirm Delete", size: :sm) do %>
+        <p>This action cannot be undone.</p>
+      <% end %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `title:` | yes | — | — |
+      | `size:` | no | `:md` | `:sm`, `:md`, `:lg`, `:xl` |
+
+      ### `ui_accordion`
+
+      Collapsible question/answer items.
+
+      ```erb
+      <%= ui_accordion(items: [{ question: "What?", answer: "A UI library." }]) %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `items:` | no | `[]` | array of hashes with `:question` and `:answer` keys |
+
+      ### `ui_tab_switcher`
+
+      Tab bar with active state. Uses Stimulus `tab-switcher` controller.
+
+      ```erb
+      <%= ui_tab_switcher(tabs: ["Overview", "Details"]) do %>
+        <!-- tab panel content -->
+      <% end %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `tabs:` | yes | — | array of tab label strings |
+
+      ### `ui_option_card`
+
+      Toggleable card option (radio-like selection).
+
+      ```erb
+      <%= ui_option_card(name: "theme", value: "dark", selected: true) do %>
+        Dark Mode
+      <% end %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `name:` | yes | — |
+      | `value:` | yes | — |
+      | `selected:` | no | `false` |
+      | `input_data:` | no | `{}` | data attributes for hidden input |
+      | `label_data:` | no | `{}` | data attributes for label |
+
+      ### `ui_hero`
+
+      Large hero section for landing pages.
+
+      ```erb
+      <%= ui_hero(title: "Build faster", subtitle: "UI components for Rails", badge: "New") do |hero| %>
+        <% hero.with_aside do %>
+          <!-- image -->
+        <% end %>
+      <% end %>
+      ```
+
+      | Param | Required | Default | Values |
+      |-------|----------|---------|--------|
+      | `title:` | yes | — | — |
+      | `subtitle:` | no | `nil` | — |
+      | `badge:` | no | `nil` | small badge text above title |
+      | `layout:` | no | `:split` | `:split`, `:centered` |
+
+      Slot: `aside` — content beside the hero text (split layout).
+
+      ### `ui_feature_grid`
+
+      Grid of feature cards with icons.
+
+      ```erb
+      <%= ui_feature_grid(title: "Why Keystone?", features: [
+        { icon: "🚀", title: "Fast", description: "No build step." }
+      ]) %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `title:` | yes | — |
+      | `features:` | yes | — | array of hashes with `:icon`, `:title`, `:description` |
+      | `subtitle:` | no | `nil` |
+
+      ### `ui_cta_banner`
+
+      Call-to-action banner with title, subtitle, and action buttons.
+
+      ```erb
+      <%= ui_cta_banner(title: "Ready?", subtitle: "Try Keystone today.") do %>
+        <%= ui_button(label: "Get Started", href: signup_path) %>
+      <% end %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `title:` | yes | — |
+      | `subtitle:` | no | `nil` |
+
+      ### `ui_color_picker`
+
+      HSV color picker with swatch preview. Uses Stimulus `color-picker` controller.
+
+      ```erb
+      <%= ui_color_picker(name: "accent_color", value: "#3b82f6", label: "Accent") %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `name:` | yes | — |
+      | `value:` | no | `"#000000"` |
+      | `label:` | no | `nil` |
     MARKDOWN
 
     content.chomp!
