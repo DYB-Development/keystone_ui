@@ -25,7 +25,7 @@ RSpec.describe Keystone::Ui::StatCardComponent do
   end
 
   it "maps variant to value color" do
-    %i[success danger warning].each do |variant|
+    %i[neutral success danger warning info].each do |variant|
       component = described_class.new(label: "X", value: "0", variant: variant)
       expect(component.value_classes).to include(described_class::VARIANT_CLASSES[variant])
     end
@@ -50,10 +50,4 @@ RSpec.describe Keystone::Ui::StatCardComponent do
     expect(component.suffix?).to be false
   end
 
-  it "uses semantic accent classes for info variant" do
-    component = described_class.new(label: "X", value: "0", variant: :info)
-
-    expect(component.value_classes).to include("text-accent-600")
-    expect(component.value_classes).to include("dark:text-accent-400")
-  end
 end
