@@ -1,329 +1,88 @@
-# Keystone Components Roadmap
+# Keystone UI Roadmap
 
-This document outlines planned components for the Keystone UI framework.
+## Shipped Components (36)
 
-## Current Components
+### Core
+- **ui_button** — button/link with variants and sizes
+- **ui_card** — card layout with title, summary, and CTA
+- **ui_card_link** — clickable card wrapping content in an `<a>` tag
+- **ui_badge** — inline status badge with color variants
+- **ui_copy_button** — copy-to-clipboard button
 
-- **ui_card** - Card layout with title, summary, and CTA
-- **ui_button** - Button/link with variants and sizes
-- **ui_data_table** - Responsive data table with links and actions
-- **ui_page** - Page wrapper with max-width and padding
-- **ui_section** - Content grouping with optional header and spacing
-- **ui_grid** - CSS grid with responsive columns and gap sizes
-- **ui_panel** - Bordered container with padding, radius, and shadow
-- **ui_card_link** - Clickable card wrapping content in an `<a>` tag
+### Layout
+- **ui_page** — page wrapper with max-width and padding
+- **ui_section** — content grouping with optional header and spacing
+- **ui_grid** — CSS grid with responsive columns and gap sizes
+- **ui_panel** — bordered container with padding, radius, and shadow
+
+### Data Display
+- **ui_data_table** — responsive data table with links, actions, and mobile-hidden columns
+- **ui_stat_card** — metric card for dashboards
+- **ui_chart_card** — card wrapper for chart content
+
+### Forms
+- **ui_form_field** — label, input, hint, and error in consistent layout
+- **ui_input** — standalone text/number/email input
+- **ui_textarea** — multi-line text input
+- **ui_select** — styled select dropdown
+- **ui_color_picker** — HSV color picker with swatch preview
+
+### Page Structure
+- **ui_page_header** — page title area with optional action slot
+- **ui_alert** — flash messages with type variants and dismiss
+- **ui_form_page** — form page wrapper with content_for signals
+- **ui_show_page** — show page wrapper with content_for signals
+
+### Navigation
+- **ui_navbar** — top-level navigation bar with desktop/mobile slots
+- **ui_nav_item** — single nav link with active state
+- **ui_nav_dropdown** — dropdown menu within the navbar
+- **ui_bottom_nav** — mobile bottom tab bar
+- **ui_bottom_nav_item** — single bottom nav tab
+- **ui_mobile_header** — mobile header with back link and title
+- **ui_mobile_actions** — ellipsis dropdown for mobile action menus
+- **ui_settings_link** — settings row link with chevron icon
+
+### Interactive
+- **ui_modal** — modal dialog with backdrop and size options
+- **ui_accordion** — collapsible question/answer items
+- **ui_tab_switcher** — tab bar with active state indicator
+- **ui_option_card** — toggleable card option
+
+### Marketing
+- **ui_hero** — large hero section with split/centered layouts
+- **ui_feature_grid** — grid of feature cards with icons
+- **ui_cta_banner** — call-to-action banner
 
 ---
 
 ## Planned Components
 
-### Tier 1: Form Foundation
+Build as needed based on consuming application requirements.
 
-Essential for any CRUD application.
+### `ui_empty_state`
+Placeholder for empty lists/collections with icon, title, description, and action.
 
-#### `ui_form_field`
-Wraps label, input, hint, and error message in consistent layout.
+### `ui_checklist_item`
+Interactive item with checkbox, content, and actions for list UIs.
 
-```erb
-<%= ui_form_field(
-  form: f,
-  attribute: :name,
-  label: "List Name",
-  required: true,
-  hint: "Enter a descriptive name"
-) %>
-```
+### `ui_progress`
+Progress bar with label and percentage display.
 
-**Props:**
-- `form:` (ActionView form builder, required)
-- `attribute:` (Symbol, required)
-- `label:` (String, optional - inferred from attribute)
-- `type:` (`:text | :number | :email | :password | :textarea`, default `:text`)
-- `required:` (Boolean, default `false`)
-- `hint:` (String, optional)
-- `placeholder:` (String, optional)
-- `min:` / `max:` (for number inputs)
+### `ui_checkbox`
+Standalone styled checkbox input.
 
-#### `ui_input`
-Standalone input without form builder context.
-
-```erb
-<%= ui_input(name: "search", placeholder: "Search...", type: :text) %>
-<%= ui_input(name: "quantity", type: :number, value: 1, min: 1) %>
-```
-
-**Props:**
-- `name:` (String, required)
-- `type:` (`:text | :number | :email | :password`, default `:text`)
-- `value:` (String/Number, optional)
-- `placeholder:` (String, optional)
-- `disabled:` (Boolean, default `false`)
-- `min:` / `max:` / `step:` (for number type)
-
-#### `ui_textarea`
-Multi-line text input.
-
-```erb
-<%= ui_textarea(name: "notes", rows: 3, placeholder: "Add notes...") %>
-```
-
-**Props:**
-- `name:` (String, required)
-- `value:` (String, optional)
-- `rows:` (Integer, default `3`)
-- `placeholder:` (String, optional)
-- `disabled:` (Boolean, default `false`)
-
----
-
-### Tier 2: Layout & Feedback
-
-Common patterns for page structure and user feedback.
-
-#### `ui_page_header`
-Consistent page title area with optional actions.
-
-```erb
-<%= ui_page_header(title: "Shopping Lists", subtitle: "Manage your lists") do |header| %>
-  <% header.action { ui_button(label: "New List", href: new_path) } %>
-<% end %>
-```
-
-**Props:**
-- `title:` (String, required)
-- `subtitle:` (String, optional)
-- Block yields header for `.action` calls
-
-#### `ui_alert`
-Flash messages and inline notifications.
-
-```erb
-<%= ui_alert(type: :success, message: "Item saved!") %>
-<%= ui_alert(type: :error, title: "Error", message: "Could not save", dismissible: true) %>
-```
-
-**Props:**
-- `message:` (String, required)
-- `type:` (`:info | :success | :warning | :error`, default `:info`)
-- `title:` (String, optional)
-- `dismissible:` (Boolean, default `false`)
-
-#### `ui_empty_state`
-Placeholder for empty lists/collections.
-
-```erb
-<%= ui_empty_state(
-  icon: :clipboard,
-  title: "No items yet",
-  description: "Add your first item to get started",
-  action: { label: "Add Item", href: new_item_path }
-) %>
-```
-
-**Props:**
-- `title:` (String, required)
-- `description:` (String, optional)
-- `icon:` (Symbol, optional)
-- `action:` (Hash with `:label` and `:href`, optional)
-
-#### `ui_badge`
-Status indicators and labels.
-
-```erb
-<%= ui_badge(text: "Draft", variant: :neutral) %>
-<%= ui_badge(text: "Active", variant: :success) %>
-<%= ui_badge(text: "Expired", variant: :danger) %>
-```
-
-**Props:**
-- `text:` (String, required)
-- `variant:` (`:neutral | :success | :warning | :danger | :info`, default `:neutral`)
-- `size:` (`:sm | :md`, default `:md`)
-
----
-
-### Tier 3: Interactive Elements
-
-For richer user interactions.
-
-#### `ui_checklist_item`
-Interactive item with checkbox, content, and actions.
-
-```erb
-<%= ui_checklist_item(
-  checked: item.purchased?,
-  toggle_url: toggle_path(item),
-  strikethrough: true
-) do |ci| %>
-  <% ci.content do %>
-    <span class="font-medium"><%= item.name %></span>
-    <span class="text-sm text-gray-500"><%= item.variant %></span>
-  <% end %>
-  <% ci.actions do %>
-    <%= ui_button(label: "Edit", size: :sm, variant: :secondary) %>
-  <% end %>
-<% end %>
-```
-
-**Props:**
-- `checked:` (Boolean, default `false`)
-- `toggle_url:` (String, optional - if present, checkbox submits to URL)
-- `strikethrough:` (Boolean, default `true` - strike content when checked)
-- `disabled:` (Boolean, default `false`)
-- Block yields item for `.content` and `.actions` slots
-
-#### `ui_progress`
-Progress bar with label.
-
-```erb
-<%= ui_progress(current: 5, total: 12, label: "Items purchased") %>
-<%= ui_progress(percent: 75, show_percent: true) %>
-```
-
-**Props:**
-- `current:` (Integer) + `total:` (Integer) — OR —
-- `percent:` (Integer, 0-100)
-- `label:` (String, optional)
-- `show_percent:` (Boolean, default `false`)
-- `variant:` (`:default | :success | :warning | :danger`, default `:default`)
-
-#### `ui_modal`
-Dialog overlay for confirmations and forms.
-
-```erb
-<%= ui_modal(id: "confirm-delete", title: "Delete List?") do |modal| %>
-  <% modal.body do %>
-    <p>This action cannot be undone.</p>
-  <% end %>
-  <% modal.footer do %>
-    <%= ui_button(label: "Cancel", variant: :secondary, data: { action: "modal#close" }) %>
-    <%= ui_button(label: "Delete", variant: :danger) %>
-  <% end %>
-<% end %>
-```
-
-**Props:**
-- `id:` (String, required - for Stimulus targeting)
-- `title:` (String, required)
-- `size:` (`:sm | :md | :lg`, default `:md`)
-- Block yields modal for `.body` and `.footer` slots
-
----
-
-### Tier 4: Navigation & Data Display
-
-For dashboards and complex views.
-
-#### `ui_tabs`
-Tab navigation.
-
-```erb
-<%= ui_tabs(active: :all) do |tabs| %>
-  <% tabs.tab(:all, label: "All Items", href: items_path) %>
-  <% tabs.tab(:low, label: "Low Stock", href: items_path(filter: :low), count: 5) %>
-  <% tabs.tab(:expiring, label: "Expiring", href: items_path(filter: :expiring)) %>
-<% end %>
-```
-
-**Props:**
-- `active:` (Symbol, required - key of active tab)
-- Block yields tabs for `.tab` calls
-- Tab props: `key`, `label:`, `href:`, `count:` (optional badge)
-
-#### `ui_stat_card`
-Metric display for dashboards.
-
-```erb
-<%= ui_stat_card(
-  label: "Items in Stock",
-  value: 47,
-  change: "+3",
-  trend: :up
-) %>
-```
-
-**Props:**
-- `label:` (String, required)
-- `value:` (String/Number, required)
-- `change:` (String, optional - e.g., "+5%", "-3")
-- `trend:` (`:up | :down | :neutral`, optional)
-- `href:` (String, optional - makes card clickable)
-
-#### `ui_dropdown_menu`
-Action menu dropdown.
-
-```erb
-<%= ui_dropdown_menu(label: "Actions") do |menu| %>
-  <% menu.item(label: "Edit", href: edit_path) %>
-  <% menu.item(label: "Duplicate", href: duplicate_path) %>
-  <% menu.divider %>
-  <% menu.item(label: "Delete", href: delete_path, variant: :danger, method: :delete) %>
-<% end %>
-```
-
-**Props:**
-- `label:` (String, optional - default shows three dots icon)
-- `align:` (`:left | :right`, default `:right`)
-- Block yields menu for `.item` and `.divider` calls
-- Item props: `label:`, `href:`, `variant:`, `method:`, `icon:`
-
----
-
-### Tier 5: Specialized
-
-Lower priority, build as needed.
-
-#### `ui_select`
-Styled select dropdown.
-
-```erb
-<%= ui_select(
-  name: "status",
-  options: [["Draft", "draft"], ["Active", "active"]],
-  selected: "draft",
-  include_blank: "Select status..."
-) %>
-```
-
-#### `ui_checkbox`
-Standalone checkbox.
-
-```erb
-<%= ui_checkbox(name: "agree", label: "I agree to the terms", checked: false) %>
-```
-
-#### `ui_avatar`
+### `ui_avatar`
 User avatar with fallback initials.
 
-```erb
-<%= ui_avatar(src: user.avatar_url, name: user.name, size: :md) %>
-```
+### `ui_tooltip`
+Hover tooltip for contextual help.
 
-#### `ui_tooltip`
-Hover tooltip.
+### `ui_dropdown_menu`
+General-purpose action menu dropdown (distinct from nav dropdown).
 
-```erb
-<%= ui_tooltip(text: "More info here") do %>
-  <span>Hover me</span>
-<% end %>
-```
-
----
-
-## Implementation Priority
-
-Based on consuming application needs:
-
-| Phase | Components | Rationale |
-|-------|------------|-----------|
-| 1 | `ui_form_field`, `ui_input`, `ui_textarea` | Every form needs these |
-| 2 | `ui_page_header`, `ui_alert` | Consistent page structure |
-| 3 | `ui_badge`, `ui_empty_state` | Status display, empty states |
-| 4 | `ui_checklist_item`, `ui_progress` | Active shopping mode |
-| 5 | `ui_modal` | Confirmations, quick edits |
-| 6 | `ui_stat_card`, `ui_tabs` | Inventory dashboard |
-| 7 | `ui_dropdown_menu` | Table row actions |
-| 8 | `ui_select`, `ui_checkbox` | Form enhancements |
+### `ui_tabs`
+URL-driven tab navigation with counts and active state.
 
 ---
 
@@ -331,10 +90,10 @@ Based on consuming application needs:
 
 For each new component:
 
-1. **Write spec first** - Define expected behavior in RSpec (TDD)
-2. **Build component class** - Ruby object with explicit kwargs, Tailwind utility classes via frozen constant hashes
-3. **Create template** - Minimal ERB referencing class constants
-4. **Add helper** - Thin wrapper in `keystone_ui_helper.rb`
-5. **Document in README** - Props and usage examples
-6. **Update rake task** - Add to `rake keystone:claude` output
-7. **Test in consuming app** - Verify in real usage context
+1. **Write spec first** — define expected behavior in RSpec (TDD)
+2. **Build component class** — Ruby object with explicit kwargs, Tailwind utility classes via frozen constant hashes
+3. **Create template** — minimal ERB referencing class constants
+4. **Add helper** — thin wrapper in `keystone_ui_helper.rb`
+5. **Document in README** — props and usage examples
+6. **Update rake task** — add to `rake keystone:claude` output
+7. **Test in consuming app** — verify in real usage context
