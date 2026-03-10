@@ -188,7 +188,11 @@ module KeystoneUi
     }.freeze
 
     def self.current
-      accent = KeystoneUi.configuration.accent
+      accent = if defined?(KeystoneUi::Current) && KeystoneUi::Current.accent_override
+                 KeystoneUi::Current.accent_override
+               else
+                 KeystoneUi.configuration.accent
+               end
       if accent.is_a?(Hash)
         PALETTE[:blue].merge(accent)
       else
