@@ -144,4 +144,8 @@ module KeystoneUiHelper
   def ui_color_picker(**args)
     render Keystone::Ui::ColorPickerComponent.new(**args)
   end
+
+  def ui_multi_select(**args)
+    render Keystone::Ui::MultiSelectComponent.new(**args)
+  end
 end
