@@ -12,6 +12,10 @@ module Keystone
         @selected = Array(selected).map(&:to_s)
       end
 
+      def selected?(value)
+        @selected.include?(value.to_s)
+      end
+
       def display_text
         checked = @selected.reject(&:empty?)
         if checked.empty?
