@@ -1,0 +1,9 @@
+<label class="relative cursor-pointer" <%= tag.attributes(label_data.transform_keys { |k| "data-#{k}" }) unless label_data.empty? %>>
+  <input type="radio" name="<%= name %>" value="<%= value %>"
+    <%= "checked" if selected? %>
+    class="sr-only"
+    <%= tag.attributes(input_data.transform_keys { |k| "data-#{k}" }) unless input_data.empty? %>>
+  <span class="<%= classes %>">
+    <%= content %>
+  </span>
+</label>

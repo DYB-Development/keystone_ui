@@ -38,7 +38,8 @@ module Keystone
       Keystone::Ui::FormPageComponent,
       Keystone::Ui::MobileActionsComponent,
       Keystone::Ui::MobileHeaderComponent,
-      Keystone::Ui::ShowPageComponent
+      Keystone::Ui::ShowPageComponent,
+      Keystone::Ui::OptionCardComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)
