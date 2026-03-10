@@ -38,4 +38,10 @@ RSpec.describe Keystone::Ui::ColorPickerComponent do
     expect(component.panel_classes).to include("shadow-lg")
     expect(component.panel_classes).to include("hidden")
   end
+
+  it "accepts an optional label" do
+    component = described_class.new(name: "accent", label: "Accent Color")
+
+    expect(component.label).to eq("Accent Color")
+  end
 end
