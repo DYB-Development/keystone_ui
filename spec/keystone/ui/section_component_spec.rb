@@ -45,22 +45,12 @@ RSpec.describe Keystone::Ui::SectionComponent do
     expect(described_class::TITLE_CLASSES).to include("text-lg")
   end
 
-  it "uses accent colors for action link" do
+  it "uses semantic accent classes for action link" do
     component = described_class.new(title: "Users")
 
-    expect(component.action_classes).to include("text-blue-600")
-    expect(component.action_classes).to include("hover:text-blue-900")
-  end
-
-  context "with custom accent" do
-    after { KeystoneUi.reset_configuration! }
-
-    it "uses custom accent for action link" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(title: "Users")
-
-      expect(component.action_classes).to include("text-emerald-600")
-      expect(component.action_classes).not_to include("indigo")
-    end
+    expect(component.action_classes).to include("text-accent-600")
+    expect(component.action_classes).to include("hover:text-accent-900")
+    expect(component.action_classes).to include("dark:text-accent-400")
+    expect(component.action_classes).to include("dark:hover:text-accent-300")
   end
 end

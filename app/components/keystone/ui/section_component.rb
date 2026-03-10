@@ -21,8 +21,7 @@ module Keystone
       end
 
       def action_classes
-        accent = KeystoneUi::AccentColors.current
-        "#{ACTION_BASE_CLASSES} #{accent[:link_text]} #{accent[:link_hover_text]} #{accent[:link_dark_text]} #{accent[:link_dark_hover_text]}"
+        "#{ACTION_BASE_CLASSES} text-accent-600 hover:text-accent-900 dark:text-accent-400 dark:hover:text-accent-300"
       end
 
       def header?
