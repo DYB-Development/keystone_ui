@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased]
+
+### Added
+- **SelectComponent** — styled `<select>` dropdown with options, selected value, include_blank, and disabled states
+- **BadgeComponent** — inline status badge with variants (neutral/success/danger/warning/info)
+- **StatCardComponent** — metric card for dashboards with label, value, suffix, and color variants
+- **ChartCardComponent** — card wrapper for chart content with configurable height (sm/md/lg)
+- **CopyButtonComponent** — copy-to-clipboard button with success/error messages
+- **ModalComponent** — modal dialog with title, close button, backdrop, and size options (sm/md/lg/xl)
+- **AccordionComponent** — collapsible question/answer items
+- **TabSwitcherComponent** — tab bar with active state indicator (Stimulus controller)
+- **OptionCardComponent** — toggleable card option for radio-like selection
+- **HeroComponent** — large hero section with split/centered layouts and aside slot
+- **FeatureGridComponent** — grid of feature cards with icons, title, and description
+- **CtaBannerComponent** — call-to-action banner with title, subtitle, and action buttons
+- **ColorPickerComponent** — HSV color picker with swatch preview (Stimulus controller)
+- **NavbarComponent** — top-level navigation bar with slots for desktop and mobile sections
+- **NavItemComponent** — single nav link with active state
+- **NavDropdownComponent** — dropdown menu within the navbar (Stimulus controller)
+- **BottomNavComponent** — mobile bottom tab bar, hidden on desktop
+- **BottomNavItemComponent** — single bottom nav tab with icon and active state
+- **MobileHeaderComponent** — mobile header with back link, centered title, and subtitle
+- **MobileActionsComponent** — ellipsis dropdown for mobile action menus
+- **FormPageComponent** — form page wrapper with `content_for` signals for navbar context
+- **ShowPageComponent** — show page wrapper with `content_for` signals for navbar context
+- **SettingsLinkComponent** — settings row link with chevron icon
+- Complete README documentation for all 36 components
+- Complete `rake keystone:claude` output for all 36 components
+
+### Fixed
+- BadgeComponent and StatCardComponent `:info` variant moved into `VARIANT_CLASSES` constant (was inline, invisible to safelist)
+- ShowPageComponent now has frozen constants and `subtitle?` method (matches FormPageComponent pattern)
+
 ## [0.4.1] - 2026-02-11
 
 ### Fixed
