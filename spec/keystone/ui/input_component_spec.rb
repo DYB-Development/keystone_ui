@@ -37,16 +37,12 @@ RSpec.describe Keystone::Ui::InputComponent do
     expect(component.tag_options[:disabled]).to be true
   end
 
-  context "with custom accent" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes for focus state" do
+    component = described_class.new(name: "search")
 
-    it "uses accent colors for focus state" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(name: "search")
-
-      expect(component.classes).to include("focus:border-emerald-500")
-      expect(component.classes).to include("focus:ring-emerald-500")
-      expect(component.classes).not_to include("indigo")
-    end
+    expect(component.classes).to include("focus:border-accent-500")
+    expect(component.classes).to include("focus:ring-accent-500")
+    expect(component.classes).to include("dark:focus:border-accent-400")
+    expect(component.classes).to include("dark:focus:ring-accent-400")
   end
 end

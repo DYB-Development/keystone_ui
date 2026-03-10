@@ -25,9 +25,10 @@ module Keystone
         @step = step
       end
 
+      FOCUS_CLASSES = "focus:border-accent-500 focus:ring-accent-500 dark:focus:border-accent-400 dark:focus:ring-accent-400"
+
       def classes
-        accent = KeystoneUi::AccentColors.current
-        tokens = [BASE_CLASSES, accent[:focus_border], accent[:focus_ring], accent[:dark_focus_border], accent[:dark_focus_ring]]
+        tokens = [BASE_CLASSES, FOCUS_CLASSES]
         tokens << DISABLED_CLASSES if @disabled
         tokens.join(" ")
       end
