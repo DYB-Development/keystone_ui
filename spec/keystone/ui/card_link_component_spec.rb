@@ -14,7 +14,7 @@ RSpec.describe Keystone::Ui::CardLinkComponent do
     expect(classes).to include("bg-white")
     expect(classes).to include("p-4")
     expect(classes).to include("shadow-sm")
-    expect(classes).to include("hover:border-blue-500/50")
+    expect(classes).to include("hover:border-accent-500/50")
     expect(classes).to include("dark:border-zinc-700")
     expect(classes).to include("dark:bg-zinc-900")
   end
@@ -42,6 +42,6 @@ RSpec.describe Keystone::Ui::CardLinkComponent do
 
     expect(component.classes).to include("dark:bg-zinc-900")
     expect(component.classes).to include("dark:border-zinc-700")
-    expect(component.classes).to include("hover:border-blue-500/50")
+    expect(component.classes).to include("hover:border-accent-500/50")
   end
 end
