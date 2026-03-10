@@ -26,8 +26,7 @@ module Keystone
 
       def classes
         variant_css = if @variant == :primary
-          accent = KeystoneUi::AccentColors.current
-          "#{accent[:solid_bg]} text-white #{accent[:solid_hover_bg]}"
+          "bg-accent-600 text-white hover:bg-accent-500"
         else
           VARIANT_CLASSES.fetch(@variant)
         end

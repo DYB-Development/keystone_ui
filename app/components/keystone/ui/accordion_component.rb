@@ -24,21 +24,19 @@ module Keystone
       end
 
       def item_classes
-        "#{ITEM_LAYOUT_CLASSES} #{KeystoneUi::SurfaceColors[:card_border]}"
+        "#{ITEM_LAYOUT_CLASSES} border-surface-200 dark:border-surface-700"
       end
 
       def button_classes
-        surface = KeystoneUi::SurfaceColors.current
-        accent = KeystoneUi::AccentColors.current
-        "#{BUTTON_LAYOUT_CLASSES} #{surface[:heading]} #{accent[:hover_text]} #{accent[:dark_hover_text]}"
+        "#{BUTTON_LAYOUT_CLASSES} text-surface-900 dark:text-white hover:text-accent-600 dark:hover:text-accent-400"
       end
 
       def answer_classes
-        "#{ANSWER_LAYOUT_CLASSES} #{KeystoneUi::SurfaceColors[:muted]}"
+        "#{ANSWER_LAYOUT_CLASSES} text-surface-600 dark:text-surface-400"
       end
 
       def icon_classes
-        "#{ICON_LAYOUT_CLASSES} #{KeystoneUi::SurfaceColors[:icon]}"
+        "#{ICON_LAYOUT_CLASSES} text-surface-400"
       end
 
       def caret_icon

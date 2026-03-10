@@ -24,11 +24,11 @@ module Keystone
       end
 
       def title_classes
-        "#{TITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:heading]}"
+        "#{TITLE_BASE_CLASSES} text-surface-900 dark:text-white"
       end
 
       def subtitle_classes
-        "#{SUBTITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:body]}"
+        "#{SUBTITLE_BASE_CLASSES} text-surface-500 dark:text-surface-400"
       end
 
       def subtitle?
@@ -36,22 +36,19 @@ module Keystone
       end
 
       def card_classes
-        surface = KeystoneUi::SurfaceColors.current
-        accent = KeystoneUi::AccentColors.current
-        "#{CARD_LAYOUT_CLASSES} #{surface[:card_border]} #{surface[:card_bg]} #{accent[:hover_border]} #{accent[:dark_hover_border]}"
+        "#{CARD_LAYOUT_CLASSES} border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 hover:border-accent-500/50 dark:hover:border-accent-500/50"
       end
 
       def icon_classes
-        accent = KeystoneUi::AccentColors.current
-        "#{ICON_BASE_CLASSES} #{accent[:bg]} #{accent[:text]} #{accent[:dark_text]}"
+        "#{ICON_BASE_CLASSES} bg-accent-500/10 text-accent-600 dark:text-accent-400"
       end
 
       def card_title_classes
-        "#{CARD_TITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:heading]}"
+        "#{CARD_TITLE_BASE_CLASSES} text-surface-900 dark:text-white"
       end
 
       def card_description_classes
-        "#{CARD_DESCRIPTION_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:body]}"
+        "#{CARD_DESCRIPTION_BASE_CLASSES} text-surface-500 dark:text-surface-400"
       end
     end
   end

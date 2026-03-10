@@ -50,15 +50,10 @@ RSpec.describe Keystone::Ui::StatCardComponent do
     expect(component.suffix?).to be false
   end
 
-  context "with custom accent" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes for info variant" do
+    component = described_class.new(label: "X", value: "0", variant: :info)
 
-    it "uses accent colors for info variant" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(label: "X", value: "0", variant: :info)
-
-      expect(component.value_classes).to include("text-emerald-600")
-      expect(component.value_classes).not_to include("text-blue-600")
-    end
+    expect(component.value_classes).to include("text-accent-600")
+    expect(component.value_classes).to include("dark:text-accent-400")
   end
 end

@@ -27,8 +27,7 @@ module Keystone
 
       def classes
         type_css = if @type == :info
-          accent = KeystoneUi::AccentColors.current
-          "#{accent[:alert_bg]} #{accent[:alert_text]} #{accent[:alert_dark_bg]} #{accent[:alert_dark_text]}"
+          "bg-accent-50 text-accent-800 dark:bg-accent-900/30 dark:text-accent-300"
         else
           TYPE_CLASSES.fetch(@type)
         end

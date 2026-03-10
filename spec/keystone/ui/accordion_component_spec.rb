@@ -40,44 +40,20 @@ RSpec.describe Keystone::Ui::AccordionComponent do
     expect(component.answer_classes).to include("hidden")
   end
 
-  context "accent theming" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes for button hover" do
+    component = described_class.new
 
-    it "uses blue hover text by default" do
-      component = described_class.new
-
-      expect(component.button_classes).to include("hover:text-blue-600")
-    end
-
-    it "uses emerald hover text when configured" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new
-
-      expect(component.button_classes).to include("hover:text-emerald-600")
-      expect(component.button_classes).not_to include("blue")
-    end
+    expect(component.button_classes).to include("hover:text-accent-600")
+    expect(component.button_classes).to include("dark:hover:text-accent-400")
   end
 
-  context "surface theming" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic surface classes" do
+    component = described_class.new
 
-    it "uses zinc surface by default" do
-      component = described_class.new
-
-      expect(component.item_classes).to include("dark:border-zinc-700")
-      expect(component.button_classes).to include("text-gray-900")
-      expect(component.answer_classes).to include("text-gray-600")
-      expect(component.icon_classes).to include("text-gray-400")
-    end
-
-    it "uses slate surface when configured" do
-      KeystoneUi.configure { |c| c.surface = :slate }
-      component = described_class.new
-
-      expect(component.item_classes).to include("dark:border-slate-700")
-      expect(component.button_classes).to include("text-slate-900")
-      expect(component.answer_classes).to include("text-slate-600")
-      expect(component.icon_classes).to include("text-slate-400")
-    end
+    expect(component.item_classes).to include("border-surface-200")
+    expect(component.item_classes).to include("dark:border-surface-700")
+    expect(component.button_classes).to include("text-surface-900")
+    expect(component.answer_classes).to include("text-surface-600")
+    expect(component.icon_classes).to include("text-surface-400")
   end
 end

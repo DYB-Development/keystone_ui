@@ -51,51 +51,21 @@ RSpec.describe Keystone::Ui::FeatureGridComponent do
     expect(component.icon_classes).to include("rounded-lg")
   end
 
-  context "accent theming" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes" do
+    component = described_class.new(title: "X", features: features)
 
-    it "uses blue accent by default" do
-      component = described_class.new(title: "X", features: features)
-
-      expect(component.card_classes).to include("hover:border-blue-500/50")
-      expect(component.icon_classes).to include("bg-blue-500/10")
-      expect(component.icon_classes).to include("text-blue-600")
-    end
-
-    it "uses emerald accent when configured" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(title: "X", features: features)
-
-      expect(component.card_classes).to include("hover:border-emerald-500/50")
-      expect(component.icon_classes).to include("bg-emerald-500/10")
-      expect(component.icon_classes).to include("text-emerald-600")
-      expect(component.card_classes).not_to include("blue")
-      expect(component.icon_classes).not_to include("blue")
-    end
+    expect(component.card_classes).to include("hover:border-accent-500/50")
+    expect(component.icon_classes).to include("bg-accent-500/10")
+    expect(component.icon_classes).to include("text-accent-600")
   end
 
-  context "surface theming" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic surface classes" do
+    component = described_class.new(title: "X", subtitle: "Sub", features: features)
 
-    it "uses zinc surface by default" do
-      component = described_class.new(title: "X", features: features)
-
-      expect(component.card_classes).to include("dark:border-zinc-700")
-      expect(component.card_classes).to include("dark:bg-zinc-800")
-      expect(component.title_classes).to include("text-gray-900")
-      expect(component.subtitle_classes).to include("text-gray-500")
-      expect(component.card_description_classes).to include("text-gray-500")
-    end
-
-    it "uses slate surface when configured" do
-      KeystoneUi.configure { |c| c.surface = :slate }
-      component = described_class.new(title: "X", features: features)
-
-      expect(component.card_classes).to include("dark:border-slate-700")
-      expect(component.card_classes).to include("dark:bg-slate-800")
-      expect(component.title_classes).to include("text-slate-900")
-      expect(component.subtitle_classes).to include("text-slate-500")
-      expect(component.card_description_classes).to include("text-slate-500")
-    end
+    expect(component.card_classes).to include("border-surface-200")
+    expect(component.card_classes).to include("dark:border-surface-700")
+    expect(component.title_classes).to include("text-surface-900")
+    expect(component.subtitle_classes).to include("text-surface-500")
+    expect(component.card_description_classes).to include("text-surface-500")
   end
 end

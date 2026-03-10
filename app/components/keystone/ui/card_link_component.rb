@@ -16,8 +16,7 @@ module Keystone
       end
 
       def classes
-        accent = KeystoneUi::AccentColors.current
-        tokens = [BASE_CLASSES, accent[:hover_border], PADDING_CLASSES.fetch(@padding)]
+        tokens = [BASE_CLASSES, "hover:border-accent-500/50", PADDING_CLASSES.fetch(@padding)]
         tokens << SHADOW_CLASS if @shadow
         tokens.join(" ")
       end

@@ -20,8 +20,7 @@ module Keystone
       end
 
       def link_classes
-        accent = KeystoneUi::AccentColors.current
-        "#{LINK_BASE_CLASSES} #{accent[:link_text]} #{accent[:link_hover_text]} #{accent[:link_dark_text]}"
+        "#{LINK_BASE_CLASSES} text-accent-600 hover:text-accent-900 dark:text-accent-400"
       end
 
       private

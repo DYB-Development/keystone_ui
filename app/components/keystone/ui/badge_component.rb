@@ -21,8 +21,7 @@ module Keystone
 
       def classes
         variant_css = if @variant == :info
-          accent = KeystoneUi::AccentColors.current
-          "#{accent[:badge_bg]} #{accent[:badge_text]} #{accent[:badge_dark_bg]} #{accent[:badge_dark_text]}"
+          "bg-accent-100 text-accent-700 dark:bg-accent-900/50 dark:text-accent-400"
         else
           VARIANT_CLASSES.fetch(@variant)
         end

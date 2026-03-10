@@ -47,4 +47,11 @@ RSpec.describe Keystone::Ui::SelectComponent do
 
     expect(component.include_blank).to eq("All")
   end
+
+  it "uses semantic accent classes for focus state" do
+    component = described_class.new(name: "status")
+
+    expect(component.classes).to include("focus:border-accent-500")
+    expect(component.classes).to include("focus:ring-accent-500")
+  end
 end
