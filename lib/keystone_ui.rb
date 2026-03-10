@@ -9,3 +9,5 @@ require "keystone_ui/version"
 
 module KeystoneUi
 end
+
+require "keystone_ui/current" if defined?(ActiveSupport::CurrentAttributes)

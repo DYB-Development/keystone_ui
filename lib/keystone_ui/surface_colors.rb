@@ -53,7 +53,13 @@ module KeystoneUi
     }.freeze
 
     def self.current
-      PALETTE.fetch(KeystoneUi.configuration.surface)
+      surface = if defined?(KeystoneUi::Current) && KeystoneUi::Current.surface_override
+                  KeystoneUi::Current.surface_override
+                else
+                  KeystoneUi.configuration.surface
+                end
+
+      PALETTE.fetch(surface)
     end
 
     def self.[](key)
