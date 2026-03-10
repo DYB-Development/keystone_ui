@@ -8,4 +8,10 @@ RSpec.describe Keystone::Ui::MultiSelectComponent do
 
     expect(component.display_text).to eq("All Categories")
   end
+
+  it "returns count when items are selected" do
+    component = described_class.new(name: "cat[]", label: "Categories", options: [["Shoes", 1], ["Hats", 2]], selected: ["1", "2"])
+
+    expect(component.display_text).to eq("2 selected")
+  end
 end
