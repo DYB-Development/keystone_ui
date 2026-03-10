@@ -1,0 +1,21 @@
+<div class="<%= WRAPPER_CLASSES %>" data-controller="multi-select" data-multi-select-label-value="<%= @label %>">
+  <button type="button"
+          data-action="click->multi-select#toggle"
+          class="<%= TRIGGER_CLASSES %>">
+    <span data-multi-select-target="label"><%= display_text %></span>
+    <%= CARET_ICON.html_safe %>
+  </button>
+  <div data-multi-select-target="menu" class="<%= MENU_CLASSES %>">
+    <% @options.each do |opt_label, opt_value| %>
+      <label class="<%= OPTION_CLASSES %>">
+        <input type="checkbox"
+               name="<%= @name %>"
+               value="<%= opt_value %>"
+               <%= "checked" if selected?(opt_value) %>
+               data-action="change->multi-select#updateLabel"
+               class="<%= CHECKBOX_CLASSES %>">
+        <%= opt_label %>
+      </label>
+    <% end %>
+  </div>
+</div>
