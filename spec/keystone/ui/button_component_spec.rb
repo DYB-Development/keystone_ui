@@ -21,16 +21,10 @@ RSpec.describe Keystone::Ui::ButtonComponent do
     expect(component.tag_options[:type]).to eq("button")
   end
 
-  context "with custom accent" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes for primary variant" do
+    component = described_class.new(label: "Save")
 
-    it "uses accent colors for primary variant" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(label: "Save")
-
-      expect(component.classes).to include("bg-emerald-600")
-      expect(component.classes).to include("hover:bg-emerald-500")
-      expect(component.classes).not_to include("indigo")
-    end
+    expect(component.classes).to include("bg-accent-600")
+    expect(component.classes).to include("hover:bg-accent-500")
   end
 end
