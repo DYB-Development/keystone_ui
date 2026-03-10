@@ -35,4 +35,16 @@ RSpec.describe Keystone::Ui::ChartCardComponent do
 
     expect(component.chart_height_class).to eq("h-96")
   end
+
+  it "accepts sm height" do
+    component = described_class.new(title: "X", height: :sm)
+
+    expect(component.chart_height_class).to eq("h-48")
+  end
+
+  it "raises on invalid height" do
+    component = described_class.new(title: "X", height: :xl)
+
+    expect { component.chart_height_class }.to raise_error(KeyError)
+  end
 end
