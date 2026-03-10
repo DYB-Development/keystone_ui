@@ -24,18 +24,9 @@ RSpec.describe Keystone::Ui::BadgeComponent do
   end
 
   it "maps each variant to its classes" do
-    %i[neutral success danger warning].each do |variant|
+    %i[neutral success danger warning info].each do |variant|
       component = described_class.new(label: "X", variant: variant)
       expect(component.classes).to include(described_class::VARIANT_CLASSES[variant])
     end
-  end
-
-  it "uses semantic accent classes for info variant" do
-    component = described_class.new(label: "X", variant: :info)
-
-    expect(component.classes).to include("bg-accent-100")
-    expect(component.classes).to include("text-accent-700")
-    expect(component.classes).to include("dark:bg-accent-900/50")
-    expect(component.classes).to include("dark:text-accent-400")
   end
 end
