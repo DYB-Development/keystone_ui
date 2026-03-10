@@ -27,15 +27,11 @@ RSpec.describe Keystone::Ui::CardComponent do
     expect(component.instance_variable_get(:@cta)).to eq("View details")
   end
 
-  context "with custom accent" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes for link" do
+    component = described_class.new(title: "X", summary: "Y", link: "/z")
 
-    it "uses accent colors for link" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(title: "X", summary: "Y", link: "/z")
-
-      expect(component.link_classes).to include("text-emerald-600")
-      expect(component.link_classes).not_to include("indigo")
-    end
+    expect(component.link_classes).to include("text-accent-600")
+    expect(component.link_classes).to include("hover:text-accent-900")
+    expect(component.link_classes).to include("dark:text-accent-400")
   end
 end
