@@ -377,3 +377,413 @@ Renders a styled alert/flash message with type variants, optional title, and dis
 <%= ui_alert(message: "Changes saved successfully.", type: :success) %>
 <%= ui_alert(message: "Could not save record.", type: :error, title: "Error", dismissible: true) %>
 ```
+
+### `ui_select`
+
+Renders a styled `<select>` dropdown.
+
+**Required props**
+
+- `name:` (String)
+
+**Optional props**
+
+- `options:` (Array of `[label, value]` pairs, default `[]`)
+- `selected:` (String) — pre-selected value
+- `include_blank:` (String) — blank option label
+- `disabled:` (Boolean, default `false`)
+
+```erb
+<%= ui_select(
+  name: "status",
+  options: [["Active", "active"], ["Inactive", "inactive"]],
+  selected: "active",
+  include_blank: "Select status..."
+) %>
+```
+
+### `ui_badge`
+
+Renders an inline status badge.
+
+**Required props**
+
+- `label:` (String)
+
+**Optional props**
+
+- `variant:` (`:neutral | :success | :danger | :warning | :info`, default `:neutral`)
+
+```erb
+<%= ui_badge(label: "Active", variant: :success) %>
+<%= ui_badge(label: "Expired", variant: :danger) %>
+```
+
+### `ui_stat_card`
+
+Renders a metric card for dashboards.
+
+**Required props**
+
+- `label:` (String)
+- `value:` (String/Number)
+
+**Optional props**
+
+- `variant:` (`:neutral | :success | :danger | :warning | :info`, default `:neutral`)
+- `suffix:` (String) — unit label after the value
+
+```erb
+<%= ui_stat_card(label: "Revenue", value: "$42,300", variant: :success, suffix: "/mo") %>
+```
+
+### `ui_chart_card`
+
+Renders a card wrapper for chart content with a title and configurable height.
+
+**Required props**
+
+- `title:` (String)
+
+**Optional props**
+
+- `height:` (`:sm | :md | :lg`, default `:md`) — maps to `h-48`, `h-64`, `h-96`
+
+```erb
+<%= ui_chart_card(title: "Monthly Revenue", height: :lg) do %>
+  <!-- chart content -->
+<% end %>
+```
+
+### `ui_copy_button`
+
+Renders a button that copies text to the clipboard.
+
+**Required props**
+
+- `text:` (String) — the text to copy
+
+**Optional props**
+
+- `label:` (String, default `"Copy"`)
+- `success_message:` (String, default `"Copied!"`)
+- `error_message:` (String, default `"Failed!"`)
+
+```erb
+<%= ui_copy_button(text: "https://example.com/invite/abc123") %>
+```
+
+### `ui_modal`
+
+Renders a modal dialog with title, close button, and backdrop.
+
+**Required props**
+
+- `title:` (String)
+
+**Optional props**
+
+- `size:` (`:sm | :md | :lg | :xl`, default `:md`)
+
+```erb
+<%= ui_modal(title: "Confirm Delete", size: :sm) do %>
+  <p>This action cannot be undone.</p>
+<% end %>
+```
+
+### `ui_accordion`
+
+Renders collapsible question/answer items.
+
+**Optional props**
+
+- `items:` (Array of Hashes) — each with `:question` and `:answer` keys
+
+```erb
+<%= ui_accordion(items: [
+  { question: "What is Keystone?", answer: "A UI component library for Rails." },
+  { question: "How do I install it?", answer: "Add the gem and run the generator." }
+]) %>
+```
+
+### `ui_tab_switcher`
+
+Renders a tab bar with active state indicator. Uses Stimulus `tab-switcher` controller.
+
+**Required props**
+
+- `tabs:` (Array of Strings) — tab labels
+
+```erb
+<%= ui_tab_switcher(tabs: ["Overview", "Details", "History"]) do %>
+  <!-- tab panel content -->
+<% end %>
+```
+
+### `ui_option_card`
+
+Renders a toggleable card option (radio-like selection).
+
+**Required props**
+
+- `name:` (String) — input name
+- `value:` (String) — input value
+
+**Optional props**
+
+- `selected:` (Boolean, default `false`)
+- `input_data:` (Hash) — data attributes for the hidden input
+- `label_data:` (Hash) — data attributes for the label
+
+```erb
+<%= ui_option_card(name: "theme", value: "dark", selected: true) do %>
+  Dark Mode
+<% end %>
+```
+
+### `ui_hero`
+
+Renders a large hero section for landing pages.
+
+**Required props**
+
+- `title:` (String)
+
+**Optional props**
+
+- `subtitle:` (String)
+- `badge:` (String) — small badge text above the title
+- `layout:` (`:split | :centered`, default `:split`)
+
+```erb
+<%= ui_hero(title: "Build faster with Keystone", subtitle: "UI components for Rails", badge: "New") do |hero| %>
+  <% hero.with_aside do %>
+    <!-- image or illustration -->
+  <% end %>
+<% end %>
+```
+
+### `ui_feature_grid`
+
+Renders a grid of feature cards with icons.
+
+**Required props**
+
+- `title:` (String)
+- `features:` (Array of Hashes) — each with `:icon`, `:title`, `:description`
+
+**Optional props**
+
+- `subtitle:` (String)
+
+```erb
+<%= ui_feature_grid(
+  title: "Why Keystone?",
+  subtitle: "Built for Rails developers",
+  features: [
+    { icon: "🚀", title: "Fast", description: "No build step required." },
+    { icon: "🎨", title: "Themeable", description: "CSS custom properties." }
+  ]
+) %>
+```
+
+### `ui_cta_banner`
+
+Renders a call-to-action banner with title, subtitle, and action buttons.
+
+**Required props**
+
+- `title:` (String)
+
+**Optional props**
+
+- `subtitle:` (String)
+
+```erb
+<%= ui_cta_banner(title: "Ready to get started?", subtitle: "Try Keystone today.") do %>
+  <%= ui_button(label: "Get Started", href: signup_path) %>
+<% end %>
+```
+
+### `ui_color_picker`
+
+Renders an HSV color picker with swatch preview. Uses Stimulus `color-picker` controller.
+
+**Required props**
+
+- `name:` (String) — form input name
+
+**Optional props**
+
+- `value:` (String, default `"#000000"`) — initial hex color
+- `label:` (String)
+
+```erb
+<%= ui_color_picker(name: "accent_color", value: "#3b82f6", label: "Accent") %>
+```
+
+### `ui_navbar`
+
+Renders the top-level navigation bar with slots for desktop and mobile sections. Sticky by default.
+
+**Optional props**
+
+- `sticky:` (Boolean, default `true`)
+
+**Slots:** `logo`, `desktop_links`, `desktop_right`, `mobile_left`, `mobile_center`, `mobile_right`
+
+```erb
+<%= ui_navbar do |nav| %>
+  <% nav.with_logo do %>
+    <%= link_to "MyApp", root_path %>
+  <% end %>
+  <% nav.with_desktop_links do %>
+    <%= ui_nav_item(label: "Dashboard", href: root_path, active: true) %>
+  <% end %>
+<% end %>
+```
+
+### `ui_nav_item`
+
+Renders a single nav link within the navbar.
+
+**Required props**
+
+- `label:` (String)
+- `href:` (String)
+
+**Optional props**
+
+- `active:` (Boolean, default `false`)
+
+```erb
+<%= ui_nav_item(label: "Dashboard", href: "/", active: current_page?(root_path)) %>
+```
+
+### `ui_nav_dropdown`
+
+Renders a dropdown menu within the navbar. Uses Stimulus `dropdown` controller.
+
+**Required props**
+
+- `title:` (String)
+- `area:` (Symbol/String)
+
+**Optional props**
+
+- `active:` (Boolean, default `false`)
+
+```erb
+<%= ui_nav_dropdown(title: "Settings", area: :settings, active: false) do %>
+  <%= link_to "Profile", profile_path %>
+  <%= link_to "Billing", billing_path %>
+<% end %>
+```
+
+### `ui_bottom_nav`
+
+Renders a mobile bottom tab bar. Hidden on desktop (`lg:hidden`).
+
+No props. Wrap `ui_bottom_nav_item` calls inside.
+
+```erb
+<%= ui_bottom_nav do %>
+  <%= ui_bottom_nav_item(label: "Home", href: "/", icon: "<svg>…</svg>", active: true) %>
+  <%= ui_bottom_nav_item(label: "Search", href: "/search", icon: "<svg>…</svg>") %>
+<% end %>
+```
+
+### `ui_bottom_nav_item`
+
+Renders a single bottom nav tab.
+
+**Required props**
+
+- `label:` (String)
+- `href:` (String)
+- `icon:` (String) — raw SVG string
+
+**Optional props**
+
+- `active:` (Boolean, default `false`)
+
+```erb
+<%= ui_bottom_nav_item(label: "Home", href: "/", icon: "<svg>…</svg>", active: true) %>
+```
+
+### `ui_mobile_header`
+
+Renders a mobile header with back link, centered title, and optional subtitle. Hidden on `lg:` screens.
+
+**Required props**
+
+- `title:` (String)
+- `back_url:` (String)
+
+**Optional props**
+
+- `subtitle:` (String)
+
+```erb
+<%= ui_mobile_header(title: "Edit Product", back_url: products_path) %>
+```
+
+### `ui_mobile_actions`
+
+Renders an ellipsis dropdown for mobile action menus. Hidden on `lg:` screens. Uses Stimulus `dropdown` controller.
+
+No props. Pass action links as block content.
+
+```erb
+<%= ui_mobile_actions do %>
+  <%= link_to "Edit", edit_product_path(@product) %>
+  <%= link_to "Delete", product_path(@product), data: { turbo_method: :delete } %>
+<% end %>
+```
+
+### `ui_form_page`
+
+Wraps a form page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context.
+
+**Required props**
+
+- `title:` (String)
+- `back_url:` (String)
+
+**Optional props**
+
+- `subtitle:` (String)
+
+```erb
+<%= ui_form_page(title: "New Product", back_url: products_path) %>
+```
+
+### `ui_show_page`
+
+Wraps a show/detail page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context.
+
+**Required props**
+
+- `title:` (String)
+- `back_url:` (String)
+
+**Optional props**
+
+- `subtitle:` (String)
+
+```erb
+<%= ui_show_page(title: @product.name, back_url: products_path, subtitle: "Details") %>
+```
+
+### `ui_settings_link`
+
+Renders a settings row link with label and chevron icon.
+
+**Required props**
+
+- `label:` (String)
+- `href:` (String)
+
+```erb
+<%= ui_settings_link(label: "Account", href: account_settings_path) %>
+```
