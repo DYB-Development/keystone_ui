@@ -6,8 +6,8 @@ RSpec.describe Keystone::Ui::AlertComponent do
   it "returns info classes by default" do
     component = described_class.new(message: "FYI")
 
-    expect(component.classes).to include("bg-blue-50")
-    expect(component.classes).to include("text-blue-800")
+    expect(component.classes).to include("bg-accent-50")
+    expect(component.classes).to include("text-accent-800")
   end
 
   it "maps each type to its variant classes" do
@@ -41,16 +41,12 @@ RSpec.describe Keystone::Ui::AlertComponent do
     expect(described_class.new(message: "x").dismissible?).to be false
   end
 
-  context "with custom accent" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes for info type" do
+    component = described_class.new(message: "FYI", type: :info)
 
-    it "uses accent colors for info type" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(message: "FYI", type: :info)
-
-      expect(component.classes).to include("bg-emerald-50")
-      expect(component.classes).to include("text-emerald-800")
-      expect(component.classes).not_to include("bg-blue-50")
-    end
+    expect(component.classes).to include("bg-accent-50")
+    expect(component.classes).to include("text-accent-800")
+    expect(component.classes).to include("dark:bg-accent-900/30")
+    expect(component.classes).to include("dark:text-accent-300")
   end
 end
