@@ -133,6 +133,10 @@ module KeystoneUiHelper
     render Keystone::Ui::BottomNavItemComponent.new(**args)
   end
 
+  def ui_option_card(**args, &block)
+    render Keystone::Ui::OptionCardComponent.new(**args), &block
+  end
+
   def ui_settings_link(**args)
     render Keystone::Ui::SettingsLinkComponent.new(**args)
   end

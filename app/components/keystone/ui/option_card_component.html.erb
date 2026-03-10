@@ -1,0 +1,9 @@
+<label class="relative cursor-pointer">
+  <input type="radio" name="<%= name %>" value="<%= value %>"
+    <%= "checked" if selected? %>
+    class="sr-only"
+    <%= tag.attributes(@options.fetch(:data, {}).transform_keys { |k| "data-#{k}" }) if @options[:data] %>>
+  <span class="<%= classes %>">
+    <%= content %>
+  </span>
+</label>
