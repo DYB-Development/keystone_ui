@@ -4,6 +4,13 @@ module KeystoneUi
   class Engine < ::Rails::Engine
     config.autoload_paths << root.join("app/components")
 
+    # Pin JavaScript controllers for importmap-based host apps.
+    initializer "keystone_ui.importmap", before: "importmap" do |app|
+      if app.config.respond_to?(:importmap)
+        app.config.importmap.paths << root.join("config/importmap.rb")
+      end
+    end
+
     # Write a separate keystone_source.css with the gem's @source directive
     # so Tailwind can scan component files during asset compilation.
     #
@@ -30,6 +37,9 @@ module KeystoneUi
       # Import component CSS files shipped with the gem
       nav_css = root.join("app/assets/tailwind/keystone_ui_engine/nav.css")
       lines << %(@import "#{nav_css}";) if nav_css.exist?
+
+      color_picker_css = root.join("app/assets/tailwind/keystone_ui_engine/color_picker.css")
+      lines << %(@import "#{color_picker_css}";) if color_picker_css.exist?
 
       source_css.write(lines.join("\n") + "\n")
     end
