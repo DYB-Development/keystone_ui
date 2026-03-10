@@ -18,12 +18,7 @@ module Keystone
       end
 
       def tab_classes
-        accent = KeystoneUi::AccentColors.current
-        active_bg = accent[:bg].split.map { |c| "data-[active]:#{c}" }.join(" ")
-        active_text = accent[:text].split.map { |c| "data-[active]:#{c}" }.join(" ")
-        dark_active_bg = accent[:bg].split.map { |c| "dark:data-[active]:#{c}" }.join(" ")
-        dark_active_text = accent[:dark_text].gsub("dark:", "").split.map { |c| "dark:data-[active]:#{c}" }.join(" ")
-        "#{TAB_BASE_CLASSES} #{active_bg} #{active_text} #{dark_active_bg} #{dark_active_text}"
+        "#{TAB_BASE_CLASSES} data-[active]:bg-accent-500/10 data-[active]:text-accent-600 dark:data-[active]:bg-accent-500/10 dark:data-[active]:text-accent-400"
       end
 
       def panel_classes
