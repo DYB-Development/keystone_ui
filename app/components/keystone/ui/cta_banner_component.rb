@@ -16,16 +16,15 @@ module Keystone
       end
 
       def classes
-        surface = KeystoneUi::SurfaceColors.current
-        "#{CARD_LAYOUT_CLASSES} #{surface[:card_border]} #{surface[:subtle_bg]}"
+        "#{CARD_LAYOUT_CLASSES} border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800"
       end
 
       def title_classes
-        "#{TITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:heading]}"
+        "#{TITLE_BASE_CLASSES} text-surface-900 dark:text-white"
       end
 
       def subtitle_classes
-        "#{SUBTITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:body]}"
+        "#{SUBTITLE_BASE_CLASSES} text-surface-500 dark:text-surface-400"
       end
 
       def subtitle?
