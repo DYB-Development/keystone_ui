@@ -29,4 +29,13 @@ RSpec.describe Keystone::Ui::ColorPickerComponent do
     expect(component.swatch_classes).to include("cursor-pointer")
     expect(component.swatch_classes).to include("border")
   end
+
+  it "provides panel classes for the dropdown" do
+    component = described_class.new(name: "accent")
+
+    expect(component.panel_classes).to include("absolute")
+    expect(component.panel_classes).to include("rounded-lg")
+    expect(component.panel_classes).to include("shadow-lg")
+    expect(component.panel_classes).to include("hidden")
+  end
 end
