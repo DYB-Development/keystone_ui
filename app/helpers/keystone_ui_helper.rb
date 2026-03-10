@@ -140,4 +140,8 @@ module KeystoneUiHelper
   def ui_settings_link(**args)
     render Keystone::Ui::SettingsLinkComponent.new(**args)
   end
+
+  def ui_color_picker(**args)
+    render Keystone::Ui::ColorPickerComponent.new(**args)
+  end
 end

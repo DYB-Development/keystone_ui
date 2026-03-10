@@ -1,0 +1,38 @@
+<div class="relative inline-block" data-controller="<%= controller_name %>" data-color-picker-value-value="<%= value %>">
+  <% if label %>
+    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><%= label %></label>
+  <% end %>
+
+  <div class="flex items-center gap-2">
+    <button type="button"
+      class="<%= swatch_classes %>"
+      style="background-color: <%= value %>;"
+      data-color-picker-target="swatch"
+      data-action="color-picker#toggle">
+    </button>
+    <span class="text-sm text-gray-500 dark:text-gray-400" data-color-picker-target="hexLabel"><%= value %></span>
+  </div>
+
+  <input type="hidden" name="<%= name %>" value="<%= value %>" data-color-picker-target="input">
+
+  <div class="<%= panel_classes %>" data-color-picker-target="panel">
+    <%# Saturation/Value gradient area %>
+    <div class="w-48 h-36 rounded cursor-crosshair relative mb-2"
+      data-color-picker-target="svArea"
+      data-action="pointerdown->color-picker#svDown">
+      <div class="absolute inset-0 rounded" style="background: linear-gradient(to right, #fff, hsl(0, 100%, 50%));" data-color-picker-target="svGradient"></div>
+      <div class="absolute inset-0 rounded" style="background: linear-gradient(to bottom, transparent, #000);"></div>
+      <div class="absolute w-3 h-3 rounded-full border-2 border-white shadow -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+        data-color-picker-target="svCursor"
+        style="left: 100%; top: 0;">
+      </div>
+    </div>
+
+    <%# Hue slider %>
+    <input type="range" min="0" max="360" value="0"
+      class="w-48 h-3 rounded-lg appearance-none cursor-pointer"
+      style="background: linear-gradient(to right, #f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);"
+      data-color-picker-target="hueSlider"
+      data-action="input->color-picker#hueChanged">
+  </div>
+</div>
