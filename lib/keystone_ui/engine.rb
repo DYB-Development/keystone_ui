@@ -23,23 +23,9 @@ module KeystoneUi
       source_css = tailwind_dir.join("keystone_source.css")
       lines = [%(@source "#{root}/app/components/**/*.{erb,rb}";)]
 
-      # Include dynamic palette classes (accent + surface) that Tailwind
-      # can't discover from static file scanning
-      palette_classes = []
-      KeystoneUi::AccentColors::PALETTE.each_value do |accent|
-        accent.each_value { |v| palette_classes.concat(v.split) }
-      end
-      KeystoneUi::SurfaceColors::PALETTE.each_value do |surface|
-        surface.each_value { |v| palette_classes.concat(v.split) }
-      end
-
-      # Include custom accent classes from host app configuration
-      accent = KeystoneUi.configuration.accent
-      if accent.is_a?(Hash)
-        accent.each_value { |v| palette_classes.concat(v.split) }
-      end
-
-      lines << %(@source inline("#{palette_classes.uniq.join(" ")}");) if palette_classes.any?
+      # Import theme CSS (accent + surface custom property defaults)
+      theme_css = root.join("app/assets/tailwind/keystone_ui_engine/theme.css")
+      lines << %(@import "#{theme_css}";) if theme_css.exist?
 
       # Import component CSS files shipped with the gem
       nav_css = root.join("app/assets/tailwind/keystone_ui_engine/nav.css")
