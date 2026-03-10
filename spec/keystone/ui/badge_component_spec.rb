@@ -30,16 +30,12 @@ RSpec.describe Keystone::Ui::BadgeComponent do
     end
   end
 
-  context "with custom accent" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes for info variant" do
+    component = described_class.new(label: "X", variant: :info)
 
-    it "uses accent colors for info variant" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(label: "X", variant: :info)
-
-      expect(component.classes).to include("bg-emerald-100")
-      expect(component.classes).to include("text-emerald-700")
-      expect(component.classes).not_to include("bg-blue-100")
-    end
+    expect(component.classes).to include("bg-accent-100")
+    expect(component.classes).to include("text-accent-700")
+    expect(component.classes).to include("dark:bg-accent-900/50")
+    expect(component.classes).to include("dark:text-accent-400")
   end
 end
