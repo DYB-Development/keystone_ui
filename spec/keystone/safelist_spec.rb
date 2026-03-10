@@ -51,28 +51,6 @@ RSpec.describe "Tailwind safelist" do
     end
   end
 
-  it "includes all accent color palette classes" do
-    KeystoneUi::AccentColors::PALETTE.each do |accent_name, accent|
-      accent.each do |key, css_class|
-        css_class.split.each do |token|
-          expect(Keystone::SAFELIST).to include(token),
-            "Accent #{accent_name}:#{key} class '#{token}' missing from SAFELIST"
-        end
-      end
-    end
-  end
-
-  it "includes all surface color palette classes" do
-    KeystoneUi::SurfaceColors::PALETTE.each do |surface_name, surface|
-      surface.each do |key, css_class|
-        css_class.split.each do |token|
-          expect(Keystone::SAFELIST).to include(token),
-            "Surface #{surface_name}:#{key} class '#{token}' missing from SAFELIST"
-        end
-      end
-    end
-  end
-
   it "COMPONENTS lists every Keystone::Ui component" do
     # Finds all classes under Keystone::Ui that inherit ViewComponent::Base
     actual = Keystone::Ui.constants.filter_map { |c|

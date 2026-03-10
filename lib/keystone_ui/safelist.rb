@@ -85,16 +85,6 @@ module Keystone
 
       classes.concat(NON_CONSTANT_CLASSES)
 
-      # Include all accent color palette classes so Tailwind compiles them
-      KeystoneUi::AccentColors::PALETTE.each_value do |accent|
-        accent.each_value { |css_class| classes.concat(css_class.split) }
-      end
-
-      # Include all surface color palette classes so Tailwind compiles them
-      KeystoneUi::SurfaceColors::PALETTE.each_value do |surface|
-        surface.each_value { |css_class| classes.concat(css_class.split) }
-      end
-
       classes.uniq.sort.join(" ")
     end
   end

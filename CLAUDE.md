@@ -37,49 +37,9 @@ Components use Tailwind CSS utility classes directly. The engine ships a CSS fil
 
 Tests use RSpec. The spec helper stubs `ViewComponent::Base` so tests run without a full Rails environment. Tests validate component logic (class composition, tag options, normalization) rather than rendered HTML.
 
-## Accent Color System
+## Color System
 
-KeystoneUi provides a configurable accent color palette that all components and consuming gems should use. This ensures a host app can set one accent color and have it propagate everywhere.
-
-### How it works
-
-1. **Host app configures accent** in an initializer:
-```ruby
-# config/initializers/keystone_ui.rb
-KeystoneUi.configure do |c|
-  c.accent = :emerald          # preset: :blue (default), :emerald, :cyan, :indigo, :violet, :rose
-  # OR a custom hash (missing keys fall back to :blue defaults):
-  c.accent = { text: "text-[#D4636D]", dark_text: "text-[#D4636D]" }
-end
-```
-
-2. **Components use `AccentColors`** instead of hardcoded color classes:
-```ruby
-accent = KeystoneUi::AccentColors.current  # returns full palette hash
-accent[:text]          # => "text-blue-600" (or whatever accent is configured)
-accent[:focus_border]  # => "focus:border-blue-500"
-```
-
-3. **Consuming gems** (like Herald) wrap lookups in a helper module:
-```ruby
-# app/helpers/my_gem/theme_helper.rb
-module MyGem
-  module ThemeHelper
-    def my_accent(key)
-      KeystoneUi::AccentColors[key]
-    end
-  end
-end
-```
-Then use `my_accent(:text)`, `my_accent(:focus_border)`, etc. in views instead of hardcoded Tailwind classes.
-
-### Available palette keys
-
-`border`, `bg`, `text`, `dark_text`, `hover_border`, `dark_hover_border`, `hover_text`, `dark_hover_text`, `badge_bg`, `badge_text`, `badge_dark_bg`, `badge_dark_text`, `alert_bg`, `alert_text`, `alert_dark_bg`, `alert_dark_text`, `solid_bg`, `solid_hover_bg`, `focus_border`, `focus_ring`, `dark_focus_border`, `dark_focus_ring`, `link_text`, `link_hover_text`, `link_dark_text`, `link_dark_hover_text`, `checkbox`, `checkbox_focus`
-
-### CSS source generation
-
-The engine uses `config.after_initialize` to write a `keystone_source.css` file containing `@source inline()` directives. This tells Tailwind to compile dynamic palette classes that can't be discovered from static file scanning. Host apps and dependent engines don't need any extra configuration — it happens automatically on boot.
+Components use semantic CSS custom properties (`--color-accent-*`, `--color-surface-*`) via Tailwind classes like `bg-accent-500`, `text-accent-600`, etc. The `theme.css` file in the engine sets default values. Host apps can override these via CSS, or use the `keystone_colors` gem for per-user theming.
 
 ## Key Conventions
 
