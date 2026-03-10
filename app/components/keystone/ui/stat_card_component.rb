@@ -34,7 +34,7 @@ module Keystone
 
       def value_classes
         variant_css = if @variant == :info
-          "#{KeystoneUi::AccentColors[:text]} #{KeystoneUi::AccentColors[:dark_text]}"
+          "text-accent-600 dark:text-accent-400"
         else
           VARIANT_CLASSES.fetch(@variant)
         end
