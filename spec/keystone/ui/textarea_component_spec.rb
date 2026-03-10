@@ -30,4 +30,11 @@ RSpec.describe Keystone::Ui::TextareaComponent do
     expect(component.classes).to include(described_class::DISABLED_CLASSES)
     expect(component.tag_options[:disabled]).to be true
   end
+
+  it "uses semantic accent classes for focus state" do
+    component = described_class.new(name: "notes")
+
+    expect(component.classes).to include("focus:border-accent-500")
+    expect(component.classes).to include("focus:ring-accent-500")
+  end
 end
