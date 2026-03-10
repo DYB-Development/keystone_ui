@@ -28,4 +28,16 @@ RSpec.describe Keystone::Ui::TabSwitcherComponent do
     expect(component.tab_classes).to include("data-[active]:bg-accent-500/10")
     expect(component.tab_classes).to include("data-[active]:text-accent-600")
   end
+
+  it "exposes panel_classes as hidden" do
+    component = described_class.new(tabs: ["A"])
+
+    expect(component.panel_classes).to eq("hidden")
+  end
+
+  it "includes dark mode accent classes for active tab" do
+    component = described_class.new(tabs: ["A"])
+
+    expect(component.tab_classes).to include("dark:data-[active]:text-accent-400")
+  end
 end
