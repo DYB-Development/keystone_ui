@@ -64,44 +64,20 @@ RSpec.describe Keystone::Ui::HeroComponent do
     expect(described_class.registered_slots).to have_key(:aside)
   end
 
-  context "accent theming" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic accent classes for badge" do
+    component = described_class.new(title: "X", badge: "New")
 
-    it "uses blue accent badge classes by default" do
-      component = described_class.new(title: "X", badge: "New")
-
-      expect(component.badge_classes).to include("border-blue-500/20")
-      expect(component.badge_classes).to include("text-blue-600")
-    end
-
-    it "uses emerald accent badge classes when configured" do
-      KeystoneUi.configure { |c| c.accent = :emerald }
-      component = described_class.new(title: "X", badge: "New")
-
-      expect(component.badge_classes).to include("border-emerald-500/20")
-      expect(component.badge_classes).to include("text-emerald-600")
-      expect(component.badge_classes).not_to include("blue")
-    end
+    expect(component.badge_classes).to include("border-accent-500/20")
+    expect(component.badge_classes).to include("text-accent-600")
+    expect(component.badge_classes).to include("bg-accent-500/10")
+    expect(component.badge_classes).to include("dark:text-accent-400")
   end
 
-  context "surface theming" do
-    after { KeystoneUi.reset_configuration! }
+  it "uses semantic surface classes for title and subtitle" do
+    component = described_class.new(title: "X", subtitle: "Sub")
 
-    it "uses gray/zinc surface by default" do
-      component = described_class.new(title: "X", subtitle: "Sub")
-
-      expect(component.title_classes).to include("text-gray-900")
-      expect(component.subtitle_classes).to include("text-gray-500")
-    end
-
-    it "uses slate surface when configured" do
-      KeystoneUi.configure { |c| c.surface = :slate }
-      component = described_class.new(title: "X", subtitle: "Sub")
-
-      expect(component.title_classes).to include("text-slate-900")
-      expect(component.title_classes).not_to include("text-gray-900")
-      expect(component.subtitle_classes).to include("text-slate-500")
-      expect(component.subtitle_classes).to include("dark:text-slate-400")
-    end
+    expect(component.title_classes).to include("text-surface-900")
+    expect(component.subtitle_classes).to include("text-surface-500")
+    expect(component.subtitle_classes).to include("dark:text-surface-400")
   end
 end

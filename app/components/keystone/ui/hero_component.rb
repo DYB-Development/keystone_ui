@@ -38,11 +38,11 @@ module Keystone
       end
 
       def title_classes
-        "#{TITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:heading]}"
+        "#{TITLE_BASE_CLASSES} text-surface-900 dark:text-white"
       end
 
       def subtitle_classes
-        "#{SUBTITLE_BASE_CLASSES} #{KeystoneUi::SurfaceColors[:body]}"
+        "#{SUBTITLE_BASE_CLASSES} text-surface-500 dark:text-surface-400"
       end
 
       def subtitle?
@@ -50,8 +50,7 @@ module Keystone
       end
 
       def badge_classes
-        accent = KeystoneUi::AccentColors.current
-        "#{BADGE_BASE_CLASSES} #{accent[:border]} #{accent[:bg]} #{accent[:text]} #{accent[:dark_text]}"
+        "#{BADGE_BASE_CLASSES} border-accent-500/20 bg-accent-500/10 text-accent-600 dark:text-accent-400"
       end
 
       def badge?
