@@ -41,7 +41,8 @@ module Keystone
       Keystone::Ui::ShowPageComponent,
       Keystone::Ui::OptionCardComponent,
       Keystone::Ui::ColorPickerComponent,
-      Keystone::Ui::MultiSelectComponent
+      Keystone::Ui::MultiSelectComponent,
+      Keystone::Ui::SwipeDeckComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)
