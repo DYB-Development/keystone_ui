@@ -16,7 +16,7 @@
              data-item-id="<%= item_id(card[:item], fallback_index: card[:index]) %>"
              data-testid="swipe-card"
              style="z-index: <%= card[:z_index] %>; transform: <%= card[:transform] %>;">
-          <%= yield card[:item] %>
+          <%= capture(card[:item], &@item_block) %>
         </div>
       <% end %>
     </div>

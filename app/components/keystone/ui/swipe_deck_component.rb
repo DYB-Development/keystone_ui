@@ -12,6 +12,15 @@ module Keystone
         @items = items
         @empty_title = empty_title
         @empty_subtitle = empty_subtitle
+        @item_block = nil
+      end
+
+      def item(&block)
+        @item_block = block
+      end
+
+      def before_render
+        content
       end
 
       def card_data

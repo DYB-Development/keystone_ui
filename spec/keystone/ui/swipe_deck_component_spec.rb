@@ -55,6 +55,26 @@ RSpec.describe Keystone::Ui::SwipeDeckComponent do
     end
   end
 
+  describe "#item" do
+    it "stores the item block" do
+      component = described_class.new(items: items)
+      block = proc { |item| "Render #{item.name}" }
+      component.item(&block)
+      expect(component.instance_variable_get(:@item_block)).to eq(block)
+    end
+
+    it "before_render evaluates content block so item block is registered" do
+      component = described_class.new(items: items)
+      component.set_content_block do |deck|
+        deck.item { |item| "Render #{item.name}" }
+      end
+
+      expect(component.instance_variable_get(:@item_block)).to be_nil
+      component.before_render
+      expect(component.instance_variable_get(:@item_block)).not_to be_nil
+    end
+  end
+
   describe "#item_id" do
     it "returns item.id when item responds to id" do
       component = described_class.new(items: items)
