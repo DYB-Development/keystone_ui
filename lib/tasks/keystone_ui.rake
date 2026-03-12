@@ -626,6 +626,32 @@ namespace :keystone do
       | `name:` | yes | — |
       | `value:` | no | `"#000000"` |
       | `label:` | no | `nil` |
+
+      ### `ui_swipe_deck`
+
+      Stacked card deck with touch/click swipe gestures. Emits `swipe-deck:complete`
+      and `swipe-deck:skip` custom DOM events so the host app handles the action.
+
+      ```erb
+      <%= ui_swipe_deck(items: @goals, empty_title: "All done!", empty_subtitle: "No more items.") do |goal| %>
+        <p class="text-2xl font-bold"><%= goal.name %></p>
+        <% if goal.has_value? %>
+          <input type="number" data-swipe-deck-value placeholder="Value">
+        <% end %>
+      <% end %>
+      ```
+
+      | Param | Required | Default |
+      |-------|----------|---------|
+      | `items:` | yes | — |
+      | `empty_title:` | no | `"All done!"` |
+      | `empty_subtitle:` | no | `nil` |
+
+      Block yields each item. Cards support an optional `<input data-swipe-deck-value>` whose value is included in the `complete` event detail.
+
+      **Events dispatched:**
+      - `swipe-deck:complete` — `{ detail: { itemId, value, card } }`
+      - `swipe-deck:skip` — `{ detail: { itemId, card } }`
     MARKDOWN
 
     content.chomp!

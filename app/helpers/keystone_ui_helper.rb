@@ -148,4 +148,8 @@ module KeystoneUiHelper
   def ui_multi_select(**args)
     render Keystone::Ui::MultiSelectComponent.new(**args)
   end
+
+  def ui_swipe_deck(**args, &block)
+    render Keystone::Ui::SwipeDeckComponent.new(**args), &block
+  end
 end
