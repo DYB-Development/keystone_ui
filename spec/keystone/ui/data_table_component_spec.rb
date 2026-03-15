@@ -319,4 +319,96 @@ RSpec.describe Keystone::Ui::DataTableComponent do
       expect(component.column_labels).to eq(["Name", "Quantity", "Price"])
     end
   end
+
+  describe "Column sortable option" do
+    it "defaults to not sortable" do
+      col = Keystone::Ui::Column.new(:name, "Name")
+      expect(col.sortable?).to be false
+    end
+
+    it "can be marked as sortable" do
+      col = Keystone::Ui::Column.new(:name, "Name", sortable: true)
+      expect(col.sortable?).to be true
+    end
+  end
+
+  describe "sortable headers" do
+    let(:sortable_columns) do
+      [
+        Keystone::Ui::Column.new(:name, "Name", sortable: true),
+        Keystone::Ui::Column.new(:quantity, "Quantity"),
+        Keystone::Ui::Column.new(:price, "Price", sortable: true)
+      ]
+    end
+    let(:sort_url) { ->(col, dir) { "/products?sort=#{col}&direction=#{dir}" } }
+
+    it "adds sort metadata to sortable header cells" do
+      component = described_class.new(
+        items: hash_items,
+        columns: sortable_columns,
+        sort_url: sort_url
+      )
+
+      headers = component.header_cells
+      expect(headers[0][:sortable]).to be true
+      expect(headers[0][:sort_href]).to eq("/products?sort=name&direction=asc")
+      expect(headers[0][:sort_active]).to be false
+
+      expect(headers[1][:sortable]).to be false
+      expect(headers[1]).not_to have_key(:sort_href)
+    end
+
+    it "toggles direction when column is actively sorted asc" do
+      component = described_class.new(
+        items: hash_items,
+        columns: sortable_columns,
+        sort: :name,
+        sort_direction: :asc,
+        sort_url: sort_url
+      )
+
+      headers = component.header_cells
+      expect(headers[0][:sort_active]).to be true
+      expect(headers[0][:sort_direction]).to eq(:asc)
+      expect(headers[0][:sort_href]).to eq("/products?sort=name&direction=desc")
+    end
+
+    it "toggles direction when column is actively sorted desc" do
+      component = described_class.new(
+        items: hash_items,
+        columns: sortable_columns,
+        sort: :name,
+        sort_direction: :desc,
+        sort_url: sort_url
+      )
+
+      headers = component.header_cells
+      expect(headers[0][:sort_active]).to be true
+      expect(headers[0][:sort_direction]).to eq(:desc)
+      expect(headers[0][:sort_href]).to eq("/products?sort=name&direction=asc")
+    end
+
+    it "defaults inactive sortable columns to asc" do
+      component = described_class.new(
+        items: hash_items,
+        columns: sortable_columns,
+        sort: :name,
+        sort_direction: :asc,
+        sort_url: sort_url
+      )
+
+      headers = component.header_cells
+      # price is sortable but not active — defaults to asc
+      expect(headers[2][:sort_active]).to be false
+      expect(headers[2][:sort_href]).to eq("/products?sort=price&direction=asc")
+    end
+
+    it "works without sort params (backward compatible)" do
+      component = described_class.new(items: hash_items, columns: sortable_columns)
+
+      headers = component.header_cells
+      expect(headers[0]).not_to have_key(:sortable)
+      expect(headers[0]).not_to have_key(:sort_href)
+    end
+  end
 end
