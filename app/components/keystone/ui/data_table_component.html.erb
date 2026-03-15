@@ -4,7 +4,18 @@
       <tr>
         <% header_cells.each do |cell| %>
           <th scope="<%= cell[:scope] %>" class="<%= cell[:classes] %>">
-            <%= cell[:label] %>
+            <% if cell[:sort_href] %>
+              <a href="<%= cell[:sort_href] %>" class="<%= Keystone::Ui::DataTableComponent::SORT_LINK_CLASSES %>" data-turbo-action="replace">
+                <%= cell[:label] %>
+                <% if cell[:sort_active] %>
+                  <span class="<%= Keystone::Ui::DataTableComponent::SORT_ICON_CLASSES %> <%= Keystone::Ui::DataTableComponent::SORT_ICON_ACTIVE %>"><%= (cell[:sort_direction] == :asc ? Keystone::Ui::DataTableComponent::SORT_ASC_ICON : Keystone::Ui::DataTableComponent::SORT_DESC_ICON).html_safe %></span>
+                <% else %>
+                  <span class="<%= Keystone::Ui::DataTableComponent::SORT_ICON_CLASSES %> <%= Keystone::Ui::DataTableComponent::SORT_ICON_INACTIVE %>"><%= Keystone::Ui::DataTableComponent::SORT_NEUTRAL_ICON.html_safe %></span>
+                <% end %>
+              </a>
+            <% else %>
+              <%= cell[:label] %>
+            <% end %>
           </th>
         <% end %>
       </tr>
