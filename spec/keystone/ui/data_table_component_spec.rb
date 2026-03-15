@@ -319,4 +319,16 @@ RSpec.describe Keystone::Ui::DataTableComponent do
       expect(component.column_labels).to eq(["Name", "Quantity", "Price"])
     end
   end
+
+  describe "Column sortable option" do
+    it "defaults to not sortable" do
+      col = Keystone::Ui::Column.new(:name, "Name")
+      expect(col.sortable?).to be false
+    end
+
+    it "can be marked as sortable" do
+      col = Keystone::Ui::Column.new(:name, "Name", sortable: true)
+      expect(col.sortable?).to be true
+    end
+  end
 end
