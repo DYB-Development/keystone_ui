@@ -13,10 +13,13 @@ module Keystone
 
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
 
-      def initialize(items:, columns:, empty_message: nil)
+      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil)
         @items = items
         @columns = columns.map { |col| normalize_column(col) }
         @empty_message = empty_message
+        @sort = sort&.to_sym
+        @sort_direction = sort_direction&.to_sym
+        @sort_url = sort_url
         @actions_block = nil
         @link_blocks = {}
       end
@@ -50,11 +53,30 @@ module Keystone
           tokens = [header_classes_for(index)]
           tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
 
-          {
+          cell = {
             label: column.header_text,
             classes: tokens.join(" "),
             scope: "col"
           }
+
+          if @sort_url
+            active = column.sortable? && @sort == column.key
+            cell[:sortable] = column.sortable?
+
+            if column.sortable?
+              if active
+                cell[:sort_active] = true
+                cell[:sort_direction] = @sort_direction
+                next_dir = @sort_direction == :asc ? :desc : :asc
+              else
+                cell[:sort_active] = false
+                next_dir = :asc
+              end
+              cell[:sort_href] = @sort_url.call(column.key, next_dir)
+            end
+          end
+
+          cell
         end
 
         if actions?
