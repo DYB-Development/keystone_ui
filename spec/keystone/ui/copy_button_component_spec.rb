@@ -41,4 +41,11 @@ RSpec.describe Keystone::Ui::CopyButtonComponent do
     expect(component.success_message).to eq("Copied!")
     expect(component.error_message).to eq("Failed!")
   end
+
+  it "provides clipboard Stimulus controller data" do
+    component = described_class.new(text: "abc123")
+
+    expect(component.wrapper_data[:controller]).to eq("clipboard")
+    expect(component.wrapper_data[:"clipboard-text"]).to eq("abc123")
+  end
 end

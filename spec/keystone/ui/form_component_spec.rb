@@ -75,4 +75,11 @@ RSpec.describe Keystone::Ui::FormComponent do
 
     expect(options[:data]).to eq({ turbo: true })
   end
+
+  it "sets method override for patch so Rails processes it correctly" do
+    component = described_class.new(action: "/items/1", method: :patch)
+
+    expect(component.method_override).to eq("patch")
+    expect(component.form_method).to eq("post")
+  end
 end

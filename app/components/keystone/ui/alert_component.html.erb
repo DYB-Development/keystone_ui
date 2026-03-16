@@ -1,4 +1,4 @@
-<div class="<%= classes %>" role="alert">
+<div class="<%= classes %>" role="alert" <%= wrapper_data.map { |k, v| %(data-#{k}="#{v}") }.join(" ") %>>
   <div class="<%= OUTER_CLASSES %>">
     <div class="<%= INNER_CLASSES %>">
       <% if title? %>

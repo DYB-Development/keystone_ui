@@ -27,4 +27,12 @@ RSpec.describe Keystone::Ui::ButtonComponent do
     expect(component.classes).to include("bg-accent-600")
     expect(component.classes).to include("hover:bg-accent-500")
   end
+
+  it "renders as a link with href when href is provided" do
+    component = described_class.new(label: "Visit", href: "/products")
+
+    expect(component.tag_name).to eq(:a)
+    expect(component.tag_options[:href]).to eq("/products")
+    expect(component.tag_options).not_to have_key(:type)
+  end
 end
