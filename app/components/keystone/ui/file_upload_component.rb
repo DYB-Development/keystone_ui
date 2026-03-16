@@ -54,6 +54,10 @@ module Keystone
         { controller: "file-upload" }
       end
 
+      def drop_zone_data
+        { "file-upload-target": "dropZone" }
+      end
+
       def tag_options
         options = {
           type: "file",
