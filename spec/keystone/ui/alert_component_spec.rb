@@ -49,4 +49,10 @@ RSpec.describe Keystone::Ui::AlertComponent do
     expect(component.classes).to include("dark:bg-accent-900/30")
     expect(component.classes).to include("dark:text-accent-300")
   end
+
+  it "provides Stimulus controller data for dismissible alerts" do
+    component = described_class.new(message: "x", dismissible: true)
+
+    expect(component.wrapper_data[:controller]).to eq("dismiss")
+  end
 end

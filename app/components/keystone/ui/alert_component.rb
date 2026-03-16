@@ -49,6 +49,10 @@ module Keystone
       def dismissible?
         @dismissible
       end
+
+      def wrapper_data
+        dismissible? ? { controller: "dismiss" } : {}
+      end
     end
   end
 end
