@@ -40,4 +40,10 @@ RSpec.describe Keystone::Ui::TabSwitcherComponent do
 
     expect(component.tab_classes).to include("dark:data-[active]:text-accent-400")
   end
+
+  it "wires the tab-switcher Stimulus controller" do
+    component = described_class.new(tabs: ["A", "B"])
+
+    expect(component.wrapper_data[:controller]).to eq("tab-switcher")
+  end
 end
