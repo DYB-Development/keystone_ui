@@ -59,4 +59,10 @@ RSpec.describe Keystone::Ui::ModalComponent do
 
     expect(component.size_class).to eq("max-w-4xl")
   end
+
+  it "provides Stimulus controller data for open/close behavior" do
+    component = described_class.new(title: "Confirm")
+
+    expect(component.wrapper_data[:controller]).to eq("modal")
+  end
 end

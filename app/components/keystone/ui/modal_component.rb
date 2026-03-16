@@ -59,6 +59,10 @@ module Keystone
       def close_icon
         CLOSE_ICON
       end
+
+      def wrapper_data
+        { controller: "modal" }
+      end
     end
   end
 end
