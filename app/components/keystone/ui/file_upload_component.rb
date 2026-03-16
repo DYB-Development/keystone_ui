@@ -51,6 +51,10 @@ module Keystone
         @hint
       end
 
+      def prompt_text
+        multiple? ? "Drop files here or" : "Drop file here or"
+      end
+
       def wrapper_data
         { controller: "file-upload" }
       end

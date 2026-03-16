@@ -105,4 +105,12 @@ RSpec.describe Keystone::Ui::FileUploadComponent do
     expect(described_class::DROP_ZONE_ACTIVE_CLASSES).to include("border-accent-500")
     expect(described_class::DROP_ZONE_ACTIVE_CLASSES).to include("bg-accent-50")
   end
+
+  it "shows drop prompt text appropriate for single vs multiple" do
+    single = described_class.new(name: "avatar")
+    multi = described_class.new(name: "docs[]", multiple: true)
+
+    expect(single.prompt_text).to eq("Drop file here or")
+    expect(multi.prompt_text).to eq("Drop files here or")
+  end
 end
