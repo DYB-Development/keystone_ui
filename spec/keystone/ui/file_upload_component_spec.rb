@@ -100,4 +100,9 @@ RSpec.describe Keystone::Ui::FileUploadComponent do
     expect(component.input_data[:"file-upload-target"]).to eq("input")
     expect(component.input_data[:action]).to eq("change->file-upload#select")
   end
+
+  it "provides accent-based active classes for drag-over feedback" do
+    expect(described_class::DROP_ZONE_ACTIVE_CLASSES).to include("border-accent-500")
+    expect(described_class::DROP_ZONE_ACTIVE_CLASSES).to include("bg-accent-50")
+  end
 end

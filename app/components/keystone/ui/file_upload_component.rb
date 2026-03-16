@@ -5,7 +5,8 @@ module Keystone
     class FileUploadComponent < ViewComponent::Base
       WRAPPER_CLASSES = "space-y-1"
       LABEL_CLASSES = "block text-sm font-medium text-gray-700 dark:text-gray-300"
-      DROP_ZONE_CLASSES = "mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 py-8 dark:border-zinc-600"
+      DROP_ZONE_CLASSES = "mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 py-8 cursor-pointer dark:border-zinc-600 transition-colors"
+      DROP_ZONE_ACTIVE_CLASSES = "border-accent-500 bg-accent-50 dark:bg-accent-900/10"
       DROP_ZONE_INNER_CLASSES = "space-y-2 text-center"
       ICON_CLASSES = "mx-auto h-10 w-10 text-gray-400 dark:text-gray-500"
       BUTTON_CLASSES = "text-sm font-semibold text-accent-600 hover:text-accent-500 dark:text-accent-400 dark:hover:text-accent-300 cursor-pointer"
