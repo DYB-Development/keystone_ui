@@ -9,7 +9,7 @@
       </p>
       <p class="<%= FILE_NAME_CLASSES %>" data-file-upload-target="fileName"></p>
     </div>
-    <input <%= tag.attributes(tag_options) %>>
+    <%= tag.input(**tag_options) %>
   </label>
 
   <% if hint? %>

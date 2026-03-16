@@ -1,6 +1,6 @@
-<form <%= tag.attributes(tag_options) %>>
+<%= tag.form(**tag_options) do %>
   <% if method_override %>
     <input type="hidden" name="_method" value="<%= method_override %>">
   <% end %>
   <%= content %>
-</form>
+<% end %>
