@@ -27,4 +27,10 @@ RSpec.describe Keystone::Ui::MobileActionsComponent do
     expect(described_class::ELLIPSIS_ICON).to be_frozen
     expect(described_class::ELLIPSIS_ICON).to include("<svg")
   end
+
+  it "provides dropdown Stimulus controller data" do
+    component = described_class.new
+
+    expect(component.wrapper_data[:controller]).to eq("dropdown")
+  end
 end
