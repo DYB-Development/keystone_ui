@@ -81,4 +81,36 @@ RSpec.describe Keystone::Ui::FileUploadComponent do
 
     expect(component.tag_options).not_to have_key(:accept)
   end
+
+  it "wires the file-upload Stimulus controller on the wrapper" do
+    component = described_class.new(name: "avatar")
+
+    expect(component.wrapper_data).to eq({ controller: "file-upload" })
+  end
+
+  it "marks the drop zone as a Stimulus target" do
+    component = described_class.new(name: "avatar")
+
+    expect(component.drop_zone_data[:"file-upload-target"]).to eq("dropZone")
+  end
+
+  it "marks the input as a Stimulus target with change action" do
+    component = described_class.new(name: "avatar")
+
+    expect(component.input_data[:"file-upload-target"]).to eq("input")
+    expect(component.input_data[:action]).to eq("change->file-upload#select")
+  end
+
+  it "provides accent-based active classes for drag-over feedback" do
+    expect(described_class::DROP_ZONE_ACTIVE_CLASSES).to include("border-accent-500")
+    expect(described_class::DROP_ZONE_ACTIVE_CLASSES).to include("bg-accent-50")
+  end
+
+  it "shows drop prompt text appropriate for single vs multiple" do
+    single = described_class.new(name: "avatar")
+    multi = described_class.new(name: "docs[]", multiple: true)
+
+    expect(single.prompt_text).to eq("Drop file here or")
+    expect(multi.prompt_text).to eq("Drop files here or")
+  end
 end
