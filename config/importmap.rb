@@ -4,3 +4,4 @@ pin "keystone_ui/multi_select_controller", to: "keystone_ui/multi_select_control
 pin "keystone_ui/swipe_deck_controller", to: "keystone_ui/swipe_deck_controller.js"
 pin "keystone_ui/column_picker_controller", to: "keystone_ui/column_picker_controller.js"
 pin "keystone_ui/file_upload_controller", to: "keystone_ui/file_upload_controller.js"
+pin "keystone_ui/dropdown_controller", to: "keystone_ui/dropdown_controller.js"
