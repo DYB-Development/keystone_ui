@@ -25,6 +25,15 @@ module Keystone
       def copy_icon
         COPY_ICON
       end
+
+      def wrapper_data
+        {
+          controller: "clipboard",
+          "clipboard-text": @text,
+          "clipboard-success-message-value": @success_message,
+          "clipboard-error-message-value": @error_message
+        }
+      end
     end
   end
 end
