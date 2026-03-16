@@ -9,7 +9,7 @@
       </p>
       <p class="<%= FILE_NAME_CLASSES %>" data-file-upload-target="fileName"></p>
     </div>
-    <input <%= tag_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %> data-file-upload-target="input" data-action="change->file-upload#select">
+    <input <%= tag.attributes(tag_options) %>>
   </label>
 
   <% if hint? %>

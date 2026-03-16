@@ -73,7 +73,8 @@ module Keystone
         options = {
           type: "file",
           name: @name,
-          class: FILE_INPUT_CLASSES
+          class: FILE_INPUT_CLASSES,
+          data: { "file-upload-target": "input", action: "change->file-upload#select" }
         }
         options[:accept] = @accept if @accept
         options[:multiple] = true if @multiple
