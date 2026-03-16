@@ -8,6 +8,7 @@ import DismissController from "keystone_ui/dismiss_controller"
 import ModalController from "keystone_ui/modal_controller"
 import ClipboardController from "keystone_ui/clipboard_controller"
 import TabSwitcherController from "keystone_ui/tab_switcher_controller"
+import AccordionController from "keystone_ui/accordion_controller"
 
 export function registerControllers(application) {
   application.register("color-picker", ColorPickerController)
@@ -20,6 +21,7 @@ export function registerControllers(application) {
   application.register("modal", ModalController)
   application.register("clipboard", ClipboardController)
   application.register("tab-switcher", TabSwitcherController)
+  application.register("accordion", AccordionController)
 }
 
-export { ColorPickerController, MultiSelectController, SwipeDeckController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ModalController, ClipboardController, TabSwitcherController }
+export { ColorPickerController, MultiSelectController, SwipeDeckController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ModalController, ClipboardController, TabSwitcherController, AccordionController }
