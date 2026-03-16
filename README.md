@@ -34,16 +34,18 @@ gem "keystone_ui"
 rails generate keystone:install
 ```
 
-The generator adds a `/* keystone:source */` marker to your
-`app/assets/tailwind/application.css`. At boot time, a Railtie initializer
-resolves the gem's install path and injects a `@source` directive so Tailwind
-scans the component files directly. No manual path configuration needed.
+The generator handles setup automatically:
+
+- If `app/assets/tailwind/application.css` **does not exist**, the generator creates it with the Tailwind import and Keystone source import. No need to run `tailwindcss:install` first.
+- If it **already exists**, the generator injects the Keystone source import after the existing Tailwind import line.
+
+At boot time, the engine initializer writes `keystone_source.css` with `@source` directives pointing to the gem's component files so Tailwind scans them automatically.
 
 ### How Tailwind integration works
 
-- The generator commits only a marker comment — no machine-specific paths in git.
-- On every app boot (dev server, `assets:precompile`, CI), the initializer
-  replaces the marker with `@source "/path/to/gem/app/components/**/*.{erb,rb}"`.
+- The generator commits only an `@import "./keystone_source.css"` line — no machine-specific paths in git.
+- On every app boot (dev server, `assets:precompile`, CI), the engine writes
+  `keystone_source.css` with `@source` and theme `@import` directives.
 - Tailwind's JIT scanner finds all component classes automatically.
 - When keystone updates with new components, they're picked up on the next build
   with no action required.
