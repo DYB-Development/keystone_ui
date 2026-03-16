@@ -341,6 +341,53 @@ Renders a clickable card that wraps its content in an `<a>` tag with hover styli
 <% end %>
 ```
 
+### `ui_form`
+
+Wraps content in a `<form>` tag with proper method handling. For non-GET/POST methods (patch, put, delete), it renders a hidden `_method` input following Rails conventions. Supports multipart for file uploads.
+
+**Required props**
+
+- `action:` (String) — form action URL
+
+**Optional props**
+
+- `method:` (`:get | :post | :patch | :put | :delete`, default `:post`) — HTTP method. Non-native methods use a hidden `_method` field.
+- `multipart:` (Boolean, default `false`) — sets `enctype="multipart/form-data"` for file uploads
+- `data:` (Hash) — data attributes for the form element
+
+```erb
+<%= ui_form(action: items_path, method: :post) do %>
+  <%= ui_form_field(attribute: :name, required: true) %>
+  <%= ui_button(label: "Save", type: :submit) %>
+<% end %>
+
+<%= ui_form(action: item_path(@item), method: :patch, multipart: true) do %>
+  <%= ui_form_field(attribute: :name) %>
+  <%= ui_file_upload(name: "item[photo]", accept: "image/*", hint: "Max 5MB") %>
+  <%= ui_button(label: "Save", type: :submit) %>
+<% end %>
+```
+
+### `ui_file_upload`
+
+Renders a styled file upload area with a drop zone, label, and optional hint. The actual `<input type="file">` is visually hidden behind a styled click target.
+
+**Required props**
+
+- `name:` (String) — input name attribute
+
+**Optional props**
+
+- `label:` (String, default `"Choose file"`) — label text above the drop zone
+- `accept:` (String) — accepted file types (e.g. `"image/*"`, `".pdf,.doc"`)
+- `multiple:` (Boolean, default `false`) — allow multiple file selection
+- `hint:` (String) — help text below the drop zone (e.g. file size limits)
+
+```erb
+<%= ui_file_upload(name: "avatar", accept: "image/*", hint: "PNG or JPG, max 5MB") %>
+<%= ui_file_upload(name: "documents[]", multiple: true, label: "Upload documents", hint: "PDF, DOC up to 10MB each") %>
+```
+
 ### `ui_form_field`
 
 Wraps a label, input, hint, and error message in a consistent layout. Infers label text from the attribute name when not explicitly provided.

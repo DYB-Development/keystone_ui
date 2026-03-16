@@ -1,0 +1,84 @@
+# frozen_string_literal: true
+
+require "spec_helper"
+
+RSpec.describe Keystone::Ui::FileUploadComponent do
+  it "requires a name" do
+    component = described_class.new(name: "avatar")
+
+    expect(component.input_name).to eq("avatar")
+  end
+
+  it "defaults to single file upload" do
+    component = described_class.new(name: "avatar")
+
+    expect(component.multiple?).to be false
+  end
+
+  it "supports multiple file uploads" do
+    component = described_class.new(name: "documents", multiple: true)
+
+    expect(component.multiple?).to be true
+  end
+
+  it "accepts allowed file types" do
+    component = described_class.new(name: "photo", accept: "image/*")
+
+    expect(component.accept).to eq("image/*")
+  end
+
+  it "returns nil accept when not specified" do
+    component = described_class.new(name: "file")
+
+    expect(component.accept).to be_nil
+  end
+
+  it "provides a default label" do
+    component = described_class.new(name: "document")
+
+    expect(component.label_text).to eq("Choose file")
+  end
+
+  it "accepts a custom label" do
+    component = described_class.new(name: "photo", label: "Upload photo")
+
+    expect(component.label_text).to eq("Upload photo")
+  end
+
+  it "exposes hint? and hint_text" do
+    component = described_class.new(name: "avatar", hint: "Max 5MB")
+
+    expect(component.hint?).to be true
+    expect(component.hint_text).to eq("Max 5MB")
+  end
+
+  it "returns false for hint? when no hint" do
+    component = described_class.new(name: "avatar")
+
+    expect(component.hint?).to be false
+  end
+
+  it "builds tag_options for single file input" do
+    component = described_class.new(name: "avatar", accept: "image/*")
+    options = component.tag_options
+
+    expect(options[:type]).to eq("file")
+    expect(options[:name]).to eq("avatar")
+    expect(options[:accept]).to eq("image/*")
+    expect(options).not_to have_key(:multiple)
+  end
+
+  it "builds tag_options for multiple file input" do
+    component = described_class.new(name: "documents[]", multiple: true)
+    options = component.tag_options
+
+    expect(options[:name]).to eq("documents[]")
+    expect(options[:multiple]).to be true
+  end
+
+  it "omits accept from tag_options when not specified" do
+    component = described_class.new(name: "file")
+
+    expect(component.tag_options).not_to have_key(:accept)
+  end
+end

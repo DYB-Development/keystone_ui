@@ -160,4 +160,8 @@ module KeystoneUiHelper
   def ui_form(**args, &block)
     render Keystone::Ui::FormComponent.new(**args), &block
   end
+
+  def ui_file_upload(**args)
+    render Keystone::Ui::FileUploadComponent.new(**args)
+  end
 end
