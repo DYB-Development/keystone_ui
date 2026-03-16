@@ -411,4 +411,68 @@ RSpec.describe Keystone::Ui::DataTableComponent do
       expect(headers[0]).not_to have_key(:sort_href)
     end
   end
+
+  describe "Column hideable option" do
+    it "defaults to not hideable" do
+      col = Keystone::Ui::Column.new(:name, "Name")
+      expect(col.hideable?).to be false
+    end
+
+    it "can be marked as hideable" do
+      col = Keystone::Ui::Column.new(:name, "Name", hideable: true)
+      expect(col.hideable?).to be true
+    end
+  end
+
+  describe "hidden_columns filtering" do
+    let(:hideable_columns) do
+      [
+        Keystone::Ui::Column.new(:name, "Name"),
+        Keystone::Ui::Column.new(:quantity, "Quantity", hideable: true),
+        Keystone::Ui::Column.new(:price, "Price", hideable: true)
+      ]
+    end
+
+    it "filters out hidden columns from header_cells" do
+      component = described_class.new(
+        items: hash_items,
+        columns: hideable_columns,
+        hidden_columns: [:quantity]
+      )
+
+      labels = component.header_cells.map { |c| c[:label] }
+      expect(labels).to eq(["Name", "Price"])
+    end
+
+    it "filters out hidden columns from row_cells" do
+      component = described_class.new(
+        items: hash_items,
+        columns: hideable_columns,
+        hidden_columns: [:quantity]
+      )
+
+      row = component.row_cells.first
+      expect(row.length).to eq(2)
+      expect(row[0][:value]).to eq("Apples")
+      expect(row[1][:value]).to eq("$1.50")
+    end
+
+    it "ignores hidden_columns for non-hideable columns" do
+      component = described_class.new(
+        items: hash_items,
+        columns: hideable_columns,
+        hidden_columns: [:name]
+      )
+
+      labels = component.header_cells.map { |c| c[:label] }
+      expect(labels).to eq(["Name", "Quantity", "Price"])
+    end
+
+    it "works with no hidden_columns (backward compatible)" do
+      component = described_class.new(items: hash_items, columns: hideable_columns)
+
+      labels = component.header_cells.map { |c| c[:label] }
+      expect(labels).to eq(["Name", "Quantity", "Price"])
+    end
+  end
 end

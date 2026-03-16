@@ -131,6 +131,20 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 **Optional props**
 
 - `empty_message:` (String) — message displayed when `items` is empty
+- `sort:` (Symbol/String) — current sort column key
+- `sort_direction:` (Symbol) — `:asc` or `:desc`
+- `sort_url:` (Lambda) — `(col, dir) → url` for generating sort links
+- `hidden_columns:` (Array) — column keys to hide (only affects `hideable` columns)
+
+**Column options**
+
+`Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false)`
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `mobile_hidden:` | `false` | hide on small screens (`hidden sm:table-cell`) |
+| `sortable:` | `false` | render header as clickable sort link |
+| `hideable:` | `false` | allow hiding via `hidden_columns:` / column picker |
 
 **Mobile-hidden columns**
 
@@ -144,6 +158,39 @@ Use `Keystone::Ui::Column` objects to hide columns on mobile. Columns with `mobi
     Keystone::Ui::Column.new(:quantity, "Quantity", mobile_hidden: true),
     Keystone::Ui::Column.new(:price, "Price")
   ]
+) %>
+```
+
+**Sortable columns**
+
+Mark columns as `sortable: true` and pass `sort:`, `sort_direction:`, and `sort_url:` to render clickable header links with sort arrows. Sort links use `data-turbo-action="replace"` for clean Turbo navigation. Toggle logic: active asc → desc, active desc → asc, inactive → asc.
+
+```erb
+<%
+  columns = [
+    Keystone::Ui::Column.new(:name, "Name", sortable: true),
+    Keystone::Ui::Column.new(:quantity, "Quantity", mobile_hidden: true),
+    Keystone::Ui::Column.new(:price, "Price", sortable: true)
+  ]
+%>
+<%= ui_data_table(
+  items: @products,
+  columns: columns,
+  sort: params[:sort],
+  sort_direction: params[:direction],
+  sort_url: ->(col, dir) { products_path(sort: col, direction: dir) }
+) %>
+```
+
+**Hidden columns**
+
+Mark columns as `hideable: true` and pass `hidden_columns:` to filter them out server-side. Non-hideable columns are always shown even if listed in `hidden_columns:`.
+
+```erb
+<%= ui_data_table(
+  items: @products,
+  columns: columns,
+  hidden_columns: current_user.hidden_columns_for(:products)
 ) %>
 ```
 
@@ -185,6 +232,29 @@ Pass a block to add a trailing "Actions" column. The block receives the componen
 ```
 
 When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
+
+### `ui_column_picker`
+
+Renders a "Columns" dropdown button with checkboxes for showing/hiding `hideable` columns. Pair with `ui_data_table`'s `hidden_columns:` param.
+
+**Required props**
+
+- `columns:` (Array of `Column` objects) — same array passed to `ui_data_table`
+
+**Optional props**
+
+- `hidden_columns:` (Array) — currently hidden column keys
+- `save_url:` (String) — PATCH endpoint to persist preferences; omit for no persistence
+
+On checkbox change, the Stimulus `column-picker` controller PATCHes `{ hidden_columns: [...] }` as JSON to `save_url`, then reloads via `Turbo.visit`.
+
+```erb
+<%= ui_column_picker(
+  columns: columns,
+  hidden_columns: @hidden_columns,
+  save_url: table_preferences_path("products")
+) %>
+```
 
 ### `ui_page`
 

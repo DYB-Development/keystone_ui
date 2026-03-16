@@ -152,4 +152,8 @@ module KeystoneUiHelper
   def ui_swipe_deck(**args, &block)
     render Keystone::Ui::SwipeDeckComponent.new(**args), &block
   end
+
+  def ui_column_picker(**args)
+    render Keystone::Ui::ColumnPickerComponent.new(**args)
+  end
 end

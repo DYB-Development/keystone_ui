@@ -1,0 +1,20 @@
+<div class="<%= WRAPPER_CLASSES %>" data-controller="column-picker" <% if @save_url %>data-column-picker-save-url-value="<%= @save_url %>"<% end %>>
+  <button type="button"
+          data-action="click->column-picker#toggle"
+          class="<%= TRIGGER_CLASSES %>">
+    <%= COLUMNS_ICON.html_safe %>
+    Columns
+  </button>
+  <div data-column-picker-target="menu" class="<%= MENU_CLASSES %>">
+    <% hideable_columns.each do |col| %>
+      <label class="<%= OPTION_CLASSES %>">
+        <input type="checkbox"
+               value="<%= col.key %>"
+               <%= "checked" unless hidden?(col.key) %>
+               data-action="change->column-picker#save"
+               class="<%= CHECKBOX_CLASSES %>">
+        <%= col.header_text %>
+      </label>
+    <% end %>
+  </div>
+</div>

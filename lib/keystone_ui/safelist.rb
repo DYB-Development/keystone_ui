@@ -42,11 +42,12 @@ module Keystone
       Keystone::Ui::OptionCardComponent,
       Keystone::Ui::ColorPickerComponent,
       Keystone::Ui::MultiSelectComponent,
-      Keystone::Ui::SwipeDeckComponent
+      Keystone::Ui::SwipeDeckComponent,
+      Keystone::Ui::ColumnPickerComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)
-    SKIP_CONSTANTS = %i[TYPE_MAP ELLIPSIS_ICON BACK_ICON CARET_ICON CLOSE_ICON COPY_ICON SORT_ASC_ICON SORT_DESC_ICON SORT_NEUTRAL_ICON].freeze
+    SKIP_CONSTANTS = %i[TYPE_MAP ELLIPSIS_ICON BACK_ICON CARET_ICON CLOSE_ICON COPY_ICON SORT_ASC_ICON SORT_DESC_ICON SORT_NEUTRAL_ICON COLUMNS_ICON].freeze
 
     # Classes used in Ruby methods or ERB templates, not in frozen constants.
     # These cannot be auto-extracted and must be listed manually.

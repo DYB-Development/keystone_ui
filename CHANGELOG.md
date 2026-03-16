@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **DataTableComponent** — sortable column headers: `sortable: true` on Column, `sort:`, `sort_direction:`, `sort_url:` params render clickable `<a>` headers with arrow icons and `data-turbo-action="replace"`
+- **DataTableComponent** — hidden columns: `hideable: true` on Column, `hidden_columns:` param filters columns server-side
+- **ColumnPickerComponent** — dropdown with checkboxes for toggling hideable column visibility, with optional PATCH persistence via `save_url:` (Stimulus controller)
 - **SelectComponent** — styled `<select>` dropdown with options, selected value, include_blank, and disabled states
 - **BadgeComponent** — inline status badge with variants (neutral/success/danger/warning/info)
 - **StatCardComponent** — metric card for dashboards with label, value, suffix, and color variants
