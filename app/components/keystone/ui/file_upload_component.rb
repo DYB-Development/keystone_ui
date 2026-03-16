@@ -9,8 +9,10 @@ module Keystone
       DROP_ZONE_ACTIVE_CLASSES = "border-accent-500 bg-accent-50 dark:bg-accent-900/10"
       DROP_ZONE_INNER_CLASSES = "space-y-2 text-center"
       ICON_CLASSES = "mx-auto h-10 w-10 text-gray-400 dark:text-gray-500"
-      BUTTON_CLASSES = "text-sm font-semibold text-accent-600 hover:text-accent-500 dark:text-accent-400 dark:hover:text-accent-300 cursor-pointer"
+      PROMPT_CLASSES = "text-sm text-gray-600 dark:text-gray-400"
+      BROWSE_CLASSES = "font-semibold text-accent-600 hover:text-accent-500 dark:text-accent-400 dark:hover:text-accent-300"
       HINT_CLASSES = "mt-1 text-xs text-gray-500 dark:text-gray-400"
+      FILE_NAME_CLASSES = "mt-2 text-sm text-gray-700 dark:text-gray-300 truncate"
       FILE_INPUT_CLASSES = "sr-only"
 
       UPLOAD_ICON = <<~SVG.freeze

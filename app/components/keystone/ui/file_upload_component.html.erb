@@ -1,15 +1,16 @@
-<div class="<%= WRAPPER_CLASSES %>">
-  <label class="<%= LABEL_CLASSES %>"><%= label_text %></label>
+<div class="<%= WRAPPER_CLASSES %>" data-controller="file-upload">
+  <span class="<%= LABEL_CLASSES %>"><%= label_text %></span>
 
-  <div class="<%= DROP_ZONE_CLASSES %>">
+  <label class="<%= DROP_ZONE_CLASSES %>" data-file-upload-target="dropZone">
     <div class="<%= DROP_ZONE_INNER_CLASSES %>">
       <%= UPLOAD_ICON.html_safe %>
-      <label class="<%= BUTTON_CLASSES %>">
-        <span><%= multiple? ? "Choose files" : "Choose file" %></span>
-        <input <%= tag_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %>>
-      </label>
+      <p class="<%= PROMPT_CLASSES %>">
+        <%= prompt_text %> <span class="<%= BROWSE_CLASSES %>">browse</span>
+      </p>
+      <p class="<%= FILE_NAME_CLASSES %>" data-file-upload-target="fileName"></p>
     </div>
-  </div>
+    <input <%= tag_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %> data-file-upload-target="input" data-action="change->file-upload#select">
+  </label>
 
   <% if hint? %>
     <p class="<%= HINT_CLASSES %>"><%= hint_text %></p>
