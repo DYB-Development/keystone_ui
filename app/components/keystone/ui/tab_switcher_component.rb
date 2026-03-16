@@ -24,6 +24,10 @@ module Keystone
       def panel_classes
         PANEL_CLASSES
       end
+
+      def wrapper_data
+        { controller: "tab-switcher" }
+      end
     end
   end
 end

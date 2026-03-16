@@ -42,6 +42,10 @@ module Keystone
       def caret_icon
         CARET_ICON
       end
+
+      def wrapper_data
+        { controller: "accordion" }
+      end
     end
   end
 end

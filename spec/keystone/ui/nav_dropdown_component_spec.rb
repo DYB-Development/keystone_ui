@@ -46,4 +46,10 @@ RSpec.describe Keystone::Ui::NavDropdownComponent do
     expect(described_class::CARET_ICON).to be_frozen
     expect(described_class::CARET_ICON).to include("<svg")
   end
+
+  it "wires the dropdown Stimulus controller" do
+    component = described_class.new(title: "Plan", area: :plan, active: false)
+
+    expect(component.wrapper_data[:controller]).to eq("dropdown")
+  end
 end
