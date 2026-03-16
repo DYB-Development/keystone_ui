@@ -15,9 +15,11 @@ module Keystone
 
       css_path = Rails.root.join("app/assets/tailwind/application.css")
       unless css_path.exist?
-        say "  ⚠ application.css not found.", :yellow
-        say "    Run `rails generate tailwindcss:install` first."
+        FileUtils.mkdir_p(css_path.dirname)
+        File.write(css_path, "#{TAILWIND_IMPORT}\n#{KEYSTONE_IMPORT}\n")
+        say "  ✔ Created application.css with Tailwind and Keystone imports", :green
         say ""
+        say "Done! See the README for component usage.", :green
         return
       end
 
