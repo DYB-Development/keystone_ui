@@ -56,4 +56,10 @@ RSpec.describe Keystone::Ui::AccordionComponent do
     expect(component.answer_classes).to include("text-surface-600")
     expect(component.icon_classes).to include("text-surface-400")
   end
+
+  it "wires the accordion Stimulus controller" do
+    component = described_class.new
+
+    expect(component.wrapper_data[:controller]).to eq("accordion")
+  end
 end
