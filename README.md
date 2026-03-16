@@ -59,6 +59,51 @@ automatically:
 rails generate keystone:install
 ```
 
+## Color System
+
+Keystone UI components use two semantic color scales — **accent** and **surface** — defined as CSS custom properties. Components reference these via Tailwind classes like `bg-accent-500`, `text-accent-600`, `bg-surface-100`, etc. This means your entire UI updates when you change the color values — no need to touch component code.
+
+### Defaults
+
+The gem ships a `theme.css` that sets default values (imported automatically by the engine initializer):
+
+| Scale | Default palette | Used for |
+|-------|----------------|----------|
+| `accent` | Blue (`#3b82f6` at 500) | Buttons, links, focus rings, active states, badges |
+| `surface` | Zinc (`#71717a` at 500) | Backgrounds, borders, text on dark mode surfaces |
+
+Each scale provides shades 50-950, matching Tailwind's standard shade range.
+
+### Customizing colors
+
+Override the CSS custom properties in your app's `application.css` (after the Tailwind import):
+
+```css
+@import "tailwindcss";
+@import "./keystone_source.css";
+
+@theme {
+  /* Override accent to indigo */
+  --color-accent-50: #eef2ff;
+  --color-accent-100: #e0e7ff;
+  --color-accent-200: #c7d2fe;
+  --color-accent-300: #a5b4fc;
+  --color-accent-400: #818cf8;
+  --color-accent-500: #6366f1;
+  --color-accent-600: #4f46e5;
+  --color-accent-700: #4338ca;
+  --color-accent-800: #3730a3;
+  --color-accent-900: #312e81;
+  --color-accent-950: #1e1b4e;
+}
+```
+
+You only need to override the shades you use. All Keystone components will pick up the new colors automatically.
+
+### Per-user theming
+
+For dynamic, per-user color customization (e.g. letting users pick their own accent color), see the [`keystone_colors`](https://github.com/tylercschneider/keystone_colors) gem, which generates the CSS custom properties from user preferences at runtime.
+
 ## Helper API (primary surface)
 
 Use the helpers in ERB. Consuming apps should not instantiate components directly.
