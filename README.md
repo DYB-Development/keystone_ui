@@ -100,6 +100,29 @@ Override the CSS custom properties in your app's `application.css` (after the Ta
 
 You only need to override the shades you use. All Keystone components will pick up the new colors automatically.
 
+### Usage in gems and engines
+
+If you're building a gem or engine that uses `keystone_ui`, **do not set theme colors in your gem**. The host app owns the theme. Your gem just uses the accent/surface Tailwind classes and they'll inherit whatever the host app has configured.
+
+**In your gem's `test/dummy` app**, set up colors the same way a host app would:
+
+1. Add `keystone_ui` to your gemspec as a dependency
+2. Run `rails generate keystone:install` in `test/dummy`
+3. The default blue/zinc theme applies automatically — no extra config needed
+4. To test with a custom theme, override the variables in `test/dummy/app/assets/tailwind/application.css`:
+
+```css
+@import "tailwindcss";
+@import "./keystone_source.css";
+
+@theme {
+  --color-accent-500: #6366f1;
+  /* ... */
+}
+```
+
+**Key principle:** gems use `bg-accent-500`, `text-surface-700`, etc. in their views. The host app decides what those colors actually are — either statically in CSS, or dynamically with [`keystone_colors`](https://github.com/tylercschneider/keystone_colors) for per-user theming.
+
 ### Per-user theming
 
 For dynamic, per-user color customization (e.g. letting users pick their own accent color), see the [`keystone_colors`](https://github.com/tylercschneider/keystone_colors) gem, which generates the CSS custom properties from user preferences at runtime.
