@@ -50,6 +50,15 @@ namespace :keystone do
       - All layout goes through `ui_page`, `ui_grid`, `ui_section`, `ui_panel`
       - Navigation uses `ui_navbar` with slots, `ui_bottom_nav` for mobile tabs
 
+      ### Color System
+      Components use two semantic color scales as CSS custom properties:
+      - **accent** (default: blue) — buttons, links, focus rings, active states
+      - **surface** (default: zinc) — backgrounds, borders, dark mode surfaces
+
+      Tailwind classes like `bg-accent-500`, `text-surface-700` reference these.
+      Override in your `application.css` with `@theme { --color-accent-500: #...; }`.
+      All shades 50-950 are available.
+
       ---
 
       ### `ui_card`
