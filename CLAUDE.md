@@ -56,6 +56,8 @@ Components use semantic CSS custom properties (`--color-accent-*`, `--color-surf
 - BottomNavItemComponent is a single bottom nav tab with `label`, `href`, `icon` (SVG string), and `active` state.
 - MobileHeaderComponent renders a mobile header with back link, centered title, and optional subtitle. Hidden on `lg:` screens.
 - MobileActionsComponent renders an ellipsis dropdown for mobile action menus. Hidden on `lg:` screens. Uses Stimulus `dropdown` controller.
+- FormComponent wraps content in a `<form>` tag with `action:`, `method:` (Rails-style `_method` override for patch/put/delete), `multipart:` for file uploads, and `data:` attributes.
+- FileUploadComponent renders a styled file input with drop zone, label, `accept:` for file types, `multiple:` for multi-file, and `hint:` text. Uses `UPLOAD_ICON` (excluded from safelist via `SKIP_CONSTANTS`).
 - FormPageComponent wraps form pages with `title`, `back_url`, and optional `subtitle`. Sets `content_for` signals (`:form_page`, `:form_page_title`, `:form_page_back_url`) so the navbar can render mobile header context.
 - ShowPageComponent wraps show pages with `title`, `back_url`, and optional `subtitle`. Sets `content_for` signals (`:show_page`, `:show_page_title`, `:show_page_back_url`, `:show_page_subtitle`).
 - SettingsLinkComponent renders a gear icon link for settings navigation.

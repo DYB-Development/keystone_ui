@@ -1,0 +1,17 @@
+<div class="<%= WRAPPER_CLASSES %>">
+  <label class="<%= LABEL_CLASSES %>"><%= label_text %></label>
+
+  <div class="<%= DROP_ZONE_CLASSES %>">
+    <div class="<%= DROP_ZONE_INNER_CLASSES %>">
+      <%= UPLOAD_ICON.html_safe %>
+      <label class="<%= BUTTON_CLASSES %>">
+        <span><%= multiple? ? "Choose files" : "Choose file" %></span>
+        <input <%= tag_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %>>
+      </label>
+    </div>
+  </div>
+
+  <% if hint? %>
+    <p class="<%= HINT_CLASSES %>"><%= hint_text %></p>
+  <% end %>
+</div>
