@@ -1,4 +1,4 @@
-<select <%= tag_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %>>
+<select <%= tag.attributes(tag_options) %>>
   <% if include_blank %>
     <option value=""><%= include_blank %></option>
   <% end %>
