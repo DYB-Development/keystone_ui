@@ -24,6 +24,10 @@ module Keystone
       def trigger_classes
         [TRIGGER_BASE, (ACTIVE_CLASS if @active)].compact.join(" ")
       end
+
+      def wrapper_data
+        { controller: "dropdown" }
+      end
     end
   end
 end
