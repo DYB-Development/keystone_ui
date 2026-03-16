@@ -58,6 +58,10 @@ module Keystone
         { "file-upload-target": "dropZone" }
       end
 
+      def input_data
+        { "file-upload-target": "input", action: "change->file-upload#select" }
+      end
+
       def tag_options
         options = {
           type: "file",

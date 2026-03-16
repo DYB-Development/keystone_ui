@@ -93,4 +93,11 @@ RSpec.describe Keystone::Ui::FileUploadComponent do
 
     expect(component.drop_zone_data[:"file-upload-target"]).to eq("dropZone")
   end
+
+  it "marks the input as a Stimulus target with change action" do
+    component = described_class.new(name: "avatar")
+
+    expect(component.input_data[:"file-upload-target"]).to eq("input")
+    expect(component.input_data[:action]).to eq("change->file-upload#select")
+  end
 end
