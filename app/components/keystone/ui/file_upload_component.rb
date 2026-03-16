@@ -50,6 +50,10 @@ module Keystone
         @hint
       end
 
+      def wrapper_data
+        { controller: "file-upload" }
+      end
+
       def tag_options
         options = {
           type: "file",

@@ -81,4 +81,10 @@ RSpec.describe Keystone::Ui::FileUploadComponent do
 
     expect(component.tag_options).not_to have_key(:accept)
   end
+
+  it "wires the file-upload Stimulus controller on the wrapper" do
+    component = described_class.new(name: "avatar")
+
+    expect(component.wrapper_data).to eq({ controller: "file-upload" })
+  end
 end
