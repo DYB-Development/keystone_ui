@@ -43,7 +43,8 @@ module Keystone
       Keystone::Ui::ColorPickerComponent,
       Keystone::Ui::MultiSelectComponent,
       Keystone::Ui::SwipeDeckComponent,
-      Keystone::Ui::ColumnPickerComponent
+      Keystone::Ui::ColumnPickerComponent,
+      Keystone::Ui::FormComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)

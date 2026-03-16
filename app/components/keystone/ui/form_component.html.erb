@@ -1,0 +1,6 @@
+<form <%= tag_options.map { |k, v| v.is_a?(Hash) ? v.map { |dk, dv| %(data-#{dk}="#{dv}") }.join(" ") : %(#{k}="#{v}") }.join(" ") %>>
+  <% if method_override %>
+    <input type="hidden" name="_method" value="<%= method_override %>">
+  <% end %>
+  <%= content %>
+</form>

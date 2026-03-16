@@ -156,4 +156,8 @@ module KeystoneUiHelper
   def ui_column_picker(**args)
     render Keystone::Ui::ColumnPickerComponent.new(**args)
   end
+
+  def ui_form(**args, &block)
+    render Keystone::Ui::FormComponent.new(**args), &block
+  end
 end
