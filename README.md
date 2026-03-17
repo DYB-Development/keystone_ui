@@ -440,7 +440,7 @@ Wraps content in a `<form>` tag with proper method handling. For non-GET/POST me
 
 ### `ui_file_upload`
 
-Renders a styled file upload area with a drop zone, label, and optional hint. The actual `<input type="file">` is visually hidden behind a styled click target.
+Renders a styled file upload with a clickable drop zone. Clicking anywhere on the zone opens the native file picker. Supports drag-and-drop — the zone highlights with accent colors on drag-over. Displays the selected file name(s) after pick or drop. Uses the `file-upload` Stimulus controller.
 
 **Required props**
 

@@ -306,7 +306,7 @@ namespace :keystone do
 
       ### `ui_file_upload`
 
-      Styled file upload with drop zone, label, and optional hint.
+      Styled file upload with clickable drop zone, drag-and-drop support, and file name feedback. Uses `file-upload` Stimulus controller.
 
       ```erb
       <%= ui_file_upload(name: "avatar", accept: "image/*", hint: "PNG or JPG, max 5MB") %>
