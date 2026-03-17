@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - **FormComponent** — `<form>` wrapper with `action:`, `method:` (with Rails-style `_method` override for patch/put/delete), `multipart:`, and `data:` attributes
-- **FileUploadComponent** — styled file input with drop zone, label, accepted file types, multiple file support, and hint text
+- **FileUploadComponent** — styled file input with clickable drop zone, drag-and-drop support, file name feedback, accepted file types, multiple file support, and hint text (Stimulus `file-upload` controller)
+- **Stimulus controllers** — added 6 missing controllers: `dropdown`, `dismiss`, `modal`, `clipboard`, `tab-switcher`, `accordion`
 - **DataTableComponent** — sortable column headers: `sortable: true` on Column, `sort:`, `sort_direction:`, `sort_url:` params render clickable `<a>` headers with arrow icons and `data-turbo-action="replace"`
 - **DataTableComponent** — hidden columns: `hideable: true` on Column, `hidden_columns:` param filters columns server-side
 - **ColumnPickerComponent** — dropdown with checkboxes for toggling hideable column visibility, with optional PATCH persistence via `save_url:` (Stimulus controller)
@@ -37,6 +38,9 @@ All notable changes to this project will be documented in this file.
 - Complete `rake keystone:claude` output for all 36 components
 
 ### Fixed
+- Install generator creates `application.css` when missing (no longer requires `tailwindcss:install` first)
+- AlertComponent dismiss button now wires `data-controller="dismiss"` on wrapper
+- CopyButtonComponent template now includes `click->clipboard#copy` action
 - BadgeComponent and StatCardComponent `:info` variant moved into `VARIANT_CLASSES` constant (was inline, invisible to safelist)
 - ShowPageComponent now has frozen constants and `subtitle?` method (matches FormPageComponent pattern)
 
