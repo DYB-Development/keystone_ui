@@ -16,12 +16,13 @@ module Keystone
         lg: "text-lg px-5 py-3"
       }.freeze
 
-      def initialize(label:, href: nil, variant: :primary, size: :md, type: :submit)
+      def initialize(label:, href: nil, variant: :primary, size: :md, type: :submit, data: nil)
         @label = label
         @href = href
         @variant = variant
         @size = size
         @type = type.to_s
+        @data = data
       end
 
       def classes
@@ -44,6 +45,7 @@ module Keystone
         else
           options[:href] = @href
         end
+        options[:data] = @data if @data
         options
       end
 

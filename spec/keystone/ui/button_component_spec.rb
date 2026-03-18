@@ -28,6 +28,12 @@ RSpec.describe Keystone::Ui::ButtonComponent do
     expect(component.classes).to include("hover:bg-accent-500")
   end
 
+  it "passes data attributes through to tag options" do
+    component = described_class.new(label: "Delete", data: { action: "click->bulk-select#showConfirm", bulk_select_target: "removeButton" })
+
+    expect(component.tag_options[:data]).to eq({ action: "click->bulk-select#showConfirm", bulk_select_target: "removeButton" })
+  end
+
   it "renders as a link with href when href is provided" do
     component = described_class.new(label: "Visit", href: "/products")
 
