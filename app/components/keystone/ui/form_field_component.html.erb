@@ -12,4 +12,10 @@
   <% if hint? %>
     <p class="<%= HINT_CLASSES %>"><%= hint_text %></p>
   <% end %>
+
+  <% if errors? %>
+    <% error_messages.each do |message| %>
+      <p class="<%= ERROR_CLASSES %>"><%= message %></p>
+    <% end %>
+  <% end %>
 </div>

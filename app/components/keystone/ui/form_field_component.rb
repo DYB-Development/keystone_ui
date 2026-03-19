@@ -9,7 +9,7 @@ module Keystone
       HINT_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400"
       ERROR_CLASSES = "mt-1 text-sm text-red-600 dark:text-red-400"
 
-      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil)
+      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, errors: [])
         @attribute = attribute
         @label = label
         @type = type
@@ -18,6 +18,7 @@ module Keystone
         @placeholder = placeholder
         @min = min
         @max = max
+        @errors = Array(errors)
       end
 
       def label_text
@@ -34,6 +35,14 @@ module Keystone
 
       def hint_text
         @hint
+      end
+
+      def errors?
+        @errors.any?
+      end
+
+      def error_messages
+        @errors
       end
 
       def textarea?

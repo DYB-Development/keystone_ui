@@ -60,4 +60,11 @@ RSpec.describe Keystone::Ui::FormFieldComponent do
     expect(options[:min]).to eq(1)
     expect(options[:max]).to eq(100)
   end
+
+  it "stores errors when provided" do
+    component = described_class.new(attribute: :name, errors: ["can't be blank"])
+
+    expect(component.errors?).to be true
+    expect(component.error_messages).to eq(["can't be blank"])
+  end
 end
