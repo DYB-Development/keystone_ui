@@ -61,6 +61,13 @@ RSpec.describe Keystone::Ui::FormFieldComponent do
     expect(options[:max]).to eq(100)
   end
 
+  it "maps date type to date input" do
+    component = described_class.new(attribute: :start_date, type: :date)
+    options = component.input_options
+
+    expect(options[:type]).to eq("date")
+  end
+
   it "includes step in input_options when provided" do
     component = described_class.new(attribute: :price, type: :number, step: 0.01)
     options = component.input_options

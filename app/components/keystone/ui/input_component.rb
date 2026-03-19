@@ -11,7 +11,8 @@ module Keystone
         text: "text",
         number: "number",
         email: "email",
-        password: "password"
+        password: "password",
+        date: "date"
       }.freeze
 
       def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil)
