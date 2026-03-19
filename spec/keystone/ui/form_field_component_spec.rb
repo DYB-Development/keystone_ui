@@ -61,6 +61,13 @@ RSpec.describe Keystone::Ui::FormFieldComponent do
     expect(options[:max]).to eq(100)
   end
 
+  it "detects select type" do
+    component = described_class.new(attribute: :zone, type: :select, options: [["Zone 1", "1"]])
+
+    expect(component.select?).to be true
+    expect(component.select_options).to eq([["Zone 1", "1"]])
+  end
+
   it "maps date type to date input" do
     component = described_class.new(attribute: :start_date, type: :date)
     options = component.input_options

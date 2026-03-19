@@ -9,7 +9,7 @@ module Keystone
       HINT_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400"
       ERROR_CLASSES = "mt-1 text-sm text-red-600 dark:text-red-400"
 
-      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, errors: [])
+      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [])
         @attribute = attribute
         @label = label
         @type = type
@@ -20,6 +20,7 @@ module Keystone
         @max = max
         @step = step
         @value = value
+        @options = options
         @errors = Array(errors)
       end
 
@@ -49,6 +50,14 @@ module Keystone
 
       def textarea?
         @type == :textarea
+      end
+
+      def select?
+        @type == :select
+      end
+
+      def select_options
+        @options
       end
 
       def input_options
