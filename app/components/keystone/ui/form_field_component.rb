@@ -9,7 +9,7 @@ module Keystone
       HINT_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400"
       ERROR_CLASSES = "mt-1 text-sm text-red-600 dark:text-red-400"
 
-      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, value: nil, errors: [])
+      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, errors: [])
         @attribute = attribute
         @label = label
         @type = type
@@ -18,6 +18,7 @@ module Keystone
         @placeholder = placeholder
         @min = min
         @max = max
+        @step = step
         @value = value
         @errors = Array(errors)
       end
@@ -59,6 +60,7 @@ module Keystone
         options[:value] = @value unless @value.nil?
         options[:min] = @min unless @min.nil?
         options[:max] = @max unless @max.nil?
+        options[:step] = @step unless @step.nil?
         options
       end
     end
