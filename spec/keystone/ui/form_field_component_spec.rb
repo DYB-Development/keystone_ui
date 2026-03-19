@@ -61,6 +61,13 @@ RSpec.describe Keystone::Ui::FormFieldComponent do
     expect(options[:max]).to eq(100)
   end
 
+  it "includes value in input_options when provided" do
+    component = described_class.new(attribute: :price, type: :number, value: 9.99)
+    options = component.input_options
+
+    expect(options[:value]).to eq(9.99)
+  end
+
   it "stores errors when provided" do
     component = described_class.new(attribute: :name, errors: ["can't be blank"])
 
