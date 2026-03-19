@@ -61,6 +61,12 @@ RSpec.describe Keystone::Ui::FormFieldComponent do
     expect(options[:max]).to eq(100)
   end
 
+  it "detects checkbox type" do
+    component = described_class.new(attribute: :agree, type: :checkbox)
+
+    expect(component.checkbox?).to be true
+  end
+
   it "detects select type" do
     component = described_class.new(attribute: :zone, type: :select, options: [["Zone 1", "1"]])
 

@@ -1,9 +1,17 @@
 <div class="<%= WRAPPER_CLASSES %>">
-  <label class="<%= LABEL_CLASSES %>">
-    <%= label_text %><% if required? %><span class="<%= REQUIRED_CLASSES %>">*</span><% end %>
-  </label>
+  <% unless checkbox? %>
+    <label class="<%= LABEL_CLASSES %>">
+      <%= label_text %><% if required? %><span class="<%= REQUIRED_CLASSES %>">*</span><% end %>
+    </label>
+  <% end %>
 
-  <% if textarea? %>
+  <% if checkbox? %>
+    <div class="<%= CHECKBOX_WRAPPER_CLASSES %>">
+      <input type="hidden" name="<%= @attribute %>" value="0">
+      <input type="checkbox" name="<%= @attribute %>" value="1" class="<%= CHECKBOX_CLASSES %>"<%= " checked" if @value.to_s == "1" %>>
+      <span class="text-sm text-gray-700 dark:text-gray-300"><%= label_text %></span>
+    </div>
+  <% elsif textarea? %>
     <textarea name="<%= @attribute %>" rows="3" class="<%= Keystone::Ui::TextareaComponent::BASE_CLASSES %>"<% if @placeholder %> placeholder="<%= @placeholder %>"<% end %>><%= @value %></textarea>
   <% elsif select? %>
     <select name="<%= @attribute %>" class="<%= Keystone::Ui::SelectComponent::BASE_CLASSES %> <%= Keystone::Ui::SelectComponent::FOCUS_CLASSES %>">
