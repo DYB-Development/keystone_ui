@@ -1,15 +1,36 @@
 <div class="<%= WRAPPER_CLASSES %>">
-  <label class="<%= LABEL_CLASSES %>">
-    <%= label_text %><% if required? %><span class="<%= REQUIRED_CLASSES %>">*</span><% end %>
-  </label>
+  <% unless checkbox? %>
+    <label class="<%= LABEL_CLASSES %>">
+      <%= label_text %><% if required? %><span class="<%= REQUIRED_CLASSES %>">*</span><% end %>
+    </label>
+  <% end %>
 
-  <% if textarea? %>
+  <% if checkbox? %>
+    <div class="<%= CHECKBOX_WRAPPER_CLASSES %>">
+      <input type="hidden" name="<%= @attribute %>" value="0">
+      <input type="checkbox" name="<%= @attribute %>" value="1" class="<%= CHECKBOX_CLASSES %>"<%= " checked" if @value.to_s == "1" %>>
+      <span class="text-sm text-gray-700 dark:text-gray-300"><%= label_text %></span>
+    </div>
+  <% elsif textarea? %>
     <textarea name="<%= @attribute %>" rows="3" class="<%= Keystone::Ui::TextareaComponent::BASE_CLASSES %>"<% if @placeholder %> placeholder="<%= @placeholder %>"<% end %>><%= @value %></textarea>
+  <% elsif select? %>
+    <select name="<%= @attribute %>" class="<%= Keystone::Ui::SelectComponent::BASE_CLASSES %> <%= Keystone::Ui::SelectComponent::FOCUS_CLASSES %>">
+      <% unless required? %><option value=""></option><% end %>
+      <% select_options.each do |label, value| %>
+        <option value="<%= value %>" <%= "selected" if @value.to_s == value.to_s %>><%= label %></option>
+      <% end %>
+    </select>
   <% else %>
     <input <%= input_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %> class="<%= Keystone::Ui::InputComponent::BASE_CLASSES %>">
   <% end %>
 
   <% if hint? %>
     <p class="<%= HINT_CLASSES %>"><%= hint_text %></p>
+  <% end %>
+
+  <% if errors? %>
+    <% error_messages.each do |message| %>
+      <p class="<%= ERROR_CLASSES %>"><%= message %></p>
+    <% end %>
   <% end %>
 </div>
