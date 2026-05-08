@@ -5,7 +5,7 @@ require_relative "../../../app/components/keystone/ui/column"
 require_relative "../../../app/components/keystone/ui/data_table_component"
 
 RSpec.describe Keystone::Ui::DataTableComponent do
-  let(:columns) { [{ name: "Name" }, { quantity: "Quantity" }, { price: "Price" }] }
+  let(:columns) { [ { name: "Name" }, { quantity: "Quantity" }, { price: "Price" } ] }
   let(:hash_items) do
     [
       { name: "Apples", quantity: 10, price: "$1.50" },
@@ -25,7 +25,7 @@ RSpec.describe Keystone::Ui::DataTableComponent do
     end
 
     it "assigns FIRST and LAST correctly for a 2-column layout" do
-      two_columns = [{ name: "Name" }, { price: "Price" }]
+      two_columns = [ { name: "Name" }, { price: "Price" } ]
       component = described_class.new(items: hash_items, columns: two_columns)
 
       expect(component.header_cells).to eq([
@@ -71,7 +71,7 @@ RSpec.describe Keystone::Ui::DataTableComponent do
     end
 
     it "assigns position-based row classes correctly" do
-      component = described_class.new(items: [hash_items.first], columns: columns)
+      component = described_class.new(items: [ hash_items.first ], columns: columns)
       row = component.row_cells.first
 
       expect(row[0][:classes]).to eq(described_class::ROW_CLASSES_FIRST)
@@ -152,7 +152,7 @@ RSpec.describe Keystone::Ui::DataTableComponent do
     end
 
     it "shifts row classes so last data column becomes MIDDLE" do
-      component = described_class.new(items: [hash_items.first], columns: columns)
+      component = described_class.new(items: [ hash_items.first ], columns: columns)
       component.actions { |item| "Edit" }
 
       row = component.row_cells.first
@@ -208,7 +208,7 @@ RSpec.describe Keystone::Ui::DataTableComponent do
 
   describe "combined actions and linkable cells" do
     it "applies correct position classes with both features" do
-      component = described_class.new(items: [hash_items.first], columns: columns)
+      component = described_class.new(items: [ hash_items.first ], columns: columns)
       component.link(:name) { |item| "/projects/#{item[:name].downcase}" }
       component.actions { |item| "Edit" }
 
@@ -246,12 +246,12 @@ RSpec.describe Keystone::Ui::DataTableComponent do
     it "accepts Column objects for columns" do
       component = described_class.new(items: hash_items, columns: column_objects)
 
-      expect(component.column_keys).to eq([:name, :quantity, :price])
-      expect(component.column_labels).to eq(["Name", "Quantity", "Price"])
+      expect(component.column_keys).to eq([ :name, :quantity, :price ])
+      expect(component.column_labels).to eq([ "Name", "Quantity", "Price" ])
     end
 
     it "generates correct header and row cells from Column objects" do
-      component = described_class.new(items: [hash_items.first], columns: column_objects)
+      component = described_class.new(items: [ hash_items.first ], columns: column_objects)
 
       expect(component.header_cells).to eq([
         { label: "Name", classes: described_class::HEADER_CLASSES_FIRST, scope: "col" },
@@ -274,7 +274,7 @@ RSpec.describe Keystone::Ui::DataTableComponent do
         Keystone::Ui::Column.new(:quantity, "Quantity", mobile_hidden: true),
         Keystone::Ui::Column.new(:price, "Price")
       ]
-      component = described_class.new(items: [hash_items.first], columns: cols)
+      component = described_class.new(items: [ hash_items.first ], columns: cols)
 
       headers = component.header_cells
       expect(headers[0][:classes]).to eq(described_class::HEADER_CLASSES_FIRST)
@@ -292,7 +292,7 @@ RSpec.describe Keystone::Ui::DataTableComponent do
         Keystone::Ui::Column.new(:name, "Name"),
         Keystone::Ui::Column.new(:price, "Price")
       ]
-      component = described_class.new(items: [hash_items.first], columns: cols)
+      component = described_class.new(items: [ hash_items.first ], columns: cols)
 
       headers = component.header_cells
       expect(headers[0][:classes]).not_to include(described_class::MOBILE_HIDDEN_CLASSES)
@@ -300,7 +300,7 @@ RSpec.describe Keystone::Ui::DataTableComponent do
     end
 
     it "hash-based columns default to mobile-visible" do
-      component = described_class.new(items: [hash_items.first], columns: columns)
+      component = described_class.new(items: [ hash_items.first ], columns: columns)
 
       component.header_cells.each do |cell|
         expect(cell[:classes]).not_to include(described_class::MOBILE_HIDDEN_CLASSES)
@@ -313,10 +313,10 @@ RSpec.describe Keystone::Ui::DataTableComponent do
         { quantity: "Quantity" },
         Keystone::Ui::Column.new(:price, "Price")
       ]
-      component = described_class.new(items: [hash_items.first], columns: mixed)
+      component = described_class.new(items: [ hash_items.first ], columns: mixed)
 
-      expect(component.column_keys).to eq([:name, :quantity, :price])
-      expect(component.column_labels).to eq(["Name", "Quantity", "Price"])
+      expect(component.column_keys).to eq([ :name, :quantity, :price ])
+      expect(component.column_labels).to eq([ "Name", "Quantity", "Price" ])
     end
   end
 
@@ -437,18 +437,18 @@ RSpec.describe Keystone::Ui::DataTableComponent do
       component = described_class.new(
         items: hash_items,
         columns: hideable_columns,
-        hidden_columns: [:quantity]
+        hidden_columns: [ :quantity ]
       )
 
       labels = component.header_cells.map { |c| c[:label] }
-      expect(labels).to eq(["Name", "Price"])
+      expect(labels).to eq([ "Name", "Price" ])
     end
 
     it "filters out hidden columns from row_cells" do
       component = described_class.new(
         items: hash_items,
         columns: hideable_columns,
-        hidden_columns: [:quantity]
+        hidden_columns: [ :quantity ]
       )
 
       row = component.row_cells.first
@@ -461,18 +461,18 @@ RSpec.describe Keystone::Ui::DataTableComponent do
       component = described_class.new(
         items: hash_items,
         columns: hideable_columns,
-        hidden_columns: [:name]
+        hidden_columns: [ :name ]
       )
 
       labels = component.header_cells.map { |c| c[:label] }
-      expect(labels).to eq(["Name", "Quantity", "Price"])
+      expect(labels).to eq([ "Name", "Quantity", "Price" ])
     end
 
     it "works with no hidden_columns (backward compatible)" do
       component = described_class.new(items: hash_items, columns: hideable_columns)
 
       labels = component.header_cells.map { |c| c[:label] }
-      expect(labels).to eq(["Name", "Quantity", "Price"])
+      expect(labels).to eq([ "Name", "Quantity", "Price" ])
     end
   end
 end

@@ -5,8 +5,8 @@ require_relative "lib/keystone_ui/version"
 Gem::Specification.new do |spec|
   spec.name = "keystone_ui"
   spec.version = KeystoneUi::VERSION
-  spec.authors = ["Tyler Schneider"]
-  spec.email = ["tylercschneider@gmail.com"]
+  spec.authors = [ "Tyler Schneider" ]
+  spec.email = [ "tylercschneider@gmail.com" ]
 
   spec.summary = "Reusable UI component system for Rails applications."
   spec.description = "Reusable UI component system for Rails applications using ViewComponent."
@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.1.0"
 
   spec.files = Dir["lib/**/*", "app/**/*"]
-  spec.require_paths = ["lib"]
+  spec.require_paths = [ "lib" ]
 
   spec.add_dependency "view_component", ">= 2.0"
 

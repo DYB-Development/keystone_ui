@@ -30,7 +30,7 @@ RSpec.describe Keystone::Ui::SelectComponent do
   end
 
   it "stores options list" do
-    opts = [["Active", "active"], ["Inactive", "inactive"]]
+    opts = [ [ "Active", "active" ], [ "Inactive", "inactive" ] ]
     component = described_class.new(name: "status", options: opts)
 
     expect(component.options).to eq(opts)

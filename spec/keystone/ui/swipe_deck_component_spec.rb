@@ -83,7 +83,7 @@ RSpec.describe Keystone::Ui::SwipeDeckComponent do
 
     it "falls back to index when item does not respond to id" do
       hash_item = { name: "Hash item" }
-      component = described_class.new(items: [hash_item])
+      component = described_class.new(items: [ hash_item ])
       expect(component.item_id(hash_item, fallback_index: 0)).to eq(0)
     end
   end

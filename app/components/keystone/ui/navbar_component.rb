@@ -23,7 +23,7 @@ module Keystone
       end
 
       def nav_classes
-        classes = [NAV_BASE]
+        classes = [ NAV_BASE ]
         classes << NAV_STICKY if @sticky
         classes.join(" ")
       end

@@ -33,7 +33,7 @@ module Keystone
       end
 
       def panel_classes
-        [PANEL_CLASSES, size_class].join(" ")
+        [ PANEL_CLASSES, size_class ].join(" ")
       end
 
       def header_classes

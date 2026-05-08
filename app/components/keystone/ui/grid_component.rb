@@ -21,7 +21,7 @@ module Keystone
       end
 
       def classes
-        tokens = ["grid"]
+        tokens = [ "grid" ]
         if @gap_x || @gap_y
           tokens << GAP_X_CLASSES.fetch(@gap_x) if @gap_x
           tokens << GAP_Y_CLASSES.fetch(@gap_y) if @gap_y

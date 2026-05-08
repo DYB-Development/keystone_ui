@@ -61,7 +61,7 @@ module Keystone
 
       def header_cells
         cells = @columns.map.with_index do |column, index|
-          tokens = [header_classes_for(index)]
+          tokens = [ header_classes_for(index) ]
           tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
 
           cell = {
@@ -104,7 +104,7 @@ module Keystone
       def row_cells
         @row_cells ||= @items.map do |item|
           @columns.map.with_index do |column, index|
-            tokens = [row_classes_for(index)]
+            tokens = [ row_classes_for(index) ]
             tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
 
             cell = {

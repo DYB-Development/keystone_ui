@@ -10,7 +10,7 @@ RSpec.describe "keystone:claude rake task" do
 
   before(:all) do
     Rake.application = Rake::Application.new
-    Rake.application.rake_require("keystone_ui", [File.expand_path("../../lib/tasks", __dir__)])
+    Rake.application.rake_require("keystone_ui", [ File.expand_path("../../lib/tasks", __dir__) ])
   end
 
   before do
