@@ -16,7 +16,7 @@ module Keystone
       SHADOW_CLASS = "shadow-sm"
 
       def classes
-        tokens = [RADIUS_CLASSES.fetch(@radius), BASE_CLASSES, PADDING_CLASSES.fetch(@padding)]
+        tokens = [ RADIUS_CLASSES.fetch(@radius), BASE_CLASSES, PADDING_CLASSES.fetch(@padding) ]
         tokens << SHADOW_CLASS if @shadow
         tokens.join(" ")
       end

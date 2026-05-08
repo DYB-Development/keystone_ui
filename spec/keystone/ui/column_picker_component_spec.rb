@@ -17,20 +17,20 @@ RSpec.describe Keystone::Ui::ColumnPickerComponent do
     it "returns only columns marked as hideable" do
       component = described_class.new(columns: columns)
 
-      expect(component.hideable_columns.map(&:key)).to eq([:quantity, :price])
+      expect(component.hideable_columns.map(&:key)).to eq([ :quantity, :price ])
     end
   end
 
   describe "#hidden?" do
     it "returns true for columns in hidden_columns list" do
-      component = described_class.new(columns: columns, hidden_columns: [:quantity])
+      component = described_class.new(columns: columns, hidden_columns: [ :quantity ])
 
       expect(component.hidden?(:quantity)).to be true
       expect(component.hidden?(:price)).to be false
     end
 
     it "handles string keys" do
-      component = described_class.new(columns: columns, hidden_columns: ["quantity"])
+      component = described_class.new(columns: columns, hidden_columns: [ "quantity" ])
 
       expect(component.hidden?(:quantity)).to be true
     end

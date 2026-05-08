@@ -31,7 +31,7 @@ module Keystone
         else
           VARIANT_CLASSES.fetch(@variant)
         end
-        [BASE_CLASSES, variant_css, SIZE_CLASSES.fetch(@size)].join(" ")
+        [ BASE_CLASSES, variant_css, SIZE_CLASSES.fetch(@size) ].join(" ")
       end
 
       def tag_name

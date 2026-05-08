@@ -68,10 +68,10 @@ RSpec.describe Keystone::Ui::FormFieldComponent do
   end
 
   it "detects select type" do
-    component = described_class.new(attribute: :zone, type: :select, options: [["Zone 1", "1"]])
+    component = described_class.new(attribute: :zone, type: :select, options: [ [ "Zone 1", "1" ] ])
 
     expect(component.select?).to be true
-    expect(component.select_options).to eq([["Zone 1", "1"]])
+    expect(component.select_options).to eq([ [ "Zone 1", "1" ] ])
   end
 
   it "maps date type to date input" do
@@ -96,9 +96,9 @@ RSpec.describe Keystone::Ui::FormFieldComponent do
   end
 
   it "stores errors when provided" do
-    component = described_class.new(attribute: :name, errors: ["can't be blank"])
+    component = described_class.new(attribute: :name, errors: [ "can't be blank" ])
 
     expect(component.errors?).to be true
-    expect(component.error_messages).to eq(["can't be blank"])
+    expect(component.error_messages).to eq([ "can't be blank" ])
   end
 end

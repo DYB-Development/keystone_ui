@@ -49,5 +49,4 @@ RSpec.describe Keystone::Ui::StatCardComponent do
 
     expect(component.suffix?).to be false
   end
-
 end

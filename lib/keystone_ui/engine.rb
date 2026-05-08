@@ -28,7 +28,7 @@ module KeystoneUi
       next unless css_path.read.include?(keystone_import)
 
       source_css = tailwind_dir.join("keystone_source.css")
-      lines = [%(@source "#{root}/app/components/**/*.{erb,rb}";)]
+      lines = [ %(@source "#{root}/app/components/**/*.{erb,rb}";) ]
 
       # Import theme CSS (accent + surface custom property defaults)
       theme_css = root.join("app/assets/tailwind/keystone_ui_engine/theme.css")

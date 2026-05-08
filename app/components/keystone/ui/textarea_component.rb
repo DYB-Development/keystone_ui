@@ -18,7 +18,7 @@ module Keystone
       FOCUS_CLASSES = "focus:border-accent-500 focus:ring-accent-500 dark:focus:border-accent-400 dark:focus:ring-accent-400"
 
       def classes
-        tokens = [BASE_CLASSES, FOCUS_CLASSES]
+        tokens = [ BASE_CLASSES, FOCUS_CLASSES ]
         tokens << DISABLED_CLASSES if @disabled
         tokens.join(" ")
       end
