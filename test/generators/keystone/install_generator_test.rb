@@ -47,4 +47,8 @@ class Keystone::InstallGeneratorTest < Minitest::Test
   def test_has_a_generate_claude_docs_method
     assert_includes Keystone::InstallGenerator.instance_methods, :generate_claude_docs
   end
+
+  def test_has_a_generate_subagents_method
+    assert_includes Keystone::InstallGenerator.instance_methods, :generate_subagents
+  end
 end
