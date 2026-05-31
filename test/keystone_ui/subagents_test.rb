@@ -19,4 +19,8 @@ class KeystoneUiSubagentsTest < Minitest::Test
   def test_scaffold_agent_includes_the_page_recipes
     assert_includes KeystoneUi::Subagents.content_for("keystone-scaffold"), KeystoneUi::Reference.recipes
   end
+
+  def test_install_agent_omits_the_page_recipes
+    refute_includes KeystoneUi::Subagents.content_for("keystone-install"), KeystoneUi::Reference.recipes
+  end
 end
