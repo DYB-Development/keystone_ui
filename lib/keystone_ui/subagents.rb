@@ -18,6 +18,7 @@ module KeystoneUi
           "pages, forms, tables, navigation, dashboards. Produces ERB that composes " \
           "Keystone UI helpers. MUST BE USED instead of hand-writing ERB/Tailwind for UI.",
         tools: "Read, Write, Edit",
+        recipes: true,
         body: <<~BODY.chomp
           You are the Keystone UI scaffolding expert. You build pages and UI by composing
           the `ui_*` helpers documented below — never by hand-writing raw HTML or Tailwind.
@@ -53,6 +54,7 @@ module KeystoneUi
         description: "Use for questions about Keystone UI — which helper to use, what " \
           "parameters it takes, how to compose helpers. Answers only; makes no file changes.",
         tools: "Read",
+        recipes: true,
         body: <<~BODY.chomp
           You are the Keystone UI usage expert. You answer questions about the helpers
           below — which one fits, what parameters it takes, how to compose them.
@@ -88,6 +90,8 @@ module KeystoneUi
       agent = AGENTS.find { |candidate| candidate[:name] == name }
       raise ArgumentError, "unknown subagent: #{name}" unless agent
 
+      knowledge = agent[:recipes] ? "#{Reference.content}\n\n#{Reference.recipes}" : Reference.content
+
       <<~MARKDOWN
         ---
         name: #{agent[:name]}
@@ -97,7 +101,7 @@ module KeystoneUi
 
         #{agent[:body]}
 
-        #{Reference.content}
+        #{knowledge}
       MARKDOWN
     end
   end

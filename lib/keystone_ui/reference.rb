@@ -5,10 +5,18 @@ module KeystoneUi
   # the install generator, and the Claude Code subagents all read from here so
   # they can never disagree about how the components are used.
   module Reference
-    PATH = File.expand_path("reference/components.md", __dir__)
+    DIR = File.expand_path("reference", __dir__)
 
     def self.content
-      File.read(PATH).chomp
+      read("components.md")
+    end
+
+    def self.recipes
+      read("recipes.md")
+    end
+
+    def self.read(name)
+      File.read(File.join(DIR, name)).chomp
     end
   end
 end
