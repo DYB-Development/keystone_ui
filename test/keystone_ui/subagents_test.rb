@@ -15,4 +15,8 @@ class KeystoneUiSubagentsTest < Minitest::Test
   def test_content_for_embeds_the_shared_api_reference
     assert_includes KeystoneUi::Subagents.content_for("keystone-scaffold"), KeystoneUi::Reference.content
   end
+
+  def test_scaffold_agent_includes_the_page_recipes
+    assert_includes KeystoneUi::Subagents.content_for("keystone-scaffold"), KeystoneUi::Reference.recipes
+  end
 end
