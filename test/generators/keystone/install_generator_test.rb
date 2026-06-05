@@ -41,6 +41,10 @@ class Keystone::InstallGeneratorTest < Minitest::Test
     assert_includes Keystone::InstallGenerator.instance_methods, :setup_tailwind
   end
 
+  def test_has_a_setup_javascript_method
+    assert_includes Keystone::InstallGenerator.instance_methods, :setup_javascript
+  end
+
   def test_uses_an_import_for_keystone_source_css
     assert_equal '@import "./keystone_source.css";', Keystone::InstallGenerator::KEYSTONE_IMPORT
   end
@@ -52,6 +56,18 @@ class Keystone::InstallGeneratorTest < Minitest::Test
 
   def test_anchors_injection_after_import_tailwindcss
     assert_equal '@import "tailwindcss";', Keystone::InstallGenerator::TAILWIND_IMPORT
+  end
+
+  def test_registers_controllers_against_the_stimulus_application
+    assert_equal "registerControllers(application)", Keystone::InstallGenerator::JS_REGISTER
+  end
+
+  def test_imports_register_controllers_from_keystone_index
+    assert_equal 'import { registerControllers } from "keystone_ui/index"', Keystone::InstallGenerator::JS_IMPORT
+  end
+
+  def test_targets_the_stimulus_controllers_index
+    assert_equal "app/javascript/controllers/index.js", Keystone::InstallGenerator::JS_CONTROLLERS_PATH
   end
 
   def test_has_a_generate_claude_docs_method

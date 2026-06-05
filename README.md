@@ -38,8 +38,9 @@ The generator handles setup automatically:
 
 - If `app/assets/tailwind/application.css` **does not exist**, the generator creates it with the Tailwind import and Keystone source import. No need to run `tailwindcss:install` first.
 - If it **already exists**, the generator injects the Keystone source import after the existing Tailwind import line.
+- It wires the Stimulus controllers by appending `registerControllers(application)` to `app/javascript/controllers/index.js`, so interactive components (accordion, modal, stat card info, …) work out of the box. If that file isn't present, the generator prints the one line to add manually.
 
-At boot time, the engine initializer writes `keystone_source.css` with `@source` directives pointing to the gem's component files so Tailwind scans them automatically.
+At boot time, the engine initializer writes `keystone_source.css` with `@source` directives pointing to the gem's component files so Tailwind scans them automatically. The engine also adds the gem's controllers to your importmap automatically.
 
 ### How Tailwind integration works
 

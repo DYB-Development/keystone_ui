@@ -9,6 +9,10 @@ module Keystone
     TAILWIND_IMPORT = '@import "tailwindcss";'
     KEYSTONE_IMPORT = '@import "./keystone_source.css";'
 
+    JS_CONTROLLERS_PATH = "app/javascript/controllers/index.js"
+    JS_IMPORT = 'import { registerControllers } from "keystone_ui/index"'
+    JS_REGISTER = "registerControllers(application)"
+
     def setup_tailwind
       say ""
       say "Keystone UI — setup", :green
@@ -64,6 +68,25 @@ module Keystone
       say "  ✔ application.css already up to date", :green unless changed
       say ""
       say "Done! See the README for component usage.", :green
+    end
+
+    def setup_javascript
+      say ""
+      say "Wiring Keystone UI Stimulus controllers...", :green
+
+      js_path = Rails.root.join(JS_CONTROLLERS_PATH)
+      unless js_path.exist?
+        say "  ⚠ #{JS_CONTROLLERS_PATH} not found — add `#{JS_REGISTER}` to your Stimulus setup manually.", :yellow
+        return
+      end
+
+      if js_path.read.include?(JS_REGISTER)
+        say "  ✔ Keystone UI controllers already registered", :green
+        return
+      end
+
+      append_to_file js_path, "\n#{JS_IMPORT}\n#{JS_REGISTER}\n"
+      say "  ✔ Registered Keystone UI controllers", :green
     end
 
     def generate_claude_docs
