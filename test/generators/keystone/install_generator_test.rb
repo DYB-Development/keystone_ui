@@ -62,6 +62,10 @@ class Keystone::InstallGeneratorTest < Minitest::Test
     assert_equal 'import { registerControllers } from "keystone_ui/index"', Keystone::InstallGenerator::JS_IMPORT
   end
 
+  def test_targets_the_stimulus_controllers_index
+    assert_equal "app/javascript/controllers/index.js", Keystone::InstallGenerator::JS_CONTROLLERS_PATH
+  end
+
   def test_has_a_generate_claude_docs_method
     assert_includes Keystone::InstallGenerator.instance_methods, :generate_claude_docs
   end

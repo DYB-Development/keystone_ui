@@ -9,6 +9,7 @@ module Keystone
     TAILWIND_IMPORT = '@import "tailwindcss";'
     KEYSTONE_IMPORT = '@import "./keystone_source.css";'
 
+    JS_CONTROLLERS_PATH = "app/javascript/controllers/index.js"
     JS_IMPORT = 'import { registerControllers } from "keystone_ui/index"'
     JS_REGISTER = "registerControllers(application)"
 
