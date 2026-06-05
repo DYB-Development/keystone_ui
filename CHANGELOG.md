@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **StatCardComponent** — optional `definition:` and `calculation:` params surface a metric's meaning and formula via an info (`i`) button that toggles a disclosure panel (Stimulus `stat-card-info` controller)
+
 ## [0.5.0] - 2026-05-07
 
 ### Added
