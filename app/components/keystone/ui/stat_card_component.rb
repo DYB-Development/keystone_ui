@@ -48,7 +48,7 @@ module Keystone
       end
 
       def info?
-        !@definition.nil?
+        !@definition.nil? || !@calculation.nil?
       end
     end
   end

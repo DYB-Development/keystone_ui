@@ -73,4 +73,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal true, component.info?
   end
+
+  def test_info_is_true_when_calculation_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", calculation: "count(*)")
+
+    assert_equal true, component.info?
+  end
 end
