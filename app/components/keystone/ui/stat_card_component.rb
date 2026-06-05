@@ -8,6 +8,7 @@ module Keystone
       VALUE_BASE_CLASSES = "mt-1 text-3xl font-bold"
       SUFFIX_CLASSES = "text-lg text-gray-500 dark:text-gray-400"
       DISCLOSURE_CLASSES = "hidden mt-4 space-y-1 border-t border-gray-200 pt-3 text-sm text-gray-600 dark:border-zinc-700 dark:text-gray-400"
+      INFO_BUTTON_CLASSES = "shrink-0 text-gray-400 transition hover:text-accent-600 dark:hover:text-accent-400"
 
       VARIANT_CLASSES = {
         neutral: "text-gray-900 dark:text-white",
@@ -54,6 +55,10 @@ module Keystone
 
       def disclosure_classes
         DISCLOSURE_CLASSES
+      end
+
+      def info_button_classes
+        INFO_BUTTON_CLASSES
       end
     end
   end
