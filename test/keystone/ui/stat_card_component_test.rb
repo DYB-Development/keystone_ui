@@ -49,4 +49,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal false, component.suffix?
   end
+
+  def test_exposes_definition
+    component = Keystone::Ui::StatCardComponent.new(label: "Marketing Conversion", value: "64%", definition: "qualified leads / total leads")
+
+    assert_equal "qualified leads / total leads", component.definition
+  end
 end
