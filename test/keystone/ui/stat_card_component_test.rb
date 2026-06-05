@@ -91,4 +91,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_includes component.info_button_classes, "text-gray-400"
   end
+
+  def test_info_icon_renders_svg
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.info_icon, "<svg"
+  end
 end

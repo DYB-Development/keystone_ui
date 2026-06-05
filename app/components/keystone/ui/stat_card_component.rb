@@ -10,6 +10,10 @@ module Keystone
       DISCLOSURE_CLASSES = "hidden mt-4 space-y-1 border-t border-gray-200 pt-3 text-sm text-gray-600 dark:border-zinc-700 dark:text-gray-400"
       INFO_BUTTON_CLASSES = "shrink-0 text-gray-400 transition hover:text-accent-600 dark:hover:text-accent-400"
 
+      INFO_ICON = <<~SVG.freeze
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      SVG
+
       VARIANT_CLASSES = {
         neutral: "text-gray-900 dark:text-white",
         success: "text-green-600 dark:text-green-400",
@@ -59,6 +63,10 @@ module Keystone
 
       def info_button_classes
         INFO_BUTTON_CLASSES
+      end
+
+      def info_icon
+        INFO_ICON
       end
     end
   end
