@@ -1,6 +1,19 @@
-<div class="<%= classes %>">
-  <p class="<%= label_classes %>"><%= label %></p>
+<div class="<%= classes %>"<%= info? ? ' data-controller="stat-card-info"'.html_safe : "" %>>
+  <div class="flex items-start justify-between gap-2">
+    <p class="<%= label_classes %>"><%= label %></p>
+    <% if info? %>
+      <button type="button" class="<%= info_button_classes %>" data-action="click->stat-card-info#toggle" aria-label="Show metric details">
+        <%= info_icon.html_safe %>
+      </button>
+    <% end %>
+  </div>
   <p class="<%= value_classes %>">
     <%= value %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %>
   </p>
+  <% if info? %>
+    <div class="<%= disclosure_classes %>" data-stat-card-info-target="panel">
+      <% if definition %><p><span class="font-medium text-gray-700 dark:text-gray-300">Captures:</span> <%= definition %></p><% end %>
+      <% if calculation %><p><span class="font-medium text-gray-700 dark:text-gray-300">Calc:</span> <%= calculation %></p><% end %>
+    </div>
+  <% end %>
 </div>

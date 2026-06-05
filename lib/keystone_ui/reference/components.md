@@ -471,10 +471,13 @@ Inline status badge.
 
 ### `ui_stat_card`
 
-Metric card for dashboards.
+Metric card for dashboards. When `definition:` or `calculation:` is given, the card shows an info (`i`) button that toggles a disclosure explaining what the metric captures and how it's computed.
 
 ```erb
 <%= ui_stat_card(label: "Revenue", value: "$42,300", variant: :success, suffix: "/mo") %>
+<%= ui_stat_card(label: "Marketing Conversion", value: "64%",
+      definition: "qualified leads / total leads (this period)",
+      calculation: "count(lead_qualified) / count(lead_created)") %>
 ```
 
 | Param | Required | Default | Values |
@@ -483,6 +486,8 @@ Metric card for dashboards.
 | `value:` | yes | — | — |
 | `variant:` | no | `:neutral` | `:neutral`, `:success`, `:danger`, `:warning`, `:info` |
 | `suffix:` | no | `nil` | unit label after value |
+| `definition:` | no | `nil` | plain-language description of what the metric captures |
+| `calculation:` | no | `nil` | how the metric is computed |
 
 ### `ui_chart_card`
 

@@ -9,6 +9,7 @@ import ModalController from "keystone_ui/modal_controller"
 import ClipboardController from "keystone_ui/clipboard_controller"
 import TabSwitcherController from "keystone_ui/tab_switcher_controller"
 import AccordionController from "keystone_ui/accordion_controller"
+import StatCardInfoController from "keystone_ui/stat_card_info_controller"
 
 export function registerControllers(application) {
   application.register("color-picker", ColorPickerController)
@@ -22,6 +23,7 @@ export function registerControllers(application) {
   application.register("clipboard", ClipboardController)
   application.register("tab-switcher", TabSwitcherController)
   application.register("accordion", AccordionController)
+  application.register("stat-card-info", StatCardInfoController)
 }
 
-export { ColorPickerController, MultiSelectController, SwipeDeckController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ModalController, ClipboardController, TabSwitcherController, AccordionController }
+export { ColorPickerController, MultiSelectController, SwipeDeckController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ModalController, ClipboardController, TabSwitcherController, AccordionController, StatCardInfoController }

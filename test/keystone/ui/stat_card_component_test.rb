@@ -49,4 +49,52 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal false, component.suffix?
   end
+
+  def test_exposes_definition
+    component = Keystone::Ui::StatCardComponent.new(label: "Marketing Conversion", value: "64%", definition: "qualified leads / total leads")
+
+    assert_equal "qualified leads / total leads", component.definition
+  end
+
+  def test_exposes_calculation
+    component = Keystone::Ui::StatCardComponent.new(label: "Marketing Conversion", value: "64%", calculation: "count(lead_qualified) / count(lead_created)")
+
+    assert_equal "count(lead_qualified) / count(lead_created)", component.calculation
+  end
+
+  def test_info_is_false_when_neither_definition_nor_calculation_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5")
+
+    assert_equal false, component.info?
+  end
+
+  def test_info_is_true_when_definition_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows in table")
+
+    assert_equal true, component.info?
+  end
+
+  def test_info_is_true_when_calculation_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", calculation: "count(*)")
+
+    assert_equal true, component.info?
+  end
+
+  def test_disclosure_is_hidden_by_default
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.disclosure_classes, "hidden"
+  end
+
+  def test_exposes_info_button_classes
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.info_button_classes, "text-gray-400"
+  end
+
+  def test_info_icon_renders_svg
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.info_icon, "<svg"
+  end
 end
