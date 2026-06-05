@@ -61,4 +61,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal "count(lead_qualified) / count(lead_created)", component.calculation
   end
+
+  def test_info_is_false_when_neither_definition_nor_calculation_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5")
+
+    assert_equal false, component.info?
+  end
 end

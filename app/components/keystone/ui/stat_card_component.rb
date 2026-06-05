@@ -46,6 +46,10 @@ module Keystone
       def suffix?
         !@suffix.nil?
       end
+
+      def info?
+        false
+      end
     end
   end
 end
