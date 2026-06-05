@@ -41,6 +41,10 @@ class Keystone::InstallGeneratorTest < Minitest::Test
     assert_includes Keystone::InstallGenerator.instance_methods, :setup_tailwind
   end
 
+  def test_has_a_setup_javascript_method
+    assert_includes Keystone::InstallGenerator.instance_methods, :setup_javascript
+  end
+
   def test_uses_an_import_for_keystone_source_css
     assert_equal '@import "./keystone_source.css";', Keystone::InstallGenerator::KEYSTONE_IMPORT
   end
