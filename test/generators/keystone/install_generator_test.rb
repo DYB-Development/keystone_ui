@@ -54,6 +54,10 @@ class Keystone::InstallGeneratorTest < Minitest::Test
     assert_equal '@import "tailwindcss";', Keystone::InstallGenerator::TAILWIND_IMPORT
   end
 
+  def test_registers_controllers_against_the_stimulus_application
+    assert_equal "registerControllers(application)", Keystone::InstallGenerator::JS_REGISTER
+  end
+
   def test_has_a_generate_claude_docs_method
     assert_includes Keystone::InstallGenerator.instance_methods, :generate_claude_docs
   end

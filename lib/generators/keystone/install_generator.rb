@@ -9,6 +9,8 @@ module Keystone
     TAILWIND_IMPORT = '@import "tailwindcss";'
     KEYSTONE_IMPORT = '@import "./keystone_source.css";'
 
+    JS_REGISTER = "registerControllers(application)"
+
     def setup_tailwind
       say ""
       say "Keystone UI — setup", :green
