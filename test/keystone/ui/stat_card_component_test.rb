@@ -79,4 +79,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal true, component.info?
   end
+
+  def test_disclosure_is_hidden_by_default
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.disclosure_classes, "hidden"
+  end
 end
