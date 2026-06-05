@@ -67,4 +67,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal false, component.info?
   end
+
+  def test_info_is_true_when_definition_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows in table")
+
+    assert_equal true, component.info?
+  end
 end

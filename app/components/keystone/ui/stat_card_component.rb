@@ -48,7 +48,7 @@ module Keystone
       end
 
       def info?
-        false
+        !@definition.nil?
       end
     end
   end
