@@ -55,4 +55,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal "qualified leads / total leads", component.definition
   end
+
+  def test_exposes_calculation
+    component = Keystone::Ui::StatCardComponent.new(label: "Marketing Conversion", value: "64%", calculation: "count(lead_qualified) / count(lead_created)")
+
+    assert_equal "count(lead_qualified) / count(lead_created)", component.calculation
+  end
 end
