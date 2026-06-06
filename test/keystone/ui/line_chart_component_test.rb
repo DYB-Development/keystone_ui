@@ -17,4 +17,10 @@ class Keystone::Ui::LineChartComponentTest < Minitest::Test
 
     assert_equal %w[Mon Tue Wed], component.chart_data[:labels]
   end
+
+  def test_chart_data_json_serializes_chart_data
+    component = Keystone::Ui::LineChartComponent.new(series: [ { name: "Leads", data: [ 1, 2 ] } ], labels: %w[Mon Tue])
+
+    assert_equal component.chart_data.to_json, component.chart_data_json
+  end
 end
