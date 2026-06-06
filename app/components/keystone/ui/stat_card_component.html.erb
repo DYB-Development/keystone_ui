@@ -10,6 +10,9 @@
   <p class="<%= value_classes %>">
     <%= value %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %>
   </p>
+  <% if change? %>
+    <p class="mt-1 text-sm font-medium <%= change_classes %>"><%= change_label %></p>
+  <% end %>
   <% if info? %>
     <div class="<%= disclosure_classes %>" data-stat-card-info-target="panel">
       <% if definition %><p><span class="font-medium text-gray-700 dark:text-gray-300">Captures:</span> <%= definition %></p><% end %>

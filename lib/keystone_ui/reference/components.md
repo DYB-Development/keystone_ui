@@ -471,11 +471,11 @@ Inline status badge.
 
 ### `ui_stat_card`
 
-Metric card for dashboards. When `definition:` or `calculation:` is given, the card shows an info (`i`) button that toggles a disclosure explaining what the metric captures and how it's computed.
+Metric card for dashboards. When `definition:` or `calculation:` is given, the card shows an info (`i`) button that toggles a disclosure explaining what the metric captures and how it's computed. When `change:` is given, the card shows a period-over-period trend (▲/▼ + percent), colored by sign.
 
 ```erb
 <%= ui_stat_card(label: "Revenue", value: "$42,300", variant: :success, suffix: "/mo") %>
-<%= ui_stat_card(label: "Marketing Conversion", value: "64%",
+<%= ui_stat_card(label: "Marketing Conversion", value: "64%", change: 12.3,
       definition: "qualified leads / total leads (this period)",
       calculation: "count(lead_qualified) / count(lead_created)") %>
 ```
@@ -488,6 +488,7 @@ Metric card for dashboards. When `definition:` or `calculation:` is given, the c
 | `suffix:` | no | `nil` | unit label after value |
 | `definition:` | no | `nil` | plain-language description of what the metric captures |
 | `calculation:` | no | `nil` | how the metric is computed |
+| `change:` | no | `nil` | percent change vs the previous period (e.g. `12.3`, `-5.0`); renders a colored ▲/▼ trend |
 
 ### `ui_chart_card`
 
