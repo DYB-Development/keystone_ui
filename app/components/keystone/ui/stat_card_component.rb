@@ -59,7 +59,7 @@ module Keystone
       end
 
       def change?
-        false
+        !@change.nil?
       end
 
       def disclosure_classes

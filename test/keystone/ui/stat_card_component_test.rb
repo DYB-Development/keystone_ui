@@ -109,4 +109,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal false, component.change?
   end
+
+  def test_change_is_true_when_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
+
+    assert_equal true, component.change?
+  end
 end
