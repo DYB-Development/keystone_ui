@@ -10,7 +10,7 @@ module Keystone
       end
 
       def chart_data
-        { datasets: @series.map { |s| { label: s[:name], data: s[:data] } } }
+        { labels: @labels, datasets: @series.map { |s| { label: s[:name], data: s[:data] } } }
       end
     end
   end
