@@ -14,4 +14,10 @@ class KeystoneUi::ImportmapTest < Minitest::Test
 
     assert_empty missing, "controllers missing an importmap pin: #{missing.join(", ")}"
   end
+
+  def test_chart_js_is_provided_for_the_line_chart_controller
+    pins = File.read(File.join(ROOT, "config/importmap.rb"))
+
+    assert_includes pins, 'pin "chart.js"'
+  end
 end

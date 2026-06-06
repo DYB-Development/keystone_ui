@@ -509,7 +509,7 @@ Card wrapper for chart content with title and configurable height.
 
 Responsive line chart (Chart.js, `line-chart` Stimulus controller). Mobile- and hotwire-native-safe: fills its container width, and the controller destroys the chart on `disconnect` so Turbo navigation/caching and frame re-renders don't duplicate or leak canvases. Supports multiple series.
 
-**Setup:** the host app must pin Chart.js in its importmap (`bin/importmap pin chart.js`).
+Chart.js is bundled with keystone_ui and pinned automatically — no host setup needed.
 
 ```erb
 <%= ui_line_chart(
