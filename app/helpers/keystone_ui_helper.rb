@@ -17,6 +17,10 @@ module KeystoneUiHelper
     render Keystone::Ui::ChartCardComponent.new(**args), &block
   end
 
+  def ui_line_chart(**args)
+    render Keystone::Ui::LineChartComponent.new(**args)
+  end
+
   def ui_cta_banner(**args, &block)
     render Keystone::Ui::CtaBannerComponent.new(**args), &block
   end

@@ -12,3 +12,4 @@ pin "keystone_ui/tab_switcher_controller", to: "keystone_ui/tab_switcher_control
 pin "keystone_ui/accordion_controller", to: "keystone_ui/accordion_controller.js"
 pin "keystone_ui/stat_card_info_controller", to: "keystone_ui/stat_card_info_controller.js"
 pin "keystone_ui/auto_submit_controller", to: "keystone_ui/auto_submit_controller.js"
+pin "keystone_ui/line_chart_controller", to: "keystone_ui/line_chart_controller.js"

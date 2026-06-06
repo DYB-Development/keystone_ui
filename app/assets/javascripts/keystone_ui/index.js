@@ -11,6 +11,7 @@ import TabSwitcherController from "keystone_ui/tab_switcher_controller"
 import AccordionController from "keystone_ui/accordion_controller"
 import StatCardInfoController from "keystone_ui/stat_card_info_controller"
 import AutoSubmitController from "keystone_ui/auto_submit_controller"
+import LineChartController from "keystone_ui/line_chart_controller"
 
 export function registerControllers(application) {
   application.register("color-picker", ColorPickerController)
@@ -26,6 +27,7 @@ export function registerControllers(application) {
   application.register("accordion", AccordionController)
   application.register("stat-card-info", StatCardInfoController)
   application.register("auto-submit", AutoSubmitController)
+  application.register("line-chart", LineChartController)
 }
 
-export { ColorPickerController, MultiSelectController, SwipeDeckController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ModalController, ClipboardController, TabSwitcherController, AccordionController, StatCardInfoController, AutoSubmitController }
+export { ColorPickerController, MultiSelectController, SwipeDeckController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ModalController, ClipboardController, TabSwitcherController, AccordionController, StatCardInfoController, AutoSubmitController, LineChartController }
