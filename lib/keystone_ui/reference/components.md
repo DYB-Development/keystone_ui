@@ -505,6 +505,29 @@ Card wrapper for chart content with title and configurable height.
 | `title:` | yes | — | — |
 | `height:` | no | `:md` | `:sm` (h-48), `:md` (h-64), `:lg` (h-96) |
 
+### `ui_line_chart`
+
+Responsive line chart (Chart.js, `line-chart` Stimulus controller). Mobile- and hotwire-native-safe: fills its container width, and the controller destroys the chart on `disconnect` so Turbo navigation/caching and frame re-renders don't duplicate or leak canvases. Supports multiple series.
+
+**Setup:** the host app must pin Chart.js in its importmap (`bin/importmap pin chart.js`).
+
+```erb
+<%= ui_line_chart(
+      labels: ["Mon", "Tue", "Wed"],
+      series: [
+        { name: "Leads", data: [12, 19, 14] },
+        { name: "Deals", data: [3, 5, 4] }
+      ],
+      height: :md
+    ) %>
+```
+
+| Param | Required | Default | Values |
+|-------|----------|---------|--------|
+| `labels:` | yes | — | x-axis labels |
+| `series:` | yes | — | array of `{ name:, data: }` (one entry per line) |
+| `height:` | no | `:md` | `:sm` (h-48), `:md` (h-64), `:lg` (h-96) |
+
 ### `ui_copy_button`
 
 Button that copies text to clipboard.
