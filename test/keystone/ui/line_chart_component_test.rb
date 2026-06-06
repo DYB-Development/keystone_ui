@@ -23,4 +23,10 @@ class Keystone::Ui::LineChartComponentTest < Minitest::Test
 
     assert_equal component.chart_data.to_json, component.chart_data_json
   end
+
+  def test_height_class_maps_size_to_a_height
+    component = Keystone::Ui::LineChartComponent.new(series: [], labels: [], height: :lg)
+
+    assert_equal "h-96", component.height_class
+  end
 end
