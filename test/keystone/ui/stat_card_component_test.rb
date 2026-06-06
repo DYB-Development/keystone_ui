@@ -145,4 +145,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal "▼ 4.0%", component.change_label
   end
+
+  def test_zero_change_label_has_no_arrow
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
+
+    assert_equal "0.0%", component.change_label
+  end
 end

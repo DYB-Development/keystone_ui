@@ -63,8 +63,10 @@ module Keystone
       end
 
       def change_label
-        arrow = @change.negative? ? "▼" : "▲"
-        "#{arrow} #{format("%.1f", @change.abs)}%"
+        formatted = "#{format("%.1f", @change.abs)}%"
+        return formatted if @change.zero?
+
+        "#{@change.negative? ? "▼" : "▲"} #{formatted}"
       end
 
       def change_classes
