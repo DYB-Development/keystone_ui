@@ -127,4 +127,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_includes component.change_classes, "text-red-600"
   end
+
+  def test_zero_change_is_neutral
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
+
+    assert_includes component.change_classes, "text-gray-500"
+  end
 end
