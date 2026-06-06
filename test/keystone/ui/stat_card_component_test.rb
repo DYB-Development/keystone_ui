@@ -97,4 +97,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_includes component.info_icon, "<svg"
   end
+
+  def test_exposes_change
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.3)
+
+    assert_in_delta 12.3, component.change
+  end
 end
