@@ -22,15 +22,16 @@ module Keystone
         info: "text-accent-600 dark:text-accent-400"
       }.freeze
 
-      attr_reader :label, :value, :suffix, :definition, :calculation
+      attr_reader :label, :value, :suffix, :definition, :calculation, :change
 
-      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil)
+      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil)
         @label = label
         @value = value
         @variant = variant
         @suffix = suffix
         @definition = definition
         @calculation = calculation
+        @change = change
       end
 
       def classes
@@ -55,6 +56,24 @@ module Keystone
 
       def info?
         !@definition.nil? || !@calculation.nil?
+      end
+
+      def change?
+        !@change.nil?
+      end
+
+      def change_label
+        formatted = "#{format("%.1f", @change.abs)}%"
+        return formatted if @change.zero?
+
+        "#{@change.negative? ? "▼" : "▲"} #{formatted}"
+      end
+
+      def change_classes
+        return "text-gray-500 dark:text-gray-400" if @change.zero?
+        return "text-red-600 dark:text-red-400" if @change.negative?
+
+        "text-green-600 dark:text-green-400"
       end
 
       def disclosure_classes

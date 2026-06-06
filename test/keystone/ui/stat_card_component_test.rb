@@ -97,4 +97,58 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_includes component.info_icon, "<svg"
   end
+
+  def test_exposes_change
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.3)
+
+    assert_in_delta 12.3, component.change
+  end
+
+  def test_change_is_false_when_absent
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k")
+
+    assert_equal false, component.change?
+  end
+
+  def test_change_is_true_when_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
+
+    assert_equal true, component.change?
+  end
+
+  def test_positive_change_is_green
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.3)
+
+    assert_includes component.change_classes, "text-green-600"
+  end
+
+  def test_negative_change_is_red
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
+
+    assert_includes component.change_classes, "text-red-600"
+  end
+
+  def test_zero_change_is_neutral
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
+
+    assert_includes component.change_classes, "text-gray-500"
+  end
+
+  def test_positive_change_label_has_up_arrow_and_percent
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.34)
+
+    assert_equal "▲ 12.3%", component.change_label
+  end
+
+  def test_negative_change_label_has_down_arrow_and_absolute_percent
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
+
+    assert_equal "▼ 4.0%", component.change_label
+  end
+
+  def test_zero_change_label_has_no_arrow
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
+
+    assert_equal "0.0%", component.change_label
+  end
 end
