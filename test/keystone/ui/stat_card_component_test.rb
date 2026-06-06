@@ -115,4 +115,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal true, component.change?
   end
+
+  def test_positive_change_is_green
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.3)
+
+    assert_includes component.change_classes, "text-green-600"
+  end
 end

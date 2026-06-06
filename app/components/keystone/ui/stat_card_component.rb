@@ -62,6 +62,10 @@ module Keystone
         !@change.nil?
       end
 
+      def change_classes
+        "text-green-600 dark:text-green-400"
+      end
+
       def disclosure_classes
         DISCLOSURE_CLASSES
       end
