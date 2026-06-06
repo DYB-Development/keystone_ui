@@ -58,6 +58,10 @@ module Keystone
         !@definition.nil? || !@calculation.nil?
       end
 
+      def change?
+        false
+      end
+
       def disclosure_classes
         DISCLOSURE_CLASSES
       end

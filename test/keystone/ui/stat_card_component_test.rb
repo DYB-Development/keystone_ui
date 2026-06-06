@@ -103,4 +103,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_in_delta 12.3, component.change
   end
+
+  def test_change_is_false_when_absent
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k")
+
+    assert_equal false, component.change?
+  end
 end
