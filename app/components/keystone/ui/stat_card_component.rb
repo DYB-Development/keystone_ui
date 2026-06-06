@@ -63,6 +63,8 @@ module Keystone
       end
 
       def change_classes
+        return "text-red-600 dark:text-red-400" if @change.negative?
+
         "text-green-600 dark:text-green-400"
       end
 
