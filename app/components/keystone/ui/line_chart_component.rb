@@ -28,6 +28,10 @@ module Keystone
       def height_class
         HEIGHT_CLASSES.fetch(@height)
       end
+
+      def container_classes
+        "#{height_class} relative w-full min-w-0"
+      end
     end
   end
 end
