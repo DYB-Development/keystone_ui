@@ -41,6 +41,7 @@ module Keystone
       Keystone::Ui::MobileHeaderComponent,
       Keystone::Ui::ShowPageComponent,
       Keystone::Ui::OptionCardComponent,
+      Keystone::Ui::RadioCardComponent,
       Keystone::Ui::ColorPickerComponent,
       Keystone::Ui::MultiSelectComponent,
       Keystone::Ui::SwipeDeckComponent,
