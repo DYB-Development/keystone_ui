@@ -29,4 +29,11 @@ class Keystone::Ui::LineChartComponentTest < Minitest::Test
 
     assert_equal "h-96", component.height_class
   end
+
+  def test_container_is_a_relative_shrinkable_box
+    component = Keystone::Ui::LineChartComponent.new(series: [], labels: [])
+
+    assert_includes component.container_classes, "relative"
+    assert_includes component.container_classes, "min-w-0"
+  end
 end
