@@ -37,6 +37,10 @@ module Keystone
         @layout == :centered ? CENTERED_CLASSES : SPLIT_CLASSES
       end
 
+      def inner_content_classes
+        "flex flex-col gap-8 items-center"
+      end
+
       def title_classes
         "#{TITLE_BASE_CLASSES} text-surface-900 dark:text-white"
       end
