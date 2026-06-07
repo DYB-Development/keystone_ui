@@ -12,6 +12,10 @@ module Keystone
         @hint = hint
         @checked = checked
       end
+
+      def checked?
+        false
+      end
     end
   end
 end
