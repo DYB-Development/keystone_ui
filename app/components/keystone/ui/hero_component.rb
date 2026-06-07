@@ -6,6 +6,9 @@ module Keystone
       WRAPPER_CLASSES = "relative min-h-screen pt-24"
       INNER_CLASSES = "mx-auto max-w-6xl px-6 py-24 lg:py-32"
 
+      CONTENT_COLUMN_CLASSES = "flex flex-col gap-8"
+      CENTERED_COLUMN_CLASSES = "items-center"
+
       SPLIT_CLASSES = "grid gap-12 lg:grid-cols-2 lg:gap-16 items-center"
       CENTERED_CLASSES = "flex flex-col items-center text-center"
 
@@ -38,7 +41,9 @@ module Keystone
       end
 
       def inner_content_classes
-        "flex flex-col gap-8 items-center"
+        return CONTENT_COLUMN_CLASSES unless @layout == :centered
+
+        "#{CONTENT_COLUMN_CLASSES} #{CENTERED_COLUMN_CLASSES}"
       end
 
       def title_classes
