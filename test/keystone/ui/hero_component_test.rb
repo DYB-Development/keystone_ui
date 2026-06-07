@@ -60,6 +60,18 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
     assert_includes component.content_classes, "lg:grid-cols-2"
   end
 
+  def test_centers_inner_content_for_centered_layout
+    component = Keystone::Ui::HeroComponent.new(title: "X", layout: :centered)
+
+    assert_includes component.inner_content_classes, "items-center"
+  end
+
+  def test_does_not_center_inner_content_for_split_layout
+    component = Keystone::Ui::HeroComponent.new(title: "X")
+
+    refute_includes component.inner_content_classes, "items-center"
+  end
+
   def test_registers_an_aside_slot
     assert Keystone::Ui::HeroComponent.registered_slots.key?(:aside)
   end
