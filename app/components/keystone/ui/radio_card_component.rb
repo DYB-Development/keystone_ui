@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class RadioCardComponent < ViewComponent::Base
-      attr_reader :name, :value, :label
+      attr_reader :name, :value, :label, :hint
 
       def initialize(name:, value:, label:, hint: nil, checked: false)
         @name = name
