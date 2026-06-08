@@ -16,6 +16,10 @@ module Keystone
       def checked?
         @checked
       end
+
+      def hint?
+        false
+      end
     end
   end
 end

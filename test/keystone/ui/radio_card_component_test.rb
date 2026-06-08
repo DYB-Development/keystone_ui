@@ -33,4 +33,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_equal "current jobs", component.hint
   end
+
+  def test_has_no_hint_by_default
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
+
+    assert_equal false, component.hint?
+  end
 end
