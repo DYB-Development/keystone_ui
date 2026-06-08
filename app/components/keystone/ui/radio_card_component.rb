@@ -14,7 +14,7 @@ module Keystone
       end
 
       def checked?
-        false
+        @checked
       end
     end
   end

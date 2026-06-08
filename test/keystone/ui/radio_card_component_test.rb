@@ -21,4 +21,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_equal false, component.checked?
   end
+
+  def test_reflects_checked_when_set
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now", checked: true)
+
+    assert_equal true, component.checked?
+  end
 end
