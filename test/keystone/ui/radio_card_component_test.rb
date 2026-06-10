@@ -45,4 +45,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_equal true, component.hint?
   end
+
+  def test_card_classes_include_base_structure
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
+
+    assert_includes component.classes, "rounded-lg"
+  end
 end

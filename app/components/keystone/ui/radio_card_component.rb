@@ -3,6 +3,8 @@
 module Keystone
   module Ui
     class RadioCardComponent < ViewComponent::Base
+      BASE_CLASSES = "block p-4 rounded-lg border-2 cursor-pointer transition"
+
       attr_reader :name, :value, :label, :hint
 
       def initialize(name:, value:, label:, hint: nil, checked: false)
@@ -19,6 +21,10 @@ module Keystone
 
       def hint?
         !@hint.nil?
+      end
+
+      def classes
+        BASE_CLASSES
       end
     end
   end
