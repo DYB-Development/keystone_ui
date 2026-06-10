@@ -57,4 +57,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_includes component.classes, "peer-checked:border-accent-500"
   end
+
+  def test_label_classes_emphasize_text
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
+
+    assert_includes component.label_classes, "font-medium"
+  end
 end
