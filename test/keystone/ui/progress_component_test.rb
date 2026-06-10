@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class Keystone::Ui::ProgressComponentTest < Minitest::Test
+  def test_exposes_label
+    component = Keystone::Ui::ProgressComponent.new(value: 3, max: 5, label: "Question 3 of 5")
+
+    assert_equal "Question 3 of 5", component.label
+  end
+end
