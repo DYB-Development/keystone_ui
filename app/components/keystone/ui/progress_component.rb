@@ -12,7 +12,7 @@ module Keystone
       end
 
       def percent
-        (value.to_f / max * 100).round
+        [(value.to_f / max * 100).round, 100].min
       end
     end
   end

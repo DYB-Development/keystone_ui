@@ -14,4 +14,10 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_equal 60, component.percent
   end
+
+  def test_percent_caps_at_one_hundred
+    component = Keystone::Ui::ProgressComponent.new(value: 7, max: 5)
+
+    assert_equal 100, component.percent
+  end
 end
