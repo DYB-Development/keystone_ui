@@ -18,7 +18,7 @@ module Keystone
       end
 
       def hint?
-        false
+        !@hint.nil?
       end
     end
   end
