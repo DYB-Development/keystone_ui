@@ -1,0 +1,9 @@
+<label class="block cursor-pointer">
+  <input type="radio" name="<%= name %>" value="<%= value %>" <%= "checked" if checked? %> class="peer sr-only">
+  <span class="<%= classes %>">
+    <span class="<%= label_classes %>"><%= label %></span>
+    <% if hint? %>
+      <span class="<%= hint_classes %>"><%= hint %></span>
+    <% end %>
+  </span>
+</label>
