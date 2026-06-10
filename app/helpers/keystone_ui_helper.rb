@@ -145,6 +145,10 @@ module KeystoneUiHelper
     render Keystone::Ui::RadioCardComponent.new(**args)
   end
 
+  def ui_progress(**args)
+    render Keystone::Ui::ProgressComponent.new(**args)
+  end
+
   def ui_settings_link(**args)
     render Keystone::Ui::SettingsLinkComponent.new(**args)
   end
