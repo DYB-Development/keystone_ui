@@ -94,13 +94,5 @@ module Keystone
       say "Generating CLAUDE.md API reference...", :green
       rake "keystone:claude"
     end
-
-    def generate_subagents
-      say ""
-      say "Installing Keystone UI Claude Code subagents...", :green
-      KeystoneUi::Subagents.names.each do |name|
-        create_file ".claude/agents/#{name}.md", KeystoneUi::Subagents.content_for(name), force: true
-      end
-    end
   end
 end
