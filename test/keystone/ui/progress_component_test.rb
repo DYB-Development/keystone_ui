@@ -20,4 +20,10 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_equal 100, component.percent
   end
+
+  def test_track_classes_form_a_rounded_rail
+    component = Keystone::Ui::ProgressComponent.new(value: 3, max: 5)
+
+    assert_includes component.track_classes, "rounded-full"
+  end
 end
