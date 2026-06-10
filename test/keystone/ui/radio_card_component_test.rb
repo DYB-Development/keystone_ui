@@ -51,4 +51,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_includes component.classes, "rounded-lg"
   end
+
+  def test_card_classes_highlight_on_peer_checked
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
+
+    assert_includes component.classes, "peer-checked:border-accent-500"
+  end
 end

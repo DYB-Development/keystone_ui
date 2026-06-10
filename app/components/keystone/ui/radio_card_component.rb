@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class RadioCardComponent < ViewComponent::Base
       BASE_CLASSES = "block p-4 rounded-lg border-2 cursor-pointer transition"
+      HIGHLIGHT_CLASSES = "border-surface-200 peer-checked:border-accent-500 peer-checked:bg-accent-50"
 
       attr_reader :name, :value, :label, :hint
 
@@ -24,7 +25,7 @@ module Keystone
       end
 
       def classes
-        BASE_CLASSES
+        "#{BASE_CLASSES} #{HIGHLIGHT_CLASSES}"
       end
     end
   end
