@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class ProgressComponent < ViewComponent::Base
       TRACK_CLASSES = "w-full h-2 bg-surface-200 rounded-full overflow-hidden"
+      BAR_CLASSES = "h-full bg-accent-500 rounded-full transition-all"
 
       attr_reader :value, :max, :label
 
@@ -19,6 +20,10 @@ module Keystone
 
       def track_classes
         TRACK_CLASSES
+      end
+
+      def bar_classes
+        BAR_CLASSES
       end
     end
   end

@@ -26,4 +26,10 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_includes component.track_classes, "rounded-full"
   end
+
+  def test_bar_classes_use_accent_fill
+    component = Keystone::Ui::ProgressComponent.new(value: 3, max: 5)
+
+    assert_includes component.bar_classes, "bg-accent-500"
+  end
 end
