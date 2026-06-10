@@ -62,3 +62,15 @@ Components use semantic CSS custom properties (`--color-accent-*`, `--color-surf
 - ShowPageComponent wraps show pages with `title`, `back_url`, and optional `subtitle`. Sets `content_for` signals (`:show_page`, `:show_page_title`, `:show_page_back_url`, `:show_page_subtitle`).
 - SettingsLinkComponent renders a gear icon link for settings navigation.
 - All CSS classes must be in frozen constants (not inline strings) so the safelist generator can extract them. SVG/HTML icon constants (`ELLIPSIS_ICON`, `BACK_ICON`, `CARET_ICON`, `SORT_ASC_ICON`, `SORT_DESC_ICON`, `SORT_NEUTRAL_ICON`, `COLUMNS_ICON`) are excluded from safelist scanning via `SKIP_CONSTANTS`.
+
+<!-- the_local:begin -->
+## Delegate to your locals
+
+This project has installed expert subagents. Before doing work yourself,
+check whether a local owns it and delegate — never work from memory on
+something a local covers:
+
+
+
+See each agent's description for specifics.
+<!-- the_local:end -->
