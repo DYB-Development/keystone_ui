@@ -32,4 +32,10 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_includes component.bar_classes, "bg-accent-500"
   end
+
+  def test_label_classes_render_a_small_caption
+    component = Keystone::Ui::ProgressComponent.new(value: 3, max: 5, label: "Question 3 of 5")
+
+    assert_includes component.label_classes, "text-sm"
+  end
 end
