@@ -63,4 +63,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_includes component.label_classes, "font-medium"
   end
+
+  def test_hint_classes_mute_text
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now", hint: "current jobs")
+
+    assert_includes component.hint_classes, "text-surface-500"
+  end
 end
