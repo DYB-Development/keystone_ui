@@ -22,5 +22,11 @@ module KeystoneUi
         assert_equal KeystoneUi::Subagents.content_for(agent.qualified_name), agent.to_markdown
       end
     end
+
+    def test_committed_agent_files_match_the_registration
+      TheLocal.registry.agents.each do |agent|
+        assert_equal agent.to_markdown, File.read(agent.source_path)
+      end
+    end
   end
 end

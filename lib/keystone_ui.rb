@@ -4,6 +4,7 @@ require "view_component"
 require "keystone_ui/configuration"
 require "keystone_ui/engine"
 require "keystone_ui/version"
+require "keystone_ui/the_local"
 
 module KeystoneUi
 end
