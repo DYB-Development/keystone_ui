@@ -9,3 +9,6 @@ Rake::TestTask.new(:test) do |t|
 end
 
 task default: :test
+
+require "keystone_ui/the_local"
+require "the_local/rake"
