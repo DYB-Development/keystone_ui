@@ -10,6 +10,10 @@ module Keystone
         @max = max
         @label = label
       end
+
+      def percent
+        (value.to_f / max * 100).round
+      end
     end
   end
 end

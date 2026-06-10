@@ -8,4 +8,10 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_equal "Question 3 of 5", component.label
   end
+
+  def test_percent_reflects_value_over_max
+    component = Keystone::Ui::ProgressComponent.new(value: 3, max: 5)
+
+    assert_equal 60, component.percent
+  end
 end
