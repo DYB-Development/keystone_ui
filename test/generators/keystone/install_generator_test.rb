@@ -73,17 +73,4 @@ class Keystone::InstallGeneratorTest < Minitest::Test
   def test_has_a_generate_claude_docs_method
     assert_includes Keystone::InstallGenerator.instance_methods, :generate_claude_docs
   end
-
-  def test_has_a_generate_subagents_method
-    assert_includes Keystone::InstallGenerator.instance_methods, :generate_subagents
-  end
-
-  # Smoke integration test: run the generator step end to end and confirm it
-  # writes an agent definition into the app's .claude/agents/ directory.
-  def test_generate_subagents_writes_the_scaffold_agent_into_claude_agents
-    generator = Keystone::InstallGenerator.new
-    generator.generate_subagents
-
-    assert_includes generator.created_files.keys, ".claude/agents/keystone-scaffold.md"
-  end
 end

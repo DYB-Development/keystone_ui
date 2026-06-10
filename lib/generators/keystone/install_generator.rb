@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "keystone_ui/subagents"
-
 module Keystone
   class InstallGenerator < Rails::Generators::Base
     desc "Set up Keystone UI in your Rails application"
@@ -93,14 +91,6 @@ module Keystone
       say ""
       say "Generating CLAUDE.md API reference...", :green
       rake "keystone:claude"
-    end
-
-    def generate_subagents
-      say ""
-      say "Installing Keystone UI Claude Code subagents...", :green
-      KeystoneUi::Subagents.names.each do |name|
-        create_file ".claude/agents/#{name}.md", KeystoneUi::Subagents.content_for(name), force: true
-      end
     end
   end
 end
