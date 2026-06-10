@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "keystone_ui/subagents"
-
 module Keystone
   class InstallGenerator < Rails::Generators::Base
     desc "Set up Keystone UI in your Rails application"
