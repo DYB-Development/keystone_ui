@@ -1,0 +1,8 @@
+<div>
+  <% if label %>
+    <div class="<%= label_classes %>"><%= label %></div>
+  <% end %>
+  <div class="<%= track_classes %>">
+    <div class="<%= bar_classes %>" style="width: <%= percent %>%"></div>
+  </div>
+</div>
