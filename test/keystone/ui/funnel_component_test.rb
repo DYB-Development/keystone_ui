@@ -53,4 +53,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
     assert_equal 0, component.layers.last.width_percent
   end
+
+  def test_bar_classes_use_accent_fill
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 }
+    ])
+
+    assert_includes component.bar_classes, "bg-accent-500"
+  end
 end
