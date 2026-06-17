@@ -540,6 +540,30 @@ Chart.js is bundled with keystone_ui and pinned automatically — no host setup 
 | `series:` | yes | — | array of `{ name:, data: }` (one entry per line) |
 | `height:` | no | `:md` | `:sm` (h-48), `:md` (h-64), `:lg` (h-96) |
 
+### `ui_funnel`
+
+Conversion funnel for analytics/stats pages. Stacks steps top→bottom: the top step renders at full width, and each lower step's bar width is proportional to the **first** step's value. Each layer shows its absolute value on a full-width row above its bar (label left, value right), so labels and values stay legible at any funnel depth on mobile/hotwire-native webviews — they are never clipped inside a narrowing bar. Between steps it shows the **step-to-step** conversion percent (`value / previous step's value`); the top step has none. Divide-by-zero safe. No JS.
+
+`ui_funnel` is pure — it only renders the steps you pass. For slow stats queries, load each funnel lazily with its own Turbo Frame (same approach as the stat/chart cards, which also stay pure):
+
+```erb
+<%= turbo_frame_tag :signup_funnel, src: stats_signup_funnel_path, loading: :lazy do %>
+  Loading…
+<% end %>
+```
+
+```erb
+<%= ui_funnel(steps: [
+      { label: "Visitors",  value: 10_000 },
+      { label: "Signups",   value: 4_500 },
+      { label: "Activated", value: 1_500 }
+    ]) %>
+```
+
+| Param | Required | Default | Values |
+|-------|----------|---------|--------|
+| `steps:` | yes | — | array of `{ label:, value: }`; the first step is the funnel top (100% width) |
+
 ### `ui_copy_button`
 
 Button that copies text to clipboard.
