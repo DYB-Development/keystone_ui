@@ -44,4 +44,13 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
     assert_equal 33, component.layers.last.conversion_percent
   end
+
+  def test_zero_top_value_yields_zero_width
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 0 },
+      { label: "Signups", value: 0 }
+    ])
+
+    assert_equal 0, component.layers.last.width_percent
+  end
 end
