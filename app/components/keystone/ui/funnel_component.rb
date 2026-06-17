@@ -30,6 +30,9 @@ module Keystone
 
       def conversion_percent(value, previous)
         return nil if previous.nil?
+        return 0 if previous.zero?
+
+        (value.to_f / previous * 100).round
       end
 
       def top_value

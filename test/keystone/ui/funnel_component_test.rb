@@ -34,4 +34,14 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
     assert_nil component.layers.first.conversion_percent
   end
+
+  def test_lower_layer_conversion_is_relative_to_the_previous_step
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 },
+      { label: "Signups", value: 4_500 },
+      { label: "Activated", value: 1_500 }
+    ])
+
+    assert_equal 33, component.layers.last.conversion_percent
+  end
 end
