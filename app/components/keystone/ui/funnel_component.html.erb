@@ -1,0 +1,13 @@
+<div class="<%= container_classes %>">
+  <% layers.each do |layer| %>
+    <% if layer.conversion_percent %>
+      <div class="<%= transition_classes %>"><%= layer.conversion_percent %>%</div>
+    <% end %>
+    <div class="<%= row_classes %>">
+      <div class="<%= bar_classes %>" style="width: <%= layer.width_percent %>%">
+        <span class="<%= label_classes %>"><%= layer.label %></span>
+        <span class="<%= value_classes %>"><%= layer.value %></span>
+      </div>
+    </div>
+  <% end %>
+</div>
