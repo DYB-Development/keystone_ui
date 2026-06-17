@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class FunnelComponent < ViewComponent::Base
-      Layer = Struct.new(:label, :value, :width_percent, keyword_init: true)
+      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, keyword_init: true)
 
       attr_reader :steps
 
@@ -12,16 +12,25 @@ module Keystone
       end
 
       def layers
+        previous = nil
+
         steps.map do |step|
-          Layer.new(
+          layer = Layer.new(
             label: step[:label],
             value: step[:value],
-            width_percent: width_percent(step[:value])
+            width_percent: width_percent(step[:value]),
+            conversion_percent: conversion_percent(step[:value], previous)
           )
+          previous = step[:value]
+          layer
         end
       end
 
       private
+
+      def conversion_percent(value, previous)
+        return nil if previous.nil?
+      end
 
       def top_value
         steps.first[:value].to_f
