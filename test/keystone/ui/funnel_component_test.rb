@@ -61,4 +61,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
     assert_includes component.bar_classes, "bg-accent-500"
   end
+
+  def test_transition_classes_render_a_centered_caption
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 }
+    ])
+
+    assert_includes component.transition_classes, "text-center"
+  end
 end

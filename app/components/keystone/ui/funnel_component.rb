@@ -6,11 +6,16 @@ module Keystone
       Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, keyword_init: true)
 
       BAR_CLASSES = "flex items-center justify-between gap-3 h-10 px-3 bg-accent-500 text-white rounded-md transition-all"
+      TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500"
 
       attr_reader :steps
 
       def bar_classes
         BAR_CLASSES
+      end
+
+      def transition_classes
+        TRANSITION_CLASSES
       end
 
       def initialize(steps:)
