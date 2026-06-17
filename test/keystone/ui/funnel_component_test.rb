@@ -9,4 +9,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
     assert_equal steps, component.steps
   end
+
+  def test_top_layer_spans_full_width
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 }
+    ])
+
+    assert_equal 100, component.layers.first.width_percent
+  end
 end
