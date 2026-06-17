@@ -5,11 +5,12 @@ module Keystone
     class FunnelComponent < ViewComponent::Base
       Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, keyword_init: true)
 
-      CONTAINER_CLASSES = "space-y-1"
-      ROW_CLASSES = "flex justify-center"
-      BAR_CLASSES = "flex items-center justify-between gap-3 h-10 px-3 bg-accent-500 text-white rounded-md transition-all"
-      LABEL_CLASSES = "text-sm font-medium truncate"
-      VALUE_CLASSES = "text-sm font-semibold tabular-nums"
+      CONTAINER_CLASSES = "space-y-2"
+      LAYER_CLASSES = "space-y-1"
+      ROW_CLASSES = "flex items-baseline justify-between gap-3"
+      LABEL_CLASSES = "text-sm font-medium text-surface-700 truncate"
+      VALUE_CLASSES = "text-sm font-semibold text-surface-900 tabular-nums"
+      BAR_CLASSES = "h-8 rounded-md bg-accent-500 transition-all"
       TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500"
 
       attr_reader :steps
@@ -35,6 +36,10 @@ module Keystone
 
       def container_classes
         CONTAINER_CLASSES
+      end
+
+      def layer_classes
+        LAYER_CLASSES
       end
 
       def row_classes
