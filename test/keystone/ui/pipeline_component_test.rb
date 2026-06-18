@@ -41,4 +41,10 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
 
     assert_includes component.link_classes({ broken: true }), "text-red-500"
   end
+
+  def test_link_classes_mark_a_healthy_handoff_with_the_accent
+    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
+
+    assert_includes component.link_classes({ broken: false }), "text-accent-500"
+  end
 end
