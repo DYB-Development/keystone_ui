@@ -24,4 +24,15 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
 
     assert_includes component.count_class(nil), "text-surface-500"
   end
+
+  def test_link_after_returns_the_connector_following_a_box
+    link = { broken: false, url: "/links/toggle", params: { at: "ship" } }
+    component = Keystone::Ui::PipelineComponent.new(
+      title: "T",
+      boxes: [ { label: "Placed" }, { label: "Shipped" } ],
+      links: [ link ]
+    )
+
+    assert_equal link, component.link_after(0)
+  end
 end

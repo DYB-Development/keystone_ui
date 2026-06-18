@@ -24,6 +24,10 @@ module Keystone
       def count_class(accent)
         "#{COUNT_BASE_CLASSES} #{COUNT_CLASSES.fetch(accent, COUNT_CLASSES[:muted])}"
       end
+
+      def link_after(index)
+        links[index]
+      end
     end
   end
 end
