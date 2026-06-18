@@ -176,4 +176,8 @@ module KeystoneUiHelper
   def ui_file_upload(**args)
     render Keystone::Ui::FileUploadComponent.new(**args)
   end
+
+  def ui_funnel(**args)
+    render Keystone::Ui::FunnelComponent.new(**args)
+  end
 end
