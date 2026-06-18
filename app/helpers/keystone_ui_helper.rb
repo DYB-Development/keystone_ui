@@ -180,4 +180,8 @@ module KeystoneUiHelper
   def ui_funnel(**args)
     render Keystone::Ui::FunnelComponent.new(**args)
   end
+
+  def ui_pipeline(**args)
+    render Keystone::Ui::PipelineComponent.new(**args)
+  end
 end
