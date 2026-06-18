@@ -18,4 +18,10 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
 
     assert_includes component.count_class(:emerald), "text-accent-400"
   end
+
+  def test_count_class_falls_back_to_muted_for_an_unknown_accent
+    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
+
+    assert_includes component.count_class(nil), "text-surface-500"
+  end
 end
