@@ -4,6 +4,9 @@ module Keystone
   module Ui
     class PipelineComponent < ViewComponent::Base
       COUNT_BASE_CLASSES = "text-3xl font-bold"
+      LINK_BASE_CLASSES = "link-toggle text-2xl leading-none"
+      LINK_HEALTHY_CLASSES = "text-accent-500"
+      LINK_BROKEN_CLASSES = "text-red-500"
 
       COUNT_CLASSES = {
         amber: "text-amber-400",
@@ -27,6 +30,10 @@ module Keystone
 
       def link_after(index)
         links[index]
+      end
+
+      def link_classes(link)
+        "#{LINK_BASE_CLASSES} #{link[:broken] ? LINK_BROKEN_CLASSES : LINK_HEALTHY_CLASSES}"
       end
     end
   end
