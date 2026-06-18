@@ -732,3 +732,28 @@ Block yields each item. Cards support an optional `<input data-swipe-deck-value>
 **Events dispatched:**
 - `swipe-deck:complete` — `{ detail: { itemId, value, card } }`
 - `swipe-deck:skip` — `{ detail: { itemId, card } }`
+
+### `ui_pipeline`
+
+Interactive staged-flow diagram: a row of **boxes** connected by **breakable links**. Maps any staged system — event flows, data pipelines, approval chains, state machines. The component owns the look and the post-to-endpoint contract; the host supplies the data and handles the posts. Boxes stack vertically with the connectors shown between them on mobile, and lay out horizontally on `sm+` screens. Uses keystone's `surface`/`accent` palette; no custom JS.
+
+Each box: `label`, optional `count` + `accent` (`:amber`, `:emerald`, `:danger`, `:muted` — `:emerald` is the keystone accent), and an optional `action` that POSTs to `url` with hidden `params` (rendered as a `ui_button`). Each link sits between two boxes (so `links` has one fewer entry than `boxes`); `broken:` colors the ✓/✗ toggle, which POSTs to its own `url`/`params` to flip the handoff.
+
+```erb
+<%= ui_pipeline(
+      title: "Order fulfilment",
+      subtitle: "from placed to shipped",
+      boxes: [
+        { label: "Placed",  action: { label: "Submit", url: "/orders", params: { id: 1 } } },
+        { label: "Shipped", count: 2, accent: :emerald }
+      ],
+      links: [ { broken: false, url: "/links/toggle", params: { id: 1, at: "ship" } } ]
+    ) %>
+```
+
+| Param | Required | Default | Values |
+|-------|----------|---------|--------|
+| `title:` | yes | — | — |
+| `boxes:` | yes | — | array of `{ label:, count:, accent:, action: { label:, url:, params:, variant: } }` |
+| `links:` | yes | — | array of `{ broken:, url:, params: }`; one fewer than `boxes` |
+| `subtitle:` | no | `nil` | — |
