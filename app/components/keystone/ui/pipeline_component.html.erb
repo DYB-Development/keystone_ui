@@ -1,0 +1,34 @@
+<div class="<%= CONTAINER_CLASSES %>">
+  <div class="<%= HEADER_CLASSES %>">
+    <h3 class="<%= TITLE_CLASSES %>"><%= title %></h3>
+    <% if subtitle %><p class="<%= SUBTITLE_CLASSES %>"><%= subtitle %></p><% end %>
+  </div>
+
+  <div class="<%= TRACK_CLASSES %>">
+    <% boxes.each_with_index do |box, i| %>
+      <div class="<%= BOX_CLASSES %>">
+        <span class="<%= BOX_LABEL_CLASSES %>"><%= box[:label] %></span>
+        <% unless box[:count].nil? %>
+          <span class="<%= count_class(box[:accent]) %>"><%= box[:count] %></span>
+        <% end %>
+        <% if box[:action] %>
+          <%= form_with url: box[:action][:url], method: :post do %>
+            <% box[:action].fetch(:params, {}).each do |k, v| %><%= hidden_field_tag k, v %><% end %>
+            <%= helpers.ui_button(label: box[:action][:label], type: :submit, variant: box[:action].fetch(:variant, :primary)) %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <% if (link = link_after(i)) %>
+        <div class="<%= CONNECTOR_CLASSES %>">
+          <%= form_with url: link[:url], method: :post do %>
+            <% link.fetch(:params, {}).each do |k, v| %><%= hidden_field_tag k, v %><% end %>
+            <button type="submit" class="<%= link_classes(link) %>" title="<%= link[:broken] ? "Broken handoff — click to fix" : "Healthy handoff — click to break" %>">
+              <% if link[:broken] %>&#10007;<% else %>&#10003;<% end %>
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
