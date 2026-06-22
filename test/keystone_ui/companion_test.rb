@@ -12,7 +12,7 @@ module KeystoneUi
     end
 
     def test_registers_the_keystone_locals
-      assert_equal %w[keystone-scaffold keystone-review keystone-usage keystone-install],
+      assert_equal %w[keystone_ui-info keystone_ui-install keystone_ui-develop],
                    TheLocal.registry.agents.map(&:qualified_name)
     end
 

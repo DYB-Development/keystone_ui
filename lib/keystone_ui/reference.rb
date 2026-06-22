@@ -8,11 +8,7 @@ module KeystoneUi
     DIR = File.expand_path("reference", __dir__)
 
     def self.content
-      read("components.md")
-    end
-
-    def self.recipes
-      read("recipes.md")
+      read("guide.md")
     end
 
     def self.read(name)
