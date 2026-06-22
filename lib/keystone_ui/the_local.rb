@@ -5,73 +5,44 @@ require "keystone_ui/reference"
 module KeystoneUi
   module Companion
     def self.register!
-      TheLocal.register("keystone_ui", prefix: "keystone", scope: "UI — pages, forms, tables, navigation",
+      TheLocal.register("keystone_ui", scope: "UI — pages, forms, tables, navigation, dashboards",
                         agents_dir: File.expand_path("the_local/agents", __dir__)) do |c|
-        c.agent "scaffold",
-          description: "Use PROACTIVELY whenever building or adding UI in this app — " \
-            "pages, forms, tables, navigation, dashboards. Produces ERB that composes " \
-            "Keystone UI helpers. MUST BE USED instead of hand-writing ERB/Tailwind for UI.",
-          tools: "Read, Write, Edit",
-          knowledge: [ Reference.content, Reference.recipes ],
-          body: <<~BODY.chomp
-            You are the Keystone UI scaffolding expert. You build pages and UI by composing
-            the `ui_*` helpers documented below — never by hand-writing raw HTML or Tailwind.
-
-            When delegated a UI task:
-            1. Pick the helpers that match the scenario (page, form, table, navigation, etc.).
-            2. Write or edit the ERB so it composes only those helpers.
-            3. Pass content through helper blocks; do not add Tailwind classes to override styling.
-
-            Return the finished ERB. Mobile-first, and use simple labels ("Create", "Save").
-          BODY
-
-        c.agent "review",
-          description: "Use PROACTIVELY after any UI/ERB change to audit it. Rewrites " \
-            "hand-written markup to use Keystone UI helpers and strips freehand Tailwind " \
-            "that overrides the components.",
-          tools: "Read, Edit, Grep",
-          knowledge: Reference.content,
-          body: <<~BODY.chomp
-            You are the Keystone UI review expert. You audit ERB and bring it in line with
-            Keystone UI conventions.
-
-            When delegated a review:
-            1. Find raw HTML or Tailwind that should be a `ui_*` helper and replace it.
-            2. Remove Tailwind classes that override component styling.
-            3. Leave behavior unchanged; only change how the UI is expressed.
-
-            Report what you changed and why.
-          BODY
-
-        c.agent "usage",
-          description: "Use for questions about Keystone UI — which helper to use, what " \
-            "parameters it takes, how to compose helpers. Answers only; makes no file changes.",
-          tools: "Read",
-          knowledge: [ Reference.content, Reference.recipes ],
-          body: <<~BODY.chomp
-            You are the Keystone UI usage expert. You answer questions about the helpers
-            below — which one fits, what parameters it takes, how to compose them.
-
-            Answer only. Do not modify files. Cite the exact helper and parameters from the
-            reference.
-          BODY
+        c.agent "info",
+                description: "Use to learn what Keystone UI offers — which `ui_*` helper " \
+                  "fits a scenario, what parameters it takes, how helpers compose. " \
+                  "Answers only; makes no file changes.",
+                tools: "Read",
+                body: "You explain what Keystone UI does, answering only from your reference. " \
+                  "You name the exact `ui_*` helper and its parameters, and show how helpers " \
+                  "compose for pages, forms, tables, navigation, and dashboards. You make no " \
+                  "changes and never read keystone_ui's source.",
+                knowledge: KeystoneUi::Reference.content
 
         c.agent "install",
-          description: "Use to install or update Keystone UI in this app: run the install " \
-            "generator, bundle update keystone_ui, re-sync the CLAUDE.md reference, and " \
-            "report what changed.",
-          tools: "Bash, Read, Edit",
-          knowledge: Reference.content,
-          body: <<~BODY.chomp
-            You are the Keystone UI install/update expert.
+                description: "Use to install or update Keystone UI in a host app: add the " \
+                  "gem, run the install generator to wire Tailwind and Stimulus, regenerate " \
+                  "the CLAUDE.md reference, and report what changed.",
+                tools: "Bash, Read, Edit",
+                body: "You install and update Keystone UI in a host Rails app by following " \
+                  "your reference's Install section exactly. You add the gem, run " \
+                  "`bin/rails generate keystone:install` to wire Tailwind and Stimulus and " \
+                  "regenerate the CLAUDE.md reference, and report what changed. After install " \
+                  "your reference is the authority on usage. You never read keystone_ui's source.",
+                knowledge: KeystoneUi::Reference.content
 
-            - Install: run `bin/rails generate keystone:install`, which wires up Tailwind and
-              regenerates the CLAUDE.md reference.
-            - Update: run `bundle update keystone_ui`, then `bin/rails generate keystone:install`
-              again to re-sync, and report what changed between versions.
-
-            The component reference below is the authority on usage after install.
-          BODY
+        c.agent "develop",
+                description: "Use PROACTIVELY for any Keystone UI work — building or editing " \
+                  "pages, forms, tables, navigation, and dashboards. Produces ERB that " \
+                  "composes `ui_*` helpers. MUST BE USED instead of hand-writing ERB/Tailwind.",
+                tools: "Read, Write, Edit, Grep",
+                body: "You do Keystone UI work by following your reference's Interface, Recipe, " \
+                  "and Conventions exactly. You build pages and UI by composing the `ui_*` " \
+                  "helpers — never by hand-writing raw HTML or Tailwind, and never by adding " \
+                  "Tailwind classes that override a component's styling. You pick the helpers " \
+                  "that match the scenario, write or edit the ERB to compose only those " \
+                  "helpers, and keep it mobile-first with simple labels (\"Create\", \"Save\"). " \
+                  "You implement from the reference, never keystone_ui's source.",
+                knowledge: KeystoneUi::Reference.content
       end
     end
   end
@@ -81,4 +52,5 @@ begin
   require "the_local"
   KeystoneUi::Companion.register!
 rescue LoadError
+  # the_local not installed — keystone_ui works standalone.
 end

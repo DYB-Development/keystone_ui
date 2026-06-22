@@ -16,7 +16,15 @@ class KeystoneUiReferenceTest < Minitest::Test
     assert_includes KeystoneUi::Reference.content, "ui_pipeline"
   end
 
-  def test_recipes_documents_the_index_page_scenario
-    assert_includes KeystoneUi::Reference.recipes, "Index page"
+  def test_content_documents_the_index_page_recipe
+    assert_includes KeystoneUi::Reference.content, "Index page"
+  end
+
+  def test_content_carries_the_canonical_required_sections
+    content = KeystoneUi::Reference.content
+    assert_includes content, "### Interface"
+    assert_includes content, "### Recipe"
+    assert_includes content, "### Install"
+    assert_includes content, "### Conventions"
   end
 end
