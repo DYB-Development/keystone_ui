@@ -21,7 +21,7 @@
       <% end %>
     </select>
   <% else %>
-    <input <%= input_options.map { |k, v| v == true ? k.to_s : %(#{k}="#{v}") }.join(" ") %> class="<%= Keystone::Ui::InputComponent::BASE_CLASSES %>">
+    <%= tag.input(**input_options) %>
   <% end %>
 
   <% if hint? %>
