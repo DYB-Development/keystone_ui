@@ -47,6 +47,12 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
     assert_equal "you@example.com", options[:placeholder]
   end
 
+  def test_includes_input_base_classes_in_input_options
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :name)
+
+    assert_equal Keystone::Ui::InputComponent::BASE_CLASSES, component.input_options[:class]
+  end
+
   def test_omits_type_from_input_options_for_textarea
     component = Keystone::Ui::FormFieldComponent.new(attribute: :bio, type: :textarea)
 

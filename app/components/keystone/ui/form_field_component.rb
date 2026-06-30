@@ -67,7 +67,7 @@ module Keystone
       end
 
       def input_options
-        options = { name: @attribute.to_s }
+        options = { name: @attribute.to_s, class: Keystone::Ui::InputComponent::BASE_CLASSES }
         unless textarea?
           options[:type] = Keystone::Ui::InputComponent::TYPE_MAP.fetch(@type)
         end
