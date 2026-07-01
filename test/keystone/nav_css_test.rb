@@ -40,4 +40,8 @@ class NavCssTest < Minitest::Test
   def test_dropdown_menu_styles_direct_anchor_children
     assert_includes css, "& > a"
   end
+
+  def test_dropdown_menu_items_do_not_wrap
+    assert_includes css, "white-space: nowrap"
+  end
 end
