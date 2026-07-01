@@ -129,12 +129,13 @@ renders a filename/label bar above.
 <%= ui_radio_card(name:, value:, checked: false, hint: nil) %>
 <%= ui_option_card(name:, value:, selected: false, input_data: {}, label_data: {}) do %> … <% end %>
 <%= ui_color_picker(name:, value: "#000000", label: nil) %>
-<%= ui_multi_select(**args) %>
+<%= ui_multi_select(name:, label:, options:, selected: []) %>
 ```
 `ui_form` `method:` — `:get`, `:post` (default), `:patch`, `:put`, `:delete`;
 non-GET/POST renders a hidden `_method` input. `multipart: true` for file uploads.
 `ui_select` `options:` — array of `[label, value]` pairs. `ui_form_field` `label:`
-auto-derives from `attribute:` when omitted.
+auto-derives from `attribute:` when omitted. `ui_multi_select` `options:` — array
+of `[label, value]` pairs; `selected:` — array of currently-selected values.
 
 #### Navigation
 
