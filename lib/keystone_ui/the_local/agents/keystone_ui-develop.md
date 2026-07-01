@@ -173,7 +173,10 @@ auto-derives from `attribute:` when omitted.
 `:warning`, `:info`; `definition:`/`calculation:` add an info disclosure;
 `change:` renders a colored ▲/▼ trend. `ui_chart_card`/`ui_line_chart`
 `height:` — `:sm` (h-48), `:md` (default, h-64), `:lg` (h-96). `ui_line_chart`
-`series:` — array of `{ name:, data: }` (Chart.js is bundled, no host setup).
+`series:` — array of `{ name:, data:, color:, dashed: }` (`color:`/`dashed:`
+optional; `color:` accepts any CSS color or an accent token like
+`var(--color-accent-500)`, `dashed: true` renders a dashed line — Chart.js is
+bundled, no host setup).
 `ui_funnel` `steps:` — array of `{ label:, value: }`; first step is the 100%-width
 top, lower bars are proportional to it, step-to-step conversion percent shown
 between layers, divide-by-zero safe, no JS. `ui_pipeline` `boxes:` — array of
