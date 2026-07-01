@@ -188,4 +188,8 @@ module KeystoneUiHelper
   def ui_code(**args, &block)
     render Keystone::Ui::CodeComponent.new(**args), &block
   end
+
+  def ui_disclosure(**args, &block)
+    render Keystone::Ui::DisclosureComponent.new(**args), &block
+  end
 end
