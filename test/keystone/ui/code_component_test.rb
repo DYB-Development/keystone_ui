@@ -21,4 +21,11 @@ class Keystone::Ui::CodeComponentTest < Minitest::Test
   def test_language_class_is_nil_without_a_language
     assert_nil Keystone::Ui::CodeComponent.new.language_class
   end
+
+  def test_pre_is_monospace_and_horizontally_scrollable
+    classes = Keystone::Ui::CodeComponent.new.pre_classes
+
+    assert_includes classes, "font-mono"
+    assert_includes classes, "overflow-x-auto"
+  end
 end
