@@ -13,6 +13,12 @@ module Keystone
       def caption?
         !@caption.nil?
       end
+
+      def language_class
+        return nil if @language.nil?
+
+        "language-#{@language}"
+      end
     end
   end
 end
