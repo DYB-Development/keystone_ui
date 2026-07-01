@@ -36,4 +36,12 @@ class NavCssTest < Minitest::Test
   def test_includes_mobile_padding_for_main_content
     assert_includes css, "padding-bottom"
   end
+
+  def test_dropdown_menu_styles_direct_anchor_children
+    assert_includes css, "& > a"
+  end
+
+  def test_dropdown_menu_items_do_not_wrap
+    assert_includes css, "white-space: nowrap"
+  end
 end
