@@ -8,4 +8,9 @@ class Keystone::Ui::CodeComponentTest < Minitest::Test
 
     assert_equal :ruby, component.language
   end
+
+  def test_reports_caption_presence
+    assert Keystone::Ui::CodeComponent.new(caption: "db/schema.rb").caption?
+    refute Keystone::Ui::CodeComponent.new.caption?
+  end
 end
