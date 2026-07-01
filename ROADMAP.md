@@ -626,5 +626,5 @@ For each new component:
 3. **Create template** — minimal ERB referencing class constants
 4. **Add helper** — thin wrapper in `keystone_ui_helper.rb`
 5. **Document in README** — props and usage examples
-6. **Update rake task** — add to `rake keystone:claude` output
+6. **Update the reference** — document the component in `lib/keystone_ui/reference/guide.md`, then regenerate locals with `rake the_local:build`
 7. **Test in consuming app** — verify in real usage context
