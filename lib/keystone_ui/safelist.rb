@@ -51,7 +51,8 @@ module Keystone
       Keystone::Ui::FileUploadComponent,
       Keystone::Ui::FunnelComponent,
       Keystone::Ui::PipelineComponent,
-      Keystone::Ui::CodeComponent
+      Keystone::Ui::CodeComponent,
+      Keystone::Ui::DisclosureComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)
