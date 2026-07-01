@@ -184,4 +184,8 @@ module KeystoneUiHelper
   def ui_pipeline(**args)
     render Keystone::Ui::PipelineComponent.new(**args)
   end
+
+  def ui_code(**args, &block)
+    render Keystone::Ui::CodeComponent.new(**args), &block
+  end
 end
