@@ -133,7 +133,8 @@
     padding: 0;
   }
 
-  li a {
+  li a,
+  & > a {
     color: var(--base-text);
     display: block;
     font-size: 14px;
