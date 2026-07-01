@@ -83,12 +83,23 @@ All three require `title:` and `back_url:`. `ui_mobile_header` is hidden on `lg:
 <%= ui_accordion(items: []) %>
 <%= ui_tab_switcher(tabs:) do %> … <% end %>
 <%= ui_copy_button(text:, label: "Copy", success_message: "Copied!", error_message: "Failed!") %>
+<%= ui_disclosure(open: false) do |d| %>
+  <% d.summary do %> … <% end %>
+  … arbitrary body: grids, prose, ui_code, etc. …
+<% end %>
+<%= ui_code(language: nil, caption: nil) do %> … <% end %>
 ```
 `ui_badge` `variant:` — `:neutral` (default), `:success`, `:danger`, `:warning`, `:info`.
 `ui_alert` `type:` — `:info` (default), `:success`, `:warning`, `:error`.
 `ui_modal` `size:` — `:sm`, `:md` (default), `:lg`, `:xl`.
-`ui_accordion` `items:` — array of `{ question:, answer: }`.
+`ui_accordion` `items:` — array of `{ question:, answer: }` (single-line answers).
 `ui_tab_switcher` `tabs:` — array of label strings (Stimulus `tab-switcher`).
+`ui_disclosure` — a single collapsible panel (native `<details>`, no JS) with a
+`summary` slot and an arbitrary body block; use it over `ui_accordion` when the
+body is rich (grids, several sections, code). `open:` pre-expands it.
+`ui_code` — styled `<pre><code>` block (monospace, horizontal scroll). `language:`
+tags the `<code>` with `language-<lang>` for optional highlighting; `caption:`
+renders a filename/label bar above.
 
 #### Buttons
 

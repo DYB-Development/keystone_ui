@@ -1,0 +1,9 @@
+<details class="<%= wrapper_classes %>"<% if open? %> open<% end %>>
+  <summary class="<%= summary_classes %>">
+    <span><%= summary %></span>
+    <span class="<%= icon_classes %>"><%= caret_icon.html_safe %></span>
+  </summary>
+  <div class="<%= body_classes %>">
+    <%= content %>
+  </div>
+</details>
