@@ -366,14 +366,12 @@ Set Keystone UI up in a host Rails app:
    safelist, or source marker from earlier installs), registers Keystone's
    Stimulus controllers by appending `import { registerControllers } from
    "keystone_ui/index"` and `registerControllers(application)` to
-   `app/javascript/controllers/index.js`, and runs `rake keystone:claude` to
-   append the API reference to the host's `CLAUDE.md`.
+   `app/javascript/controllers/index.js`.
 4. At boot, the engine initializer writes `keystone_source.css` with `@source`
    directives pointing at the gem's component files so Tailwind scans them, and
    adds the gem's controllers to the importmap automatically — no manual wiring.
 5. To update: `bundle update keystone_ui`, then re-run
-   `bin/rails generate keystone:install` to re-sync CSS, controllers, and the
-   CLAUDE.md reference.
+   `bin/rails generate keystone:install` to re-sync CSS and controllers.
 
 ### Conventions
 

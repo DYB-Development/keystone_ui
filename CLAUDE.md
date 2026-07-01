@@ -12,7 +12,6 @@ Keystone UI is a Rails gem providing reusable UI components built on `view_compo
 bundle install              # Install dependencies
 bundle exec rspec           # Run all tests
 bundle exec rspec spec/keystone/ui/button_component_spec.rb  # Run a single test file
-rake keystone:claude        # Append API reference to consuming app's CLAUDE.md
 ```
 
 No build step or linter is configured.
@@ -74,7 +73,7 @@ This project has installed expert subagents. Before doing work yourself,
 check whether a local owns it and delegate — never work from memory on
 something a local covers:
 
-- keystone-* agents
+- keystone_ui-* agents
 - the_local-* agents
 
 See each agent's description for specifics.
@@ -182,5 +181,7 @@ where touching more than the unit under test is expected and correct.
   tooling requires (e.g. `rubocop:disable`). Prefer refactoring over a "why" comment
   whenever you can.
 <!-- the_local:process:end -->
+
+
 
 
