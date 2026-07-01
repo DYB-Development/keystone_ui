@@ -16,6 +16,10 @@ class KeystoneUiReferenceTest < Minitest::Test
     assert_includes KeystoneUi::Reference.content, "ui_pipeline"
   end
 
+  def test_content_documents_the_multi_select_signature
+    assert_includes KeystoneUi::Reference.content, "ui_multi_select(name:, label:, options:"
+  end
+
   def test_content_documents_the_index_page_recipe
     assert_includes KeystoneUi::Reference.content, "Index page"
   end
