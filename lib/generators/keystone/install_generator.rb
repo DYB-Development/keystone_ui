@@ -86,11 +86,5 @@ module Keystone
       append_to_file js_path, "\n#{JS_IMPORT}\n#{JS_REGISTER}\n"
       say "  ✔ Registered Keystone UI controllers", :green
     end
-
-    def generate_claude_docs
-      say ""
-      say "Generating CLAUDE.md API reference...", :green
-      rake "keystone:claude"
-    end
   end
 end
