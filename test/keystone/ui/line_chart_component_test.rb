@@ -12,6 +12,24 @@ class Keystone::Ui::LineChartComponentTest < Minitest::Test
     assert_equal [ { label: "Leads", data: [ 1, 2, 3 ] } ], component.chart_data[:datasets]
   end
 
+  def test_series_color_becomes_dataset_border_color
+    component = Keystone::Ui::LineChartComponent.new(
+      series: [ { name: "Leads", data: [ 1, 2, 3 ], color: "#94a3b8" } ],
+      labels: %w[Mon Tue Wed]
+    )
+
+    assert_equal "#94a3b8", component.chart_data[:datasets].first[:borderColor]
+  end
+
+  def test_dashed_series_becomes_dataset_border_dash
+    component = Keystone::Ui::LineChartComponent.new(
+      series: [ { name: "Prev", data: [ 1, 2, 3 ], dashed: true } ],
+      labels: %w[Mon Tue Wed]
+    )
+
+    assert_equal [ 6, 6 ], component.chart_data[:datasets].first[:borderDash]
+  end
+
   def test_chart_data_includes_labels
     component = Keystone::Ui::LineChartComponent.new(series: [], labels: %w[Mon Tue Wed])
 

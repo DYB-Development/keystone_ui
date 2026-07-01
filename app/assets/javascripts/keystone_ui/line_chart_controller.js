@@ -10,7 +10,7 @@ export default class extends Controller {
   connect() {
     this.chart = new Chart(this.canvasTarget, {
       type: "line",
-      data: this.dataValue,
+      data: this.resolveColors(this.dataValue),
       options: {
         responsive: true,
         maintainAspectRatio: false,
@@ -21,5 +21,18 @@ export default class extends Controller {
 
   disconnect() {
     this.chart?.destroy()
+  }
+
+  resolveColors(data) {
+    const styles = getComputedStyle(this.element)
+    const resolve = (color) => {
+      const match = typeof color === "string" && color.match(/^var\((--[^)]+)\)$/)
+      return match ? styles.getPropertyValue(match[1]).trim() || color : color
+    }
+
+    data.datasets.forEach((dataset) => {
+      if (dataset.borderColor) dataset.borderColor = resolve(dataset.borderColor)
+    })
+    return data
   }
 }

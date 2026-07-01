@@ -11,6 +11,8 @@ module Keystone
         lg: "h-96"
       }.freeze
 
+      DASH_PATTERN = [ 6, 6 ].freeze
+
       def initialize(series:, labels:, height: :md)
         @series = series
         @labels = labels
@@ -18,7 +20,7 @@ module Keystone
       end
 
       def chart_data
-        { labels: @labels, datasets: @series.map { |s| { label: s[:name], data: s[:data] } } }
+        { labels: @labels, datasets: @series.map { |s| dataset_for(s) } }
       end
 
       def chart_data_json
@@ -31,6 +33,15 @@ module Keystone
 
       def container_classes
         "#{height_class} relative w-full min-w-0"
+      end
+
+      private
+
+      def dataset_for(series)
+        dataset = { label: series[:name], data: series[:data] }
+        dataset[:borderColor] = series[:color] if series[:color]
+        dataset[:borderDash] = DASH_PATTERN if series[:dashed]
+        dataset
       end
     end
   end

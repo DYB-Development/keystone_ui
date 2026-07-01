@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - **StatCardComponent** — optional `definition:` and `calculation:` params surface a metric's meaning and formula via an info (`i`) button that toggles a disclosure panel (Stimulus `stat-card-info` controller)
 - **StatCardComponent** — optional `change:` param shows a period-over-period trend (▲/▼ + percent), colored by sign
 - **`auto-submit` Stimulus controller** — submits its form on change (`requestSubmit`), for filter selects that update without an explicit submit button
+- **LineChartComponent** — per-series styling: a series entry accepts `color:` (any CSS color, or an accent token like `var(--color-accent-500)` — resolved to a concrete color in the `line-chart` controller so the accent/surface palette works on canvas) and `dashed: true` (dashed line). The existing `{ name:, data: }` form is unchanged.
 - **LineChartComponent** (`ui_line_chart`) — responsive multi-series line chart (Chart.js, `line-chart` controller); mobile- and hotwire-native-safe (destroys the chart on `disconnect`). Chart.js is bundled and pinned by the gem — no host setup.
 - **Install generator** — `keystone:install` now wires `registerControllers(application)` into the host app's `app/javascript/controllers/index.js`, so interactive components work without manual JS setup
 
