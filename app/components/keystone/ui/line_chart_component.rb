@@ -11,6 +11,8 @@ module Keystone
         lg: "h-96"
       }.freeze
 
+      DASH_PATTERN = [ 6, 6 ].freeze
+
       def initialize(series:, labels:, height: :md)
         @series = series
         @labels = labels
@@ -38,6 +40,7 @@ module Keystone
       def dataset_for(series)
         dataset = { label: series[:name], data: series[:data] }
         dataset[:borderColor] = series[:color] if series[:color]
+        dataset[:borderDash] = DASH_PATTERN if series[:dashed]
         dataset
       end
     end
