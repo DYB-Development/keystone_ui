@@ -5,5 +5,5 @@ gemspec
 gem "minitest", "~> 5.0"  # pin to 5.x; minitest 6 removed minitest/mock
 gem "rake"
 gem "rubocop-rails-omakase", require: false
-gem "the_local", github: "DYB-Development/the_local"
+gem "the_local", "~> 0.4"
 gem "view_component"
