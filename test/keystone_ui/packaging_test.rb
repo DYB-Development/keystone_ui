@@ -10,6 +10,10 @@ class KeystoneUi::PackagingTest < Minitest::Test
     assert_includes packaged_files, "config/importmap.rb"
   end
 
+  def test_packaged_files_include_the_committed_locals
+    assert_includes packaged_files, "the_local/agents/keystone_ui-develop.md"
+  end
+
   private
 
   def packaged_files
