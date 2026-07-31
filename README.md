@@ -975,3 +975,7 @@ Renders a settings row link with label and chevron icon.
 ```erb
 <%= ui_settings_link(label: "Account", href: account_settings_path) %>
 ```
+
+## Releasing
+
+Cutting a new version to RubyGems.org is documented in [RELEASING.md](RELEASING.md).
