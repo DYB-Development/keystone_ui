@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - **Install generator** — `keystone:install` now wires `registerControllers(application)` into the host app's `app/javascript/controllers/index.js`, so interactive components work without manual JS setup
 
 ### Changed
+- **view_component dependency** — now `>= 2.0", "< 5`. The requirement was open-ended, so a future major with breaking changes would have resolved and broken installs.
 - **the_local** — migrated from the register-based companion to the manifest-based provider model. The gem now carries no Ruby for the_local: `the_local/interface.yml` declares the public surface and `rake the_local:author` renders `the_local/agents/*.md`, which the gemspec ships. Requires `the_local ~> 0.4`.
 
 ### Removed
