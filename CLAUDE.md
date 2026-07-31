@@ -10,8 +10,8 @@ Keystone UI is a Rails gem providing reusable UI components built on `view_compo
 
 ```bash
 bundle install              # Install dependencies
-bundle exec rspec           # Run all tests
-bundle exec rspec spec/keystone/ui/button_component_spec.rb  # Run a single test file
+bundle exec rake test       # Run all tests
+bundle exec rake test TEST=test/keystone/ui/button_component_test.rb  # Run a single test file
 ```
 
 No build step or linter is configured.
@@ -34,7 +34,7 @@ Components use Tailwind CSS utility classes directly. The engine ships a CSS fil
 
 ## Testing
 
-Tests use RSpec. The spec helper stubs `ViewComponent::Base` so tests run without a full Rails environment. Tests validate component logic (class composition, tag options, normalization) rather than rendered HTML.
+Tests use Minitest. The test helper stubs `ViewComponent::Base` so tests run without a full Rails environment. Tests validate component logic (class composition, tag options, normalization) rather than rendered HTML.
 
 ## Color System
 
@@ -73,8 +73,7 @@ This project has installed expert subagents. Before doing work yourself,
 check whether a local owns it and delegate — never work from memory on
 something a local covers:
 
-- keystone_ui-* agents
-- the_local-* agents
+- resident Claude Code experts — authoring a gem's locals and installing them into a host → the_local-* agents
 
 See each agent's description for specifics.
 <!-- the_local:end -->
@@ -181,6 +180,7 @@ where touching more than the unit under test is expected and correct.
   tooling requires (e.g. `rubocop:disable`). Prefer refactoring over a "why" comment
   whenever you can.
 <!-- the_local:process:end -->
+
 
 
 
