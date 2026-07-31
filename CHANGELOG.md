@@ -4,13 +4,6 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Changed
-- **the_local** — migrated from the register-based companion to the manifest-based provider model. The gem now carries no Ruby for the_local: `the_local/interface.yml` declares the public surface and `rake the_local:author` renders `the_local/agents/*.md`, which the gemspec ships. Removed `KeystoneUi::Companion`, `KeystoneUi::Reference`, the old `lib/keystone_ui/reference/guide.md`, and the rendered locals under `lib/`.
-
-### Removed
-- **`keystone:inject_source` / `keystone:clean_source` rake tasks** — they rewrote the `/* keystone:source */` marker that the install generator now strips as legacy, so they were inert against any current install.
-- **`KeystoneUi::Current`** — an `ActiveSupport::CurrentAttributes` seam (`accent_override`, `surface_override`) referenced by nothing in the gem or any consumer.
-
 ## [0.6.0] - 2026-07-31
 
 ### Added
@@ -23,8 +16,14 @@ All notable changes to this project will be documented in this file.
 - **LineChartComponent** (`ui_line_chart`) — responsive multi-series line chart (Chart.js, `line-chart` controller); mobile- and hotwire-native-safe (destroys the chart on `disconnect`). Chart.js is bundled and pinned by the gem — no host setup.
 - **Install generator** — `keystone:install` now wires `registerControllers(application)` into the host app's `app/javascript/controllers/index.js`, so interactive components work without manual JS setup
 
+### Changed
+- **the_local** — migrated from the register-based companion to the manifest-based provider model. The gem now carries no Ruby for the_local: `the_local/interface.yml` declares the public surface and `rake the_local:author` renders `the_local/agents/*.md`, which the gemspec ships. Requires `the_local ~> 0.4`.
+
 ### Removed
 - **`keystone:claude` rake task** — dropped the legacy CLAUDE.md API-reference generator (and the install generator's `generate_claude_docs` step that ran it). `the_local` now ships this guidance as resident `keystone_ui-*` locals, so nothing invoked the task.
+- **`KeystoneUi::Companion` and `KeystoneUi::Reference`** — the register-based the_local companion and its reference loader, along with `lib/keystone_ui/reference/guide.md` and the locals rendered under `lib/`. Replaced by the committed `the_local/` directory.
+- **`keystone:inject_source` / `keystone:clean_source` rake tasks** — they rewrote the `/* keystone:source */` marker that the install generator now strips as legacy, so they were inert against any current install.
+- **`KeystoneUi::Current`** — an `ActiveSupport::CurrentAttributes` seam (`accent_override`, `surface_override`) referenced by nothing in the gem or any consumer.
 
 ### Fixed
 - **Packaging** — `config/importmap.rb` is now included in the built gem. The engine pins it at boot for importmap host apps, but `spec.files` only globbed `lib/**/*` and `app/**/*`, so it shipped missing; a regression test asserts it's packaged.
