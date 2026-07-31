@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-07-31
+
 ### Added
 - **DisclosureComponent** (`ui_disclosure`) — a single collapsible panel (native `<details>`/`<summary>`, no JS) with a `summary` slot and an arbitrary body block. Unlike `ui_accordion` (which only takes single-line `{question:, answer:}` items), its body can hold grids, prose, and code. `open:` pre-expands it. Built for explorable "ladder"/reference docs.
 - **CodeComponent** (`ui_code`) — styled `<pre><code>` block (monospace, horizontal scroll) with optional `language:` (tags the `<code>` with `language-<lang>` for optional highlighting) and `caption:` (a filename/label bar above the block).
@@ -18,6 +20,7 @@ All notable changes to this project will be documented in this file.
 - **`keystone:claude` rake task** — dropped the legacy CLAUDE.md API-reference generator (and the install generator's `generate_claude_docs` step that ran it). `the_local` now ships this guidance as resident `keystone_ui-*` locals, so nothing invoked the task.
 
 ### Fixed
+- **Packaging** — `config/importmap.rb` is now included in the built gem. The engine pins it at boot for importmap host apps, but `spec.files` only globbed `lib/**/*` and `app/**/*`, so it shipped missing; a regression test asserts it's packaged.
 - **Importmap** — pin the `stat_card_info_controller` (it was imported by `index.js` but unpinned, which broke `registerControllers` in importmap host apps); added a regression test asserting every controller is pinned
 - **Importmap** — bundle and pin `chart.js`. The `line-chart` controller imported it but nothing provided it, so the import failed and took down the whole `registerControllers` bundle in host apps. Vendored as a self-contained build; regression test asserts it's pinned.
 - **LineChartComponent** — mobile horizontal overflow: the responsive canvas pushed the page wider than the viewport. The container is now `position: relative` + `min-w-0` and the canvas `max-w-full`, so the chart fits the screen.

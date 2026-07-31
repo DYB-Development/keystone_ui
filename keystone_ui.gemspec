@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Reusable UI component system for Rails applications."
   spec.description = "Reusable UI component system for Rails applications using ViewComponent."
-  spec.homepage = "https://github.com/tylercschneider/keystone_ui"
+  spec.homepage = "https://github.com/DYB-Development/keystone_ui"
   spec.license = "MIT"
 
   spec.metadata["source_code_uri"] = spec.homepage
@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 3.2.0"
 
-  spec.files = Dir["lib/**/*", "app/**/*"]
+  spec.files = Dir["lib/**/*", "app/**/*", "config/**/*"]
   spec.require_paths = [ "lib" ]
 
   spec.add_dependency "view_component", ">= 2.0"
