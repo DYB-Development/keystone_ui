@@ -14,9 +14,19 @@ class KeystoneUi::PackagingTest < Minitest::Test
     assert_includes packaged_files, "the_local/agents/keystone_ui-develop.md"
   end
 
+  def test_view_component_dependency_excludes_the_next_major
+    requirement = gemspec.dependencies.find { |d| d.name == "view_component" }.requirement
+
+    refute requirement.satisfied_by?(Gem::Version.new("5.0.0"))
+  end
+
   private
 
+  def gemspec
+    Dir.chdir(ROOT) { Gem::Specification.load(File.join(ROOT, "keystone_ui.gemspec")) }
+  end
+
   def packaged_files
-    Dir.chdir(ROOT) { Gem::Specification.load(File.join(ROOT, "keystone_ui.gemspec")).files }
+    gemspec.files
   end
 end
