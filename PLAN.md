@@ -30,6 +30,6 @@ Removed entries now covered by constants (section_component, card_link_component
 
 Added documentation for all navigation/page components and the safelist constant convention.
 
-## 5. Remove legacy rake tasks (optional) — SKIPPED
+## 5. Remove legacy rake tasks (optional) — DONE
 
-`keystone:inject_source` and `keystone:clean_source` left in place pending confirmation that no consuming apps depend on them.
+`keystone:inject_source` and `keystone:clean_source` removed. They rewrote the `/* keystone:source */` marker that the install generator now strips as legacy, and no consuming app referenced them.
