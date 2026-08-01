@@ -14,6 +14,10 @@ class KeystoneUi::PackagingTest < Minitest::Test
     assert_includes packaged_files, "the_local/agents/keystone_ui-develop.md"
   end
 
+  def test_packaged_files_include_the_license_the_gemspec_declares
+    assert_includes packaged_files, "MIT-LICENSE"
+  end
+
   def test_view_component_dependency_excludes_the_next_major
     requirement = gemspec.dependencies.find { |d| d.name == "view_component" }.requirement
 
