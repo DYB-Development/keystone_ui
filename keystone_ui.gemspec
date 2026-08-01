@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 3.2.0"
 
-  spec.files = Dir["lib/**/*", "app/**/*", "config/**/*", "the_local/**/*"]
+  spec.files = Dir["lib/**/*", "app/**/*", "config/**/*", "the_local/**/*"] + [ "MIT-LICENSE" ]
   spec.require_paths = [ "lib" ]
 
   spec.add_dependency "view_component", ">= 2.0", "< 5"
