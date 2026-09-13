@@ -4,11 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-09-13
+
 ### Added
 - **StatCardComponent** — optional `href:` turns the value into a link; the card stays unlinked so its info button keeps working
 
 ### Changed
 - **StatCardComponent** — the definition and calculation details float in a panel below the card while the info button is hovered or focused, instead of expanding the card; tapping the button still toggles the panel
+
+### Fixed
+- **Packaging** — the built gem now includes `MIT-LICENSE`
 
 ## [0.6.0] - 2026-07-31
 
