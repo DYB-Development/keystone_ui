@@ -105,6 +105,7 @@ sources:
   - app/components/keystone/ui/settings_link_component.rb
   - app/components/keystone/ui/show_page_component.rb
   - app/components/keystone/ui/stat_card_component.rb
+  - app/components/keystone/ui/stat_card_component.html.erb
   - app/components/keystone/ui/swipe_deck_component.rb
   - app/components/keystone/ui/tab_switcher_component.rb
   - app/components/keystone/ui/textarea_component.rb

@@ -3,12 +3,13 @@
 module Keystone
   module Ui
     class StatCardComponent < ViewComponent::Base
-      CARD_CLASSES = "rounded-xl border border-gray-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-800"
+      CARD_CLASSES = "relative rounded-xl border border-gray-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-800"
       LABEL_CLASSES = "text-sm font-medium text-gray-500 dark:text-gray-400"
       VALUE_BASE_CLASSES = "mt-1 text-3xl font-bold"
       SUFFIX_CLASSES = "text-lg text-gray-500 dark:text-gray-400"
-      DISCLOSURE_CLASSES = "hidden mt-4 space-y-1 border-t border-gray-200 pt-3 text-sm text-gray-600 dark:border-zinc-700 dark:text-gray-400"
-      INFO_BUTTON_CLASSES = "shrink-0 text-gray-400 transition hover:text-accent-600 dark:hover:text-accent-400"
+      DISCLOSURE_CLASSES = "hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 mt-2 space-y-1 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-600 shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-400"
+      VALUE_LINK_CLASSES = "hover:underline focus:outline-none focus-visible:underline"
+      INFO_BUTTON_CLASSES = "peer shrink-0 text-gray-400 transition hover:text-accent-600 dark:hover:text-accent-400"
 
       INFO_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -22,9 +23,9 @@ module Keystone
         info: "text-accent-600 dark:text-accent-400"
       }.freeze
 
-      attr_reader :label, :value, :suffix, :definition, :calculation, :change
+      attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href
 
-      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil)
+      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil)
         @label = label
         @value = value
         @variant = variant
@@ -32,6 +33,7 @@ module Keystone
         @definition = definition
         @calculation = calculation
         @change = change
+        @href = href
       end
 
       def classes
@@ -60,6 +62,14 @@ module Keystone
 
       def change?
         !@change.nil?
+      end
+
+      def link?
+        !@href.nil?
+      end
+
+      def value_link_classes
+        VALUE_LINK_CLASSES
       end
 
       def change_label

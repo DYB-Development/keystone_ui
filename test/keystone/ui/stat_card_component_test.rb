@@ -151,4 +151,28 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal "0.0%", component.change_label
   end
+
+  def test_links_the_value_when_href_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Merged", value: "3", href: "/pull_requests?state=merged")
+
+    assert_equal "/pull_requests?state=merged", component.href
+  end
+
+  def test_linked_value_shows_it_can_be_clicked
+    component = Keystone::Ui::StatCardComponent.new(label: "Merged", value: "3", href: "/pull_requests")
+
+    assert_includes component.value_link_classes, "hover:underline"
+  end
+
+  def test_disclosure_floats_over_the_page_instead_of_growing_the_card
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.disclosure_classes, "absolute"
+  end
+
+  def test_disclosure_shows_while_the_info_button_is_hovered
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.disclosure_classes, "peer-hover:block"
+  end
 end

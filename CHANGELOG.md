@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **StatCardComponent** — optional `href:` turns the value into a link; the card stays unlinked so its info button keeps working
+
+### Changed
+- **StatCardComponent** — the definition and calculation details float in a panel below the card while the info button is hovered or focused, instead of expanding the card; tapping the button still toggles the panel
+
 ## [0.6.0] - 2026-07-31
 
 ### Added

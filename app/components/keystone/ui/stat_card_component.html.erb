@@ -5,18 +5,16 @@
       <button type="button" class="<%= info_button_classes %>" data-action="click->stat-card-info#toggle" aria-label="Show metric details">
         <%= info_icon.html_safe %>
       </button>
+      <div class="<%= disclosure_classes %>" data-stat-card-info-target="panel">
+        <% if definition %><p><span class="font-medium text-gray-700 dark:text-gray-300">Captures:</span> <%= definition %></p><% end %>
+        <% if calculation %><p><span class="font-medium text-gray-700 dark:text-gray-300">Calc:</span> <%= calculation %></p><% end %>
+      </div>
     <% end %>
   </div>
   <p class="<%= value_classes %>">
-    <%= value %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %>
+    <% if link? %><a href="<%= href %>" class="<%= value_link_classes %>"><%= value %></a><% else %><%= value %><% end %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %>
   </p>
   <% if change? %>
     <p class="mt-1 text-sm font-medium <%= change_classes %>"><%= change_label %></p>
-  <% end %>
-  <% if info? %>
-    <div class="<%= disclosure_classes %>" data-stat-card-info-target="panel">
-      <% if definition %><p><span class="font-medium text-gray-700 dark:text-gray-300">Captures:</span> <%= definition %></p><% end %>
-      <% if calculation %><p><span class="font-medium text-gray-700 dark:text-gray-300">Calc:</span> <%= calculation %></p><% end %>
-    </div>
   <% end %>
 </div>

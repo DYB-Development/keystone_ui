@@ -157,11 +157,14 @@ one raises at render time.
   close control.
 - `ui_progress(value:, max:, label: nil)` — a labeled progress bar. The percent
   is `value / max`, rounded and clamped at 100.
-- `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil)`
+- `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil)`
   — a single metric tile. `variant:` `:neutral` `:success` `:danger` `:warning`
   `:info` colors the value. `change:` is a signed number rendered as `▲ 4.2%` in
-  green when positive, `▼` in red when negative, plain when zero. Passing
-  `definition:` and/or `calculation:` adds an info button that reveals them.
+  green when positive, `▼` in red when negative, plain when zero. `href:` makes
+  the value a link to its drill-down screen; only the value is linked, never the
+  whole card. Passing `definition:` and/or `calculation:` adds an info button
+  whose details show in a panel floating below the card while the button is
+  hovered or focused, and tapping the button toggles it.
 - `ui_copy_button(text:, label: "Copy", success_message: "Copied!", error_message: "Failed!")`
   — copies `text:` to the clipboard.
 - `ui_code(language: nil, caption: nil)` — takes a block holding the code. The
@@ -242,7 +245,8 @@ one raises at render time.
 5. Fill the body with the leaf helpers from the Interface above. Reach for the
    most specific one that fits — `ui_form_field` over `ui_input`,
    `ui_data_table` over a hand-built `<table>`, `ui_stat_card` over a panel with
-   text in it.
+   text in it. To make a stat card clickable, pass `href:` — never wrap it in
+   `ui_card_link`, because a tap on the info button would then follow the link.
 
 6. For a table, decide how columns are declared. Use `{ key: "Label" }` hashes
    when every column is plain. Switch the whole set to `Keystone::Ui::Column`
