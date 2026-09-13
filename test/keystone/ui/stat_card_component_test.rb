@@ -163,4 +163,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_includes component.value_link_classes, "hover:underline"
   end
+
+  def test_disclosure_floats_over_the_page_instead_of_growing_the_card
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.disclosure_classes, "absolute"
+  end
 end

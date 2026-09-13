@@ -3,11 +3,11 @@
 module Keystone
   module Ui
     class StatCardComponent < ViewComponent::Base
-      CARD_CLASSES = "rounded-xl border border-gray-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-800"
+      CARD_CLASSES = "relative rounded-xl border border-gray-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-800"
       LABEL_CLASSES = "text-sm font-medium text-gray-500 dark:text-gray-400"
       VALUE_BASE_CLASSES = "mt-1 text-3xl font-bold"
       SUFFIX_CLASSES = "text-lg text-gray-500 dark:text-gray-400"
-      DISCLOSURE_CLASSES = "hidden mt-4 space-y-1 border-t border-gray-200 pt-3 text-sm text-gray-600 dark:border-zinc-700 dark:text-gray-400"
+      DISCLOSURE_CLASSES = "hidden absolute inset-x-0 top-full z-10 mt-2 space-y-1 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-600 shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-400"
       VALUE_LINK_CLASSES = "hover:underline focus:outline-none focus-visible:underline"
       INFO_BUTTON_CLASSES = "shrink-0 text-gray-400 transition hover:text-accent-600 dark:hover:text-accent-400"
 
