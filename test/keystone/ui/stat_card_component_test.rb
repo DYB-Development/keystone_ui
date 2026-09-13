@@ -169,4 +169,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_includes component.disclosure_classes, "absolute"
   end
+
+  def test_disclosure_shows_while_the_info_button_is_hovered
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
+
+    assert_includes component.disclosure_classes, "peer-hover:block"
+  end
 end
