@@ -22,9 +22,9 @@ module Keystone
         info: "text-accent-600 dark:text-accent-400"
       }.freeze
 
-      attr_reader :label, :value, :suffix, :definition, :calculation, :change
+      attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href
 
-      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil)
+      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil)
         @label = label
         @value = value
         @variant = variant
@@ -32,6 +32,7 @@ module Keystone
         @definition = definition
         @calculation = calculation
         @change = change
+        @href = href
       end
 
       def classes
@@ -60,6 +61,10 @@ module Keystone
 
       def change?
         !@change.nil?
+      end
+
+      def link?
+        !@href.nil?
       end
 
       def change_label

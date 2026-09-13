@@ -151,4 +151,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal "0.0%", component.change_label
   end
+
+  def test_links_the_value_when_href_present
+    component = Keystone::Ui::StatCardComponent.new(label: "Merged", value: "3", href: "/pull_requests?state=merged")
+
+    assert_equal "/pull_requests?state=merged", component.href
+  end
 end

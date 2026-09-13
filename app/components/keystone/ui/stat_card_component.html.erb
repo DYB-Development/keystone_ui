@@ -8,7 +8,7 @@
     <% end %>
   </div>
   <p class="<%= value_classes %>">
-    <%= value %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %>
+    <% if link? %><a href="<%= href %>"><%= value %></a><% else %><%= value %><% end %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %>
   </p>
   <% if change? %>
     <p class="mt-1 text-sm font-medium <%= change_classes %>"><%= change_label %></p>
