@@ -620,9 +620,16 @@ Renders a metric card for dashboards.
 
 - `variant:` (`:neutral | :success | :danger | :warning | :info`, default `:neutral`)
 - `suffix:` (String) — unit label after the value
+- `definition:` (String) — what the metric captures
+- `calculation:` (String) — how the metric is computed
+- `change:` (Number) — percent change against the previous period, shown as ▲/▼
+- `href:` (String) — turns the value into a link to that URL; the card itself stays unlinked
+
+When `definition:` or `calculation:` is given, an info button appears. Hovering or focusing it shows the details in a panel floating below the card, and tapping it toggles the panel on touch screens. The card never changes size.
 
 ```erb
 <%= ui_stat_card(label: "Revenue", value: "$42,300", variant: :success, suffix: "/mo") %>
+<%= ui_stat_card(label: "Merged", value: 12, href: "/pull_requests?state=merged", definition: "Pull requests merged in the range.") %>
 ```
 
 ### `ui_chart_card`
