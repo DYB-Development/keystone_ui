@@ -157,4 +157,10 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_equal "/pull_requests?state=merged", component.href
   end
+
+  def test_linked_value_shows_it_can_be_clicked
+    component = Keystone::Ui::StatCardComponent.new(label: "Merged", value: "3", href: "/pull_requests")
+
+    assert_includes component.value_link_classes, "hover:underline"
+  end
 end
