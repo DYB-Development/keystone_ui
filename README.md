@@ -52,6 +52,21 @@ At boot time, the engine initializer writes `keystone_source.css` with `@source`
 - Tailwind's JIT scanner finds all component classes automatically.
 - When keystone updates with new components, they're picked up on the next build
   with no action required.
+- `keystone_source.css` is the only stylesheet a host imports for keystone_ui and the
+  gems built on it. No keystone gem ships a Tailwind file that tailwindcss-rails
+  turns into a generated stylesheet in `app/assets/builds/tailwind`.
+
+### Registering a gem's Tailwind files
+
+A gem built on keystone_ui adds its own CSS and the files Tailwind should scan in
+an initializer, and `keystone_source.css` includes them:
+
+```ruby
+initializer "my_gem.tailwind" do
+  KeystoneUi.configuration.tailwind_imports << root.join("app/assets/tailwind/my_gem.css").to_s
+  KeystoneUi.configuration.tailwind_sources << root.join("app/views/**/*.erb").to_s
+end
+```
 
 ### Upgrading from older versions
 
