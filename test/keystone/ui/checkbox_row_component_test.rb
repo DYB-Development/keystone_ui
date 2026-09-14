@@ -38,4 +38,10 @@ class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
 
     assert_includes component.hint_classes, "dark:text-surface-400"
   end
+
+  def test_checked_box_fills_with_the_accent_color
+    component = Keystone::Ui::CheckboxRowComponent.new(name: "shown[]", value: "merged", label: "Merged")
+
+    assert_includes component.input_classes, "checked:bg-accent-600"
+  end
 end
