@@ -65,8 +65,7 @@ rails generate keystone:install
 ## Light and dark mode
 
 keystone_ui decides light and dark mode for the whole app, including the `dark:`
-classes in your own views. A page follows the operating system's setting unless
-the `html` element carries an explicit choice:
+classes in your own views. The `html` element's `data-theme` attribute decides it:
 
 ```html
 <html data-theme="dark">   <!-- always dark -->
@@ -86,15 +85,32 @@ Place the toggle anywhere in a view:
 ```
 
 It offers Light, Dark and System. The choice applies at once and is kept in a
-`keystone_theme` cookie, and the server marks the `html` tag from that cookie so
-later pages open in the chosen mode. The install generator adds the helper that
-does this to `app/views/layouts/application.html.erb`:
+`keystone_theme` cookie until the user picks another option, and the server marks
+the `html` tag from that cookie so later pages open in the chosen mode. The install
+generator adds the helper that does this to `app/views/layouts/application.html.erb`:
 
 ```erb
 <html <%= keystone_theme_attributes %> lang="en">
 ```
 
 Add it by hand if your layout lives elsewhere.
+
+### Which mode a page gets
+
+Strongest first:
+
+1. The toggle's choice in this browser.
+2. A mode supplied by another gem, such as a signed-in user's saved mode.
+3. Light.
+
+A gem supplies a mode by registering a callable that receives the view and returns
+`"light"`, `"dark"`, `"system"` or `nil`:
+
+```ruby
+KeystoneUi.configure do |config|
+  config.theme_mode_supplier = ->(view) { view.current_user&.theme_mode }
+end
+```
 
 ## Color System
 

@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **`theme_mode_supplier` setting** — another gem can supply a light, dark or system mode that applies when the browser has no toggle choice
+
+### Changed
+- **Light and dark mode** — a page renders light when there is no toggle choice and no supplied mode, instead of following the operating system
+- **ThemeToggleComponent** — picking System is remembered in the `keystone_theme` cookie like Light and Dark, and the toggle shows the mode the page renders in as pressed
+
+### Upgrading
+- Pages that followed the operating system by default now render light. Users who want the operating system's setting pick System on the toggle.
+
 ## [0.9.1] - 2026-09-14
 
 ### Fixed
