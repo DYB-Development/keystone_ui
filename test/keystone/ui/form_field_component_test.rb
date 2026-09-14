@@ -107,4 +107,7 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
     assert_equal true, component.errors?
     assert_equal [ "can't be blank" ], component.error_messages
   end
+  def test_label_uses_the_keystone_label_class
+    assert_equal "ks-label", Keystone::Ui::FormFieldComponent::LABEL_CLASSES
+  end
 end
