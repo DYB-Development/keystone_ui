@@ -19,4 +19,8 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
   def test_is_stored_in_the_cookie_the_toggle_controller_writes
     assert_equal "keystone_theme", KeystoneUi::ThemeChoice::COOKIE
   end
+
+  def test_writes_the_mark_as_html_tag_attributes
+    assert_equal %(data-theme="light"), KeystoneUi::ThemeChoice.new("light").html_attributes_markup
+  end
 end
