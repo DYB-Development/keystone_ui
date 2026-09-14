@@ -18,6 +18,12 @@ class KeystoneUi::SourceCssTest < Minitest::Test
     assert_includes css, %(@import "/gems/keystone_ui/app/assets/tailwind/keystone_ui_engine/color_picker.css";)
   end
 
+  def test_imports_the_keystone_ui_styles_entry_file
+    entry = KeystoneUi::Styles::Engine.root.join("app/assets/tailwind/keystone_ui_styles/engine.css")
+
+    assert_includes css, %(@import "#{entry}";)
+  end
+
   private
 
   def css
