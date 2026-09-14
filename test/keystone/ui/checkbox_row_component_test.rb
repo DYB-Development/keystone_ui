@@ -26,4 +26,10 @@ class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
 
     assert_includes component.row_classes, "cursor-pointer"
   end
+
+  def test_label_classes_stay_readable_in_dark_mode
+    component = Keystone::Ui::CheckboxRowComponent.new(name: "shown[]", value: "merged", label: "Merged")
+
+    assert_includes component.label_classes, "dark:text-surface-100"
+  end
 end

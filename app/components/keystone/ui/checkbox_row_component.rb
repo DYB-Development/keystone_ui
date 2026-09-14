@@ -5,7 +5,7 @@ module Keystone
     class CheckboxRowComponent < ViewComponent::Base
       ROW_CLASSES = "flex items-start gap-3 py-3 cursor-pointer"
       INPUT_CLASSES = "mt-0.5 size-4 shrink-0 rounded border-surface-300 text-accent-600 focus:ring-accent-500"
-      LABEL_CLASSES = "block text-sm font-medium text-surface-900"
+      LABEL_CLASSES = "block text-sm font-medium text-surface-900 dark:text-surface-100"
       HINT_CLASSES = "block mt-0.5 text-sm text-surface-500"
 
       attr_reader :name, :value, :label, :hint
