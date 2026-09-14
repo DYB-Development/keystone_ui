@@ -9,4 +9,10 @@ class Keystone::LayoutThemeAttributesTest < Minitest::Test
 
     assert_includes Keystone::LayoutThemeAttributes.new(layout).apply, %(<html <%= keystone_theme_attributes %> lang="en">)
   end
+
+  def test_leaves_a_layout_that_already_has_the_helper_unchanged
+    layout = %(<html <%= keystone_theme_attributes %> lang="en">\n</html>\n)
+
+    assert_equal layout, Keystone::LayoutThemeAttributes.new(layout).apply
+  end
 end

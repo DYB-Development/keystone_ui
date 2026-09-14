@@ -9,6 +9,8 @@ module Keystone
     end
 
     def apply
+      return @layout if @layout.include?(HELPER_CALL)
+
       @layout.sub(/<html\b/, "<html #{HELPER_CALL}")
     end
   end
