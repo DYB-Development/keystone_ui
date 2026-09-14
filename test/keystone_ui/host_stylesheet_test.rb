@@ -4,6 +4,7 @@ require "test_helper"
 require "tailwindcss/ruby"
 require "tmpdir"
 require_relative "../../lib/keystone_ui/source_css"
+require_relative "../../lib/keystone_ui/theme_choice"
 
 class KeystoneUi::HostStylesheetTest < Minitest::Test
   ROOT = File.expand_path("../..", __dir__)
@@ -16,6 +17,12 @@ class KeystoneUi::HostStylesheetTest < Minitest::Test
     css = compile_host_stylesheet(%(<div class="dark:bg-red-500"></div>))
 
     assert_match(/\.dark\\:bg-red-500:where\(\[data-theme="dark"\]/, css)
+  end
+
+  def test_a_dark_theme_choice_marks_the_page_with_the_attribute_keystones_dark_styles_select_on
+    mark = KeystoneUi::ThemeChoice.new("dark").html_attributes_markup
+
+    assert_includes compile_host_stylesheet(%(<div class="dark:bg-red-500"></div>)), "[#{mark}]"
   end
 
   private
