@@ -17,4 +17,10 @@ class KeystoneUi::RequireTest < Minitest::Test
 
     assert_equal "constant", IO.popen([ RbConfig.ruby, "-I", LIB, "-e", script ], err: File::NULL, &:read)
   end
+
+  def test_tailwindcss_rails_finds_no_entry_file_under_keystone_uis_engine_name_so_it_writes_no_stub_into_hosts
+    script = 'require "rails"; require "keystone_ui"; print KeystoneUi::Engine.root.join("app/assets/tailwind/#{KeystoneUi::Engine.engine_name}/engine.css").exist?'
+
+    assert_equal "false", IO.popen([ RbConfig.ruby, "-I", LIB, "-e", script ], err: File::NULL, &:read)
+  end
 end
