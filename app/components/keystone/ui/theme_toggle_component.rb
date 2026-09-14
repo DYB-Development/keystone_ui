@@ -3,8 +3,12 @@
 module Keystone
   module Ui
     class ThemeToggleComponent < ViewComponent::Base
+      def initialize(current: nil)
+        @current = current
+      end
+
       def pressed?(mode)
-        mode == "system"
+        mode == (@current || "system")
       end
     end
   end
