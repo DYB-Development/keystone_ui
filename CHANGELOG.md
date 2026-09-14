@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.1] - 2026-09-14
+
 ### Fixed
 - **CheckboxRowComponent** — the label and hint stay readable in dark mode, and a checked box fills with the accent color even when host app styles set a checkbox background
 
