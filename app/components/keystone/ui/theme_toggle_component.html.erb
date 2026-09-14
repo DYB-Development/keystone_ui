@@ -1,0 +1,10 @@
+<div class="<%= GROUP_CLASSES %>" role="group" aria-label="Theme" data-controller="theme-toggle">
+  <% options.each do |label, mode| %>
+    <button
+      type="button"
+      class="<%= OPTION_CLASSES %>"
+      aria-pressed="<%= pressed?(mode) %>"
+      data-action="theme-toggle#choose"
+      data-theme-toggle-mode-param="<%= mode %>"><%= label %></button>
+  <% end %>
+</div>

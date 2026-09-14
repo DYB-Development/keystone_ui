@@ -12,6 +12,7 @@ import AccordionController from "keystone_ui/accordion_controller"
 import StatCardInfoController from "keystone_ui/stat_card_info_controller"
 import AutoSubmitController from "keystone_ui/auto_submit_controller"
 import LineChartController from "keystone_ui/line_chart_controller"
+import ThemeToggleController from "keystone_ui/theme_toggle_controller"
 
 export function registerControllers(application) {
   application.register("color-picker", ColorPickerController)
@@ -28,6 +29,7 @@ export function registerControllers(application) {
   application.register("stat-card-info", StatCardInfoController)
   application.register("auto-submit", AutoSubmitController)
   application.register("line-chart", LineChartController)
+  application.register("theme-toggle", ThemeToggleController)
 }
 
 export { ColorPickerController, MultiSelectController, SwipeDeckController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ModalController, ClipboardController, TabSwitcherController, AccordionController, StatCardInfoController, AutoSubmitController, LineChartController }

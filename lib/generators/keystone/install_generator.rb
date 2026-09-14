@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "layout_theme_attributes"
+
 module Keystone
   class InstallGenerator < Rails::Generators::Base
     desc "Set up Keystone UI in your Rails application"
@@ -10,6 +12,8 @@ module Keystone
     JS_CONTROLLERS_PATH = "app/javascript/controllers/index.js"
     JS_IMPORT = 'import { registerControllers } from "keystone_ui/index"'
     JS_REGISTER = "registerControllers(application)"
+
+    LAYOUT_PATH = "app/views/layouts/application.html.erb"
 
     def setup_tailwind
       say ""
@@ -85,6 +89,27 @@ module Keystone
 
       append_to_file js_path, "\n#{JS_IMPORT}\n#{JS_REGISTER}\n"
       say "  ✔ Registered Keystone UI controllers", :green
+    end
+
+    def setup_theme
+      say ""
+      say "Wiring the Keystone UI theme toggle...", :green
+
+      layout_path = Rails.root.join(LAYOUT_PATH)
+      unless layout_path.exist?
+        say "  ⚠ #{LAYOUT_PATH} not found — add `<%= keystone_theme_attributes %>` to your <html> tag manually.", :yellow
+        return
+      end
+
+      layout = layout_path.read
+      updated = Keystone::LayoutThemeAttributes.new(layout).apply
+
+      if updated == layout
+        say "  ✔ Layout already marks the theme", :green
+      else
+        File.write(layout_path, updated)
+        say "  ✔ Added the theme attributes to the layout's html tag", :green
+      end
     end
   end
 end

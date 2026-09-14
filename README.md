@@ -77,6 +77,25 @@ the `html` element carries an explicit choice:
 Do not declare your own `@custom-variant dark` in `application.css`. keystone_ui's
 rule applies to your classes as well as keystone_ui's components.
 
+### Letting users choose
+
+Place the toggle anywhere in a view:
+
+```erb
+<%= ui_theme_toggle %>
+```
+
+It offers Light, Dark and System. The choice applies at once and is kept in a
+`keystone_theme` cookie, and the server marks the `html` tag from that cookie so
+later pages open in the chosen mode. The install generator adds the helper that
+does this to `app/views/layouts/application.html.erb`:
+
+```erb
+<html <%= keystone_theme_attributes %> lang="en">
+```
+
+Add it by hand if your layout lives elsewhere.
+
 ## Color System
 
 Keystone UI components use two semantic color scales — **accent** and **surface** — defined as CSS custom properties. Components reference these via Tailwind classes like `bg-accent-500`, `text-accent-600`, `bg-surface-100`, etc. This means your entire UI updates when you change the color values — no need to touch component code.

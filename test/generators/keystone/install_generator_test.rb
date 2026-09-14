@@ -69,4 +69,8 @@ class Keystone::InstallGeneratorTest < Minitest::Test
   def test_targets_the_stimulus_controllers_index
     assert_equal "app/javascript/controllers/index.js", Keystone::InstallGenerator::JS_CONTROLLERS_PATH
   end
+
+  def test_marks_the_theme_in_the_application_layout
+    assert_equal "app/views/layouts/application.html.erb", Keystone::InstallGenerator::LAYOUT_PATH
+  end
 end
