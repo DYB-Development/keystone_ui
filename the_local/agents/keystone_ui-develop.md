@@ -117,6 +117,11 @@ one raises at render time.
   hue/saturation panel and writes the hex into a hidden input named `name`.
 - `ui_radio_card(name:, value:, label:, hint: nil, checked: false)` — a
   selectable card backed by a real radio input; selection styling is pure CSS.
+- `ui_checkbox_row(name:, value:, label:, hint: nil, checked: false)` — a real
+  checkbox with its label and optional hint inside one `<label>`, so a tap
+  anywhere on the row toggles the box. A checked row submits `value` under
+  `name`; give several rows the same array name, e.g. `"shown[]"`, to submit the
+  checked values as a list. An unchecked row submits nothing. No JavaScript.
 - `ui_option_card(name:, value:, selected: false, input_data: {}, label_data: {})`
   — takes a block. A radio whose visible body is whatever the block renders.
   `input_data:`/`label_data:` become `data-*` attributes on the input and label.
