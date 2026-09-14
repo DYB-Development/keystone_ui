@@ -46,7 +46,9 @@ At boot time, the engine initializer writes `keystone_source.css` with `@source`
 
 - The generator commits only an `@import "./keystone_source.css"` line — no machine-specific paths in git.
 - On every app boot (dev server, `assets:precompile`, CI), the engine writes
-  `keystone_source.css` with `@source` and theme `@import` directives.
+  `keystone_source.css` with `@source` and `@import` directives, including the
+  stylesheet of [keystone_ui-styles](https://github.com/DYB-Development/keystone_ui-styles),
+  which keystone_ui depends on.
 - Tailwind's JIT scanner finds all component classes automatically.
 - When keystone updates with new components, they're picked up on the next build
   with no action required.
@@ -60,13 +62,28 @@ automatically:
 rails generate keystone:install
 ```
 
+## Light and dark mode
+
+keystone_ui decides light and dark mode for the whole app, including the `dark:`
+classes in your own views. A page follows the operating system's setting unless
+the `html` element carries an explicit choice:
+
+```html
+<html data-theme="dark">   <!-- always dark -->
+<html data-theme="light">  <!-- always light -->
+<html>                     <!-- follows the operating system -->
+```
+
+Do not declare your own `@custom-variant dark` in `application.css`. keystone_ui's
+rule applies to your classes as well as keystone_ui's components.
+
 ## Color System
 
 Keystone UI components use two semantic color scales — **accent** and **surface** — defined as CSS custom properties. Components reference these via Tailwind classes like `bg-accent-500`, `text-accent-600`, `bg-surface-100`, etc. This means your entire UI updates when you change the color values — no need to touch component code.
 
 ### Defaults
 
-The gem ships a `theme.css` that sets default values (imported automatically by the engine initializer):
+keystone_ui-styles, which keystone_ui installs and imports for you, sets the default values:
 
 | Scale | Default palette | Used for |
 |-------|----------------|----------|
