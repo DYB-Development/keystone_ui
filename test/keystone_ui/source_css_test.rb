@@ -19,9 +19,7 @@ class KeystoneUi::SourceCssTest < Minitest::Test
   end
 
   def test_imports_the_keystone_ui_styles_entry_file
-    entry = KeystoneUi::Styles::Engine.root.join("app/assets/tailwind/keystone_ui_styles/engine.css")
-
-    assert_includes css, %(@import "#{entry}";)
+    assert_includes css, %(@import "#{KeystoneUi::Styles.tailwind_file}";)
   end
 
   def test_imports_the_grid_column_safelist
