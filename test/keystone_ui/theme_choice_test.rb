@@ -23,4 +23,10 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
   def test_writes_the_mark_as_html_tag_attributes
     assert_equal %(data-theme="light"), KeystoneUi::ThemeChoice.new("light").html_attributes_markup
   end
+
+  def test_is_read_from_the_same_cookie_the_toggle_controller_writes
+    controller = File.read(File.expand_path("../../app/assets/javascripts/keystone_ui/theme_toggle_controller.js", __dir__))
+
+    assert_includes controller, %(const COOKIE = "#{KeystoneUi::ThemeChoice::COOKIE}")
+  end
 end
