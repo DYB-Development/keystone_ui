@@ -6,7 +6,7 @@ Thanks for your interest in contributing to Keystone Components!
 
 1. Fork and clone the repo
 2. Run `bundle install`
-3. Run `bundle exec rake test` to make sure tests pass
+3. Run `bundle exec rake test` and `npm install && npm test` to make sure tests pass
 
 ## Development
 
@@ -15,6 +15,7 @@ Thanks for your interest in contributing to Keystone Components!
 ```bash
 bundle exec rake test                                                 # All tests
 bundle exec rake test TEST=test/keystone/ui/button_component_test.rb  # Single file
+npm test                                                              # Stimulus controller tests
 ```
 
 Tests run without a full Rails environment — the test helper stubs `ViewComponent::Base`.
