@@ -7,7 +7,11 @@ export default class extends Controller {
   choose({ params: { mode } }) {
     const page = this.element.ownerDocument
 
-    page.documentElement.dataset.theme = mode
-    page.cookie = `${COOKIE}=${mode}; path=/; max-age=${ONE_YEAR}; samesite=lax`
+    if (mode === "system") {
+      delete page.documentElement.dataset.theme
+    } else {
+      page.documentElement.dataset.theme = mode
+      page.cookie = `${COOKIE}=${mode}; path=/; max-age=${ONE_YEAR}; samesite=lax`
+    }
   }
 }
