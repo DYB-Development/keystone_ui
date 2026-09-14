@@ -17,7 +17,8 @@ module KeystoneUi
     def lines
       [
         %(@source "#{@root}/app/components/**/*.{erb,rb}";),
-        %(@import "#{@root}/app/assets/tailwind/keystone_ui_engine/nav.css";)
+        %(@import "#{@root}/app/assets/tailwind/keystone_ui_engine/nav.css";),
+        %(@import "#{@root}/app/assets/tailwind/keystone_ui_engine/color_picker.css";)
       ]
     end
   end
