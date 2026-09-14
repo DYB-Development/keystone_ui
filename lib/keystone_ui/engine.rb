@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "keystone_ui/source_css"
+require "keystone_ui/leftover_stylesheet"
 
 module KeystoneUi
   class Engine < ::Rails::Engine
@@ -11,6 +12,10 @@ module KeystoneUi
       if app.config.respond_to?(:importmap)
         app.config.importmap.paths << root.join("config/importmap.rb")
       end
+    end
+
+    initializer "keystone_ui.remove_leftover_stylesheet" do |app|
+      KeystoneUi::LeftoverStylesheet.new(app.root).remove
     end
 
     # Write a separate keystone_source.css with the gem's @source directive
