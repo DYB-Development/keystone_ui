@@ -6,7 +6,7 @@ class Keystone::Ui::ButtonComponentTest < Minitest::Test
   def test_combines_base_variant_and_size_classes
     component = Keystone::Ui::ButtonComponent.new(label: "Create invoice", variant: :secondary, size: :lg)
 
-    assert_equal "inline-flex items-center justify-center font-semibold rounded-lg border-0 cursor-pointer no-underline bg-gray-500 text-white hover:bg-gray-400 text-lg px-5 py-3", component.classes
+    assert_equal "ks-button ks-button-secondary ks-button-lg", component.classes
   end
 
   def test_defaults_to_submit_type_when_rendering_a_button_element
