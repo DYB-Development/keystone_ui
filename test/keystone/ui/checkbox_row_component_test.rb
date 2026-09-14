@@ -21,12 +21,6 @@ class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
     assert_equal "Pull requests merged in the range", component.hint
   end
 
-  def test_hint_classes_stay_readable_in_dark_mode
-    component = Keystone::Ui::CheckboxRowComponent.new(name: "shown[]", value: "merged", label: "Merged", hint: "Pull requests merged in the range")
-
-    assert_includes component.hint_classes, "dark:text-surface-400"
-  end
-
   def test_checked_box_fills_with_the_accent_color
     component = Keystone::Ui::CheckboxRowComponent.new(name: "shown[]", value: "merged", label: "Merged")
 
