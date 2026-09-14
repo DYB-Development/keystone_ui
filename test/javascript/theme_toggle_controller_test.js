@@ -34,3 +34,11 @@ test("choosing system removes the page's light or dark mark", () => {
 
   assert.equal("theme" in page.documentElement.dataset, false)
 })
+
+test("choosing system expires the theme cookie", () => {
+  const page = pageWithNoChoice()
+
+  toggleOn(page).choose({ params: { mode: "system" } })
+
+  assert.equal(page.cookie, "keystone_theme=; path=/; max-age=0; samesite=lax")
+})
