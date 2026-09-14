@@ -15,4 +15,8 @@ class Keystone::Ui::ThemeToggleComponentTest < Minitest::Test
   def test_shows_system_as_pressed_when_the_chosen_theme_is_unknown
     assert Keystone::Ui::ThemeToggleComponent.new(current: "purple").pressed?("system")
   end
+
+  def test_offers_light_dark_and_system_options_in_that_order
+    assert_equal [ [ "Light", "light" ], [ "Dark", "dark" ], [ "System", "system" ] ], Keystone::Ui::ThemeToggleComponent.new.options
+  end
 end

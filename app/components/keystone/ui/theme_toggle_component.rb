@@ -3,8 +3,14 @@
 module Keystone
   module Ui
     class ThemeToggleComponent < ViewComponent::Base
+      OPTIONS = [ [ "Light", "light" ], [ "Dark", "dark" ], [ "System", "system" ] ].freeze
+
       def initialize(current: nil)
         @current = current
+      end
+
+      def options
+        OPTIONS
       end
 
       def pressed?(mode)
