@@ -153,6 +153,10 @@ module KeystoneUiHelper
     render Keystone::Ui::RadioCardComponent.new(**args)
   end
 
+  def ui_checkbox_row(**args)
+    render Keystone::Ui::CheckboxRowComponent.new(**args)
+  end
+
   def ui_progress(**args)
     render Keystone::Ui::ProgressComponent.new(**args)
   end
