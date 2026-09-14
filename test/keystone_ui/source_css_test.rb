@@ -24,6 +24,10 @@ class KeystoneUi::SourceCssTest < Minitest::Test
     assert_includes css, %(@import "#{entry}";)
   end
 
+  def test_imports_the_grid_column_safelist
+    assert_includes css, %(@import "/gems/keystone_ui/app/assets/tailwind/keystone_ui_engine/grid_safelist.css";)
+  end
+
   private
 
   def css
