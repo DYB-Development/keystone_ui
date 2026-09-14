@@ -10,11 +10,10 @@ export default class extends Controller {
 
     if (mode === "system") {
       delete page.documentElement.dataset.theme
-      page.cookie = `${COOKIE}=; path=/; max-age=0; samesite=lax`
     } else {
       page.documentElement.dataset.theme = mode
-      page.cookie = `${COOKIE}=${mode}; path=/; max-age=${ONE_YEAR}; samesite=lax`
     }
+    page.cookie = `${COOKIE}=${mode}; path=/; max-age=${ONE_YEAR}; samesite=lax`
   }
 
   #showPressed(mode) {

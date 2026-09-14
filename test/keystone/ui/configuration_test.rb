@@ -26,4 +26,15 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal :slate, KeystoneUi.configuration.surface
   end
+
+  def test_supplies_no_theme_mode_when_no_gem_supplies_one
+    assert_nil KeystoneUi.configuration.supplied_theme_mode(Object.new)
+  end
+
+  def test_supplies_the_theme_mode_a_registered_supplier_returns_for_the_view
+    view = Struct.new(:saved_mode).new("dark")
+    KeystoneUi.configure { |c| c.theme_mode_supplier = ->(from) { from.saved_mode } }
+
+    assert_equal "dark", KeystoneUi.configuration.supplied_theme_mode(view)
+  end
 end

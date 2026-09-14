@@ -16,7 +16,7 @@ module Keystone
       end
 
       def pressed?(mode)
-        mode == (KeystoneUi::ThemeChoice::MODES.include?(@current) ? @current : "system")
+        mode == KeystoneUi::ThemeChoice.new(@current).mode
       end
     end
   end

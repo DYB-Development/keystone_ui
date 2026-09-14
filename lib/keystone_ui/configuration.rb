@@ -2,11 +2,15 @@
 
 module KeystoneUi
   class Configuration
-    attr_accessor :accent, :surface
+    attr_accessor :accent, :surface, :theme_mode_supplier
 
     def initialize
       @accent = :blue
       @surface = :zinc
+    end
+
+    def supplied_theme_mode(view)
+      theme_mode_supplier&.call(view)
     end
   end
 

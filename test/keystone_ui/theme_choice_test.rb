@@ -8,12 +8,12 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
     assert_equal({ "data-theme" => "dark" }, KeystoneUi::ThemeChoice.new("dark").html_attributes)
   end
 
-  def test_no_choice_leaves_the_page_following_the_operating_system
-    assert_equal({}, KeystoneUi::ThemeChoice.new(nil).html_attributes)
+  def test_no_choice_marks_the_page_light
+    assert_equal({ "data-theme" => "light" }, KeystoneUi::ThemeChoice.new(nil).html_attributes)
   end
 
-  def test_an_unknown_choice_leaves_the_page_following_the_operating_system
-    assert_equal({}, KeystoneUi::ThemeChoice.new("\"><script>").html_attributes)
+  def test_an_unknown_choice_marks_the_page_light
+    assert_equal({ "data-theme" => "light" }, KeystoneUi::ThemeChoice.new("\"><script>").html_attributes)
   end
 
   def test_is_stored_in_the_cookie_the_toggle_controller_writes
@@ -28,5 +28,17 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
     controller = File.read(File.expand_path("../../app/assets/javascripts/keystone_ui/theme_toggle_controller.js", __dir__))
 
     assert_includes controller, %(const COOKIE = "#{KeystoneUi::ThemeChoice::COOKIE}")
+  end
+
+  def test_a_system_choice_leaves_the_page_following_the_operating_system
+    assert_equal({}, KeystoneUi::ThemeChoice.new("system").html_attributes)
+  end
+
+  def test_a_supplied_mode_marks_the_page_when_nothing_is_chosen
+    assert_equal({ "data-theme" => "dark" }, KeystoneUi::ThemeChoice.new(nil, supplied: "dark").html_attributes)
+  end
+
+  def test_a_toggle_choice_takes_precedence_over_a_supplied_mode
+    assert_equal({ "data-theme" => "light" }, KeystoneUi::ThemeChoice.new("light", supplied: "dark").html_attributes)
   end
 end
