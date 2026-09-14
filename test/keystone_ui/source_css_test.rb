@@ -28,6 +28,12 @@ class KeystoneUi::SourceCssTest < Minitest::Test
     assert_includes css, %(@import "/gems/keystone_ui/app/assets/tailwind/keystone_ui_engine/grid_safelist.css";)
   end
 
+  def test_points_tailwind_at_source_files_another_gem_registered
+    css = KeystoneUi::SourceCss.new(ROOT, sources: [ "/gems/alembic/app/views/**/*.erb" ]).to_s
+
+    assert_includes css, %(@source "/gems/alembic/app/views/**/*.erb";)
+  end
+
   private
 
   def css
