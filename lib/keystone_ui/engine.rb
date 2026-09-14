@@ -29,7 +29,7 @@ module KeystoneUi
       keystone_import = '@import "./keystone_source.css";'
       next unless css_path.read.include?(keystone_import)
 
-      tailwind_dir.join("keystone_source.css").write(KeystoneUi::SourceCss.new(root).to_s)
+      tailwind_dir.join("keystone_source.css").write(KeystoneUi::SourceCss.new(root, imports: KeystoneUi.configuration.tailwind_imports, sources: KeystoneUi.configuration.tailwind_sources).to_s)
     end
   end
 end

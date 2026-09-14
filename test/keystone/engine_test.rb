@@ -13,6 +13,10 @@ class KeystoneUiEngineTest < Minitest::Test
   end
 
   def test_writes_keystone_source_css_from_the_source_stylesheet_during_app_boot
-    assert_match(/after_initialize.*keystone_source\.css.*KeystoneUi::SourceCss\.new\(root\)/m, source)
+    assert_match(/after_initialize.*keystone_source\.css.*KeystoneUi::SourceCss\.new\(root/m, source)
+  end
+
+  def test_writes_the_tailwind_files_and_sources_other_gems_registered_into_keystone_source_css
+    assert_includes source, "KeystoneUi::SourceCss.new(root, imports: KeystoneUi.configuration.tailwind_imports, sources: KeystoneUi.configuration.tailwind_sources)"
   end
 end
