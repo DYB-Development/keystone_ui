@@ -8,7 +8,7 @@ module Keystone
       end
 
       def pressed?(mode)
-        mode == (@current || "system")
+        mode == (KeystoneUi::ThemeChoice::MODES.include?(@current) ? @current : "system")
       end
     end
   end
