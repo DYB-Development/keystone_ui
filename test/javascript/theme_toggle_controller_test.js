@@ -17,3 +17,11 @@ test("choosing dark marks the page dark", () => {
 
   assert.equal(page.documentElement.dataset.theme, "dark")
 })
+
+test("choosing dark remembers the choice in the theme cookie for a year", () => {
+  const page = pageWithNoChoice()
+
+  toggleOn(page).choose({ params: { mode: "dark" } })
+
+  assert.equal(page.cookie, "keystone_theme=dark; path=/; max-age=31536000; samesite=lax")
+})
