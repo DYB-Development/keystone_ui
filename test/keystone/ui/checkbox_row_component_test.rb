@@ -14,4 +14,10 @@ class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
 
     assert_equal false, component.checked?
   end
+
+  def test_exposes_hint
+    component = Keystone::Ui::CheckboxRowComponent.new(name: "shown[]", value: "merged", label: "Merged", hint: "Pull requests merged in the range")
+
+    assert_equal "Pull requests merged in the range", component.hint
+  end
 end

@@ -3,12 +3,13 @@
 module Keystone
   module Ui
     class CheckboxRowComponent < ViewComponent::Base
-      attr_reader :name, :value, :label
+      attr_reader :name, :value, :label, :hint
 
-      def initialize(name:, value:, label:, checked: false)
+      def initialize(name:, value:, label:, hint: nil, checked: false)
         @name = name
         @value = value
         @label = label
+        @hint = hint
         @checked = checked
       end
 
