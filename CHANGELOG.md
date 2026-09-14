@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **`tailwind_imports` and `tailwind_sources` settings** — a gem built on keystone_ui registers its CSS files and the files Tailwind should scan, and `keystone_source.css` includes them, so hosts need no other stylesheet import
+
+### Fixed
+- **Generated stylesheet** — hosts no longer get `app/assets/builds/tailwind/keystone_ui_engine.css`. With `stylesheet_link_tag :app`, that file made the browser request a path inside the installed gem and raise a routing error. The grid column safelist now comes in through `keystone_source.css`.
+
+### Upgrading
+- Delete leftover files in `app/assets/builds/tailwind` for keystone gems, or run `rails tailwindcss:clobber` once.
+
 ## [0.10.0] - 2026-09-14
 
 ### Added

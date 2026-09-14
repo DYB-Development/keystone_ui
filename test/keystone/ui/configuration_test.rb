@@ -37,4 +37,12 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal "dark", KeystoneUi.configuration.supplied_theme_mode(view)
   end
+
+  def test_starts_with_no_tailwind_files_registered_for_import
+    assert_equal [], KeystoneUi::Configuration.new.tailwind_imports
+  end
+
+  def test_starts_with_no_source_files_registered_for_scanning
+    assert_equal [], KeystoneUi::Configuration.new.tailwind_sources
+  end
 end

@@ -28,6 +28,12 @@ class KeystoneUi::PackagingTest < Minitest::Test
     assert gemspec.dependencies.any? { |d| d.name == "keystone_ui-styles" && d.type == :runtime }
   end
 
+  def test_requires_a_keystone_ui_styles_that_reports_its_tailwind_file
+    requirement = gemspec.dependencies.find { |d| d.name == "keystone_ui-styles" }.requirement
+
+    refute requirement.satisfied_by?(Gem::Version.new("0.1.0"))
+  end
+
   private
 
   def gemspec

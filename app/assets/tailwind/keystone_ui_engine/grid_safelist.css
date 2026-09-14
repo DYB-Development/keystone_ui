@@ -1,6 +1,3 @@
-/* Keystone UI components — tells Tailwind to scan for classes in component files */
-@source "../../components/**/*.{erb,rb}";
-
 /* Safelist: grid-cols classes built from static constants in GridComponent.
    Belt-and-suspenders — ensures these classes survive JIT purging even if
    the scanner misses the Ruby hash literals. */
