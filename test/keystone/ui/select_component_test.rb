@@ -12,7 +12,7 @@ class Keystone::Ui::SelectComponentTest < Minitest::Test
   def test_appends_disabled_classes_when_disabled
     component = Keystone::Ui::SelectComponent.new(name: "status", disabled: true)
 
-    assert_includes component.classes, "cursor-not-allowed"
+    assert_equal "ks-input ks-input-disabled", component.classes
   end
 
   def test_stores_name

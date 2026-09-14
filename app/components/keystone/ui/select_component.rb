@@ -5,7 +5,7 @@ module Keystone
     class SelectComponent < ViewComponent::Base
       BASE_CLASSES = "ks-input"
 
-      DISABLED_CLASSES = "cursor-not-allowed bg-gray-50 text-gray-500 dark:bg-zinc-800 dark:text-gray-400"
+      DISABLED_CLASSES = "ks-input-disabled"
 
       attr_reader :options, :selected, :include_blank
 
