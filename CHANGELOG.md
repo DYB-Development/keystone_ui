@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-09-14
+
 ### Added
 - **`theme_mode_supplier` setting** — another gem can supply a light, dark or system mode that applies when the browser has no toggle choice
 
