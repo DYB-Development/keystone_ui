@@ -41,6 +41,7 @@ develop:
   - ui_bottom_nav_item
   - ui_option_card
   - ui_radio_card
+  - ui_checkbox_row
   - ui_progress
   - ui_settings_link
   - ui_color_picker
@@ -68,6 +69,8 @@ sources:
   - app/components/keystone/ui/card_component.rb
   - app/components/keystone/ui/card_link_component.rb
   - app/components/keystone/ui/chart_card_component.rb
+  - app/components/keystone/ui/checkbox_row_component.rb
+  - app/components/keystone/ui/checkbox_row_component.html.erb
   - app/components/keystone/ui/code_component.rb
   - app/components/keystone/ui/color_picker_component.rb
   - app/components/keystone/ui/column_picker_component.rb

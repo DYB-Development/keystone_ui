@@ -1,0 +1,9 @@
+<label class="<%= row_classes %>">
+  <input type="checkbox" name="<%= name %>" value="<%= value %>" <%= "checked" if checked? %> class="<%= input_classes %>">
+  <span>
+    <span class="<%= label_classes %>"><%= label %></span>
+    <% if hint? %>
+      <span class="<%= hint_classes %>"><%= hint %></span>
+    <% end %>
+  </span>
+</label>
