@@ -27,7 +27,7 @@ module Keystone
 
       def classes
         variant_css = if @variant == :primary
-          "bg-accent-600 text-white hover:bg-accent-500"
+          "ks-button-primary"
         else
           VARIANT_CLASSES.fetch(@variant)
         end

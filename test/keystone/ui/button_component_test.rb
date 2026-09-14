@@ -21,11 +21,10 @@ class Keystone::Ui::ButtonComponentTest < Minitest::Test
     assert_equal "button", component.tag_options[:type]
   end
 
-  def test_uses_semantic_accent_classes_for_primary_variant
+  def test_renders_the_primary_variant_by_default
     component = Keystone::Ui::ButtonComponent.new(label: "Save")
 
-    assert_includes component.classes, "bg-accent-600"
-    assert_includes component.classes, "hover:bg-accent-500"
+    assert_equal "ks-button ks-button-primary ks-button-md", component.classes
   end
 
   def test_passes_data_attributes_through_to_tag_options
