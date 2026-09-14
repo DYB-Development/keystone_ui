@@ -6,9 +6,7 @@ class Keystone::Ui::SelectComponentTest < Minitest::Test
   def test_returns_base_classes
     component = Keystone::Ui::SelectComponent.new(name: "status")
 
-    assert_includes component.classes, "rounded-md"
-    assert_includes component.classes, "border"
-    assert_includes component.classes, "text-sm"
+    assert_equal "ks-input", component.classes
   end
 
   def test_appends_disabled_classes_when_disabled
@@ -46,12 +44,5 @@ class Keystone::Ui::SelectComponentTest < Minitest::Test
     component = Keystone::Ui::SelectComponent.new(name: "status", include_blank: "All")
 
     assert_equal "All", component.include_blank
-  end
-
-  def test_uses_semantic_accent_classes_for_focus_state
-    component = Keystone::Ui::SelectComponent.new(name: "status")
-
-    assert_includes component.classes, "focus:border-accent-500"
-    assert_includes component.classes, "focus:ring-accent-500"
   end
 end
