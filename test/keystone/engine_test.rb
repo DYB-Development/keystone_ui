@@ -12,14 +12,7 @@ class KeystoneUiEngineTest < Minitest::Test
     refute_includes source, "themes/dark.css"
   end
 
-  def test_writes_keystone_source_css_with_source_path_during_app_boot
-    assert_includes source, "after_initialize"
-    assert_includes source, "keystone_source.css"
-    assert_includes source, "app/components/**/*.{erb,rb}"
-  end
-
-  def test_imports_nav_css_in_keystone_source_css
-    assert_includes source, "nav.css"
-    assert_includes source, '@import "#{nav_css}"'
+  def test_writes_keystone_source_css_from_the_source_stylesheet_during_app_boot
+    assert_match(/after_initialize.*keystone_source\.css.*KeystoneUi::SourceCss\.new\(root\)/m, source)
   end
 end

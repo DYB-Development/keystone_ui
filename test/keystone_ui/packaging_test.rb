@@ -24,6 +24,10 @@ class KeystoneUi::PackagingTest < Minitest::Test
     refute requirement.satisfied_by?(Gem::Version.new("5.0.0"))
   end
 
+  def test_depends_on_keystone_ui_styles
+    assert gemspec.dependencies.any? { |d| d.name == "keystone_ui-styles" && d.type == :runtime }
+  end
+
   private
 
   def gemspec

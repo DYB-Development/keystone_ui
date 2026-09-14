@@ -6,7 +6,7 @@ class Keystone::Ui::ButtonComponentTest < Minitest::Test
   def test_combines_base_variant_and_size_classes
     component = Keystone::Ui::ButtonComponent.new(label: "Create invoice", variant: :secondary, size: :lg)
 
-    assert_equal "inline-flex items-center justify-center font-semibold rounded-lg border-0 cursor-pointer no-underline bg-gray-500 text-white hover:bg-gray-400 text-lg px-5 py-3", component.classes
+    assert_equal "ks-button ks-button-secondary ks-button-lg", component.classes
   end
 
   def test_defaults_to_submit_type_when_rendering_a_button_element
@@ -21,11 +21,10 @@ class Keystone::Ui::ButtonComponentTest < Minitest::Test
     assert_equal "button", component.tag_options[:type]
   end
 
-  def test_uses_semantic_accent_classes_for_primary_variant
+  def test_renders_the_primary_variant_by_default
     component = Keystone::Ui::ButtonComponent.new(label: "Save")
 
-    assert_includes component.classes, "bg-accent-600"
-    assert_includes component.classes, "hover:bg-accent-500"
+    assert_equal "ks-button ks-button-primary ks-button-md", component.classes
   end
 
   def test_passes_data_attributes_through_to_tag_options

@@ -12,7 +12,7 @@ module Keystone
         @shadow = shadow
       end
 
-      BASE_CLASSES = "border border-gray-200 bg-white dark:bg-zinc-900 dark:border-zinc-700"
+      BASE_CLASSES = "ks-panel"
       SHADOW_CLASS = "shadow-sm"
 
       def classes

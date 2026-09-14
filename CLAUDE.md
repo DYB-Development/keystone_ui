@@ -38,7 +38,7 @@ Tests use Minitest. The test helper stubs `ViewComponent::Base` so tests run wit
 
 ## Color System
 
-Components use semantic CSS custom properties (`--color-accent-*`, `--color-surface-*`) via Tailwind classes like `bg-accent-500`, `text-accent-600`, etc. The `theme.css` file in the engine sets default values. Host apps can override these via CSS, or use the `keystone_colors` gem for per-user theming.
+Components use semantic CSS custom properties (`--color-accent-*`, `--color-surface-*`) via Tailwind classes like `bg-accent-500`, `text-accent-600`, etc. The keystone_ui-styles gem sets default values, defines light and dark mode, and holds the `ks-` classes the button, panel and form field components render. Host apps can override these via CSS, or use the `keystone_ui-colors` gem for per-user theming.
 
 ## Key Conventions
 

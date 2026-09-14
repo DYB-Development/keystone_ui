@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "keystone_ui/source_css"
+
 module KeystoneUi
   class Engine < ::Rails::Engine
     config.autoload_paths << root.join("app/components")
@@ -27,21 +29,7 @@ module KeystoneUi
       keystone_import = '@import "./keystone_source.css";'
       next unless css_path.read.include?(keystone_import)
 
-      source_css = tailwind_dir.join("keystone_source.css")
-      lines = [ %(@source "#{root}/app/components/**/*.{erb,rb}";) ]
-
-      # Import theme CSS (accent + surface custom property defaults)
-      theme_css = root.join("app/assets/tailwind/keystone_ui_engine/theme.css")
-      lines << %(@import "#{theme_css}";) if theme_css.exist?
-
-      # Import component CSS files shipped with the gem
-      nav_css = root.join("app/assets/tailwind/keystone_ui_engine/nav.css")
-      lines << %(@import "#{nav_css}";) if nav_css.exist?
-
-      color_picker_css = root.join("app/assets/tailwind/keystone_ui_engine/color_picker.css")
-      lines << %(@import "#{color_picker_css}";) if color_picker_css.exist?
-
-      source_css.write(lines.join("\n") + "\n")
+      tailwind_dir.join("keystone_source.css").write(KeystoneUi::SourceCss.new(root).to_s)
     end
   end
 end

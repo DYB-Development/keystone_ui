@@ -6,7 +6,7 @@ class Keystone::Ui::InputComponentTest < Minitest::Test
   def test_returns_base_classes_for_a_default_text_input
     component = Keystone::Ui::InputComponent.new(name: "search")
 
-    assert_includes component.classes, "block w-full rounded-md border"
+    assert_equal "ks-input", component.classes
   end
 
   def test_builds_tag_options_with_type_name_and_class
@@ -33,16 +33,7 @@ class Keystone::Ui::InputComponentTest < Minitest::Test
   def test_adds_disabled_classes_and_attribute_when_disabled
     component = Keystone::Ui::InputComponent.new(name: "locked", disabled: true)
 
-    assert_includes component.classes, Keystone::Ui::InputComponent::DISABLED_CLASSES
+    assert_equal "ks-input ks-input-disabled", component.classes
     assert_equal true, component.tag_options[:disabled]
-  end
-
-  def test_uses_semantic_accent_classes_for_focus_state
-    component = Keystone::Ui::InputComponent.new(name: "search")
-
-    assert_includes component.classes, "focus:border-accent-500"
-    assert_includes component.classes, "focus:ring-accent-500"
-    assert_includes component.classes, "dark:focus:border-accent-400"
-    assert_includes component.classes, "dark:focus:ring-accent-400"
   end
 end

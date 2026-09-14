@@ -107,4 +107,24 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
     assert_equal true, component.errors?
     assert_equal [ "can't be blank" ], component.error_messages
   end
+
+  def test_label_uses_the_keystone_label_class
+    assert_equal "ks-label", Keystone::Ui::FormFieldComponent::LABEL_CLASSES
+  end
+
+  def test_required_marker_uses_the_keystone_required_class
+    assert_equal "ks-required", Keystone::Ui::FormFieldComponent::REQUIRED_CLASSES
+  end
+
+  def test_hint_uses_the_keystone_hint_class
+    assert_equal "ks-hint", Keystone::Ui::FormFieldComponent::HINT_CLASSES
+  end
+
+  def test_error_uses_the_keystone_error_class
+    assert_equal "ks-error", Keystone::Ui::FormFieldComponent::ERROR_CLASSES
+  end
+
+  def test_checkbox_uses_the_keystone_checkbox_class
+    assert_equal "ks-checkbox", Keystone::Ui::FormFieldComponent::CHECKBOX_CLASSES
+  end
 end

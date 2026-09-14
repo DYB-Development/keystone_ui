@@ -8,13 +8,9 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
 
     classes = component.classes
     assert_includes classes, "rounded-xl"
-    assert_includes classes, "border"
-    assert_includes classes, "border-gray-200"
-    assert_includes classes, "bg-white"
+    assert_includes classes, "ks-panel"
     assert_includes classes, "p-5"
     assert_includes classes, "shadow-sm"
-    assert_includes classes, "dark:bg-zinc-900"
-    assert_includes classes, "dark:border-zinc-700"
   end
 
   def test_maps_each_padding_size_correctly
@@ -33,12 +29,5 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
     component = Keystone::Ui::PanelComponent.new(shadow: false)
 
     refute_includes component.classes, "shadow-sm"
-  end
-
-  def test_always_includes_dark_mode_classes
-    component = Keystone::Ui::PanelComponent.new
-
-    assert_includes component.classes, "dark:bg-zinc-900"
-    assert_includes component.classes, "dark:border-zinc-700"
   end
 end

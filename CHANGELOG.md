@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Styling** — keystone_ui now depends on keystone_ui-styles, which defines the accent and surface color variables, light and dark mode, and the classes the button, panel, input, text area, select and form field components render. `keystone_source.css` imports it at boot, so hosts change nothing.
+- **Light and dark mode** — keystone_ui decides dark mode for the whole app, including `dark:` classes in host views. A page follows the operating system unless the `html` element carries `data-theme="dark"` or `data-theme="light"`.
+- **FormFieldComponent** — inputs, text areas and selects it renders now show the accent focus ring, like the standalone input components.
+
+### Removed
+- **`theme.css`** — the color variables now come from keystone_ui-styles, with the same default values.
+
+### Upgrading
+- Remove any `@custom-variant dark` your app declares in `application.css`. keystone_ui's dark mode rule now applies to your own classes, and a variant declared after the keystone import would replace it.
+
 ## [0.7.0] - 2026-09-13
 
 ### Added
