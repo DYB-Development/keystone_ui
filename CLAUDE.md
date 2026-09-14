@@ -25,7 +25,7 @@ This is a Rails engine gem structured around ViewComponent. The three-layer arch
 1. **Components** (`app/components/keystone/ui/`) — Ruby classes inheriting `ViewComponent::Base` with explicit keyword arguments, paired with `.html.erb` templates. All UI logic lives here.
 2. **Helpers** (`app/helpers/keystone_ui_helper.rb`) — Thin render wrappers that delegate to components. Helpers contain no logic or conditionals. Consuming apps use helpers, not component classes directly.
 
-Components use Tailwind CSS utility classes directly. The engine ships a CSS file (`app/assets/tailwind/keystone_ui_engine/engine.css`) with `@source` directives that tell Tailwind where to scan for classes. Host apps require `tailwindcss-rails` v4+.
+Components use Tailwind CSS utility classes directly. At boot the engine writes `keystone_source.css` into the host through `KeystoneUi::SourceCss`: it imports keystone_ui-styles, points Tailwind at the component files, imports the nav, color picker and grid safelist CSS, and adds whatever other gems registered in `KeystoneUi.configuration.tailwind_imports` and `tailwind_sources`. No file lives at `app/assets/tailwind/keystone_ui_engine/engine.css`, so tailwindcss-rails writes no generated stylesheet for keystone_ui. Host apps require `tailwindcss-rails` v4+.
 
 ## Design Principles
 
