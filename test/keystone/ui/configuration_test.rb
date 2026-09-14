@@ -26,4 +26,8 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal :slate, KeystoneUi.configuration.surface
   end
+
+  def test_supplies_no_theme_mode_when_no_gem_supplies_one
+    assert_nil KeystoneUi.configuration.supplied_theme_mode(Object.new)
+  end
 end

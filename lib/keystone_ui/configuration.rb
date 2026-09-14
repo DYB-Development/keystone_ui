@@ -8,6 +8,10 @@ module KeystoneUi
       @accent = :blue
       @surface = :zinc
     end
+
+    def supplied_theme_mode(_view)
+      nil
+    end
   end
 
   def self.configuration
