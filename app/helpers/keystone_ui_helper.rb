@@ -42,7 +42,7 @@ module KeystoneUiHelper
   end
 
   def ui_theme_toggle
-    render Keystone::Ui::ThemeToggleComponent.new(current: cookies[KeystoneUi::ThemeChoice::COOKIE])
+    render Keystone::Ui::ThemeToggleComponent.new(current: KeystoneUi::ThemeChoice.new(cookies[KeystoneUi::ThemeChoice::COOKIE], supplied: KeystoneUi.configuration.supplied_theme_mode(self)).mode)
   end
 
   def keystone_theme_attributes

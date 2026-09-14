@@ -41,4 +41,15 @@ class KeystoneUi::ThemeHelperTest < Minitest::Test
   ensure
     KeystoneUi.reset_configuration!
   end
+
+  def test_the_toggle_shows_a_supplied_mode_as_pressed_when_the_browser_has_no_choice
+    KeystoneUi.configure { |c| c.theme_mode_supplier = ->(_view) { "dark" } }
+    view = View.new({})
+
+    view.ui_theme_toggle
+
+    assert view.rendered.pressed?("dark")
+  ensure
+    KeystoneUi.reset_configuration!
+  end
 end
