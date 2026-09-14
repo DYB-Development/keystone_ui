@@ -7,7 +7,7 @@ module KeystoneUi
     end
 
     def html_attributes
-      { "data-theme" => @mode }
+      @mode ? { "data-theme" => @mode } : {}
     end
   end
 end
