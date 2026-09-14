@@ -42,11 +42,11 @@ module KeystoneUiHelper
   end
 
   def ui_theme_toggle
-    render Keystone::Ui::ThemeToggleComponent.new(current: KeystoneUi::ThemeChoice.new(cookies[KeystoneUi::ThemeChoice::COOKIE], supplied: KeystoneUi.configuration.supplied_theme_mode(self)).mode)
+    render Keystone::Ui::ThemeToggleComponent.new(current: keystone_theme_choice.mode)
   end
 
   def keystone_theme_attributes
-    KeystoneUi::ThemeChoice.new(cookies[KeystoneUi::ThemeChoice::COOKIE], supplied: KeystoneUi.configuration.supplied_theme_mode(self)).html_attributes_markup.html_safe
+    keystone_theme_choice.html_attributes_markup.html_safe
   end
 
   def ui_copy_button(**args)
@@ -203,5 +203,11 @@ module KeystoneUiHelper
 
   def ui_disclosure(**args, &block)
     render Keystone::Ui::DisclosureComponent.new(**args), &block
+  end
+
+  private
+
+  def keystone_theme_choice
+    KeystoneUi::ThemeChoice.new(cookies[KeystoneUi::ThemeChoice::COOKIE], supplied: KeystoneUi.configuration.supplied_theme_mode(self))
   end
 end
