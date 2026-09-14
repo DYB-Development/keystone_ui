@@ -27,7 +27,7 @@ class Keystone::Ui::TextareaComponentTest < Minitest::Test
   def test_adds_disabled_classes_and_attribute_when_disabled
     component = Keystone::Ui::TextareaComponent.new(name: "locked", disabled: true)
 
-    assert_includes component.classes, Keystone::Ui::TextareaComponent::DISABLED_CLASSES
+    assert_equal "ks-input ks-input-disabled", component.classes
     assert_equal true, component.tag_options[:disabled]
   end
 end
