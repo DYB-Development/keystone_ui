@@ -8,8 +8,8 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
     assert_equal({ "data-theme" => "dark" }, KeystoneUi::ThemeChoice.new("dark").html_attributes)
   end
 
-  def test_no_choice_leaves_the_page_following_the_operating_system
-    assert_equal({}, KeystoneUi::ThemeChoice.new(nil).html_attributes)
+  def test_no_choice_marks_the_page_light
+    assert_equal({ "data-theme" => "light" }, KeystoneUi::ThemeChoice.new(nil).html_attributes)
   end
 
   def test_an_unknown_choice_leaves_the_page_following_the_operating_system

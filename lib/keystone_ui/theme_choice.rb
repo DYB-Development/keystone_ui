@@ -10,6 +10,8 @@ module KeystoneUi
     end
 
     def html_attributes
+      return { "data-theme" => "light" } if @mode.nil?
+
       MODES.include?(@mode) ? { "data-theme" => @mode } : {}
     end
 
