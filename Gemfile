@@ -7,5 +7,4 @@ gem "rake"
 gem "rubocop-rails-omakase", require: false
 gem "the_local", "~> 0.4"
 gem "view_component"
-gem "keystone_ui-styles", github: "DYB-Development/keystone_ui-styles"  # until keystone_ui-styles is on RubyGems
 gem "tailwindcss-ruby", "~> 4.0"

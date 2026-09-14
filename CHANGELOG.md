@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-09-14
+
 ### Added
 - **ThemeToggleComponent** (`ui_theme_toggle`) — Light, Dark and System buttons that switch the page's mode at once and keep the choice in a `keystone_theme` cookie (`theme-toggle` Stimulus controller)
 - **`keystone_theme_attributes` helper** — marks the `html` tag with the stored choice so pages open in that mode with no flash; the install generator adds it to the application layout
