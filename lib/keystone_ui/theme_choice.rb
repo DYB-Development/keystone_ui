@@ -2,6 +2,7 @@
 
 module KeystoneUi
   class ThemeChoice
+    COOKIE = "keystone_theme"
     MODES = %w[light dark].freeze
 
     def initialize(mode)

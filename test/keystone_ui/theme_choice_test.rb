@@ -15,4 +15,8 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
   def test_an_unknown_choice_leaves_the_page_following_the_operating_system
     assert_equal({}, KeystoneUi::ThemeChoice.new("\"><script>").html_attributes)
   end
+
+  def test_is_stored_in_the_cookie_the_toggle_controller_writes
+    assert_equal "keystone_theme", KeystoneUi::ThemeChoice::COOKIE
+  end
 end
