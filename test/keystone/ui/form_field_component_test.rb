@@ -118,4 +118,8 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
   def test_hint_uses_the_keystone_hint_class
     assert_equal "ks-hint", Keystone::Ui::FormFieldComponent::HINT_CLASSES
   end
+
+  def test_error_uses_the_keystone_error_class
+    assert_equal "ks-error", Keystone::Ui::FormFieldComponent::ERROR_CLASSES
+  end
 end
