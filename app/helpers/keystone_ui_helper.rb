@@ -46,7 +46,7 @@ module KeystoneUiHelper
   end
 
   def keystone_theme_attributes
-    KeystoneUi::ThemeChoice.new(cookies[KeystoneUi::ThemeChoice::COOKIE]).html_attributes_markup.html_safe
+    KeystoneUi::ThemeChoice.new(cookies[KeystoneUi::ThemeChoice::COOKIE], supplied: KeystoneUi.configuration.supplied_theme_mode(self)).html_attributes_markup.html_safe
   end
 
   def ui_copy_button(**args)
