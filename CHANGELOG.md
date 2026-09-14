@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-09-14
+
 ### Added
 - **CheckboxRowComponent** (`ui_checkbox_row`) — a checkbox with a label and optional hint that sends its `value` under `name`, so several rows can share an array name like `shown[]`; the whole row is clickable
 
