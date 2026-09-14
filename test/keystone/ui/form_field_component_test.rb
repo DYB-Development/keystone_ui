@@ -110,4 +110,8 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
   def test_label_uses_the_keystone_label_class
     assert_equal "ks-label", Keystone::Ui::FormFieldComponent::LABEL_CLASSES
   end
+
+  def test_required_marker_uses_the_keystone_required_class
+    assert_equal "ks-required", Keystone::Ui::FormFieldComponent::REQUIRED_CLASSES
+  end
 end

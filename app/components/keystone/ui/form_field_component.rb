@@ -5,7 +5,7 @@ module Keystone
     class FormFieldComponent < ViewComponent::Base
       WRAPPER_CLASSES = "space-y-1"
       LABEL_CLASSES = "ks-label"
-      REQUIRED_CLASSES = "text-red-500 ml-0.5"
+      REQUIRED_CLASSES = "ks-required"
       HINT_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400"
       ERROR_CLASSES = "mt-1 text-sm text-red-600 dark:text-red-400"
       CHECKBOX_CLASSES = "rounded border-gray-300 text-accent-600 focus:ring-accent-500 dark:border-zinc-600 dark:bg-zinc-900"
