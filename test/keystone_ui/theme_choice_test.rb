@@ -33,4 +33,8 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
   def test_a_system_choice_leaves_the_page_following_the_operating_system
     assert_equal({}, KeystoneUi::ThemeChoice.new("system").html_attributes)
   end
+
+  def test_a_supplied_mode_marks_the_page_when_nothing_is_chosen
+    assert_equal({ "data-theme" => "dark" }, KeystoneUi::ThemeChoice.new(nil, supplied: "dark").html_attributes)
+  end
 end
