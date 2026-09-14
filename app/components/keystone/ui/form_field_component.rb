@@ -6,7 +6,7 @@ module Keystone
       WRAPPER_CLASSES = "space-y-1"
       LABEL_CLASSES = "ks-label"
       REQUIRED_CLASSES = "ks-required"
-      HINT_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400"
+      HINT_CLASSES = "ks-hint"
       ERROR_CLASSES = "mt-1 text-sm text-red-600 dark:text-red-400"
       CHECKBOX_CLASSES = "rounded border-gray-300 text-accent-600 focus:ring-accent-500 dark:border-zinc-600 dark:bg-zinc-900"
       CHECKBOX_WRAPPER_CLASSES = "flex items-center gap-2"

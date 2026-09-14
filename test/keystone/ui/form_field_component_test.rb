@@ -114,4 +114,8 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
   def test_required_marker_uses_the_keystone_required_class
     assert_equal "ks-required", Keystone::Ui::FormFieldComponent::REQUIRED_CLASSES
   end
+
+  def test_hint_uses_the_keystone_hint_class
+    assert_equal "ks-hint", Keystone::Ui::FormFieldComponent::HINT_CLASSES
+  end
 end
