@@ -122,4 +122,8 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
   def test_error_uses_the_keystone_error_class
     assert_equal "ks-error", Keystone::Ui::FormFieldComponent::ERROR_CLASSES
   end
+
+  def test_checkbox_uses_the_keystone_checkbox_class
+    assert_equal "ks-checkbox", Keystone::Ui::FormFieldComponent::CHECKBOX_CLASSES
+  end
 end

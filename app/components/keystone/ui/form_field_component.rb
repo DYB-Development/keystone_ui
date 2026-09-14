@@ -8,7 +8,7 @@ module Keystone
       REQUIRED_CLASSES = "ks-required"
       HINT_CLASSES = "ks-hint"
       ERROR_CLASSES = "ks-error"
-      CHECKBOX_CLASSES = "rounded border-gray-300 text-accent-600 focus:ring-accent-500 dark:border-zinc-600 dark:bg-zinc-900"
+      CHECKBOX_CLASSES = "ks-checkbox"
       CHECKBOX_WRAPPER_CLASSES = "flex items-center gap-2"
 
       def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [])
