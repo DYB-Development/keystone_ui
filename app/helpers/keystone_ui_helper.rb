@@ -45,6 +45,10 @@ module KeystoneUiHelper
     render Keystone::Ui::ThemeToggleComponent.new(current: cookies[KeystoneUi::ThemeChoice::COOKIE])
   end
 
+  def keystone_theme_attributes
+    KeystoneUi::ThemeChoice.new(cookies[KeystoneUi::ThemeChoice::COOKIE]).html_attributes_markup.html_safe
+  end
+
   def ui_copy_button(**args)
     render Keystone::Ui::CopyButtonComponent.new(**args)
   end
