@@ -2,12 +2,14 @@
 
 module KeystoneUi
   class ThemeChoice
+    MODES = %w[light dark].freeze
+
     def initialize(mode)
       @mode = mode
     end
 
     def html_attributes
-      @mode ? { "data-theme" => @mode } : {}
+      MODES.include?(@mode) ? { "data-theme" => @mode } : {}
     end
   end
 end

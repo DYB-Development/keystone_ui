@@ -11,4 +11,8 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
   def test_no_choice_leaves_the_page_following_the_operating_system
     assert_equal({}, KeystoneUi::ThemeChoice.new(nil).html_attributes)
   end
+
+  def test_an_unknown_choice_leaves_the_page_following_the_operating_system
+    assert_equal({}, KeystoneUi::ThemeChoice.new("\"><script>").html_attributes)
+  end
 end
