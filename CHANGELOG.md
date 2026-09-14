@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-09-14
+
 ### Added
 - **`tailwind_imports` and `tailwind_sources` settings** — a gem built on keystone_ui registers its CSS files and the files Tailwind should scan, and `keystone_source.css` includes them, so hosts need no other stylesheet import
 
