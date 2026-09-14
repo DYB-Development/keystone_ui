@@ -1,0 +1,19 @@
+import { test } from "node:test"
+import assert from "node:assert/strict"
+import ThemeToggleController from "../../app/assets/javascripts/keystone_ui/theme_toggle_controller.js"
+
+function toggleOn(page) {
+  return new ThemeToggleController({ scope: { element: { ownerDocument: page } } })
+}
+
+function pageWithNoChoice() {
+  return { documentElement: { dataset: {} }, cookie: "" }
+}
+
+test("choosing dark marks the page dark", () => {
+  const page = pageWithNoChoice()
+
+  toggleOn(page).choose({ params: { mode: "dark" } })
+
+  assert.equal(page.documentElement.dataset.theme, "dark")
+})
