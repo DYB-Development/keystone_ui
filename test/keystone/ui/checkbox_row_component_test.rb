@@ -8,4 +8,10 @@ class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
 
     assert_equal [ "shown[]", "merged", "Merged" ], [ component.name, component.value, component.label ]
   end
+
+  def test_defaults_checked_to_false
+    component = Keystone::Ui::CheckboxRowComponent.new(name: "shown[]", value: "merged", label: "Merged")
+
+    assert_equal false, component.checked?
+  end
 end
