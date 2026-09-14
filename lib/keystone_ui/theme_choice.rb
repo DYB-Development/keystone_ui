@@ -3,14 +3,18 @@
 module KeystoneUi
   class ThemeChoice
     COOKIE = "keystone_theme"
-    MODES = %w[light dark].freeze
+    MODES = %w[light dark system].freeze
 
     def initialize(mode)
       @mode = mode
     end
 
     def html_attributes
-      { "data-theme" => MODES.include?(@mode) ? @mode : "light" }
+      mode == "system" ? {} : { "data-theme" => mode }
+    end
+
+    def mode
+      MODES.include?(@mode) ? @mode : "light"
     end
 
     def html_attributes_markup

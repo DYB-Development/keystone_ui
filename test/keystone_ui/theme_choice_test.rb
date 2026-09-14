@@ -29,4 +29,8 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
 
     assert_includes controller, %(const COOKIE = "#{KeystoneUi::ThemeChoice::COOKIE}")
   end
+
+  def test_a_system_choice_leaves_the_page_following_the_operating_system
+    assert_equal({}, KeystoneUi::ThemeChoice.new("system").html_attributes)
+  end
 end
