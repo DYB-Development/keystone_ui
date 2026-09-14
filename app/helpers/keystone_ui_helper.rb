@@ -41,6 +41,10 @@ module KeystoneUiHelper
     render Keystone::Ui::BadgeComponent.new(**args)
   end
 
+  def ui_theme_toggle
+    render Keystone::Ui::ThemeToggleComponent.new(current: cookies[KeystoneUi::ThemeChoice::COOKIE])
+  end
+
   def ui_copy_button(**args)
     render Keystone::Ui::CopyButtonComponent.new(**args)
   end
