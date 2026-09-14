@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **Leftover generated stylesheet** — a host app that ran its Tailwind build with keystone_ui 0.10.0 or earlier no longer keeps `app/assets/builds/tailwind/keystone_ui_engine.css` after upgrading. keystone_ui deletes that file when the host app boots, and leaves the folder's other files alone.
+
+### Upgrading
+- No manual step for `keystone_ui_engine.css`. The 0.11.0 advice to run `rails tailwindcss:clobber` did not remove files in `app/assets/builds/tailwind`.
+
 ## [0.11.0] - 2026-09-14
 
 ### Added
