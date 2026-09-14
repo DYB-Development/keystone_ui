@@ -6,7 +6,7 @@ class Keystone::Ui::TextareaComponentTest < Minitest::Test
   def test_returns_base_classes
     component = Keystone::Ui::TextareaComponent.new(name: "notes")
 
-    assert_includes component.classes, "block w-full rounded-md border"
+    assert_equal "ks-input", component.classes
   end
 
   def test_defaults_rows_to_3
@@ -29,12 +29,5 @@ class Keystone::Ui::TextareaComponentTest < Minitest::Test
 
     assert_includes component.classes, Keystone::Ui::TextareaComponent::DISABLED_CLASSES
     assert_equal true, component.tag_options[:disabled]
-  end
-
-  def test_uses_semantic_accent_classes_for_focus_state
-    component = Keystone::Ui::TextareaComponent.new(name: "notes")
-
-    assert_includes component.classes, "focus:border-accent-500"
-    assert_includes component.classes, "focus:ring-accent-500"
   end
 end
