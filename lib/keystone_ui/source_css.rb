@@ -15,7 +15,10 @@ module KeystoneUi
     private
 
     def lines
-      [ %(@source "#{@root}/app/components/**/*.{erb,rb}";) ]
+      [
+        %(@source "#{@root}/app/components/**/*.{erb,rb}";),
+        %(@import "#{@root}/app/assets/tailwind/keystone_ui_engine/nav.css";)
+      ]
     end
   end
 end

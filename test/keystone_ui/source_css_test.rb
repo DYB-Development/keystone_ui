@@ -10,6 +10,10 @@ class KeystoneUi::SourceCssTest < Minitest::Test
     assert_includes css, %(@source "/gems/keystone_ui/app/components/**/*.{erb,rb}";)
   end
 
+  def test_imports_the_navigation_styles
+    assert_includes css, %(@import "/gems/keystone_ui/app/assets/tailwind/keystone_ui_engine/nav.css";)
+  end
+
   private
 
   def css
