@@ -63,4 +63,8 @@ class Keystone::Ui::PageHeaderComponentTest < Minitest::Test
     assert_equal "ks-page-header-subtitle", Keystone::Ui::PageHeaderComponent::SUBTITLE_CLASSES
     assert_equal "page-header-actions ks-page-header-actions", Keystone::Ui::PageHeaderComponent::ACTIONS_CLASSES
   end
+
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-page-header mb-2", Keystone::Ui::PageHeaderComponent.new(title: "X", class: "mb-2").wrapper_classes
+  end
 end

@@ -10,12 +10,17 @@ module Keystone
 
       attr_reader :title, :action_url, :action_label
 
-      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new")
+      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", class: nil)
         @title = title
         @subtitle = subtitle
         @action_url = action_url
         @action_label = action_label
         @action_block = nil
+        @extra_classes = binding.local_variable_get(:class)
+      end
+
+      def wrapper_classes
+        [ WRAPPER_CLASSES, @extra_classes ].compact.join(" ")
       end
 
       def before_render
