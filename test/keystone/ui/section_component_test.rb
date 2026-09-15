@@ -31,4 +31,8 @@ class Keystone::Ui::SectionComponentTest < Minitest::Test
     assert_equal "ks-section-subtitle", Keystone::Ui::SectionComponent::SUBTITLE_CLASSES
     assert_equal "ks-section-action", Keystone::Ui::SectionComponent.new(title: "Users").action_classes
   end
+
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-section-md px-2", Keystone::Ui::SectionComponent.new(class: "px-2").classes
+  end
 end
