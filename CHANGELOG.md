@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-09-15
+
 ### Added
 - **`class:` on page, page header, section, card, alert and badge** — pass extra classes for one use, for example `ui_card(title: "Revenue", summary: "$42k", link: reports_path, class: "mt-8")`, and they are added to the component's outer element
 
