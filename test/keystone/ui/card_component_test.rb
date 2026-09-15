@@ -36,4 +36,8 @@ class Keystone::Ui::CardComponentTest < Minitest::Test
     assert_equal "ks-card-cta", Keystone::Ui::CardComponent::CTA_CLASSES
     assert_equal "ks-card-link", Keystone::Ui::CardComponent.new(title: "X", summary: "Y", link: "/z").link_classes
   end
+
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-card shadow-lg", Keystone::Ui::CardComponent.new(title: "X", summary: "Y", link: "/z", class: "shadow-lg").send(:card_classes)
+  end
 end

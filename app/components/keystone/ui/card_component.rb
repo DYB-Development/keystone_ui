@@ -11,12 +11,13 @@ module Keystone
       SUMMARY_CLASSES = "ks-card-summary"
       LINK_CLASSES = "ks-card-link"
 
-      def initialize(title:, summary:, link:, cta: "Read more", edge_to_edge: false)
+      def initialize(title:, summary:, link:, cta: "Read more", edge_to_edge: false, class: nil)
         @title = title
         @summary = summary
         @link = link
         @cta = cta
         @edge_to_edge = edge_to_edge
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def link_classes
@@ -26,7 +27,7 @@ module Keystone
       private
 
       def card_classes
-        @edge_to_edge ? CARD_EDGE_CLASSES : CARD_CLASSES
+        [ @edge_to_edge ? CARD_EDGE_CLASSES : CARD_CLASSES, @extra_classes ].compact.join(" ")
       end
     end
   end
