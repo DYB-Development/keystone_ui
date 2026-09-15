@@ -17,15 +17,16 @@ module Keystone
       MESSAGE_WITH_TITLE_CLASSES = "ks-alert-message-titled"
       DISMISS_CLASSES = "ks-alert-dismiss"
 
-      def initialize(message:, type: :info, title: nil, dismissible: false)
+      def initialize(message:, type: :info, title: nil, dismissible: false, class: nil)
         @message = message
         @type = type
         @title = title
         @dismissible = dismissible
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def classes
-        "ks-alert #{TYPE_CLASSES.fetch(@type)}"
+        [ "ks-alert", TYPE_CLASSES.fetch(@type), @extra_classes ].compact.join(" ")
       end
 
       def message_text

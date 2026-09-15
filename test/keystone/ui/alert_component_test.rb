@@ -45,4 +45,8 @@ class Keystone::Ui::AlertComponentTest < Minitest::Test
     assert_equal "ks-alert-message-titled", Keystone::Ui::AlertComponent::MESSAGE_WITH_TITLE_CLASSES
     assert_equal "ks-alert-dismiss", Keystone::Ui::AlertComponent::DISMISS_CLASSES
   end
+
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-alert ks-alert-info mb-4", Keystone::Ui::AlertComponent.new(message: "x", class: "mb-4").classes
+  end
 end
