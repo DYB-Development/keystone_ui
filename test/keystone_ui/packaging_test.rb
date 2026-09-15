@@ -34,6 +34,12 @@ class KeystoneUi::PackagingTest < Minitest::Test
     refute requirement.satisfied_by?(Gem::Version.new("0.1.0"))
   end
 
+  def test_requires_a_keystone_ui_styles_with_the_shared_page_component_classes
+    requirement = gemspec.dependencies.find { |d| d.name == "keystone_ui-styles" }.requirement
+
+    refute requirement.satisfied_by?(Gem::Version.new("0.1.2"))
+  end
+
   private
 
   def gemspec
