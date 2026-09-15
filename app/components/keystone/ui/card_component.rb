@@ -3,30 +3,31 @@
 module Keystone
   module Ui
     class CardComponent < ViewComponent::Base
-      CARD_CLASSES = "overflow-hidden rounded-lg border border-gray-200 bg-white dark:bg-zinc-900 dark:border-zinc-700"
-      CARD_EDGE_CLASSES = "overflow-hidden border-y border-gray-200 bg-white sm:rounded-lg sm:border-x dark:bg-zinc-900 dark:border-zinc-700"
-      BODY_CLASSES = "px-4 py-4 sm:px-6 sm:pt-6 sm:pb-4"
-      CTA_CLASSES = "px-4 pb-4 sm:px-6 sm:pb-6"
-      TITLE_CLASSES = "text-lg font-semibold text-gray-900 dark:text-white m-0"
-      SUMMARY_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400 mb-0"
-      LINK_BASE_CLASSES = "text-sm font-medium no-underline"
+      CARD_CLASSES = "ks-card"
+      CARD_EDGE_CLASSES = "ks-card-edge"
+      BODY_CLASSES = "ks-card-body"
+      CTA_CLASSES = "ks-card-cta"
+      TITLE_CLASSES = "ks-card-title"
+      SUMMARY_CLASSES = "ks-card-summary"
+      LINK_CLASSES = "ks-card-link"
 
-      def initialize(title:, summary:, link:, cta: "Read more", edge_to_edge: false)
+      def initialize(title:, summary:, link:, cta: "Read more", edge_to_edge: false, class: nil)
         @title = title
         @summary = summary
         @link = link
         @cta = cta
         @edge_to_edge = edge_to_edge
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def link_classes
-        "#{LINK_BASE_CLASSES} text-accent-600 hover:text-accent-900 dark:text-accent-400"
+        LINK_CLASSES
       end
 
       private
 
       def card_classes
-        @edge_to_edge ? CARD_EDGE_CLASSES : CARD_CLASSES
+        [ @edge_to_edge ? CARD_EDGE_CLASSES : CARD_CLASSES, @extra_classes ].compact.join(" ")
       end
     end
   end

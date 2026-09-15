@@ -57,14 +57,14 @@ class Keystone::Ui::PageHeaderComponentTest < Minitest::Test
     assert_nil component.action_url
   end
 
-  def test_hides_wrapper_on_mobile_with_hidden_sm_block
-    assert_includes Keystone::Ui::PageHeaderComponent::WRAPPER_CLASSES, "hidden"
-    assert_includes Keystone::Ui::PageHeaderComponent::WRAPPER_CLASSES, "sm:block"
+  def test_renders_the_shared_page_header_classes_for_each_part
+    assert_equal "ks-page-header", Keystone::Ui::PageHeaderComponent::WRAPPER_CLASSES
+    assert_equal "ks-page-header-title", Keystone::Ui::PageHeaderComponent::TITLE_CLASSES
+    assert_equal "ks-page-header-subtitle", Keystone::Ui::PageHeaderComponent::SUBTITLE_CLASSES
+    assert_equal "page-header-actions ks-page-header-actions", Keystone::Ui::PageHeaderComponent::ACTIONS_CLASSES
   end
 
-  def test_hides_actions_on_mobile_with_page_header_actions_hidden_sm_block
-    assert_includes Keystone::Ui::PageHeaderComponent::ACTIONS_CLASSES, "page-header-actions"
-    assert_includes Keystone::Ui::PageHeaderComponent::ACTIONS_CLASSES, "hidden"
-    assert_includes Keystone::Ui::PageHeaderComponent::ACTIONS_CLASSES, "sm:block"
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-page-header mb-2", Keystone::Ui::PageHeaderComponent.new(title: "X", class: "mb-2").wrapper_classes
   end
 end

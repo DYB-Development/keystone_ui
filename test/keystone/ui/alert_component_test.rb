@@ -3,20 +3,6 @@
 require "test_helper"
 
 class Keystone::Ui::AlertComponentTest < Minitest::Test
-  def test_returns_info_classes_by_default
-    component = Keystone::Ui::AlertComponent.new(message: "FYI")
-
-    assert_includes component.classes, "bg-accent-50"
-    assert_includes component.classes, "text-accent-800"
-  end
-
-  def test_maps_each_type_to_its_variant_classes
-    %i[success warning error].each do |type|
-      component = Keystone::Ui::AlertComponent.new(message: "msg", type: type)
-      assert_includes component.classes, Keystone::Ui::AlertComponent::TYPE_CLASSES[type]
-    end
-  end
-
   def test_exposes_message_text
     component = Keystone::Ui::AlertComponent.new(message: "Item saved!")
 
@@ -41,18 +27,26 @@ class Keystone::Ui::AlertComponentTest < Minitest::Test
     assert_equal false, Keystone::Ui::AlertComponent.new(message: "x").dismissible?
   end
 
-  def test_uses_semantic_accent_classes_for_info_type
-    component = Keystone::Ui::AlertComponent.new(message: "FYI", type: :info)
-
-    assert_includes component.classes, "bg-accent-50"
-    assert_includes component.classes, "text-accent-800"
-    assert_includes component.classes, "dark:bg-accent-900/30"
-    assert_includes component.classes, "dark:text-accent-300"
-  end
-
   def test_provides_stimulus_controller_data_for_dismissible_alerts
     component = Keystone::Ui::AlertComponent.new(message: "x", dismissible: true)
 
     assert_equal "dismiss", component.wrapper_data[:controller]
+  end
+
+  def test_renders_the_shared_alert_classes_for_each_type_and_part
+    assert_equal "ks-alert ks-alert-info", Keystone::Ui::AlertComponent.new(message: "x").classes
+    %i[info success warning error].each do |type|
+      assert_equal "ks-alert ks-alert-#{type}", Keystone::Ui::AlertComponent.new(message: "x", type: type).classes
+    end
+    assert_equal "ks-alert-body", Keystone::Ui::AlertComponent::OUTER_CLASSES
+    assert_equal "ks-alert-content", Keystone::Ui::AlertComponent::INNER_CLASSES
+    assert_equal "ks-alert-title", Keystone::Ui::AlertComponent::TITLE_CLASSES
+    assert_equal "ks-alert-message", Keystone::Ui::AlertComponent::MESSAGE_CLASSES
+    assert_equal "ks-alert-message-titled", Keystone::Ui::AlertComponent::MESSAGE_WITH_TITLE_CLASSES
+    assert_equal "ks-alert-dismiss", Keystone::Ui::AlertComponent::DISMISS_CLASSES
+  end
+
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-alert ks-alert-info mb-4", Keystone::Ui::AlertComponent.new(message: "x", class: "mb-4").classes
   end
 end

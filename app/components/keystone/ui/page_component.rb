@@ -4,26 +4,27 @@ module Keystone
   module Ui
     class PageComponent < ViewComponent::Base
       MAX_WIDTH_CLASSES = {
-        sm: "max-w-2xl",
-        md: "max-w-4xl",
-        lg: "max-w-6xl",
-        xl: "max-w-7xl",
+        sm: "ks-page-sm",
+        md: "ks-page-md",
+        lg: "ks-page-lg",
+        xl: "ks-page-xl",
         full: ""
       }.freeze
 
-      PADDING_CLASSES = "px-4 py-4 sm:px-6 lg:px-8"
+      PADDING_CLASSES = "ks-page"
 
       TOP_OFFSET_CLASSES = {
-        sm: "pt-12",
-        md: "pt-16",
-        lg: "pt-20",
-        xl: "pt-24"
+        sm: "ks-page-offset-sm",
+        md: "ks-page-offset-md",
+        lg: "ks-page-offset-lg",
+        xl: "ks-page-offset-xl"
       }.freeze
 
-      def initialize(max_width: :full, padding: :standard, top_offset: nil)
+      def initialize(max_width: :full, padding: :standard, top_offset: nil, class: nil)
         @max_width = max_width
         @padding = padding
         @top_offset = top_offset
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def classes
@@ -32,7 +33,7 @@ module Keystone
         tokens << TOP_OFFSET_CLASSES.fetch(@top_offset) if @top_offset
         width_class = MAX_WIDTH_CLASSES.fetch(@max_width)
         tokens << width_class unless width_class.empty?
-        tokens << "mx-auto" unless @max_width == :full
+        tokens << @extra_classes if @extra_classes
         tokens.join(" ")
       end
     end

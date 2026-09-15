@@ -3,25 +3,30 @@
 module Keystone
   module Ui
     class SectionComponent < ViewComponent::Base
-      SPACING_CLASSES = { sm: "mt-4", md: "mt-6", lg: "mt-8" }.freeze
-      HEADER_CLASSES = "flex items-center justify-between mb-4"
-      TITLE_CLASSES = "text-lg font-semibold text-gray-900 dark:text-white"
-      SUBTITLE_CLASSES = "mt-1 text-sm text-gray-500 dark:text-gray-400"
-      ACTION_BASE_CLASSES = "text-sm"
+      SPACING_CLASSES = { sm: "ks-section-sm", md: "ks-section-md", lg: "ks-section-lg" }.freeze
+      HEADER_CLASSES = "ks-section-header"
+      TITLE_CLASSES = "ks-section-title"
+      SUBTITLE_CLASSES = "ks-section-subtitle"
+      ACTION_CLASSES = "ks-section-action"
 
-      def initialize(title: nil, subtitle: nil, action: nil, spacing: :md)
+      def initialize(title: nil, subtitle: nil, action: nil, spacing: :md, class: nil)
         @title = title
         @subtitle = subtitle
         @action = action
         @spacing = spacing
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def spacing_class
         SPACING_CLASSES.fetch(@spacing)
       end
 
+      def classes
+        [ spacing_class, @extra_classes ].compact.join(" ")
+      end
+
       def action_classes
-        "#{ACTION_BASE_CLASSES} text-accent-600 hover:text-accent-900 dark:text-accent-400 dark:hover:text-accent-300"
+        ACTION_CLASSES
       end
 
       def header?

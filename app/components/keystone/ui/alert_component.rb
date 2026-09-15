@@ -3,35 +3,30 @@
 module Keystone
   module Ui
     class AlertComponent < ViewComponent::Base
-      BASE_CLASSES = "rounded-md p-4"
-
       TYPE_CLASSES = {
-        success: "bg-green-50 text-green-800 dark:bg-green-900/30 dark:text-green-300",
-        warning: "bg-yellow-50 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300",
-        error: "bg-red-50 text-red-800 dark:bg-red-900/30 dark:text-red-300"
+        info: "ks-alert-info",
+        success: "ks-alert-success",
+        warning: "ks-alert-warning",
+        error: "ks-alert-error"
       }.freeze
 
-      OUTER_CLASSES = "flex"
-      INNER_CLASSES = "flex-1"
-      TITLE_CLASSES = "font-semibold"
-      MESSAGE_CLASSES = "text-sm"
-      MESSAGE_WITH_TITLE_CLASSES = "text-sm mt-1"
-      DISMISS_CLASSES = "ml-auto -mr-1.5 -mt-1.5 inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer"
+      OUTER_CLASSES = "ks-alert-body"
+      INNER_CLASSES = "ks-alert-content"
+      TITLE_CLASSES = "ks-alert-title"
+      MESSAGE_CLASSES = "ks-alert-message"
+      MESSAGE_WITH_TITLE_CLASSES = "ks-alert-message-titled"
+      DISMISS_CLASSES = "ks-alert-dismiss"
 
-      def initialize(message:, type: :info, title: nil, dismissible: false)
+      def initialize(message:, type: :info, title: nil, dismissible: false, class: nil)
         @message = message
         @type = type
         @title = title
         @dismissible = dismissible
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def classes
-        type_css = if @type == :info
-          "bg-accent-50 text-accent-800 dark:bg-accent-900/30 dark:text-accent-300"
-        else
-          TYPE_CLASSES.fetch(@type)
-        end
-        "#{BASE_CLASSES} #{type_css}"
+        [ "ks-alert", TYPE_CLASSES.fetch(@type), @extra_classes ].compact.join(" ")
       end
 
       def message_text

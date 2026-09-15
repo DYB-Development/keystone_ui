@@ -27,11 +27,17 @@ class Keystone::Ui::CardComponentTest < Minitest::Test
     assert_equal "View details", component.instance_variable_get(:@cta)
   end
 
-  def test_uses_semantic_accent_classes_for_link
-    component = Keystone::Ui::CardComponent.new(title: "X", summary: "Y", link: "/z")
+  def test_renders_the_shared_card_classes_for_each_form_and_part
+    assert_equal "ks-card", Keystone::Ui::CardComponent.new(title: "X", summary: "Y", link: "/z").send(:card_classes)
+    assert_equal "ks-card-edge", Keystone::Ui::CardComponent.new(title: "X", summary: "Y", link: "/z", edge_to_edge: true).send(:card_classes)
+    assert_equal "ks-card-body", Keystone::Ui::CardComponent::BODY_CLASSES
+    assert_equal "ks-card-title", Keystone::Ui::CardComponent::TITLE_CLASSES
+    assert_equal "ks-card-summary", Keystone::Ui::CardComponent::SUMMARY_CLASSES
+    assert_equal "ks-card-cta", Keystone::Ui::CardComponent::CTA_CLASSES
+    assert_equal "ks-card-link", Keystone::Ui::CardComponent.new(title: "X", summary: "Y", link: "/z").link_classes
+  end
 
-    assert_includes component.link_classes, "text-accent-600"
-    assert_includes component.link_classes, "hover:text-accent-900"
-    assert_includes component.link_classes, "dark:text-accent-400"
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-card shadow-lg", Keystone::Ui::CardComponent.new(title: "X", summary: "Y", link: "/z", class: "shadow-lg").send(:card_classes)
   end
 end
