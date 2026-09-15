@@ -241,6 +241,7 @@ Renders a card layout with a title, summary, and a single call-to-action link.
 
 - `cta:` (String, default `"Read more"`)
 - `edge_to_edge:` (Boolean, default `false`) — when `true`, removes horizontal border-radius and side borders on mobile, restoring them at the `sm` breakpoint. Useful for cards that span the full viewport width on small screens.
+- `class:` (String) — extra classes added to the component's outer element for this one use
 
 ### `ui_button`
 
@@ -402,6 +403,7 @@ Wraps page content with consistent max-width and horizontal padding.
 
 - `max_width:` (`:sm | :md | :lg | :xl | :full`, default `:full`) — constrains content width. Values map to `max-w-2xl`, `max-w-4xl`, `max-w-6xl`, `max-w-7xl`, or no constraint.
 - `padding:` (`:standard | :none`, default `:standard`) — adds responsive horizontal padding (`px-4 sm:px-6 lg:px-8`).
+- `class:` (String) — extra classes added to the component's outer element for this one use
 
 ```erb
 <%= ui_page(max_width: :lg) do %>
@@ -419,6 +421,7 @@ Groups related content with an optional header (title, subtitle, action) and ver
 - `subtitle:` (String) — secondary text below the title
 - `action:` — slot for a trailing action (e.g. a button)
 - `spacing:` (`:sm | :md | :lg`, default `:md`) — top margin between sections
+- `class:` (String) — extra classes added to the component's outer element for this one use
 
 ```erb
 <%= ui_section(title: "Products", subtitle: "All active items", spacing: :lg) do %>
@@ -603,6 +606,7 @@ Renders a page title area with an optional subtitle and action slot. On small sc
 **Optional props**
 
 - `subtitle:` (String) — secondary text below the title
+- `class:` (String) — extra classes added to the component's outer element for this one use
 
 **Block API** — register an action slot via `header.action`:
 
@@ -627,6 +631,7 @@ Renders a styled alert/flash message with type variants, optional title, and dis
 - `type:` (`:info | :success | :warning | :error`, default `:info`) — determines background/text color
 - `title:` (String) — bold title above the message
 - `dismissible:` (Boolean, default `false`) — shows a dismiss button when `true`
+- `class:` (String) — extra classes added to the component's outer element for this one use
 
 ```erb
 <%= ui_alert(message: "Changes saved successfully.", type: :success) %>
@@ -668,6 +673,7 @@ Renders an inline status badge.
 **Optional props**
 
 - `variant:` (`:neutral | :success | :danger | :warning | :info`, default `:neutral`)
+- `class:` (String) — extra classes added to the component's outer element for this one use
 
 ```erb
 <%= ui_badge(label: "Active", variant: :success) %>

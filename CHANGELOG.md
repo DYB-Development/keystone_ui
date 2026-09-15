@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **`class:` on page, page header, section, card, alert and badge** — pass extra classes for one use, for example `ui_card(title: "Revenue", summary: "$42k", link: reports_path, class: "mt-8")`, and they are added to the component's outer element
+
+### Changed
+- **Shared classes** — page, page header, section, card, alert and badge render keystone_ui-styles' shared `ks-` classes, so React versions rendering the same classes look identical and a host can restyle them by overriding one class. They look the same as before.
+- Requires keystone_ui-styles 0.2.0 or later
+
 ## [0.11.1] - 2026-09-14
 
 ### Fixed
