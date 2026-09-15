@@ -13,13 +13,14 @@ module Keystone
 
       attr_reader :label
 
-      def initialize(label:, variant: :neutral)
+      def initialize(label:, variant: :neutral, class: nil)
         @label = label
         @variant = variant
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def classes
-        "ks-badge #{VARIANT_CLASSES.fetch(@variant)}"
+        [ "ks-badge", VARIANT_CLASSES.fetch(@variant), @extra_classes ].compact.join(" ")
       end
     end
   end

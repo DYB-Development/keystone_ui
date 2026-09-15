@@ -19,4 +19,8 @@ class Keystone::Ui::BadgeComponentTest < Minitest::Test
   def test_refuses_a_variant_it_does_not_have
     assert_raises(KeyError) { Keystone::Ui::BadgeComponent.new(label: "X", variant: :sparkly).classes }
   end
+
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-badge ks-badge-neutral ml-2", Keystone::Ui::BadgeComponent.new(label: "X", class: "ml-2").classes
+  end
 end
