@@ -20,10 +20,11 @@ module Keystone
         xl: "ks-page-offset-xl"
       }.freeze
 
-      def initialize(max_width: :full, padding: :standard, top_offset: nil)
+      def initialize(max_width: :full, padding: :standard, top_offset: nil, class: nil)
         @max_width = max_width
         @padding = padding
         @top_offset = top_offset
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def classes
@@ -32,6 +33,7 @@ module Keystone
         tokens << TOP_OFFSET_CLASSES.fetch(@top_offset) if @top_offset
         width_class = MAX_WIDTH_CLASSES.fetch(@max_width)
         tokens << width_class unless width_class.empty?
+        tokens << @extra_classes if @extra_classes
         tokens.join(" ")
       end
     end

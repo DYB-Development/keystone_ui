@@ -14,4 +14,8 @@ class Keystone::Ui::PageComponentTest < Minitest::Test
       assert_equal "ks-page ks-page-offset-#{offset}", Keystone::Ui::PageComponent.new(top_offset: offset).classes
     end
   end
+
+  def test_adds_the_classes_passed_for_one_use
+    assert_equal "ks-page bg-gray-50", Keystone::Ui::PageComponent.new(class: "bg-gray-50").classes
+  end
 end
