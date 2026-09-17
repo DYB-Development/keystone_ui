@@ -69,4 +69,22 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_includes component.hint_classes, "text-surface-500"
   end
+
+  def test_label_classes_readable_in_dark
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
+
+    assert_includes component.label_classes, "dark:text-gray-100"
+  end
+
+  def test_card_classes_size_to_their_content
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
+
+    assert_includes component.classes, "inline-flex"
+  end
+
+  def test_chosen_card_stands_out_in_dark
+    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
+
+    assert_includes component.classes, "dark:peer-checked:bg-zinc-800"
+  end
 end
