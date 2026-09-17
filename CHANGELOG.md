@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.12.1] - 2026-09-17
+
+### Fixed
+- **Radio card on a dark page** — a radio card's label is drawn in a colour that reads on a dark page, and a chosen card is visibly the chosen one there
+- **Radio card width** — a radio card sizes to its own content, so a row of them sits side by side and wraps, instead of each filling the width
+
 ## [0.12.0] - 2026-09-15
 
 ### Added
