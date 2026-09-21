@@ -110,6 +110,18 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     assert_equal false, component.change?
   end
 
+  def test_change_label_is_empty_when_there_is_no_change
+    component = Keystone::Ui::StatCardComponent.new(label: "Hours", value: "N/A")
+
+    assert_equal "", component.change_label
+  end
+
+  def test_change_row_reserves_its_line_when_there_is_no_change
+    component = Keystone::Ui::StatCardComponent.new(label: "Hours", value: "N/A")
+
+    assert_includes component.change_row_classes, "h-5"
+  end
+
   def test_change_is_true_when_present
     component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
 

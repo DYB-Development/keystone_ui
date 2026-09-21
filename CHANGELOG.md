@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- A stat card is the same height whether or not it has a change to show. A card whose value cannot be read drew no change line at all, so it stood about twenty pixels shorter than the cards beside it.
+
 ## [0.12.1] - 2026-09-17
 
 ### Fixed
