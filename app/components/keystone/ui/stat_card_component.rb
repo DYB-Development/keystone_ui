@@ -73,6 +73,8 @@ module Keystone
       end
 
       def change_label
+        return "" unless change?
+
         formatted = "#{format("%.1f", @change.abs)}%"
         return formatted if @change.zero?
 
