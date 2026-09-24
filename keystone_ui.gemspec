@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir["lib/**/*", "app/**/*", "config/**/*", "the_local/**/*"] + [ "MIT-LICENSE" ]
   spec.require_paths = [ "lib" ]
 
-  spec.add_dependency "keystone_ui-styles", ">= 0.2.0"
+  spec.add_dependency "keystone_ui-styles", ">= 0.3.0"
   spec.add_dependency "view_component", ">= 2.0", "< 5"
 
   spec.post_install_message = <<~MSG
