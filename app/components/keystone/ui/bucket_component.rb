@@ -3,6 +3,8 @@
 module Keystone
   module Ui
     class BucketComponent < ViewComponent::Base
+      FILL_CLASSES = "w-full bg-accent-500 transition-all"
+
       attr_reader :goal, :actual
 
       def initialize(goal:, actual:)
@@ -18,6 +20,10 @@ module Keystone
 
       def fill_percent
         [ percent, 100 ].min
+      end
+
+      def fill_classes
+        FILL_CLASSES
       end
     end
   end
