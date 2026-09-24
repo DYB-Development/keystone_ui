@@ -15,7 +15,7 @@
     <textarea name="<%= @attribute %>" rows="3" class="<%= Keystone::Ui::TextareaComponent::BASE_CLASSES %>"<% if @placeholder %> placeholder="<%= @placeholder %>"<% end %>><%= @value %></textarea>
   <% elsif select? %>
     <select name="<%= @attribute %>" class="<%= Keystone::Ui::SelectComponent::BASE_CLASSES %>">
-      <% unless required? %><option value=""></option><% end %>
+      <% unless required? %><option value=""><%= blank_option_text %></option><% end %>
       <% select_options.each do |label, value| %>
         <option value="<%= value %>" <%= "selected" if @value.to_s == value.to_s %>><%= label %></option>
       <% end %>

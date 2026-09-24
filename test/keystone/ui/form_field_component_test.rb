@@ -127,4 +127,16 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
   def test_checkbox_uses_the_keystone_checkbox_class
     assert_equal "ks-checkbox", Keystone::Ui::FormFieldComponent::CHECKBOX_CLASSES
   end
+
+  def test_words_the_empty_choice_of_a_select_with_include_blank
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :account_id, type: :select, include_blank: "Not set yet")
+
+    assert_equal "Not set yet", component.blank_option_text
+  end
+
+  def test_leaves_the_empty_choice_of_a_select_blank_without_include_blank
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :account_id, type: :select)
+
+    assert_equal "", component.blank_option_text
+  end
 end

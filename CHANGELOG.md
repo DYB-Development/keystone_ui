@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- A form field's select can word its empty choice with `include_blank:`.
+
 ## [0.14.0] - 2026-09-24
 
 ### Added
