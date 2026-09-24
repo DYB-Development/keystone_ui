@@ -38,4 +38,10 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_includes component.label_classes, "text-sm"
   end
+
+  def test_track_is_darkened_in_dark_mode
+    component = Keystone::Ui::ProgressComponent.new(value: 1, max: 2)
+
+    assert_includes component.track_classes, "dark:bg-surface-700"
+  end
 end

@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class ProgressComponent < ViewComponent::Base
-      TRACK_CLASSES = "w-full h-2 bg-surface-200 rounded-full overflow-hidden"
+      TRACK_CLASSES = "w-full h-2 bg-surface-200 rounded-full overflow-hidden dark:bg-surface-700"
       BAR_CLASSES = "h-full bg-accent-500 rounded-full transition-all"
       LABEL_CLASSES = "mb-1 text-sm font-medium text-surface-700"
 
