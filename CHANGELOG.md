@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- A funnel's labels, values and step-to-step percents, and a progress bar's track and label, are readable on a dark page.
+
 ### Added
 - A bucket shows an amount against a goal as an upright container filled from the bottom, with the goal, the amount and the percent reached.
 - A bucket series shows several buckets in a row that wraps on narrow screens.
