@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file.
 ### Added
 - A gem can supply custom as the theme mode, and the page is marked custom.
 
+### Changed
+- Requires keystone_ui-styles 0.3.0 or later, which draws a page marked custom.
+
 ## [0.13.0] - 2026-09-24
 
 ### Fixed
