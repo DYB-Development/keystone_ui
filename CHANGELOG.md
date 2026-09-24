@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- A page keeps the theme of the page Turbo shows next, where before it kept the theme of the first page loaded.
+
 ### Changed
 - A bucket refuses a goal or amount that is not a number with an error naming the value, where before a string such as "9,000" failed with an unrelated error.
 

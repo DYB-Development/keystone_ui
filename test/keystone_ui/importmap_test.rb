@@ -20,4 +20,10 @@ class KeystoneUi::ImportmapTest < Minitest::Test
 
     assert_includes pins, 'pin "chart.js"'
   end
+
+  def test_the_page_theme_module_is_pinned
+    pins = File.read(File.join(ROOT, "config/importmap.rb"))
+
+    assert_includes pins, 'pin "keystone_ui/page_theme"'
+  end
 end

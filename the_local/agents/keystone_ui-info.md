@@ -79,7 +79,9 @@ holds the catalog.
   cookie, then a mode another gem supplies, then light. System leaves the page
   to follow the operating system. Custom marks the page for a palette another
   gem defines. The theme toggle does not offer it, so a page reaches it when
-  another gem supplies it. Marking the layout with the theme is set up through
+  another gem supplies it. On a Turbo visit, the page being shown sets the
+  theme, so a change to the mode on the server shows up without a full reload.
+  Marking the layout with the theme is set up through
   the install local, and placing the toggle on a screen goes through the develop
   local.
 - **Tailwind classes are static strings.** Class names are never interpolated,
