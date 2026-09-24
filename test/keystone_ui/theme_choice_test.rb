@@ -41,4 +41,8 @@ class KeystoneUi::ThemeChoiceTest < Minitest::Test
   def test_a_toggle_choice_takes_precedence_over_a_supplied_mode
     assert_equal({ "data-theme" => "light" }, KeystoneUi::ThemeChoice.new("light", supplied: "dark").html_attributes)
   end
+
+  def test_a_supplied_custom_mode_marks_the_page_custom
+    assert_equal({ "data-theme" => "custom" }, KeystoneUi::ThemeChoice.new(nil, supplied: "custom").html_attributes)
+  end
 end
