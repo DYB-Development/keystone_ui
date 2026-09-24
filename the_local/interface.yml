@@ -51,6 +51,8 @@ develop:
   - ui_form
   - ui_file_upload
   - ui_funnel
+  - ui_bucket
+  - ui_bucket_series
   - ui_pipeline
   - ui_code
   - ui_disclosure
@@ -85,6 +87,8 @@ sources:
   - app/components/keystone/ui/form_field_component.rb
   - app/components/keystone/ui/form_page_component.rb
   - app/components/keystone/ui/funnel_component.rb
+  - app/components/keystone/ui/bucket_component.rb
+  - app/components/keystone/ui/bucket_series_component.rb
   - app/components/keystone/ui/grid_component.rb
   - app/components/keystone/ui/hero_component.rb
   - app/components/keystone/ui/input_component.rb

@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- A bucket shows an amount against a goal as an upright container filled from the bottom, with the goal, the amount and the percent reached.
+- A bucket series shows several buckets in a row that wraps on narrow screens.
 - Each funnel step draws its bar in its own colour, taken in order from a palette of five, and a step can name the palette colour it wants.
 
 ## [0.12.2] - 2026-09-21

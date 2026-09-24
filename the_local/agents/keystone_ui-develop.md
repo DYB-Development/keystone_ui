@@ -226,6 +226,18 @@ outer element. See Conventions before using it.
   `:accent` `:sky` `:violet` `:amber` `:rose`, starting again after `:rose`; a
   step passing one of those symbols as `color:` uses it instead, and any other
   symbol raises. Divide-by-zero safe, no JavaScript.
+- `ui_bucket(goal:, actual:, label: nil, over: :success)` — an upright container
+  for one target, filled from the bottom toward `goal:`. It shows the optional
+  `label` on top, then `goal`, the container, `actual`, and the percent reached.
+  `goal` and `actual` are printed exactly as given, so pass numbers already
+  formatted as needed. The percent is `actual / goal * 100` rounded and **not**
+  clamped (so 150% shows as 150%), and it is 0 when `goal` is zero. The fill
+  stops at the top once the goal is reached. Within the goal the fill uses the
+  accent colour; over it the fill turns green with `over: :success` or amber with
+  `over: :warning`, and any other symbol raises. No JavaScript.
+- `ui_bucket_series(buckets:)` — a row of buckets that wraps onto more rows on
+  narrow screens. `buckets:` is an array of hashes, each taking the same keywords
+  as `ui_bucket`, e.g. `[{ goal: 10, actual: 7, label: "Mon" }, ...]`.
 - `ui_pipeline(title:, boxes:, links:, subtitle: nil)` — a staged flow diagram
   for event flows, approval chains, or state machines. `boxes:` is
   `[{ label:, count:, accent:, action: }, ...]` where `count:` and `accent:`
