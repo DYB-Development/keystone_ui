@@ -62,6 +62,15 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_equal "bg-sky-500", component.layers.last.color_classes
   end
 
+  def test_palette_starts_again_after_its_last_color
+    steps = Keystone::Ui::FunnelComponent::STEP_COLOR_CLASSES.size.times.map do |n|
+      { label: "Step #{n}", value: 100 - n }
+    end
+    component = Keystone::Ui::FunnelComponent.new(steps: steps + [ { label: "Last", value: 1 } ])
+
+    assert_equal "bg-accent-500", component.layers.last.color_classes
+  end
+
   def test_zero_top_value_yields_zero_width
     component = Keystone::Ui::FunnelComponent.new(steps: [
       { label: "Visitors", value: 0 },

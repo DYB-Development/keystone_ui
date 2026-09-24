@@ -14,7 +14,10 @@ module Keystone
       TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500"
       STEP_COLOR_CLASSES = {
         accent: "bg-accent-500",
-        sky: "bg-sky-500"
+        sky: "bg-sky-500",
+        violet: "bg-violet-500",
+        amber: "bg-amber-500",
+        rose: "bg-rose-500"
       }.freeze
 
       attr_reader :steps
@@ -32,7 +35,7 @@ module Keystone
             value: step[:value],
             width_percent: width_percent(step[:value]),
             conversion_percent: conversion_percent(step[:value], previous),
-            color_classes: STEP_COLOR_CLASSES.values[index]
+            color_classes: STEP_COLOR_CLASSES.values[index % STEP_COLOR_CLASSES.size]
           )
           previous = step[:value]
           layer
