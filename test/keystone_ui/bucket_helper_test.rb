@@ -22,4 +22,12 @@ class KeystoneUi::BucketHelperTest < Minitest::Test
 
     assert_equal 30_000, view.rendered.goal
   end
+
+  def test_renders_a_bucket_series_with_one_bucket_per_entry
+    view = View.new
+
+    view.ui_bucket_series(buckets: [ { goal: 600, actual: 450 }, { goal: 40, actual: 12 } ])
+
+    assert_equal 2, view.rendered.bucket_components.size
+  end
 end

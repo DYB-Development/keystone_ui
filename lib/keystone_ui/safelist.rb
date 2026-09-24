@@ -52,6 +52,7 @@ module Keystone
       Keystone::Ui::FileUploadComponent,
       Keystone::Ui::FunnelComponent,
       Keystone::Ui::BucketComponent,
+      Keystone::Ui::BucketSeriesComponent,
       Keystone::Ui::PipelineComponent,
       Keystone::Ui::CodeComponent,
       Keystone::Ui::DisclosureComponent,

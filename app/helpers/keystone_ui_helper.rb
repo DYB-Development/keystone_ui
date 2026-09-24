@@ -197,6 +197,10 @@ module KeystoneUiHelper
     render Keystone::Ui::BucketComponent.new(**args)
   end
 
+  def ui_bucket_series(**args)
+    render Keystone::Ui::BucketSeriesComponent.new(**args)
+  end
+
   def ui_pipeline(**args)
     render Keystone::Ui::PipelineComponent.new(**args)
   end
