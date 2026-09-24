@@ -316,9 +316,10 @@ outer element. See Conventions before using it.
 8. To let users pick light or dark, place `ui_theme_toggle`. Where it goes — a
    settings screen, the navbar's `desktop_right` or a mobile menu — is the
    developer's choice, so ask before placing it. It only stays correct across
-   page loads when the app's layout already writes the theme onto its `html`
-   tag. If the layout's `<html` tag carries nothing for the theme, stop and hand
-   that part to `keystone_ui-install`.
+   page loads and Turbo visits when the app's layout already writes the theme
+   onto its `html` tag and the gem's Stimulus controllers are registered. If the
+   layout's `<html` tag carries nothing for the theme, stop and hand that part to
+   `keystone_ui-install`.
 
 9. Read back what you wrote and delete every Tailwind class and inline `style`
    you added. If the result still needs one, that is a signal the wrong helper
