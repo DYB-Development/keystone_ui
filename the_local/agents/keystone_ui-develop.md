@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has Keystone UI — pages, forms, tables, navigation, dashboards, charts, marketing sections — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has Keystone UI — pages, forms, tables, navigation, dashboards, charts, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -89,6 +89,12 @@ outer element. See Conventions before using it.
 - `ui_mobile_actions` — no keywords, takes a block. An ellipsis dropdown for
   mobile actions; the block holds the menu items. Hidden above `lg:`.
 - `ui_settings_link(label:, href:)` — a full-width settings row with a chevron.
+- `ui_theme_toggle` — no keywords, no block. A row of three buttons, Light, Dark
+  and System, that switches the page's theme at once and remembers the choice in
+  the `keystone_theme` cookie for a year. System follows the operating system.
+  The button for the page's current mode renders pressed. When the current mode
+  is a custom palette supplied by another gem, no button is pressed, because the
+  toggle does not offer custom.
 
 ### Forms
 
@@ -303,7 +309,14 @@ outer element. See Conventions before using it.
    routes or a persistence strategy — put the choice to the developer, then
    implement what they pick.
 
-8. Read back what you wrote and delete every Tailwind class and inline `style`
+8. To let users pick light or dark, place `ui_theme_toggle`. Where it goes — a
+   settings screen, the navbar's `desktop_right` or a mobile menu — is the
+   developer's choice, so ask before placing it. It only stays correct across
+   page loads when the app's layout already writes the theme onto its `html`
+   tag. If the layout's `<html` tag carries nothing for the theme, stop and hand
+   that part to `keystone_ui-install`.
+
+9. Read back what you wrote and delete every Tailwind class and inline `style`
    you added. If the result still needs one, that is a signal the wrong helper
    was chosen — go back to step 5. Bring it to the developer only if no helper
    fits.
