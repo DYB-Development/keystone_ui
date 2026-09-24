@@ -119,7 +119,8 @@ Strongest first:
 3. Light.
 
 A gem supplies a mode by registering a callable that receives the view and returns
-`"light"`, `"dark"`, `"system"` or `nil`:
+`"light"`, `"dark"`, `"system"`, `"custom"` or `nil`. A custom mode marks the page
+`data-theme="custom"`:
 
 ```ruby
 KeystoneUi.configure do |config|

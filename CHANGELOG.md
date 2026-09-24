@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- A gem can supply custom as the theme mode, and the page is marked custom.
+
 ## [0.13.0] - 2026-09-24
 
 ### Fixed
