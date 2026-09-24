@@ -15,6 +15,10 @@ module Keystone
 
         (actual.to_f / goal * 100).round
       end
+
+      def fill_percent
+        [ percent, 100 ].min
+      end
     end
   end
 end

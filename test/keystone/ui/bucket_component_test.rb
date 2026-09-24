@@ -14,4 +14,10 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
 
     assert_equal 0, component.percent
   end
+
+  def test_fill_stops_at_full_when_over_the_goal
+    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 12_000)
+
+    assert_equal 100, component.fill_percent
+  end
 end
