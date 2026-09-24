@@ -8,4 +8,10 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
 
     assert_equal 30, component.percent
   end
+
+  def test_zero_goal_yields_zero_percent
+    component = Keystone::Ui::BucketComponent.new(goal: 0, actual: 50)
+
+    assert_equal 0, component.percent
+  end
 end

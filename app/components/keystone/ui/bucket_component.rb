@@ -11,6 +11,8 @@ module Keystone
       end
 
       def percent
+        return 0 if goal.zero?
+
         (actual.to_f / goal * 100).round
       end
     end
