@@ -13,7 +13,8 @@ module Keystone
       BAR_CLASSES = "h-8 rounded-md bg-accent-500 transition-all"
       TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500"
       STEP_COLOR_CLASSES = {
-        accent: "bg-accent-500"
+        accent: "bg-accent-500",
+        sky: "bg-sky-500"
       }.freeze
 
       attr_reader :steps
@@ -25,13 +26,13 @@ module Keystone
       def layers
         previous = nil
 
-        steps.map do |step|
+        steps.each_with_index.map do |step, index|
           layer = Layer.new(
             label: step[:label],
             value: step[:value],
             width_percent: width_percent(step[:value]),
             conversion_percent: conversion_percent(step[:value], previous),
-            color_classes: STEP_COLOR_CLASSES[:accent]
+            color_classes: STEP_COLOR_CLASSES.values[index]
           )
           previous = step[:value]
           layer

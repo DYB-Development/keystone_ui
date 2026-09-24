@@ -53,6 +53,15 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_equal "bg-accent-500", component.layers.first.color_classes
   end
 
+  def test_second_layer_defaults_to_the_second_palette_color
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 },
+      { label: "Signups", value: 4_500 }
+    ])
+
+    assert_equal "bg-sky-500", component.layers.last.color_classes
+  end
+
   def test_zero_top_value_yields_zero_width
     component = Keystone::Ui::FunnelComponent.new(steps: [
       { label: "Visitors", value: 0 },
