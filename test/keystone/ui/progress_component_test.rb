@@ -44,4 +44,10 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_includes component.track_classes, "dark:bg-surface-700"
   end
+
+  def test_label_is_lightened_in_dark_mode
+    component = Keystone::Ui::ProgressComponent.new(value: 1, max: 2, label: "Upload")
+
+    assert_includes component.label_classes, "dark:text-surface-300"
+  end
 end
