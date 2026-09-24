@@ -24,7 +24,7 @@ module Keystone
         @value = value
         @options = options
         @errors = Array(errors)
-        @include_blank = include_blank
+        @include_blank = include_blank.to_s
       end
 
       def label_text

@@ -133,4 +133,10 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
 
     assert_equal "Not set yet", component.blank_option_text
   end
+
+  def test_leaves_the_empty_choice_of_a_select_blank_without_include_blank
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :account_id, type: :select)
+
+    assert_equal "", component.blank_option_text
+  end
 end
