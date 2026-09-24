@@ -119,4 +119,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
     assert_includes component.label_classes, "dark:text-surface-300"
   end
+
+  def test_value_is_white_in_dark_mode
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 }
+    ])
+
+    assert_includes component.value_classes, "dark:text-white"
+  end
 end
