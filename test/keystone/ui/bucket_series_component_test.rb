@@ -11,4 +11,10 @@ class Keystone::Ui::BucketSeriesComponentTest < Minitest::Test
 
     assert_equal [ 600, 40 ], component.bucket_components.map(&:goal)
   end
+
+  def test_row_wraps_onto_more_lines_on_narrow_screens
+    component = Keystone::Ui::BucketSeriesComponent.new(buckets: [])
+
+    assert_includes component.row_classes, "flex-wrap"
+  end
 end
