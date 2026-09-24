@@ -70,10 +70,12 @@ holds the catalog.
   Tailwind's stock `gray-*` and `zinc-*` neutrals, or fixed status colors such
   as green and amber, directly. Changing the defaults belongs to the install
   local.
-- **Light, dark and system themes.** Every component has dark-mode styling. The
-  theme is chosen in this order: the user's choice stored in a cookie, then a
-  mode another gem supplies, then light. System leaves the page to follow the
-  operating system.
+- **Light, dark, system and custom themes.** Every component has dark-mode
+  styling. The theme is chosen in this order: the user's choice stored in a
+  cookie, then a mode another gem supplies, then light. System leaves the page
+  to follow the operating system. Custom marks the page for a palette another
+  gem defines. The theme toggle does not offer it, so a page reaches it when
+  another gem supplies it.
 - **Tailwind classes are static strings.** Class names are never interpolated,
   so Tailwind's scanner can find them. Widths and heights that depend on data,
   such as a progress bar or a bucket's fill, are set with an inline style

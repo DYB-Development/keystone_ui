@@ -20,7 +20,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
   to the layout's `<html>` tag. Safe to re-run.
 - `KeystoneUi.configure` — a block yielding the configuration: `accent` and
   `surface` (palette names, `:blue` and `:zinc` unless set),
-  `theme_mode_supplier` (a callable that supplies a light, dark or system mode),
+  `theme_mode_supplier` (a callable that supplies a light, dark, system or
+  custom mode),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 
@@ -61,7 +62,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
      `registerControllers(application)`.
    - `app/views/layouts/application.html.erb` — adds
      `<%= keystone_theme_attributes %>` inside the `<html` tag, which writes the
-     light or dark mode onto the page.
+     light, dark or custom mode onto the page.
 
    Read its output for two warnings:
 
@@ -139,10 +140,14 @@ built on ViewComponent; hook it in before building any screen with those helpers
      reads the palette choice. Keystone UI stores the names and changes no color
      from them, because colors come from the CSS custom properties in step 6.
    - `theme_mode_supplier` — a callable that receives the view and returns
-     `"light"`, `"dark"` or `"system"`. It supplies the mode when the user has
-     not picked one with the theme toggle, since the `keystone_theme` cookie that
-     the toggle writes takes precedence. Any other return value, or no supplier,
-     falls back to light.
+     `"light"`, `"dark"`, `"system"`, `"custom"` or `nil`. It supplies the mode
+     when the user has not picked one with the theme toggle, since the
+     `keystone_theme` cookie that the toggle writes takes precedence. Any other
+     return value, or no supplier, falls back to light.
+   - A supplied `"custom"` marks the layout's `<html>` tag
+     `data-theme="custom"`. The theme toggle does not offer custom, so only a
+     supplier sets it. Ask the developer which gem or code supplies custom and
+     its colors before returning it.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for
