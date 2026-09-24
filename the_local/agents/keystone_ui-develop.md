@@ -96,7 +96,7 @@ outer element. See Conventions before using it.
   The `<form>` wrapper. `method:` may be `:patch`/`:put`/`:delete` and is
   translated for Rails. Set `multipart: true` when the form contains a file
   upload.
-- `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [])`
+- `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil)`
   — a labeled field with hint and error text. This is the default way to render
   an input. `type:` `:text` `:number` `:email` `:password` `:date` `:textarea`
   `:checkbox` `:select`. `attribute:` is used verbatim as the input's `name`, so
@@ -104,7 +104,9 @@ outer element. See Conventions before using it.
   pass `label:` whenever the attribute is a nested name. `label:` defaults to the
   attribute with underscores turned to spaces and the first letter capitalized.
   `options:` is for `:select` and takes `[[label, value], ...]`; `value:` picks
-  the selected option, and a non-required select gets a leading blank option. A
+  the selected option, and a non-required select gets a leading empty option,
+  worded by `include_blank:` (for example `"Not set yet"`) or left blank without
+  it. Never add your own empty choice to `options:` as well. A
   `:checkbox` renders its label beside the box, submits `"0"` when unchecked and
   `"1"` when checked, and pre-checks when `value:` is `"1"`. `errors:` is an
   array of message strings.
