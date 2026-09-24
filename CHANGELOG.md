@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- Each funnel step draws its bar in its own colour, taken in order from a palette of five, and a step can name the palette colour it wants.
+
 ## [0.12.2] - 2026-09-21
 
 ### Fixed
