@@ -237,8 +237,12 @@ outer element. See Conventions before using it.
 - `ui_bucket(goal:, actual:, label: nil, over: :success)` — an upright container
   for one target, filled from the bottom toward `goal:`. It shows the optional
   `label` on top, then `goal`, the container, `actual`, and the percent reached.
-  `goal` and `actual` are printed exactly as given, so pass numbers already
-  formatted as needed. The percent is `actual / goal * 100` rounded and **not**
+  `goal` and `actual` must be numbers: a string such as `"9,000"`, or `nil`,
+  raises `ArgumentError` at render time. They are printed as Ruby prints them,
+  with no thousands separators, so `9000` shows as `9000` and `9000.0` as
+  `9000.0`. A value read from a decimal column is a `BigDecimal`, which prints
+  as `0.9e4`, so convert it with `to_i` or `to_f` first. The percent is
+  `actual / goal * 100` rounded and **not**
   clamped (so 150% shows as 150%), and it is 0 when `goal` is zero. The fill
   stops at the top once the goal is reached. Within the goal the fill uses the
   accent colour; over it the fill turns green with `over: :success` or amber with

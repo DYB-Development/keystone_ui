@@ -64,6 +64,9 @@ holds the catalog.
   different symbols, and the develop local carries the real values. Most
   components raise on a symbol they do not know, so a wrong guess fails at
   render time.
+- **Figures are numbers.** Components that measure or compare values, such as
+  progress bars, funnels and buckets, do arithmetic on them. Pass a number, not
+  a formatted string such as `"9,000"`. A bucket raises on one.
 - **Semantic color, not literal color.** The themed hue is `accent-*` and the
   themed neutral family is `surface-*`, both CSS custom properties whose
   defaults (blue and zinc) come from the keystone_ui-styles gem. Retheming an
