@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.13.0] - 2026-09-24
+
 ### Fixed
 - A funnel's labels, values and step-to-step percents, and a progress bar's track and label, are readable on a dark page.
 
