@@ -10,11 +10,12 @@ module Keystone
         warning: "bg-amber-500"
       }.freeze
 
-      attr_reader :goal, :actual
+      attr_reader :goal, :actual, :label
 
-      def initialize(goal:, actual:, over: :success)
+      def initialize(goal:, actual:, label: nil, over: :success)
         @goal = goal
         @actual = actual
+        @label = label
         @over = over
       end
 

@@ -38,4 +38,10 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
 
     assert_includes component.fill_classes, "bg-amber-500"
   end
+
+  def test_exposes_an_optional_label
+    component = Keystone::Ui::BucketComponent.new(goal: 30_000, actual: 9_000, label: "Q1")
+
+    assert_equal "Q1", component.label
+  end
 end
