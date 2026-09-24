@@ -29,17 +29,23 @@ this one's.
 
 Every entry point is a view helper called from ERB. Keywords with defaults are
 optional; the rest are required. Symbol options are validated — an unrecognized
-one raises at render time.
+one raises at render time. Two exceptions: `ui_page`'s `padding:` treats any
+value other than `:none` as `:standard`, and `ui_pipeline`'s box `accent:` falls
+back to `:muted`.
+
+Six helpers — `ui_page`, `ui_section`, `ui_page_header`, `ui_card`, `ui_alert`,
+`ui_badge` — also accept `class:`, a string of classes appended to the helper's
+outer element. See Conventions before using it.
 
 ### Page shells and layout
 
-- `ui_page(max_width: :full, padding: :standard, top_offset: nil)` — takes a
-  block. The outer wrapper for a screen. `max_width:` `:sm` `:md` `:lg` `:xl`
-  `:full` (anything but `:full` also centers); `padding:` `:standard` or `:none`;
-  `top_offset:` `:sm` `:md` `:lg` `:xl` to clear a fixed navbar.
-- `ui_section(title: nil, subtitle: nil, action: nil, spacing: :md)` — takes a
-  block. A titled block of content with an optional right-aligned link.
-  `action:` is `{ label:, href: }`; `spacing:` `:sm` `:md` `:lg`.
+- `ui_page(max_width: :full, padding: :standard, top_offset: nil, class: nil)` —
+  takes a block. The outer wrapper for a screen. `max_width:` `:sm` `:md` `:lg`
+  `:xl` `:full`; `padding:` `:standard` or `:none`; `top_offset:` `:sm` `:md`
+  `:lg` `:xl` to clear a fixed navbar.
+- `ui_section(title: nil, subtitle: nil, action: nil, spacing: :md, class: nil)`
+  — takes a block. A titled block of content with an optional right-aligned
+  link. `action:` is `{ label:, href: }`; `spacing:` `:sm` `:md` `:lg`.
 - `ui_panel(padding: :md, radius: :lg, shadow: true)` — takes a block. A bordered
   card surface. `padding:` `:sm` `:md` `:lg`; `radius:` `:md` `:lg` `:xl`.
 - `ui_grid(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil)` — takes a
@@ -48,10 +54,10 @@ one raises at render time.
   `:xl`; passing `gap_x:`/`gap_y:` replaces `gap:` entirely.
 - `ui_card_link(href:, padding: :md, shadow: true)` — takes a block. A whole
   panel that is one link. `padding:` `:sm` `:md` `:lg`.
-- `ui_card(title:, summary:, link:, cta: "Read more", edge_to_edge: false)` — a
-  fixed title/summary/CTA card. `edge_to_edge: true` drops the side border and
+- `ui_card(title:, summary:, link:, cta: "Read more", edge_to_edge: false, class: nil)`
+  — a fixed title/summary/CTA card. `edge_to_edge: true` drops the side border and
   corner rounding below `sm:` so it spans the full width on mobile.
-- `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new")`
+- `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", class: nil)`
   — takes a block yielding the header. Desktop-only page title (hidden below
   `sm:`). Call `header.action { ... }` in the block to place a custom control on
   the right; only what `action` receives is rendered. Passing `action_url:`
@@ -93,10 +99,14 @@ one raises at render time.
 - `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [])`
   — a labeled field with hint and error text. This is the default way to render
   an input. `type:` `:text` `:number` `:email` `:password` `:date` `:textarea`
-  `:checkbox` `:select`. `label:` defaults to the humanized attribute name.
-  `options:` is for `:select` and takes `[[label, value], ...]`; a non-required
-  select gets a leading blank option. A `:checkbox` submits `"0"` when unchecked
-  and `"1"` when checked, and pre-checks when `value:` is `"1"`. `errors:` is an
+  `:checkbox` `:select`. `attribute:` is used verbatim as the input's `name`, so
+  pass the full param name the controller expects, e.g. `"quote[title]"`, and
+  pass `label:` whenever the attribute is a nested name. `label:` defaults to the
+  attribute with underscores turned to spaces and the first letter capitalized.
+  `options:` is for `:select` and takes `[[label, value], ...]`; `value:` picks
+  the selected option, and a non-required select gets a leading blank option. A
+  `:checkbox` renders its label beside the box, submits `"0"` when unchecked and
+  `"1"` when checked, and pre-checks when `value:` is `"1"`. `errors:` is an
   array of message strings.
 - `ui_input(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil)`
   — a bare styled input with no label. `type:` `:text` `:number` `:email`
@@ -107,9 +117,10 @@ one raises at render time.
   — a bare styled select. `options:` is `[[label, value], ...]`;
   `include_blank:` is the text of a leading empty option.
 - `ui_multi_select(name:, label:, options:, selected: [])` — a dropdown of
-  checkboxes all posting under `name`. `options:` is `[[label, value], ...]`;
-  the trigger reads "All <label>" when nothing is checked and "N selected"
-  otherwise.
+  checkboxes all posting under `name`, used verbatim; pass an array name such as
+  `"status[]"` so every checked value arrives. `options:` is
+  `[[label, value], ...]`; `selected:` is the values to pre-check. The trigger
+  reads "All <label>" when nothing is checked and "N selected" otherwise.
 - `ui_file_upload(name:, label: nil, accept: nil, multiple: false, hint: nil)` —
   a drop zone with drag-and-drop and selected-file feedback. Requires the
   enclosing form to be multipart.
@@ -155,9 +166,10 @@ one raises at render time.
   — renders an `<a>` when `href:` is given and a `<button>` otherwise. `variant:`
   `:primary` `:secondary` `:danger`; `size:` `:sm` `:md` `:lg`; `type:` applies
   only to the button form.
-- `ui_badge(label:, variant: :neutral)` — a pill. `variant:` `:neutral`
-  `:success` `:danger` `:warning` `:info`.
-- `ui_alert(message:, type: :info, title: nil, dismissible: false)` — a banner.
+- `ui_badge(label:, variant: :neutral, class: nil)` — a pill. `variant:`
+  `:neutral` `:success` `:danger` `:warning` `:info`.
+- `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)` —
+  a banner.
   `type:` `:info` `:success` `:warning` `:error`. `dismissible: true` adds a
   close control.
 - `ui_progress(value:, max:, label: nil)` — a labeled progress bar. The percent
@@ -185,14 +197,19 @@ one raises at render time.
   tab dispatches a `tab-switcher:change` event carrying the clicked index —
   showing and hiding the matching panels is the app's job.
 - `ui_modal(title:, size: :md)` — takes a block holding the body. `size:` `:sm`
-  `:md` `:lg` `:xl`. Renders hidden; it closes on its own close button and on a
-  backdrop click, but the app must supply the control that opens it by targeting
-  the modal controller's `open` action.
+  `:md` `:lg` `:xl`. Renders hidden, and closes on its own close button and on a
+  backdrop click. Nothing in the gem opens it: the modal's outermost element
+  carries the `hidden` class, and the app's own code must remove that class to
+  show it. A `data-action="modal#open"` placed outside the modal does nothing.
 - `ui_swipe_deck(items:, empty_title: "All done!", empty_subtitle: nil)` — takes
   a block yielding the deck. Call `deck.item { |item| ... }` in the block to
-  render one card's face. Accepting a card dispatches `swipe-deck:complete` and
-  rejecting dispatches `swipe-deck:skip`, both carrying the item's id — the app
-  must listen and persist the outcome.
+  render one card's face. Accepting a card (button or swipe right) dispatches a
+  bubbling `swipe-deck:complete` event and rejecting (button or swipe left)
+  dispatches `swipe-deck:skip`. Both carry `detail.itemId` — the item's `id`, or
+  its position in `items:` when it has none — and `detail.card`; `complete` also
+  carries `detail.value`, read from an input inside the card's face marked
+  `data-swipe-deck-value`, or `null`. The app must listen and persist the
+  outcome.
 
 ### Charts and analytics
 
@@ -200,10 +217,15 @@ one raises at render time.
   `:sm` `:md` `:lg`.
 - `ui_line_chart(series:, labels:, height: :md)` — a line chart. `labels:` is the
   x-axis labels; `series:` is `[{ name:, data:, color:, dashed: }, ...]` where
-  `color:` and `dashed:` are optional. `height:` `:sm` `:md` `:lg`.
-- `ui_funnel(steps:)` — a conversion funnel. `steps:` is `[{ label:, value: }, ...]`
-  in order. Bar widths are relative to the first step; the caption between two
-  layers is the step-to-step conversion. Divide-by-zero safe, no JavaScript.
+  `color:` (a CSS color string for the line) and `dashed: true` are optional.
+  `height:` `:sm` `:md` `:lg`.
+- `ui_funnel(steps:)` — a conversion funnel. `steps:` is
+  `[{ label:, value:, color: }, ...]` in order, with `color:` optional. Bar
+  widths are relative to the first step; the caption between two layers is the
+  step-to-step conversion. Each bar takes the next colour in the order
+  `:accent` `:sky` `:violet` `:amber` `:rose`, starting again after `:rose`; a
+  step passing one of those symbols as `color:` uses it instead, and any other
+  symbol raises. Divide-by-zero safe, no JavaScript.
 - `ui_pipeline(title:, boxes:, links:, subtitle: nil)` — a staged flow diagram
   for event flows, approval chains, or state machines. `boxes:` is
   `[{ label:, count:, accent:, action: }, ...]` where `count:` and `accent:`
@@ -281,8 +303,13 @@ one raises at render time.
   layered onto a helper's output fight the component and drift the moment the gem
   updates. The gem owns spacing, color, borders, radius, shadow, and dark mode.
 - **Never restyle a helper from the outside** — no wrapper div that overrides its
-  padding or width, no `class:` smuggled through, no CSS targeting its markup.
-  Choose a different option symbol instead, or say the helper does not fit.
+  padding or width, no CSS targeting its markup. Choose a different option
+  symbol instead, or say the helper does not fit.
+- **`class:` needs the developer's approval.** The six helpers that accept it
+  append whatever it holds to their outer element, so it can override anything
+  the gem sets. Before passing it, name the class and the reason to the
+  developer and wait for a yes; if the same class keeps being needed, it is a
+  missing option in the gem.
 - **Semantic color only.** Themed color is `accent-*` (the brand hue) and
   `surface-*` (the neutral family). Never write a literal color into a view;
   changing the palette is install-local territory.

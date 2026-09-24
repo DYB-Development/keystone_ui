@@ -1,81 +1,82 @@
 ---
 name: keystone_ui-info
-description: Use to learn what Keystone UI offers — what the component system covers, its layout and color model, and the vocabulary the install and develop locals assume.
+description: Use to learn what Keystone UI offers — what the component system covers, its layout, color and theme model, and the vocabulary the install and develop locals assume.
 tools: Read
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
 
-This local explains Keystone UI and hands you off to the local that does the
-work. It changes nothing and gives no steps.
+This local explains Keystone UI and sends you to the local that does the work.
+It changes nothing and gives no steps.
 
 ## What Keystone UI is
 
-Keystone UI is a Rails engine gem that supplies a host app's entire visual
-layer as a library of view helpers built on ViewComponent. Screens are composed
-out of named pieces — page shells, sections, panels, grids, form fields, data
-tables, navigation bars, cards, charts, banners — instead of hand-written ERB
+Keystone UI is a Rails engine gem that supplies a host app's visual layer as a
+library of view helpers built on ViewComponent. Screens are built from named
+pieces — page shells, sections, panels, grids, form fields, data tables,
+navigation bars, cards, charts, funnels, banners — instead of hand-written ERB
 and Tailwind. Every class the UI renders lives inside the gem, in frozen
-constants, so the look is owned in one place.
+constants, so the look is defined in one place.
 
-Reach for it whenever you are building or changing a screen in an app that has
-it installed. The point is to stop UI drift: two pages built from the same
-helpers cannot disagree about spacing, color, or dark-mode treatment, and a
-change to a component updates every page at once. It is mobile-first by
-construction — components ship distinct mobile and desktop treatments (a bottom
-tab bar and mobile header on small screens, a full navigation bar above the
-`lg:` breakpoint), which matters because these apps are often viewed in a native
-webview.
+Reach for it whenever you build or change a screen in an app that has it
+installed. It exists to stop UI drift: two pages built from the same helpers
+cannot disagree about spacing, color or dark-mode treatment, and a change to a
+component updates every page that uses it. It is mobile-first — components ship
+separate mobile and desktop treatments (a bottom tab bar and mobile header on
+small screens, a full navigation bar from the `lg:` breakpoint up), because
+these apps are often viewed in a native webview.
 
 ## Interface
 
 This local declares no commands. The two working surfaces belong elsewhere:
 
-- **Getting the gem into a host app** — adding it, wiring Tailwind and Stimulus,
-  setting the palette, refreshing the generated reference → **`keystone_ui-install`**.
+- **Getting the gem into a host app** — adding it, wiring Tailwind, Stimulus and
+  the theme attributes on the layout, setting the palette → **`keystone_ui-install`**.
 - **Building UI with it** — which helper renders what, what keywords it takes,
   how helpers nest → **`keystone_ui-develop`**.
 
 ## How to use it
 
-One decision: is the app already wearing Keystone UI?
+One decision: is Keystone UI already set up in the app?
 
-- No, or it is out of date → **`keystone_ui-install`**.
+- No, or the setup is out of date → **`keystone_ui-install`**.
 - Yes, and you have a screen to build or edit → **`keystone_ui-develop`**. Do not
   hand-write ERB or Tailwind for UI it covers.
 
-Questions about which piece fits a scenario are also answered by the develop
-local — it owns the catalog.
+Questions about which piece fits a scenario also go to the develop local, which
+holds the catalog.
 
 ## Conventions
 
 - **Helpers, not classes.** Every entry point is a view helper prefixed `ui_`,
   called from ERB. Components live under the `Keystone::Ui` namespace, but a
-  host app should not name a component class directly.
-- **Containers take blocks; leaves take keywords.** Helpers that wrap content
-  (page shells, sections, panels, grids, forms, tables) yield a block; helpers
+  host app does not name a component class directly.
+- **Containers take blocks, leaves take keywords.** Helpers that wrap content
+  (page shells, sections, panels, grids, forms, tables) yield a block. Helpers
   that render one thing (a button, a badge, a field, a stat) are configured
-  entirely by keyword arguments. Composite pieces such as the navigation bar
-  expose named slots rather than a single block.
-- **Options are symbols, and the accepted set is per-component.** Appearance is
+  entirely by keyword arguments. The navigation bar exposes named slots instead
+  of a single block.
+- **Options are symbols, and each component accepts its own set.** Appearance is
   chosen by name — `variant:`, `size:`, `type:`, `padding:`, `spacing:`,
-  `max_width:`, `radius:` — on a small t-shirt scale (`:sm` … `:xl`) or a short
-  semantic list. Do not assume one global vocabulary: a button's `variant:` and
-  a badge's `variant:` accept different symbols, and `padding:` means different
-  things on a page shell than on a panel. The develop local carries the real
-  values. An unrecognized symbol raises rather than degrading silently, so a
-  wrong guess fails loudly at render time.
+  `max_width:`, `radius:` — on a size scale (`:sm` … `:xl`) or a short list of
+  named choices. A button's `variant:` and a badge's `variant:` accept
+  different symbols, and the develop local carries the real values. Most
+  components raise on a symbol they do not know, so a wrong guess fails at
+  render time.
 - **Semantic color, not literal color.** The themed hue is `accent-*` and the
-  themed neutral family is `surface-*` — Tailwind v4 CSS custom properties
-  defaulting to blue and zinc, so retheming an app is a token change, not a
-  component change. Older components still reach for Tailwind's stock
-  `gray-*`/`zinc-*` neutrals directly; the accent hue is themed throughout.
-  Dark-mode variants are already built into every component. Changing the
-  defaults is install-local territory.
+  themed neutral family is `surface-*`, both CSS custom properties whose
+  defaults (blue and zinc) come from the keystone_ui-styles gem. Retheming an
+  app changes those values, not the components. Some components still use
+  Tailwind's stock `gray-*` and `zinc-*` neutrals directly. Changing the
+  defaults belongs to the install local.
+- **Light, dark and system themes.** Every component has dark-mode styling. The
+  theme is chosen in this order: the user's choice stored in a cookie, then a
+  mode another gem supplies, then light. System leaves the page to follow the
+  operating system.
 - **Tailwind classes are static strings.** Class names are never interpolated,
-  so Tailwind's scanner can see them; the host needs tailwindcss-rails v4+ and
-  the engine tells Tailwind where to look.
+  so Tailwind's scanner can find them. The host needs tailwindcss-rails v4+, and
+  the engine tells Tailwind at boot where the component files are.
 - **Interactivity is Stimulus.** Dropdowns, modals, dismissible alerts, file
-  uploads, tab switchers, column pickers, clipboard copy and similar behavior
-  ship with the gem as Stimulus controllers registered in one call at install —
-  a host writes no JavaScript to use them.
-- Ruby >= 3.2. ViewComponent >= 2.0.
+  uploads, tab switchers, column pickers, clipboard copy and the theme toggle
+  ship with the gem as Stimulus controllers registered once at install. A host
+  writes no JavaScript to use them.
+- Ruby >= 3.2. ViewComponent >= 2.0 and < 5.
