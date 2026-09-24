@@ -111,4 +111,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
     assert_includes component.transition_classes, "text-center"
   end
+
+  def test_label_is_lightened_in_dark_mode
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 }
+    ])
+
+    assert_includes component.label_classes, "dark:text-surface-300"
+  end
 end
