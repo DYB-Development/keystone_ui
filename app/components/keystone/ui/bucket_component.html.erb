@@ -1,0 +1,11 @@
+<div class="<%= container_classes %>">
+  <% if label %>
+    <span class="<%= label_classes %>"><%= label %></span>
+  <% end %>
+  <span class="<%= goal_classes %>"><%= goal %></span>
+  <div class="<%= tank_classes %>">
+    <div class="<%= fill_classes %>" style="height: <%= fill_percent %>%"></div>
+  </div>
+  <span class="<%= actual_classes %>"><%= actual %></span>
+  <span class="<%= percent_classes %>"><%= percent %>%</span>
+</div>
