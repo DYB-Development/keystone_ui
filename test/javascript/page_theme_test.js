@@ -22,3 +22,12 @@ test("a page Turbo shows next marks the page with its theme", () => {
 
   assert.equal(page.documentElement.dataset.theme, "custom")
 })
+
+test("a page Turbo shows next with no theme leaves the page following the operating system", () => {
+  const page = pageMarked("custom")
+  keepPageThemeInStep(page)
+
+  renderTurboPage(page, null)
+
+  assert.equal("theme" in page.documentElement.dataset, false)
+})

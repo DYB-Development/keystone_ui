@@ -3,6 +3,11 @@ export function keepPageThemeInStep(page = document) {
     const next = detail.newBody.closest("html")
     if (!next) return
 
-    page.documentElement.dataset.theme = next.dataset.theme
+    const theme = next.dataset.theme
+    if (theme) {
+      page.documentElement.dataset.theme = theme
+    } else {
+      delete page.documentElement.dataset.theme
+    }
   })
 }
