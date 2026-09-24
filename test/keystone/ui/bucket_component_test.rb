@@ -26,4 +26,10 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
 
     assert_includes component.fill_classes, "bg-accent-500"
   end
+
+  def test_fill_uses_the_success_colour_over_the_goal_by_default
+    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 12_000)
+
+    assert_includes component.fill_classes, "bg-green-500"
+  end
 end

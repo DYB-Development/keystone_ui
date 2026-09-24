@@ -3,13 +3,18 @@
 module Keystone
   module Ui
     class BucketComponent < ViewComponent::Base
-      FILL_CLASSES = "w-full bg-accent-500 transition-all"
+      FILL_BASE_CLASSES = "w-full transition-all"
+      WITHIN_GOAL_FILL_CLASSES = "bg-accent-500"
+      OVER_GOAL_FILL_CLASSES = {
+        success: "bg-green-500"
+      }.freeze
 
       attr_reader :goal, :actual
 
-      def initialize(goal:, actual:)
+      def initialize(goal:, actual:, over: :success)
         @goal = goal
         @actual = actual
+        @over = over
       end
 
       def percent
@@ -23,7 +28,15 @@ module Keystone
       end
 
       def fill_classes
-        FILL_CLASSES
+        "#{FILL_BASE_CLASSES} #{fill_color_classes}"
+      end
+
+      private
+
+      def fill_color_classes
+        return OVER_GOAL_FILL_CLASSES.fetch(@over) if actual > goal
+
+        WITHIN_GOAL_FILL_CLASSES
       end
     end
   end
