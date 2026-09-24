@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.15.1] - 2026-09-24
+
 ### Fixed
 - A page keeps the theme of the page Turbo shows next, where before it kept the theme of the first page loaded.
 
