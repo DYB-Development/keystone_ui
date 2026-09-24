@@ -11,7 +11,7 @@ module Keystone
       LABEL_CLASSES = "text-sm font-medium text-surface-700 truncate dark:text-surface-300"
       VALUE_CLASSES = "text-sm font-semibold text-surface-900 tabular-nums dark:text-white"
       BAR_CLASSES = "h-8 rounded-md transition-all"
-      TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500"
+      TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500 dark:text-surface-400"
       STEP_COLOR_CLASSES = {
         accent: "bg-accent-500",
         sky: "bg-sky-500",
