@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class FunnelComponent < ViewComponent::Base
-      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, keyword_init: true)
+      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, :color_classes, keyword_init: true)
 
       CONTAINER_CLASSES = "space-y-2"
       LAYER_CLASSES = "space-y-1"
@@ -12,6 +12,9 @@ module Keystone
       VALUE_CLASSES = "text-sm font-semibold text-surface-900 tabular-nums"
       BAR_CLASSES = "h-8 rounded-md bg-accent-500 transition-all"
       TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500"
+      STEP_COLOR_CLASSES = {
+        accent: "bg-accent-500"
+      }.freeze
 
       attr_reader :steps
 
@@ -27,7 +30,8 @@ module Keystone
             label: step[:label],
             value: step[:value],
             width_percent: width_percent(step[:value]),
-            conversion_percent: conversion_percent(step[:value], previous)
+            conversion_percent: conversion_percent(step[:value], previous),
+            color_classes: STEP_COLOR_CLASSES[:accent]
           )
           previous = step[:value]
           layer
