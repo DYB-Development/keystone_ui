@@ -6,7 +6,8 @@ module Keystone
       FILL_BASE_CLASSES = "w-full transition-all"
       WITHIN_GOAL_FILL_CLASSES = "bg-accent-500"
       OVER_GOAL_FILL_CLASSES = {
-        success: "bg-green-500"
+        success: "bg-green-500",
+        warning: "bg-amber-500"
       }.freeze
 
       attr_reader :goal, :actual

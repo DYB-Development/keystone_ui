@@ -32,4 +32,10 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
 
     assert_includes component.fill_classes, "bg-green-500"
   end
+
+  def test_fill_uses_the_warning_colour_over_the_goal_when_asked
+    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 12_000, over: :warning)
+
+    assert_includes component.fill_classes, "bg-amber-500"
+  end
 end
