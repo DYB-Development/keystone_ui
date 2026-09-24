@@ -8,7 +8,7 @@
         <span class="<%= label_classes %>"><%= layer.label %></span>
         <span class="<%= value_classes %>"><%= layer.value %></span>
       </div>
-      <div class="<%= bar_classes %>" style="width: <%= layer.width_percent %>%"></div>
+      <div class="<%= bar_classes %> <%= layer.color_classes %>" style="width: <%= layer.width_percent %>%"></div>
     </div>
   <% end %>
 </div>

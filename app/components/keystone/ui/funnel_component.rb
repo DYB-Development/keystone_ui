@@ -10,7 +10,7 @@ module Keystone
       ROW_CLASSES = "flex items-baseline justify-between gap-3"
       LABEL_CLASSES = "text-sm font-medium text-surface-700 truncate"
       VALUE_CLASSES = "text-sm font-semibold text-surface-900 tabular-nums"
-      BAR_CLASSES = "h-8 rounded-md bg-accent-500 transition-all"
+      BAR_CLASSES = "h-8 rounded-md transition-all"
       TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500"
       STEP_COLOR_CLASSES = {
         accent: "bg-accent-500",
