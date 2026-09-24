@@ -45,6 +45,40 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_equal 33, component.layers.last.conversion_percent
   end
 
+  def test_first_layer_defaults_to_the_accent_color
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 }
+    ])
+
+    assert_equal "bg-accent-500", component.layers.first.color_classes
+  end
+
+  def test_second_layer_defaults_to_the_second_palette_color
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000 },
+      { label: "Signups", value: 4_500 }
+    ])
+
+    assert_equal "bg-sky-500", component.layers.last.color_classes
+  end
+
+  def test_palette_starts_again_after_its_last_color
+    steps = Keystone::Ui::FunnelComponent::STEP_COLOR_CLASSES.size.times.map do |n|
+      { label: "Step #{n}", value: 100 - n }
+    end
+    component = Keystone::Ui::FunnelComponent.new(steps: steps + [ { label: "Last", value: 1 } ])
+
+    assert_equal "bg-accent-500", component.layers.last.color_classes
+  end
+
+  def test_step_color_overrides_the_palette
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000, color: :rose }
+    ])
+
+    assert_equal "bg-rose-500", component.layers.first.color_classes
+  end
+
   def test_zero_top_value_yields_zero_width
     component = Keystone::Ui::FunnelComponent.new(steps: [
       { label: "Visitors", value: 0 },
@@ -54,12 +88,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_equal 0, component.layers.last.width_percent
   end
 
-  def test_bar_classes_use_accent_fill
+  def test_bar_classes_leave_the_fill_to_each_step
     component = Keystone::Ui::FunnelComponent.new(steps: [
       { label: "Visitors", value: 10_000 }
     ])
 
-    assert_includes component.bar_classes, "bg-accent-500"
+    refute_includes component.bar_classes, "bg-accent-500"
   end
 
   def test_label_row_pushes_label_and_value_to_the_edges

@@ -3,15 +3,22 @@
 module Keystone
   module Ui
     class FunnelComponent < ViewComponent::Base
-      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, keyword_init: true)
+      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, :color_classes, keyword_init: true)
 
       CONTAINER_CLASSES = "space-y-2"
       LAYER_CLASSES = "space-y-1"
       ROW_CLASSES = "flex items-baseline justify-between gap-3"
       LABEL_CLASSES = "text-sm font-medium text-surface-700 truncate"
       VALUE_CLASSES = "text-sm font-semibold text-surface-900 tabular-nums"
-      BAR_CLASSES = "h-8 rounded-md bg-accent-500 transition-all"
+      BAR_CLASSES = "h-8 rounded-md transition-all"
       TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500"
+      STEP_COLOR_CLASSES = {
+        accent: "bg-accent-500",
+        sky: "bg-sky-500",
+        violet: "bg-violet-500",
+        amber: "bg-amber-500",
+        rose: "bg-rose-500"
+      }.freeze
 
       attr_reader :steps
 
@@ -22,12 +29,13 @@ module Keystone
       def layers
         previous = nil
 
-        steps.map do |step|
+        steps.each_with_index.map do |step, index|
           layer = Layer.new(
             label: step[:label],
             value: step[:value],
             width_percent: width_percent(step[:value]),
-            conversion_percent: conversion_percent(step[:value], previous)
+            conversion_percent: conversion_percent(step[:value], previous),
+            color_classes: color_classes(step[:color], index)
           )
           previous = step[:value]
           layer
@@ -63,6 +71,12 @@ module Keystone
       end
 
       private
+
+      def color_classes(color, index)
+        return STEP_COLOR_CLASSES.fetch(color) if color
+
+        STEP_COLOR_CLASSES.values[index % STEP_COLOR_CLASSES.size]
+      end
 
       def conversion_percent(value, previous)
         return nil if previous.nil?
