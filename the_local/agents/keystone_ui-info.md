@@ -47,8 +47,9 @@ holds the catalog.
 
 ## Conventions
 
-- **Helpers, not classes.** Every entry point is a view helper prefixed `ui_`,
-  called from ERB. Components live under the `Keystone::Ui` namespace, but a
+- **Helpers, not classes.** Every piece of UI is a view helper prefixed `ui_`,
+  called from ERB. The one layout helper that is not prefixed `ui_` writes the
+  theme onto the page's `html` tag, and it belongs to the install local. Components live under the `Keystone::Ui` namespace, but a
   host app does not name a component class directly. The one exception is the
   table column value object, which is passed as an argument and renders nothing.
 - **Containers take blocks, leaves take keywords.** Helpers that wrap content
@@ -75,7 +76,9 @@ holds the catalog.
   cookie, then a mode another gem supplies, then light. System leaves the page
   to follow the operating system. Custom marks the page for a palette another
   gem defines. The theme toggle does not offer it, so a page reaches it when
-  another gem supplies it.
+  another gem supplies it. Marking the layout with the theme is set up through
+  the install local, and placing the toggle on a screen goes through the develop
+  local.
 - **Tailwind classes are static strings.** Class names are never interpolated,
   so Tailwind's scanner can find them. Widths and heights that depend on data,
   such as a progress bar or a bucket's fill, are set with an inline style

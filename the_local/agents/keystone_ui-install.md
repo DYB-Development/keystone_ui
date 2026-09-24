@@ -24,6 +24,11 @@ built on ViewComponent; hook it in before building any screen with those helpers
   custom mode),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
+- `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
+  It writes `data-theme="light"`, `data-theme="dark"` or `data-theme="custom"`
+  for the page's mode, and writes nothing for system so the page follows the
+  operating system. The mode is the `keystone_theme` cookie's choice, then the
+  configured `theme_mode_supplier`, then light.
 
 ## How to use it
 
@@ -61,8 +66,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
      `import { registerControllers } from "keystone_ui/index"` and
      `registerControllers(application)`.
    - `app/views/layouts/application.html.erb` — adds
-     `<%= keystone_theme_attributes %>` inside the `<html` tag, which writes the
-     light, dark or custom mode onto the page.
+     `<%= keystone_theme_attributes %>` directly after the first `<html` in the
+     file, so the tag reads `<html <%= keystone_theme_attributes %> ...>`. A
+     layout that already contains the call is left unchanged.
 
    Read its output for two warnings:
 
