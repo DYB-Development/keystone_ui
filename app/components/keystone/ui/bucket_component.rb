@@ -22,7 +22,7 @@ module Keystone
         @goal = goal
         @actual = actual
         @label = label
-        @over = over
+        @over_fill_classes = OVER_GOAL_FILL_CLASSES.fetch(over)
       end
 
       def percent
@@ -66,7 +66,7 @@ module Keystone
       private
 
       def fill_color_classes
-        return OVER_GOAL_FILL_CLASSES.fetch(@over) if actual > goal
+        return @over_fill_classes if actual > goal
 
         WITHIN_GOAL_FILL_CLASSES
       end

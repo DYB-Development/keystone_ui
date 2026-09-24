@@ -44,4 +44,10 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
 
     assert_equal "Q1", component.label
   end
+
+  def test_unknown_over_colour_raises_even_under_the_goal
+    assert_raises(KeyError) do
+      Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 1, over: :sucess)
+    end
+  end
 end
