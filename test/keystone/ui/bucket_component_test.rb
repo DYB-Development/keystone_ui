@@ -50,4 +50,10 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
       Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 1, over: :sucess)
     end
   end
+
+  def test_refuses_a_goal_that_is_not_a_number
+    assert_raises(ArgumentError) do
+      Keystone::Ui::BucketComponent.new(goal: "30,000", actual: 9_000)
+    end
+  end
 end

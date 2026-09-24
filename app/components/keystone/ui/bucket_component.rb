@@ -19,8 +19,8 @@ module Keystone
       attr_reader :goal, :actual, :label
 
       def initialize(goal:, actual:, label: nil, over: :success)
-        @goal = goal
-        @actual = actual
+        @goal = number(:goal, goal)
+        @actual = number(:actual, actual)
         @label = label
         @over_fill_classes = OVER_GOAL_FILL_CLASSES.fetch(over)
       end
@@ -64,6 +64,12 @@ module Keystone
       end
 
       private
+
+      def number(name, value)
+        return value if value.is_a?(Numeric)
+
+        raise ArgumentError, "#{name} must be a number, got #{value.inspect}"
+      end
 
       def fill_color_classes
         return @over_fill_classes if actual > goal
