@@ -71,6 +71,14 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_equal "bg-accent-500", component.layers.last.color_classes
   end
 
+  def test_step_color_overrides_the_palette
+    component = Keystone::Ui::FunnelComponent.new(steps: [
+      { label: "Visitors", value: 10_000, color: :rose }
+    ])
+
+    assert_equal "bg-rose-500", component.layers.first.color_classes
+  end
+
   def test_zero_top_value_yields_zero_width
     component = Keystone::Ui::FunnelComponent.new(steps: [
       { label: "Visitors", value: 0 },

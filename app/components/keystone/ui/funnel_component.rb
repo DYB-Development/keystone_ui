@@ -35,7 +35,7 @@ module Keystone
             value: step[:value],
             width_percent: width_percent(step[:value]),
             conversion_percent: conversion_percent(step[:value], previous),
-            color_classes: STEP_COLOR_CLASSES.values[index % STEP_COLOR_CLASSES.size]
+            color_classes: color_classes(step[:color], index)
           )
           previous = step[:value]
           layer
@@ -71,6 +71,12 @@ module Keystone
       end
 
       private
+
+      def color_classes(color, index)
+        return STEP_COLOR_CLASSES.fetch(color) if color
+
+        STEP_COLOR_CLASSES.values[index % STEP_COLOR_CLASSES.size]
+      end
 
       def conversion_percent(value, previous)
         return nil if previous.nil?
