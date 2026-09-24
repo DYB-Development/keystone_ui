@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- A bucket refuses a goal or amount that is not a number with an error naming the value, where before a string such as "9,000" failed with an unrelated error.
+
 ## [0.15.0] - 2026-09-24
 
 ### Added
