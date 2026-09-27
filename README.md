@@ -546,6 +546,7 @@ Wraps a label, input, hint, and error message in a consistent layout. Infers lab
 - `hint:` (String) — help text below the input
 - `placeholder:` (String)
 - `min:` / `max:` (for number inputs)
+- `disabled:` (Boolean, default `false`) — shows the value in an input that cannot be typed into and is not submitted
 
 ```erb
 <%= ui_form_field(

@@ -102,7 +102,7 @@ outer element. See Conventions before using it.
   The `<form>` wrapper. `method:` may be `:patch`/`:put`/`:delete` and is
   translated for Rails. Set `multipart: true` when the form contains a file
   upload.
-- `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil)`
+- `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false)`
   — a labeled field with hint and error text. This is the default way to render
   an input. `type:` `:text` `:number` `:email` `:password` `:date` `:textarea`
   `:checkbox` `:select`. `attribute:` is used verbatim as the input's `name`, so

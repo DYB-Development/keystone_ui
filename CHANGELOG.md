@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- A form field can be disabled with `disabled: true`, so its input shows a value that cannot be typed over and is not submitted with the form.
+
 ## [0.15.1] - 2026-09-24
 
 ### Fixed
