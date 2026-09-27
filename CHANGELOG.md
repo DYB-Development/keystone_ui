@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- A host or a gem can restyle every button from one look file that sets keystone_ui-styles' `--ks-` variables, and the README shows a complete one.
+
+### Changed
+- keystone_ui requires keystone_ui-styles 0.4.0 or later.
+
 ## [0.16.0] - 2026-09-26
 
 ### Added

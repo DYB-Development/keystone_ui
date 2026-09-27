@@ -40,7 +40,7 @@ Ruby tests use Minitest. Stimulus controller tests live in `test/javascript` and
 
 ## Color System
 
-Components use semantic CSS custom properties (`--color-accent-*`, `--color-surface-*`) via Tailwind classes like `bg-accent-500`, `text-accent-600`, etc. The keystone_ui-styles gem sets default values, defines light and dark mode, and holds the `ks-` classes the button, panel and form field components render. Host apps can override these via CSS, or use the `keystone_ui-colors` gem for per-user theming.
+Components use semantic CSS custom properties (`--color-accent-*`, `--color-surface-*`) via Tailwind classes like `bg-accent-500`, `text-accent-600`, etc. The keystone_ui-styles gem sets default values, defines light and dark mode, and holds the `ks-` classes the button, panel and form field components render. Host apps can override these via CSS, or use the `keystone_ui-colors` gem for per-user theming. Buttons also read keystone_ui-styles' `--ks-` variables for radius, font, weight, border, padding and colours, so a look file that sets them restyles every button; the README shows one.
 
 ## Key Conventions
 
