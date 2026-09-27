@@ -33,7 +33,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
 ## How to use it
 
 1. Confirm the prerequisites: Ruby >= 3.2 and **tailwindcss-rails v4+** in the
-   host app. The gem brings ViewComponent and keystone_ui-styles with it.
+   host app. The gem brings ViewComponent and keystone_ui-styles 0.4.0 or later with it.
    Tailwind does not have to be initialized first, because the generator creates
    the stylesheet if it is missing.
 
@@ -128,6 +128,22 @@ built on ViewComponent; hook it in before building any screen with those helpers
    or per-user colors generated at runtime by a companion theming gem. Ask which
    the app wants before wiring either.
 
+   To change how buttons look beyond the palette, write a look file: one CSS
+   file holding a `:root` rule, outside any `@layer` block, that sets the
+   `--ks-` variables from keystone_ui-styles for corner radius, font, label
+   weight, border width, padding and colours. Set each colour's `-dark`
+   partner too, or dark pages keep the default colour. Import it after
+   Keystone:
+
+   ```css
+   @import "tailwindcss";
+   @import "./keystone_source.css";
+   @import "./look.css";
+   ```
+
+   Only buttons read these variables so far. The keystone_ui-styles README
+   lists every variable and its default.
+
 7. Write `config/initializers/keystone_ui.rb` only if one of the settings below
    is wanted. Ask the developer about each rather than adding any by default.
    The engine reads the configuration after initializers have run, so this file
@@ -161,7 +177,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for
      another gem or engine whose CSS or templates must be in the same Tailwind
-     build, and that gem normally appends its own entries.
+     build, and that gem normally appends its own entries. A gem that ships a
+     look appends its look file to `tailwind_imports` from its own initializer,
+     and `keystone_source.css` imports it after keystone_ui-styles.
 
 ## Conventions
 
