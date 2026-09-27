@@ -196,6 +196,74 @@ If you're building a gem or engine that uses `keystone_ui`, **do not set theme c
 
 For dynamic, per-user color customization (e.g. letting users pick their own accent color), see the [`keystone_colors`](https://github.com/tylercschneider/keystone_colors) gem, which generates the CSS custom properties from user preferences at runtime.
 
+## Looks
+
+A look is one CSS file that changes how components look without editing the
+gem. It sets the `--ks-` variables that keystone_ui-styles defines, and a
+component reads them through the `ks-` classes it renders. Buttons read them
+today, and more components will move onto them in later releases.
+
+### Writing a look file
+
+This look changes the corner radius, font, label weight, border, padding and
+colours of every button:
+
+```css
+/* app/assets/tailwind/look.css */
+:root {
+  --ks-radius-control: 9999px;
+  --ks-font-body: "Roboto", sans-serif;
+  --ks-font-weight-strong: 500;
+  --ks-border-width-control: 1px;
+  --ks-spacing: 0.3rem;
+
+  --ks-color-accent: #6200ee;
+  --ks-color-accent-hover: #7c4dff;
+  --ks-color-neutral: #616161;
+  --ks-color-neutral-hover: #757575;
+  --ks-color-danger: #b00020;
+  --ks-color-danger-hover: #c51162;
+  --ks-color-on-fill: #ffffff;
+
+  --ks-color-accent-dark: #bb86fc;
+  --ks-color-accent-hover-dark: #d1b3ff;
+  --ks-color-neutral-dark: #9e9e9e;
+  --ks-color-neutral-hover-dark: #bdbdbd;
+  --ks-color-danger-dark: #cf6679;
+  --ks-color-danger-hover-dark: #e0879a;
+  --ks-color-on-fill-dark: #000000;
+}
+```
+
+Each colour variable has a `-dark` partner that a button reads on a dark page. A
+look that sets only the light variable leaves dark pages with the default
+colour. The keystone_ui-styles README lists every variable and its default.
+
+### Where a look file goes
+
+A host imports its look file after `keystone_source.css`:
+
+```css
+@import "tailwindcss";
+@import "./keystone_source.css";
+@import "./look.css";
+```
+
+keystone_ui-styles puts its defaults in Tailwind's base layer, and a `:root`
+rule outside any layer overrides them. The look's `:root` rule must not sit
+inside an `@layer` block.
+
+### Shipping a look in a gem
+
+A gem that ships a look registers its file in an initializer, and
+`keystone_source.css` imports it after keystone_ui-styles:
+
+```ruby
+initializer "my_look.tailwind" do
+  KeystoneUi.configuration.tailwind_imports << root.join("app/assets/tailwind/my_look.css").to_s
+end
+```
+
 ## Helper API (primary surface)
 
 Use the helpers in ERB. Consuming apps should not instantiate components directly.

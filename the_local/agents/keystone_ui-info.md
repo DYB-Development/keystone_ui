@@ -74,6 +74,12 @@ holds the catalog.
   Tailwind's stock `gray-*` and `zinc-*` neutrals, or fixed status colors such
   as green and amber, directly. Changing the defaults belongs to the install
   local.
+- **Looks.** A look is one CSS file that sets the `--ks-` variables from
+  keystone_ui-styles 0.4.0 or later: corner radius, font, label weight, border
+  width, padding and colours. Each colour variable has a `-dark` partner read
+  on a dark page. Only buttons read these variables so far. A host imports its
+  look after `keystone_source.css`, and a gem ships one through
+  `tailwind_imports`, both set up through the install local.
 - **Light, dark, system and custom themes.** Every component has dark-mode
   styling. The theme is chosen in this order: the user's choice stored in a
   cookie, then a mode another gem supplies, then light. System leaves the page
