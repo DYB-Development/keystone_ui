@@ -11,7 +11,7 @@ module Keystone
       CHECKBOX_CLASSES = "ks-checkbox"
       CHECKBOX_WRAPPER_CLASSES = "flex items-center gap-2"
 
-      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil)
+      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false)
         @attribute = attribute
         @label = label
         @type = type
@@ -25,6 +25,7 @@ module Keystone
         @options = options
         @errors = Array(errors)
         @include_blank = include_blank.to_s
+        @disabled = disabled
       end
 
       def label_text
@@ -81,6 +82,7 @@ module Keystone
         options[:min] = @min unless @min.nil?
         options[:max] = @max unless @max.nil?
         options[:step] = @step unless @step.nil?
+        options[:disabled] = true if @disabled
         options
       end
     end

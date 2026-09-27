@@ -139,4 +139,10 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
 
     assert_equal "", component.blank_option_text
   end
+
+  def test_disables_the_input_when_disabled
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :balance, disabled: true)
+
+    assert_equal true, component.input_options[:disabled]
+  end
 end
