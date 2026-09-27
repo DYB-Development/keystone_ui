@@ -25,13 +25,24 @@ class KeystoneUi::HostStylesheetTest < Minitest::Test
     assert_includes compile_host_stylesheet(%(<div class="dark:bg-red-500"></div>)), "[#{mark}]"
   end
 
+  def test_the_readme_look_file_imported_after_keystone_source_sits_outside_every_layer
+    css = compile_host_stylesheet(look_css: readme_look_file)
+
+    assert_match(/^:root \{[^}]*--ks-radius-control: 9999px/m, css)
+  end
+
   private
 
-  def compile_host_stylesheet(host_html = "")
+  def readme_look_file
+    File.read(File.join(ROOT, "README.md"))[%r{```css\n/\* app/assets/tailwind/look\.css \*/\n(.*?)```}m, 1].to_s
+  end
+
+  def compile_host_stylesheet(host_html = "", look_css: "")
     Dir.mktmpdir do |dir|
       File.write(File.join(dir, "index.html"), host_html)
       File.write(File.join(dir, "keystone_source.css"), KeystoneUi::SourceCss.new(ROOT).to_s)
-      File.write(File.join(dir, "application.css"), %(@import "tailwindcss";\n@import "./keystone_source.css";\n@source "./index.html";\n))
+      File.write(File.join(dir, "look.css"), look_css)
+      File.write(File.join(dir, "application.css"), %(@import "tailwindcss";\n@import "./keystone_source.css";\n@import "./look.css";\n@source "./index.html";\n))
       output = File.join(dir, "out.css")
       system(Tailwindcss::Ruby.executable, "-i", File.join(dir, "application.css"), "-o", output, chdir: dir, exception: true, err: File::NULL)
       File.read(output)
