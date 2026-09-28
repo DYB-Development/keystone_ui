@@ -114,4 +114,8 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
   def test_content_column_classes_render_the_ks_hero_content_class
     assert_includes Keystone::Ui::HeroComponent::CONTENT_COLUMN_CLASSES, "ks-hero-content"
   end
+
+  def test_content_column_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::CONTENT_COLUMN_CLASSES
+  end
 end
