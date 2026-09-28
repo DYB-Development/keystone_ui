@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class PanelComponent < ViewComponent::Base
-      PADDING_CLASSES = { sm: "p-4", md: "p-5", lg: "p-6" }.freeze
+      PADDING_CLASSES = { sm: "ks-panel-padding-sm", md: "ks-panel-padding-md", lg: "ks-panel-padding-lg" }.freeze
       RADIUS_CLASSES = { md: "rounded-lg", lg: "rounded-xl", xl: "rounded-2xl" }.freeze
 
       def initialize(padding: :md, radius: :lg, shadow: true)

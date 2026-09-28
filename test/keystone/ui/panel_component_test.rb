@@ -9,14 +9,14 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
     classes = component.classes
     assert_includes classes, "rounded-xl"
     assert_includes classes, "ks-panel"
-    assert_includes classes, "p-5"
+    assert_includes classes, "ks-panel-padding-md"
     assert_includes classes, "shadow-sm"
   end
 
   def test_maps_each_padding_size_correctly
-    assert_includes Keystone::Ui::PanelComponent.new(padding: :sm).classes, "p-4"
-    assert_includes Keystone::Ui::PanelComponent.new(padding: :md).classes, "p-5"
-    assert_includes Keystone::Ui::PanelComponent.new(padding: :lg).classes, "p-6"
+    assert_includes Keystone::Ui::PanelComponent.new(padding: :sm).classes, "ks-panel-padding-sm"
+    assert_includes Keystone::Ui::PanelComponent.new(padding: :md).classes, "ks-panel-padding-md"
+    assert_includes Keystone::Ui::PanelComponent.new(padding: :lg).classes, "ks-panel-padding-lg"
   end
 
   def test_maps_each_radius_size_correctly
