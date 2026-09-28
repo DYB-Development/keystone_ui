@@ -9,7 +9,7 @@ class Keystone::Ui::FormComponentTest < Minitest::Test
 
     assert_equal "/items", options[:url]
     assert_equal :post, options[:method]
-    assert_equal "space-y-6", options[:class]
+    assert_equal "ks-form space-y-6", options[:class]
     assert_equal false, options[:multipart]
   end
 
@@ -35,5 +35,9 @@ class Keystone::Ui::FormComponentTest < Minitest::Test
     component = Keystone::Ui::FormComponent.new(action: "/items")
 
     refute component.form_options.key?(:data)
+  end
+
+  def test_form_classes_render_the_ks_form_class
+    assert_includes Keystone::Ui::FormComponent::FORM_CLASSES, "ks-form"
   end
 end
