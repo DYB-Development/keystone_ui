@@ -44,11 +44,6 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
     assert_includes component.card_classes, "border"
   end
 
-  def test_exposes_icon_wrapper_classes
-    component = Keystone::Ui::FeatureGridComponent.new(title: "X", features: features)
-
-    assert_includes component.icon_classes, "rounded-lg"
-  end
 
   def test_uses_semantic_accent_classes
     component = Keystone::Ui::FeatureGridComponent.new(title: "X", features: features)
@@ -102,5 +97,9 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
 
   def test_icon_base_classes_render_the_ks_feature_card_icon_class
     assert_includes Keystone::Ui::FeatureGridComponent::ICON_BASE_CLASSES, "ks-feature-card-icon"
+  end
+
+  def test_icon_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent::ICON_BASE_CLASSES
   end
 end
