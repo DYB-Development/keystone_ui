@@ -24,7 +24,7 @@ module Keystone
       end
 
       def title_classes
-        "#{TITLE_BASE_CLASSES} text-surface-900 dark:text-white"
+        TITLE_BASE_CLASSES
       end
 
       def subtitle_classes

@@ -58,7 +58,6 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
 
     assert_includes component.card_classes, "border-surface-200"
     assert_includes component.card_classes, "dark:border-surface-700"
-    assert_includes component.title_classes, "text-surface-900"
     assert_includes component.subtitle_classes, "text-surface-500"
     assert_includes component.card_description_classes, "text-surface-500"
   end
@@ -113,5 +112,9 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
 
   def test_card_description_base_classes_render_the_ks_feature_card_description_class
     assert_includes Keystone::Ui::FeatureGridComponent::CARD_DESCRIPTION_BASE_CLASSES, "ks-feature-card-description"
+  end
+
+  def test_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent.new(title: "Why", features: []).title_classes
   end
 end
