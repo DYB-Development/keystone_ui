@@ -3,10 +3,11 @@
 require "test_helper"
 
 class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_returns_card_classes
     component = Keystone::Ui::CtaBannerComponent.new(title: "Get Started")
 
-    assert_includes component.classes, "rounded-2xl"
     assert_includes component.classes, "border"
     assert_includes component.classes, "text-center"
   end
@@ -55,5 +56,9 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
 
   def test_card_layout_classes_render_the_ks_cta_banner_class
     assert_includes Keystone::Ui::CtaBannerComponent::CARD_LAYOUT_CLASSES, "ks-cta-banner"
+  end
+
+  def test_card_layout_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CtaBannerComponent::CARD_LAYOUT_CLASSES
   end
 end
