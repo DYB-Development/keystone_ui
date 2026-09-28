@@ -43,4 +43,8 @@ class Keystone::Ui::ColumnPickerComponentTest < Minitest::Test
 
     assert_equal "/prefs", component.save_url
   end
+
+  def test_trigger_classes_render_the_ks_menu_trigger_class
+    assert_includes Keystone::Ui::ColumnPickerComponent::TRIGGER_CLASSES, "ks-menu-trigger"
+  end
 end
