@@ -16,7 +16,6 @@ class Keystone::Ui::ChartCardComponentTest < Minitest::Test
     component = Keystone::Ui::ChartCardComponent.new(title: "X")
 
     assert_includes component.title_classes, "text-sm"
-    assert_includes component.title_classes, "font-medium"
   end
 
   def test_defaults_chart_height_to_h_64
@@ -53,5 +52,9 @@ class Keystone::Ui::ChartCardComponentTest < Minitest::Test
 
   def test_title_classes_render_the_ks_chart_card_title_class
     assert_includes Keystone::Ui::ChartCardComponent::TITLE_CLASSES, "ks-chart-card-title"
+  end
+
+  def test_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ChartCardComponent::TITLE_CLASSES
   end
 end
