@@ -33,7 +33,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
 ## How to use it
 
 1. Confirm the prerequisites: Ruby >= 3.2 and **tailwindcss-rails v4+** in the
-   host app. The gem brings ViewComponent and keystone_ui-styles 0.4.0 or later with it.
+   host app. The gem brings ViewComponent and keystone_ui-styles 0.5.0 or later with it.
    Tailwind does not have to be initialized first, because the generator creates
    the stylesheet if it is missing.
 
@@ -128,7 +128,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
    or per-user colors generated at runtime by a companion theming gem. Ask which
    the app wants before wiring either.
 
-   To change how buttons look beyond the palette, write a look file: one CSS
+   To change how components look beyond the palette, write a look file: one CSS
    file holding a `:root` rule, outside any `@layer` block, that sets the
    `--ks-` variables from keystone_ui-styles for corner radius, font, label
    weight, border width, padding and colours. Set each colour's `-dark`
@@ -141,7 +141,11 @@ built on ViewComponent; hook it in before building any screen with those helpers
    @import "./look.css";
    ```
 
-   Only buttons read these variables so far. The keystone_ui-styles README
+   Buttons, panels, cards, alerts, badges, form fields, the modal, the mobile
+   action menu, the column picker, multi select, copy button, theme toggle,
+   checkbox row, radio card, option card, file upload and colour picker read
+   these variables. The data display and navigation components still use fixed
+   Tailwind utilities, so a look does not change them. The keystone_ui-styles README
    lists every variable and its default.
 
 7. Write `config/initializers/keystone_ui.rb` only if one of the settings below
