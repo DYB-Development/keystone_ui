@@ -6,7 +6,7 @@ module Keystone
       BASE_CLASSES = "ks-accordion flex flex-col"
       ITEM_LAYOUT_CLASSES = "ks-accordion-item"
       BUTTON_LAYOUT_CLASSES = "ks-accordion-button flex w-full items-center justify-between text-left transition"
-      ANSWER_LAYOUT_CLASSES = "ks-accordion-answer hidden px-6 pb-4 text-sm"
+      ANSWER_LAYOUT_CLASSES = "ks-accordion-answer hidden text-sm"
       ICON_LAYOUT_CLASSES = "shrink-0 transition-transform"
 
       CARET_ICON = <<~SVG.freeze

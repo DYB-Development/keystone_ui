@@ -91,4 +91,8 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
   def test_answer_layout_classes_render_the_ks_accordion_answer_class
     assert_includes Keystone::Ui::AccordionComponent::ANSWER_LAYOUT_CLASSES, "ks-accordion-answer"
   end
+
+  def test_answer_layout_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent::ANSWER_LAYOUT_CLASSES
+  end
 end
