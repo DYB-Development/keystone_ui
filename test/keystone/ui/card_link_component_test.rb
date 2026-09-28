@@ -45,4 +45,8 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
   def test_padding_classes_map_to_look_classes
     assert_equal({ sm: "ks-link-card-padding-sm", md: "ks-link-card-padding-md", lg: "ks-link-card-padding-lg" }, Keystone::Ui::CardLinkComponent::PADDING_CLASSES)
   end
+
+  def test_shadow_class_render_the_ks_link_card_shadow_class
+    assert_includes Keystone::Ui::CardLinkComponent::SHADOW_CLASS, "ks-link-card-shadow"
+  end
 end
