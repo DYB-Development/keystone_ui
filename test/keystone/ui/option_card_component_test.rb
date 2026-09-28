@@ -38,4 +38,8 @@ class Keystone::Ui::OptionCardComponentTest < Minitest::Test
 
     assert_equal false, component.selected?
   end
+
+  def test_base_classes_render_the_ks_option_card_class
+    assert_includes Keystone::Ui::OptionCardComponent::BASE_CLASSES, "ks-option-card"
+  end
 end
