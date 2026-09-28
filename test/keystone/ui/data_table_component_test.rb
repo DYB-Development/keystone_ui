@@ -530,4 +530,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_body_classes_render_the_ks_table_body_class
     assert_includes Keystone::Ui::DataTableComponent::BODY_CLASSES, "ks-table-body"
   end
+
+  def test_empty_cell_classes_render_the_ks_table_cell_middle_class
+    assert_includes Keystone::Ui::DataTableComponent::EMPTY_CELL_CLASSES, "ks-table-cell-middle"
+  end
 end

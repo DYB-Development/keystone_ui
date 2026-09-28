@@ -24,7 +24,7 @@
       <% if empty? %>
         <% if @empty_message %>
           <tr>
-            <td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-400" colspan="<%= column_count %>">
+            <td class="<%= Keystone::Ui::DataTableComponent::EMPTY_CELL_CLASSES %>" colspan="<%= column_count %>">
               <%= @empty_message %>
             </td>
           </tr>

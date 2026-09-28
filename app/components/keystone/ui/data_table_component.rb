@@ -3,6 +3,7 @@
 module Keystone
   module Ui
     class DataTableComponent < ViewComponent::Base
+      EMPTY_CELL_CLASSES = "ks-table-cell-middle text-sm"
       BODY_CLASSES = "ks-table-body"
       HEAD_CLASSES = "ks-table-head"
       WRAPPER_CLASSES = "ks-table overflow-hidden"
