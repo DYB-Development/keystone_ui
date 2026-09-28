@@ -65,4 +65,8 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
   def test_back_link_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::MobileHeaderComponent::BACK_LINK_CLASSES
   end
+
+  def test_title_classes_render_the_ks_mobile_header_title_class
+    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "ks-mobile-header-title"
+  end
 end
