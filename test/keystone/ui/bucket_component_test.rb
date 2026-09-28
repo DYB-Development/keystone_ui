@@ -103,4 +103,22 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
   def test_over_goal_fill_classes_map_to_look_classes
     assert_equal({ success: "ks-bucket-fill-over", warning: "ks-bucket-fill-over-warning" }, Keystone::Ui::BucketComponent::OVER_GOAL_FILL_CLASSES)
   end
+
+  def test_fill_uses_the_accent_colour_at_or_under_the_goal
+    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 10_000)
+
+    assert_match(/(^|\s)ks-bucket-fill(\s|$)/, component.fill_classes)
+  end
+
+  def test_fill_uses_the_success_colour_over_the_goal_by_default
+    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 12_000)
+
+    assert_includes component.fill_classes, "ks-bucket-fill-over"
+  end
+
+  def test_fill_uses_the_warning_colour_over_the_goal_when_asked
+    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 12_000, over: :warning)
+
+    assert_includes component.fill_classes, "ks-bucket-fill-over-warning"
+  end
 end
