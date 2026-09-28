@@ -162,4 +162,8 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
   def test_label_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FunnelComponent::LABEL_CLASSES
   end
+
+  def test_value_classes_render_the_ks_funnel_value_class
+    assert_includes Keystone::Ui::FunnelComponent::VALUE_CLASSES, "ks-funnel-value"
+  end
 end
