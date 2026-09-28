@@ -12,9 +12,9 @@ module Keystone
         @active = active
       end
 
-      ITEM_BASE = "bottom-nav-item"
+      ITEM_BASE = "ks-bottom-nav-item"
       ACTIVE_CLASS = "active"
-      LABEL_CLASSES = "bottom-nav-label"
+      LABEL_CLASSES = "ks-bottom-nav-label"
 
       def item_classes
         @active ? "#{ITEM_BASE} #{ACTIVE_CLASS}" : ITEM_BASE

@@ -206,7 +206,8 @@ picker, multi select, copy button, theme toggle, checkbox row, radio card, optio
 card, file upload and colour picker read them today. So do the stat card, chart
 card, card link, call to action banner, feature grid, hero, data table, code,
 accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and swipe
-deck. The navigation components will move onto them in a later release.
+deck, and the navbar title, nav items, nav dropdown, bottom nav, mobile header
+and settings link.
 
 ### Writing a look file
 

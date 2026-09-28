@@ -14,7 +14,7 @@ module Keystone
       ACTIVE_CLASS = "active"
 
       def link_classes
-        @active ? ACTIVE_CLASS : ""
+        [ "ks-nav-item", (ACTIVE_CLASS if @active) ].compact.join(" ")
       end
     end
   end
