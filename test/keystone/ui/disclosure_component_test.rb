@@ -43,4 +43,8 @@ class Keystone::Ui::DisclosureComponentTest < Minitest::Test
   def test_icon_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::DisclosureComponent::ICON_CLASSES
   end
+
+  def test_body_classes_render_the_ks_disclosure_body_class
+    assert_includes Keystone::Ui::DisclosureComponent::BODY_CLASSES, "ks-disclosure-body"
+  end
 end
