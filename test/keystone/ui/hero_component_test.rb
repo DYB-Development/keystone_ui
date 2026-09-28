@@ -137,4 +137,8 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
   def test_subtitle_base_classes_render_the_ks_hero_subtitle_class
     assert_includes Keystone::Ui::HeroComponent::SUBTITLE_BASE_CLASSES, "ks-hero-subtitle"
   end
+
+  def test_badge_base_classes_render_the_ks_hero_badge_class
+    assert_includes Keystone::Ui::HeroComponent::BADGE_BASE_CLASSES, "ks-hero-badge"
+  end
 end
