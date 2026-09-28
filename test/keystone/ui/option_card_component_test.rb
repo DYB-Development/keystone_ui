@@ -3,11 +3,11 @@
 require "test_helper"
 
 class Keystone::Ui::OptionCardComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_exposes_base_classes_with_border
     component = Keystone::Ui::OptionCardComponent.new(name: "theme", value: "forest")
 
-    assert_includes component.classes, "border-2"
-    assert_includes component.classes, "rounded-lg"
     assert_includes component.classes, "cursor-pointer"
   end
 
@@ -15,13 +15,13 @@ class Keystone::Ui::OptionCardComponentTest < Minitest::Test
     component = Keystone::Ui::OptionCardComponent.new(name: "theme", value: "forest", selected: false)
 
     assert_includes component.classes, "border-transparent"
-    refute_includes component.classes, "border-accent-500"
+    refute_includes component.classes, "ks-option-card-selected"
   end
 
   def test_uses_accent_border_when_selected
     component = Keystone::Ui::OptionCardComponent.new(name: "theme", value: "forest", selected: true)
 
-    assert_includes component.classes, "border-accent-500"
+    assert_includes component.classes, "ks-option-card-selected"
     refute_includes component.classes, "border-transparent"
   end
 
@@ -37,5 +37,13 @@ class Keystone::Ui::OptionCardComponentTest < Minitest::Test
     component = Keystone::Ui::OptionCardComponent.new(name: "color", value: "blue")
 
     assert_equal false, component.selected?
+  end
+
+  def test_base_classes_render_the_ks_option_card_class
+    assert_includes Keystone::Ui::OptionCardComponent::BASE_CLASSES, "ks-option-card"
+  end
+
+  def test_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::OptionCardComponent::BASE_CLASSES
   end
 end

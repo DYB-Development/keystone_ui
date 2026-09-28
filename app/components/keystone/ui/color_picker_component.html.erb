@@ -1,6 +1,6 @@
 <div class="relative inline-block" data-controller="<%= controller_name %>" data-color-picker-value-value="<%= value %>">
   <% if label %>
-    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"><%= label %></label>
+    <label class="<%= LABEL_CLASSES %>"><%= label %></label>
   <% end %>
 
   <div class="flex items-center gap-2">

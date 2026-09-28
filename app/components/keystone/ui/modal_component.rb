@@ -3,11 +3,11 @@
 module Keystone
   module Ui
     class ModalComponent < ViewComponent::Base
-      BACKDROP_CLASSES = "hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60"
-      PANEL_CLASSES = "rounded-xl border border-gray-200 bg-white p-6 w-full mx-4 max-h-[80vh] flex flex-col dark:border-zinc-700 dark:bg-zinc-800"
-      HEADER_CLASSES = "flex items-center justify-between mb-4"
-      TITLE_CLASSES = "text-lg font-semibold text-gray-900 dark:text-gray-200"
-      CLOSE_BUTTON_CLASSES = "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+      BACKDROP_CLASSES = "ks-modal-backdrop hidden fixed inset-0 z-50 flex items-center justify-center"
+      PANEL_CLASSES = "ks-modal-panel w-full max-h-[80vh] flex flex-col"
+      HEADER_CLASSES = "ks-modal-header flex items-center justify-between"
+      TITLE_CLASSES = "ks-modal-title text-lg"
+      CLOSE_BUTTON_CLASSES = "ks-modal-close"
       BODY_CLASSES = "overflow-auto flex-1"
 
       SIZE_CLASSES = {

@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::FileUploadComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_requires_a_name
     component = Keystone::Ui::FileUploadComponent.new(name: "avatar")
 
@@ -101,16 +103,91 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
     assert_equal "change->file-upload#select", component.input_data[:action]
   end
 
-  def test_provides_accent_based_active_classes_for_drag_over_feedback
-    assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES, "border-accent-500"
-    assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES, "bg-accent-50"
-  end
-
   def test_shows_drop_prompt_text_appropriate_for_single_vs_multiple
     single = Keystone::Ui::FileUploadComponent.new(name: "avatar")
     multi = Keystone::Ui::FileUploadComponent.new(name: "docs[]", multiple: true)
 
     assert_equal "Drop file here or", single.prompt_text
     assert_equal "Drop files here or", multi.prompt_text
+  end
+
+  def test_wrapper_classes_render_the_ks_file_upload_class
+    assert_includes Keystone::Ui::FileUploadComponent::WRAPPER_CLASSES, "ks-file-upload"
+  end
+
+  def test_wrapper_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::WRAPPER_CLASSES
+  end
+
+  def test_label_classes_render_the_ks_label_class
+    assert_includes Keystone::Ui::FileUploadComponent::LABEL_CLASSES, "ks-label"
+  end
+
+  def test_label_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::LABEL_CLASSES
+  end
+
+  def test_drop_zone_classes_render_the_ks_file_upload_drop_zone_class
+    assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_CLASSES, "ks-file-upload-drop-zone"
+  end
+
+  def test_drop_zone_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::DROP_ZONE_CLASSES
+  end
+
+  def test_drop_zone_active_classes_render_the_ks_file_upload_drop_zone_active_class
+    assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES, "ks-file-upload-drop-zone-active"
+  end
+
+  def test_drop_zone_active_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES
+  end
+
+  def test_drop_zone_inner_classes_render_the_ks_file_upload_inner_class
+    assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_INNER_CLASSES, "ks-file-upload-inner"
+  end
+
+  def test_drop_zone_inner_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::DROP_ZONE_INNER_CLASSES
+  end
+
+  def test_icon_classes_render_the_ks_file_upload_icon_class
+    assert_includes Keystone::Ui::FileUploadComponent::ICON_CLASSES, "ks-file-upload-icon"
+  end
+
+  def test_icon_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::ICON_CLASSES
+  end
+
+  def test_prompt_classes_render_the_ks_file_upload_prompt_class
+    assert_includes Keystone::Ui::FileUploadComponent::PROMPT_CLASSES, "ks-file-upload-prompt"
+  end
+
+  def test_prompt_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::PROMPT_CLASSES
+  end
+
+  def test_browse_classes_render_the_ks_file_upload_browse_class
+    assert_includes Keystone::Ui::FileUploadComponent::BROWSE_CLASSES, "ks-file-upload-browse"
+  end
+
+  def test_browse_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::BROWSE_CLASSES
+  end
+
+  def test_hint_classes_render_the_ks_file_upload_hint_class
+    assert_includes Keystone::Ui::FileUploadComponent::HINT_CLASSES, "ks-file-upload-hint"
+  end
+
+  def test_hint_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::HINT_CLASSES
+  end
+
+  def test_file_name_classes_render_the_ks_file_upload_file_name_class
+    assert_includes Keystone::Ui::FileUploadComponent::FILE_NAME_CLASSES, "ks-file-upload-file-name"
+  end
+
+  def test_file_name_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::FILE_NAME_CLASSES
   end
 end

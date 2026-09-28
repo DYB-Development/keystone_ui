@@ -75,9 +75,13 @@ holds the catalog.
   as green and amber, directly. Changing the defaults belongs to the install
   local.
 - **Looks.** A look is one CSS file that sets the `--ks-` variables from
-  keystone_ui-styles 0.4.0 or later: corner radius, font, label weight, border
+  keystone_ui-styles 0.5.0 or later: corner radius, font, label weight, border
   width, padding and colours. Each colour variable has a `-dark` partner read
-  on a dark page. Only buttons read these variables so far. A host imports its
+  on a dark page. Buttons, panels, cards, alerts, badges, form fields, the
+  modal, the mobile action menu, the column picker, multi select, copy button,
+  theme toggle, checkbox row, radio card, option card, file upload and colour
+  picker read these variables. The data display and navigation components still
+  use fixed Tailwind utilities. A host imports its
   look after `keystone_source.css`, and a gem ships one through
   `tailwind_imports`, both set up through the install local.
 - **Light, dark, system and custom themes.** Every component has dark-mode

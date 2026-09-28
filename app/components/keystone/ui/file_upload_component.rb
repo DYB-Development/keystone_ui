@@ -3,16 +3,16 @@
 module Keystone
   module Ui
     class FileUploadComponent < ViewComponent::Base
-      WRAPPER_CLASSES = "space-y-1"
-      LABEL_CLASSES = "block text-sm font-medium text-gray-700 dark:text-gray-300"
-      DROP_ZONE_CLASSES = "mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 py-8 cursor-pointer dark:border-zinc-600 transition-colors"
-      DROP_ZONE_ACTIVE_CLASSES = "border-accent-500 bg-accent-50 dark:bg-accent-900/10"
-      DROP_ZONE_INNER_CLASSES = "space-y-2 text-center"
-      ICON_CLASSES = "mx-auto h-10 w-10 text-gray-400 dark:text-gray-500"
-      PROMPT_CLASSES = "text-sm text-gray-600 dark:text-gray-400"
-      BROWSE_CLASSES = "font-semibold text-accent-600 hover:text-accent-500 dark:text-accent-400 dark:hover:text-accent-300"
-      HINT_CLASSES = "mt-1 text-xs text-gray-500 dark:text-gray-400"
-      FILE_NAME_CLASSES = "mt-2 text-sm text-gray-700 dark:text-gray-300 truncate"
+      WRAPPER_CLASSES = "ks-file-upload"
+      LABEL_CLASSES = "ks-label block text-sm"
+      DROP_ZONE_CLASSES = "ks-file-upload-drop-zone flex justify-center cursor-pointer transition-colors"
+      DROP_ZONE_ACTIVE_CLASSES = "ks-file-upload-drop-zone-active"
+      DROP_ZONE_INNER_CLASSES = "ks-file-upload-inner text-center"
+      ICON_CLASSES = "ks-file-upload-icon mx-auto h-10 w-10"
+      PROMPT_CLASSES = "ks-file-upload-prompt text-sm"
+      BROWSE_CLASSES = "ks-file-upload-browse"
+      HINT_CLASSES = "ks-file-upload-hint text-xs"
+      FILE_NAME_CLASSES = "ks-file-upload-file-name text-sm truncate"
       FILE_INPUT_CLASSES = "sr-only"
 
       UPLOAD_ICON = <<~SVG.freeze

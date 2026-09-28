@@ -46,6 +46,12 @@ class KeystoneUi::PackagingTest < Minitest::Test
     refute requirement.satisfied_by?(Gem::Version.new("0.3.0"))
   end
 
+  def test_requires_a_keystone_ui_styles_with_the_overlay_and_form_control_classes
+    requirement = gemspec.dependencies.find { |d| d.name == "keystone_ui-styles" }.requirement
+
+    refute requirement.satisfied_by?(Gem::Version.new("0.4.0"))
+  end
+
   private
 
   def gemspec

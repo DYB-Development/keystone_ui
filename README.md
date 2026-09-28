@@ -200,8 +200,11 @@ For dynamic, per-user color customization (e.g. letting users pick their own acc
 
 A look is one CSS file that changes how components look without editing the
 gem. It sets the `--ks-` variables that keystone_ui-styles defines, and a
-component reads them through the `ks-` classes it renders. Buttons read them
-today, and more components will move onto them in later releases.
+component reads them through the `ks-` classes it renders. Buttons, panels,
+cards, alerts, badges, form fields, the modal, the mobile action menu, the column
+picker, multi select, copy button, theme toggle, checkbox row, radio card, option
+card, file upload and colour picker read them today, and the data display and
+navigation components will move onto them in later releases.
 
 ### Writing a look file
 

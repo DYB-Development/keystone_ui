@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::MultiSelectComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_returns_display_text_as_all_label_when_nothing_selected
     component = Keystone::Ui::MultiSelectComponent.new(name: "cat[]", label: "Categories", options: [ [ "Shoes", 1 ] ])
 
@@ -20,5 +22,37 @@ class Keystone::Ui::MultiSelectComponentTest < Minitest::Test
 
     assert_equal true, component.selected?(1)
     assert_equal false, component.selected?(2)
+  end
+
+  def test_trigger_classes_render_the_ks_menu_trigger_class
+    assert_includes Keystone::Ui::MultiSelectComponent::TRIGGER_CLASSES, "ks-menu-trigger"
+  end
+
+  def test_trigger_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MultiSelectComponent::TRIGGER_CLASSES
+  end
+
+  def test_menu_classes_render_the_ks_menu_class
+    assert_includes Keystone::Ui::MultiSelectComponent::MENU_CLASSES, "ks-menu"
+  end
+
+  def test_menu_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MultiSelectComponent::MENU_CLASSES
+  end
+
+  def test_option_classes_render_the_ks_menu_option_class
+    assert_includes Keystone::Ui::MultiSelectComponent::OPTION_CLASSES, "ks-menu-option"
+  end
+
+  def test_option_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MultiSelectComponent::OPTION_CLASSES
+  end
+
+  def test_checkbox_classes_render_the_ks_menu_checkbox_class
+    assert_includes Keystone::Ui::MultiSelectComponent::CHECKBOX_CLASSES, "ks-menu-checkbox"
+  end
+
+  def test_checkbox_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MultiSelectComponent::CHECKBOX_CLASSES
   end
 end
