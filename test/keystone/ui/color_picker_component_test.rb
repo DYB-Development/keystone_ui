@@ -62,4 +62,8 @@ class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
   def test_label_classes_render_the_shared_label_class
     assert_includes Keystone::Ui::ColorPickerComponent::LABEL_CLASSES, "ks-label"
   end
+
+  def test_label_classes_render_the_ks_color_picker_label_class
+    assert_includes Keystone::Ui::ColorPickerComponent::LABEL_CLASSES, "ks-color-picker-label"
+  end
 end
