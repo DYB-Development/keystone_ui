@@ -34,8 +34,6 @@ class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
     component = Keystone::Ui::ColorPickerComponent.new(name: "accent")
 
     assert_includes component.panel_classes, "absolute"
-    assert_includes component.panel_classes, "rounded-lg"
-    assert_includes component.panel_classes, "shadow-lg"
     assert_includes component.panel_classes, "hidden"
   end
 
@@ -55,5 +53,9 @@ class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
 
   def test_panel_classes_render_the_ks_color_picker_panel_class
     assert_includes Keystone::Ui::ColorPickerComponent::PANEL_CLASSES, "ks-color-picker-panel"
+  end
+
+  def test_panel_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ColorPickerComponent::PANEL_CLASSES
   end
 end
