@@ -83,4 +83,8 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
   def test_button_layout_classes_render_the_ks_accordion_button_class
     assert_includes Keystone::Ui::AccordionComponent::BUTTON_LAYOUT_CLASSES, "ks-accordion-button"
   end
+
+  def test_button_layout_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent::BUTTON_LAYOUT_CLASSES
+  end
 end
