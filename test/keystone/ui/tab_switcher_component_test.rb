@@ -56,4 +56,8 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
   def test_tab_bar_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::TabSwitcherComponent::TAB_BAR_CLASSES
   end
+
+  def test_tab_base_classes_render_the_ks_tab_class
+    assert_includes Keystone::Ui::TabSwitcherComponent::TAB_BASE_CLASSES, "ks-tab"
+  end
 end
