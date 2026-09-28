@@ -29,4 +29,8 @@ class Keystone::Ui::ThemeToggleComponentTest < Minitest::Test
   def test_option_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ThemeToggleComponent::OPTION_CLASSES
   end
+
+  def test_group_classes_render_the_ks_theme_toggle_class
+    assert_includes Keystone::Ui::ThemeToggleComponent::GROUP_CLASSES, "ks-theme-toggle"
+  end
 end
