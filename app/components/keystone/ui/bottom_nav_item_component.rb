@@ -12,7 +12,7 @@ module Keystone
         @active = active
       end
 
-      ITEM_BASE = "bottom-nav-item"
+      ITEM_BASE = "ks-bottom-nav-item"
       ACTIVE_CLASS = "active"
       LABEL_CLASSES = "bottom-nav-label"
 
