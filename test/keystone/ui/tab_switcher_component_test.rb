@@ -6,7 +6,7 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
   def test_returns_base_wrapper_classes
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ])
 
-    assert_equal "mb-8 flex flex-wrap justify-center gap-2", component.classes
+    assert_equal "ks-tab-bar mb-8 flex flex-wrap justify-center gap-2", component.classes
   end
 
   def test_stores_tab_labels
@@ -45,5 +45,9 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A", "B" ])
 
     assert_equal "tab-switcher", component.wrapper_data[:controller]
+  end
+
+  def test_tab_bar_classes_render_the_ks_tab_bar_class
+    assert_includes Keystone::Ui::TabSwitcherComponent::TAB_BAR_CLASSES, "ks-tab-bar"
   end
 end
