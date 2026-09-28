@@ -10,8 +10,6 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
 
     classes = component.classes
     assert_includes classes, "block"
-    assert_includes classes, "border"
-    assert_includes classes, "hover:border-accent-500/50"
   end
 
   def test_stores_the_href
@@ -27,11 +25,6 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
     refute_includes component.classes, "shadow-sm"
   end
 
-  def test_always_includes_dark_mode_and_hover_classes
-    component = Keystone::Ui::CardLinkComponent.new(href: "/")
-
-    assert_includes component.classes, "hover:border-accent-500/50"
-  end
 
   def test_base_classes_render_the_ks_link_card_class
     assert_includes Keystone::Ui::CardLinkComponent::BASE_CLASSES, "ks-link-card"
@@ -51,5 +44,9 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
 
   def test_shadow_class_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::CardLinkComponent::SHADOW_CLASS
+  end
+
+  def test_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CardLinkComponent.new(href: "/").classes
   end
 end
