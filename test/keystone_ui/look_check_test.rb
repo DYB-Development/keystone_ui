@@ -12,4 +12,17 @@ class KeystoneUi::LookCheckTest < Minitest::Test
 
     assert_includes error.message, "material"
   end
+
+  def test_a_look_whose_file_sets_no_variables_under_its_name_stops_boot_naming_the_look
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, "material.css")
+      File.write(path, ":root { --ks-radius-control: 9999px; }")
+
+      error = assert_raises(KeystoneUi::LookCheck::Error) do
+        KeystoneUi::LookCheck.new(looks: { "material" => path }, default: nil).call
+      end
+
+      assert_includes error.message, "material"
+    end
+  end
 end
