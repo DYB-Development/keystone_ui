@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class PipelineComponent < ViewComponent::Base
-      CONTAINER_CLASSES = "rounded-xl border border-surface-700 bg-surface-800 p-6"
+      CONTAINER_CLASSES = "ks-pipeline rounded-xl border border-surface-700 bg-surface-800 p-6"
       HEADER_CLASSES = "mb-4"
       TITLE_CLASSES = "text-lg font-semibold text-white"
       SUBTITLE_CLASSES = "mt-1 text-sm text-surface-400"

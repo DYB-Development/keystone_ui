@@ -47,4 +47,8 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
 
     assert_includes component.link_classes({ broken: false }), "text-accent-500"
   end
+
+  def test_container_classes_render_the_ks_pipeline_class
+    assert_includes Keystone::Ui::PipelineComponent::CONTAINER_CLASSES, "ks-pipeline"
+  end
 end
