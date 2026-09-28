@@ -5,6 +5,8 @@ require_relative "../../../app/components/keystone/ui/column"
 require_relative "../../../app/components/keystone/ui/data_table_component"
 
 class Keystone::Ui::DataTableComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   PRODUCT_STRUCT = Struct.new(:name, :quantity, :price, keyword_init: true)
 
   def columns
@@ -447,5 +449,9 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
 
   def test_header_classes_first_render_the_ks_table_header_first_class
     assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_FIRST, "ks-table-header ks-table-header-first"
+  end
+
+  def test_header_classes_first_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::HEADER_CLASSES_FIRST
   end
 end
