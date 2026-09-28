@@ -83,9 +83,8 @@ holds the catalog.
   picker read these variables. So do the data display components: stat card,
   chart card, card link, CTA banner, feature grid, hero, data table, code,
   accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and
-  swipe deck. The navigation components (navbar, nav item, nav dropdown, bottom
-  nav, mobile header and settings link) still use fixed Tailwind utilities. A
-  host imports its look after `keystone_source.css`, and a gem ships one through
+  swipe deck. So do the navigation components: navbar, nav item, nav dropdown,
+  bottom nav, mobile header and settings link. A host imports its look after `keystone_source.css`, and a gem ships one through
   `tailwind_imports`, both set up through the install local.
 - **Light, dark, system and custom themes.** Every component has dark-mode
   styling. The theme is chosen in this order: the user's choice stored in a
