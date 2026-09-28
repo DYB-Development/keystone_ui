@@ -20,7 +20,7 @@ module Keystone
       end
 
       def classes
-        border = selected? ? "border-accent-500" : "border-transparent"
+        border = selected? ? "ks-option-card-selected" : "border-transparent"
         "#{BASE_CLASSES} #{border}"
       end
     end

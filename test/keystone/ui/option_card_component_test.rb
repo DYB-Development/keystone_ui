@@ -15,13 +15,13 @@ class Keystone::Ui::OptionCardComponentTest < Minitest::Test
     component = Keystone::Ui::OptionCardComponent.new(name: "theme", value: "forest", selected: false)
 
     assert_includes component.classes, "border-transparent"
-    refute_includes component.classes, "border-accent-500"
+    refute_includes component.classes, "ks-option-card-selected"
   end
 
   def test_uses_accent_border_when_selected
     component = Keystone::Ui::OptionCardComponent.new(name: "theme", value: "forest", selected: true)
 
-    assert_includes component.classes, "border-accent-500"
+    assert_includes component.classes, "ks-option-card-selected"
     refute_includes component.classes, "border-transparent"
   end
 
