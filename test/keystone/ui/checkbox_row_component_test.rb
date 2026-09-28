@@ -20,4 +20,8 @@ class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
 
     assert_equal "Pull requests merged in the range", component.hint
   end
+
+  def test_row_classes_render_the_ks_checkbox_row_class
+    assert_includes Keystone::Ui::CheckboxRowComponent::ROW_CLASSES, "ks-checkbox-row"
+  end
 end
