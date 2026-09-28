@@ -213,7 +213,7 @@ module KeystoneUiHelper
     render Keystone::Ui::DisclosureComponent.new(**args), &block
   end
 
-  def ui_working(**args)
+  def ui_calculation(**args)
     render Keystone::Ui::CalculationComponent.new(**args)
   end
 
