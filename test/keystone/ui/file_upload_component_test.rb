@@ -113,4 +113,8 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
     assert_equal "Drop file here or", single.prompt_text
     assert_equal "Drop files here or", multi.prompt_text
   end
+
+  def test_wrapper_classes_render_the_ks_file_upload_class
+    assert_includes Keystone::Ui::FileUploadComponent::WRAPPER_CLASSES, "ks-file-upload"
+  end
 end
