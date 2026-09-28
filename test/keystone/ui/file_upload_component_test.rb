@@ -162,4 +162,8 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
   def test_prompt_classes_render_the_ks_file_upload_prompt_class
     assert_includes Keystone::Ui::FileUploadComponent::PROMPT_CLASSES, "ks-file-upload-prompt"
   end
+
+  def test_prompt_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::PROMPT_CLASSES
+  end
 end
