@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class OptionCardComponent < ViewComponent::Base
-      BASE_CLASSES = "ks-option-card inline-flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition cursor-pointer"
+      BASE_CLASSES = "ks-option-card inline-flex items-center transition cursor-pointer"
 
       attr_reader :name, :value, :input_data, :label_data
 
