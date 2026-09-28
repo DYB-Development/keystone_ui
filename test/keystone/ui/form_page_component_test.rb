@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::FormPageComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_exposes_title
     component = Keystone::Ui::FormPageComponent.new(title: "New Invoice", back_url: "/invoices")
 
@@ -34,7 +36,6 @@ class Keystone::Ui::FormPageComponentTest < Minitest::Test
 
   def test_has_title_classes_constant
     assert_includes Keystone::Ui::FormPageComponent::TITLE_CLASSES, "text-2xl"
-    assert_includes Keystone::Ui::FormPageComponent::TITLE_CLASSES, "font-semibold"
   end
 
   def test_has_subtitle_classes_constant
@@ -44,5 +45,9 @@ class Keystone::Ui::FormPageComponentTest < Minitest::Test
 
   def test_title_classes_render_the_ks_page_title_class
     assert_includes Keystone::Ui::FormPageComponent::TITLE_CLASSES, "ks-page-title"
+  end
+
+  def test_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FormPageComponent::TITLE_CLASSES
   end
 end
