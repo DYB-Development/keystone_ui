@@ -31,4 +31,8 @@ class Keystone::Ui::DisclosureComponentTest < Minitest::Test
   def test_summary_classes_render_the_ks_disclosure_summary_class
     assert_includes Keystone::Ui::DisclosureComponent::SUMMARY_CLASSES, "ks-disclosure-summary"
   end
+
+  def test_summary_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DisclosureComponent::SUMMARY_CLASSES
+  end
 end
