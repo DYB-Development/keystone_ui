@@ -32,11 +32,6 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
   end
 
 
-  def test_label_is_lightened_in_dark_mode
-    component = Keystone::Ui::ProgressComponent.new(value: 1, max: 2, label: "Upload")
-
-    assert_includes component.label_classes, "dark:text-surface-300"
-  end
 
   def test_track_classes_render_the_ks_progress_track_class
     assert_includes Keystone::Ui::ProgressComponent::TRACK_CLASSES, "ks-progress-track"
@@ -56,5 +51,9 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
   def test_label_classes_render_the_ks_meter_label_class
     assert_includes Keystone::Ui::ProgressComponent::LABEL_CLASSES, "ks-meter-label"
+  end
+
+  def test_label_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ProgressComponent::LABEL_CLASSES
   end
 end

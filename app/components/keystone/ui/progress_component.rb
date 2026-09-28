@@ -5,7 +5,7 @@ module Keystone
     class ProgressComponent < ViewComponent::Base
       TRACK_CLASSES = "ks-progress-track w-full h-2 overflow-hidden"
       BAR_CLASSES = "ks-progress-bar h-full transition-all"
-      LABEL_CLASSES = "ks-meter-label mb-1 text-sm font-medium text-surface-700 dark:text-surface-300"
+      LABEL_CLASSES = "ks-meter-label text-sm"
 
       attr_reader :value, :max, :label
 
