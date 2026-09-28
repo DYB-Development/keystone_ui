@@ -5,7 +5,7 @@ module Keystone
     class DisclosureComponent < ViewComponent::Base
       WRAPPER_CLASSES = "ks-disclosure group"
       SUMMARY_CLASSES = "ks-disclosure-summary flex cursor-pointer list-none items-center justify-between [&::-webkit-details-marker]:hidden"
-      ICON_CLASSES = "h-4 w-4 shrink-0 text-surface-400 transition-transform group-open:rotate-180"
+      ICON_CLASSES = "ks-disclosure-icon h-4 w-4 shrink-0 text-surface-400 transition-transform group-open:rotate-180"
       BODY_CLASSES = "px-6 pb-4 text-sm text-surface-600 dark:text-surface-400"
 
       CARET_ICON = <<~SVG.freeze
