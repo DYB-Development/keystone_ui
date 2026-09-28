@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class SwipeDeckComponent < ViewComponent::Base
-      CARD_CLASSES = "absolute inset-0 rounded-2xl border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-lg p-6 flex flex-col items-center justify-center transition-transform duration-300"
+      CARD_CLASSES = "ks-swipe-card absolute inset-0 rounded-2xl border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-lg p-6 flex flex-col items-center justify-center transition-transform duration-300"
 
       STACK_SCALE_STEP = 0.05
       STACK_TRANSLATE_STEP = 8

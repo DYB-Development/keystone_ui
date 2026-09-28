@@ -77,4 +77,8 @@ class Keystone::Ui::SwipeDeckComponentTest < Minitest::Test
     component = Keystone::Ui::SwipeDeckComponent.new(items: [ hash_item ])
     assert_equal 0, component.item_id(hash_item, fallback_index: 0)
   end
+
+  def test_card_classes_render_the_ks_swipe_card_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::CARD_CLASSES, "ks-swipe-card"
+  end
 end
