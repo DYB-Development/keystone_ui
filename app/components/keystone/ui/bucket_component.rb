@@ -10,7 +10,7 @@ module Keystone
       ACTUAL_CLASSES = "ks-bucket-actual text-sm tabular-nums"
       PERCENT_CLASSES = "ks-bucket-percent text-xs tabular-nums"
       FILL_BASE_CLASSES = "w-full transition-all"
-      WITHIN_GOAL_FILL_CLASSES = "ks-bucket-fill bg-accent-500"
+      WITHIN_GOAL_FILL_CLASSES = "ks-bucket-fill"
       OVER_GOAL_FILL_CLASSES = {
         success: "bg-green-500",
         warning: "bg-amber-500"

@@ -23,11 +23,6 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
     assert_equal 100, component.fill_percent
   end
 
-  def test_fill_uses_the_accent_colour_at_or_under_the_goal
-    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 10_000)
-
-    assert_includes component.fill_classes, "bg-accent-500"
-  end
 
   def test_fill_uses_the_success_colour_over_the_goal_by_default
     component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 12_000)
@@ -109,5 +104,9 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
 
   def test_within_goal_fill_classes_render_the_ks_bucket_fill_class
     assert_includes Keystone::Ui::BucketComponent::WITHIN_GOAL_FILL_CLASSES, "ks-bucket-fill"
+  end
+
+  def test_within_goal_fill_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::BucketComponent::WITHIN_GOAL_FILL_CLASSES
   end
 end
