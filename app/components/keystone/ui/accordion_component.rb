@@ -5,7 +5,7 @@ module Keystone
     class AccordionComponent < ViewComponent::Base
       BASE_CLASSES = "ks-accordion flex flex-col"
       ITEM_LAYOUT_CLASSES = "ks-accordion-item"
-      BUTTON_LAYOUT_CLASSES = "flex w-full items-center justify-between px-6 py-4 text-left font-semibold transition"
+      BUTTON_LAYOUT_CLASSES = "ks-accordion-button flex w-full items-center justify-between px-6 py-4 text-left font-semibold transition"
       ANSWER_LAYOUT_CLASSES = "hidden px-6 pb-4 text-sm"
       ICON_LAYOUT_CLASSES = "shrink-0 transition-transform"
 
