@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Changed
+- The navbar title, nav items, nav dropdown, bottom nav, mobile header and settings link render keystone_ui-styles' `ks-` classes, so a look file restyles them, and they have visible colours in a host that sets no variables.
+- keystone_ui no longer ships its own nav stylesheet or its `bottom-nav`, `nav-dropdown` and related class names, which are now `ks-bottom-nav`, `ks-nav-dropdown` and so on.
+
+### Upgrading
+- A host that coloured its nav with the `--base-bg-low`, `--base-bg-base`, `--base-bg-hover`, `--base-border-tertiary`, `--base-text`, `--base-text-secondary`, `--base-text-tertiary`, `--text-primary` or `--border-primary` variables keeps those colours, because the new nav colours read them first. The look variables that replace them are `--ks-color-nav`, `--ks-color-nav-menu-mobile`, `--ks-color-nav-hover`, `--ks-color-nav-border`, `--ks-color-nav-link`, `--ks-color-nav-text-hover`, `--ks-color-nav-text`, `--ks-color-nav-active` and `--ks-color-nav-indicator`, in that order.
+- A host stylesheet that targeted the old `bottom-nav` or `nav-dropdown` class names needs the `ks-` names instead.
+
+### Changed
 - The stat card, chart card, card link, call to action banner, feature grid, hero, data table, code, accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and swipe deck render keystone_ui-styles' `ks-` classes for how they look, so a look file restyles them. They look the same until a variable is set.
 - The funnel's step colours and the bucket's over-goal fills are classes a look file can recolour.
 

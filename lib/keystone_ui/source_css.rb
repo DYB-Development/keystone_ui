@@ -21,7 +21,6 @@ module KeystoneUi
       [
         %(@import "#{KeystoneUi::Styles.tailwind_file}";),
         %(@source "#{@root}/app/components/**/*.{erb,rb}";),
-        %(@import "#{@root}/app/assets/tailwind/keystone_ui_engine/nav.css";),
         %(@import "#{@root}/app/assets/tailwind/keystone_ui_engine/color_picker.css";),
         %(@import "#{@root}/app/assets/tailwind/keystone_ui_engine/grid_safelist.css";),
         *@imports.map { |import| %(@import "#{import}";) },
