@@ -494,4 +494,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_row_classes_last_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::ROW_CLASSES_LAST
   end
+
+  def test_sort_link_classes_render_the_ks_table_sort_link_class
+    assert_includes Keystone::Ui::DataTableComponent::SORT_LINK_CLASSES, "ks-table-sort-link"
+  end
 end
