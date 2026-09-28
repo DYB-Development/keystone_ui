@@ -15,4 +15,10 @@ class KeystoneUi::LookChoiceTest < Minitest::Test
 
     assert_equal "material", choice.name
   end
+
+  def test_marks_the_html_tag_with_the_look
+    choice = KeystoneUi::LookChoice.new(looks: %w[plain], default: "plain")
+
+    assert_equal({ "data-look" => "plain" }, choice.html_attributes)
+  end
 end

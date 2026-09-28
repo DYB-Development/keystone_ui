@@ -11,5 +11,9 @@ module KeystoneUi
     def name
       [ @supplied, @default ].find { |candidate| @looks.include?(candidate) }
     end
+
+    def html_attributes
+      { "data-look" => name }
+    end
   end
 end
