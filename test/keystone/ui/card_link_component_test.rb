@@ -49,4 +49,10 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
   def test_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::CardLinkComponent.new(href: "/").classes
   end
+
+  def test_maps_each_padding_size_correctly
+    assert_includes Keystone::Ui::CardLinkComponent.new(href: "/", padding: :sm).classes, "ks-link-card-padding-sm"
+    assert_includes Keystone::Ui::CardLinkComponent.new(href: "/", padding: :md).classes, "ks-link-card-padding-md"
+    assert_includes Keystone::Ui::CardLinkComponent.new(href: "/", padding: :lg).classes, "ks-link-card-padding-lg"
+  end
 end
