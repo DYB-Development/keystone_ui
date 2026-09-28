@@ -37,4 +37,8 @@ class Keystone::Ui::SettingsLinkComponentTest < Minitest::Test
   def test_label_classes_render_the_ks_settings_link_label_class
     assert_includes Keystone::Ui::SettingsLinkComponent::LABEL_CLASSES, "ks-settings-link-label"
   end
+
+  def test_chevron_icon_renders_the_ks_settings_link_chevron_class
+    assert_includes Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON, "ks-settings-link-chevron"
+  end
 end
