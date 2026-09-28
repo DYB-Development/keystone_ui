@@ -73,4 +73,8 @@ class Keystone::Ui::ColumnPickerComponentTest < Minitest::Test
   def test_checkbox_classes_render_the_ks_menu_checkbox_class
     assert_includes Keystone::Ui::ColumnPickerComponent::CHECKBOX_CLASSES, "ks-menu-checkbox"
   end
+
+  def test_checkbox_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ColumnPickerComponent::CHECKBOX_CLASSES
+  end
 end
