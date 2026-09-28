@@ -28,4 +28,8 @@ class Keystone::Ui::CodeComponentTest < Minitest::Test
     assert_includes classes, "font-mono"
     assert_includes classes, "overflow-x-auto"
   end
+
+  def test_wrapper_classes_render_the_ks_code_class
+    assert_includes Keystone::Ui::CodeComponent::WRAPPER_CLASSES, "ks-code"
+  end
 end
