@@ -113,4 +113,8 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
   def test_count_base_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::COUNT_BASE_CLASSES
   end
+
+  def test_link_healthy_classes_render_the_ks_pipeline_link_healthy_class
+    assert_includes Keystone::Ui::PipelineComponent::LINK_HEALTHY_CLASSES, "ks-pipeline-link-healthy"
+  end
 end
