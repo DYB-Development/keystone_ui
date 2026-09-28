@@ -3,6 +3,7 @@
 module Keystone
   module Ui
     class SettingsLinkComponent < ViewComponent::Base
+      LABEL_CLASSES = "ks-settings-link-label"
       attr_reader :label, :href
 
       LINK_CLASSES = "ks-settings-link flex items-center justify-between no-underline"

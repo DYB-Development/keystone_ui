@@ -33,4 +33,8 @@ class Keystone::Ui::SettingsLinkComponentTest < Minitest::Test
   def test_link_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::SettingsLinkComponent::LINK_CLASSES
   end
+
+  def test_label_classes_render_the_ks_settings_link_label_class
+    assert_includes Keystone::Ui::SettingsLinkComponent::LABEL_CLASSES, "ks-settings-link-label"
+  end
 end
