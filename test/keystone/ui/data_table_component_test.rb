@@ -522,4 +522,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_wrapper_classes_render_the_ks_table_class
     assert_includes Keystone::Ui::DataTableComponent::WRAPPER_CLASSES, "ks-table"
   end
+
+  def test_head_classes_render_the_ks_table_head_class
+    assert_includes Keystone::Ui::DataTableComponent::HEAD_CLASSES, "ks-table-head"
+  end
 end

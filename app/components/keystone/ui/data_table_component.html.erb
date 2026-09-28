@@ -1,6 +1,6 @@
 <div class="<%= Keystone::Ui::DataTableComponent::WRAPPER_CLASSES %>">
   <table class="relative min-w-full divide-y divide-gray-300 dark:divide-white/15">
-    <thead class="bg-gray-50 dark:bg-gray-800/75">
+    <thead class="<%= Keystone::Ui::DataTableComponent::HEAD_CLASSES %>">
       <tr>
         <% header_cells.each do |cell| %>
           <th scope="<%= cell[:scope] %>" class="<%= cell[:classes] %>">
