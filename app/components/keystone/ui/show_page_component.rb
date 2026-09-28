@@ -5,7 +5,7 @@ module Keystone
     class ShowPageComponent < ViewComponent::Base
       DESKTOP_WRAPPER_CLASSES = "hidden md:block"
       TITLE_CLASSES = "ks-page-title text-2xl"
-      SUBTITLE_CLASSES = "ks-page-header-subtitle mt-1 text-sm text-gray-500 dark:text-gray-400"
+      SUBTITLE_CLASSES = "ks-page-header-subtitle text-sm"
 
       def initialize(title:, back_url:, subtitle: nil)
         @title = title
