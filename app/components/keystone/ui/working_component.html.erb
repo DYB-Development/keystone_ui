@@ -1,0 +1,19 @@
+<%= render Keystone::Ui::DisclosureComponent.new do |disclosure| %>
+  <% disclosure.with_summary_content(summary) %>
+  <div class="<%= GROUPS_CLASSES %>">
+    <% groups.each do |group| %>
+      <div>
+        <% if group.title %>
+          <p class="<%= TITLE_CLASSES %>"><%= group.title %></p>
+        <% end %>
+        <div class="<%= LINES_CLASSES %>">
+          <% group.lines.each do |line| %>
+            <span class="<%= LINE_CLASSES %>"><%= line.label %></span>
+            <span class="<%= LINE_CLASSES %>"><%= line.working %></span>
+            <span class="<%= RESULT_CLASSES %>"><%= line.result %></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

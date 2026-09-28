@@ -213,6 +213,10 @@ module KeystoneUiHelper
     render Keystone::Ui::DisclosureComponent.new(**args), &block
   end
 
+  def ui_working(**args)
+    render Keystone::Ui::WorkingComponent.new(**args)
+  end
+
   private
 
   def keystone_theme_choice
