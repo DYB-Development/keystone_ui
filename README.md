@@ -300,6 +300,7 @@ marks the `html` tag with `data-look="plain"`. A gem can choose the look per
 request by setting `config.look_supplier` to a lambda that receives the view and
 returns a look's name. A name that is not registered leaves the page on the
 default. A host that registers no looks gets no `data-look` attribute.
+A Turbo visit carries the next page's look onto the page, as it does the theme.
 
 Boot stops with `KeystoneUi::LookCheck::Error` when a registered look's file does
 not exist, when the file sets no `--ks-` variables under
