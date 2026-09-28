@@ -92,4 +92,8 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
     assert_includes component.subtitle_classes, "text-surface-500"
     assert_includes component.subtitle_classes, "dark:text-surface-400"
   end
+
+  def test_wrapper_classes_render_the_ks_hero_class
+    assert_includes Keystone::Ui::HeroComponent::WRAPPER_CLASSES, "ks-hero"
+  end
 end
