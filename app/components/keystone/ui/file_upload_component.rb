@@ -10,7 +10,7 @@ module Keystone
       DROP_ZONE_INNER_CLASSES = "ks-file-upload-inner text-center"
       ICON_CLASSES = "ks-file-upload-icon mx-auto h-10 w-10"
       PROMPT_CLASSES = "ks-file-upload-prompt text-sm"
-      BROWSE_CLASSES = "font-semibold text-accent-600 hover:text-accent-500 dark:text-accent-400 dark:hover:text-accent-300"
+      BROWSE_CLASSES = "ks-file-upload-browse font-semibold text-accent-600 hover:text-accent-500 dark:text-accent-400 dark:hover:text-accent-300"
       HINT_CLASSES = "mt-1 text-xs text-gray-500 dark:text-gray-400"
       FILE_NAME_CLASSES = "mt-2 text-sm text-gray-700 dark:text-gray-300 truncate"
       FILE_INPUT_CLASSES = "sr-only"
