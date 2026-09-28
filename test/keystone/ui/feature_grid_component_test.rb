@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def features
     @features ||= [
       { icon: "X", title: "Fast", description: "Very fast." },
@@ -14,7 +16,6 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
     component = Keystone::Ui::FeatureGridComponent.new(title: "Features", features: features)
 
     assert_includes component.classes, "grid"
-    assert_includes component.classes, "gap-6"
   end
 
   def test_exposes_title_and_subtitle
@@ -71,5 +72,9 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
 
   def test_grid_classes_render_the_ks_feature_grid_class
     assert_includes Keystone::Ui::FeatureGridComponent::GRID_CLASSES, "ks-feature-grid"
+  end
+
+  def test_grid_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent::GRID_CLASSES
   end
 end
