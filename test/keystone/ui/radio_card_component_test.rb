@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::RadioCardComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_exposes_label
     component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
 
@@ -46,12 +48,6 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
     assert_equal true, component.hint?
   end
 
-  def test_card_classes_include_base_structure
-    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
-
-    assert_includes component.classes, "rounded-lg"
-  end
-
   def test_card_classes_highlight_on_peer_checked
     component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
 
@@ -90,5 +86,9 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
   def test_base_classes_render_the_ks_radio_card_class
     assert_includes Keystone::Ui::RadioCardComponent::BASE_CLASSES, "ks-radio-card"
+  end
+
+  def test_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::RadioCardComponent::BASE_CLASSES
   end
 end
