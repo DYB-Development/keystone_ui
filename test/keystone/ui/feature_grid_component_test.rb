@@ -99,4 +99,8 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
   def test_card_layout_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent::CARD_LAYOUT_CLASSES
   end
+
+  def test_icon_base_classes_render_the_ks_feature_card_icon_class
+    assert_includes Keystone::Ui::FeatureGridComponent::ICON_BASE_CLASSES, "ks-feature-card-icon"
+  end
 end
