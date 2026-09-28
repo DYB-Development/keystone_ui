@@ -64,4 +64,17 @@ class KeystoneUi::ThemeHelperTest < Minitest::Test
   ensure
     KeystoneUi.reset_configuration!
   end
+
+  def test_marks_the_html_tag_with_the_look_a_supplier_reads_from_the_view
+    KeystoneUi.configure do |c|
+      c.register_look :plain, "/looks/plain.css"
+      c.register_look :material, "/looks/material.css"
+      c.default_look = :plain
+      c.look_supplier = ->(view) { view.cookies["look"] }
+    end
+
+    assert_equal %(data-look="material"), View.new("look" => "material").keystone_theme_attributes
+  ensure
+    KeystoneUi.reset_configuration!
+  end
 end
