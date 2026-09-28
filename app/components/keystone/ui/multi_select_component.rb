@@ -5,7 +5,7 @@ module Keystone
     class MultiSelectComponent < ViewComponent::Base
       WRAPPER_CLASSES = "relative inline-block"
       TRIGGER_CLASSES = "ks-menu-trigger inline-flex items-center text-sm"
-      MENU_CLASSES = "absolute z-10 mt-1 w-56 rounded-md border border-gray-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900 hidden"
+      MENU_CLASSES = "ks-menu absolute z-10 mt-1 w-56 rounded-md border border-gray-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900 hidden"
       OPTION_CLASSES = "flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-zinc-800 cursor-pointer"
       CHECKBOX_CLASSES = "rounded border-gray-300 text-accent-600 focus:ring-accent-500 dark:border-zinc-600"
       CARET_ICON = <<~SVG.freeze
