@@ -103,11 +103,6 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
     assert_equal "change->file-upload#select", component.input_data[:action]
   end
 
-  def test_provides_accent_based_active_classes_for_drag_over_feedback
-    assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES, "border-accent-500"
-    assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES, "bg-accent-50"
-  end
-
   def test_shows_drop_prompt_text_appropriate_for_single_vs_multiple
     single = Keystone::Ui::FileUploadComponent.new(name: "avatar")
     multi = Keystone::Ui::FileUploadComponent.new(name: "docs[]", multiple: true)
@@ -142,5 +137,9 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
 
   def test_drop_zone_active_classes_render_the_ks_file_upload_drop_zone_active_class
     assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES, "ks-file-upload-drop-zone-active"
+  end
+
+  def test_drop_zone_active_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES
   end
 end
