@@ -3,13 +3,11 @@
 require "test_helper"
 
 class Keystone::Ui::MobileActionsComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_has_wrapper_classes_with_relative_positioning_and_lg_hidden
     assert_includes Keystone::Ui::MobileActionsComponent::WRAPPER_CLASSES, "relative"
     assert_includes Keystone::Ui::MobileActionsComponent::WRAPPER_CLASSES, "lg:hidden"
-  end
-
-  def test_has_button_classes_with_gray_text_styling
-    assert_includes Keystone::Ui::MobileActionsComponent::BUTTON_CLASSES, "text-gray-500"
   end
 
   def test_has_dropdown_classes_with_hidden_and_positioning
@@ -36,5 +34,9 @@ class Keystone::Ui::MobileActionsComponentTest < Minitest::Test
 
   def test_button_classes_render_the_ks_action_menu_button_class
     assert_includes Keystone::Ui::MobileActionsComponent::BUTTON_CLASSES, "ks-action-menu-button"
+  end
+
+  def test_button_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MobileActionsComponent::BUTTON_CLASSES
   end
 end
