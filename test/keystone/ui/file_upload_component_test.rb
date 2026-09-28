@@ -178,4 +178,8 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
   def test_hint_classes_render_the_ks_file_upload_hint_class
     assert_includes Keystone::Ui::FileUploadComponent::HINT_CLASSES, "ks-file-upload-hint"
   end
+
+  def test_hint_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::HINT_CLASSES
+  end
 end
