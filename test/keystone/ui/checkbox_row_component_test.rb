@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_exposes_name_value_and_label
     component = Keystone::Ui::CheckboxRowComponent.new(name: "shown[]", value: "merged", label: "Merged")
 
@@ -23,5 +25,9 @@ class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
 
   def test_row_classes_render_the_ks_checkbox_row_class
     assert_includes Keystone::Ui::CheckboxRowComponent::ROW_CLASSES, "ks-checkbox-row"
+  end
+
+  def test_row_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CheckboxRowComponent::ROW_CLASSES
   end
 end
