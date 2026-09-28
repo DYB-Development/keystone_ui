@@ -57,4 +57,10 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_includes KeystoneUi.configuration.tailwind_imports, "/app/assets/tailwind/looks/material.css"
   end
+
+  def test_names_a_default_look
+    KeystoneUi.configure { |c| c.default_look = :material }
+
+    assert_equal "material", KeystoneUi.configuration.default_look
+  end
 end

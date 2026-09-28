@@ -3,7 +3,7 @@
 module KeystoneUi
   class Configuration
     attr_accessor :accent, :surface, :theme_mode_supplier
-    attr_reader :tailwind_imports, :tailwind_sources, :looks
+    attr_reader :tailwind_imports, :tailwind_sources, :looks, :default_look
 
     def initialize
       @accent = :blue
@@ -11,6 +11,10 @@ module KeystoneUi
       @tailwind_imports = []
       @tailwind_sources = []
       @looks = {}
+    end
+
+    def default_look=(name)
+      @default_look = name&.to_s
     end
 
     def register_look(name, path)
