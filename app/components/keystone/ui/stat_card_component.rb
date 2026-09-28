@@ -87,10 +87,10 @@ module Keystone
       end
 
       def change_classes
-        return "text-gray-500 dark:text-gray-400" if !change? || @change.zero?
-        return "text-red-600 dark:text-red-400" if @change.negative?
+        return "ks-tone-muted" if !change? || @change.zero?
+        return "ks-tone-danger" if @change.negative?
 
-        "text-green-600 dark:text-green-400"
+        "ks-tone-success"
       end
 
       def disclosure_classes

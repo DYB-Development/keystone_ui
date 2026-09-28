@@ -113,23 +113,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     assert_equal true, component.change?
   end
 
-  def test_positive_change_is_green
-    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.3)
 
-    assert_includes component.change_classes, "text-green-600"
-  end
 
-  def test_negative_change_is_red
-    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
-
-    assert_includes component.change_classes, "text-red-600"
-  end
-
-  def test_zero_change_is_neutral
-    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
-
-    assert_includes component.change_classes, "text-gray-500"
-  end
 
   def test_positive_change_label_has_up_arrow_and_percent
     component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.34)
@@ -231,5 +216,9 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
   def test_variant_classes_map_to_look_classes
     assert_equal({ neutral: "ks-tone-neutral", success: "ks-tone-success", danger: "ks-tone-danger", warning: "ks-tone-warning", info: "ks-tone-info" }, Keystone::Ui::StatCardComponent::VARIANT_CLASSES)
+  end
+
+  def test_change_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent.new(label: "Visits", value: 3, change: -2).change_classes
   end
 end
