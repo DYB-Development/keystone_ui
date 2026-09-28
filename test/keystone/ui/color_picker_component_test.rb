@@ -58,4 +58,8 @@ class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
   def test_panel_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ColorPickerComponent::PANEL_CLASSES
   end
+
+  def test_label_classes_render_the_shared_label_class
+    assert_includes Keystone::Ui::ColorPickerComponent::LABEL_CLASSES, "ks-label"
+  end
 end

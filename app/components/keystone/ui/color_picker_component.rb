@@ -5,6 +5,8 @@ module Keystone
     class ColorPickerComponent < ViewComponent::Base
       SWATCH_CLASSES = "ks-color-swatch w-10 h-10 cursor-pointer"
 
+      LABEL_CLASSES = "ks-label mb-1"
+
       PANEL_CLASSES = "ks-color-picker-panel absolute z-50 hidden"
 
       attr_reader :name, :value, :label
