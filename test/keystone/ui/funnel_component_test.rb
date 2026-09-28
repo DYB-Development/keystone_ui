@@ -116,13 +116,6 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
 
 
-  def test_transition_caption_is_lightened_in_dark_mode
-    component = Keystone::Ui::FunnelComponent.new(steps: [
-      { label: "Visitors", value: 10_000 }
-    ])
-
-    assert_includes component.transition_classes, "dark:text-surface-400"
-  end
 
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
@@ -174,5 +167,9 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
   def test_transition_classes_render_the_ks_funnel_transition_class
     assert_includes Keystone::Ui::FunnelComponent::TRANSITION_CLASSES, "ks-funnel-transition"
+  end
+
+  def test_transition_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FunnelComponent::TRANSITION_CLASSES
   end
 end

@@ -11,7 +11,7 @@ module Keystone
       LABEL_CLASSES = "ks-funnel-label text-sm truncate"
       VALUE_CLASSES = "ks-funnel-value text-sm tabular-nums"
       BAR_CLASSES = "ks-funnel-bar h-8 transition-all"
-      TRANSITION_CLASSES = "ks-funnel-transition py-1 text-center text-xs text-surface-500 dark:text-surface-400"
+      TRANSITION_CLASSES = "ks-funnel-transition text-center text-xs"
       STEP_COLOR_CLASSES = {
         accent: "bg-accent-500",
         sky: "bg-sky-500",
