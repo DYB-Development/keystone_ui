@@ -506,4 +506,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_sort_icon_active_render_the_ks_table_sort_icon_active_class
     assert_includes Keystone::Ui::DataTableComponent::SORT_ICON_ACTIVE, "ks-table-sort-icon-active"
   end
+
+  def test_sort_icon_active_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::SORT_ICON_ACTIVE
+  end
 end
