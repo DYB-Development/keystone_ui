@@ -9,4 +9,10 @@ class KeystoneUi::LookChoiceTest < Minitest::Test
 
     assert_equal "plain", choice.name
   end
+
+  def test_a_page_takes_a_registered_look_a_gem_supplies
+    choice = KeystoneUi::LookChoice.new(looks: %w[plain material], default: "plain", supplied: "material")
+
+    assert_equal "material", choice.name
+  end
 end

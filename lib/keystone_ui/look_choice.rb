@@ -9,7 +9,7 @@ module KeystoneUi
     end
 
     def name
-      @default
+      [ @supplied, @default ].find { |candidate| @looks.include?(candidate) }
     end
   end
 end
