@@ -27,7 +27,7 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
   def test_uses_split_gap_classes_when_gap_x_and_gap_y_are_provided
     component = Keystone::Ui::GridComponent.new(cols: { default: 1, sm: 6 }, gap_x: :lg, gap_y: :xl)
 
-    assert_includes component.classes, "gap-x-6"
+    assert_includes component.classes, "ks-grid-gap-x-lg"
     assert_includes component.classes, "gap-y-8"
     refute_includes component.classes, "ks-grid-gap-md"
   end
@@ -35,7 +35,7 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
   def test_uses_gap_x_only_when_gap_y_is_not_provided
     component = Keystone::Ui::GridComponent.new(gap_x: :md)
 
-    assert_includes component.classes, "gap-x-4"
+    assert_includes component.classes, "ks-grid-gap-x-md"
     refute_includes component.classes, "gap-y"
     refute_includes component.classes, "ks-grid-gap-md"
   end
@@ -44,14 +44,14 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
     component = Keystone::Ui::GridComponent.new(gap_y: :lg)
 
     assert_includes component.classes, "gap-y-6"
-    refute_includes component.classes, "gap-x"
+    refute_includes component.classes, "ks-grid-gap-x"
     refute_includes component.classes, "ks-grid-gap-md"
   end
 
   def test_ignores_gap_when_gap_x_or_gap_y_is_provided
     component = Keystone::Ui::GridComponent.new(gap: :sm, gap_x: :lg, gap_y: :xl)
 
-    assert_includes component.classes, "gap-x-6"
+    assert_includes component.classes, "ks-grid-gap-x-lg"
     assert_includes component.classes, "gap-y-8"
     refute_includes component.classes, "ks-grid-gap-sm"
   end
