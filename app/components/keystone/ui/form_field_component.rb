@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class FormFieldComponent < ViewComponent::Base
-      WRAPPER_CLASSES = "space-y-1"
+      WRAPPER_CLASSES = "ks-form-field space-y-1"
       LABEL_CLASSES = "ks-label"
       REQUIRED_CLASSES = "ks-required"
       HINT_CLASSES = "ks-hint"

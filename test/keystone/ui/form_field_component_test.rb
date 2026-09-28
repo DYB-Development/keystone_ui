@@ -145,4 +145,8 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
 
     assert_equal true, component.input_options[:disabled]
   end
+
+  def test_wrapper_classes_render_the_ks_form_field_class
+    assert_includes Keystone::Ui::FormFieldComponent::WRAPPER_CLASSES, "ks-form-field"
+  end
 end
