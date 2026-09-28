@@ -57,6 +57,7 @@ develop:
   - ui_pipeline
   - ui_code
   - ui_disclosure
+  - ui_calculation
   - ui_theme_toggle
   - Keystone::Ui::Column
 
@@ -85,6 +86,7 @@ sources:
   - app/components/keystone/ui/cta_banner_component.rb
   - app/components/keystone/ui/data_table_component.rb
   - app/components/keystone/ui/disclosure_component.rb
+  - app/components/keystone/ui/calculation_component.rb
   - app/components/keystone/ui/feature_grid_component.rb
   - app/components/keystone/ui/file_upload_component.rb
   - app/components/keystone/ui/form_component.rb

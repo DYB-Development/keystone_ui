@@ -14,8 +14,9 @@ Keystone UI is a Rails engine gem that supplies a host app's visual layer as a
 library of view helpers built on ViewComponent. Screens are built from named
 pieces — page shells, sections, panels, grids, form fields, data tables,
 navigation bars, cards, stat tiles, charts, funnels, goal buckets, pipelines,
-banners — instead of hand-written ERB and Tailwind. Every class the UI renders
-lives inside the gem, in frozen constants, so the look is defined in one place.
+banners, the calculation behind a figure — instead of hand-written ERB and
+Tailwind. Every class the UI renders lives inside the gem, in frozen constants,
+so the look is defined in one place.
 
 Reach for it whenever you build or change a screen in an app that has it
 installed. It exists to stop UI drift: two pages built from the same helpers
@@ -49,9 +50,10 @@ holds the catalog.
 
 - **Helpers, not classes.** Every piece of UI is a view helper prefixed `ui_`,
   called from ERB. The one layout helper that is not prefixed `ui_` writes the
-  theme onto the page's `html` tag, and it belongs to the install local. Components live under the `Keystone::Ui` namespace, but a
-  host app does not name a component class directly. The one exception is the
-  table column value object, which is passed as an argument and renders nothing.
+  theme onto the page's `html` tag, and it belongs to the install local.
+  Components live under the `Keystone::Ui` namespace, but a host app does not
+  name a component class directly. The one exception is the table column value
+  object, which is passed as an argument and renders nothing.
 - **Containers take blocks, leaves take keywords.** Helpers that wrap content
   (page shells, sections, panels, grids, forms, tables) yield a block. Helpers
   that render one thing (a button, a badge, a field, a stat, a bucket) are
@@ -67,6 +69,11 @@ holds the catalog.
 - **Figures are numbers.** Components that measure or compare values, such as
   progress bars, funnels and buckets, do arithmetic on them. Pass a number, not
   a formatted string such as `"9,000"`. A bucket raises on one.
+- **A calculation is text.** The calculation behind a figure is the opposite
+  case. It is a list of groups, each with an optional title and its lines, and
+  each line is a label, the working and the result. They are passed as
+  already-formatted text and shown as written. The component does no
+  arithmetic, and it is closed by default under a quiet summary row.
 - **Semantic color, not literal color.** The themed hue is `accent-*` and the
   themed neutral family is `surface-*`, both CSS custom properties whose
   defaults (blue and zinc) come from the keystone_ui-styles gem. Retheming an
@@ -82,9 +89,10 @@ holds the catalog.
   theme toggle, checkbox row, radio card, option card, file upload and colour
   picker read these variables. So do the data display components: stat card,
   chart card, card link, CTA banner, feature grid, hero, data table, code,
-  accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and
-  swipe deck. So do the navigation components: navbar, nav item, nav dropdown,
-  bottom nav, mobile header and settings link. A host imports its look after `keystone_source.css`, and a gem ships one through
+  accordion, disclosure, calculation, tab switcher, progress, funnel, bucket,
+  pipeline and swipe deck. So do the navigation components: navbar, nav item,
+  nav dropdown, bottom nav, mobile header and settings link. A host imports its
+  look after `keystone_source.css`, and a gem ships one through
   `tailwind_imports`, both set up through the install local.
 - **Registered looks.** Looks can also be registered by name, and each page
   gets one: the name another gem supplies for the request, then the configured
@@ -100,9 +108,8 @@ holds the catalog.
   gem defines. The theme toggle does not offer it, so a page reaches it when
   another gem supplies it. On a Turbo visit, the page being shown sets the
   theme, so a change to the mode on the server shows up without a full reload.
-  Marking the layout with the theme is set up through
-  the install local, and placing the toggle on a screen goes through the develop
-  local.
+  Marking the layout with the theme is set up through the install local, and
+  placing the toggle on a screen goes through the develop local.
 - **Tailwind classes are static strings.** Class names are never interpolated,
   so Tailwind's scanner can find them. Widths and heights that depend on data,
   such as a progress bar or a bucket's fill, are set with an inline style

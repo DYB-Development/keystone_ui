@@ -812,6 +812,33 @@ When `definition:` or `calculation:` is given, an info button appears. Hovering 
 <%= ui_stat_card(label: "Merged", value: 12, href: "/pull_requests?state=merged", definition: "Pull requests merged in the range.") %>
 ```
 
+### `ui_calculation`
+
+Shows the working behind a figure, closed by default under a quiet "How this is worked out" row, so a reader can check how a number was reached without it taking over the page. Put it under the figure it explains, such as a `ui_stat_card`.
+
+**Required props**
+
+- `groups:` (Array of Hashes) — each with `lines:` and an optional `title:`. Each line is a Hash with `label:`, `working:` and `result:`.
+
+**Optional props**
+
+- `summary:` (String, default `"How this is worked out"`) — the text on the row that opens it
+
+Each line is laid out as its label, its working and its result in three columns, in the same quiet text as a form hint.
+
+```erb
+<%= ui_stat_card(label: "Perfect value", value: "$107,695.00") %>
+<%= ui_calculation(groups: [
+  { title: "Store runs", lines: [
+    { label: "Money a year", working: "$34.00 × 1,825", result: "$62,050.00" },
+    { label: "Time a year", working: "1 hour × 1,825 × $25.00 an hour", result: "$45,625.00" }
+  ] },
+  { title: "How it adds up", lines: [
+    { label: "Perfect value", working: "$107,675.00 in costs + $20.00 missed out", result: "$107,695.00" }
+  ] }
+]) %>
+```
+
 ### `ui_chart_card`
 
 Renders a card wrapper for chart content with a title and configurable height.
