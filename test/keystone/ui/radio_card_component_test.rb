@@ -91,4 +91,8 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
   def test_base_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::RadioCardComponent::BASE_CLASSES
   end
+
+  def test_highlight_classes_render_the_ks_radio_card_highlight_class
+    assert_includes Keystone::Ui::RadioCardComponent::HIGHLIGHT_CLASSES, "ks-radio-card-highlight"
+  end
 end
