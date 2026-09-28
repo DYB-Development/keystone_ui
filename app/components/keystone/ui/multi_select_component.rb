@@ -7,7 +7,7 @@ module Keystone
       TRIGGER_CLASSES = "ks-menu-trigger inline-flex items-center text-sm"
       MENU_CLASSES = "ks-menu absolute z-10 w-56 hidden"
       OPTION_CLASSES = "ks-menu-option flex items-center text-sm cursor-pointer"
-      CHECKBOX_CLASSES = "ks-menu-checkbox rounded border-gray-300 text-accent-600 focus:ring-accent-500 dark:border-zinc-600"
+      CHECKBOX_CLASSES = "ks-menu-checkbox"
       CARET_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
           <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
