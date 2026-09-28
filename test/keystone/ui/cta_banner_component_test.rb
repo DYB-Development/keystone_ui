@@ -52,4 +52,8 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
     assert_includes component.title_classes, "text-surface-900"
     assert_includes component.subtitle_classes, "text-surface-500"
   end
+
+  def test_card_layout_classes_render_the_ks_cta_banner_class
+    assert_includes Keystone::Ui::CtaBannerComponent::CARD_LAYOUT_CLASSES, "ks-cta-banner"
+  end
 end

@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class CtaBannerComponent < ViewComponent::Base
-      CARD_LAYOUT_CLASSES = "rounded-2xl border px-6 py-12 text-center lg:px-16 lg:py-16"
+      CARD_LAYOUT_CLASSES = "ks-cta-banner rounded-2xl border px-6 py-12 text-center lg:px-16 lg:py-16"
       TITLE_BASE_CLASSES = "mb-4 text-3xl font-bold tracking-tight sm:text-4xl"
       SUBTITLE_BASE_CLASSES = "mx-auto mb-8 max-w-2xl text-lg"
       ACTIONS_CLASSES = "flex flex-wrap justify-center gap-4"
