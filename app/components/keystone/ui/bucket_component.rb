@@ -8,7 +8,7 @@ module Keystone
       GOAL_CLASSES = "ks-bucket-goal text-xs tabular-nums"
       TANK_CLASSES = "ks-bucket-tank flex h-40 w-full items-end overflow-hidden"
       ACTUAL_CLASSES = "ks-bucket-actual text-sm tabular-nums"
-      PERCENT_CLASSES = "ks-bucket-percent text-xs tabular-nums text-gray-500 dark:text-gray-400"
+      PERCENT_CLASSES = "ks-bucket-percent text-xs tabular-nums"
       FILL_BASE_CLASSES = "w-full transition-all"
       WITHIN_GOAL_FILL_CLASSES = "bg-accent-500"
       OVER_GOAL_FILL_CLASSES = {
