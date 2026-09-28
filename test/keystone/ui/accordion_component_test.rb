@@ -40,7 +40,6 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
   def test_uses_semantic_surface_classes
     component = Keystone::Ui::AccordionComponent.new
 
-    assert_includes component.answer_classes, "text-surface-600"
     assert_includes component.icon_classes, "text-surface-400"
   end
 
@@ -92,5 +91,9 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
 
   def test_button_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent.new(items: []).button_classes
+  end
+
+  def test_answer_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent.new(items: []).answer_classes
   end
 end

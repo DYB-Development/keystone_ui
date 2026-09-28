@@ -32,7 +32,7 @@ module Keystone
       end
 
       def answer_classes
-        "#{ANSWER_LAYOUT_CLASSES} text-surface-600 dark:text-surface-400"
+        ANSWER_LAYOUT_CLASSES
       end
 
       def icon_classes
