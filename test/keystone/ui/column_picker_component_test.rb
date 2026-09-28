@@ -61,4 +61,8 @@ class Keystone::Ui::ColumnPickerComponentTest < Minitest::Test
   def test_menu_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ColumnPickerComponent::MENU_CLASSES
   end
+
+  def test_option_classes_render_the_ks_menu_option_class
+    assert_includes Keystone::Ui::ColumnPickerComponent::OPTION_CLASSES, "ks-menu-option"
+  end
 end
