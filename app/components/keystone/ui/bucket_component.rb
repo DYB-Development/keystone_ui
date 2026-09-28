@@ -7,7 +7,7 @@ module Keystone
       LABEL_CLASSES = "ks-bucket-label text-center text-sm"
       GOAL_CLASSES = "ks-bucket-goal text-xs tabular-nums"
       TANK_CLASSES = "ks-bucket-tank flex h-40 w-full items-end overflow-hidden"
-      ACTUAL_CLASSES = "ks-bucket-actual text-sm font-semibold tabular-nums text-gray-900 dark:text-white"
+      ACTUAL_CLASSES = "ks-bucket-actual text-sm tabular-nums"
       PERCENT_CLASSES = "text-xs tabular-nums text-gray-500 dark:text-gray-400"
       FILL_BASE_CLASSES = "w-full transition-all"
       WITHIN_GOAL_FILL_CLASSES = "bg-accent-500"
