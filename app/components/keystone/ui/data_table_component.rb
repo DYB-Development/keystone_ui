@@ -3,6 +3,7 @@
 module Keystone
   module Ui
     class DataTableComponent < ViewComponent::Base
+      WRAPPER_CLASSES = "ks-table overflow-hidden"
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
       HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
       HEADER_CLASSES_LAST = "ks-table-header-last"
