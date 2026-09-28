@@ -34,7 +34,7 @@ class Keystone::Ui::NavDropdownComponentTest < Minitest::Test
   end
 
   def test_has_wrapper_classes_with_nav_dropdown
-    assert_equal "nav-dropdown", Keystone::Ui::NavDropdownComponent::WRAPPER_CLASSES
+    assert_equal "ks-nav-dropdown", Keystone::Ui::NavDropdownComponent::WRAPPER_CLASSES
   end
 
   def test_has_menu_classes_with_hidden
