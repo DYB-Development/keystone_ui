@@ -63,4 +63,8 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal "material", KeystoneUi.configuration.default_look
   end
+
+  def test_supplies_no_look_when_no_gem_supplies_one
+    assert_nil KeystoneUi.configuration.supplied_look(Object.new)
+  end
 end

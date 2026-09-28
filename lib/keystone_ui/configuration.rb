@@ -22,6 +22,10 @@ module KeystoneUi
       @tailwind_imports << path.to_s
     end
 
+    def supplied_look(view)
+      nil
+    end
+
     def supplied_theme_mode(view)
       theme_mode_supplier&.call(view)
     end
