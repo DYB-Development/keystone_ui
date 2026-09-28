@@ -6,7 +6,7 @@ module Keystone
       CONTAINER_CLASSES = "ks-pipeline"
       HEADER_CLASSES = "ks-pipeline-header"
       TITLE_CLASSES = "ks-pipeline-title text-lg"
-      SUBTITLE_CLASSES = "ks-pipeline-subtitle mt-1 text-sm text-surface-400"
+      SUBTITLE_CLASSES = "ks-pipeline-subtitle text-sm"
       TRACK_CLASSES = "flex flex-col gap-3 sm:flex-row sm:items-stretch"
       BOX_CLASSES = "flex flex-1 flex-col items-center gap-2 rounded-lg border border-surface-700 bg-surface-900 p-4 text-center"
       BOX_LABEL_CLASSES = "text-xs uppercase tracking-wide text-surface-500"

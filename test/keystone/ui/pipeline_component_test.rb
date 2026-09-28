@@ -77,4 +77,8 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
   def test_subtitle_classes_render_the_ks_pipeline_subtitle_class
     assert_includes Keystone::Ui::PipelineComponent::SUBTITLE_CLASSES, "ks-pipeline-subtitle"
   end
+
+  def test_subtitle_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::SUBTITLE_CLASSES
+  end
 end
