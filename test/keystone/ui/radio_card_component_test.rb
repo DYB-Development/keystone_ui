@@ -87,4 +87,8 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_includes component.classes, "dark:peer-checked:bg-zinc-800"
   end
+
+  def test_base_classes_render_the_ks_radio_card_class
+    assert_includes Keystone::Ui::RadioCardComponent::BASE_CLASSES, "ks-radio-card"
+  end
 end
