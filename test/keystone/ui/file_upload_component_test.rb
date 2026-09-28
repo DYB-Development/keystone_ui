@@ -139,4 +139,8 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
   def test_drop_zone_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::DROP_ZONE_CLASSES
   end
+
+  def test_drop_zone_active_classes_render_the_ks_file_upload_drop_zone_active_class
+    assert_includes Keystone::Ui::FileUploadComponent::DROP_ZONE_ACTIVE_CLASSES, "ks-file-upload-drop-zone-active"
+  end
 end
