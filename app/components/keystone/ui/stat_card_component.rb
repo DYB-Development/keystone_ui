@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class StatCardComponent < ViewComponent::Base
       CARD_CLASSES = "ks-metric-card relative"
-      LABEL_CLASSES = "text-sm font-medium text-gray-500 dark:text-gray-400"
+      LABEL_CLASSES = "ks-stat-card-label text-sm font-medium text-gray-500 dark:text-gray-400"
       VALUE_BASE_CLASSES = "mt-1 text-3xl font-bold"
       SUFFIX_CLASSES = "text-lg text-gray-500 dark:text-gray-400"
       DISCLOSURE_CLASSES = "hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 mt-2 space-y-1 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-600 shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-400"
