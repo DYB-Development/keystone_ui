@@ -13,13 +13,6 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
     assert_includes component.backdrop_classes, "z-50"
   end
 
-  def test_exposes_panel_classes
-    component = Keystone::Ui::ModalComponent.new(title: "Details")
-
-    assert_includes component.panel_classes, "rounded-xl"
-    assert_includes component.panel_classes, "border"
-  end
-
   def test_exposes_title
     component = Keystone::Ui::ModalComponent.new(title: "Event Payload")
 
@@ -78,5 +71,9 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
 
   def test_panel_classes_render_the_ks_modal_panel_class
     assert_includes Keystone::Ui::ModalComponent::PANEL_CLASSES, "ks-modal-panel"
+  end
+
+  def test_panel_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ModalComponent::PANEL_CLASSES
   end
 end
