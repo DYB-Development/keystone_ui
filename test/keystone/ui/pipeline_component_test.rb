@@ -93,4 +93,8 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
   def test_box_classes_render_the_ks_pipeline_box_class
     assert_includes Keystone::Ui::PipelineComponent::BOX_CLASSES, "ks-pipeline-box"
   end
+
+  def test_box_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::BOX_CLASSES
+  end
 end
