@@ -72,4 +72,8 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
   def test_subtitle_base_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::CtaBannerComponent::SUBTITLE_BASE_CLASSES
   end
+
+  def test_actions_classes_render_the_ks_cta_banner_actions_class
+    assert_includes Keystone::Ui::CtaBannerComponent::ACTIONS_CLASSES, "ks-cta-banner-actions"
+  end
 end
