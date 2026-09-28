@@ -16,11 +16,6 @@ class Keystone::Ui::MobileActionsComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileActionsComponent::DROPDOWN_CLASSES, "z-50"
   end
 
-  def test_has_dropdown_classes_with_rounded_and_shadow_styling
-    assert_includes Keystone::Ui::MobileActionsComponent::DROPDOWN_CLASSES, "rounded-md"
-    assert_includes Keystone::Ui::MobileActionsComponent::DROPDOWN_CLASSES, "shadow-lg"
-  end
-
   def test_has_a_frozen_ellipsis_icon_svg
     assert Keystone::Ui::MobileActionsComponent::ELLIPSIS_ICON.frozen?
     assert_includes Keystone::Ui::MobileActionsComponent::ELLIPSIS_ICON, "<svg"
@@ -42,5 +37,9 @@ class Keystone::Ui::MobileActionsComponentTest < Minitest::Test
 
   def test_dropdown_classes_render_the_ks_action_menu_class
     assert_includes Keystone::Ui::MobileActionsComponent::DROPDOWN_CLASSES, "ks-action-menu"
+  end
+
+  def test_dropdown_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MobileActionsComponent::DROPDOWN_CLASSES
   end
 end
