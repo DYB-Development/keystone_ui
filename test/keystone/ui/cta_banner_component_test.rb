@@ -61,4 +61,8 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
   def test_card_layout_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::CtaBannerComponent::CARD_LAYOUT_CLASSES
   end
+
+  def test_title_base_classes_render_the_ks_cta_banner_title_class
+    assert_includes Keystone::Ui::CtaBannerComponent::TITLE_BASE_CLASSES, "ks-cta-banner-title"
+  end
 end
