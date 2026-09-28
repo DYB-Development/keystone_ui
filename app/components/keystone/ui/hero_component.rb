@@ -6,7 +6,7 @@ module Keystone
       WRAPPER_CLASSES = "ks-hero relative min-h-screen"
       INNER_CLASSES = "ks-hero-inner mx-auto max-w-6xl"
 
-      CONTENT_COLUMN_CLASSES = "flex flex-col gap-8"
+      CONTENT_COLUMN_CLASSES = "ks-hero-content flex flex-col gap-8"
       CENTERED_COLUMN_CLASSES = "items-center"
 
       SPLIT_CLASSES = "grid gap-12 lg:grid-cols-2 lg:gap-16 items-center"
