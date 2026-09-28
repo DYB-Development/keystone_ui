@@ -45,4 +45,10 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
   def test_starts_with_no_source_files_registered_for_scanning
     assert_equal [], KeystoneUi::Configuration.new.tailwind_sources
   end
+
+  def test_registers_a_look_by_name_with_the_path_of_its_css_file
+    KeystoneUi.configure { |c| c.register_look :material, "/app/assets/tailwind/looks/material.css" }
+
+    assert_equal({ "material" => "/app/assets/tailwind/looks/material.css" }, KeystoneUi.configuration.looks)
+  end
 end
