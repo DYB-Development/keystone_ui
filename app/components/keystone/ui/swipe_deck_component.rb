@@ -3,6 +3,7 @@
 module Keystone
   module Ui
     class SwipeDeckComponent < ViewComponent::Base
+      ACTIONS_CLASSES = "ks-swipe-actions flex justify-center"
       EMPTY_MESSAGE_CLASSES = "ks-swipe-empty-message"
       EMPTY_TITLE_CLASSES = "ks-swipe-empty-title text-2xl"
       EMPTY_CLASSES = "ks-swipe-empty text-center"

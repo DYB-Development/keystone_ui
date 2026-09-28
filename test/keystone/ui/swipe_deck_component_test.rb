@@ -99,4 +99,8 @@ class Keystone::Ui::SwipeDeckComponentTest < Minitest::Test
   def test_empty_message_classes_render_the_ks_swipe_empty_message_class
     assert_includes Keystone::Ui::SwipeDeckComponent::EMPTY_MESSAGE_CLASSES, "ks-swipe-empty-message"
   end
+
+  def test_actions_classes_render_the_ks_swipe_actions_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::ACTIONS_CLASSES, "ks-swipe-actions"
+  end
 end
