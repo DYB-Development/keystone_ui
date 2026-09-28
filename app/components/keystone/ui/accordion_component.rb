@@ -24,7 +24,7 @@ module Keystone
       end
 
       def item_classes
-        "#{ITEM_LAYOUT_CLASSES} border-surface-200 dark:border-surface-700"
+        ITEM_LAYOUT_CLASSES
       end
 
       def button_classes

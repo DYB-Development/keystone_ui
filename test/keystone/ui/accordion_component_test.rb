@@ -21,11 +21,6 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
     assert_equal items, component.items
   end
 
-  def test_exposes_item_classes
-    component = Keystone::Ui::AccordionComponent.new
-
-    assert_includes component.item_classes, "border"
-  end
 
   def test_exposes_button_classes
     component = Keystone::Ui::AccordionComponent.new
@@ -51,8 +46,6 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
   def test_uses_semantic_surface_classes
     component = Keystone::Ui::AccordionComponent.new
 
-    assert_includes component.item_classes, "border-surface-200"
-    assert_includes component.item_classes, "dark:border-surface-700"
     assert_includes component.button_classes, "text-surface-900"
     assert_includes component.answer_classes, "text-surface-600"
     assert_includes component.icon_classes, "text-surface-400"
@@ -98,5 +91,9 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
 
   def test_icon_layout_classes_render_the_ks_disclosure_icon_class
     assert_includes Keystone::Ui::AccordionComponent::ICON_LAYOUT_CLASSES, "ks-disclosure-icon"
+  end
+
+  def test_item_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent.new(items: []).item_classes
   end
 end
