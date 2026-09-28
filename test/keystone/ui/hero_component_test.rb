@@ -141,4 +141,8 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
   def test_badge_base_classes_render_the_ks_hero_badge_class
     assert_includes Keystone::Ui::HeroComponent::BADGE_BASE_CLASSES, "ks-hero-badge"
   end
+
+  def test_badge_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::BADGE_BASE_CLASSES
+  end
 end
