@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class StatCardComponent < ViewComponent::Base
-      CARD_CLASSES = "ks-metric-card relative rounded-xl border border-gray-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-800"
+      CARD_CLASSES = "ks-metric-card relative"
       LABEL_CLASSES = "text-sm font-medium text-gray-500 dark:text-gray-400"
       VALUE_BASE_CLASSES = "mt-1 text-3xl font-bold"
       SUFFIX_CLASSES = "text-lg text-gray-500 dark:text-gray-400"
