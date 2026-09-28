@@ -6,6 +6,8 @@ module Keystone
       Group = Struct.new(:title, :lines, keyword_init: true)
       Line = Struct.new(:label, :working, :result, keyword_init: true)
 
+      TITLE_CLASSES = "ks-label text-sm"
+
       attr_reader :groups, :summary
 
       def initialize(groups:, summary: "How this is worked out")

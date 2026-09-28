@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::WorkingComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_offers_the_working_under_a_quiet_summary_by_default
     assert_equal "How this is worked out", Keystone::Ui::WorkingComponent.new(groups: []).summary
   end
@@ -15,5 +17,10 @@ class Keystone::Ui::WorkingComponentTest < Minitest::Test
     line = component.groups.first.lines.first
 
     assert_equal [ "Money a year", "$34.00 × 1,825", "$62,050.00" ], [ line.label, line.working, line.result ]
+  end
+
+  def test_titles_a_group_in_keystones_label_style_with_no_visual_utility
+    assert_includes Keystone::Ui::WorkingComponent::TITLE_CLASSES, "ks-label"
+    refute_match VISUAL_UTILITY, Keystone::Ui::WorkingComponent::TITLE_CLASSES
   end
 end
