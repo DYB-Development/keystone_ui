@@ -6,7 +6,7 @@ module Keystone
       CARD_LAYOUT_CLASSES = "ks-cta-banner text-center"
       TITLE_BASE_CLASSES = "ks-cta-banner-title text-3xl tracking-tight sm:text-4xl"
       SUBTITLE_BASE_CLASSES = "ks-cta-banner-subtitle mx-auto max-w-2xl text-lg"
-      ACTIONS_CLASSES = "ks-cta-banner-actions flex flex-wrap justify-center gap-4"
+      ACTIONS_CLASSES = "ks-cta-banner-actions flex flex-wrap justify-center"
 
       attr_reader :title, :subtitle
 
