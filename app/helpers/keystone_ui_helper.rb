@@ -214,7 +214,7 @@ module KeystoneUiHelper
   end
 
   def ui_working(**args)
-    render Keystone::Ui::WorkingComponent.new(**args)
+    render Keystone::Ui::CalculationComponent.new(**args)
   end
 
   private

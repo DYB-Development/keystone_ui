@@ -2,7 +2,7 @@
 
 module Keystone
   module Ui
-    class WorkingComponent < ViewComponent::Base
+    class CalculationComponent < ViewComponent::Base
       Group = Struct.new(:title, :lines, keyword_init: true)
       Line = Struct.new(:label, :working, :result, keyword_init: true)
 
