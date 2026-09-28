@@ -202,4 +202,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_value_base_classes_render_the_ks_stat_card_value_class
     assert_includes Keystone::Ui::StatCardComponent::VALUE_BASE_CLASSES, "ks-stat-card-value"
   end
+
+  def test_value_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::VALUE_BASE_CLASSES
+  end
 end
