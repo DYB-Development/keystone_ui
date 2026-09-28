@@ -25,4 +25,10 @@ class KeystoneUi::LookCheckTest < Minitest::Test
       assert_includes error.message, "material"
     end
   end
+
+  def test_a_default_look_that_is_not_registered_stops_boot
+    assert_raises(KeystoneUi::LookCheck::Error) do
+      KeystoneUi::LookCheck.new(looks: {}, default: "material").call
+    end
+  end
 end
