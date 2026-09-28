@@ -15,7 +15,7 @@ module Keystone
       TITLE_BASE_CLASSES = "ks-hero-title text-4xl tracking-tight sm:text-5xl lg:text-6xl"
       SUBTITLE_BASE_CLASSES = "ks-hero-subtitle max-w-lg text-lg"
       BADGE_BASE_CLASSES = "ks-hero-badge inline-flex w-fit items-center text-sm"
-      ACTIONS_CLASSES = "ks-hero-actions flex flex-wrap gap-4"
+      ACTIONS_CLASSES = "ks-hero-actions flex flex-wrap"
 
       renders_one :aside
 

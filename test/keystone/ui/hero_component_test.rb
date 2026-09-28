@@ -149,4 +149,8 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
   def test_actions_classes_render_the_ks_hero_actions_class
     assert_includes Keystone::Ui::HeroComponent::ACTIONS_CLASSES, "ks-hero-actions"
   end
+
+  def test_actions_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::ACTIONS_CLASSES
+  end
 end
