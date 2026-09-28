@@ -12,7 +12,7 @@ module Keystone
       PROMPT_CLASSES = "ks-file-upload-prompt text-sm"
       BROWSE_CLASSES = "ks-file-upload-browse"
       HINT_CLASSES = "ks-file-upload-hint text-xs"
-      FILE_NAME_CLASSES = "ks-file-upload-file-name mt-2 text-sm text-gray-700 dark:text-gray-300 truncate"
+      FILE_NAME_CLASSES = "ks-file-upload-file-name text-sm truncate"
       FILE_INPUT_CLASSES = "sr-only"
 
       UPLOAD_ICON = <<~SVG.freeze

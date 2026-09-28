@@ -186,4 +186,8 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
   def test_file_name_classes_render_the_ks_file_upload_file_name_class
     assert_includes Keystone::Ui::FileUploadComponent::FILE_NAME_CLASSES, "ks-file-upload-file-name"
   end
+
+  def test_file_name_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::FILE_NAME_CLASSES
+  end
 end
