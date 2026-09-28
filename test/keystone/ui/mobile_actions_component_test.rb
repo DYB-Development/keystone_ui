@@ -33,4 +33,8 @@ class Keystone::Ui::MobileActionsComponentTest < Minitest::Test
 
     assert_equal "dropdown", component.wrapper_data[:controller]
   end
+
+  def test_button_classes_render_the_ks_action_menu_button_class
+    assert_includes Keystone::Ui::MobileActionsComponent::BUTTON_CLASSES, "ks-action-menu-button"
+  end
 end
