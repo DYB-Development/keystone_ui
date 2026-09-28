@@ -3,10 +3,11 @@
 require "test_helper"
 
 class Keystone::Ui::CopyButtonComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_returns_button_classes
     component = Keystone::Ui::CopyButtonComponent.new(text: "hello")
 
-    assert_includes component.classes, "rounded-md"
     assert_includes component.classes, "text-sm"
   end
 
@@ -51,5 +52,9 @@ class Keystone::Ui::CopyButtonComponentTest < Minitest::Test
 
   def test_button_classes_render_the_ks_copy_button_class
     assert_includes Keystone::Ui::CopyButtonComponent::BUTTON_CLASSES, "ks-copy-button"
+  end
+
+  def test_button_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CopyButtonComponent::BUTTON_CLASSES
   end
 end
