@@ -19,12 +19,6 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
     assert_equal "Event Payload", component.title
   end
 
-  def test_exposes_title_classes
-    component = Keystone::Ui::ModalComponent.new(title: "X")
-
-    assert_includes component.title_classes, "font-semibold"
-  end
-
   def test_exposes_close_button_classes
     component = Keystone::Ui::ModalComponent.new(title: "X")
 
@@ -87,5 +81,9 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
 
   def test_title_classes_render_the_ks_modal_title_class
     assert_includes Keystone::Ui::ModalComponent::TITLE_CLASSES, "ks-modal-title"
+  end
+
+  def test_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ModalComponent::TITLE_CLASSES
   end
 end

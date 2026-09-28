@@ -6,7 +6,7 @@ module Keystone
       BACKDROP_CLASSES = "ks-modal-backdrop hidden fixed inset-0 z-50 flex items-center justify-center"
       PANEL_CLASSES = "ks-modal-panel w-full max-h-[80vh] flex flex-col"
       HEADER_CLASSES = "ks-modal-header flex items-center justify-between"
-      TITLE_CLASSES = "ks-modal-title text-lg font-semibold text-gray-900 dark:text-gray-200"
+      TITLE_CLASSES = "ks-modal-title text-lg"
       CLOSE_BUTTON_CLASSES = "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
       BODY_CLASSES = "overflow-auto flex-1"
 
