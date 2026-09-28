@@ -7,7 +7,7 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
     component = Keystone::Ui::PanelComponent.new
 
     classes = component.classes
-    assert_includes classes, "rounded-xl"
+    assert_includes classes, "ks-panel-radius-lg"
     assert_includes classes, "ks-panel"
     assert_includes classes, "ks-panel-padding-md"
     assert_includes classes, "shadow-sm"
@@ -20,9 +20,9 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
   end
 
   def test_maps_each_radius_size_correctly
-    assert_includes Keystone::Ui::PanelComponent.new(radius: :md).classes, "rounded-lg"
-    assert_includes Keystone::Ui::PanelComponent.new(radius: :lg).classes, "rounded-xl"
-    assert_includes Keystone::Ui::PanelComponent.new(radius: :xl).classes, "rounded-2xl"
+    assert_includes Keystone::Ui::PanelComponent.new(radius: :md).classes, "ks-panel-radius-md"
+    assert_includes Keystone::Ui::PanelComponent.new(radius: :lg).classes, "ks-panel-radius-lg"
+    assert_includes Keystone::Ui::PanelComponent.new(radius: :xl).classes, "ks-panel-radius-xl"
   end
 
   def test_omits_shadow_sm_when_shadow_false
