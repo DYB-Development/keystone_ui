@@ -11,7 +11,7 @@ module Keystone
       BOX_CLASSES = "ks-pipeline-box flex flex-1 flex-col items-center text-center"
       BOX_LABEL_CLASSES = "ks-pipeline-box-label text-xs uppercase tracking-wide"
       CONNECTOR_CLASSES = "flex items-center justify-center"
-      COUNT_BASE_CLASSES = "ks-pipeline-count text-3xl font-bold"
+      COUNT_BASE_CLASSES = "ks-pipeline-count text-3xl"
       LINK_BASE_CLASSES = "link-toggle text-2xl leading-none"
       LINK_HEALTHY_CLASSES = "text-accent-500"
       LINK_BROKEN_CLASSES = "text-red-500"
