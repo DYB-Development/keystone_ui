@@ -203,8 +203,10 @@ gem. It sets the `--ks-` variables that keystone_ui-styles defines, and a
 component reads them through the `ks-` classes it renders. Buttons, panels,
 cards, alerts, badges, form fields, the modal, the mobile action menu, the column
 picker, multi select, copy button, theme toggle, checkbox row, radio card, option
-card, file upload and colour picker read them today, and the data display and
-navigation components will move onto them in later releases.
+card, file upload and colour picker read them today. So do the stat card, chart
+card, card link, call to action banner, feature grid, hero, data table, code,
+accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and swipe
+deck. The navigation components will move onto them in a later release.
 
 ### Writing a look file
 

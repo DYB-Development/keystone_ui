@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Changed
+- The stat card, chart card, card link, call to action banner, feature grid, hero, data table, code, accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and swipe deck render keystone_ui-styles' `ks-` classes for how they look, so a look file restyles them. They look the same until a variable is set.
+- The funnel's step colours and the bucket's over-goal fills are classes a look file can recolour.
+
+### Changed
 - The modal, mobile action menu, column picker, multi select, copy button, theme toggle, checkbox row, radio card, option card, file upload, colour picker and panel render keystone_ui-styles' `ks-` classes for how they look, so a look file restyles them. They look the same until a variable is set.
 - The file upload's drop zone marks itself active with one class while a file is dragged over it.
 - keystone_ui requires keystone_ui-styles 0.5.0 or later.
