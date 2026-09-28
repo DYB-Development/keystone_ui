@@ -17,12 +17,6 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
     assert_equal [ "Alpha", "Beta", "Gamma" ], component.tabs
   end
 
-  def test_exposes_tab_button_classes
-    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ])
-
-    assert_includes component.tab_classes, "rounded-lg"
-    assert_includes component.tab_classes, "font-semibold"
-  end
 
   def test_uses_semantic_accent_classes_for_active_tab_state
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ])
@@ -59,5 +53,9 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
 
   def test_tab_base_classes_render_the_ks_tab_class
     assert_includes Keystone::Ui::TabSwitcherComponent::TAB_BASE_CLASSES, "ks-tab"
+  end
+
+  def test_tab_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::TabSwitcherComponent::TAB_BASE_CLASSES
   end
 end
