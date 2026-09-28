@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class RadioCardComponent < ViewComponent::Base
       BASE_CLASSES = "ks-radio-card inline-flex flex-col cursor-pointer transition"
-      HIGHLIGHT_CLASSES = "ks-radio-card-highlight border-gray-200 dark:border-zinc-700 peer-checked:border-accent-500 peer-checked:bg-accent-50 dark:peer-checked:bg-zinc-800"
+      HIGHLIGHT_CLASSES = "ks-radio-card-highlight"
       LABEL_CLASSES = "block font-medium text-gray-900 dark:text-gray-100"
       HINT_CLASSES = "block mt-1 text-sm text-surface-500 dark:text-gray-400"
 

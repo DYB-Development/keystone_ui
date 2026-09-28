@@ -48,12 +48,6 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
     assert_equal true, component.hint?
   end
 
-  def test_card_classes_highlight_on_peer_checked
-    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
-
-    assert_includes component.classes, "peer-checked:border-accent-500"
-  end
-
   def test_label_classes_emphasize_text
     component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
 
@@ -78,12 +72,6 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
     assert_includes component.classes, "inline-flex"
   end
 
-  def test_chosen_card_stands_out_in_dark
-    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
-
-    assert_includes component.classes, "dark:peer-checked:bg-zinc-800"
-  end
-
   def test_base_classes_render_the_ks_radio_card_class
     assert_includes Keystone::Ui::RadioCardComponent::BASE_CLASSES, "ks-radio-card"
   end
@@ -94,5 +82,9 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
   def test_highlight_classes_render_the_ks_radio_card_highlight_class
     assert_includes Keystone::Ui::RadioCardComponent::HIGHLIGHT_CLASSES, "ks-radio-card-highlight"
+  end
+
+  def test_highlight_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::RadioCardComponent::HIGHLIGHT_CLASSES
   end
 end
