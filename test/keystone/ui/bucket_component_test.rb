@@ -82,4 +82,8 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
   def test_goal_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::BucketComponent::GOAL_CLASSES
   end
+
+  def test_tank_classes_render_the_ks_bucket_tank_class
+    assert_includes Keystone::Ui::BucketComponent::TANK_CLASSES, "ks-bucket-tank"
+  end
 end
