@@ -87,4 +87,8 @@ class Keystone::Ui::SwipeDeckComponentTest < Minitest::Test
   def test_card_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::SwipeDeckComponent::CARD_CLASSES
   end
+
+  def test_empty_classes_render_the_ks_swipe_empty_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::EMPTY_CLASSES, "ks-swipe-empty"
+  end
 end
