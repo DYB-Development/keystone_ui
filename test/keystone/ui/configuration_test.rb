@@ -67,4 +67,11 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
   def test_supplies_no_look_when_no_gem_supplies_one
     assert_nil KeystoneUi.configuration.supplied_look(Object.new)
   end
+
+  def test_supplies_the_look_a_registered_supplier_returns_for_the_view
+    view = Struct.new(:saved_look).new("material")
+    KeystoneUi.configure { |c| c.look_supplier = ->(from) { from.saved_look } }
+
+    assert_equal "material", KeystoneUi.configuration.supplied_look(view)
+  end
 end

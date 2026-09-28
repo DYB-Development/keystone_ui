@@ -2,7 +2,7 @@
 
 module KeystoneUi
   class Configuration
-    attr_accessor :accent, :surface, :theme_mode_supplier
+    attr_accessor :accent, :surface, :theme_mode_supplier, :look_supplier
     attr_reader :tailwind_imports, :tailwind_sources, :looks, :default_look
 
     def initialize
@@ -23,7 +23,7 @@ module KeystoneUi
     end
 
     def supplied_look(view)
-      nil
+      look_supplier&.call(view)&.to_s
     end
 
     def supplied_theme_mode(view)
