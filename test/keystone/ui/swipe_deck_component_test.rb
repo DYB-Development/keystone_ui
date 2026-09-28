@@ -107,4 +107,8 @@ class Keystone::Ui::SwipeDeckComponentTest < Minitest::Test
   def test_reject_button_classes_render_the_ks_swipe_button_class
     assert_includes Keystone::Ui::SwipeDeckComponent::REJECT_BUTTON_CLASSES, "ks-swipe-button"
   end
+
+  def test_accept_button_classes_render_the_ks_swipe_button_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::ACCEPT_BUTTON_CLASSES, "ks-swipe-button"
+  end
 end
