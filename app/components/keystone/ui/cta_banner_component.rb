@@ -16,7 +16,7 @@ module Keystone
       end
 
       def classes
-        "#{CARD_LAYOUT_CLASSES} border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800"
+        CARD_LAYOUT_CLASSES
       end
 
       def title_classes
