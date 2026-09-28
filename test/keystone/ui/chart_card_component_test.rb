@@ -50,4 +50,8 @@ class Keystone::Ui::ChartCardComponentTest < Minitest::Test
   def test_card_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ChartCardComponent::CARD_CLASSES
   end
+
+  def test_title_classes_render_the_ks_chart_card_title_class
+    assert_includes Keystone::Ui::ChartCardComponent::TITLE_CLASSES, "ks-chart-card-title"
+  end
 end
