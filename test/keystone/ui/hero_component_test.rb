@@ -77,14 +77,6 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
     assert Keystone::Ui::HeroComponent.registered_slots.key?(:aside)
   end
 
-  def test_uses_semantic_accent_classes_for_badge
-    component = Keystone::Ui::HeroComponent.new(title: "X", badge: "New")
-
-    assert_includes component.badge_classes, "border-accent-500/20"
-    assert_includes component.badge_classes, "text-accent-600"
-    assert_includes component.badge_classes, "bg-accent-500/10"
-    assert_includes component.badge_classes, "dark:text-accent-400"
-  end
 
 
   def test_wrapper_classes_render_the_ks_hero_class
@@ -153,5 +145,9 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
 
   def test_subtitle_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent.new(title: "Hello").subtitle_classes
+  end
+
+  def test_badge_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent.new(title: "Hello").badge_classes
   end
 end

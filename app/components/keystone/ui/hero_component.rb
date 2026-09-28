@@ -59,7 +59,7 @@ module Keystone
       end
 
       def badge_classes
-        "#{BADGE_BASE_CLASSES} border-accent-500/20 bg-accent-500/10 text-accent-600 dark:text-accent-400"
+        BADGE_BASE_CLASSES
       end
 
       def badge?
