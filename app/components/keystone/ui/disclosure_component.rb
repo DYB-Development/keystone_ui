@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class DisclosureComponent < ViewComponent::Base
-      WRAPPER_CLASSES = "group rounded-xl border border-surface-200 dark:border-surface-700"
+      WRAPPER_CLASSES = "ks-disclosure group rounded-xl border border-surface-200 dark:border-surface-700"
       SUMMARY_CLASSES = "flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-4 font-semibold text-surface-900 [&::-webkit-details-marker]:hidden dark:text-white"
       ICON_CLASSES = "h-4 w-4 shrink-0 text-surface-400 transition-transform group-open:rotate-180"
       BODY_CLASSES = "px-6 pb-4 text-sm text-surface-600 dark:text-surface-400"

@@ -17,4 +17,8 @@ class Keystone::Ui::DisclosureComponentTest < Minitest::Test
     assert_includes classes, "cursor-pointer"
     assert_includes classes, "list-none"
   end
+
+  def test_wrapper_classes_render_the_ks_disclosure_class
+    assert_includes Keystone::Ui::DisclosureComponent::WRAPPER_CLASSES, "ks-disclosure"
+  end
 end
