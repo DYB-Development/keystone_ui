@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::NavbarComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_includes_top_nav_and_sticky_classes_by_default
     component = Keystone::Ui::NavbarComponent.new
 
@@ -37,5 +39,9 @@ class Keystone::Ui::NavbarComponentTest < Minitest::Test
 
   def test_mobile_center_classes_render_the_ks_navbar_title_class
     assert_includes Keystone::Ui::NavbarComponent::MOBILE_CENTER_CLASSES, "ks-navbar-title"
+  end
+
+  def test_mobile_center_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::NavbarComponent::MOBILE_CENTER_CLASSES
   end
 end
