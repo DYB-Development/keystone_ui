@@ -52,4 +52,8 @@ class Keystone::Ui::NavDropdownComponentTest < Minitest::Test
 
     assert_equal "dropdown", component.wrapper_data[:controller]
   end
+
+  def test_caret_icon_renders_the_ks_nav_dropdown_caret_class
+    assert_includes Keystone::Ui::NavDropdownComponent::CARET_ICON, 'class="ks-nav-dropdown-caret"'
+  end
 end
