@@ -11,7 +11,7 @@ module Keystone
       ICON_CLASSES = "ks-file-upload-icon mx-auto h-10 w-10"
       PROMPT_CLASSES = "ks-file-upload-prompt text-sm"
       BROWSE_CLASSES = "ks-file-upload-browse"
-      HINT_CLASSES = "mt-1 text-xs text-gray-500 dark:text-gray-400"
+      HINT_CLASSES = "ks-file-upload-hint mt-1 text-xs text-gray-500 dark:text-gray-400"
       FILE_NAME_CLASSES = "mt-2 text-sm text-gray-700 dark:text-gray-300 truncate"
       FILE_INPUT_CLASSES = "sr-only"
 
