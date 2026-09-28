@@ -206,4 +206,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_value_base_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::VALUE_BASE_CLASSES
   end
+
+  def test_suffix_classes_render_the_ks_stat_card_suffix_class
+    assert_includes Keystone::Ui::StatCardComponent::SUFFIX_CLASSES, "ks-stat-card-suffix"
+  end
 end

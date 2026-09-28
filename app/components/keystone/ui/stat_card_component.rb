@@ -6,7 +6,7 @@ module Keystone
       CARD_CLASSES = "ks-metric-card relative"
       LABEL_CLASSES = "ks-stat-card-label text-sm"
       VALUE_BASE_CLASSES = "ks-stat-card-value text-3xl"
-      SUFFIX_CLASSES = "text-lg text-gray-500 dark:text-gray-400"
+      SUFFIX_CLASSES = "ks-stat-card-suffix text-lg text-gray-500 dark:text-gray-400"
       DISCLOSURE_CLASSES = "hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 mt-2 space-y-1 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-600 shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-400"
       CHANGE_ROW_CLASSES = "mt-1 h-5 text-sm font-medium"
       VALUE_LINK_CLASSES = "hover:underline focus:outline-none focus-visible:underline"
