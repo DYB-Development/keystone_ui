@@ -19,7 +19,7 @@ module Keystone
       BACK_LINK_CLASSES = "ks-mobile-header-back"
       TITLE_CLASSES = "ks-mobile-header-title absolute left-1/2 -translate-x-1/2 lg:hidden truncate max-w-[60%]"
       SUBTITLE_CLASSES = "ks-mobile-header-subtitle block text-xs truncate text-center"
-      DROPDOWN_CLASSES = "ks-action-menu hidden absolute right-0 z-50 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 dark:bg-zinc-800 dark:ring-white/10"
+      DROPDOWN_CLASSES = "ks-action-menu hidden absolute right-0 z-50 w-48 origin-top-right"
 
       # Renders the left-side and title of the mobile header.
       # Call from the left side of your navbar.

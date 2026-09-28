@@ -84,4 +84,8 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
   def test_dropdown_classes_render_the_ks_action_menu_class
     assert_includes Keystone::Ui::MobileHeaderComponent::DROPDOWN_CLASSES, "ks-action-menu"
   end
+
+  def test_dropdown_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MobileHeaderComponent::DROPDOWN_CLASSES
+  end
 end
