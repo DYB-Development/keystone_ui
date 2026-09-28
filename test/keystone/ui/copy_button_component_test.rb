@@ -48,4 +48,8 @@ class Keystone::Ui::CopyButtonComponentTest < Minitest::Test
     assert_equal "clipboard", component.wrapper_data[:controller]
     assert_equal "abc123", component.wrapper_data[:"clipboard-text"]
   end
+
+  def test_button_classes_render_the_ks_copy_button_class
+    assert_includes Keystone::Ui::CopyButtonComponent::BUTTON_CLASSES, "ks-copy-button"
+  end
 end
