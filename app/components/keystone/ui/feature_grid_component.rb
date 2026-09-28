@@ -8,7 +8,7 @@ module Keystone
       SUBTITLE_BASE_CLASSES = "ks-feature-grid-subtitle mx-auto max-w-2xl text-center text-lg"
       CARD_LAYOUT_CLASSES = "ks-feature-card transition"
       ICON_BASE_CLASSES = "ks-feature-card-icon flex size-10 items-center justify-center text-lg"
-      CARD_TITLE_BASE_CLASSES = "ks-feature-card-title mb-2 text-lg font-semibold"
+      CARD_TITLE_BASE_CLASSES = "ks-feature-card-title text-lg"
       CARD_DESCRIPTION_BASE_CLASSES = "text-sm"
 
       attr_reader :title, :subtitle, :features
