@@ -38,4 +38,8 @@ class Keystone::Ui::ShowPageComponentTest < Minitest::Test
   def test_title_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ShowPageComponent::TITLE_CLASSES
   end
+
+  def test_subtitle_classes_render_the_ks_page_header_subtitle_class
+    assert_includes Keystone::Ui::ShowPageComponent::SUBTITLE_CLASSES, "ks-page-header-subtitle"
+  end
 end
