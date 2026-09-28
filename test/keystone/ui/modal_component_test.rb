@@ -19,12 +19,6 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
     assert_equal "Event Payload", component.title
   end
 
-  def test_exposes_close_button_classes
-    component = Keystone::Ui::ModalComponent.new(title: "X")
-
-    assert_includes component.close_button_classes, "hover:text-gray-600"
-  end
-
   def test_defaults_to_md_size
     component = Keystone::Ui::ModalComponent.new(title: "X")
 
@@ -89,5 +83,9 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
 
   def test_close_button_classes_render_the_ks_modal_close_class
     assert_includes Keystone::Ui::ModalComponent::CLOSE_BUTTON_CLASSES, "ks-modal-close"
+  end
+
+  def test_close_button_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ModalComponent::CLOSE_BUTTON_CLASSES
   end
 end
