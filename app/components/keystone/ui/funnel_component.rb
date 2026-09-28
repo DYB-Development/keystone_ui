@@ -6,7 +6,7 @@ module Keystone
       Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, :color_classes, keyword_init: true)
 
       CONTAINER_CLASSES = "ks-funnel"
-      LAYER_CLASSES = "space-y-1"
+      LAYER_CLASSES = "ks-funnel-layer space-y-1"
       ROW_CLASSES = "flex items-baseline justify-between gap-3"
       LABEL_CLASSES = "text-sm font-medium text-surface-700 truncate dark:text-surface-300"
       VALUE_CLASSES = "text-sm font-semibold text-surface-900 tabular-nums dark:text-white"

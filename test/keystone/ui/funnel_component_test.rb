@@ -145,4 +145,8 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
   def test_container_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FunnelComponent::CONTAINER_CLASSES
   end
+
+  def test_layer_classes_render_the_ks_funnel_layer_class
+    assert_includes Keystone::Ui::FunnelComponent::LAYER_CLASSES, "ks-funnel-layer"
+  end
 end
