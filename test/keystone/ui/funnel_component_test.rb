@@ -171,4 +171,8 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
   def test_bar_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FunnelComponent::BAR_CLASSES
   end
+
+  def test_transition_classes_render_the_ks_funnel_transition_class
+    assert_includes Keystone::Ui::FunnelComponent::TRANSITION_CLASSES, "ks-funnel-transition"
+  end
 end
