@@ -77,4 +77,8 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
   def test_grid_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent::GRID_CLASSES
   end
+
+  def test_title_base_classes_render_the_ks_feature_grid_title_class
+    assert_includes Keystone::Ui::FeatureGridComponent::TITLE_BASE_CLASSES, "ks-feature-grid-title"
+  end
 end
