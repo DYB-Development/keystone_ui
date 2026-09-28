@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class ThemeToggleComponent < ViewComponent::Base
       OPTIONS = [ [ "Light", "light" ], [ "Dark", "dark" ], [ "System", "system" ] ].freeze
-      GROUP_CLASSES = "ks-theme-toggle inline-flex gap-1"
+      GROUP_CLASSES = "ks-theme-toggle inline-flex"
       OPTION_CLASSES = "ks-theme-toggle-option ks-button ks-button-sm ks-button-secondary"
 
       def initialize(current: nil)
