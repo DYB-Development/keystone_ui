@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-install
-description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier and extra Tailwind imports and sources.
+description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks and extra Tailwind imports and sources.
 tools: Bash, Read, Edit
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -22,13 +22,18 @@ built on ViewComponent; hook it in before building any screen with those helpers
   `surface` (palette names, `:blue` and `:zinc` unless set),
   `theme_mode_supplier` (a callable that supplies a light, dark, system or
   custom mode),
+  `register_look` (a look's CSS file by name), `default_look` and
+  `look_supplier` (which registered look a page gets),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 - `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
   It writes `data-theme="light"`, `data-theme="dark"` or `data-theme="custom"`
   for the page's mode, and writes nothing for system so the page follows the
   operating system. The mode is the `keystone_theme` cookie's choice, then the
-  configured `theme_mode_supplier`, then light.
+  configured `theme_mode_supplier`, then light. It also writes
+  `data-look="<name>"` for the page's look: the `look_supplier`'s name, then
+  `default_look`, each used only when registered. With no look registered it
+  writes no `data-look`.
 
 ## How to use it
 
@@ -151,6 +156,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
    mobile header and settings link. The keystone_ui-styles README lists every
    variable and its default.
 
+   To offer several looks and choose one per page, register them by name in
+   step 7 rather than importing them here.
+
 7. Write `config/initializers/keystone_ui.rb` only if one of the settings below
    is wanted. Ask the developer about each rather than adding any by default.
    The engine reads the configuration after initializers have run, so this file
@@ -163,6 +171,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
      config.accent = :emerald
      config.surface = :slate
      config.theme_mode_supplier = ->(view) { view.current_user&.theme }
+     config.register_look :compact, "/absolute/path/to/compact.css"
+     config.default_look = :compact
+     config.look_supplier = ->(view) { view.current_user&.look }
      config.tailwind_imports << "/absolute/path/to/extra.css"
      config.tailwind_sources << "/absolute/path/to/components/**/*.{erb,rb}"
    end
@@ -180,6 +191,14 @@ built on ViewComponent; hook it in before building any screen with those helpers
      `data-theme="custom"`. The theme toggle does not offer custom, so only a
      supplier sets it. Ask the developer which gem or code supplies custom and
      its colors before returning it.
+   - `register_look :name, path` — registers a look file by name and appends it
+     to `tailwind_imports`, so `keystone_source.css` imports it. A look offered
+     this way scopes its variables to `:root[data-look="<name>"]` instead of
+     `:root`, so several can be imported at once.
+   - `default_look = :name` — the look a page gets when nothing else chooses one.
+   - `look_supplier` — a callable that receives the view and returns a look
+     name for the request. A name that is not registered, or `nil`, leaves the
+     page on the default look.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for

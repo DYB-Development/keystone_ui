@@ -86,6 +86,13 @@ holds the catalog.
   swipe deck. So do the navigation components: navbar, nav item, nav dropdown,
   bottom nav, mobile header and settings link. A host imports its look after `keystone_source.css`, and a gem ships one through
   `tailwind_imports`, both set up through the install local.
+- **Registered looks.** Looks can also be registered by name, and each page
+  gets one: the name another gem supplies for the request, then the configured
+  default, each used only when registered. The layout's `<html>` tag carries
+  `data-look="<name>"`, and a registered look file scopes its variables to
+  `:root[data-look="<name>"]`. A host with no registered looks gets no
+  `data-look`. Registering and choosing looks is set up through the install
+  local.
 - **Light, dark, system and custom themes.** Every component has dark-mode
   styling. The theme is chosen in this order: the user's choice stored in a
   cookie, then a mode another gem supplies, then light. System leaves the page
