@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_exposes_title
     component = Keystone::Ui::MobileHeaderComponent.new(title: "Invoice #42", back_url: "/invoices")
 
@@ -31,9 +33,6 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES, "truncate"
   end
 
-  def test_has_back_link_classes_with_gray_text_styling
-    assert_includes Keystone::Ui::MobileHeaderComponent::BACK_LINK_CLASSES, "text-gray-500"
-  end
 
   def test_has_title_classes_with_centered_positioning_and_truncation
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "absolute"
@@ -61,5 +60,9 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
 
   def test_back_link_classes_render_the_ks_mobile_header_back_class
     assert_includes Keystone::Ui::MobileHeaderComponent::BACK_LINK_CLASSES, "ks-mobile-header-back"
+  end
+
+  def test_back_link_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MobileHeaderComponent::BACK_LINK_CLASSES
   end
 end
