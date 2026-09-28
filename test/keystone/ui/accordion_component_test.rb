@@ -3,10 +3,12 @@
 require "test_helper"
 
 class Keystone::Ui::AccordionComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_returns_base_wrapper_classes
     component = Keystone::Ui::AccordionComponent.new
 
-    assert_equal "ks-accordion flex flex-col gap-4", component.classes
+    assert_equal "ks-accordion flex flex-col", component.classes
   end
 
   def test_stores_items_with_question_and_answer
@@ -65,5 +67,9 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
 
   def test_base_classes_render_the_ks_accordion_class
     assert_includes Keystone::Ui::AccordionComponent::BASE_CLASSES, "ks-accordion"
+  end
+
+  def test_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent::BASE_CLASSES
   end
 end
