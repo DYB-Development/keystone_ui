@@ -21,4 +21,8 @@ class Keystone::Ui::MultiSelectComponentTest < Minitest::Test
     assert_equal true, component.selected?(1)
     assert_equal false, component.selected?(2)
   end
+
+  def test_trigger_classes_render_the_ks_menu_trigger_class
+    assert_includes Keystone::Ui::MultiSelectComponent::TRIGGER_CLASSES, "ks-menu-trigger"
+  end
 end

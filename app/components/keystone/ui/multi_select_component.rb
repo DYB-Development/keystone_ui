@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class MultiSelectComponent < ViewComponent::Base
       WRAPPER_CLASSES = "relative inline-block"
-      TRIGGER_CLASSES = "inline-flex items-center gap-1 rounded-md border px-3 py-2 text-sm border-gray-300 bg-white text-gray-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
+      TRIGGER_CLASSES = "ks-menu-trigger inline-flex items-center gap-1 rounded-md border px-3 py-2 text-sm border-gray-300 bg-white text-gray-900 dark:border-zinc-700 dark:bg-zinc-900 dark:text-white"
       MENU_CLASSES = "absolute z-10 mt-1 w-56 rounded-md border border-gray-200 bg-white shadow-lg dark:border-zinc-700 dark:bg-zinc-900 hidden"
       OPTION_CLASSES = "flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-zinc-800 cursor-pointer"
       CHECKBOX_CLASSES = "rounded border-gray-300 text-accent-600 focus:ring-accent-500 dark:border-zinc-600"
