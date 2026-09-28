@@ -222,4 +222,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_disclosure_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::DISCLOSURE_CLASSES
   end
+
+  def test_change_row_classes_render_the_ks_stat_card_change_class
+    assert_includes Keystone::Ui::StatCardComponent::CHANGE_ROW_CLASSES, "ks-stat-card-change"
+  end
 end
