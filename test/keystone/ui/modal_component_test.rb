@@ -86,4 +86,8 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
   def test_title_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ModalComponent::TITLE_CLASSES
   end
+
+  def test_close_button_classes_render_the_ks_modal_close_class
+    assert_includes Keystone::Ui::ModalComponent::CLOSE_BUTTON_CLASSES, "ks-modal-close"
+  end
 end

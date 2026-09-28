@@ -7,7 +7,7 @@ module Keystone
       PANEL_CLASSES = "ks-modal-panel w-full max-h-[80vh] flex flex-col"
       HEADER_CLASSES = "ks-modal-header flex items-center justify-between"
       TITLE_CLASSES = "ks-modal-title text-lg"
-      CLOSE_BUTTON_CLASSES = "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
+      CLOSE_BUTTON_CLASSES = "ks-modal-close text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
       BODY_CLASSES = "overflow-auto flex-1"
 
       SIZE_CLASSES = {
