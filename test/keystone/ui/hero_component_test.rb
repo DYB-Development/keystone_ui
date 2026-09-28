@@ -106,4 +106,8 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
   def test_inner_classes_render_the_ks_hero_inner_class
     assert_includes Keystone::Ui::HeroComponent::INNER_CLASSES, "ks-hero-inner"
   end
+
+  def test_inner_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::INNER_CLASSES
+  end
 end
