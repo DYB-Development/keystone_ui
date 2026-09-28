@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- Boot stops with an error naming the look when a registered look's file is missing or sets no `--ks-` variables under its name, and when the default look is not registered.
+
 ## [0.19.0] - 2026-09-28
 
 ### Added
