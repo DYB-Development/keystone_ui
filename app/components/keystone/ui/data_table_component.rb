@@ -13,7 +13,7 @@ module Keystone
 
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
 
-      SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center gap-1"
+      SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
       SORT_ICON_CLASSES = "h-4 w-4 flex-shrink-0"
       SORT_ICON_ACTIVE = "text-gray-700 dark:text-gray-300"
       SORT_ICON_INACTIVE = "text-gray-400 dark:text-gray-500 invisible group-hover:visible"
