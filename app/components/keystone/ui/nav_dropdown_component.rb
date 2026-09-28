@@ -5,7 +5,7 @@ module Keystone
     class NavDropdownComponent < ViewComponent::Base
       WRAPPER_CLASSES = "nav-dropdown"
       MENU_CLASSES = "nav-dropdown-menu hidden"
-      TRIGGER_BASE = "nav-dropdown-trigger"
+      TRIGGER_BASE = "ks-nav-dropdown-trigger"
       ACTIVE_CLASS = "active"
       CARET_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="nav-dropdown-caret">

@@ -24,7 +24,7 @@ class Keystone::Ui::NavDropdownComponentTest < Minitest::Test
   def test_includes_trigger_base_class_when_not_active
     component = Keystone::Ui::NavDropdownComponent.new(title: "Plan", area: :plan, active: false)
 
-    assert_equal "nav-dropdown-trigger", component.trigger_classes
+    assert_equal "ks-nav-dropdown-trigger", component.trigger_classes
   end
 
   def test_exposes_area
