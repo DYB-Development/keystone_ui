@@ -9,7 +9,7 @@ module Keystone
       HINT_CLASSES = "ks-hint"
       ERROR_CLASSES = "ks-error"
       CHECKBOX_CLASSES = "ks-checkbox"
-      CHECKBOX_WRAPPER_CLASSES = "flex items-center gap-2"
+      CHECKBOX_WRAPPER_CLASSES = "ks-form-field-checkbox flex items-center gap-2"
 
       def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false)
         @attribute = attribute

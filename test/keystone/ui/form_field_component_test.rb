@@ -155,4 +155,8 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
   def test_wrapper_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FormFieldComponent::WRAPPER_CLASSES
   end
+
+  def test_checkbox_wrapper_classes_render_the_ks_form_field_checkbox_class
+    assert_includes Keystone::Ui::FormFieldComponent::CHECKBOX_WRAPPER_CLASSES, "ks-form-field-checkbox"
+  end
 end
