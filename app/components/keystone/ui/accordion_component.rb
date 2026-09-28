@@ -28,7 +28,7 @@ module Keystone
       end
 
       def button_classes
-        "#{BUTTON_LAYOUT_CLASSES} text-surface-900 dark:text-white hover:text-accent-600 dark:hover:text-accent-400"
+        BUTTON_LAYOUT_CLASSES
       end
 
       def answer_classes

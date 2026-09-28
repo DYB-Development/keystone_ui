@@ -36,17 +36,10 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
     assert_includes component.answer_classes, "hidden"
   end
 
-  def test_uses_semantic_accent_classes_for_button_hover
-    component = Keystone::Ui::AccordionComponent.new
-
-    assert_includes component.button_classes, "hover:text-accent-600"
-    assert_includes component.button_classes, "dark:hover:text-accent-400"
-  end
 
   def test_uses_semantic_surface_classes
     component = Keystone::Ui::AccordionComponent.new
 
-    assert_includes component.button_classes, "text-surface-900"
     assert_includes component.answer_classes, "text-surface-600"
     assert_includes component.icon_classes, "text-surface-400"
   end
@@ -95,5 +88,9 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
 
   def test_item_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent.new(items: []).item_classes
+  end
+
+  def test_button_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent.new(items: []).button_classes
   end
 end
