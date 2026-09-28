@@ -56,4 +56,8 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
       Keystone::Ui::BucketComponent.new(goal: "30,000", actual: 9_000)
     end
   end
+
+  def test_container_classes_render_the_ks_bucket_class
+    assert_includes Keystone::Ui::BucketComponent::CONTAINER_CLASSES, "ks-bucket"
+  end
 end
