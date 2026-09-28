@@ -38,11 +38,6 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
     assert_includes component.actions_classes, "justify-center"
   end
 
-  def test_uses_semantic_surface_classes
-    component = Keystone::Ui::CtaBannerComponent.new(title: "X", subtitle: "Sub")
-
-    assert_includes component.subtitle_classes, "text-surface-500"
-  end
 
   def test_card_layout_classes_render_the_ks_cta_banner_class
     assert_includes Keystone::Ui::CtaBannerComponent::CARD_LAYOUT_CLASSES, "ks-cta-banner"
@@ -82,5 +77,9 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
 
   def test_title_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::CtaBannerComponent.new(title: "Start").title_classes
+  end
+
+  def test_subtitle_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CtaBannerComponent.new(title: "Start").subtitle_classes
   end
 end
