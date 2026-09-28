@@ -58,4 +58,8 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     assert Keystone::Ui::MobileHeaderComponent::ELLIPSIS_ICON.frozen?
     assert_includes Keystone::Ui::MobileHeaderComponent::ELLIPSIS_ICON, "<svg"
   end
+
+  def test_back_link_classes_render_the_ks_mobile_header_back_class
+    assert_includes Keystone::Ui::MobileHeaderComponent::BACK_LINK_CLASSES, "ks-mobile-header-back"
+  end
 end
