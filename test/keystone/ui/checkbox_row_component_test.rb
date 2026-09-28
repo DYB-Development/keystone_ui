@@ -42,4 +42,8 @@ class Keystone::Ui::CheckboxRowComponentTest < Minitest::Test
   def test_label_classes_render_the_ks_checkbox_row_label_class
     assert_includes Keystone::Ui::CheckboxRowComponent::LABEL_CLASSES, "ks-checkbox-row-label"
   end
+
+  def test_label_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CheckboxRowComponent::LABEL_CLASSES
+  end
 end
