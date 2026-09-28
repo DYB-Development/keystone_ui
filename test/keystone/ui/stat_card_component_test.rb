@@ -187,4 +187,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_includes component.disclosure_classes, "peer-hover:block"
   end
+
+  def test_card_classes_render_the_ks_metric_card_class
+    assert_includes Keystone::Ui::StatCardComponent::CARD_CLASSES, "ks-metric-card"
+  end
 end
