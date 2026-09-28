@@ -25,3 +25,12 @@ test("dragging a file over the drop zone marks it active", () => {
 
   assert.equal(dropZone.classList.contains("ks-file-upload-drop-zone-active"), true)
 })
+
+test("dragging a file away from the drop zone clears its active mark", () => {
+  const { controller, dropZone } = controllerWithDropZone()
+  controller.dragOver(dragEvent)
+
+  controller.dragLeave(dragEvent)
+
+  assert.equal(dropZone.classList.contains("ks-file-upload-drop-zone-active"), false)
+})
