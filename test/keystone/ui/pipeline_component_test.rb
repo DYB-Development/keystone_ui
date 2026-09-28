@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::PipelineComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_exposes_title
     component = Keystone::Ui::PipelineComponent.new(
       title: "Order fulfilment",
@@ -50,5 +52,9 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
 
   def test_container_classes_render_the_ks_pipeline_class
     assert_includes Keystone::Ui::PipelineComponent::CONTAINER_CLASSES, "ks-pipeline"
+  end
+
+  def test_container_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::CONTAINER_CLASSES
   end
 end
