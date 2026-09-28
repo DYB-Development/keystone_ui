@@ -214,4 +214,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_suffix_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::SUFFIX_CLASSES
   end
+
+  def test_disclosure_classes_render_the_ks_stat_card_disclosure_class
+    assert_includes Keystone::Ui::StatCardComponent::DISCLOSURE_CLASSES, "ks-stat-card-disclosure"
+  end
 end
