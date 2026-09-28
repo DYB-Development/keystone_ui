@@ -4,35 +4,25 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Changed
-- The grid's gaps, form and form field spacing, the theme toggle's gap, the form page and show page titles and subtitles, the colour picker's label and the settings link's arrow render keystone_ui-styles' `ks-` classes, so a look file restyles them.
-- keystone_ui requires keystone_ui-styles 0.6.0 or later.
+## [0.17.0] - 2026-09-28
 
 ### Added
+- A host or a gem can restyle every button from one look file that sets keystone_ui-styles' `--ks-` variables, and the README shows a complete one.
 - The test suite fails, naming the component and the utility, when a component constant holds a colour, radius, weight, shadow, border or spacing utility.
-
-### Changed
-- The navbar title, nav items, nav dropdown, bottom nav, mobile header and settings link render keystone_ui-styles' `ks-` classes, so a look file restyles them, and they have visible colours in a host that sets no variables.
-- keystone_ui no longer ships its own nav stylesheet or its `bottom-nav`, `nav-dropdown` and related class names, which are now `ks-bottom-nav`, `ks-nav-dropdown` and so on.
-
-### Upgrading
-- A host that coloured its nav with the `--base-bg-low`, `--base-bg-base`, `--base-bg-hover`, `--base-border-tertiary`, `--base-text`, `--base-text-secondary`, `--base-text-tertiary`, `--text-primary` or `--border-primary` variables keeps those colours, because the new nav colours read them first. The look variables that replace them are `--ks-color-nav`, `--ks-color-nav-menu-mobile`, `--ks-color-nav-hover`, `--ks-color-nav-border`, `--ks-color-nav-link`, `--ks-color-nav-text-hover`, `--ks-color-nav-text`, `--ks-color-nav-active` and `--ks-color-nav-indicator`, in that order.
-- A host stylesheet that targeted the old `bottom-nav` or `nav-dropdown` class names needs the `ks-` names instead.
-
-### Changed
-- The stat card, chart card, card link, call to action banner, feature grid, hero, data table, code, accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and swipe deck render keystone_ui-styles' `ks-` classes for how they look, so a look file restyles them. They look the same until a variable is set.
-- The funnel's step colours and the bucket's over-goal fills are classes a look file can recolour.
 
 ### Changed
 - The modal, mobile action menu, column picker, multi select, copy button, theme toggle, checkbox row, radio card, option card, file upload, colour picker and panel render keystone_ui-styles' `ks-` classes for how they look, so a look file restyles them. They look the same until a variable is set.
 - The file upload's drop zone marks itself active with one class while a file is dragged over it.
-- keystone_ui requires keystone_ui-styles 0.5.0 or later.
+- The stat card, chart card, card link, call to action banner, feature grid, hero, data table, code, accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and swipe deck render keystone_ui-styles' `ks-` classes for how they look, so a look file restyles them. They look the same until a variable is set.
+- The funnel's step colours and the bucket's over-goal fills are classes a look file can recolour.
+- The navbar title, nav items, nav dropdown, bottom nav, mobile header and settings link render keystone_ui-styles' `ks-` classes, so a look file restyles them, and they have visible colours in a host that sets no variables.
+- keystone_ui no longer ships its own nav stylesheet or its `bottom-nav`, `nav-dropdown` and related class names, which are now `ks-bottom-nav`, `ks-nav-dropdown` and so on.
+- The grid's gaps, form and form field spacing, the theme toggle's gap, the form page and show page titles and subtitles, the colour picker's label and the settings link's arrow render keystone_ui-styles' `ks-` classes, so a look file restyles them.
+- keystone_ui requires keystone_ui-styles 0.6.0 or later.
 
-### Added
-- A host or a gem can restyle every button from one look file that sets keystone_ui-styles' `--ks-` variables, and the README shows a complete one.
-
-### Changed
-- keystone_ui requires keystone_ui-styles 0.4.0 or later.
+### Upgrading
+- A host that coloured its nav with the `--base-bg-low`, `--base-bg-base`, `--base-bg-hover`, `--base-border-tertiary`, `--base-text`, `--base-text-secondary`, `--base-text-tertiary`, `--text-primary` or `--border-primary` variables keeps those colours, because the new nav colours read them first. The look variables that replace them are `--ks-color-nav`, `--ks-color-nav-menu-mobile`, `--ks-color-nav-hover`, `--ks-color-nav-border`, `--ks-color-nav-link`, `--ks-color-nav-text-hover`, `--ks-color-nav-text`, `--ks-color-nav-active` and `--ks-color-nav-indicator`, in that order.
+- A host stylesheet that targeted the old `bottom-nav` or `nav-dropdown` class names needs the `ks-` names instead.
 
 ## [0.16.0] - 2026-09-26
 
