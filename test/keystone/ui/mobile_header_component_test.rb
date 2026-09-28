@@ -38,7 +38,6 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "absolute"
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "-translate-x-1/2"
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "truncate"
-    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "font-semibold"
   end
 
   def test_hides_title_on_large_screens_with_lg_hidden
@@ -68,5 +67,9 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
 
   def test_title_classes_render_the_ks_mobile_header_title_class
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "ks-mobile-header-title"
+  end
+
+  def test_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES
   end
 end
