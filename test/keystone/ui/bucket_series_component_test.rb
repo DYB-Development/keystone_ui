@@ -17,4 +17,8 @@ class Keystone::Ui::BucketSeriesComponentTest < Minitest::Test
 
     assert_includes component.row_classes, "flex-wrap"
   end
+
+  def test_row_classes_render_the_ks_bucket_series_class
+    assert_includes Keystone::Ui::BucketSeriesComponent::ROW_CLASSES, "ks-bucket-series"
+  end
 end
