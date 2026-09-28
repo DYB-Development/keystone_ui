@@ -21,8 +21,7 @@ export default class extends Controller {
 
   dragOver(event) {
     event.preventDefault()
-    this.dropZoneTarget.classList.add("border-accent-500", "bg-accent-50", "dark:bg-accent-900/10")
-    this.dropZoneTarget.classList.remove("border-gray-300", "dark:border-zinc-600")
+    this.dropZoneTarget.classList.add("ks-file-upload-drop-zone-active")
   }
 
   dragLeave(event) {
