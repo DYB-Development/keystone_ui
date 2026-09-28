@@ -5,7 +5,7 @@
     <div class="<%= EMPTY_CLASSES %>" data-testid="swipe-empty">
       <p class="<%= EMPTY_TITLE_CLASSES %>"><%= @empty_title %></p>
       <% if @empty_subtitle %>
-        <p class="mt-2 text-gray-500 dark:text-gray-400"><%= @empty_subtitle %></p>
+        <p class="<%= EMPTY_MESSAGE_CLASSES %>"><%= @empty_subtitle %></p>
       <% end %>
     </div>
   <% else %>
