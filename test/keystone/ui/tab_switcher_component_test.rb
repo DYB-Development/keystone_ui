@@ -18,12 +18,6 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
   end
 
 
-  def test_uses_semantic_accent_classes_for_active_tab_state
-    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ])
-
-    assert_includes component.tab_classes, "data-[active]:bg-accent-500/10"
-    assert_includes component.tab_classes, "data-[active]:text-accent-600"
-  end
 
   def test_exposes_panel_classes_as_hidden
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ])
@@ -31,11 +25,6 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
     assert_equal "hidden", component.panel_classes
   end
 
-  def test_includes_dark_mode_accent_classes_for_active_tab
-    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ])
-
-    assert_includes component.tab_classes, "dark:data-[active]:text-accent-400"
-  end
 
   def test_wires_the_tab_switcher_stimulus_controller
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A", "B" ])
@@ -57,5 +46,9 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
 
   def test_tab_base_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::TabSwitcherComponent::TAB_BASE_CLASSES
+  end
+
+  def test_tab_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::TabSwitcherComponent.new(tabs: []).tab_classes
   end
 end

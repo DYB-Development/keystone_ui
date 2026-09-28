@@ -18,7 +18,7 @@ module Keystone
       end
 
       def tab_classes
-        "#{TAB_BASE_CLASSES} data-[active]:bg-accent-500/10 data-[active]:text-accent-600 dark:data-[active]:bg-accent-500/10 dark:data-[active]:text-accent-400"
+        "#{TAB_BASE_CLASSES} ks-tab-active"
       end
 
       def panel_classes
