@@ -13,7 +13,7 @@ module Keystone
       end
 
       BASE_CLASSES = "ks-panel"
-      SHADOW_CLASS = "shadow-sm"
+      SHADOW_CLASS = "ks-panel-shadow"
 
       def classes
         tokens = [ RADIUS_CLASSES.fetch(@radius), BASE_CLASSES, PADDING_CLASSES.fetch(@padding) ]

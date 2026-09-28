@@ -10,7 +10,7 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
     assert_includes classes, "ks-panel-radius-lg"
     assert_includes classes, "ks-panel"
     assert_includes classes, "ks-panel-padding-md"
-    assert_includes classes, "shadow-sm"
+    assert_includes classes, "ks-panel-shadow"
   end
 
   def test_maps_each_padding_size_correctly
@@ -28,6 +28,6 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
   def test_omits_shadow_sm_when_shadow_false
     component = Keystone::Ui::PanelComponent.new(shadow: false)
 
-    refute_includes component.classes, "shadow-sm"
+    refute_includes component.classes, "ks-panel-shadow"
   end
 end
