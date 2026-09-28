@@ -12,7 +12,7 @@ module Keystone
       SPLIT_CLASSES = "ks-hero-split grid lg:grid-cols-2 items-center"
       CENTERED_CLASSES = "flex flex-col items-center text-center"
 
-      TITLE_BASE_CLASSES = "ks-hero-title text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+      TITLE_BASE_CLASSES = "ks-hero-title text-4xl tracking-tight sm:text-5xl lg:text-6xl"
       SUBTITLE_BASE_CLASSES = "max-w-lg text-lg"
       BADGE_BASE_CLASSES = "inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
       ACTIONS_CLASSES = "flex flex-wrap gap-4"

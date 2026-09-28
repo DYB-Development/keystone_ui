@@ -46,7 +46,6 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
   def test_exposes_title_classes
     component = Keystone::Ui::HeroComponent.new(title: "X")
 
-    assert_includes component.title_classes, "font-bold"
     assert_includes component.title_classes, "tracking-tight"
   end
 
@@ -129,5 +128,9 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
 
   def test_title_base_classes_render_the_ks_hero_title_class
     assert_includes Keystone::Ui::HeroComponent::TITLE_BASE_CLASSES, "ks-hero-title"
+  end
+
+  def test_title_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::TITLE_BASE_CLASSES
   end
 end
