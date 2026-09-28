@@ -73,7 +73,7 @@ class KeystoneUi::ThemeHelperTest < Minitest::Test
       c.look_supplier = ->(view) { view.cookies["look"] }
     end
 
-    assert_equal %(data-look="material"), View.new("look" => "material").keystone_theme_attributes
+    assert_equal %(data-theme="light" data-look="material"), View.new("look" => "material").keystone_theme_attributes
   ensure
     KeystoneUi.reset_configuration!
   end
