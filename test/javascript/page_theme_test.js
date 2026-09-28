@@ -40,3 +40,13 @@ test("a page Turbo shows next marks the page with its look", () => {
 
   assert.equal(page.documentElement.dataset.look, "material")
 })
+
+test("a page Turbo shows next with no look removes the look from the page", () => {
+  const page = pageMarked("light")
+  page.documentElement.dataset.look = "material"
+  keepPageThemeInStep(page)
+
+  renderTurboPage(page, "light", null)
+
+  assert.equal("look" in page.documentElement.dataset, false)
+})
