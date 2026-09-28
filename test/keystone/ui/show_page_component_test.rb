@@ -29,4 +29,8 @@ class Keystone::Ui::ShowPageComponentTest < Minitest::Test
     assert_includes Keystone::Ui::ShowPageComponent::SUBTITLE_CLASSES, "text-sm"
     assert_includes Keystone::Ui::ShowPageComponent::SUBTITLE_CLASSES, "text-gray-500"
   end
+
+  def test_title_classes_render_the_ks_page_title_class
+    assert_includes Keystone::Ui::ShowPageComponent::TITLE_CLASSES, "ks-page-title"
+  end
 end
