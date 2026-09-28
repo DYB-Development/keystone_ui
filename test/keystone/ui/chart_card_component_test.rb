@@ -47,4 +47,8 @@ class Keystone::Ui::ChartCardComponentTest < Minitest::Test
 
     assert_raises(KeyError) { component.chart_height_class }
   end
+
+  def test_card_classes_render_the_ks_metric_card_class
+    assert_includes Keystone::Ui::ChartCardComponent::CARD_CLASSES, "ks-metric-card"
+  end
 end
