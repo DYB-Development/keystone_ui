@@ -6,7 +6,7 @@ module Keystone
       BASE_CLASSES = "ks-radio-card inline-flex flex-col cursor-pointer transition"
       HIGHLIGHT_CLASSES = "ks-radio-card-highlight"
       LABEL_CLASSES = "ks-radio-card-label block"
-      HINT_CLASSES = "ks-radio-card-hint block mt-1 text-sm text-surface-500 dark:text-gray-400"
+      HINT_CLASSES = "ks-radio-card-hint block text-sm"
 
       attr_reader :name, :value, :label, :hint
 
