@@ -21,4 +21,10 @@ class KeystoneUi::LookChoiceTest < Minitest::Test
 
     assert_equal({ "data-look" => "plain" }, choice.html_attributes)
   end
+
+  def test_leaves_the_html_tag_unmarked_when_no_looks_are_registered
+    choice = KeystoneUi::LookChoice.new(looks: [], default: nil)
+
+    assert_equal({}, choice.html_attributes)
+  end
 end

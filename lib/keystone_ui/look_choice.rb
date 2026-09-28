@@ -13,7 +13,7 @@ module KeystoneUi
     end
 
     def html_attributes
-      { "data-look" => name }
+      name ? { "data-look" => name } : {}
     end
   end
 end
