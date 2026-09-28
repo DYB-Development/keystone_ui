@@ -31,11 +31,6 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
     assert_equal false, component.subtitle?
   end
 
-  def test_exposes_title_and_subtitle_classes
-    component = Keystone::Ui::CtaBannerComponent.new(title: "X")
-
-    assert_includes component.title_classes, "font-bold"
-  end
 
   def test_exposes_actions_wrapper_classes
     component = Keystone::Ui::CtaBannerComponent.new(title: "X")
@@ -64,5 +59,9 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
 
   def test_title_base_classes_render_the_ks_cta_banner_title_class
     assert_includes Keystone::Ui::CtaBannerComponent::TITLE_BASE_CLASSES, "ks-cta-banner-title"
+  end
+
+  def test_title_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CtaBannerComponent::TITLE_BASE_CLASSES
   end
 end
