@@ -6,8 +6,8 @@
         <%= info_icon.html_safe %>
       </button>
       <div class="<%= disclosure_classes %>" data-stat-card-info-target="panel">
-        <% if definition %><p><span class="font-medium text-gray-700 dark:text-gray-300">Captures:</span> <%= definition %></p><% end %>
-        <% if calculation %><p><span class="font-medium text-gray-700 dark:text-gray-300">Calc:</span> <%= calculation %></p><% end %>
+        <% if definition %><p><span class="<%= EMPHASIS_CLASSES %>">Captures:</span> <%= definition %></p><% end %>
+        <% if calculation %><p><span class="<%= EMPHASIS_CLASSES %>">Calc:</span> <%= calculation %></p><% end %>
       </div>
     <% end %>
   </div>

@@ -225,4 +225,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_header_classes_render_the_ks_stat_card_header_class
     assert_includes Keystone::Ui::StatCardComponent::HEADER_CLASSES, "ks-stat-card-header"
   end
+
+  def test_emphasis_classes_render_the_ks_stat_card_emphasis_class
+    assert_includes Keystone::Ui::StatCardComponent::EMPHASIS_CLASSES, "ks-stat-card-emphasis"
+  end
 end

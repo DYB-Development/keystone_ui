@@ -3,6 +3,7 @@
 module Keystone
   module Ui
     class StatCardComponent < ViewComponent::Base
+      EMPHASIS_CLASSES = "ks-stat-card-emphasis"
       HEADER_CLASSES = "ks-stat-card-header flex items-start justify-between"
       CARD_CLASSES = "ks-metric-card relative"
       LABEL_CLASSES = "ks-stat-card-label text-sm"
