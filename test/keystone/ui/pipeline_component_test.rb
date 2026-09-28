@@ -38,11 +38,6 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
     assert_equal link, component.link_after(0)
   end
 
-  def test_link_classes_mark_a_broken_handoff_in_red
-    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
-
-    assert_includes component.link_classes({ broken: true }), "text-red-500"
-  end
 
 
   def test_container_classes_render_the_ks_pipeline_class
@@ -119,5 +114,9 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
 
   def test_link_broken_classes_render_the_ks_pipeline_link_broken_class
     assert_includes Keystone::Ui::PipelineComponent::LINK_BROKEN_CLASSES, "ks-pipeline-link-broken"
+  end
+
+  def test_link_broken_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::LINK_BROKEN_CLASSES
   end
 end
