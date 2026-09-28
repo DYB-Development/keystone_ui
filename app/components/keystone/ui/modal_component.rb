@@ -5,7 +5,7 @@ module Keystone
     class ModalComponent < ViewComponent::Base
       BACKDROP_CLASSES = "ks-modal-backdrop hidden fixed inset-0 z-50 flex items-center justify-center"
       PANEL_CLASSES = "ks-modal-panel w-full max-h-[80vh] flex flex-col"
-      HEADER_CLASSES = "flex items-center justify-between mb-4"
+      HEADER_CLASSES = "ks-modal-header flex items-center justify-between mb-4"
       TITLE_CLASSES = "text-lg font-semibold text-gray-900 dark:text-gray-200"
       CLOSE_BUTTON_CLASSES = "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
       BODY_CLASSES = "overflow-auto flex-1"
