@@ -7,7 +7,7 @@ module Keystone
       ITEM_LAYOUT_CLASSES = "ks-accordion-item"
       BUTTON_LAYOUT_CLASSES = "ks-accordion-button flex w-full items-center justify-between text-left transition"
       ANSWER_LAYOUT_CLASSES = "ks-accordion-answer hidden text-sm"
-      ICON_LAYOUT_CLASSES = "shrink-0 transition-transform"
+      ICON_LAYOUT_CLASSES = "ks-disclosure-icon shrink-0 transition-transform"
 
       CARET_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" /></svg>
