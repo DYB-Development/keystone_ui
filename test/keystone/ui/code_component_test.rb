@@ -42,4 +42,8 @@ class Keystone::Ui::CodeComponentTest < Minitest::Test
   def test_caption_classes_render_the_ks_code_caption_class
     assert_includes Keystone::Ui::CodeComponent::CAPTION_CLASSES, "ks-code-caption"
   end
+
+  def test_caption_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CodeComponent::CAPTION_CLASSES
+  end
 end
