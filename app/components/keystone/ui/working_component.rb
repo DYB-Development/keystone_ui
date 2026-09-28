@@ -7,6 +7,7 @@ module Keystone
       Line = Struct.new(:label, :working, :result, keyword_init: true)
 
       TITLE_CLASSES = "ks-label text-sm"
+      LINE_CLASSES = "ks-hint text-sm"
 
       attr_reader :groups, :summary
 

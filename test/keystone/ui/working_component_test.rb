@@ -23,4 +23,9 @@ class Keystone::Ui::WorkingComponentTest < Minitest::Test
     assert_includes Keystone::Ui::WorkingComponent::TITLE_CLASSES, "ks-label"
     refute_match VISUAL_UTILITY, Keystone::Ui::WorkingComponent::TITLE_CLASSES
   end
+
+  def test_draws_the_working_lines_in_keystones_quiet_hint_style_with_no_visual_utility
+    assert_includes Keystone::Ui::WorkingComponent::LINE_CLASSES, "ks-hint"
+    refute_match VISUAL_UTILITY, Keystone::Ui::WorkingComponent::LINE_CLASSES
+  end
 end
