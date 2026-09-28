@@ -46,7 +46,7 @@ module KeystoneUiHelper
   end
 
   def keystone_theme_attributes
-    keystone_theme_choice.html_attributes_markup.html_safe
+    keystone_theme_choice.html_attributes.merge(keystone_look_choice.html_attributes).map { |name, value| %(#{name}="#{value}") }.join(" ").html_safe
   end
 
   def ui_copy_button(**args)
@@ -217,5 +217,10 @@ module KeystoneUiHelper
 
   def keystone_theme_choice
     KeystoneUi::ThemeChoice.new(cookies[KeystoneUi::ThemeChoice::COOKIE], supplied: KeystoneUi.configuration.supplied_theme_mode(self))
+  end
+
+  def keystone_look_choice
+    config = KeystoneUi.configuration
+    KeystoneUi::LookChoice.new(looks: config.looks.keys, default: config.default_look, supplied: config.supplied_look(self))
   end
 end
