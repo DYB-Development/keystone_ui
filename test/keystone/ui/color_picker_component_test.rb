@@ -44,4 +44,8 @@ class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
 
     assert_equal "Accent Color", component.label
   end
+
+  def test_swatch_classes_render_the_ks_color_swatch_class
+    assert_includes Keystone::Ui::ColorPickerComponent::SWATCH_CLASSES, "ks-color-swatch"
+  end
 end

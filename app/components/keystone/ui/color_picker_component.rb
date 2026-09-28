@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class ColorPickerComponent < ViewComponent::Base
-      SWATCH_CLASSES = "w-10 h-10 rounded-lg border border-gray-300 dark:border-zinc-600 cursor-pointer"
+      SWATCH_CLASSES = "ks-color-swatch w-10 h-10 rounded-lg border border-gray-300 dark:border-zinc-600 cursor-pointer"
 
       PANEL_CLASSES = "absolute z-50 mt-2 p-3 rounded-lg shadow-lg bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 hidden"
 
