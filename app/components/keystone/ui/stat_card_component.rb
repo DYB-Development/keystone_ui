@@ -17,11 +17,11 @@ module Keystone
       SVG
 
       VARIANT_CLASSES = {
-        neutral: "text-gray-900 dark:text-white",
-        success: "text-green-600 dark:text-green-400",
-        danger: "text-red-600 dark:text-red-400",
-        warning: "text-yellow-600 dark:text-yellow-400",
-        info: "text-accent-600 dark:text-accent-400"
+        neutral: "ks-tone-neutral",
+        success: "ks-tone-success",
+        danger: "ks-tone-danger",
+        warning: "ks-tone-warning",
+        info: "ks-tone-info"
       }.freeze
 
       attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href

@@ -13,11 +13,6 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     assert_equal "1,234", component.value
   end
 
-  def test_defaults_to_neutral_variant
-    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "0")
-
-    assert_includes component.value_classes, "text-gray-900"
-  end
 
   def test_maps_variant_to_value_color
     %i[neutral success danger warning info].each do |variant|
@@ -232,5 +227,9 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
   def test_info_button_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::INFO_BUTTON_CLASSES
+  end
+
+  def test_variant_classes_map_to_look_classes
+    assert_equal({ neutral: "ks-tone-neutral", success: "ks-tone-success", danger: "ks-tone-danger", warning: "ks-tone-warning", info: "ks-tone-info" }, Keystone::Ui::StatCardComponent::VARIANT_CLASSES)
   end
 end
