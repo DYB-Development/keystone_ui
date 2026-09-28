@@ -123,4 +123,8 @@ class Keystone::Ui::FileUploadComponentTest < Minitest::Test
   def test_wrapper_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FileUploadComponent::WRAPPER_CLASSES
   end
+
+  def test_label_classes_render_the_ks_label_class
+    assert_includes Keystone::Ui::FileUploadComponent::LABEL_CLASSES, "ks-label"
+  end
 end

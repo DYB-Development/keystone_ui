@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class FileUploadComponent < ViewComponent::Base
       WRAPPER_CLASSES = "ks-file-upload"
-      LABEL_CLASSES = "block text-sm font-medium text-gray-700 dark:text-gray-300"
+      LABEL_CLASSES = "ks-label block text-sm font-medium text-gray-700 dark:text-gray-300"
       DROP_ZONE_CLASSES = "mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 py-8 cursor-pointer dark:border-zinc-600 transition-colors"
       DROP_ZONE_ACTIVE_CLASSES = "border-accent-500 bg-accent-50 dark:bg-accent-900/10"
       DROP_ZONE_INNER_CLASSES = "space-y-2 text-center"
