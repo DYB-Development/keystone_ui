@@ -5,7 +5,7 @@ module Keystone
     class PipelineComponent < ViewComponent::Base
       CONTAINER_CLASSES = "ks-pipeline"
       HEADER_CLASSES = "ks-pipeline-header"
-      TITLE_CLASSES = "text-lg font-semibold text-white"
+      TITLE_CLASSES = "ks-pipeline-title text-lg font-semibold text-white"
       SUBTITLE_CLASSES = "mt-1 text-sm text-surface-400"
       TRACK_CLASSES = "flex flex-col gap-3 sm:flex-row sm:items-stretch"
       BOX_CLASSES = "flex flex-1 flex-col items-center gap-2 rounded-lg border border-surface-700 bg-surface-900 p-4 text-center"
