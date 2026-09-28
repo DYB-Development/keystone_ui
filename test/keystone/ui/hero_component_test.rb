@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::HeroComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_exposes_title
     component = Keystone::Ui::HeroComponent.new(title: "Welcome")
 
@@ -95,5 +97,9 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
 
   def test_wrapper_classes_render_the_ks_hero_class
     assert_includes Keystone::Ui::HeroComponent::WRAPPER_CLASSES, "ks-hero"
+  end
+
+  def test_wrapper_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::WRAPPER_CLASSES
   end
 end

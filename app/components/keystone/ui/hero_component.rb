@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class HeroComponent < ViewComponent::Base
-      WRAPPER_CLASSES = "ks-hero relative min-h-screen pt-24"
+      WRAPPER_CLASSES = "ks-hero relative min-h-screen"
       INNER_CLASSES = "mx-auto max-w-6xl px-6 py-24 lg:py-32"
 
       CONTENT_COLUMN_CLASSES = "flex flex-col gap-8"
