@@ -8,7 +8,7 @@ module Keystone
       CONTAINER_CLASSES = "ks-funnel"
       LAYER_CLASSES = "ks-funnel-layer"
       ROW_CLASSES = "ks-funnel-row flex items-baseline justify-between"
-      LABEL_CLASSES = "text-sm font-medium text-surface-700 truncate dark:text-surface-300"
+      LABEL_CLASSES = "ks-funnel-label text-sm font-medium text-surface-700 truncate dark:text-surface-300"
       VALUE_CLASSES = "text-sm font-semibold text-surface-900 tabular-nums dark:text-white"
       BAR_CLASSES = "h-8 rounded-md transition-all"
       TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500 dark:text-surface-400"
