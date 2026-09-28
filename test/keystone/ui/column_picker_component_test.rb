@@ -5,6 +5,8 @@ require_relative "../../../app/components/keystone/ui/column"
 require_relative "../../../app/components/keystone/ui/column_picker_component"
 
 class Keystone::Ui::ColumnPickerComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def columns
     @columns ||= [
       Keystone::Ui::Column.new(:name, "Name"),
@@ -46,5 +48,9 @@ class Keystone::Ui::ColumnPickerComponentTest < Minitest::Test
 
   def test_trigger_classes_render_the_ks_menu_trigger_class
     assert_includes Keystone::Ui::ColumnPickerComponent::TRIGGER_CLASSES, "ks-menu-trigger"
+  end
+
+  def test_trigger_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ColumnPickerComponent::TRIGGER_CLASSES
   end
 end
