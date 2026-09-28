@@ -16,6 +16,7 @@ module KeystoneUi
         raise Error, "The #{name} look's file #{path} does not exist." unless File.exist?(path)
         raise Error, "The #{name} look's file #{path} sets no --ks- variables under :root[data-look=\"#{name}\"]." unless sets_variables?(name, path)
       end
+      nil
     end
 
     private

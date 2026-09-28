@@ -31,4 +31,13 @@ class KeystoneUi::LookCheckTest < Minitest::Test
       KeystoneUi::LookCheck.new(looks: {}, default: "material").call
     end
   end
+
+  def test_a_look_whose_file_sets_variables_under_its_name_passes
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, "material.css")
+      File.write(path, %(:root[data-look="material"] { --ks-radius-control: 9999px; }))
+
+      assert_nil KeystoneUi::LookCheck.new(looks: { "material" => path }, default: "material").call
+    end
+  end
 end
