@@ -48,7 +48,7 @@ module Keystone
       end
 
       def card_description_classes
-        "#{CARD_DESCRIPTION_BASE_CLASSES} text-surface-500 dark:text-surface-400"
+        CARD_DESCRIPTION_BASE_CLASSES
       end
     end
   end
