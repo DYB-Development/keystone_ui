@@ -115,13 +115,6 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
   end
 
 
-  def test_value_is_white_in_dark_mode
-    component = Keystone::Ui::FunnelComponent.new(steps: [
-      { label: "Visitors", value: 10_000 }
-    ])
-
-    assert_includes component.value_classes, "dark:text-white"
-  end
 
   def test_transition_caption_is_lightened_in_dark_mode
     component = Keystone::Ui::FunnelComponent.new(steps: [
@@ -165,5 +158,9 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
   def test_value_classes_render_the_ks_funnel_value_class
     assert_includes Keystone::Ui::FunnelComponent::VALUE_CLASSES, "ks-funnel-value"
+  end
+
+  def test_value_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FunnelComponent::VALUE_CLASSES
   end
 end
