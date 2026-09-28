@@ -48,22 +48,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
     assert_equal true, component.hint?
   end
 
-  def test_label_classes_emphasize_text
-    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
-
-    assert_includes component.label_classes, "font-medium"
-  end
-
   def test_hint_classes_mute_text
     component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now", hint: "current jobs")
 
     assert_includes component.hint_classes, "text-surface-500"
-  end
-
-  def test_label_classes_readable_in_dark
-    component = Keystone::Ui::RadioCardComponent.new(name: "need", value: "now", label: "Right now")
-
-    assert_includes component.label_classes, "dark:text-gray-100"
   end
 
   def test_card_classes_size_to_their_content
@@ -90,5 +78,9 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
   def test_label_classes_render_the_ks_radio_card_label_class
     assert_includes Keystone::Ui::RadioCardComponent::LABEL_CLASSES, "ks-radio-card-label"
+  end
+
+  def test_label_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::RadioCardComponent::LABEL_CLASSES
   end
 end
