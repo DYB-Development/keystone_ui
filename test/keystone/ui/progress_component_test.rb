@@ -50,4 +50,8 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_includes component.label_classes, "dark:text-surface-300"
   end
+
+  def test_track_classes_render_the_ks_progress_track_class
+    assert_includes Keystone::Ui::ProgressComponent::TRACK_CLASSES, "ks-progress-track"
+  end
 end
