@@ -198,6 +198,15 @@ outer element. See Conventions before using it.
 - `ui_disclosure(open: false)` — takes a block yielding the component. Fill its
   `summary` slot with the clickable header; the rest of the block is the body.
   Native `<details>` — no JavaScript.
+- `ui_working(groups:, summary: "How this is worked out")` — no block. Shows
+  how a figure was reached, closed by default under a row reading `summary:`.
+  `groups:` is `[{ title:, lines: [{ label:, working:, result: }, ...] }, ...]`;
+  `title:` is optional, `lines:` is required and a group without it raises
+  `KeyError`, and a line with any key other than those three raises
+  `ArgumentError`. Each line renders as three columns — label, working, result
+  — with the result right-aligned. Every value is printed as given, so format
+  numbers and currency before passing them. Place it directly under the figure
+  it explains, such as a `ui_stat_card`.
 - `ui_accordion(items: [])` — a stack of independently expandable rows. `items:`
   is `[{ question:, answer: }, ...]`.
 - `ui_tab_switcher(tabs:)` — takes a block. `tabs:` is an array of label strings;
@@ -298,6 +307,9 @@ outer element. See Conventions before using it.
    `ui_data_table` over a hand-built `<table>`, `ui_stat_card` over a panel with
    text in it. To make a stat card clickable, pass `href:` — never wrap it in
    `ui_card_link`, because a tap on the info button would then follow the link.
+   To show the arithmetic behind a figure, put `ui_working` under it rather
+   than a hand-built list. Which lines and groups to show is the app's own
+   calculation, so ask the developer which steps a reader needs to see.
 
 6. For a table, decide how columns are declared. Use `{ key: "Label" }` hashes
    when every column is plain. Switch the whole set to `Keystone::Ui::Column`

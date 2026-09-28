@@ -14,7 +14,7 @@ Keystone UI is a Rails engine gem that supplies a host app's visual layer as a
 library of view helpers built on ViewComponent. Screens are built from named
 pieces — page shells, sections, panels, grids, form fields, data tables,
 navigation bars, cards, stat tiles, charts, funnels, goal buckets, pipelines,
-banners — instead of hand-written ERB and Tailwind. Every class the UI renders
+banners, the working behind a figure — instead of hand-written ERB and Tailwind. Every class the UI renders
 lives inside the gem, in frozen constants, so the look is defined in one place.
 
 Reach for it whenever you build or change a screen in an app that has it
@@ -67,6 +67,10 @@ holds the catalog.
 - **Figures are numbers.** Components that measure or compare values, such as
   progress bars, funnels and buckets, do arithmetic on them. Pass a number, not
   a formatted string such as `"9,000"`. A bucket raises on one.
+- **Working is text.** The working behind a figure is the opposite case: each
+  line is a label, the working and the result, passed as already-formatted
+  text and shown as written. The component does no arithmetic, and it is
+  closed by default under a quiet summary row.
 - **Semantic color, not literal color.** The themed hue is `accent-*` and the
   themed neutral family is `surface-*`, both CSS custom properties whose
   defaults (blue and zinc) come from the keystone_ui-styles gem. Retheming an
@@ -82,8 +86,8 @@ holds the catalog.
   theme toggle, checkbox row, radio card, option card, file upload and colour
   picker read these variables. So do the data display components: stat card,
   chart card, card link, CTA banner, feature grid, hero, data table, code,
-  accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and
-  swipe deck. So do the navigation components: navbar, nav item, nav dropdown,
+  accordion, disclosure, working, tab switcher, progress, funnel, bucket,
+  pipeline and swipe deck. So do the navigation components: navbar, nav item, nav dropdown,
   bottom nav, mobile header and settings link. A host imports its look after `keystone_source.css`, and a gem ships one through
   `tailwind_imports`, both set up through the install local.
 - **Registered looks.** Looks can also be registered by name, and each page
