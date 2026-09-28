@@ -3,6 +3,7 @@
 module Keystone
   module Ui
     class StatCardComponent < ViewComponent::Base
+      HEADER_CLASSES = "ks-stat-card-header flex items-start justify-between"
       CARD_CLASSES = "ks-metric-card relative"
       LABEL_CLASSES = "ks-stat-card-label text-sm"
       VALUE_BASE_CLASSES = "ks-stat-card-value text-3xl"

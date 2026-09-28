@@ -221,4 +221,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_change_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent.new(label: "Visits", value: 3, change: -2).change_classes
   end
+
+  def test_header_classes_render_the_ks_stat_card_header_class
+    assert_includes Keystone::Ui::StatCardComponent::HEADER_CLASSES, "ks-stat-card-header"
+  end
 end

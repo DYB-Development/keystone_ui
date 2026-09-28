@@ -1,5 +1,5 @@
 <div class="<%= classes %>"<%= info? ? ' data-controller="stat-card-info"'.html_safe : "" %>>
-  <div class="flex items-start justify-between gap-2">
+  <div class="<%= HEADER_CLASSES %>">
     <p class="<%= label_classes %>"><%= label %></p>
     <% if info? %>
       <button type="button" class="<%= info_button_classes %>" data-action="click->stat-card-info#toggle" aria-label="Show metric details">
