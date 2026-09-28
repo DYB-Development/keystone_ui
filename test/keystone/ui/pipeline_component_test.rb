@@ -116,4 +116,8 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
   def test_link_healthy_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::LINK_HEALTHY_CLASSES
   end
+
+  def test_link_broken_classes_render_the_ks_pipeline_link_broken_class
+    assert_includes Keystone::Ui::PipelineComponent::LINK_BROKEN_CLASSES, "ks-pipeline-link-broken"
+  end
 end

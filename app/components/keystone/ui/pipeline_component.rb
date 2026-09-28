@@ -14,7 +14,7 @@ module Keystone
       COUNT_BASE_CLASSES = "ks-pipeline-count text-3xl"
       LINK_BASE_CLASSES = "link-toggle text-2xl leading-none"
       LINK_HEALTHY_CLASSES = "ks-pipeline-link-healthy"
-      LINK_BROKEN_CLASSES = "text-red-500"
+      LINK_BROKEN_CLASSES = "ks-pipeline-link-broken text-red-500"
 
       COUNT_CLASSES = {
         amber: "text-amber-400",
