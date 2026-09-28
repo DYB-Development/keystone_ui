@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class BucketSeriesComponent < ViewComponent::Base
-      ROW_CLASSES = "ks-bucket-series flex flex-wrap justify-center gap-4 sm:justify-start"
+      ROW_CLASSES = "ks-bucket-series flex flex-wrap justify-center sm:justify-start"
 
       def initialize(buckets:)
         @buckets = buckets
