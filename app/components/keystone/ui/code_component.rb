@@ -5,7 +5,7 @@ module Keystone
     class CodeComponent < ViewComponent::Base
       WRAPPER_CLASSES = "ks-code overflow-hidden"
       CAPTION_CLASSES = "ks-code-caption font-mono text-xs"
-      PRE_CLASSES = "overflow-x-auto bg-surface-900 p-4 font-mono text-sm leading-relaxed text-surface-100 dark:bg-black"
+      PRE_CLASSES = "ks-code-block overflow-x-auto bg-surface-900 p-4 font-mono text-sm leading-relaxed text-surface-100 dark:bg-black"
 
       attr_reader :language, :caption
 
