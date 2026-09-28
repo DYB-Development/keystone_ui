@@ -13,11 +13,11 @@ module Keystone
       BAR_CLASSES = "ks-funnel-bar h-8 transition-all"
       TRANSITION_CLASSES = "ks-funnel-transition text-center text-xs"
       STEP_COLOR_CLASSES = {
-        accent: "bg-accent-500",
-        sky: "bg-sky-500",
-        violet: "bg-violet-500",
-        amber: "bg-amber-500",
-        rose: "bg-rose-500"
+        accent: "ks-funnel-bar-accent",
+        sky: "ks-funnel-bar-sky",
+        violet: "ks-funnel-bar-violet",
+        amber: "ks-funnel-bar-amber",
+        rose: "ks-funnel-bar-rose"
       }.freeze
 
       attr_reader :steps

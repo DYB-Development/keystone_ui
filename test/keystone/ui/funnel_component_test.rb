@@ -52,7 +52,7 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
       { label: "Visitors", value: 10_000 }
     ])
 
-    assert_equal "bg-accent-500", component.layers.first.color_classes
+    assert_equal "ks-funnel-bar-accent", component.layers.first.color_classes
   end
 
   def test_second_layer_defaults_to_the_second_palette_color
@@ -61,7 +61,7 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
       { label: "Signups", value: 4_500 }
     ])
 
-    assert_equal "bg-sky-500", component.layers.last.color_classes
+    assert_equal "ks-funnel-bar-sky", component.layers.last.color_classes
   end
 
   def test_palette_starts_again_after_its_last_color
@@ -70,7 +70,7 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     end
     component = Keystone::Ui::FunnelComponent.new(steps: steps + [ { label: "Last", value: 1 } ])
 
-    assert_equal "bg-accent-500", component.layers.last.color_classes
+    assert_equal "ks-funnel-bar-accent", component.layers.last.color_classes
   end
 
   def test_step_color_overrides_the_palette
@@ -78,7 +78,7 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
       { label: "Visitors", value: 10_000, color: :rose }
     ])
 
-    assert_equal "bg-rose-500", component.layers.first.color_classes
+    assert_equal "ks-funnel-bar-rose", component.layers.first.color_classes
   end
 
   def test_zero_top_value_yields_zero_width
@@ -171,5 +171,9 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
   def test_transition_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FunnelComponent::TRANSITION_CLASSES
+  end
+
+  def test_step_color_classes_map_to_look_classes
+    assert_equal({ accent: "ks-funnel-bar-accent", sky: "ks-funnel-bar-sky", violet: "ks-funnel-bar-violet", amber: "ks-funnel-bar-amber", rose: "ks-funnel-bar-rose" }, Keystone::Ui::FunnelComponent::STEP_COLOR_CLASSES)
   end
 end
