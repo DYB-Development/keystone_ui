@@ -17,10 +17,10 @@ module Keystone
       LINK_BROKEN_CLASSES = "ks-pipeline-link-broken"
 
       COUNT_CLASSES = {
-        amber: "text-amber-400",
-        emerald: "text-accent-400",
-        danger: "text-red-400",
-        muted: "text-surface-500"
+        amber: "ks-pipeline-count-amber",
+        emerald: "ks-pipeline-count-emerald",
+        danger: "ks-pipeline-count-danger",
+        muted: "ks-pipeline-count-muted"
       }.freeze
 
       attr_reader :title, :boxes, :links, :subtitle

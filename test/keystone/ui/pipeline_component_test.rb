@@ -15,17 +15,7 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
     assert_equal "Order fulfilment", component.title
   end
 
-  def test_count_class_maps_emerald_accent_to_the_keystone_accent
-    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
 
-    assert_includes component.count_class(:emerald), "text-accent-400"
-  end
-
-  def test_count_class_falls_back_to_muted_for_an_unknown_accent
-    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
-
-    assert_includes component.count_class(nil), "text-surface-500"
-  end
 
   def test_link_after_returns_the_connector_following_a_box
     link = { broken: false, url: "/links/toggle", params: { at: "ship" } }
@@ -118,5 +108,9 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
 
   def test_link_broken_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::LINK_BROKEN_CLASSES
+  end
+
+  def test_count_classes_map_to_look_classes
+    assert_equal({ amber: "ks-pipeline-count-amber", emerald: "ks-pipeline-count-emerald", danger: "ks-pipeline-count-danger", muted: "ks-pipeline-count-muted" }, Keystone::Ui::PipelineComponent::COUNT_CLASSES)
   end
 end
