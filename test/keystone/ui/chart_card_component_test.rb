@@ -3,13 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::ChartCardComponentTest < Minitest::Test
-  def test_returns_card_classes
-    component = Keystone::Ui::ChartCardComponent.new(title: "Throughput")
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
 
-    assert_includes component.classes, "rounded-xl"
-    assert_includes component.classes, "border"
-    assert_includes component.classes, "p-6"
-  end
 
   def test_exposes_title
     component = Keystone::Ui::ChartCardComponent.new(title: "Latency")
@@ -50,5 +45,9 @@ class Keystone::Ui::ChartCardComponentTest < Minitest::Test
 
   def test_card_classes_render_the_ks_metric_card_class
     assert_includes Keystone::Ui::ChartCardComponent::CARD_CLASSES, "ks-metric-card"
+  end
+
+  def test_card_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ChartCardComponent::CARD_CLASSES
   end
 end
