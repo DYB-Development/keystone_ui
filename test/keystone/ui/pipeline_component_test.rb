@@ -113,4 +113,28 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
   def test_count_classes_map_to_look_classes
     assert_equal({ amber: "ks-pipeline-count-amber", emerald: "ks-pipeline-count-emerald", danger: "ks-pipeline-count-danger", muted: "ks-pipeline-count-muted" }, Keystone::Ui::PipelineComponent::COUNT_CLASSES)
   end
+
+  def test_count_class_maps_emerald_accent_to_the_keystone_accent
+    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
+
+    assert_includes component.count_class(:emerald), "ks-pipeline-count-emerald"
+  end
+
+  def test_count_class_falls_back_to_muted_for_an_unknown_accent
+    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
+
+    assert_includes component.count_class(nil), "ks-pipeline-count-muted"
+  end
+
+  def test_link_classes_mark_a_broken_handoff_in_red
+    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
+
+    assert_includes component.link_classes({ broken: true }), "ks-pipeline-link-broken"
+  end
+
+  def test_link_classes_mark_a_healthy_handoff_with_the_accent
+    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
+
+    assert_includes component.link_classes({ broken: false }), "ks-pipeline-link-healthy"
+  end
 end
