@@ -52,4 +52,8 @@ class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
   def test_swatch_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ColorPickerComponent::SWATCH_CLASSES
   end
+
+  def test_panel_classes_render_the_ks_color_picker_panel_class
+    assert_includes Keystone::Ui::ColorPickerComponent::PANEL_CLASSES, "ks-color-picker-panel"
+  end
 end
