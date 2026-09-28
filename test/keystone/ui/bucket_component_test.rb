@@ -66,4 +66,8 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
   def test_container_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::BucketComponent::CONTAINER_CLASSES
   end
+
+  def test_label_classes_render_the_ks_bucket_label_class
+    assert_includes Keystone::Ui::BucketComponent::LABEL_CLASSES, "ks-bucket-label"
+  end
 end
