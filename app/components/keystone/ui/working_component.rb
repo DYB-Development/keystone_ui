@@ -8,6 +8,7 @@ module Keystone
 
       TITLE_CLASSES = "ks-label text-sm"
       LINE_CLASSES = "ks-hint text-sm"
+      LINES_CLASSES = "grid grid-cols-[auto_1fr_auto] ks-grid-gap-sm"
 
       attr_reader :groups, :summary
 

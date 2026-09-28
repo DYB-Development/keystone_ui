@@ -28,4 +28,9 @@ class Keystone::Ui::WorkingComponentTest < Minitest::Test
     assert_includes Keystone::Ui::WorkingComponent::LINE_CLASSES, "ks-hint"
     refute_match VISUAL_UTILITY, Keystone::Ui::WorkingComponent::LINE_CLASSES
   end
+
+  def test_lays_each_line_out_as_label_working_and_result_columns_with_no_visual_utility
+    assert_includes Keystone::Ui::WorkingComponent::LINES_CLASSES, "grid-cols-[auto_1fr_auto]"
+    refute_match VISUAL_UTILITY, Keystone::Ui::WorkingComponent::LINES_CLASSES
+  end
 end
