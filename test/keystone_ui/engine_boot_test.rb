@@ -18,6 +18,14 @@ class KeystoneUi::EngineBootTest < Minitest::Test
     end
   end
 
+  def test_checking_the_hosts_looks_stops_boot_on_a_default_look_that_is_not_registered
+    KeystoneUi.configure { |config| config.default_look = :missing }
+
+    assert_raises(KeystoneUi::LookCheck::Error) { KeystoneUi::Engine.check_looks }
+  ensure
+    KeystoneUi.reset_configuration!
+  end
+
   private
 
   def boot_with_root(root)

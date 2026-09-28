@@ -2,6 +2,7 @@
 
 require "keystone_ui/source_css"
 require "keystone_ui/leftover_stylesheet"
+require "keystone_ui/look_check"
 
 module KeystoneUi
   class Engine < ::Rails::Engine
@@ -26,7 +27,14 @@ module KeystoneUi
     # that also need the palette should use config.after_initialize too —
     # Rails runs these in engine dependency order, so KeystoneUi's block
     # executes before any engine that depends on it.
+    def self.check_looks
+      config = KeystoneUi.configuration
+      KeystoneUi::LookCheck.new(looks: config.looks, default: config.default_look).call
+    end
+
     config.after_initialize do
+      KeystoneUi::Engine.check_looks
+
       tailwind_dir = Rails.root.join("app/assets/tailwind")
       css_path = tailwind_dir.join("application.css")
       next unless css_path.exist?

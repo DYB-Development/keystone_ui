@@ -301,6 +301,11 @@ request by setting `config.look_supplier` to a lambda that receives the view and
 returns a look's name. A name that is not registered leaves the page on the
 default. A host that registers no looks gets no `data-look` attribute.
 
+Boot stops with `KeystoneUi::LookCheck::Error` when a registered look's file does
+not exist, when the file sets no `--ks-` variables under
+`:root[data-look="<name>"]`, or when `default_look` names a look that is not
+registered, so a mistake shows up the moment the app starts.
+
 ## Helper API (primary surface)
 
 Use the helpers in ERB. Consuming apps should not instantiate components directly.
