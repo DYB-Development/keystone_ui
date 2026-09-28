@@ -15,6 +15,7 @@ module KeystoneUi
 
     def register_look(name, path)
       @looks[name.to_s] = path.to_s
+      @tailwind_imports << path.to_s
     end
 
     def supplied_theme_mode(view)

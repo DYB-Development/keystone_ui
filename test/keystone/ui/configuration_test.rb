@@ -51,4 +51,10 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal({ "material" => "/app/assets/tailwind/looks/material.css" }, KeystoneUi.configuration.looks)
   end
+
+  def test_registering_a_look_adds_its_file_to_the_tailwind_imports
+    KeystoneUi.configure { |c| c.register_look :material, "/app/assets/tailwind/looks/material.css" }
+
+    assert_includes KeystoneUi.configuration.tailwind_imports, "/app/assets/tailwind/looks/material.css"
+  end
 end
