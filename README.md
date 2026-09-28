@@ -270,6 +270,37 @@ initializer "my_look.tailwind" do
 end
 ```
 
+### Offering several looks
+
+A host can offer several looks and let the page pick one. Each look file scopes
+its variables to the look's name:
+
+```css
+/* app/assets/tailwind/looks/material.css */
+:root[data-look="material"] {
+  --ks-radius-control: 9999px;
+  --ks-color-accent: #6200ee;
+  --ks-color-accent-dark: #bb86fc;
+}
+```
+
+Register each look by name with its file, and name the default:
+
+```ruby
+# config/initializers/keystone_ui.rb
+KeystoneUi.configure do |config|
+  config.register_look :plain, Rails.root.join("app/assets/tailwind/looks/plain.css")
+  config.register_look :material, Rails.root.join("app/assets/tailwind/looks/material.css")
+  config.default_look = :plain
+end
+```
+
+`keystone_source.css` imports every registered look, and `keystone_theme_attributes`
+marks the `html` tag with `data-look="plain"`. A gem can choose the look per
+request by setting `config.look_supplier` to a lambda that receives the view and
+returns a look's name. A name that is not registered leaves the page on the
+default. A host that registers no looks gets no `data-look` attribute.
+
 ## Helper API (primary surface)
 
 Use the helpers in ERB. Consuming apps should not instantiate components directly.

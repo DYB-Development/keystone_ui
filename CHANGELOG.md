@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- A host can register several looks by name, each with its CSS file, and name one as the default. `keystone_source.css` imports them, and `keystone_theme_attributes` marks the `html` tag with `data-look`.
+- A gem can choose a page's look through `look_supplier`, and a name that is not registered leaves the page on the default look.
+
 ## [0.17.0] - 2026-09-28
 
 ### Added
