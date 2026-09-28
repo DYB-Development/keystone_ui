@@ -31,4 +31,8 @@ class Keystone::Ui::SettingsLinkComponentTest < Minitest::Test
     assert_includes Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON, "<svg"
     assert_includes Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON, "</svg>"
   end
+
+  def test_link_classes_render_the_ks_settings_link_class
+    assert_includes Keystone::Ui::SettingsLinkComponent::LINK_CLASSES, "ks-settings-link"
+  end
 end

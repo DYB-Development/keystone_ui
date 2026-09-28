@@ -5,7 +5,7 @@ module Keystone
     class SettingsLinkComponent < ViewComponent::Base
       attr_reader :label, :href
 
-      LINK_CLASSES = "flex items-center justify-between px-4 py-3 text-gray-900 dark:text-gray-100 no-underline hover:bg-gray-50 dark:hover:bg-gray-800"
+      LINK_CLASSES = "ks-settings-link flex items-center justify-between px-4 py-3 text-gray-900 dark:text-gray-100 no-underline hover:bg-gray-50 dark:hover:bg-gray-800"
 
       CHEVRON_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5 text-gray-400">
