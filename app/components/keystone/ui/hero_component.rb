@@ -9,7 +9,7 @@ module Keystone
       CONTENT_COLUMN_CLASSES = "ks-hero-content flex flex-col"
       CENTERED_COLUMN_CLASSES = "items-center"
 
-      SPLIT_CLASSES = "grid gap-12 lg:grid-cols-2 lg:gap-16 items-center"
+      SPLIT_CLASSES = "ks-hero-split grid gap-12 lg:grid-cols-2 lg:gap-16 items-center"
       CENTERED_CLASSES = "flex flex-col items-center text-center"
 
       TITLE_BASE_CLASSES = "text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
