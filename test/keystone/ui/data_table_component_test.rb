@@ -466,4 +466,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_header_classes_last_render_the_ks_table_header_last_class
     assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_LAST, "ks-table-header-last"
   end
+
+  def test_header_classes_last_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::HEADER_CLASSES_LAST
+  end
 end
