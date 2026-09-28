@@ -12,8 +12,8 @@ module Keystone
       FILL_BASE_CLASSES = "w-full transition-all"
       WITHIN_GOAL_FILL_CLASSES = "ks-bucket-fill"
       OVER_GOAL_FILL_CLASSES = {
-        success: "bg-green-500",
-        warning: "bg-amber-500"
+        success: "ks-bucket-fill-over",
+        warning: "ks-bucket-fill-over-warning"
       }.freeze
 
       attr_reader :goal, :actual, :label

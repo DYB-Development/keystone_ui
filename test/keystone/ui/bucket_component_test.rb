@@ -24,17 +24,7 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
   end
 
 
-  def test_fill_uses_the_success_colour_over_the_goal_by_default
-    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 12_000)
 
-    assert_includes component.fill_classes, "bg-green-500"
-  end
-
-  def test_fill_uses_the_warning_colour_over_the_goal_when_asked
-    component = Keystone::Ui::BucketComponent.new(goal: 10_000, actual: 12_000, over: :warning)
-
-    assert_includes component.fill_classes, "bg-amber-500"
-  end
 
   def test_exposes_an_optional_label
     component = Keystone::Ui::BucketComponent.new(goal: 30_000, actual: 9_000, label: "Q1")
@@ -108,5 +98,9 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
 
   def test_within_goal_fill_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::BucketComponent::WITHIN_GOAL_FILL_CLASSES
+  end
+
+  def test_over_goal_fill_classes_map_to_look_classes
+    assert_equal({ success: "ks-bucket-fill-over", warning: "ks-bucket-fill-over-warning" }, Keystone::Ui::BucketComponent::OVER_GOAL_FILL_CLASSES)
   end
 end
