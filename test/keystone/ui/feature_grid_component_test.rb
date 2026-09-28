@@ -110,4 +110,8 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
   def test_card_title_base_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent::CARD_TITLE_BASE_CLASSES
   end
+
+  def test_card_description_base_classes_render_the_ks_feature_card_description_class
+    assert_includes Keystone::Ui::FeatureGridComponent::CARD_DESCRIPTION_BASE_CLASSES, "ks-feature-card-description"
+  end
 end
