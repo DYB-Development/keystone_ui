@@ -27,4 +27,10 @@ class KeystoneUi::LookChoiceTest < Minitest::Test
 
     assert_equal({}, choice.html_attributes)
   end
+
+  def test_a_page_keeps_the_default_look_when_a_gem_supplies_an_unregistered_one
+    choice = KeystoneUi::LookChoice.new(looks: %w[plain], default: "plain", supplied: "retired")
+
+    assert_equal "plain", choice.name
+  end
 end
