@@ -72,4 +72,8 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
   def test_base_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::AccordionComponent::BASE_CLASSES
   end
+
+  def test_item_layout_classes_render_the_ks_accordion_item_class
+    assert_includes Keystone::Ui::AccordionComponent::ITEM_LAYOUT_CLASSES, "ks-accordion-item"
+  end
 end
