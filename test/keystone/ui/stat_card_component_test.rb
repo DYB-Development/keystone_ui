@@ -194,4 +194,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_label_classes_render_the_ks_stat_card_label_class
     assert_includes Keystone::Ui::StatCardComponent::LABEL_CLASSES, "ks-stat-card-label"
   end
+
+  def test_label_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::LABEL_CLASSES
+  end
 end
