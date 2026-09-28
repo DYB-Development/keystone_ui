@@ -57,4 +57,8 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
   def test_container_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::CONTAINER_CLASSES
   end
+
+  def test_header_classes_render_the_ks_pipeline_header_class
+    assert_includes Keystone::Ui::PipelineComponent::HEADER_CLASSES, "ks-pipeline-header"
+  end
 end
