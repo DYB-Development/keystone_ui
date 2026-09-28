@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class CardLinkComponent < ViewComponent::Base
-      BASE_CLASSES = "block rounded-lg border border-gray-200 bg-white dark:border-zinc-700 dark:bg-zinc-900"
+      BASE_CLASSES = "ks-link-card block rounded-lg border border-gray-200 bg-white dark:border-zinc-700 dark:bg-zinc-900"
       SHADOW_CLASS = "shadow-sm"
       PADDING_CLASSES = { sm: "p-3", md: "p-4", lg: "p-6" }.freeze
 

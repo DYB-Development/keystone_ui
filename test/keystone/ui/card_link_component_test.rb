@@ -44,4 +44,8 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
     assert_includes component.classes, "dark:border-zinc-700"
     assert_includes component.classes, "hover:border-accent-500/50"
   end
+
+  def test_base_classes_render_the_ks_link_card_class
+    assert_includes Keystone::Ui::CardLinkComponent::BASE_CLASSES, "ks-link-card"
+  end
 end
