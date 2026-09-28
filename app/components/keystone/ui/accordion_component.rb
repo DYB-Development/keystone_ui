@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class AccordionComponent < ViewComponent::Base
-      BASE_CLASSES = "flex flex-col gap-4"
+      BASE_CLASSES = "ks-accordion flex flex-col gap-4"
       ITEM_LAYOUT_CLASSES = "rounded-xl border"
       BUTTON_LAYOUT_CLASSES = "flex w-full items-center justify-between px-6 py-4 text-left font-semibold transition"
       ANSWER_LAYOUT_CLASSES = "hidden px-6 pb-4 text-sm"

@@ -6,7 +6,7 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
   def test_returns_base_wrapper_classes
     component = Keystone::Ui::AccordionComponent.new
 
-    assert_equal "flex flex-col gap-4", component.classes
+    assert_equal "ks-accordion flex flex-col gap-4", component.classes
   end
 
   def test_stores_items_with_question_and_answer
@@ -61,5 +61,9 @@ class Keystone::Ui::AccordionComponentTest < Minitest::Test
     component = Keystone::Ui::AccordionComponent.new
 
     assert_equal "accordion", component.wrapper_data[:controller]
+  end
+
+  def test_base_classes_render_the_ks_accordion_class
+    assert_includes Keystone::Ui::AccordionComponent::BASE_CLASSES, "ks-accordion"
   end
 end
