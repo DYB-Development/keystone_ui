@@ -486,4 +486,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_row_classes_middle_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::ROW_CLASSES_MIDDLE
   end
+
+  def test_row_classes_last_render_the_ks_table_cell_last_class
+    assert_includes Keystone::Ui::DataTableComponent::ROW_CLASSES_LAST, "ks-table-cell-last"
+  end
 end

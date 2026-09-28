@@ -9,7 +9,7 @@ module Keystone
 
       ROW_CLASSES_FIRST = "ks-table-cell-first text-sm whitespace-nowrap"
       ROW_CLASSES_MIDDLE = "ks-table-cell-middle text-sm whitespace-nowrap"
-      ROW_CLASSES_LAST = "py-4 pr-6 pl-3 text-right text-sm font-medium whitespace-nowrap"
+      ROW_CLASSES_LAST = "ks-table-cell-last py-4 pr-6 pl-3 text-right text-sm font-medium whitespace-nowrap"
 
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
 
