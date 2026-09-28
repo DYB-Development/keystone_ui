@@ -65,4 +65,8 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
 
     assert_equal "modal", component.wrapper_data[:controller]
   end
+
+  def test_backdrop_classes_render_the_ks_modal_backdrop_class
+    assert_includes Keystone::Ui::ModalComponent::BACKDROP_CLASSES, "ks-modal-backdrop"
+  end
 end
