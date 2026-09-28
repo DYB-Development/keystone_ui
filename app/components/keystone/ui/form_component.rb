@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class FormComponent < ViewComponent::Base
-      FORM_CLASSES = "ks-form space-y-6"
+      FORM_CLASSES = "ks-form"
 
       def initialize(action:, method: :post, multipart: false, data: nil)
         @action = action

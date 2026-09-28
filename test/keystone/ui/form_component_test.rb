@@ -3,13 +3,15 @@
 require "test_helper"
 
 class Keystone::Ui::FormComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_builds_form_options_with_url_and_default_post_method
     component = Keystone::Ui::FormComponent.new(action: "/items")
     options = component.form_options
 
     assert_equal "/items", options[:url]
     assert_equal :post, options[:method]
-    assert_equal "ks-form space-y-6", options[:class]
+    assert_equal "ks-form", options[:class]
     assert_equal false, options[:multipart]
   end
 
@@ -39,5 +41,9 @@ class Keystone::Ui::FormComponentTest < Minitest::Test
 
   def test_form_classes_render_the_ks_form_class
     assert_includes Keystone::Ui::FormComponent::FORM_CLASSES, "ks-form"
+  end
+
+  def test_form_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FormComponent::FORM_CLASSES
   end
 end
