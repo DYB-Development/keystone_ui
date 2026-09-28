@@ -8,7 +8,7 @@ module Keystone
       HEADER_CLASSES_LAST = "ks-table-header-last"
 
       ROW_CLASSES_FIRST = "ks-table-cell-first text-sm whitespace-nowrap"
-      ROW_CLASSES_MIDDLE = "ks-table-cell-middle px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400"
+      ROW_CLASSES_MIDDLE = "ks-table-cell-middle text-sm whitespace-nowrap"
       ROW_CLASSES_LAST = "py-4 pr-6 pl-3 text-right text-sm font-medium whitespace-nowrap"
 
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
