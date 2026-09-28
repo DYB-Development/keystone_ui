@@ -90,4 +90,8 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
   def test_tank_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::BucketComponent::TANK_CLASSES
   end
+
+  def test_actual_classes_render_the_ks_bucket_actual_class
+    assert_includes Keystone::Ui::BucketComponent::ACTUAL_CLASSES, "ks-bucket-actual"
+  end
 end
