@@ -83,4 +83,8 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
   def test_label_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::RadioCardComponent::LABEL_CLASSES
   end
+
+  def test_hint_classes_render_the_ks_radio_card_hint_class
+    assert_includes Keystone::Ui::RadioCardComponent::HINT_CLASSES, "ks-radio-card-hint"
+  end
 end
