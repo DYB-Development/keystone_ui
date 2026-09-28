@@ -444,4 +444,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
     labels = component.header_cells.map { |c| c[:label] }
     assert_equal [ "Name", "Quantity", "Price" ], labels
   end
+
+  def test_header_classes_first_render_the_ks_table_header_first_class
+    assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_FIRST, "ks-table-header ks-table-header-first"
+  end
 end
