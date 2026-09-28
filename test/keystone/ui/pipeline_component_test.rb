@@ -44,11 +44,6 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
     assert_includes component.link_classes({ broken: true }), "text-red-500"
   end
 
-  def test_link_classes_mark_a_healthy_handoff_with_the_accent
-    component = Keystone::Ui::PipelineComponent.new(title: "T", boxes: [], links: [])
-
-    assert_includes component.link_classes({ broken: false }), "text-accent-500"
-  end
 
   def test_container_classes_render_the_ks_pipeline_class
     assert_includes Keystone::Ui::PipelineComponent::CONTAINER_CLASSES, "ks-pipeline"
@@ -116,5 +111,9 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
 
   def test_link_healthy_classes_render_the_ks_pipeline_link_healthy_class
     assert_includes Keystone::Ui::PipelineComponent::LINK_HEALTHY_CLASSES, "ks-pipeline-link-healthy"
+  end
+
+  def test_link_healthy_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::LINK_HEALTHY_CLASSES
   end
 end
