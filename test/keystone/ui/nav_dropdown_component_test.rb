@@ -39,7 +39,7 @@ class Keystone::Ui::NavDropdownComponentTest < Minitest::Test
 
   def test_has_menu_classes_with_hidden
     assert_includes Keystone::Ui::NavDropdownComponent::MENU_CLASSES, "hidden"
-    assert_includes Keystone::Ui::NavDropdownComponent::MENU_CLASSES, "nav-dropdown-menu"
+    assert_includes Keystone::Ui::NavDropdownComponent::MENU_CLASSES, "ks-nav-dropdown-menu"
   end
 
   def test_has_a_frozen_caret_icon_svg
