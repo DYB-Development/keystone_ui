@@ -84,4 +84,8 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
   def test_header_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ModalComponent::HEADER_CLASSES
   end
+
+  def test_title_classes_render_the_ks_modal_title_class
+    assert_includes Keystone::Ui::ModalComponent::TITLE_CLASSES, "ks-modal-title"
+  end
 end
