@@ -74,4 +74,8 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
   def test_label_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::BucketComponent::LABEL_CLASSES
   end
+
+  def test_goal_classes_render_the_ks_bucket_goal_class
+    assert_includes Keystone::Ui::BucketComponent::GOAL_CLASSES, "ks-bucket-goal"
+  end
 end

@@ -5,7 +5,7 @@ module Keystone
     class BucketComponent < ViewComponent::Base
       CONTAINER_CLASSES = "ks-bucket flex w-24 flex-col items-center"
       LABEL_CLASSES = "ks-bucket-label text-center text-sm"
-      GOAL_CLASSES = "text-xs tabular-nums text-gray-500 dark:text-gray-400"
+      GOAL_CLASSES = "ks-bucket-goal text-xs tabular-nums text-gray-500 dark:text-gray-400"
       TANK_CLASSES = "flex h-40 w-full items-end overflow-hidden rounded-t-sm rounded-b-xl border-2 border-gray-300 bg-gray-50 dark:border-zinc-600 dark:bg-zinc-800"
       ACTUAL_CLASSES = "text-sm font-semibold tabular-nums text-gray-900 dark:text-white"
       PERCENT_CLASSES = "text-xs tabular-nums text-gray-500 dark:text-gray-400"
