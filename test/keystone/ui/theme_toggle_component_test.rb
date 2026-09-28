@@ -19,4 +19,8 @@ class Keystone::Ui::ThemeToggleComponentTest < Minitest::Test
   def test_offers_light_dark_and_system_options_in_that_order
     assert_equal [ [ "Light", "light" ], [ "Dark", "dark" ], [ "System", "system" ] ], Keystone::Ui::ThemeToggleComponent.new.options
   end
+
+  def test_option_classes_render_the_ks_theme_toggle_option_class
+    assert_includes Keystone::Ui::ThemeToggleComponent::OPTION_CLASSES, "ks-theme-toggle-option"
+  end
 end
