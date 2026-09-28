@@ -7,7 +7,7 @@ module Keystone
       HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
       HEADER_CLASSES_LAST = "ks-table-header-last"
 
-      ROW_CLASSES_FIRST = "ks-table-cell-first py-4 pr-3 pl-6 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
+      ROW_CLASSES_FIRST = "ks-table-cell-first text-sm whitespace-nowrap"
       ROW_CLASSES_MIDDLE = "px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400"
       ROW_CLASSES_LAST = "py-4 pr-6 pl-3 text-right text-sm font-medium whitespace-nowrap"
 
