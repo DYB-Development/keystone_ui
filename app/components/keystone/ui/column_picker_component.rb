@@ -6,7 +6,7 @@ module Keystone
       WRAPPER_CLASSES = "relative inline-block"
       TRIGGER_CLASSES = "ks-menu-trigger inline-flex items-center text-sm"
       MENU_CLASSES = "ks-menu absolute right-0 z-10 w-56 hidden"
-      OPTION_CLASSES = "ks-menu-option flex items-center gap-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-zinc-800 cursor-pointer"
+      OPTION_CLASSES = "ks-menu-option flex items-center text-sm cursor-pointer"
       CHECKBOX_CLASSES = "rounded border-gray-300 text-accent-600 focus:ring-accent-500 dark:border-zinc-600"
 
       COLUMNS_ICON = <<~SVG.freeze
