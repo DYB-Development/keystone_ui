@@ -40,7 +40,7 @@ module Keystone
       end
 
       def icon_classes
-        "#{ICON_BASE_CLASSES} bg-accent-500/10 text-accent-600 dark:text-accent-400"
+        ICON_BASE_CLASSES
       end
 
       def card_title_classes

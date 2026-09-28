@@ -40,12 +40,6 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
 
 
 
-  def test_uses_semantic_accent_classes
-    component = Keystone::Ui::FeatureGridComponent.new(title: "X", features: features)
-
-    assert_includes component.icon_classes, "bg-accent-500/10"
-    assert_includes component.icon_classes, "text-accent-600"
-  end
 
   def test_uses_semantic_surface_classes
     component = Keystone::Ui::FeatureGridComponent.new(title: "X", subtitle: "Sub", features: features)
@@ -115,5 +109,9 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
 
   def test_card_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent.new(title: "Why", features: []).card_classes
+  end
+
+  def test_icon_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent.new(title: "Why", features: []).icon_classes
   end
 end
