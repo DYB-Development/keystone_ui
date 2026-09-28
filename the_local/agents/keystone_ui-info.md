@@ -75,7 +75,7 @@ holds the catalog.
   as green and amber, directly. Changing the defaults belongs to the install
   local.
 - **Looks.** A look is one CSS file that sets the `--ks-` variables from
-  keystone_ui-styles 0.5.0 or later: corner radius, font, label weight, border
+  keystone_ui-styles 0.6.0 or later: corner radius, font, label weight, border
   width, padding and colours. Each colour variable has a `-dark` partner read
   on a dark page. Buttons, panels, cards, alerts, badges, form fields, the
   modal, the mobile action menu, the column picker, multi select, copy button,

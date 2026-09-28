@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::FormFieldComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_infers_label_text_from_attribute_name
     component = Keystone::Ui::FormFieldComponent.new(attribute: :first_name)
 
@@ -144,5 +146,21 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
     component = Keystone::Ui::FormFieldComponent.new(attribute: :balance, disabled: true)
 
     assert_equal true, component.input_options[:disabled]
+  end
+
+  def test_wrapper_classes_render_the_ks_form_field_class
+    assert_includes Keystone::Ui::FormFieldComponent::WRAPPER_CLASSES, "ks-form-field"
+  end
+
+  def test_wrapper_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FormFieldComponent::WRAPPER_CLASSES
+  end
+
+  def test_checkbox_wrapper_classes_render_the_ks_form_field_checkbox_class
+    assert_includes Keystone::Ui::FormFieldComponent::CHECKBOX_WRAPPER_CLASSES, "ks-form-field-checkbox"
+  end
+
+  def test_checkbox_wrapper_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FormFieldComponent::CHECKBOX_WRAPPER_CLASSES
   end
 end

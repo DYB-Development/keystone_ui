@@ -5,6 +5,8 @@ require "test_helper"
 class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
   VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
 
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_stores_name_and_default_value
     component = Keystone::Ui::ColorPickerComponent.new(name: "accent", value: "#3b82f6")
 
@@ -61,5 +63,13 @@ class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
 
   def test_label_classes_render_the_shared_label_class
     assert_includes Keystone::Ui::ColorPickerComponent::LABEL_CLASSES, "ks-label"
+  end
+
+  def test_label_classes_render_the_ks_color_picker_label_class
+    assert_includes Keystone::Ui::ColorPickerComponent::LABEL_CLASSES, "ks-color-picker-label"
+  end
+
+  def test_label_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ColorPickerComponent::LABEL_CLASSES
   end
 end

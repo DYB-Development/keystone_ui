@@ -3,9 +3,9 @@
 module Keystone
   module Ui
     class GridComponent < ViewComponent::Base
-      GAP_CLASSES = { sm: "gap-3", md: "gap-4", lg: "gap-6", xl: "gap-8" }.freeze
-      GAP_X_CLASSES = { sm: "gap-x-3", md: "gap-x-4", lg: "gap-x-6", xl: "gap-x-8" }.freeze
-      GAP_Y_CLASSES = { sm: "gap-y-3", md: "gap-y-4", lg: "gap-y-6", xl: "gap-y-8" }.freeze
+      GAP_CLASSES = { sm: "ks-grid-gap-sm", md: "ks-grid-gap-md", lg: "ks-grid-gap-lg", xl: "ks-grid-gap-xl" }.freeze
+      GAP_X_CLASSES = { sm: "ks-grid-gap-x-sm", md: "ks-grid-gap-x-md", lg: "ks-grid-gap-x-lg", xl: "ks-grid-gap-x-xl" }.freeze
+      GAP_Y_CLASSES = { sm: "ks-grid-gap-y-sm", md: "ks-grid-gap-y-md", lg: "ks-grid-gap-y-lg", xl: "ks-grid-gap-y-xl" }.freeze
       COL_CLASSES = {
         default: { 1 => "grid-cols-1", 2 => "grid-cols-2", 3 => "grid-cols-3", 4 => "grid-cols-4", 5 => "grid-cols-5", 6 => "grid-cols-6", 7 => "grid-cols-7", 8 => "grid-cols-8", 9 => "grid-cols-9", 10 => "grid-cols-10", 11 => "grid-cols-11", 12 => "grid-cols-12" }.freeze,
         sm: { 1 => "sm:grid-cols-1", 2 => "sm:grid-cols-2", 3 => "sm:grid-cols-3", 4 => "sm:grid-cols-4", 5 => "sm:grid-cols-5", 6 => "sm:grid-cols-6", 7 => "sm:grid-cols-7", 8 => "sm:grid-cols-8", 9 => "sm:grid-cols-9", 10 => "sm:grid-cols-10", 11 => "sm:grid-cols-11", 12 => "sm:grid-cols-12" }.freeze,

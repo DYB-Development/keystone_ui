@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Changed
+- The grid's gaps, form and form field spacing, the theme toggle's gap, the form page and show page titles and subtitles, the colour picker's label and the settings link's arrow render keystone_ui-styles' `ks-` classes, so a look file restyles them.
+- keystone_ui requires keystone_ui-styles 0.6.0 or later.
+
+### Added
+- The test suite fails, naming the component and the utility, when a component constant holds a colour, radius, weight, shadow, border or spacing utility.
+
+### Changed
 - The navbar title, nav items, nav dropdown, bottom nav, mobile header and settings link render keystone_ui-styles' `ks-` classes, so a look file restyles them, and they have visible colours in a host that sets no variables.
 - keystone_ui no longer ships its own nav stylesheet or its `bottom-nav`, `nav-dropdown` and related class names, which are now `ks-bottom-nav`, `ks-nav-dropdown` and so on.
 
