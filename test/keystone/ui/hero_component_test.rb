@@ -89,7 +89,6 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
   def test_uses_semantic_surface_classes_for_title_and_subtitle
     component = Keystone::Ui::HeroComponent.new(title: "X", subtitle: "Sub")
 
-    assert_includes component.title_classes, "text-surface-900"
     assert_includes component.subtitle_classes, "text-surface-500"
     assert_includes component.subtitle_classes, "dark:text-surface-400"
   end
@@ -152,5 +151,9 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
 
   def test_actions_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::ACTIONS_CLASSES
+  end
+
+  def test_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent.new(title: "Hello").title_classes
   end
 end
