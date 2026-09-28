@@ -81,11 +81,6 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     assert_includes component.disclosure_classes, "hidden"
   end
 
-  def test_exposes_info_button_classes
-    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
-
-    assert_includes component.info_button_classes, "text-gray-400"
-  end
 
   def test_info_icon_renders_svg
     component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
@@ -233,5 +228,9 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
   def test_info_button_classes_render_the_ks_stat_card_info_class
     assert_includes Keystone::Ui::StatCardComponent::INFO_BUTTON_CLASSES, "ks-stat-card-info"
+  end
+
+  def test_info_button_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::INFO_BUTTON_CLASSES
   end
 end

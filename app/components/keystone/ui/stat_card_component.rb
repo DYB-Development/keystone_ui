@@ -10,7 +10,7 @@ module Keystone
       DISCLOSURE_CLASSES = "ks-stat-card-disclosure hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 text-sm"
       CHANGE_ROW_CLASSES = "ks-stat-card-change h-5 text-sm"
       VALUE_LINK_CLASSES = "hover:underline focus:outline-none focus-visible:underline"
-      INFO_BUTTON_CLASSES = "ks-stat-card-info peer shrink-0 text-gray-400 transition hover:text-accent-600 dark:hover:text-accent-400"
+      INFO_BUTTON_CLASSES = "ks-stat-card-info peer shrink-0 transition"
 
       INFO_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
