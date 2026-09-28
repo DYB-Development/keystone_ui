@@ -106,4 +106,8 @@ class Keystone::Ui::BucketComponentTest < Minitest::Test
   def test_percent_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::BucketComponent::PERCENT_CLASSES
   end
+
+  def test_within_goal_fill_classes_render_the_ks_bucket_fill_class
+    assert_includes Keystone::Ui::BucketComponent::WITHIN_GOAL_FILL_CLASSES, "ks-bucket-fill"
+  end
 end
