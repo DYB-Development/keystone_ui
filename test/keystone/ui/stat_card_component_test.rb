@@ -229,4 +229,28 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_emphasis_classes_render_the_ks_stat_card_emphasis_class
     assert_includes Keystone::Ui::StatCardComponent::EMPHASIS_CLASSES, "ks-stat-card-emphasis"
   end
+
+  def test_defaults_to_neutral_variant
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "0")
+
+    assert_includes component.value_classes, "ks-tone-neutral"
+  end
+
+  def test_positive_change_is_green
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.3)
+
+    assert_includes component.change_classes, "ks-tone-success"
+  end
+
+  def test_negative_change_is_red
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
+
+    assert_includes component.change_classes, "ks-tone-danger"
+  end
+
+  def test_zero_change_is_neutral
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
+
+    assert_includes component.change_classes, "ks-tone-muted"
+  end
 end
