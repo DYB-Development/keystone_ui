@@ -5,7 +5,7 @@ module Keystone
     class CtaBannerComponent < ViewComponent::Base
       CARD_LAYOUT_CLASSES = "ks-cta-banner text-center"
       TITLE_BASE_CLASSES = "ks-cta-banner-title text-3xl tracking-tight sm:text-4xl"
-      SUBTITLE_BASE_CLASSES = "ks-cta-banner-subtitle mx-auto mb-8 max-w-2xl text-lg"
+      SUBTITLE_BASE_CLASSES = "ks-cta-banner-subtitle mx-auto max-w-2xl text-lg"
       ACTIONS_CLASSES = "flex flex-wrap justify-center gap-4"
 
       attr_reader :title, :subtitle
