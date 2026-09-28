@@ -526,4 +526,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_head_classes_render_the_ks_table_head_class
     assert_includes Keystone::Ui::DataTableComponent::HEAD_CLASSES, "ks-table-head"
   end
+
+  def test_body_classes_render_the_ks_table_body_class
+    assert_includes Keystone::Ui::DataTableComponent::BODY_CLASSES, "ks-table-body"
+  end
 end

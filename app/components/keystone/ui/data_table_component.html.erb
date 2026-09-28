@@ -20,7 +20,7 @@
         <% end %>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-800/50">
+    <tbody class="<%= Keystone::Ui::DataTableComponent::BODY_CLASSES %>">
       <% if empty? %>
         <% if @empty_message %>
           <tr>
