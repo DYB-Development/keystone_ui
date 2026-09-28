@@ -51,7 +51,7 @@ module Keystone
       end
 
       def subtitle_classes
-        "#{SUBTITLE_BASE_CLASSES} text-surface-500 dark:text-surface-400"
+        SUBTITLE_BASE_CLASSES
       end
 
       def subtitle?
