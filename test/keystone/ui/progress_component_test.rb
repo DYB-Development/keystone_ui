@@ -24,11 +24,6 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
   end
 
 
-  def test_bar_classes_use_accent_fill
-    component = Keystone::Ui::ProgressComponent.new(value: 3, max: 5)
-
-    assert_includes component.bar_classes, "bg-accent-500"
-  end
 
   def test_label_classes_render_a_small_caption
     component = Keystone::Ui::ProgressComponent.new(value: 3, max: 5, label: "Question 3 of 5")
@@ -53,5 +48,9 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
   def test_bar_classes_render_the_ks_progress_bar_class
     assert_includes Keystone::Ui::ProgressComponent::BAR_CLASSES, "ks-progress-bar"
+  end
+
+  def test_bar_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::ProgressComponent::BAR_CLASSES
   end
 end
