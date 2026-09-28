@@ -105,4 +105,8 @@ class Keystone::Ui::PipelineComponentTest < Minitest::Test
   def test_box_label_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::PipelineComponent::BOX_LABEL_CLASSES
   end
+
+  def test_count_base_classes_render_the_ks_pipeline_count_class
+    assert_includes Keystone::Ui::PipelineComponent::COUNT_BASE_CLASSES, "ks-pipeline-count"
+  end
 end
