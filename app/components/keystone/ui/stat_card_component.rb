@@ -3,25 +3,27 @@
 module Keystone
   module Ui
     class StatCardComponent < ViewComponent::Base
-      CARD_CLASSES = "relative rounded-xl border border-gray-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-800"
-      LABEL_CLASSES = "text-sm font-medium text-gray-500 dark:text-gray-400"
-      VALUE_BASE_CLASSES = "mt-1 text-3xl font-bold"
-      SUFFIX_CLASSES = "text-lg text-gray-500 dark:text-gray-400"
-      DISCLOSURE_CLASSES = "hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 mt-2 space-y-1 rounded-lg border border-gray-200 bg-white p-3 text-sm text-gray-600 shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:text-gray-400"
-      CHANGE_ROW_CLASSES = "mt-1 h-5 text-sm font-medium"
+      EMPHASIS_CLASSES = "ks-stat-card-emphasis"
+      HEADER_CLASSES = "ks-stat-card-header flex items-start justify-between"
+      CARD_CLASSES = "ks-metric-card relative"
+      LABEL_CLASSES = "ks-stat-card-label text-sm"
+      VALUE_BASE_CLASSES = "ks-stat-card-value text-3xl"
+      SUFFIX_CLASSES = "ks-stat-card-suffix text-lg"
+      DISCLOSURE_CLASSES = "ks-stat-card-disclosure hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 text-sm"
+      CHANGE_ROW_CLASSES = "ks-stat-card-change h-5 text-sm"
       VALUE_LINK_CLASSES = "hover:underline focus:outline-none focus-visible:underline"
-      INFO_BUTTON_CLASSES = "peer shrink-0 text-gray-400 transition hover:text-accent-600 dark:hover:text-accent-400"
+      INFO_BUTTON_CLASSES = "ks-stat-card-info peer shrink-0 transition"
 
       INFO_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
       SVG
 
       VARIANT_CLASSES = {
-        neutral: "text-gray-900 dark:text-white",
-        success: "text-green-600 dark:text-green-400",
-        danger: "text-red-600 dark:text-red-400",
-        warning: "text-yellow-600 dark:text-yellow-400",
-        info: "text-accent-600 dark:text-accent-400"
+        neutral: "ks-tone-neutral",
+        success: "ks-tone-success",
+        danger: "ks-tone-danger",
+        warning: "ks-tone-warning",
+        info: "ks-tone-info"
       }.freeze
 
       attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href
@@ -87,10 +89,10 @@ module Keystone
       end
 
       def change_classes
-        return "text-gray-500 dark:text-gray-400" if !change? || @change.zero?
-        return "text-red-600 dark:text-red-400" if @change.negative?
+        return "ks-tone-muted" if !change? || @change.zero?
+        return "ks-tone-danger" if @change.negative?
 
-        "text-green-600 dark:text-green-400"
+        "ks-tone-success"
       end
 
       def disclosure_classes

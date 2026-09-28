@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::BucketSeriesComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_builds_one_bucket_per_entry_with_its_own_goal
     component = Keystone::Ui::BucketSeriesComponent.new(buckets: [
       { label: "Leads", goal: 600, actual: 450 },
@@ -16,5 +18,13 @@ class Keystone::Ui::BucketSeriesComponentTest < Minitest::Test
     component = Keystone::Ui::BucketSeriesComponent.new(buckets: [])
 
     assert_includes component.row_classes, "flex-wrap"
+  end
+
+  def test_row_classes_render_the_ks_bucket_series_class
+    assert_includes Keystone::Ui::BucketSeriesComponent::ROW_CLASSES, "ks-bucket-series"
+  end
+
+  def test_row_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::BucketSeriesComponent::ROW_CLASSES
   end
 end

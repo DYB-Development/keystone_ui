@@ -3,10 +3,10 @@
 module Keystone
   module Ui
     class CtaBannerComponent < ViewComponent::Base
-      CARD_LAYOUT_CLASSES = "rounded-2xl border px-6 py-12 text-center lg:px-16 lg:py-16"
-      TITLE_BASE_CLASSES = "mb-4 text-3xl font-bold tracking-tight sm:text-4xl"
-      SUBTITLE_BASE_CLASSES = "mx-auto mb-8 max-w-2xl text-lg"
-      ACTIONS_CLASSES = "flex flex-wrap justify-center gap-4"
+      CARD_LAYOUT_CLASSES = "ks-cta-banner text-center"
+      TITLE_BASE_CLASSES = "ks-cta-banner-title text-3xl tracking-tight sm:text-4xl"
+      SUBTITLE_BASE_CLASSES = "ks-cta-banner-subtitle mx-auto max-w-2xl text-lg"
+      ACTIONS_CLASSES = "ks-cta-banner-actions flex flex-wrap justify-center"
 
       attr_reader :title, :subtitle
 
@@ -16,15 +16,15 @@ module Keystone
       end
 
       def classes
-        "#{CARD_LAYOUT_CLASSES} border-surface-200 dark:border-surface-700 bg-surface-50 dark:bg-surface-800"
+        CARD_LAYOUT_CLASSES
       end
 
       def title_classes
-        "#{TITLE_BASE_CLASSES} text-surface-900 dark:text-white"
+        TITLE_BASE_CLASSES
       end
 
       def subtitle_classes
-        "#{SUBTITLE_BASE_CLASSES} text-surface-500 dark:text-surface-400"
+        SUBTITLE_BASE_CLASSES
       end
 
       def subtitle?

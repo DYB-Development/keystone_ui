@@ -5,6 +5,8 @@ require_relative "../../../app/components/keystone/ui/column"
 require_relative "../../../app/components/keystone/ui/data_table_component"
 
 class Keystone::Ui::DataTableComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   PRODUCT_STRUCT = Struct.new(:name, :quantity, :price, keyword_init: true)
 
   def columns
@@ -443,5 +445,93 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
 
     labels = component.header_cells.map { |c| c[:label] }
     assert_equal [ "Name", "Quantity", "Price" ], labels
+  end
+
+  def test_header_classes_first_render_the_ks_table_header_first_class
+    assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_FIRST, "ks-table-header ks-table-header-first"
+  end
+
+  def test_header_classes_first_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::HEADER_CLASSES_FIRST
+  end
+
+  def test_header_classes_middle_render_the_ks_table_header_middle_class
+    assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_MIDDLE, "ks-table-header ks-table-header-middle"
+  end
+
+  def test_header_classes_middle_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::HEADER_CLASSES_MIDDLE
+  end
+
+  def test_header_classes_last_render_the_ks_table_header_last_class
+    assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_LAST, "ks-table-header-last"
+  end
+
+  def test_header_classes_last_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::HEADER_CLASSES_LAST
+  end
+
+  def test_row_classes_first_render_the_ks_table_cell_first_class
+    assert_includes Keystone::Ui::DataTableComponent::ROW_CLASSES_FIRST, "ks-table-cell-first"
+  end
+
+  def test_row_classes_first_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::ROW_CLASSES_FIRST
+  end
+
+  def test_row_classes_middle_render_the_ks_table_cell_middle_class
+    assert_includes Keystone::Ui::DataTableComponent::ROW_CLASSES_MIDDLE, "ks-table-cell-middle"
+  end
+
+  def test_row_classes_middle_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::ROW_CLASSES_MIDDLE
+  end
+
+  def test_row_classes_last_render_the_ks_table_cell_last_class
+    assert_includes Keystone::Ui::DataTableComponent::ROW_CLASSES_LAST, "ks-table-cell-last"
+  end
+
+  def test_row_classes_last_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::ROW_CLASSES_LAST
+  end
+
+  def test_sort_link_classes_render_the_ks_table_sort_link_class
+    assert_includes Keystone::Ui::DataTableComponent::SORT_LINK_CLASSES, "ks-table-sort-link"
+  end
+
+  def test_sort_link_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::SORT_LINK_CLASSES
+  end
+
+  def test_sort_icon_active_render_the_ks_table_sort_icon_active_class
+    assert_includes Keystone::Ui::DataTableComponent::SORT_ICON_ACTIVE, "ks-table-sort-icon-active"
+  end
+
+  def test_sort_icon_active_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::SORT_ICON_ACTIVE
+  end
+
+  def test_sort_icon_inactive_render_the_ks_table_sort_icon_class
+    assert_includes Keystone::Ui::DataTableComponent::SORT_ICON_INACTIVE, "ks-table-sort-icon"
+  end
+
+  def test_sort_icon_inactive_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::SORT_ICON_INACTIVE
+  end
+
+  def test_wrapper_classes_render_the_ks_table_class
+    assert_includes Keystone::Ui::DataTableComponent::WRAPPER_CLASSES, "ks-table"
+  end
+
+  def test_head_classes_render_the_ks_table_head_class
+    assert_includes Keystone::Ui::DataTableComponent::HEAD_CLASSES, "ks-table-head"
+  end
+
+  def test_body_classes_render_the_ks_table_body_class
+    assert_includes Keystone::Ui::DataTableComponent::BODY_CLASSES, "ks-table-body"
+  end
+
+  def test_empty_cell_classes_render_the_ks_table_cell_middle_class
+    assert_includes Keystone::Ui::DataTableComponent::EMPTY_CELL_CLASSES, "ks-table-cell-middle"
   end
 end

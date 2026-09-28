@@ -3,19 +3,19 @@
 module Keystone
   module Ui
     class HeroComponent < ViewComponent::Base
-      WRAPPER_CLASSES = "relative min-h-screen pt-24"
-      INNER_CLASSES = "mx-auto max-w-6xl px-6 py-24 lg:py-32"
+      WRAPPER_CLASSES = "ks-hero relative min-h-screen"
+      INNER_CLASSES = "ks-hero-inner mx-auto max-w-6xl"
 
-      CONTENT_COLUMN_CLASSES = "flex flex-col gap-8"
+      CONTENT_COLUMN_CLASSES = "ks-hero-content flex flex-col"
       CENTERED_COLUMN_CLASSES = "items-center"
 
-      SPLIT_CLASSES = "grid gap-12 lg:grid-cols-2 lg:gap-16 items-center"
+      SPLIT_CLASSES = "ks-hero-split grid lg:grid-cols-2 items-center"
       CENTERED_CLASSES = "flex flex-col items-center text-center"
 
-      TITLE_BASE_CLASSES = "text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
-      SUBTITLE_BASE_CLASSES = "max-w-lg text-lg"
-      BADGE_BASE_CLASSES = "inline-flex w-fit items-center gap-2 rounded-full border px-4 py-1.5 text-sm"
-      ACTIONS_CLASSES = "flex flex-wrap gap-4"
+      TITLE_BASE_CLASSES = "ks-hero-title text-4xl tracking-tight sm:text-5xl lg:text-6xl"
+      SUBTITLE_BASE_CLASSES = "ks-hero-subtitle max-w-lg text-lg"
+      BADGE_BASE_CLASSES = "ks-hero-badge inline-flex w-fit items-center text-sm"
+      ACTIONS_CLASSES = "ks-hero-actions flex flex-wrap"
 
       renders_one :aside
 
@@ -47,11 +47,11 @@ module Keystone
       end
 
       def title_classes
-        "#{TITLE_BASE_CLASSES} text-surface-900 dark:text-white"
+        TITLE_BASE_CLASSES
       end
 
       def subtitle_classes
-        "#{SUBTITLE_BASE_CLASSES} text-surface-500 dark:text-surface-400"
+        SUBTITLE_BASE_CLASSES
       end
 
       def subtitle?
@@ -59,7 +59,7 @@ module Keystone
       end
 
       def badge_classes
-        "#{BADGE_BASE_CLASSES} border-accent-500/20 bg-accent-500/10 text-accent-600 dark:text-accent-400"
+        BADGE_BASE_CLASSES
       end
 
       def badge?

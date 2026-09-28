@@ -1,6 +1,6 @@
-<div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm dark:border-zinc-700 dark:shadow-none">
+<div class="<%= Keystone::Ui::DataTableComponent::WRAPPER_CLASSES %>">
   <table class="relative min-w-full divide-y divide-gray-300 dark:divide-white/15">
-    <thead class="bg-gray-50 dark:bg-gray-800/75">
+    <thead class="<%= Keystone::Ui::DataTableComponent::HEAD_CLASSES %>">
       <tr>
         <% header_cells.each do |cell| %>
           <th scope="<%= cell[:scope] %>" class="<%= cell[:classes] %>">
@@ -20,11 +20,11 @@
         <% end %>
       </tr>
     </thead>
-    <tbody class="divide-y divide-gray-200 bg-white dark:divide-white/10 dark:bg-gray-800/50">
+    <tbody class="<%= Keystone::Ui::DataTableComponent::BODY_CLASSES %>">
       <% if empty? %>
         <% if @empty_message %>
           <tr>
-            <td class="px-3 py-4 text-sm text-gray-500 dark:text-gray-400" colspan="<%= column_count %>">
+            <td class="<%= Keystone::Ui::DataTableComponent::EMPTY_CELL_CLASSES %>" colspan="<%= column_count %>">
               <%= @empty_message %>
             </td>
           </tr>

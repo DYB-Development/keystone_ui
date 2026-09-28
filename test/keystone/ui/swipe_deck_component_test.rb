@@ -5,6 +5,8 @@ require "test_helper"
 require_relative "../../../app/components/keystone/ui/swipe_deck_component"
 
 class Keystone::Ui::SwipeDeckComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def items
     @items ||= [
       OpenStruct.new(id: 1, name: "Meditate"),
@@ -76,5 +78,37 @@ class Keystone::Ui::SwipeDeckComponentTest < Minitest::Test
     hash_item = { name: "Hash item" }
     component = Keystone::Ui::SwipeDeckComponent.new(items: [ hash_item ])
     assert_equal 0, component.item_id(hash_item, fallback_index: 0)
+  end
+
+  def test_card_classes_render_the_ks_swipe_card_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::CARD_CLASSES, "ks-swipe-card"
+  end
+
+  def test_card_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::SwipeDeckComponent::CARD_CLASSES
+  end
+
+  def test_empty_classes_render_the_ks_swipe_empty_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::EMPTY_CLASSES, "ks-swipe-empty"
+  end
+
+  def test_empty_title_classes_render_the_ks_swipe_empty_title_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::EMPTY_TITLE_CLASSES, "ks-swipe-empty-title"
+  end
+
+  def test_empty_message_classes_render_the_ks_swipe_empty_message_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::EMPTY_MESSAGE_CLASSES, "ks-swipe-empty-message"
+  end
+
+  def test_actions_classes_render_the_ks_swipe_actions_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::ACTIONS_CLASSES, "ks-swipe-actions"
+  end
+
+  def test_reject_button_classes_render_the_ks_swipe_button_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::REJECT_BUTTON_CLASSES, "ks-swipe-button"
+  end
+
+  def test_accept_button_classes_render_the_ks_swipe_button_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::ACCEPT_BUTTON_CLASSES, "ks-swipe-button"
   end
 end

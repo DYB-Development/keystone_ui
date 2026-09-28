@@ -3,13 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::StatCardComponentTest < Minitest::Test
-  def test_returns_card_classes
-    component = Keystone::Ui::StatCardComponent.new(label: "Total", value: "42")
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
 
-    assert_includes component.classes, "rounded-xl"
-    assert_includes component.classes, "border"
-    assert_includes component.classes, "p-6"
-  end
 
   def test_exposes_label_and_value
     component = Keystone::Ui::StatCardComponent.new(label: "Published", value: "1,234")
@@ -18,11 +13,6 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     assert_equal "1,234", component.value
   end
 
-  def test_defaults_to_neutral_variant
-    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "0")
-
-    assert_includes component.value_classes, "text-gray-900"
-  end
 
   def test_maps_variant_to_value_color
     %i[neutral success danger warning info].each do |variant|
@@ -86,11 +76,6 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     assert_includes component.disclosure_classes, "hidden"
   end
 
-  def test_exposes_info_button_classes
-    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
-
-    assert_includes component.info_button_classes, "text-gray-400"
-  end
 
   def test_info_icon_renders_svg
     component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
@@ -128,23 +113,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     assert_equal true, component.change?
   end
 
-  def test_positive_change_is_green
-    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.3)
 
-    assert_includes component.change_classes, "text-green-600"
-  end
 
-  def test_negative_change_is_red
-    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
-
-    assert_includes component.change_classes, "text-red-600"
-  end
-
-  def test_zero_change_is_neutral
-    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
-
-    assert_includes component.change_classes, "text-gray-500"
-  end
 
   def test_positive_change_label_has_up_arrow_and_percent
     component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.34)
@@ -186,5 +156,101 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "5", definition: "rows")
 
     assert_includes component.disclosure_classes, "peer-hover:block"
+  end
+
+  def test_card_classes_render_the_ks_metric_card_class
+    assert_includes Keystone::Ui::StatCardComponent::CARD_CLASSES, "ks-metric-card"
+  end
+
+  def test_card_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::CARD_CLASSES
+  end
+
+  def test_label_classes_render_the_ks_stat_card_label_class
+    assert_includes Keystone::Ui::StatCardComponent::LABEL_CLASSES, "ks-stat-card-label"
+  end
+
+  def test_label_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::LABEL_CLASSES
+  end
+
+  def test_value_base_classes_render_the_ks_stat_card_value_class
+    assert_includes Keystone::Ui::StatCardComponent::VALUE_BASE_CLASSES, "ks-stat-card-value"
+  end
+
+  def test_value_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::VALUE_BASE_CLASSES
+  end
+
+  def test_suffix_classes_render_the_ks_stat_card_suffix_class
+    assert_includes Keystone::Ui::StatCardComponent::SUFFIX_CLASSES, "ks-stat-card-suffix"
+  end
+
+  def test_suffix_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::SUFFIX_CLASSES
+  end
+
+  def test_disclosure_classes_render_the_ks_stat_card_disclosure_class
+    assert_includes Keystone::Ui::StatCardComponent::DISCLOSURE_CLASSES, "ks-stat-card-disclosure"
+  end
+
+  def test_disclosure_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::DISCLOSURE_CLASSES
+  end
+
+  def test_change_row_classes_render_the_ks_stat_card_change_class
+    assert_includes Keystone::Ui::StatCardComponent::CHANGE_ROW_CLASSES, "ks-stat-card-change"
+  end
+
+  def test_change_row_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::CHANGE_ROW_CLASSES
+  end
+
+  def test_info_button_classes_render_the_ks_stat_card_info_class
+    assert_includes Keystone::Ui::StatCardComponent::INFO_BUTTON_CLASSES, "ks-stat-card-info"
+  end
+
+  def test_info_button_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent::INFO_BUTTON_CLASSES
+  end
+
+  def test_variant_classes_map_to_look_classes
+    assert_equal({ neutral: "ks-tone-neutral", success: "ks-tone-success", danger: "ks-tone-danger", warning: "ks-tone-warning", info: "ks-tone-info" }, Keystone::Ui::StatCardComponent::VARIANT_CLASSES)
+  end
+
+  def test_change_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::StatCardComponent.new(label: "Visits", value: 3, change: -2).change_classes
+  end
+
+  def test_header_classes_render_the_ks_stat_card_header_class
+    assert_includes Keystone::Ui::StatCardComponent::HEADER_CLASSES, "ks-stat-card-header"
+  end
+
+  def test_emphasis_classes_render_the_ks_stat_card_emphasis_class
+    assert_includes Keystone::Ui::StatCardComponent::EMPHASIS_CLASSES, "ks-stat-card-emphasis"
+  end
+
+  def test_defaults_to_neutral_variant
+    component = Keystone::Ui::StatCardComponent.new(label: "Count", value: "0")
+
+    assert_includes component.value_classes, "ks-tone-neutral"
+  end
+
+  def test_positive_change_is_green
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 12.3)
+
+    assert_includes component.change_classes, "ks-tone-success"
+  end
+
+  def test_negative_change_is_red
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: -4.0)
+
+    assert_includes component.change_classes, "ks-tone-danger"
+  end
+
+  def test_zero_change_is_neutral
+    component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
+
+    assert_includes component.change_classes, "ks-tone-muted"
   end
 end

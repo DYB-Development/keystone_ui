@@ -3,9 +3,9 @@
 module Keystone
   module Ui
     class CardLinkComponent < ViewComponent::Base
-      BASE_CLASSES = "block rounded-lg border border-gray-200 bg-white dark:border-zinc-700 dark:bg-zinc-900"
-      SHADOW_CLASS = "shadow-sm"
-      PADDING_CLASSES = { sm: "p-3", md: "p-4", lg: "p-6" }.freeze
+      BASE_CLASSES = "ks-link-card block"
+      SHADOW_CLASS = "ks-link-card-shadow"
+      PADDING_CLASSES = { sm: "ks-link-card-padding-sm", md: "ks-link-card-padding-md", lg: "ks-link-card-padding-lg" }.freeze
 
       attr_reader :href
 
@@ -16,7 +16,7 @@ module Keystone
       end
 
       def classes
-        tokens = [ BASE_CLASSES, "hover:border-accent-500/50", PADDING_CLASSES.fetch(@padding) ]
+        tokens = [ BASE_CLASSES, PADDING_CLASSES.fetch(@padding) ]
         tokens << SHADOW_CLASS if @shadow
         tokens.join(" ")
       end

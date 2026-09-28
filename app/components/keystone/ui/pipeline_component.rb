@@ -3,24 +3,24 @@
 module Keystone
   module Ui
     class PipelineComponent < ViewComponent::Base
-      CONTAINER_CLASSES = "rounded-xl border border-surface-700 bg-surface-800 p-6"
-      HEADER_CLASSES = "mb-4"
-      TITLE_CLASSES = "text-lg font-semibold text-white"
-      SUBTITLE_CLASSES = "mt-1 text-sm text-surface-400"
-      TRACK_CLASSES = "flex flex-col gap-3 sm:flex-row sm:items-stretch"
-      BOX_CLASSES = "flex flex-1 flex-col items-center gap-2 rounded-lg border border-surface-700 bg-surface-900 p-4 text-center"
-      BOX_LABEL_CLASSES = "text-xs uppercase tracking-wide text-surface-500"
+      CONTAINER_CLASSES = "ks-pipeline"
+      HEADER_CLASSES = "ks-pipeline-header"
+      TITLE_CLASSES = "ks-pipeline-title text-lg"
+      SUBTITLE_CLASSES = "ks-pipeline-subtitle text-sm"
+      TRACK_CLASSES = "ks-pipeline-track flex flex-col sm:flex-row sm:items-stretch"
+      BOX_CLASSES = "ks-pipeline-box flex flex-1 flex-col items-center text-center"
+      BOX_LABEL_CLASSES = "ks-pipeline-box-label text-xs uppercase tracking-wide"
       CONNECTOR_CLASSES = "flex items-center justify-center"
-      COUNT_BASE_CLASSES = "text-3xl font-bold"
+      COUNT_BASE_CLASSES = "ks-pipeline-count text-3xl"
       LINK_BASE_CLASSES = "link-toggle text-2xl leading-none"
-      LINK_HEALTHY_CLASSES = "text-accent-500"
-      LINK_BROKEN_CLASSES = "text-red-500"
+      LINK_HEALTHY_CLASSES = "ks-pipeline-link-healthy"
+      LINK_BROKEN_CLASSES = "ks-pipeline-link-broken"
 
       COUNT_CLASSES = {
-        amber: "text-amber-400",
-        emerald: "text-accent-400",
-        danger: "text-red-400",
-        muted: "text-surface-500"
+        amber: "ks-pipeline-count-amber",
+        emerald: "ks-pipeline-count-emerald",
+        danger: "ks-pipeline-count-danger",
+        muted: "ks-pipeline-count-muted"
       }.freeze
 
       attr_reader :title, :boxes, :links, :subtitle

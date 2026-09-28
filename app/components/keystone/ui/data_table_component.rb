@@ -3,20 +3,24 @@
 module Keystone
   module Ui
     class DataTableComponent < ViewComponent::Base
-      HEADER_CLASSES_FIRST = "py-3.5 pr-3 pl-6 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"
-      HEADER_CLASSES_MIDDLE = "px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"
-      HEADER_CLASSES_LAST = "py-3.5 pr-6 pl-3"
+      EMPTY_CELL_CLASSES = "ks-table-cell-middle text-sm"
+      BODY_CLASSES = "ks-table-body"
+      HEAD_CLASSES = "ks-table-head"
+      WRAPPER_CLASSES = "ks-table overflow-hidden"
+      HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
+      HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
+      HEADER_CLASSES_LAST = "ks-table-header-last"
 
-      ROW_CLASSES_FIRST = "py-4 pr-3 pl-6 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
-      ROW_CLASSES_MIDDLE = "px-3 py-4 text-sm whitespace-nowrap text-gray-500 dark:text-gray-400"
-      ROW_CLASSES_LAST = "py-4 pr-6 pl-3 text-right text-sm font-medium whitespace-nowrap"
+      ROW_CLASSES_FIRST = "ks-table-cell-first text-sm whitespace-nowrap"
+      ROW_CLASSES_MIDDLE = "ks-table-cell-middle text-sm whitespace-nowrap"
+      ROW_CLASSES_LAST = "ks-table-cell-last text-right text-sm whitespace-nowrap"
 
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
 
-      SORT_LINK_CLASSES = "group inline-flex items-center gap-1"
+      SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
       SORT_ICON_CLASSES = "h-4 w-4 flex-shrink-0"
-      SORT_ICON_ACTIVE = "text-gray-700 dark:text-gray-300"
-      SORT_ICON_INACTIVE = "text-gray-400 dark:text-gray-500 invisible group-hover:visible"
+      SORT_ICON_ACTIVE = "ks-table-sort-icon-active"
+      SORT_ICON_INACTIVE = "ks-table-sort-icon invisible group-hover:visible"
 
       SORT_ASC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 17a.75.75 0 0 1-.75-.75V5.612L5.29 9.77a.75.75 0 0 1-1.08-1.04l5.25-5.5a.75.75 0 0 1 1.08 0l5.25 5.5a.75.75 0 1 1-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0 1 10 17Z" clip-rule="evenodd" /></svg>'
       SORT_DESC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 0 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg>'

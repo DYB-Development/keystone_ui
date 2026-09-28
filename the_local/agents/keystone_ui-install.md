@@ -144,8 +144,12 @@ built on ViewComponent; hook it in before building any screen with those helpers
    Buttons, panels, cards, alerts, badges, form fields, the modal, the mobile
    action menu, the column picker, multi select, copy button, theme toggle,
    checkbox row, radio card, option card, file upload and colour picker read
-   these variables. The data display and navigation components still use fixed
-   Tailwind utilities, so a look does not change them. The keystone_ui-styles README
+   these variables. So do the data display components: stat card, chart card,
+   card link, CTA banner, feature grid, hero, data table, code, accordion,
+   disclosure, tab switcher, progress, funnel, bucket, pipeline and swipe deck.
+   The navigation components (navbar, nav item, nav dropdown, bottom nav, mobile
+   header and settings link) still use fixed Tailwind utilities, so a look does
+   not change them. The keystone_ui-styles README
    lists every variable and its default.
 
 7. Write `config/initializers/keystone_ui.rb` only if one of the settings below

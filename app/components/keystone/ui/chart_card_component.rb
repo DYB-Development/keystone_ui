@@ -3,8 +3,8 @@
 module Keystone
   module Ui
     class ChartCardComponent < ViewComponent::Base
-      CARD_CLASSES = "rounded-xl border border-gray-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-800"
-      TITLE_CLASSES = "text-sm font-medium text-gray-500 dark:text-gray-400 mb-4"
+      CARD_CLASSES = "ks-metric-card"
+      TITLE_CLASSES = "ks-chart-card-title text-sm"
 
       HEIGHT_CLASSES = {
         sm: "h-48",

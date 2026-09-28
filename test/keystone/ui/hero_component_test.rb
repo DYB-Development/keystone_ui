@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::HeroComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_exposes_title
     component = Keystone::Ui::HeroComponent.new(title: "Welcome")
 
@@ -44,7 +46,6 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
   def test_exposes_title_classes
     component = Keystone::Ui::HeroComponent.new(title: "X")
 
-    assert_includes component.title_classes, "font-bold"
     assert_includes component.title_classes, "tracking-tight"
   end
 
@@ -76,20 +77,77 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
     assert Keystone::Ui::HeroComponent.registered_slots.key?(:aside)
   end
 
-  def test_uses_semantic_accent_classes_for_badge
-    component = Keystone::Ui::HeroComponent.new(title: "X", badge: "New")
 
-    assert_includes component.badge_classes, "border-accent-500/20"
-    assert_includes component.badge_classes, "text-accent-600"
-    assert_includes component.badge_classes, "bg-accent-500/10"
-    assert_includes component.badge_classes, "dark:text-accent-400"
+
+  def test_wrapper_classes_render_the_ks_hero_class
+    assert_includes Keystone::Ui::HeroComponent::WRAPPER_CLASSES, "ks-hero"
   end
 
-  def test_uses_semantic_surface_classes_for_title_and_subtitle
-    component = Keystone::Ui::HeroComponent.new(title: "X", subtitle: "Sub")
+  def test_wrapper_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::WRAPPER_CLASSES
+  end
 
-    assert_includes component.title_classes, "text-surface-900"
-    assert_includes component.subtitle_classes, "text-surface-500"
-    assert_includes component.subtitle_classes, "dark:text-surface-400"
+  def test_inner_classes_render_the_ks_hero_inner_class
+    assert_includes Keystone::Ui::HeroComponent::INNER_CLASSES, "ks-hero-inner"
+  end
+
+  def test_inner_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::INNER_CLASSES
+  end
+
+  def test_content_column_classes_render_the_ks_hero_content_class
+    assert_includes Keystone::Ui::HeroComponent::CONTENT_COLUMN_CLASSES, "ks-hero-content"
+  end
+
+  def test_content_column_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::CONTENT_COLUMN_CLASSES
+  end
+
+  def test_split_classes_render_the_ks_hero_split_class
+    assert_includes Keystone::Ui::HeroComponent::SPLIT_CLASSES, "ks-hero-split"
+  end
+
+  def test_split_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::SPLIT_CLASSES
+  end
+
+  def test_title_base_classes_render_the_ks_hero_title_class
+    assert_includes Keystone::Ui::HeroComponent::TITLE_BASE_CLASSES, "ks-hero-title"
+  end
+
+  def test_title_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::TITLE_BASE_CLASSES
+  end
+
+  def test_subtitle_base_classes_render_the_ks_hero_subtitle_class
+    assert_includes Keystone::Ui::HeroComponent::SUBTITLE_BASE_CLASSES, "ks-hero-subtitle"
+  end
+
+  def test_badge_base_classes_render_the_ks_hero_badge_class
+    assert_includes Keystone::Ui::HeroComponent::BADGE_BASE_CLASSES, "ks-hero-badge"
+  end
+
+  def test_badge_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::BADGE_BASE_CLASSES
+  end
+
+  def test_actions_classes_render_the_ks_hero_actions_class
+    assert_includes Keystone::Ui::HeroComponent::ACTIONS_CLASSES, "ks-hero-actions"
+  end
+
+  def test_actions_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent::ACTIONS_CLASSES
+  end
+
+  def test_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent.new(title: "Hello").title_classes
+  end
+
+  def test_subtitle_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent.new(title: "Hello").subtitle_classes
+  end
+
+  def test_badge_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::HeroComponent.new(title: "Hello").badge_classes
   end
 end

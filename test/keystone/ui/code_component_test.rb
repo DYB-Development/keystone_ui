@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Keystone::Ui::CodeComponentTest < Minitest::Test
+  VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
+
   def test_stores_language
     component = Keystone::Ui::CodeComponent.new(language: :ruby)
 
@@ -27,5 +29,29 @@ class Keystone::Ui::CodeComponentTest < Minitest::Test
 
     assert_includes classes, "font-mono"
     assert_includes classes, "overflow-x-auto"
+  end
+
+  def test_wrapper_classes_render_the_ks_code_class
+    assert_includes Keystone::Ui::CodeComponent::WRAPPER_CLASSES, "ks-code"
+  end
+
+  def test_wrapper_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CodeComponent::WRAPPER_CLASSES
+  end
+
+  def test_caption_classes_render_the_ks_code_caption_class
+    assert_includes Keystone::Ui::CodeComponent::CAPTION_CLASSES, "ks-code-caption"
+  end
+
+  def test_caption_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CodeComponent::CAPTION_CLASSES
+  end
+
+  def test_pre_classes_render_the_ks_code_block_class
+    assert_includes Keystone::Ui::CodeComponent::PRE_CLASSES, "ks-code-block"
+  end
+
+  def test_pre_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CodeComponent::PRE_CLASSES
   end
 end

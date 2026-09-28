@@ -3,7 +3,13 @@
 module Keystone
   module Ui
     class SwipeDeckComponent < ViewComponent::Base
-      CARD_CLASSES = "absolute inset-0 rounded-2xl border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 shadow-lg p-6 flex flex-col items-center justify-center transition-transform duration-300"
+      ACCEPT_BUTTON_CLASSES = "ks-swipe-button ks-swipe-button-accept flex items-center justify-center size-14 transition-colors"
+      REJECT_BUTTON_CLASSES = "ks-swipe-button ks-swipe-button-reject flex items-center justify-center size-14 transition-colors"
+      ACTIONS_CLASSES = "ks-swipe-actions flex justify-center"
+      EMPTY_MESSAGE_CLASSES = "ks-swipe-empty-message"
+      EMPTY_TITLE_CLASSES = "ks-swipe-empty-title text-2xl"
+      EMPTY_CLASSES = "ks-swipe-empty text-center"
+      CARD_CLASSES = "ks-swipe-card absolute inset-0 flex flex-col items-center justify-center transition-transform duration-300"
 
       STACK_SCALE_STEP = 0.05
       STACK_TRANSLATE_STEP = 8

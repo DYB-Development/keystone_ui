@@ -3,17 +3,17 @@
 module Keystone
   module Ui
     class BucketComponent < ViewComponent::Base
-      CONTAINER_CLASSES = "flex w-24 flex-col items-center gap-1"
-      LABEL_CLASSES = "text-center text-sm font-medium text-gray-700 dark:text-gray-300"
-      GOAL_CLASSES = "text-xs tabular-nums text-gray-500 dark:text-gray-400"
-      TANK_CLASSES = "flex h-40 w-full items-end overflow-hidden rounded-t-sm rounded-b-xl border-2 border-gray-300 bg-gray-50 dark:border-zinc-600 dark:bg-zinc-800"
-      ACTUAL_CLASSES = "text-sm font-semibold tabular-nums text-gray-900 dark:text-white"
-      PERCENT_CLASSES = "text-xs tabular-nums text-gray-500 dark:text-gray-400"
+      CONTAINER_CLASSES = "ks-bucket flex w-24 flex-col items-center"
+      LABEL_CLASSES = "ks-bucket-label text-center text-sm"
+      GOAL_CLASSES = "ks-bucket-goal text-xs tabular-nums"
+      TANK_CLASSES = "ks-bucket-tank flex h-40 w-full items-end overflow-hidden"
+      ACTUAL_CLASSES = "ks-bucket-actual text-sm tabular-nums"
+      PERCENT_CLASSES = "ks-bucket-percent text-xs tabular-nums"
       FILL_BASE_CLASSES = "w-full transition-all"
-      WITHIN_GOAL_FILL_CLASSES = "bg-accent-500"
+      WITHIN_GOAL_FILL_CLASSES = "ks-bucket-fill"
       OVER_GOAL_FILL_CLASSES = {
-        success: "bg-green-500",
-        warning: "bg-amber-500"
+        success: "ks-bucket-fill-over",
+        warning: "ks-bucket-fill-over-warning"
       }.freeze
 
       attr_reader :goal, :actual, :label

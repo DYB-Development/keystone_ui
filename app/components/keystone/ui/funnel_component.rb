@@ -5,19 +5,19 @@ module Keystone
     class FunnelComponent < ViewComponent::Base
       Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, :color_classes, keyword_init: true)
 
-      CONTAINER_CLASSES = "space-y-2"
-      LAYER_CLASSES = "space-y-1"
-      ROW_CLASSES = "flex items-baseline justify-between gap-3"
-      LABEL_CLASSES = "text-sm font-medium text-surface-700 truncate dark:text-surface-300"
-      VALUE_CLASSES = "text-sm font-semibold text-surface-900 tabular-nums dark:text-white"
-      BAR_CLASSES = "h-8 rounded-md transition-all"
-      TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500 dark:text-surface-400"
+      CONTAINER_CLASSES = "ks-funnel"
+      LAYER_CLASSES = "ks-funnel-layer"
+      ROW_CLASSES = "ks-funnel-row flex items-baseline justify-between"
+      LABEL_CLASSES = "ks-funnel-label text-sm truncate"
+      VALUE_CLASSES = "ks-funnel-value text-sm tabular-nums"
+      BAR_CLASSES = "ks-funnel-bar h-8 transition-all"
+      TRANSITION_CLASSES = "ks-funnel-transition text-center text-xs"
       STEP_COLOR_CLASSES = {
-        accent: "bg-accent-500",
-        sky: "bg-sky-500",
-        violet: "bg-violet-500",
-        amber: "bg-amber-500",
-        rose: "bg-rose-500"
+        accent: "ks-funnel-bar-accent",
+        sky: "ks-funnel-bar-sky",
+        violet: "ks-funnel-bar-violet",
+        amber: "ks-funnel-bar-amber",
+        rose: "ks-funnel-bar-rose"
       }.freeze
 
       attr_reader :steps
