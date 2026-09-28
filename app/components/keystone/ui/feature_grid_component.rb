@@ -6,7 +6,7 @@ module Keystone
       GRID_CLASSES = "ks-feature-grid grid sm:grid-cols-2 lg:grid-cols-3"
       TITLE_BASE_CLASSES = "ks-feature-grid-title text-center text-3xl tracking-tight sm:text-4xl"
       SUBTITLE_BASE_CLASSES = "ks-feature-grid-subtitle mx-auto max-w-2xl text-center text-lg"
-      CARD_LAYOUT_CLASSES = "ks-feature-card rounded-xl border p-6 transition"
+      CARD_LAYOUT_CLASSES = "ks-feature-card transition"
       ICON_BASE_CLASSES = "mb-4 flex size-10 items-center justify-center rounded-lg text-lg"
       CARD_TITLE_BASE_CLASSES = "mb-2 text-lg font-semibold"
       CARD_DESCRIPTION_BASE_CLASSES = "text-sm"

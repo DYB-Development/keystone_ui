@@ -41,9 +41,7 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
   def test_exposes_card_classes
     component = Keystone::Ui::FeatureGridComponent.new(title: "X", features: features)
 
-    assert_includes component.card_classes, "rounded-xl"
     assert_includes component.card_classes, "border"
-    assert_includes component.card_classes, "p-6"
   end
 
   def test_exposes_icon_wrapper_classes
@@ -96,5 +94,9 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
 
   def test_card_layout_classes_render_the_ks_feature_card_class
     assert_includes Keystone::Ui::FeatureGridComponent::CARD_LAYOUT_CLASSES, "ks-feature-card"
+  end
+
+  def test_card_layout_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent::CARD_LAYOUT_CLASSES
   end
 end
