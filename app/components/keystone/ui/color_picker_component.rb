@@ -5,7 +5,7 @@ module Keystone
     class ColorPickerComponent < ViewComponent::Base
       SWATCH_CLASSES = "ks-color-swatch w-10 h-10 cursor-pointer"
 
-      LABEL_CLASSES = "ks-color-picker-label ks-label mb-1"
+      LABEL_CLASSES = "ks-color-picker-label ks-label"
 
       PANEL_CLASSES = "ks-color-picker-panel absolute z-50 hidden"
 
