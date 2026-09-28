@@ -89,4 +89,8 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
   def test_subtitle_base_classes_render_the_ks_feature_grid_subtitle_class
     assert_includes Keystone::Ui::FeatureGridComponent::SUBTITLE_BASE_CLASSES, "ks-feature-grid-subtitle"
   end
+
+  def test_subtitle_base_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent::SUBTITLE_BASE_CLASSES
+  end
 end
