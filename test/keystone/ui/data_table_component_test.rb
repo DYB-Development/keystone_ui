@@ -454,4 +454,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_header_classes_first_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::DataTableComponent::HEADER_CLASSES_FIRST
   end
+
+  def test_header_classes_middle_render_the_ks_table_header_middle_class
+    assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_MIDDLE, "ks-table-header ks-table-header-middle"
+  end
 end

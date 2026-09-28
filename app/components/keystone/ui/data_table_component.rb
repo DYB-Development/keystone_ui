@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class DataTableComponent < ViewComponent::Base
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
-      HEADER_CLASSES_MIDDLE = "px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"
+      HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-gray-200"
       HEADER_CLASSES_LAST = "py-3.5 pr-6 pl-3"
 
       ROW_CLASSES_FIRST = "py-4 pr-3 pl-6 text-sm font-medium whitespace-nowrap text-gray-900 dark:text-white"
