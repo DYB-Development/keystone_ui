@@ -34,4 +34,8 @@ class Keystone::Ui::NavbarComponentTest < Minitest::Test
     assert_includes Keystone::Ui::NavbarComponent::MOBILE_CENTER_CLASSES, "-translate-x-1/2"
     assert_includes Keystone::Ui::NavbarComponent::MOBILE_CENTER_CLASSES, "truncate"
   end
+
+  def test_mobile_center_classes_render_the_ks_navbar_title_class
+    assert_includes Keystone::Ui::NavbarComponent::MOBILE_CENTER_CLASSES, "ks-navbar-title"
+  end
 end
