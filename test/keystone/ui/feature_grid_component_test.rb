@@ -114,4 +114,8 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
   def test_icon_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent.new(title: "Why", features: []).icon_classes
   end
+
+  def test_card_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent.new(title: "Why", features: []).card_title_classes
+  end
 end
