@@ -38,17 +38,11 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
     assert_equal features, component.features
   end
 
-  def test_exposes_card_classes
-    component = Keystone::Ui::FeatureGridComponent.new(title: "X", features: features)
-
-    assert_includes component.card_classes, "border"
-  end
 
 
   def test_uses_semantic_accent_classes
     component = Keystone::Ui::FeatureGridComponent.new(title: "X", features: features)
 
-    assert_includes component.card_classes, "hover:border-accent-500/50"
     assert_includes component.icon_classes, "bg-accent-500/10"
     assert_includes component.icon_classes, "text-accent-600"
   end
@@ -56,8 +50,6 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
   def test_uses_semantic_surface_classes
     component = Keystone::Ui::FeatureGridComponent.new(title: "X", subtitle: "Sub", features: features)
 
-    assert_includes component.card_classes, "border-surface-200"
-    assert_includes component.card_classes, "dark:border-surface-700"
     assert_includes component.card_description_classes, "text-surface-500"
   end
 
@@ -119,5 +111,9 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
 
   def test_subtitle_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent.new(title: "Why", features: []).subtitle_classes
+  end
+
+  def test_card_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::FeatureGridComponent.new(title: "Why", features: []).card_classes
   end
 end

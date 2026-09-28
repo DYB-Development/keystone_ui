@@ -36,7 +36,7 @@ module Keystone
       end
 
       def card_classes
-        "#{CARD_LAYOUT_CLASSES} border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-800 hover:border-accent-500/50 dark:hover:border-accent-500/50"
+        CARD_LAYOUT_CLASSES
       end
 
       def icon_classes
