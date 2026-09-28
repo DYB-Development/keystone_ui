@@ -5,7 +5,7 @@ module Keystone
     class CardLinkComponent < ViewComponent::Base
       BASE_CLASSES = "ks-link-card block"
       SHADOW_CLASS = "shadow-sm"
-      PADDING_CLASSES = { sm: "p-3", md: "p-4", lg: "p-6" }.freeze
+      PADDING_CLASSES = { sm: "ks-link-card-padding-sm", md: "ks-link-card-padding-md", lg: "ks-link-card-padding-lg" }.freeze
 
       attr_reader :href
 

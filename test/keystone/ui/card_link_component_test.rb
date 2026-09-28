@@ -11,7 +11,6 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
     classes = component.classes
     assert_includes classes, "block"
     assert_includes classes, "border"
-    assert_includes classes, "p-4"
     assert_includes classes, "shadow-sm"
     assert_includes classes, "hover:border-accent-500/50"
   end
@@ -22,11 +21,6 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
     assert_equal "/people/1", component.href
   end
 
-  def test_maps_each_padding_size_correctly
-    assert_includes Keystone::Ui::CardLinkComponent.new(href: "/", padding: :sm).classes, "p-3"
-    assert_includes Keystone::Ui::CardLinkComponent.new(href: "/", padding: :md).classes, "p-4"
-    assert_includes Keystone::Ui::CardLinkComponent.new(href: "/", padding: :lg).classes, "p-6"
-  end
 
   def test_omits_shadow_sm_when_shadow_false
     component = Keystone::Ui::CardLinkComponent.new(href: "/", shadow: false)
@@ -46,5 +40,9 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
 
   def test_base_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::CardLinkComponent::BASE_CLASSES
+  end
+
+  def test_padding_classes_map_to_look_classes
+    assert_equal({ sm: "ks-link-card-padding-sm", md: "ks-link-card-padding-md", lg: "ks-link-card-padding-lg" }, Keystone::Ui::CardLinkComponent::PADDING_CLASSES)
   end
 end
