@@ -75,4 +75,8 @@ class Keystone::Ui::ModalComponentTest < Minitest::Test
   def test_backdrop_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ModalComponent::BACKDROP_CLASSES
   end
+
+  def test_panel_classes_render_the_ks_modal_panel_class
+    assert_includes Keystone::Ui::ModalComponent::PANEL_CLASSES, "ks-modal-panel"
+  end
 end
