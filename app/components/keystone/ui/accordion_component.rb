@@ -36,7 +36,7 @@ module Keystone
       end
 
       def icon_classes
-        "#{ICON_LAYOUT_CLASSES} text-surface-400"
+        ICON_LAYOUT_CLASSES
       end
 
       def caret_icon
