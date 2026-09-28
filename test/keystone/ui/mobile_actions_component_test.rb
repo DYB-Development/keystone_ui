@@ -39,4 +39,8 @@ class Keystone::Ui::MobileActionsComponentTest < Minitest::Test
   def test_button_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::MobileActionsComponent::BUTTON_CLASSES
   end
+
+  def test_dropdown_classes_render_the_ks_action_menu_class
+    assert_includes Keystone::Ui::MobileActionsComponent::DROPDOWN_CLASSES, "ks-action-menu"
+  end
 end
