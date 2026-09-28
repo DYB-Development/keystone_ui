@@ -51,4 +51,10 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
   def test_tab_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::TabSwitcherComponent.new(tabs: []).tab_classes
   end
+
+  def test_uses_semantic_accent_classes_for_active_tab_state
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ])
+
+    assert_includes component.tab_classes, "ks-tab-active"
+  end
 end
