@@ -10,7 +10,7 @@ module Keystone
       ROW_CLASSES = "ks-funnel-row flex items-baseline justify-between"
       LABEL_CLASSES = "ks-funnel-label text-sm truncate"
       VALUE_CLASSES = "ks-funnel-value text-sm tabular-nums"
-      BAR_CLASSES = "ks-funnel-bar h-8 rounded-md transition-all"
+      BAR_CLASSES = "ks-funnel-bar h-8 transition-all"
       TRANSITION_CLASSES = "py-1 text-center text-xs text-surface-500 dark:text-surface-400"
       STEP_COLOR_CLASSES = {
         accent: "bg-accent-500",
