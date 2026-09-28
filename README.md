@@ -812,7 +812,7 @@ When `definition:` or `calculation:` is given, an info button appears. Hovering 
 <%= ui_stat_card(label: "Merged", value: 12, href: "/pull_requests?state=merged", definition: "Pull requests merged in the range.") %>
 ```
 
-### `ui_working`
+### `ui_calculation`
 
 Shows the working behind a figure, closed by default under a quiet "How this is worked out" row, so a reader can check how a number was reached without it taking over the page. Put it under the figure it explains, such as a `ui_stat_card`.
 
@@ -828,7 +828,7 @@ Each line is laid out as its label, its working and its result in three columns,
 
 ```erb
 <%= ui_stat_card(label: "Perfect value", value: "$107,695.00") %>
-<%= ui_working(groups: [
+<%= ui_calculation(groups: [
   { title: "Store runs", lines: [
     { label: "Money a year", working: "$34.00 × 1,825", result: "$62,050.00" },
     { label: "Time a year", working: "1 hour × 1,825 × $25.00 an hour", result: "$45,625.00" }

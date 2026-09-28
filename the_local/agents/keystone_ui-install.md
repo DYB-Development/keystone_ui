@@ -151,7 +151,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
    checkbox row, radio card, option card, file upload and colour picker read
    these variables. So do the data display components: stat card, chart card,
    card link, CTA banner, feature grid, hero, data table, code, accordion,
-   disclosure, working, tab switcher, progress, funnel, bucket, pipeline and
+   disclosure, calculation, tab switcher, progress, funnel, bucket, pipeline and
    swipe deck.
    So do the navigation components: navbar, nav item, nav dropdown, bottom nav,
    mobile header and settings link. The keystone_ui-styles README lists every

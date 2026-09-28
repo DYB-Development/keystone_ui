@@ -198,7 +198,7 @@ outer element. See Conventions before using it.
 - `ui_disclosure(open: false)` — takes a block yielding the component. Fill its
   `summary` slot with the clickable header; the rest of the block is the body.
   Native `<details>` — no JavaScript.
-- `ui_working(groups:, summary: "How this is worked out")` — no block. Shows
+- `ui_calculation(groups:, summary: "How this is worked out")` — no block. Shows
   how a figure was reached, closed by default under a row reading `summary:`.
   `groups:` is `[{ title:, lines: [{ label:, working:, result: }, ...] }, ...]`;
   `title:` is optional, `lines:` is required and a group without it raises
@@ -307,7 +307,7 @@ outer element. See Conventions before using it.
    `ui_data_table` over a hand-built `<table>`, `ui_stat_card` over a panel with
    text in it. To make a stat card clickable, pass `href:` — never wrap it in
    `ui_card_link`, because a tap on the info button would then follow the link.
-   To show the arithmetic behind a figure, put `ui_working` under it rather
+   To show the arithmetic behind a figure, put `ui_calculation` under it rather
    than a hand-built list. Which lines and groups to show is the app's own
    calculation, so ask the developer which steps a reader needs to see.
 
