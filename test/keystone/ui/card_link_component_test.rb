@@ -11,7 +11,6 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
     classes = component.classes
     assert_includes classes, "block"
     assert_includes classes, "border"
-    assert_includes classes, "shadow-sm"
     assert_includes classes, "hover:border-accent-500/50"
   end
 
@@ -48,5 +47,9 @@ class Keystone::Ui::CardLinkComponentTest < Minitest::Test
 
   def test_shadow_class_render_the_ks_link_card_shadow_class
     assert_includes Keystone::Ui::CardLinkComponent::SHADOW_CLASS, "ks-link-card-shadow"
+  end
+
+  def test_shadow_class_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CardLinkComponent::SHADOW_CLASS
   end
 end
