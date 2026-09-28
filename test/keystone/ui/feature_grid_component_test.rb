@@ -68,4 +68,8 @@ class Keystone::Ui::FeatureGridComponentTest < Minitest::Test
     assert_includes component.subtitle_classes, "text-surface-500"
     assert_includes component.card_description_classes, "text-surface-500"
   end
+
+  def test_grid_classes_render_the_ks_feature_grid_class
+    assert_includes Keystone::Ui::FeatureGridComponent::GRID_CLASSES, "ks-feature-grid"
+  end
 end

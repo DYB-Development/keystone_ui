@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class FeatureGridComponent < ViewComponent::Base
-      GRID_CLASSES = "grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+      GRID_CLASSES = "ks-feature-grid grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
       TITLE_BASE_CLASSES = "mb-4 text-center text-3xl font-bold tracking-tight sm:text-4xl"
       SUBTITLE_BASE_CLASSES = "mx-auto mb-16 max-w-2xl text-center text-lg"
       CARD_LAYOUT_CLASSES = "rounded-xl border p-6 transition"
