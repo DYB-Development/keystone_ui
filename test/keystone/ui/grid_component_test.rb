@@ -6,7 +6,7 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
   def test_defaults_to_grid_gap_4_grid_cols_1
     component = Keystone::Ui::GridComponent.new
 
-    assert_equal "grid gap-4 grid-cols-1", component.classes
+    assert_equal "grid ks-grid-gap-md grid-cols-1", component.classes
   end
 
   def test_builds_responsive_column_classes_for_multiple_breakpoints
@@ -18,10 +18,10 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
   end
 
   def test_maps_each_gap_size_correctly
-    assert_includes Keystone::Ui::GridComponent.new(gap: :sm).classes, "gap-3"
-    assert_includes Keystone::Ui::GridComponent.new(gap: :md).classes, "gap-4"
-    assert_includes Keystone::Ui::GridComponent.new(gap: :lg).classes, "gap-6"
-    assert_includes Keystone::Ui::GridComponent.new(gap: :xl).classes, "gap-8"
+    assert_includes Keystone::Ui::GridComponent.new(gap: :sm).classes, "ks-grid-gap-sm"
+    assert_includes Keystone::Ui::GridComponent.new(gap: :md).classes, "ks-grid-gap-md"
+    assert_includes Keystone::Ui::GridComponent.new(gap: :lg).classes, "ks-grid-gap-lg"
+    assert_includes Keystone::Ui::GridComponent.new(gap: :xl).classes, "ks-grid-gap-xl"
   end
 
   def test_uses_split_gap_classes_when_gap_x_and_gap_y_are_provided
@@ -29,7 +29,7 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
 
     assert_includes component.classes, "gap-x-6"
     assert_includes component.classes, "gap-y-8"
-    refute_includes component.classes, "gap-4"
+    refute_includes component.classes, "ks-grid-gap-md"
   end
 
   def test_uses_gap_x_only_when_gap_y_is_not_provided
@@ -37,7 +37,7 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
 
     assert_includes component.classes, "gap-x-4"
     refute_includes component.classes, "gap-y"
-    refute_includes component.classes, "gap-4"
+    refute_includes component.classes, "ks-grid-gap-md"
   end
 
   def test_uses_gap_y_only_when_gap_x_is_not_provided
@@ -45,7 +45,7 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
 
     assert_includes component.classes, "gap-y-6"
     refute_includes component.classes, "gap-x"
-    refute_includes component.classes, "gap-4"
+    refute_includes component.classes, "ks-grid-gap-md"
   end
 
   def test_ignores_gap_when_gap_x_or_gap_y_is_provided
@@ -53,7 +53,7 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
 
     assert_includes component.classes, "gap-x-6"
     assert_includes component.classes, "gap-y-8"
-    refute_includes component.classes, "gap-3"
+    refute_includes component.classes, "ks-grid-gap-sm"
   end
 
   def test_defines_col_classes_with_static_class_strings_for_each_breakpoint

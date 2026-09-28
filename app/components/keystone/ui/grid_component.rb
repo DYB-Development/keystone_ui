@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class GridComponent < ViewComponent::Base
-      GAP_CLASSES = { sm: "gap-3", md: "gap-4", lg: "gap-6", xl: "gap-8" }.freeze
+      GAP_CLASSES = { sm: "ks-grid-gap-sm", md: "ks-grid-gap-md", lg: "ks-grid-gap-lg", xl: "ks-grid-gap-xl" }.freeze
       GAP_X_CLASSES = { sm: "gap-x-3", md: "gap-x-4", lg: "gap-x-6", xl: "gap-x-8" }.freeze
       GAP_Y_CLASSES = { sm: "gap-y-3", md: "gap-y-4", lg: "gap-y-6", xl: "gap-y-8" }.freeze
       COL_CLASSES = {
