@@ -9,7 +9,7 @@ module Keystone
       SUBTITLE_CLASSES = "ks-pipeline-subtitle text-sm"
       TRACK_CLASSES = "ks-pipeline-track flex flex-col sm:flex-row sm:items-stretch"
       BOX_CLASSES = "ks-pipeline-box flex flex-1 flex-col items-center text-center"
-      BOX_LABEL_CLASSES = "ks-pipeline-box-label text-xs uppercase tracking-wide text-surface-500"
+      BOX_LABEL_CLASSES = "ks-pipeline-box-label text-xs uppercase tracking-wide"
       CONNECTOR_CLASSES = "flex items-center justify-center"
       COUNT_BASE_CLASSES = "text-3xl font-bold"
       LINK_BASE_CLASSES = "link-toggle text-2xl leading-none"
