@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.19.0] - 2026-09-28
+
 ### Added
 - `ui_calculation` shows the working behind a figure, grouped into lines of a label, the working and the result, closed by default under a quiet "How this is worked out" row.
 
