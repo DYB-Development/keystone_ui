@@ -43,4 +43,8 @@ class Keystone::Ui::MultiSelectComponentTest < Minitest::Test
   def test_option_classes_render_the_ks_menu_option_class
     assert_includes Keystone::Ui::MultiSelectComponent::OPTION_CLASSES, "ks-menu-option"
   end
+
+  def test_option_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::MultiSelectComponent::OPTION_CLASSES
+  end
 end
