@@ -41,7 +41,6 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
   def test_uses_semantic_surface_classes
     component = Keystone::Ui::CtaBannerComponent.new(title: "X", subtitle: "Sub")
 
-    assert_includes component.title_classes, "text-surface-900"
     assert_includes component.subtitle_classes, "text-surface-500"
   end
 
@@ -79,5 +78,9 @@ class Keystone::Ui::CtaBannerComponentTest < Minitest::Test
 
   def test_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::CtaBannerComponent.new(title: "Start").classes
+  end
+
+  def test_title_classes_hold_no_visual_utility
+    refute_match VISUAL_UTILITY, Keystone::Ui::CtaBannerComponent.new(title: "Start").title_classes
   end
 end
