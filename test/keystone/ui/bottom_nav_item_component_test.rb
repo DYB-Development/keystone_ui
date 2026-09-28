@@ -22,4 +22,8 @@ class Keystone::Ui::BottomNavItemComponentTest < Minitest::Test
 
     assert_equal "ks-bottom-nav-item active", component.item_classes
   end
+
+  def test_label_classes_render_the_ks_bottom_nav_label_class
+    assert_equal "ks-bottom-nav-label", Keystone::Ui::BottomNavItemComponent::LABEL_CLASSES
+  end
 end
