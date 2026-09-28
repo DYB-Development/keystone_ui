@@ -7,7 +7,7 @@ module Keystone
       LABEL_CLASSES = "ks-label block text-sm"
       DROP_ZONE_CLASSES = "ks-file-upload-drop-zone flex justify-center cursor-pointer transition-colors"
       DROP_ZONE_ACTIVE_CLASSES = "ks-file-upload-drop-zone-active"
-      DROP_ZONE_INNER_CLASSES = "space-y-2 text-center"
+      DROP_ZONE_INNER_CLASSES = "ks-file-upload-inner space-y-2 text-center"
       ICON_CLASSES = "mx-auto h-10 w-10 text-gray-400 dark:text-gray-500"
       PROMPT_CLASSES = "text-sm text-gray-600 dark:text-gray-400"
       BROWSE_CLASSES = "font-semibold text-accent-600 hover:text-accent-500 dark:text-accent-400 dark:hover:text-accent-300"
