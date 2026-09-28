@@ -9,5 +9,8 @@ export function keepPageThemeInStep(page = document) {
     } else {
       delete page.documentElement.dataset.theme
     }
+
+    const look = next.dataset.look
+    if (look) page.documentElement.dataset.look = look
   })
 }

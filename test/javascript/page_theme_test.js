@@ -9,8 +9,8 @@ function pageMarked(theme) {
   return page
 }
 
-function renderTurboPage(page, theme) {
-  const next = { dataset: theme ? { theme } : {} }
+function renderTurboPage(page, theme, look) {
+  const next = { dataset: { ...(theme ? { theme } : {}), ...(look ? { look } : {}) } }
   page.listeners["turbo:before-render"]({ detail: { newBody: { closest: () => next } } })
 }
 
@@ -30,4 +30,13 @@ test("a page Turbo shows next with no theme leaves the page following the operat
   renderTurboPage(page, null)
 
   assert.equal("theme" in page.documentElement.dataset, false)
+})
+
+test("a page Turbo shows next marks the page with its look", () => {
+  const page = pageMarked("light")
+  keepPageThemeInStep(page)
+
+  renderTurboPage(page, "light", "material")
+
+  assert.equal(page.documentElement.dataset.look, "material")
 })
