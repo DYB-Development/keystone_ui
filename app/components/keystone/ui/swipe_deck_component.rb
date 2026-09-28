@@ -3,6 +3,7 @@
 module Keystone
   module Ui
     class SwipeDeckComponent < ViewComponent::Base
+      EMPTY_TITLE_CLASSES = "ks-swipe-empty-title text-2xl"
       EMPTY_CLASSES = "ks-swipe-empty text-center"
       CARD_CLASSES = "ks-swipe-card absolute inset-0 flex flex-col items-center justify-center transition-transform duration-300"
 

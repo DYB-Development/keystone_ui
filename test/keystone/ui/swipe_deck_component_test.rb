@@ -91,4 +91,8 @@ class Keystone::Ui::SwipeDeckComponentTest < Minitest::Test
   def test_empty_classes_render_the_ks_swipe_empty_class
     assert_includes Keystone::Ui::SwipeDeckComponent::EMPTY_CLASSES, "ks-swipe-empty"
   end
+
+  def test_empty_title_classes_render_the_ks_swipe_empty_title_class
+    assert_includes Keystone::Ui::SwipeDeckComponent::EMPTY_TITLE_CLASSES, "ks-swipe-empty-title"
+  end
 end
