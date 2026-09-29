@@ -1,4 +1,4 @@
-<nav aria-label="Breadcrumb">
+<nav aria-label="Breadcrumb" class="<%= CLASSES %>">
   <% @trail.each_with_index do |(label, href), index| %>
     <% if index.positive? %>
       <span aria-hidden="true"><%= SEPARATOR %></span>
