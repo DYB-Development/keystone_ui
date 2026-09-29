@@ -4,9 +4,15 @@ require "render_helper"
 
 class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
   def test_renders_the_title_as_the_page_heading
-    page = render_inline(Keystone::Ui::FormPageComponent.new(title: "New Invoice", back_url: "/invoices"))
+    page = render_form_page(title: "New Invoice", back_url: "/invoices")
 
     assert_equal "New Invoice", page.css("h1").text.strip
+  end
+
+  def test_shows_the_title_inside_the_page_container
+    page = render_form_page(title: "New Invoice", back_url: "/invoices")
+
+    assert_equal [ true ], page.css("h1").map { |heading| heading.ancestors("div.ks-page").any? }
   end
 
   def test_shows_a_desktop_link_back_to_the_back_url
