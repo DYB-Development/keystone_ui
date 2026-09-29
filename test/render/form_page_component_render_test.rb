@@ -22,9 +22,15 @@ class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
   end
 
   def test_given_a_trail_shows_breadcrumbs_ending_with_the_title
-    page = render_inline(Keystone::Ui::FormPageComponent.new(title: "New Invoice", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ]))
+    page = render_form_page(title: "New Invoice", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ])
 
     assert_equal "New Invoice", page.css("nav[aria-label=Breadcrumb] [aria-current=page]").text.strip
+  end
+
+  def test_given_a_trail_shows_the_breadcrumbs_inside_the_page_container
+    page = render_form_page(title: "New Invoice", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ])
+
+    assert_equal [ true ], page.css("nav[aria-label=Breadcrumb]").map { |nav| nav.ancestors("div.ks-page").any? }
   end
 
   def test_given_a_trail_leaves_out_the_desktop_back_link

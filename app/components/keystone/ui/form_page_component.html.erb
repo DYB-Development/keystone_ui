@@ -3,7 +3,7 @@
 <% content_for :form_page_back_url, @back_url %>
 
 <% if @trail %>
-  <%= render Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title) %>
+  <% content_for :keystone_back_navigation, render(Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title)) %>
 <% else %>
   <% content_for :keystone_back_navigation, render(Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url)) %>
 <% end %>
