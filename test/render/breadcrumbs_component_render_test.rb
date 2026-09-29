@@ -10,4 +10,10 @@ class Keystone::Ui::BreadcrumbsComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "/holdings", "/holdings/resources" ], page.css("a").map { |link| link["href"] }
   end
+
+  def test_names_each_step_by_its_label
+    page = render_inline(Keystone::Ui::BreadcrumbsComponent.new(trail: TRAIL))
+
+    assert_equal [ "Holdings", "Resources" ], page.css("a").map { |link| link.text.strip }
+  end
 end
