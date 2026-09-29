@@ -17,6 +17,7 @@ module Keystone
       def before_render
         @trail ||= KeystoneUi.configuration.supplied_trail(helpers)
         @back_url ||= @trail&.last&.last
+        raise KeystoneUi::MissingBackLink, @title unless @back_url
       end
 
       def subtitle?

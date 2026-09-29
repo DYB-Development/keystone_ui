@@ -71,6 +71,12 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     assert_equal "/kinds", back_url.text.strip
   end
 
+  def test_given_no_back_link_and_no_trail_raises_an_error_naming_the_page
+    error = assert_raises(KeystoneUi::MissingBackLink) { render_show_page(title: "Invoice #42") }
+
+    assert_match(/Invoice #42/, error.message)
+  end
+
   private
 
   def render_show_page(**wrapper)
