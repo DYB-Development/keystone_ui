@@ -75,8 +75,11 @@ outer element. See Conventions before using it.
   supplies for the current request, if the app supplies one. With no
   `back_url:`, the back URL is the `href` of the trail's last link. A `trail:`
   or `back_url:` passed here always wins over the supplied ones. With no
-  `back_url:` and no trail from either place, the "Back" link and the mobile
-  header point at the current page, so pass one.
+  `back_url:` and no trail from either place, or a trail that is empty or whose
+  last link has no `href`, rendering raises `KeystoneUi::MissingBackLink`, naming
+  the page's title. A trail with any link whose label or `href` is `nil` or
+  blank raises `KeystoneUi::IncompleteTrail`, naming the page's title, even when
+  `back_url:` is passed.
 - `ui_show_page(title:, back_url: nil, subtitle: nil, trail: nil)` — the shell
   marker for a detail screen. It renders nothing where it is called. It
   publishes the title, subtitle, and back URL for the navbar, and hands
@@ -84,8 +87,9 @@ outer element. See Conventions before using it.
   `ui_page`, outside `ui_page`'s block. It shows no title, so put
   `ui_page_header` inside the `ui_page` block for the desktop title. `trail:`
   and `back_url:` work as they do on `ui_form_page`, including the supplied
-  trail and the fallback to the trail's last link, and the breadcrumbs end with
-  `title` unlinked.
+  trail, the fallback to the trail's last link, and the
+  `KeystoneUi::MissingBackLink` and `KeystoneUi::IncompleteTrail` errors, and
+  the breadcrumbs end with `title` unlinked.
 - `ui_breadcrumbs(trail:, current: nil)` — a line of links shown only from `lg:`
   up. `trail:` is `[[label, href], ...]`, from the top level down, and each pair
   renders as a link, separated by `›`. `current:` is the page being shown,
@@ -338,7 +342,9 @@ outer element. See Conventions before using it.
    does, a screen whose supplied trail is right passes neither `trail:` nor
    `back_url:`, and passes its own only where the supplied one is wrong. If the
    app supplies no trail, every form and detail screen passes `back_url:` or
-   `trail:`. Setting up a supplied trail is `keystone_ui-install`'s job. Below `lg:` the
+   `trail:`, since a screen with neither raises `KeystoneUi::MissingBackLink`
+   when it renders. Every link in a trail needs both a label and an `href`, or
+   the screen raises `KeystoneUi::IncompleteTrail`. Setting up a supplied trail is `keystone_ui-install`'s job. Below `lg:` the
    back link comes from `ui_mobile_header`, which the navbar renders from the
    title and back URL these shells publish. Check the app's layout: if it does not
    already render `ui_mobile_header` from that published context, ask the

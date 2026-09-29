@@ -65,6 +65,8 @@ develop:
 sources:
   - lib/generators/keystone/install_generator.rb
   - lib/keystone_ui/configuration.rb
+  - lib/keystone_ui/missing_back_link.rb
+  - lib/keystone_ui/incomplete_trail.rb
   - lib/keystone_ui/theme_choice.rb
   - lib/keystone_ui/look_choice.rb
   - app/helpers/keystone_ui_helper.rb

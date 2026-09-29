@@ -31,9 +31,15 @@ earlier pages instead, the shell shows breadcrumbs in place of that link, ending
 with the page's own title. A page that passes no trail gets the one the app or
 another gem supplies for the request, if any, and a page that passes no back
 link goes back to that trail's last link. A trail or back link the page passes
-itself always wins. Supplying a trail is set up through the install local. That link or those breadcrumbs, and the form page's
-title, appear at the top of the page container, inside its width and padding, so
-a page using either shell also uses the page container.
+itself always wins. Supplying a trail is set up through the install local.
+
+Every form and show page must end up with a Back link. A page with no back
+link, no trail and no supplied trail raises `KeystoneUi::MissingBackLink` when it
+renders, and the message names the page's title. A trail with a link missing
+its label or its address raises `KeystoneUi::IncompleteTrail`, also naming the
+page. That link or those breadcrumbs, and the form page's title, appear at the
+top of the page container, inside its width and padding, so a page using either
+shell also uses the page container.
 
 ## Interface
 
