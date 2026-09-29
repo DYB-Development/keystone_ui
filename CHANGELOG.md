@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.23.0] - 2026-09-29
+
 ### Added
 - `ui_form_page` and `ui_show_page` raise `KeystoneUi::MissingBackLink`, naming the page, when they get no Back link from `back_url:`, `trail:` or the trail supplier.
 - `ui_form_page` and `ui_show_page` raise `KeystoneUi::IncompleteTrail`, naming the page, when a link in their trail has no label or no address.
