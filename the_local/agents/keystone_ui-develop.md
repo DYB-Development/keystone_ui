@@ -63,11 +63,13 @@ outer element. See Conventions before using it.
   the right; only what `action` receives is rendered. Passing `action_url:`
   publishes that URL and label for a mobile navbar to pick up.
 - `ui_form_page(title:, back_url:, subtitle: nil)` — the shell marker for a form
-  screen. Renders the desktop title block and publishes the title and back URL so
-  the navbar can render mobile header context.
+  screen. Renders a "Back" link to `back_url` shown from `lg:` up, then the title
+  and subtitle shown from `md:` up, and publishes the title and back URL so the
+  navbar can render mobile header context.
 - `ui_show_page(title:, back_url:, subtitle: nil)` — the shell marker for a
-  detail screen. Renders nothing itself; only publishes the title, subtitle, and
-  back URL for the navbar.
+  detail screen. Renders a "Back" link to `back_url` shown from `lg:` up, and
+  publishes the title, subtitle, and back URL for the navbar. It renders no
+  title, so pair it with `ui_page_header` for the desktop title.
 
 ### Navigation
 
@@ -293,8 +295,10 @@ outer element. See Conventions before using it.
    - a detail screen → `ui_show_page`
    - anything else → `ui_page`, with `ui_page_header` for the desktop title.
 
-   `ui_form_page` and `ui_show_page` publish their title and back URL for the
-   navbar to render as a mobile header. Check the app's layout: if it does not
+   `ui_form_page` and `ui_show_page` render the desktop "Back" link themselves,
+   so never add a second back link or button to those screens. Below `lg:` the
+   back link comes from `ui_mobile_header`, which the navbar renders from the
+   title and back URL these shells publish. Check the app's layout: if it does not
    already render `ui_mobile_header` from that published context, ask the
    developer whether to wire it before adding more screens that depend on it.
 

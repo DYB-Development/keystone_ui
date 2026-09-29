@@ -2,3 +2,5 @@
 <% content_for :show_page_title, @title %>
 <% content_for :show_page_back_url, @back_url %>
 <% content_for :show_page_subtitle, @subtitle if @subtitle.present? %>
+
+<%= render Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url) %>

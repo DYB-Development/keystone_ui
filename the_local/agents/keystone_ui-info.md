@@ -24,7 +24,9 @@ cannot disagree about spacing, color or dark-mode treatment, and a change to a
 component updates every page that uses it. It is mobile-first — components ship
 separate mobile and desktop treatments (a bottom tab bar and mobile header on
 small screens, a full navigation bar from the `lg:` breakpoint up), because
-these apps are often viewed in a native webview.
+these apps are often viewed in a native webview. The form and show page shells
+follow the same split for going back: the mobile header carries the back link on
+small screens, and the shell renders a "Back" link above the title from `lg:` up.
 
 ## Interface
 
