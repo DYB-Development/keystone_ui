@@ -14,6 +14,10 @@ module Keystone
         @trail = trail
       end
 
+      def before_render
+        @trail ||= KeystoneUi.configuration.supplied_trail(helpers)
+      end
+
       def subtitle?
         !@subtitle.nil?
       end

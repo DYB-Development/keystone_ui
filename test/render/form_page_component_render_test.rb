@@ -3,6 +3,10 @@
 require "render_helper"
 
 class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
+  def teardown
+    KeystoneUi.reset_configuration!
+  end
+
   def test_renders_the_title_as_the_page_heading
     page = render_form_page(title: "New Invoice", back_url: "/invoices")
 
@@ -43,6 +47,14 @@ class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
     page = render_form_page(title: "New Invoice", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ])
 
     assert_empty page.css("a.lg\\:inline-flex")
+  end
+
+  def test_given_no_trail_shows_the_trail_the_app_supplies
+    KeystoneUi.configure { |c| c.trail_supplier = ->(_view) { [ [ "Invoices", "/invoices" ] ] } }
+
+    page = render_form_page(title: "New Invoice", back_url: "/invoices")
+
+    assert_equal "New Invoice", page.css("nav[aria-label=Breadcrumb] [aria-current=page]").text.strip
   end
 
   private
