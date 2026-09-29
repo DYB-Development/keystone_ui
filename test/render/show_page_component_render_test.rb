@@ -45,6 +45,14 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     assert_equal "Invoice #42", page.css("nav[aria-label=Breadcrumb] [aria-current=page]").text.strip
   end
 
+  def test_given_its_own_trail_does_not_ask_the_app_for_one
+    KeystoneUi.configure { |c| c.trail_supplier = ->(_view) { [ [ "Supplied", "/supplied" ] ] } }
+
+    page = render_show_page(title: "Invoice #42", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ])
+
+    assert_equal [ "/invoices" ], page.css("nav[aria-label=Breadcrumb] a").map { |link| link["href"] }
+  end
+
   private
 
   def render_show_page(**wrapper)
