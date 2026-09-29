@@ -2,9 +2,10 @@
 <% content_for :form_page_title, @title %>
 <% content_for :form_page_back_url, @back_url %>
 
-<%= render Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url) %>
 <% if @trail %>
   <%= render Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title) %>
+<% else %>
+  <%= render Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url) %>
 <% end %>
 
 <div class="<%= DESKTOP_WRAPPER_CLASSES %>">

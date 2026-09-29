@@ -20,4 +20,10 @@ class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "New Invoice", page.css("nav[aria-label=Breadcrumb] [aria-current=page]").text.strip
   end
+
+  def test_given_a_trail_leaves_out_the_desktop_back_link
+    page = render_inline(Keystone::Ui::FormPageComponent.new(title: "New Invoice", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ]))
+
+    assert_empty page.css("a.lg\\:inline-flex")
+  end
 end
