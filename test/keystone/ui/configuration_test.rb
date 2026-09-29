@@ -74,4 +74,8 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal "material", KeystoneUi.configuration.supplied_look(view)
   end
+
+  def test_supplies_no_trail_when_no_app_supplies_one
+    assert_nil KeystoneUi.configuration.supplied_trail(Object.new)
+  end
 end
