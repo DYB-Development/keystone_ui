@@ -154,9 +154,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
    disclosure, calculation, tab switcher, progress, funnel, bucket, pipeline and
    swipe deck.
    So do the navigation components: navbar, nav item, nav dropdown, bottom nav,
-   mobile header and settings link. The desktop "Back" link on form and show
-   pages uses the mobile header's back link variables. The keystone_ui-styles README lists every
-   variable and its default.
+   mobile header and settings link. The desktop "Back" link and the breadcrumbs
+   on form and show pages use the mobile header's back link variables. The
+   keystone_ui-styles README lists every variable and its default.
 
    To offer several looks and choose one per page, register them by name in
    step 7 rather than importing them here.

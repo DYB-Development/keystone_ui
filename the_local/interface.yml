@@ -33,6 +33,7 @@ develop:
   - ui_alert
   - ui_form_page
   - ui_show_page
+  - ui_breadcrumbs
   - ui_mobile_header
   - ui_mobile_actions
   - ui_navbar
@@ -95,6 +96,8 @@ sources:
   - app/components/keystone/ui/form_page_component.html.erb
   - app/components/keystone/ui/desktop_back_link_component.rb
   - app/components/keystone/ui/desktop_back_link_component.html.erb
+  - app/components/keystone/ui/breadcrumbs_component.rb
+  - app/components/keystone/ui/breadcrumbs_component.html.erb
   - app/components/keystone/ui/funnel_component.rb
   - app/components/keystone/ui/bucket_component.rb
   - app/components/keystone/ui/bucket_series_component.rb

@@ -13,7 +13,7 @@ It changes nothing and gives no steps.
 Keystone UI is a Rails engine gem that supplies a host app's visual layer as a
 library of view helpers built on ViewComponent. Screens are built from named
 pieces — page shells, sections, panels, grids, form fields, data tables,
-navigation bars, cards, stat tiles, charts, funnels, goal buckets, pipelines,
+navigation bars, breadcrumbs, cards, stat tiles, charts, funnels, goal buckets, pipelines,
 banners, the calculation behind a figure — instead of hand-written ERB and
 Tailwind. Every class the UI renders lives inside the gem, in frozen constants,
 so the look is defined in one place.
@@ -27,6 +27,8 @@ small screens, a full navigation bar from the `lg:` breakpoint up), because
 these apps are often viewed in a native webview. The form and show page shells
 follow the same split for going back: the mobile header carries the back link on
 small screens, and the shell renders a "Back" link above the title from `lg:` up.
+Given a trail of earlier pages instead, the shell renders breadcrumbs there in
+place of that link, ending with the page's own title.
 
 ## Interface
 
@@ -93,7 +95,7 @@ holds the catalog.
   chart card, card link, CTA banner, feature grid, hero, data table, code,
   accordion, disclosure, calculation, tab switcher, progress, funnel, bucket,
   pipeline and swipe deck. So do the navigation components: navbar, nav item,
-  nav dropdown, bottom nav, mobile header and settings link. A host imports its
+  nav dropdown, bottom nav, mobile header, breadcrumbs and settings link. A host imports its
   look after `keystone_source.css`, and a gem ships one through
   `tailwind_imports`, both set up through the install local.
 - **Registered looks.** Looks can also be registered by name, and each page
