@@ -58,7 +58,8 @@ module Keystone
       Keystone::Ui::DisclosureComponent,
       Keystone::Ui::ThemeToggleComponent,
       Keystone::Ui::CalculationComponent,
-      Keystone::Ui::DesktopBackLinkComponent
+      Keystone::Ui::DesktopBackLinkComponent,
+      Keystone::Ui::BreadcrumbsComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)

@@ -62,14 +62,23 @@ outer element. See Conventions before using it.
   `sm:`). Call `header.action { ... }` in the block to place a custom control on
   the right; only what `action` receives is rendered. Passing `action_url:`
   publishes that URL and label for a mobile navbar to pick up.
-- `ui_form_page(title:, back_url:, subtitle: nil)` — the shell marker for a form
-  screen. Renders a "Back" link to `back_url` shown from `lg:` up, then the title
-  and subtitle shown from `md:` up, and publishes the title and back URL so the
-  navbar can render mobile header context.
-- `ui_show_page(title:, back_url:, subtitle: nil)` — the shell marker for a
-  detail screen. Renders a "Back" link to `back_url` shown from `lg:` up, and
-  publishes the title, subtitle, and back URL for the navbar. It renders no
-  title, so pair it with `ui_page_header` for the desktop title.
+- `ui_form_page(title:, back_url:, subtitle: nil, trail: nil)` — the shell
+  marker for a form screen. Renders a "Back" link to `back_url` shown from `lg:`
+  up, then the title and subtitle shown from `md:` up, and publishes the title
+  and back URL so the navbar can render mobile header context. Passing `trail:`
+  replaces the "Back" link with breadcrumbs: the trail's links followed by
+  `title` unlinked, as `ui_breadcrumbs` renders them. `back_url:` is still
+  required with a trail, because the mobile header still uses it.
+- `ui_show_page(title:, back_url:, subtitle: nil, trail: nil)` — the shell marker
+  for a detail screen. Renders a "Back" link to `back_url` shown from `lg:` up,
+  and publishes the title, subtitle, and back URL for the navbar. It renders no
+  title, so pair it with `ui_page_header` for the desktop title. `trail:` works
+  as it does on `ui_form_page`, ending the breadcrumbs with `title` unlinked.
+- `ui_breadcrumbs(trail:, current: nil)` — a line of links shown only from `lg:`
+  up. `trail:` is `[[label, href], ...]`, from the top level down, and each pair
+  renders as a link, separated by `›`. `current:` is the page being shown,
+  rendered last, unlinked, and marked as the current page. On a form or detail
+  screen pass `trail:` to the shell instead of calling this helper.
 
 ### Navigation
 
@@ -296,7 +305,9 @@ outer element. See Conventions before using it.
    - anything else → `ui_page`, with `ui_page_header` for the desktop title.
 
    `ui_form_page` and `ui_show_page` render the desktop "Back" link themselves,
-   so never add a second back link or button to those screens. Below `lg:` the
+   so never add a second back link or button to those screens. Whether a screen
+   shows that "Back" link or breadcrumbs, and which parent screens the trail
+   names, is the developer's choice, so ask before passing `trail:`. Below `lg:` the
    back link comes from `ui_mobile_header`, which the navbar renders from the
    title and back URL these shells publish. Check the app's layout: if it does not
    already render `ui_mobile_header` from that published context, ask the
@@ -373,7 +384,7 @@ outer element. See Conventions before using it.
   through it, so anything else emitted inside their block is discarded.
 - **Mobile is not an afterthought.** Several helpers render only on one side of
   the `lg:` (or `sm:`) breakpoint — page headers, mobile headers, mobile actions,
-  bottom navigation. A screen needs both treatments; check the small viewport
+  bottom navigation, breadcrumbs. A screen needs both treatments; check the small viewport
   before calling it done.
 - Out of scope for this local: installing or upgrading the gem, changing the
   palette or theme defaults, and editing the components themselves. Building a

@@ -1161,9 +1161,11 @@ Wraps a form page with title and back navigation. Sets `content_for` signals so 
 **Optional props**
 
 - `subtitle:` (String)
+- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link
 
 ```erb
 <%= ui_form_page(title: "New Product", back_url: products_path) %>
+<%= ui_form_page(title: "New Product", back_url: products_path, trail: [["Catalog", catalog_path], ["Products", products_path]]) %>
 ```
 
 ### `ui_show_page`
@@ -1178,9 +1180,27 @@ Wraps a show/detail page with title and back navigation. Sets `content_for` sign
 **Optional props**
 
 - `subtitle:` (String)
+- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link
 
 ```erb
 <%= ui_show_page(title: @product.name, back_url: products_path, subtitle: "Details") %>
+<%= ui_show_page(title: @product.name, back_url: products_path, trail: [["Catalog", catalog_path], ["Products", products_path]]) %>
+```
+
+### `ui_breadcrumbs`
+
+Shows the pages above the current one as links separated by `›`, ending with the current page, which is not linked. Shown on `lg` screens and wider only, where the mobile header is hidden. Use it on a page that uses neither `ui_form_page` nor `ui_show_page`; those two take the same trail through `trail:`.
+
+**Required props**
+
+- `trail:` (Array of `[label, href]` pairs)
+
+**Optional props**
+
+- `current:` (String) — the current page, shown last
+
+```erb
+<%= ui_breadcrumbs(trail: [["Catalog", catalog_path]], current: "Products") %>
 ```
 
 ### `ui_settings_link`

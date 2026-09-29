@@ -16,6 +16,9 @@ end
 
 KeystoneUiRender::Application.initialize!
 
+class ApplicationController < ActionController::Base
+end
+
 require "view_component/test_helpers"
 require "view_component/test_case"
 require "minitest/autorun"

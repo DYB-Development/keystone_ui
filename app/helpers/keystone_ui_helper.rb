@@ -117,6 +117,10 @@ module KeystoneUiHelper
     render Keystone::Ui::ShowPageComponent.new(**args)
   end
 
+  def ui_breadcrumbs(**args)
+    render Keystone::Ui::BreadcrumbsComponent.new(**args)
+  end
+
   def ui_mobile_header(**args)
     render Keystone::Ui::MobileHeaderComponent.new(**args)
   end
