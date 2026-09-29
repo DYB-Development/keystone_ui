@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-install
-description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks and extra Tailwind imports and sources.
+description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks, the breadcrumb trail supplier and extra Tailwind imports and sources.
 tools: Bash, Read, Edit
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -24,6 +24,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
   custom mode),
   `register_look` (a look's CSS file by name), `default_look` and
   `look_supplier` (which registered look a page gets),
+  `trail_supplier` (a callable that supplies the breadcrumb trail for form and
+  show pages that pass none),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 - `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
@@ -176,6 +178,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
      config.register_look :compact, "/absolute/path/to/compact.css"
      config.default_look = :compact
      config.look_supplier = ->(view) { view.current_user&.look }
+     config.trail_supplier = ->(view) { view.breadcrumb_trail }
      config.tailwind_imports << "/absolute/path/to/extra.css"
      config.tailwind_sources << "/absolute/path/to/components/**/*.{erb,rb}"
    end
@@ -205,6 +208,14 @@ built on ViewComponent; hook it in before building any screen with those helpers
    - `look_supplier` — a callable that receives the view and returns a look
      name for the request. A name that is not registered, or `nil`, leaves the
      page on the default look.
+   - `trail_supplier` — a callable that receives the view and returns the
+     breadcrumb trail as an array of `[label, href]` pairs, or `nil`. A form or
+     show page that passes no trail of its own shows the supplied one on `lg:`
+     screens, ending with the page's title, in place of the desktop "Back" link.
+     A page that passes no Back link goes back to the trail's last link. A page
+     that passes its own trail or Back link keeps it. With no supplier, or a
+     `nil` return, the page shows its Back link. Ask the developer
+     which code in the app knows each page's trail before writing the callable.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for

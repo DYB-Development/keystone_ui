@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `config.trail_supplier` lets an app supply the breadcrumb trail for any `ui_form_page` or `ui_show_page` that passes no `trail:`.
+- `back_url:` on `ui_form_page` and `ui_show_page` is optional, and defaults to the last link of the trail.
+
 ## [0.21.1] - 2026-09-29
 
 ### Fixed
