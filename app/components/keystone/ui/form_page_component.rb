@@ -18,6 +18,7 @@ module Keystone
         @trail ||= KeystoneUi.configuration.supplied_trail(helpers)
         @back_url ||= @trail&.last&.last
         raise KeystoneUi::MissingBackLink, @title unless @back_url
+        raise KeystoneUi::IncompleteTrail, @title if @trail&.any? { |label, href| label.blank? || href.blank? }
       end
 
       def subtitle?
