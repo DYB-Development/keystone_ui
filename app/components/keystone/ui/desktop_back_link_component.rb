@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class DesktopBackLinkComponent < ViewComponent::Base
-      CLASSES = "hidden lg:inline-flex items-center"
+      CLASSES = "ks-mobile-header-back hidden lg:inline-flex items-center"
 
       def initialize(url:)
         @url = url
