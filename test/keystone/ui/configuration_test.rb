@@ -78,4 +78,11 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
   def test_supplies_no_trail_when_no_app_supplies_one
     assert_nil KeystoneUi.configuration.supplied_trail(Object.new)
   end
+
+  def test_supplies_the_trail_a_registered_supplier_returns_for_the_view
+    view = Struct.new(:page_trail).new([ [ "Invoices", "/invoices" ] ])
+    KeystoneUi.configure { |c| c.trail_supplier = ->(from) { from.page_trail } }
+
+    assert_equal [ [ "Invoices", "/invoices" ] ], KeystoneUi.configuration.supplied_trail(view)
+  end
 end
