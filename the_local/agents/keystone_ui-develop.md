@@ -42,7 +42,9 @@ outer element. See Conventions before using it.
 - `ui_page(max_width: :full, padding: :standard, top_offset: nil, class: nil)` —
   takes a block. The outer wrapper for a screen. `max_width:` `:sm` `:md` `:lg`
   `:xl` `:full`; `padding:` `:standard` or `:none`; `top_offset:` `:sm` `:md`
-  `:lg` `:xl` to clear a fixed navbar.
+  `:lg` `:xl` to clear a fixed navbar. When `ui_form_page` or `ui_show_page` was
+  called earlier on the same screen, `ui_page` renders their back link or
+  breadcrumbs, and the form page's title, at its top, above the block.
 - `ui_section(title: nil, subtitle: nil, action: nil, spacing: :md, class: nil)`
   — takes a block. A titled block of content with an optional right-aligned
   link. `action:` is `{ label:, href: }`; `spacing:` `:sm` `:md` `:lg`.
@@ -63,17 +65,21 @@ outer element. See Conventions before using it.
   the right; only what `action` receives is rendered. Passing `action_url:`
   publishes that URL and label for a mobile navbar to pick up.
 - `ui_form_page(title:, back_url:, subtitle: nil, trail: nil)` — the shell
-  marker for a form screen. Renders a "Back" link to `back_url` shown from `lg:`
-  up, then the title and subtitle shown from `md:` up, and publishes the title
-  and back URL so the navbar can render mobile header context. Passing `trail:`
-  replaces the "Back" link with breadcrumbs: the trail's links followed by
-  `title` unlinked, as `ui_breadcrumbs` renders them. `back_url:` is still
-  required with a trail, because the mobile header still uses it.
+  marker for a form screen. It renders nothing where it is called. It publishes
+  the title and back URL so the navbar can render mobile header context, and
+  hands `ui_page` a "Back" link to `back_url` shown from `lg:` up, then the
+  title and subtitle shown from `md:` up. Call it before `ui_page`, outside
+  `ui_page`'s block, or none of that appears. Passing `trail:` replaces the
+  "Back" link with breadcrumbs: the trail's links followed by `title` unlinked,
+  as `ui_breadcrumbs` renders them. `back_url:` is still required with a trail,
+  because the mobile header still uses it.
 - `ui_show_page(title:, back_url:, subtitle: nil, trail: nil)` — the shell marker
-  for a detail screen. Renders a "Back" link to `back_url` shown from `lg:` up,
-  and publishes the title, subtitle, and back URL for the navbar. It renders no
-  title, so pair it with `ui_page_header` for the desktop title. `trail:` works
-  as it does on `ui_form_page`, ending the breadcrumbs with `title` unlinked.
+  for a detail screen. It renders nothing where it is called. It publishes the
+  title, subtitle, and back URL for the navbar, and hands `ui_page` a "Back"
+  link to `back_url` shown from `lg:` up. Call it before `ui_page`, outside
+  `ui_page`'s block. It shows no title, so put `ui_page_header` inside the
+  `ui_page` block for the desktop title. `trail:` works as it does on
+  `ui_form_page`, ending the breadcrumbs with `title` unlinked.
 - `ui_breadcrumbs(trail:, current: nil)` — a line of links shown only from `lg:`
   up. `trail:` is `[[label, href], ...]`, from the top level down, and each pair
   renders as a link, separated by `›`. `current:` is the page being shown,
@@ -300,12 +306,25 @@ outer element. See Conventions before using it.
    composition before inventing one; that screen is the house style.
 
 3. Pick the page shell for what you are building:
-   - a form screen → `ui_form_page`
-   - a detail screen → `ui_show_page`
+   - a form screen → `ui_form_page`, then `ui_page` holding the form
+   - a detail screen → `ui_show_page`, then `ui_page` holding `ui_page_header`
+     and the details
    - anything else → `ui_page`, with `ui_page_header` for the desktop title.
 
-   `ui_form_page` and `ui_show_page` render the desktop "Back" link themselves,
-   so never add a second back link or button to those screens. Whether a screen
+   ```erb
+   <%= ui_form_page(title: "New quote", back_url: quotes_path) %>
+   <%= ui_page(max_width: :md) do %>
+     <%= ui_form(action: quotes_path) do %>
+       ...
+     <% end %>
+   <% end %>
+   ```
+
+   The shell call always comes first and sits outside `ui_page`'s block,
+   because `ui_page` renders what the shell handed it at its own top. A form or
+   detail screen without `ui_page` shows no desktop "Back" link or form title.
+   Those shells supply the desktop "Back" link themselves, so never add a
+   second back link or button to those screens. Whether a screen
    shows that "Back" link or breadcrumbs, and which parent screens the trail
    names, is the developer's choice, so ask before passing `trail:`. Below `lg:` the
    back link comes from `ui_mobile_header`, which the navbar renders from the

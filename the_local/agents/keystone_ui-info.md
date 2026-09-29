@@ -26,9 +26,11 @@ separate mobile and desktop treatments (a bottom tab bar and mobile header on
 small screens, a full navigation bar from the `lg:` breakpoint up), because
 these apps are often viewed in a native webview. The form and show page shells
 follow the same split for going back: the mobile header carries the back link on
-small screens, and the shell renders a "Back" link above the title from `lg:` up.
-Given a trail of earlier pages instead, the shell renders breadcrumbs there in
-place of that link, ending with the page's own title.
+small screens, and from `lg:` up the shell shows a "Back" link. Given a trail of
+earlier pages instead, the shell shows breadcrumbs in place of that link, ending
+with the page's own title. That link or those breadcrumbs, and the form page's
+title, appear at the top of the page container, inside its width and padding, so
+a page using either shell also uses the page container.
 
 ## Interface
 
