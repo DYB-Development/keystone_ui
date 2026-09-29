@@ -14,4 +14,10 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Invoice #42", page.css("nav[aria-label=Breadcrumb] [aria-current=page]").text.strip
   end
+
+  def test_given_a_trail_leaves_out_the_desktop_back_link
+    page = render_inline(Keystone::Ui::ShowPageComponent.new(title: "Invoice #42", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ]))
+
+    assert_empty page.css("a.lg\\:inline-flex")
+  end
 end
