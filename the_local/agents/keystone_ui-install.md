@@ -154,7 +154,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
    disclosure, calculation, tab switcher, progress, funnel, bucket, pipeline and
    swipe deck.
    So do the navigation components: navbar, nav item, nav dropdown, bottom nav,
-   mobile header and settings link. The keystone_ui-styles README lists every
+   mobile header and settings link. The desktop "Back" link on form and show
+   pages uses the mobile header's back link variables. The keystone_ui-styles README lists every
    variable and its default.
 
    To offer several looks and choose one per page, register them by name in
@@ -197,6 +198,10 @@ built on ViewComponent; hook it in before building any screen with those helpers
      this way scopes its variables to `:root[data-look="<name>"]` instead of
      `:root`, so several can be imported at once.
    - `default_look = :name` — the look a page gets when nothing else chooses one.
+   - The app refuses to boot when `default_look` names a look that is not
+     registered, when a registered look's file does not exist, or when the file
+     sets no `--ks-` variable inside a `:root[data-look="<name>"]` rule. Use an
+     absolute path for each look file.
    - `look_supplier` — a callable that receives the view and returns a look
      name for the request. A name that is not registered, or `nil`, leaves the
      page on the default look.
