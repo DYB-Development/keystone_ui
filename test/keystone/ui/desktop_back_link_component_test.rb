@@ -16,4 +16,8 @@ class Keystone::Ui::DesktopBackLinkComponentTest < Minitest::Test
   def test_renders_the_same_ks_class_as_the_mobile_back_link
     assert_includes Keystone::Ui::DesktopBackLinkComponent::CLASSES.split, "ks-mobile-header-back"
   end
+
+  def test_is_labelled_back
+    assert_equal "Back", Keystone::Ui::DesktopBackLinkComponent::LABEL
+  end
 end
