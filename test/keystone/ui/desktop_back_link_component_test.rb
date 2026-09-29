@@ -8,4 +8,8 @@ class Keystone::Ui::DesktopBackLinkComponentTest < Minitest::Test
 
     assert_equal "/invoices", component.instance_variable_get(:@url)
   end
+
+  def test_is_shown_only_from_large_screens_where_the_mobile_header_is_hidden
+    assert_includes Keystone::Ui::DesktopBackLinkComponent::CLASSES.split, "lg:inline-flex"
+  end
 end
