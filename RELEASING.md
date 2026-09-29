@@ -16,7 +16,7 @@ Cutting a release of `keystone_ui` to [RubyGems.org](https://rubygems.org).
 
    ```bash
    git checkout main && git pull
-   bundle exec rake test
+   bundle exec rake
    bin/rubocop
    ```
 

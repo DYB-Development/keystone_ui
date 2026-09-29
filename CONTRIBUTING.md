@@ -6,19 +6,21 @@ Thanks for your interest in contributing to Keystone Components!
 
 1. Fork and clone the repo
 2. Run `bundle install`
-3. Run `bundle exec rake test` and `npm install && npm test` to make sure tests pass
+3. Run `bundle exec rake` and `npm install && npm test` to make sure tests pass
 
 ## Development
 
 ### Running Tests
 
 ```bash
-bundle exec rake test                                                 # All tests
+bundle exec rake                                                      # Component and template rendering tests
+bundle exec rake test                                                 # Component tests
 bundle exec rake test TEST=test/keystone/ui/button_component_test.rb  # Single file
+bundle exec rake test:render                                          # Template rendering tests
 npm test                                                              # Stimulus controller tests
 ```
 
-Tests run without a full Rails environment — the test helper stubs `ViewComponent::Base`.
+Component tests run without a full Rails environment, because the test helper stubs `ViewComponent::Base`. Template rendering tests in `test/render` boot a minimal Rails app and render each template with `render_inline`.
 
 ### TDD Workflow
 
