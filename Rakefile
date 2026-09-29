@@ -14,6 +14,6 @@ Rake::TestTask.new("test:render") do |t|
   t.test_files = FileList["test/render/**/*_test.rb"]
 end
 
-task default: [:test, "test:render"]
+task default: [ :test, "test:render" ]
 
 require "the_local/rake"
