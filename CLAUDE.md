@@ -10,8 +10,10 @@ Keystone UI is a Rails gem providing reusable UI components built on `view_compo
 
 ```bash
 bundle install              # Install dependencies
-bundle exec rake test       # Run all tests
+bundle exec rake            # Run the component tests and the template rendering tests
+bundle exec rake test       # Run the component tests
 bundle exec rake test TEST=test/keystone/ui/button_component_test.rb  # Run a single test file
+bundle exec rake test:render  # Run the template rendering tests
 npm install                 # Install JavaScript test dependencies
 npm test                    # Run the Stimulus controller tests
 ```
@@ -36,7 +38,9 @@ Components use Tailwind CSS utility classes directly. At boot the engine writes 
 
 ## Testing
 
-Ruby tests use Minitest. Stimulus controller tests live in `test/javascript` and run with Node's built-in test runner through `npm test`. The test helper stubs `ViewComponent::Base` so tests run without a full Rails environment. Tests validate component logic (class composition, tag options, normalization) rather than rendered HTML.
+Ruby tests use Minitest. Stimulus controller tests live in `test/javascript` and run with Node's built-in test runner through `npm test`. The test helper stubs `ViewComponent::Base` so tests run without a full Rails environment. Those tests validate component logic (class composition, tag options, normalization) rather than rendered HTML.
+
+Template rendering tests live in `test/render` and run through `rake test:render`, in a separate process from the rest. `test/render_helper.rb` boots a minimal Rails app with the real ViewComponent, and each test calls `render_inline` and reads the returned HTML with Nokogiri. A test that checks what a template outputs belongs there.
 
 ## Color System
 
