@@ -74,6 +74,15 @@ class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
     assert_equal "/invoices", back_url.text.strip
   end
 
+  def test_given_its_own_back_link_keeps_it_over_the_last_link_of_its_trail
+    back_url = render_in_view_context do
+      ui_form_page(title: "New Invoice", back_url: "/kinds", trail: [ [ "Invoices", "/invoices" ] ])
+      content_for(:form_page_back_url)
+    end
+
+    assert_equal "/kinds", back_url.text.strip
+  end
+
   private
 
   def render_form_page(**wrapper)
