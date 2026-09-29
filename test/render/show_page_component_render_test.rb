@@ -3,6 +3,10 @@
 require "render_helper"
 
 class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
+  def teardown
+    KeystoneUi.reset_configuration!
+  end
+
   def test_shows_a_desktop_link_back_to_the_back_url
     page = render_show_page(title: "Invoice #42", back_url: "/invoices")
 
@@ -31,6 +35,14 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     page = render_show_page(title: "Invoice #42", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ])
 
     assert_empty page.css("a.lg\\:inline-flex")
+  end
+
+  def test_given_no_trail_shows_the_trail_the_app_supplies
+    KeystoneUi.configure { |c| c.trail_supplier = ->(_view) { [ [ "Invoices", "/invoices" ] ] } }
+
+    page = render_show_page(title: "Invoice #42", back_url: "/invoices")
+
+    assert_equal "Invoice #42", page.css("nav[aria-label=Breadcrumb] [aria-current=page]").text.strip
   end
 
   private
