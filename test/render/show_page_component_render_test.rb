@@ -4,9 +4,15 @@ require "render_helper"
 
 class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
   def test_shows_a_desktop_link_back_to_the_back_url
-    page = render_inline(Keystone::Ui::ShowPageComponent.new(title: "Invoice #42", back_url: "/invoices"))
+    page = render_show_page(title: "Invoice #42", back_url: "/invoices")
 
     assert_equal "/invoices", page.css("a.lg\\:inline-flex").attr("href")&.value
+  end
+
+  def test_shows_the_desktop_back_link_inside_the_page_container
+    page = render_show_page(title: "Invoice #42", back_url: "/invoices")
+
+    assert_equal [ true ], page.css("a.lg\\:inline-flex").map { |link| link.ancestors("div.ks-page").any? }
   end
 
   def test_given_a_trail_shows_breadcrumbs_ending_with_the_title
@@ -16,8 +22,14 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
   end
 
   def test_given_a_trail_leaves_out_the_desktop_back_link
-    page = render_inline(Keystone::Ui::ShowPageComponent.new(title: "Invoice #42", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ]))
+    page = render_show_page(title: "Invoice #42", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ])
 
     assert_empty page.css("a.lg\\:inline-flex")
+  end
+
+  private
+
+  def render_show_page(**wrapper)
+    render_in_view_context { safe_join([ ui_show_page(**wrapper), ui_page { "Body" } ]) }
   end
 end

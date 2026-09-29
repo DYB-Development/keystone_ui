@@ -6,5 +6,5 @@
 <% if @trail %>
   <%= render Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title) %>
 <% else %>
-  <%= render Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url) %>
+  <% content_for :keystone_page_header, render(Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url)) %>
 <% end %>
