@@ -16,4 +16,10 @@ class Keystone::Ui::BreadcrumbsComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Holdings", "Resources" ], page.css("a").map { |link| link.text.strip }
   end
+
+  def test_ends_with_the_current_page_marked_and_not_linked
+    page = render_inline(Keystone::Ui::BreadcrumbsComponent.new(trail: TRAIL, current: "New person"))
+
+    assert_equal "New person", page.css("[aria-current=page]:not(a)").text.strip
+  end
 end

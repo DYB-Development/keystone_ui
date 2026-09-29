@@ -2,4 +2,7 @@
   <% @trail.each do |label, href| %>
     <%= link_to label, href %>
   <% end %>
+  <% if @current %>
+    <span aria-current="page"><%= @current %></span>
+  <% end %>
 </nav>
