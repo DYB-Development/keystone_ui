@@ -1151,7 +1151,7 @@ No props. Pass action links as block content.
 
 ### `ui_form_page`
 
-Wraps a form page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context.
+Wraps a form page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context. On `lg` screens and wider, where the mobile header is hidden, it shows a link back to `back_url`.
 
 **Required props**
 
@@ -1168,7 +1168,7 @@ Wraps a form page with title and back navigation. Sets `content_for` signals so 
 
 ### `ui_show_page`
 
-Wraps a show/detail page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context.
+Wraps a show/detail page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context. On `lg` screens and wider, where the mobile header is hidden, it shows a link back to `back_url`.
 
 **Required props**
 

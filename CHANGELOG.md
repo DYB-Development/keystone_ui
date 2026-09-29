@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_form_page` and `ui_show_page` show a link back to `back_url` on `lg` screens and wider, where the mobile header and its back link are hidden.
+
 ## [0.20.0] - 2026-09-28
 
 ### Added
