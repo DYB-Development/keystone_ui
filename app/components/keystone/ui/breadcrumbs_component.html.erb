@@ -1,8 +1,14 @@
 <nav aria-label="Breadcrumb">
-  <% @trail.each do |label, href| %>
+  <% @trail.each_with_index do |(label, href), index| %>
+    <% if index.positive? %>
+      <span aria-hidden="true"><%= SEPARATOR %></span>
+    <% end %>
     <%= link_to label, href %>
   <% end %>
   <% if @current %>
+    <% if @trail.any? %>
+      <span aria-hidden="true"><%= SEPARATOR %></span>
+    <% end %>
     <span aria-current="page"><%= @current %></span>
   <% end %>
 </nav>

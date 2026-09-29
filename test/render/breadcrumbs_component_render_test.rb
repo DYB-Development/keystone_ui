@@ -28,4 +28,10 @@ class Keystone::Ui::BreadcrumbsComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Breadcrumb", page.css("nav").attr("aria-label")&.value
   end
+
+  def test_separates_each_step_from_the_next_out_of_sight_of_screen_readers
+    page = render_inline(Keystone::Ui::BreadcrumbsComponent.new(trail: TRAIL, current: "New person"))
+
+    assert_equal [ "›", "›" ], page.css("[aria-hidden=true]").map { |separator| separator.text.strip }
+  end
 end
