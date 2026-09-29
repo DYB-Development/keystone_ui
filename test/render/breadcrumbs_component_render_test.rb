@@ -46,4 +46,11 @@ class Keystone::Ui::BreadcrumbsComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.css("nav").attr("class")&.value.to_s.split, "ks-mobile-header-back"
   end
+
+  def test_a_view_draws_the_breadcrumbs_with_the_ui_breadcrumbs_helper
+    trail = TRAIL
+    page = render_in_view_context { ui_breadcrumbs(trail: trail, current: "New person") }
+
+    assert_equal "New person", page.css("nav[aria-label=Breadcrumb] [aria-current=page]").text.strip
+  end
 end
