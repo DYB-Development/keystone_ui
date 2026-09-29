@@ -64,22 +64,28 @@ outer element. See Conventions before using it.
   `sm:`). Call `header.action { ... }` in the block to place a custom control on
   the right; only what `action` receives is rendered. Passing `action_url:`
   publishes that URL and label for a mobile navbar to pick up.
-- `ui_form_page(title:, back_url:, subtitle: nil, trail: nil)` — the shell
+- `ui_form_page(title:, back_url: nil, subtitle: nil, trail: nil)` — the shell
   marker for a form screen. It renders nothing where it is called. It publishes
   the title and back URL so the navbar can render mobile header context, and
   hands `ui_page` a "Back" link to `back_url` shown from `lg:` up, then the
   title and subtitle shown from `md:` up. Call it before `ui_page`, outside
   `ui_page`'s block, or none of that appears. Passing `trail:` replaces the
   "Back" link with breadcrumbs: the trail's links followed by `title` unlinked,
-  as `ui_breadcrumbs` renders them. `back_url:` is still required with a trail,
-  because the mobile header still uses it.
-- `ui_show_page(title:, back_url:, subtitle: nil, trail: nil)` — the shell marker
-  for a detail screen. It renders nothing where it is called. It publishes the
-  title, subtitle, and back URL for the navbar, and hands `ui_page` a "Back"
-  link to `back_url` shown from `lg:` up. Call it before `ui_page`, outside
-  `ui_page`'s block. It shows no title, so put `ui_page_header` inside the
-  `ui_page` block for the desktop title. `trail:` works as it does on
-  `ui_form_page`, ending the breadcrumbs with `title` unlinked.
+  as `ui_breadcrumbs` renders them. With no `trail:`, it uses the trail the app
+  supplies for the current request, if the app supplies one. With no
+  `back_url:`, the back URL is the `href` of the trail's last link. A `trail:`
+  or `back_url:` passed here always wins over the supplied ones. With no
+  `back_url:` and no trail from either place, the "Back" link and the mobile
+  header point at the current page, so pass one.
+- `ui_show_page(title:, back_url: nil, subtitle: nil, trail: nil)` — the shell
+  marker for a detail screen. It renders nothing where it is called. It
+  publishes the title, subtitle, and back URL for the navbar, and hands
+  `ui_page` a "Back" link to `back_url` shown from `lg:` up. Call it before
+  `ui_page`, outside `ui_page`'s block. It shows no title, so put
+  `ui_page_header` inside the `ui_page` block for the desktop title. `trail:`
+  and `back_url:` work as they do on `ui_form_page`, including the supplied
+  trail and the fallback to the trail's last link, and the breadcrumbs end with
+  `title` unlinked.
 - `ui_breadcrumbs(trail:, current: nil)` — a line of links shown only from `lg:`
   up. `trail:` is `[[label, href], ...]`, from the top level down, and each pair
   renders as a link, separated by `›`. `current:` is the page being shown,
@@ -326,7 +332,13 @@ outer element. See Conventions before using it.
    Those shells supply the desktop "Back" link themselves, so never add a
    second back link or button to those screens. Whether a screen
    shows that "Back" link or breadcrumbs, and which parent screens the trail
-   names, is the developer's choice, so ask before passing `trail:`. Below `lg:` the
+   names, is the developer's choice, so ask before passing `trail:`. Check
+   first whether the app's Keystone UI initializer sets a `trail_supplier`,
+   which supplies a trail for every request: if it
+   does, a screen whose supplied trail is right passes neither `trail:` nor
+   `back_url:`, and passes its own only where the supplied one is wrong. If the
+   app supplies no trail, every form and detail screen passes `back_url:` or
+   `trail:`. Setting up a supplied trail is `keystone_ui-install`'s job. Below `lg:` the
    back link comes from `ui_mobile_header`, which the navbar renders from the
    title and back URL these shells publish. Check the app's layout: if it does not
    already render `ui_mobile_header` from that published context, ask the

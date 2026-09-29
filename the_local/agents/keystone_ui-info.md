@@ -28,7 +28,10 @@ these apps are often viewed in a native webview. The form and show page shells
 follow the same split for going back: the mobile header carries the back link on
 small screens, and from `lg:` up the shell shows a "Back" link. Given a trail of
 earlier pages instead, the shell shows breadcrumbs in place of that link, ending
-with the page's own title. That link or those breadcrumbs, and the form page's
+with the page's own title. A page that passes no trail gets the one the app or
+another gem supplies for the request, if any, and a page that passes no back
+link goes back to that trail's last link. A trail or back link the page passes
+itself always wins. Supplying a trail is set up through the install local. That link or those breadcrumbs, and the form page's
 title, appear at the top of the page container, inside its width and padding, so
 a page using either shell also uses the page container.
 
