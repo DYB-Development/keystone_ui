@@ -1156,12 +1156,12 @@ Wraps a form page with title and back navigation. Sets `content_for` signals so 
 **Required props**
 
 - `title:` (String)
-- `back_url:` (String)
 
 **Optional props**
 
+- `back_url:` (String) — defaults to the last link of the trail
 - `subtitle:` (String)
-- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link
+- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link. When the page passes none, it uses the trail the app supplies through `config.trail_supplier`
 
 ```erb
 <%= ui_form_page(title: "New Product", back_url: products_path) %>
@@ -1175,16 +1175,26 @@ Wraps a show/detail page with title and back navigation. Sets `content_for` sign
 **Required props**
 
 - `title:` (String)
-- `back_url:` (String)
 
 **Optional props**
 
+- `back_url:` (String) — defaults to the last link of the trail
 - `subtitle:` (String)
-- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link
+- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link. When the page passes none, it uses the trail the app supplies through `config.trail_supplier`
 
 ```erb
 <%= ui_show_page(title: @product.name, back_url: products_path, subtitle: "Details") %>
 <%= ui_show_page(title: @product.name, back_url: products_path, trail: [["Catalog", catalog_path], ["Products", products_path]]) %>
+```
+
+#### Supplying every page's trail from the app
+
+Set `config.trail_supplier` to a lambda that receives the view and returns that page's trail. `ui_form_page` and `ui_show_page` call it when the page passes no `trail:`, and a page that passes no `back_url:` goes back to the trail's last link. Returning `nil` leaves the page with its own `back_url` and no breadcrumbs.
+
+```ruby
+KeystoneUi.configure do |config|
+  config.trail_supplier = ->(view) { Breadcrumbs.trail_for(view) }
+end
 ```
 
 ### `ui_breadcrumbs`
