@@ -509,7 +509,7 @@ On checkbox change, the Stimulus `column-picker` controller PATCHes `{ hidden_co
 
 ### `ui_page`
 
-Wraps page content with consistent max-width and horizontal padding.
+Wraps page content with consistent max-width and horizontal padding. When the page also uses `ui_form_page` or `ui_show_page`, it shows their desktop back link or breadcrumbs, and the form page title, at its top.
 
 **Optional props**
 
@@ -1151,7 +1151,7 @@ No props. Pass action links as block content.
 
 ### `ui_form_page`
 
-Wraps a form page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context. On `lg` screens and wider, where the mobile header is hidden, it shows a link back to `back_url`.
+Wraps a form page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context. On `lg` screens and wider, where the mobile header is hidden, it shows a link back to `back_url` at the top of the page's `ui_page`, so call `ui_page` on the same page.
 
 **Required props**
 
@@ -1170,7 +1170,7 @@ Wraps a form page with title and back navigation. Sets `content_for` signals so 
 
 ### `ui_show_page`
 
-Wraps a show/detail page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context. On `lg` screens and wider, where the mobile header is hidden, it shows a link back to `back_url`.
+Wraps a show/detail page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context. On `lg` screens and wider, where the mobile header is hidden, it shows a link back to `back_url` at the top of the page's `ui_page`, so call `ui_page` on the same page.
 
 **Required props**
 

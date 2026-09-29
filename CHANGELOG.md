@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- The desktop back link, the breadcrumbs and the form page title show at the top of the page's `ui_page`, inside its width and padding, instead of against the edge of the screen.
+
 ## [0.21.0] - 2026-09-29
 
 ### Added
