@@ -8,4 +8,10 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "/invoices", page.css("a.lg\\:inline-flex").attr("href")&.value
   end
+
+  def test_given_a_trail_shows_breadcrumbs_ending_with_the_title
+    page = render_inline(Keystone::Ui::ShowPageComponent.new(title: "Invoice #42", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ]))
+
+    assert_equal "Invoice #42", page.css("nav[aria-label=Breadcrumb] [aria-current=page]").text.strip
+  end
 end

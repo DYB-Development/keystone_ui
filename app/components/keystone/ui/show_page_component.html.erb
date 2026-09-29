@@ -4,3 +4,6 @@
 <% content_for :show_page_subtitle, @subtitle if @subtitle.present? %>
 
 <%= render Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url) %>
+<% if @trail %>
+  <%= render Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title) %>
+<% end %>
