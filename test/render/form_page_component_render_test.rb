@@ -97,6 +97,14 @@ class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
     assert_match(/New Invoice/, error.message)
   end
 
+  def test_given_a_trail_link_with_no_address_raises_an_error_naming_the_page
+    KeystoneUi.configure { |c| c.trail_supplier = ->(_view) { [ [ "Invoices", nil ] ] } }
+
+    error = assert_raises(KeystoneUi::IncompleteTrail) { render_form_page(title: "New Invoice", back_url: "/invoices") }
+
+    assert_match(/New Invoice/, error.message)
+  end
+
   private
 
   def render_form_page(**wrapper)
