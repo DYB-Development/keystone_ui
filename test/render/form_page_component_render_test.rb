@@ -65,6 +65,15 @@ class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "/invoices" ], page.css("nav[aria-label=Breadcrumb] a").map { |link| link["href"] }
   end
 
+  def test_given_no_back_link_goes_back_to_the_last_link_of_its_trail
+    back_url = render_in_view_context do
+      ui_form_page(title: "New Invoice", trail: [ [ "Billing", "/billing" ], [ "Invoices", "/invoices" ] ])
+      content_for(:form_page_back_url)
+    end
+
+    assert_equal "/invoices", back_url.text.strip
+  end
+
   private
 
   def render_form_page(**wrapper)

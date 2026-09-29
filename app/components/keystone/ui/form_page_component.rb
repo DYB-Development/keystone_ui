@@ -7,7 +7,7 @@ module Keystone
       TITLE_CLASSES = "ks-page-title text-2xl"
       SUBTITLE_CLASSES = "ks-page-header-subtitle text-sm"
 
-      def initialize(title:, back_url:, subtitle: nil, trail: nil)
+      def initialize(title:, back_url: nil, subtitle: nil, trail: nil)
         @title = title
         @back_url = back_url
         @subtitle = subtitle
@@ -16,6 +16,7 @@ module Keystone
 
       def before_render
         @trail ||= KeystoneUi.configuration.supplied_trail(helpers)
+        @back_url ||= @trail&.last&.last
       end
 
       def subtitle?
