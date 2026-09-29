@@ -71,6 +71,20 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     assert_equal "/kinds", back_url.text.strip
   end
 
+  def test_given_no_back_link_and_no_trail_raises_an_error_naming_the_page
+    error = assert_raises(KeystoneUi::MissingBackLink) { render_show_page(title: "Invoice #42") }
+
+    assert_match(/Invoice #42/, error.message)
+  end
+
+  def test_given_a_trail_link_with_no_label_raises_an_error_naming_the_page
+    KeystoneUi.configure { |c| c.trail_supplier = ->(_view) { [ [ nil, "/invoices" ] ] } }
+
+    error = assert_raises(KeystoneUi::IncompleteTrail) { render_show_page(title: "Invoice #42") }
+
+    assert_match(/Invoice #42/, error.message)
+  end
+
   private
 
   def render_show_page(**wrapper)

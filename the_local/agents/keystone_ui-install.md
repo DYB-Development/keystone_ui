@@ -25,7 +25,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
   `register_look` (a look's CSS file by name), `default_look` and
   `look_supplier` (which registered look a page gets),
   `trail_supplier` (a callable that supplies the breadcrumb trail for form and
-  show pages that pass none),
+  show pages that pass none, and their Back link when they pass none either),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 - `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
@@ -214,8 +214,20 @@ built on ViewComponent; hook it in before building any screen with those helpers
      screens, ending with the page's title, in place of the desktop "Back" link.
      A page that passes no Back link goes back to the trail's last link. A page
      that passes its own trail or Back link keeps it. With no supplier, or a
-     `nil` return, the page shows its Back link. Ask the developer
-     which code in the app knows each page's trail before writing the callable.
+     `nil` return, the page shows its Back link. Return `nil`, not an empty
+     array, for a page with no trail, because an empty array replaces the
+     page's Back link with breadcrumbs holding only its title.
+   - Every form and show page must end up with a Back link. A page that passes
+     no Back link and no trail, and gets no trail from the supplier, raises
+     `KeystoneUi::MissingBackLink` naming the page's title when it renders.
+     So does a page whose trail's last link has no address.
+   - Every link the supplier returns needs both a label and an address. A trail
+     with a blank label or address raises `KeystoneUi::IncompleteTrail` naming
+     the page's title.
+   - Ask the developer which code in the app knows each page's trail before
+     writing the callable. If some form or show pages pass no `back_url:`, ask
+     where their Back link should come from before enabling the supplier or
+     leaving it out.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for
