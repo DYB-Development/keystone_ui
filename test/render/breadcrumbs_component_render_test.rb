@@ -22,4 +22,10 @@ class Keystone::Ui::BreadcrumbsComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "New person", page.css("[aria-current=page]:not(a)").text.strip
   end
+
+  def test_is_named_as_breadcrumbs_for_screen_readers
+    page = render_inline(Keystone::Ui::BreadcrumbsComponent.new(trail: TRAIL))
+
+    assert_equal "Breadcrumb", page.css("nav").attr("aria-label")&.value
+  end
 end
