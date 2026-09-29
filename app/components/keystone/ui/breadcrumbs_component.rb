@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class BreadcrumbsComponent < ViewComponent::Base
-      CLASSES = "hidden lg:flex items-center"
+      CLASSES = "hidden lg:block"
       SEPARATOR = "›"
 
       def initialize(trail:, current: nil)

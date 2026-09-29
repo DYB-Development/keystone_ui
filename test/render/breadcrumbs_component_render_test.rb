@@ -38,6 +38,6 @@ class Keystone::Ui::BreadcrumbsComponentRenderTest < ViewComponent::TestCase
   def test_is_shown_only_from_large_screens_where_the_mobile_header_is_hidden
     page = render_inline(Keystone::Ui::BreadcrumbsComponent.new(trail: TRAIL))
 
-    assert_equal [ "hidden", "lg:flex" ], page.css("nav").attr("class")&.value.to_s.split & [ "hidden", "lg:flex" ]
+    assert_equal [ "hidden", "lg:block" ], page.css("nav").attr("class")&.value.to_s.split & [ "hidden", "lg:block" ]
   end
 end
