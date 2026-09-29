@@ -114,6 +114,7 @@ sources:
   - app/components/keystone/ui/navbar_component.rb
   - app/components/keystone/ui/option_card_component.rb
   - app/components/keystone/ui/page_component.rb
+  - app/components/keystone/ui/page_component.html.erb
   - app/components/keystone/ui/page_header_component.rb
   - app/components/keystone/ui/panel_component.rb
   - app/components/keystone/ui/pipeline_component.rb
