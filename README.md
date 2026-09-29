@@ -1159,7 +1159,7 @@ Wraps a form page with title and back navigation. Sets `content_for` signals so 
 
 **Optional props**
 
-- `back_url:` (String) — defaults to the last link of the trail
+- `back_url:` (String) — defaults to the last link of the trail; with no `back_url:` and no trail, rendering raises `KeystoneUi::MissingBackLink` naming the page
 - `subtitle:` (String)
 - `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link. When the page passes none, it uses the trail the app supplies through `config.trail_supplier`
 
@@ -1178,7 +1178,7 @@ Wraps a show/detail page with title and back navigation. Sets `content_for` sign
 
 **Optional props**
 
-- `back_url:` (String) — defaults to the last link of the trail
+- `back_url:` (String) — defaults to the last link of the trail; with no `back_url:` and no trail, rendering raises `KeystoneUi::MissingBackLink` naming the page
 - `subtitle:` (String)
 - `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link. When the page passes none, it uses the trail the app supplies through `config.trail_supplier`
 
