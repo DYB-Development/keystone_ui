@@ -40,4 +40,10 @@ class Keystone::Ui::BreadcrumbsComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "hidden", "lg:block" ], page.css("nav").attr("class")&.value.to_s.split & [ "hidden", "lg:block" ]
   end
+
+  def test_uses_the_muted_style_of_the_back_links
+    page = render_inline(Keystone::Ui::BreadcrumbsComponent.new(trail: TRAIL))
+
+    assert_includes page.css("nav").attr("class")&.value.to_s.split, "ks-mobile-header-back"
+  end
 end

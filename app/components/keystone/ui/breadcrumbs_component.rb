@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class BreadcrumbsComponent < ViewComponent::Base
-      CLASSES = "hidden lg:block"
+      CLASSES = "ks-mobile-header-back hidden lg:block text-sm"
       SEPARATOR = "›"
 
       def initialize(trail:, current: nil)
