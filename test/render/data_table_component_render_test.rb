@@ -10,6 +10,6 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
       end
     end
 
-    assert_equal [ "/products/1/edit" ], page.css("tbody [data-dropdown-target=menu] a.ks-menu-option").map { |link| link["href"] }
+    assert_equal [ "/products/1/edit" ], page.css("tbody [data-action-menu-target=menu] a.ks-menu-option").map { |link| link["href"] }
   end
 end
