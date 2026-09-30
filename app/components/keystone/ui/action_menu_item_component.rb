@@ -14,7 +14,7 @@ module Keystone
       def call
         return link_to(@label, @href, class: ITEM_CLASSES) if @method == :get
 
-        button_to(@label, @href, method: @method, class: ITEM_CLASSES)
+        button_to(@href, method: @method, class: ITEM_CLASSES) { @label }
       end
     end
   end
