@@ -14,4 +14,15 @@ class Keystone::Ui::ActionMenuItemComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "/offers/1", "delete", "Delete" ] ],
       page.css("form").map { |form| [ form["action"], form.at_css("input[name=_method]")&.[]("value"), form.at_css("button.ks-menu-option")&.text&.strip ] }
   end
+  def test_an_item_that_deletes_asks_before_it_sends
+    page = render_inline(Keystone::Ui::ActionMenuItemComponent.new(label: "Remove", href: "/offers/1/names/2", method: :delete))
+
+    assert_equal "Remove this? This cannot be undone.", page.at_css("form")["data-turbo-confirm"]
+  end
+  def test_an_item_asks_the_question_it_is_given
+    page = render_inline(Keystone::Ui::ActionMenuItemComponent.new(label: "Make a new version", href: "/offers/1/versions", method: :post,
+      confirm: "Make a new version of this offer?"))
+
+    assert_equal "Make a new version of this offer?", page.at_css("form")["data-turbo-confirm"]
+  end
 end

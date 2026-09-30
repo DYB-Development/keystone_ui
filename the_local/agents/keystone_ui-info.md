@@ -78,8 +78,10 @@ holds the catalog.
   of actions, shown at every screen size. The mobile action menu is the one
   hidden from `lg:` up. Each action is a label, an address and an HTTP method.
   A plain visit renders as a link. Any other method renders as a button that
-  sends that method, so an action that changes data is never a bare link. A
-  data table puts each row's actions in one action menu at the end of the row,
+  sends that method, so an action that changes data is never a bare link. An
+  action can carry a question that Turbo asks before it runs. A delete asks
+  "<label> this? This cannot be undone." unless it is given its own question,
+  and other actions ask nothing unless given one. A data table puts each row's actions in one action menu at the end of the row,
   and a section can carry an action menu in its header beside its title.
 - **Options are symbols, and each component accepts its own set.** Appearance is
   chosen by name — `variant:`, `size:`, `type:`, `padding:`, `spacing:`,

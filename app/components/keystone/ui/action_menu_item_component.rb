@@ -5,16 +5,23 @@ module Keystone
     class ActionMenuItemComponent < ViewComponent::Base
       ITEM_CLASSES = "ks-menu-option block w-full text-left"
 
-      def initialize(label:, href:, method: :get)
+      def initialize(label:, href:, method: :get, confirm: nil)
         @label = label
         @href = href
         @method = method.to_sym
+        @confirm = confirm
+      end
+
+      def question
+        return @confirm if @confirm
+
+        "#{@label} this? This cannot be undone." if @method == :delete
       end
 
       def call
         return link_to(@label, @href, class: ITEM_CLASSES) if @method == :get
 
-        button_to(@href, method: @method, class: ITEM_CLASSES) { @label }
+        button_to(@href, method: @method, class: ITEM_CLASSES, form: { data: { turbo_confirm: question }.compact }) { @label }
       end
     end
   end

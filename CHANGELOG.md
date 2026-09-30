@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_action_menu_item` takes `confirm:`, a question asked before the item runs.
+
+### Changed
+- An action menu item that deletes asks for confirmation before it runs, unless it is given its own question.
+
 ## [0.25.0] - 2026-09-30
 
 ### Fixed

@@ -120,12 +120,15 @@ outer element. See Conventions before using it.
 - `ui_action_menu` — no keywords, takes a block. An ellipsis (⋯) button that
   opens a dropdown of actions, shown at every screen size. Fill the block with
   `ui_action_menu_item` calls.
-- `ui_action_menu_item(label:, href:, method: :get)` — one entry in an action
-  menu. With `method: :get` it is a link to `href`. Any other method, such as
-  `:post`, `:patch` or `:delete`, renders a button inside its own small form
-  that sends that method to `href`, so never place such an item inside a
-  `ui_form` block, since a form cannot contain another form. It asks for no
-  confirmation before sending.
+- `ui_action_menu_item(label:, href:, method: :get, confirm: nil)` — one entry
+  in an action menu. With `method: :get` it is a link to `href`. Any other
+  method, such as `:post`, `:patch` or `:delete`, renders a button inside its
+  own small form that sends that method to `href`, so never place such an item
+  inside a `ui_form` block, since a form cannot contain another form.
+  `confirm:` is a question Turbo asks before the item sends. With no
+  `confirm:`, a `method: :delete` item asks "<label> this? This cannot be
+  undone.", and every other method sends without asking. A `method: :get` item
+  is a plain link and ignores `confirm:`.
 - `ui_mobile_actions` — no keywords, takes a block. An ellipsis dropdown for
   mobile actions; the block holds the menu items. Hidden above `lg:`. Use
   `ui_action_menu` instead when the actions must also be reachable on desktop.
@@ -381,9 +384,10 @@ outer element. See Conventions before using it.
    Put the actions on a record, such as Edit and Delete, in an action menu
    rather than in a row of buttons: `menu:` on the `ui_section` that shows the
    record, `table.actions` for a table row, or `ui_action_menu` anywhere else.
-   An item that deletes or changes data sends without asking for
-   confirmation, so ask the developer whether that action needs a confirmation
-   step before adding it.
+   A delete item asks for confirmation on its own, so pass `confirm:` only
+   when the developer wants different wording. A `:post`, `:patch` or `:put`
+   item sends without asking, so ask the developer whether that action needs
+   a question, and pass it as `confirm:` if it does.
 
 6. For a table, decide how columns are declared. Use `{ key: "Label" }` hashes
    when every column is plain. Switch the whole set to `Keystone::Ui::Column`
