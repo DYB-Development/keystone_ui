@@ -43,8 +43,11 @@
             <% end %>
             <% if actions? %>
               <td class="<%= Keystone::Ui::DataTableComponent::ROW_CLASSES_LAST %>">
-                <%= render Keystone::Ui::ActionMenuComponent.new do %>
-                  <%= capture(item, &@actions_block) %>
+                <% row_actions = capture(item, &@actions_block) %>
+                <% if row_actions.present? %>
+                  <%= render Keystone::Ui::ActionMenuComponent.new do %>
+                    <%= row_actions %>
+                  <% end %>
                 <% end %>
               </td>
             <% end %>
