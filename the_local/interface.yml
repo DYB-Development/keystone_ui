@@ -36,6 +36,8 @@ develop:
   - ui_breadcrumbs
   - ui_mobile_header
   - ui_mobile_actions
+  - ui_action_menu
+  - ui_action_menu_item
   - ui_navbar
   - ui_nav_item
   - ui_nav_dropdown
@@ -88,6 +90,7 @@ sources:
   - app/components/keystone/ui/copy_button_component.rb
   - app/components/keystone/ui/cta_banner_component.rb
   - app/components/keystone/ui/data_table_component.rb
+  - app/components/keystone/ui/data_table_component.html.erb
   - app/components/keystone/ui/disclosure_component.rb
   - app/components/keystone/ui/calculation_component.rb
   - app/components/keystone/ui/feature_grid_component.rb
@@ -108,6 +111,8 @@ sources:
   - app/components/keystone/ui/input_component.rb
   - app/components/keystone/ui/line_chart_component.rb
   - app/components/keystone/ui/mobile_actions_component.rb
+  - app/components/keystone/ui/action_menu_component.rb
+  - app/components/keystone/ui/action_menu_item_component.rb
   - app/components/keystone/ui/mobile_header_component.rb
   - app/components/keystone/ui/modal_component.rb
   - app/components/keystone/ui/multi_select_component.rb
@@ -124,6 +129,7 @@ sources:
   - app/components/keystone/ui/progress_component.rb
   - app/components/keystone/ui/radio_card_component.rb
   - app/components/keystone/ui/section_component.rb
+  - app/components/keystone/ui/section_component.html.erb
   - app/components/keystone/ui/select_component.rb
   - app/components/keystone/ui/settings_link_component.rb
   - app/components/keystone/ui/show_page_component.rb

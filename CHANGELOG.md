@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_action_menu` renders an ellipsis button that opens a dropdown of actions at every screen size, and `ui_action_menu_item(label:, href:, method:)` renders one entry as a link or as a button sending its method.
+- `ui_section` takes `menu:`, a list of items shown in an action menu in the section's header.
+
+### Changed
+- `ui_data_table` puts each row's actions in an action menu, so a table shows no buttons. Row actions should be `ui_action_menu_item` calls.
+
 ## [0.23.0] - 2026-09-29
 
 ### Added
