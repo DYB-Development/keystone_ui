@@ -74,6 +74,13 @@ holds the catalog.
   that render one thing (a button, a badge, a field, a stat, a bucket) are
   configured entirely by keyword arguments. The navigation bar exposes named
   slots instead of a single block.
+- **Action menus.** An action menu is an ellipsis button that opens a dropdown
+  of actions, shown at every screen size. The mobile action menu is the one
+  hidden from `lg:` up. Each action is a label, an address and an HTTP method.
+  A plain visit renders as a link. Any other method renders as a button that
+  sends that method, so an action that changes data is never a bare link. A
+  data table puts each row's actions in one action menu at the end of the row,
+  and a section can carry an action menu in its header beside its title.
 - **Options are symbols, and each component accepts its own set.** Appearance is
   chosen by name — `variant:`, `size:`, `type:`, `padding:`, `spacing:`,
   `max_width:`, `radius:` — on a size scale (`:sm` … `:xl`) or a short list of
@@ -100,7 +107,7 @@ holds the catalog.
   keystone_ui-styles 0.6.0 or later: corner radius, font, label weight, border
   width, padding and colours. Each colour variable has a `-dark` partner read
   on a dark page. Buttons, panels, cards, alerts, badges, form fields, the
-  modal, the mobile action menu, the column picker, multi select, copy button,
+  modal, the action menu, the mobile action menu, the column picker, multi select, copy button,
   theme toggle, checkbox row, radio card, option card, file upload and colour
   picker read these variables. So do the data display components: stat card,
   chart card, card link, CTA banner, feature grid, hero, data table, code,

@@ -476,13 +476,13 @@ Pass a block to add a trailing "Actions" column. The block receives the componen
 ) do |table| %>
   <% table.link(:name) { |item| product_path(item) } %>
   <% table.actions do |item| %>
-    <%= link_to "Edit", edit_product_path(item) %>
-    <%= link_to "Delete", product_path(item), data: { turbo_method: :delete } %>
+    <%= ui_action_menu_item(label: "Edit", href: edit_product_path(item)) %>
+    <%= ui_action_menu_item(label: "Delete", href: product_path(item), method: :delete) %>
   <% end %>
 <% end %>
 ```
 
-When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
+Each row's actions show in an action menu, opened by an ellipsis button, so a table never shows buttons. When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
 
 ### `ui_column_picker`
 
@@ -532,6 +532,7 @@ Groups related content with an optional header (title, subtitle, action) and ver
 - `title:` (String) — section heading
 - `subtitle:` (String) — secondary text below the title
 - `action:` — slot for a trailing action (e.g. a button)
+- `menu:` — a list of `{ label:, href:, method: }` items shown in an action menu in the header, such as Edit and Delete
 - `spacing:` (`:sm | :md | :lg`, default `:md`) — top margin between sections
 - `class:` (String) — extra classes added to the component's outer element for this one use
 
@@ -1135,6 +1136,27 @@ Renders a mobile header with back link, centered title, and optional subtitle. H
 ```erb
 <%= ui_mobile_header(title: "Edit Product", back_url: products_path) %>
 ```
+
+### `ui_action_menu`
+
+Renders an ellipsis (⋯) button that opens a dropdown of actions, at every screen size. Uses Stimulus `dropdown` controller. Fill it with `ui_action_menu_item`.
+
+```erb
+<%= ui_action_menu do %>
+  <%= ui_action_menu_item(label: "Edit", href: edit_product_path(@product)) %>
+  <%= ui_action_menu_item(label: "Delete", href: product_path(@product), method: :delete) %>
+<% end %>
+```
+
+### `ui_action_menu_item`
+
+One entry in an action menu. A link when `method:` is `:get`, and a form button that sends the method otherwise.
+
+| Param | Required | Default |
+|-------|----------|---------|
+| `label:` | yes | — |
+| `href:` | yes | — |
+| `method:` | no | `:get` |
 
 ### `ui_mobile_actions`
 

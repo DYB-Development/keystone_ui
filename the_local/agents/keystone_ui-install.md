@@ -83,9 +83,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
      the Stimulus application is set up and add those two lines there. Without
      them, dropdowns, modals, file uploads, the column picker, the theme toggle
      and the other interactive components do nothing.
-     `registerControllers(application)` also copies `data-theme` from each page
-     Turbo renders onto the `<html>` tag. Without it, a Turbo visit keeps the
-     theme of the first page loaded.
+     `registerControllers(application)` also copies `data-theme` and `data-look`
+     from each page Turbo renders onto the `<html>` tag. Without it, a Turbo
+     visit keeps the theme and look of the first page loaded.
    - `app/views/layouts/application.html.erb not found` — ask the developer which
      layout the app renders and add `<%= keystone_theme_attributes %>` to its
      `<html>` tag. Without it, a saved light or dark choice is not applied when
@@ -149,7 +149,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
    ```
 
    Buttons, panels, cards, alerts, badges, form fields, the modal, the mobile
-   action menu, the column picker, multi select, copy button, theme toggle,
+   action menu, the action menu, the column picker, multi select, copy button, theme toggle,
    checkbox row, radio card, option card, file upload and colour picker read
    these variables. So do the data display components: stat card, chart card,
    card link, CTA banner, feature grid, hero, data table, code, accordion,

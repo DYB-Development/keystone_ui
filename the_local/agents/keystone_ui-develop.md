@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has Keystone UI — pages, forms, tables, navigation, dashboards, charts, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has Keystone UI — pages, forms, tables, navigation, action menus for a record's Edit and Delete, dashboards, charts, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -45,9 +45,13 @@ outer element. See Conventions before using it.
   `:lg` `:xl` to clear a fixed navbar. When `ui_form_page` or `ui_show_page` was
   called earlier on the same screen, `ui_page` renders their back link or
   breadcrumbs, and the form page's title, at its top, above the block.
-- `ui_section(title: nil, subtitle: nil, action: nil, spacing: :md, class: nil)`
+- `ui_section(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil)`
   — takes a block. A titled block of content with an optional right-aligned
   link. `action:` is `{ label:, href: }`; `spacing:` `:sm` `:md` `:lg`.
+  `menu:` is `[{ label:, href:, method: }, ...]`, each hash taking the keywords
+  of `ui_action_menu_item`, and renders an action menu at the right of the
+  header. The header, and with it `action:` and `menu:`, renders only when
+  `title:` is given.
 - `ui_panel(padding: :md, radius: :lg, shadow: true)` — takes a block. A bordered
   card surface. `padding:` `:sm` `:md` `:lg`; `radius:` `:md` `:lg` `:xl`.
 - `ui_grid(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil)` — takes a
@@ -113,8 +117,18 @@ outer element. See Conventions before using it.
 - `ui_mobile_header(title:, back_url:, subtitle: nil)` — a back chevron plus
   centered title for mobile; hidden above `lg:`. Place it in the navbar's
   `mobile_left` slot.
+- `ui_action_menu` — no keywords, takes a block. An ellipsis (⋯) button that
+  opens a dropdown of actions, shown at every screen size. Fill the block with
+  `ui_action_menu_item` calls.
+- `ui_action_menu_item(label:, href:, method: :get)` — one entry in an action
+  menu. With `method: :get` it is a link to `href`. Any other method, such as
+  `:post`, `:patch` or `:delete`, renders a button inside its own small form
+  that sends that method to `href`, so never place such an item inside a
+  `ui_form` block, since a form cannot contain another form. It asks for no
+  confirmation before sending.
 - `ui_mobile_actions` — no keywords, takes a block. An ellipsis dropdown for
-  mobile actions; the block holds the menu items. Hidden above `lg:`.
+  mobile actions; the block holds the menu items. Hidden above `lg:`. Use
+  `ui_action_menu` instead when the actions must also be reachable on desktop.
 - `ui_settings_link(label:, href:)` — a full-width settings row with a chevron.
 - `ui_theme_toggle` — no keywords, no block. A row of three buttons, Light, Dark
   and System, that switches the page's theme at once and remembers the choice in
@@ -180,7 +194,9 @@ outer element. See Conventions before using it.
   `columns:` accepts plain `{ key: "Label" }` hashes or `Keystone::Ui::Column`
   objects. In the block, `table.link(:column_key) { |item| url }` turns that
   column's cells into links and `table.actions { |item| ... }` appends a
-  right-aligned actions column. Sorting requires all three of `sort:` (the
+  right-aligned actions column. Each row's actions render inside an action
+  menu, so the `actions` block holds `ui_action_menu_item` calls and nothing
+  else, never buttons or bare links. Sorting requires all three of `sort:` (the
   current column key), `sort_direction:` (`:asc`/`:desc`), and `sort_url:` (a
   lambda taking `(column_key, direction)` and returning a URL); headers then
   render as links that flip direction. `hidden_columns:` drops columns
@@ -362,6 +378,12 @@ outer element. See Conventions before using it.
    To show the arithmetic behind a figure, put `ui_calculation` under it rather
    than a hand-built list. Which lines and groups to show is the app's own
    calculation, so ask the developer which steps a reader needs to see.
+   Put the actions on a record, such as Edit and Delete, in an action menu
+   rather than in a row of buttons: `menu:` on the `ui_section` that shows the
+   record, `table.actions` for a table row, or `ui_action_menu` anywhere else.
+   An item that deletes or changes data sends without asking for
+   confirmation, so ask the developer whether that action needs a confirmation
+   step before adding it.
 
 6. For a table, decide how columns are declared. Use `{ key: "Label" }` hashes
    when every column is plain. Switch the whole set to `Keystone::Ui::Column`
@@ -421,7 +443,8 @@ outer element. See Conventions before using it.
   through it, so anything else emitted inside their block is discarded.
 - **Mobile is not an afterthought.** Several helpers render only on one side of
   the `lg:` (or `sm:`) breakpoint — page headers, mobile headers, mobile actions,
-  bottom navigation, breadcrumbs. A screen needs both treatments; check the small viewport
+  bottom navigation, breadcrumbs. The action menu is the exception and shows at
+  every size. A screen needs both treatments; check the small viewport
   before calling it done.
 - Out of scope for this local: installing or upgrading the gem, changing the
   palette or theme defaults, and editing the components themselves. Building a

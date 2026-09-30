@@ -125,6 +125,14 @@ module KeystoneUiHelper
     render Keystone::Ui::MobileHeaderComponent.new(**args)
   end
 
+  def ui_action_menu(**args, &block)
+    render Keystone::Ui::ActionMenuComponent.new(**args), &block
+  end
+
+  def ui_action_menu_item(**args)
+    render Keystone::Ui::ActionMenuItemComponent.new(**args)
+  end
+
   def ui_mobile_actions(**args, &block)
     render Keystone::Ui::MobileActionsComponent.new(**args), &block
   end
