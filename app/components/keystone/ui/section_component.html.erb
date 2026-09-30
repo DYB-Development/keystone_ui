@@ -12,6 +12,13 @@
           <%= @action[:label] %>
         </a>
       <% end %>
+      <% if @menu.any? %>
+        <%= render Keystone::Ui::ActionMenuComponent.new do %>
+          <% @menu.each do |item| %>
+            <%= render Keystone::Ui::ActionMenuItemComponent.new(**item) %>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   <% end %>
   <%= content %>

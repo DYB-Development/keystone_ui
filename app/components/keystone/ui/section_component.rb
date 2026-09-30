@@ -9,10 +9,11 @@ module Keystone
       SUBTITLE_CLASSES = "ks-section-subtitle"
       ACTION_CLASSES = "ks-section-action"
 
-      def initialize(title: nil, subtitle: nil, action: nil, spacing: :md, class: nil)
+      def initialize(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil)
         @title = title
         @subtitle = subtitle
         @action = action
+        @menu = menu
         @spacing = spacing
         @extra_classes = binding.local_variable_get(:class)
       end
