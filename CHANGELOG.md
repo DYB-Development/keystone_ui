@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.25.0] - 2026-09-30
+
 ### Fixed
 - A table row whose actions are empty shows no action menu.
 - An action menu opens on top of the page under its button, so a table or any other box that hides what overflows it no longer cuts the menu off. An open menu closes when the page scrolls or resizes.
