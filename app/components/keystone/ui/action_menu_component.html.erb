@@ -1,11 +1,12 @@
-<div class="<%= WRAPPER_CLASSES %>" data-controller="dropdown">
+<div class="<%= WRAPPER_CLASSES %>" data-controller="action-menu" data-action="scroll@window->action-menu#close resize@window->action-menu#close">
   <button type="button"
-          data-action="click->dropdown#toggle click@window->dropdown#hide"
+          data-action="click->action-menu#toggle click@window->action-menu#hide"
+          data-action-menu-target="button"
           class="<%= BUTTON_CLASSES %>"
           aria-label="Actions">
     <%= ELLIPSIS_ICON.html_safe %>
   </button>
-  <div data-dropdown-target="menu" class="<%= DROPDOWN_CLASSES %>">
+  <div data-action-menu-target="menu" class="<%= DROPDOWN_CLASSES %>">
     <%= content %>
   </div>
 </div>

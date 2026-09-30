@@ -7,6 +7,6 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     page = render_inline(Keystone::Ui::SectionComponent.new(title: "Spring lawn package",
       menu: [ { label: "Edit", href: "/offers/1/edit" }, { label: "Delete", href: "/offers/1", method: :delete } ])) { "" }
 
-    assert_equal [ "Edit", "Delete" ], page.css(".ks-section-header [data-dropdown-target=menu] .ks-menu-option").map { |item| item.text.strip }
+    assert_equal [ "Edit", "Delete" ], page.css(".ks-section-header [data-action-menu-target=menu] .ks-menu-option").map { |item| item.text.strip }
   end
 end

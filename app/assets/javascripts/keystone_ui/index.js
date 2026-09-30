@@ -4,6 +4,7 @@ import SwipeDeckController from "keystone_ui/swipe_deck_controller"
 import ColumnPickerController from "keystone_ui/column_picker_controller"
 import FileUploadController from "keystone_ui/file_upload_controller"
 import DropdownController from "keystone_ui/dropdown_controller"
+import ActionMenuController from "keystone_ui/action_menu_controller"
 import DismissController from "keystone_ui/dismiss_controller"
 import ModalController from "keystone_ui/modal_controller"
 import ClipboardController from "keystone_ui/clipboard_controller"
@@ -22,6 +23,7 @@ export function registerControllers(application) {
   application.register("column-picker", ColumnPickerController)
   application.register("file-upload", FileUploadController)
   application.register("dropdown", DropdownController)
+  application.register("action-menu", ActionMenuController)
   application.register("dismiss", DismissController)
   application.register("modal", ModalController)
   application.register("clipboard", ClipboardController)
