@@ -215,8 +215,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
      A page that passes no Back link goes back to the trail's last link. A page
      that passes its own trail or Back link keeps it. With no supplier, or a
      `nil` return, the page shows its Back link. Return `nil`, not an empty
-     array, for a page with no trail, because an empty array replaces the
-     page's Back link with breadcrumbs holding only its title.
+     array, for a page with no trail. An empty array replaces the page's Back
+     link with breadcrumbs holding only its title, and on a page that passes
+     no Back link it raises `KeystoneUi::MissingBackLink`.
    - Every form and show page must end up with a Back link. A page that passes
      no Back link and no trail, and gets no trail from the supplier, raises
      `KeystoneUi::MissingBackLink` naming the page's title when it renders.

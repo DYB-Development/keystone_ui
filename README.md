@@ -1150,13 +1150,14 @@ Renders an ellipsis (⋯) button that opens a dropdown of actions, at every scre
 
 ### `ui_action_menu_item`
 
-One entry in an action menu. A link when `method:` is `:get`, and a form button that sends the method otherwise.
+One entry in an action menu. A link when `method:` is `:get`, and a form button that sends the method otherwise. An item that deletes asks for confirmation first.
 
 | Param | Required | Default |
 |-------|----------|---------|
 | `label:` | yes | — |
 | `href:` | yes | — |
 | `method:` | no | `:get` |
+| `confirm:` | no | `nil` | a question asked before the item runs. An item with `method: :delete` asks "<label> this? This cannot be undone." when none is given. |
 
 ### `ui_mobile_actions`
 
