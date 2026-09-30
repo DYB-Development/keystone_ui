@@ -1,4 +1,4 @@
-<div class="<%= WRAPPER_CLASSES %>" data-controller="action-menu">
+<div class="<%= WRAPPER_CLASSES %>" data-controller="action-menu" data-action="scroll@window->action-menu#close resize@window->action-menu#close">
   <button type="button"
           data-action="click->action-menu#toggle click@window->action-menu#hide"
           data-action-menu-target="button"

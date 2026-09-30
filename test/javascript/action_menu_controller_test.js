@@ -27,3 +27,12 @@ test("opening the menu places it on the screen just under its button, lined up w
 
   assert.deepEqual([menu.style.position, menu.style.top, menu.style.left], ["fixed", "300px", "708px"])
 })
+
+test("closing the menu hides it, as when the page scrolls under it", () => {
+  const { controller, menu } = menuUnder({ bottom: 300, right: 900 })
+  controller.toggle({ stopPropagation() {} })
+
+  controller.close()
+
+  assert.equal(menu.classList.contains("hidden"), true)
+})

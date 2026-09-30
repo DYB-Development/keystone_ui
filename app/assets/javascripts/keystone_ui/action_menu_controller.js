@@ -15,6 +15,10 @@ export default class extends Controller {
     }
   }
 
+  close() {
+    this.menuTarget.classList.add("hidden")
+  }
+
   place() {
     const button = this.buttonTarget.getBoundingClientRect()
     Object.assign(this.menuTarget.style, {
