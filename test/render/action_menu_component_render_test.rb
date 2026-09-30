@@ -8,4 +8,13 @@ class Keystone::Ui::ActionMenuComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "/edit" ], page.css("[data-controller=dropdown] button[aria-label=Actions] ~ [data-dropdown-target=menu] a").map { |link| link["href"] }
   end
+  def test_a_view_draws_an_action_menu_of_items_with_the_ui_action_menu_helpers
+    page = render_in_view_context do
+      ui_action_menu do
+        ui_action_menu_item(label: "Edit", href: "/offers/1/edit") + ui_action_menu_item(label: "Delete", href: "/offers/1", method: :delete)
+      end
+    end
+
+    assert_equal [ "Edit", "Delete" ], page.css("[data-dropdown-target=menu] .ks-menu-option").map { |item| item.text.strip }
+  end
 end
