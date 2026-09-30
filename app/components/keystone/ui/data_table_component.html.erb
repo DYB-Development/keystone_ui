@@ -43,7 +43,9 @@
             <% end %>
             <% if actions? %>
               <td class="<%= Keystone::Ui::DataTableComponent::ROW_CLASSES_LAST %>">
-                <%= capture(item, &@actions_block) %>
+                <%= render Keystone::Ui::ActionMenuComponent.new do %>
+                  <%= capture(item, &@actions_block) %>
+                <% end %>
               </td>
             <% end %>
           </tr>
