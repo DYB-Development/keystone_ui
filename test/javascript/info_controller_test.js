@@ -43,3 +43,11 @@ test("moving off the button hides its summary again", () => {
 
   assert.equal(summary.classList.contains("hidden"), true)
 })
+
+test("clicking the button opens its detail on the screen just under it", () => {
+  const { controller, panel } = infoAt({ bottom: 300, right: 900 })
+
+  controller.toggle({ stopPropagation() {} })
+
+  assert.deepEqual([panel.classList.contains("hidden"), panel.style.position, panel.style.top, panel.style.left], [false, "fixed", "300px", "612px"])
+})

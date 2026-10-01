@@ -12,6 +12,12 @@ export default class extends Controller {
     this.summaryTarget.classList.add("hidden")
   }
 
+  toggle(event) {
+    event.stopPropagation()
+    this.detailTarget.classList.toggle("hidden")
+    if (!this.detailTarget.classList.contains("hidden")) this.place(this.detailTarget)
+  }
+
   place(shown) {
     const button = this.buttonTarget.getBoundingClientRect()
     Object.assign(shown.style, {
