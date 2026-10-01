@@ -7,14 +7,17 @@ module Keystone
       HIGHLIGHT_CLASSES = "ks-radio-card-highlight"
       LABEL_CLASSES = "ks-radio-card-label block"
       HINT_CLASSES = "ks-radio-card-hint block text-sm"
+      INFO_BUTTON_CLASSES = "ks-radio-card-info"
+      INFO_ICON = Keystone::Ui::StatCardComponent::INFO_ICON
 
-      attr_reader :name, :value, :label, :hint
+      attr_reader :name, :value, :label, :hint, :info
 
-      def initialize(name:, value:, label:, hint: nil, checked: false)
+      def initialize(name:, value:, label:, hint: nil, info: nil, checked: false)
         @name = name
         @value = value
         @label = label
         @hint = hint
+        @info = info
         @checked = checked
       end
 
@@ -24,6 +27,18 @@ module Keystone
 
       def hint?
         !@hint.nil?
+      end
+
+      def info?
+        !@info.nil?
+      end
+
+      def info_button_classes
+        INFO_BUTTON_CLASSES
+      end
+
+      def info_icon
+        INFO_ICON
       end
 
       def classes
