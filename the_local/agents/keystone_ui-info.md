@@ -88,6 +88,12 @@ holds the catalog.
   and the text stays hidden until the button is hovered or tapped. A piece
   given no such text shows no button. On a radio card and a checkbox row the
   button sits on the line with the label.
+- **Suggestions.** A form field can carry a list of suggested values. The
+  browser offers them while the field's text is typed, and the user can still
+  enter a value that is not on the list. This applies to a field with a typed
+  input, such as text, number, email, password or date. A textarea, select or
+  checkbox field ignores the list, and a field given no list offers nothing.
+  It needs no JavaScript.
 - **Options are symbols, and each component accepts its own set.** Appearance is
   chosen by name — `variant:`, `size:`, `type:`, `padding:`, `spacing:`,
   `max_width:`, `radius:` — on a size scale (`:sm` … `:xl`) or a short list of

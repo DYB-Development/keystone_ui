@@ -146,7 +146,7 @@ outer element. See Conventions before using it.
   The `<form>` wrapper. `method:` may be `:patch`/`:put`/`:delete` and is
   translated for Rails. Set `multipart: true` when the form contains a file
   upload.
-- `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false)`
+- `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [])`
   — a labeled field with hint and error text. This is the default way to render
   an input. `type:` `:text` `:number` `:email` `:password` `:date` `:textarea`
   `:checkbox` `:select`. `attribute:` is used verbatim as the input's `name`, so
@@ -159,7 +159,12 @@ outer element. See Conventions before using it.
   it. Never add your own empty choice to `options:` as well. A
   `:checkbox` renders its label beside the box, submits `"0"` when unchecked and
   `"1"` when checked, and pre-checks when `value:` is `"1"`. `errors:` is an
-  array of message strings.
+  array of message strings. `suggestions:` is an array of strings the browser
+  offers while the field's text is typed, and the user can still type a value
+  that is not in it. It applies to `:text`, `:number`, `:email`, `:password`
+  and `:date` fields, and a `:textarea`, `:checkbox` or `:select` ignores it.
+  The suggestion list's `id` is built from `attribute:`, so two fields with
+  suggestions on one screen need different `attribute:` values.
 - `ui_input(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil)`
   — a bare styled input with no label. `type:` `:text` `:number` `:email`
   `:password` `:date`.
@@ -392,6 +397,10 @@ outer element. See Conventions before using it.
    To show the arithmetic behind a figure, put `ui_calculation` under it rather
    than a hand-built list. Which lines and groups to show is the app's own
    calculation, so ask the developer which steps a reader needs to see.
+   A field whose value must be one of a fixed list is a `:select` with
+   `options:`, and a field that accepts any text and offers common values is a
+   text field with `suggestions:`. Which one a field is, and which values it
+   suggests, is the app's own rule, so ask the developer rather than pick.
    On a radio card or a checkbox row, text every reader needs to choose goes in `hint:` and
    text only some will want goes in `info:`. Which is which is the app's own
    wording, so ask the developer rather than pick.

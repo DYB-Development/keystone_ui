@@ -22,6 +22,13 @@
     </select>
   <% else %>
     <%= tag.input(**input_options) %>
+    <% if suggestions? %>
+      <datalist id="<%= suggestions_id %>">
+        <% suggestions.each do |suggestion| %>
+          <option value="<%= suggestion %>"></option>
+        <% end %>
+      </datalist>
+    <% end %>
   <% end %>
 
   <% if hint? %>
