@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.29.0] - 2026-10-01
+
+### Added
+- `ui_info(summary:)` shows an info button anywhere: its summary shows on hover, and clicking opens whatever it is given.
+- `ui_breakdown(lines:, total:)` lists each amount beside what it is and ends with the total.
+
 ## [0.28.0] - 2026-10-01
 
 ### Added
