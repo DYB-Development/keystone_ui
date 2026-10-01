@@ -1,0 +1,7 @@
+<span class="relative inline-flex" data-controller="stat-card-info">
+  <button type="button" class="<%= button_classes %>" data-action="click->stat-card-info#toggle" aria-label="More about this"><%= icon.html_safe %></button>
+  <span class="<%= summary_classes %>"<%= ' data-stat-card-info-target="panel"'.html_safe unless content? %>><%= summary %></span>
+  <% if content? %>
+    <span class="<%= detail_classes %>" data-stat-card-info-target="panel"><%= content %></span>
+  <% end %>
+</span>
