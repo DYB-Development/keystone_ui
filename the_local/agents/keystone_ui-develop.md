@@ -178,13 +178,24 @@ outer element. See Conventions before using it.
   enclosing form to be multipart.
 - `ui_color_picker(name:, value: "#000000", label: nil)` — a swatch that opens a
   hue/saturation panel and writes the hex into a hidden input named `name`.
-- `ui_radio_card(name:, value:, label:, hint: nil, checked: false)` — a
-  selectable card backed by a real radio input; selection styling is pure CSS.
-- `ui_checkbox_row(name:, value:, label:, hint: nil, checked: false)` — a real
-  checkbox with its label and optional hint inside one `<label>`, so a tap
-  anywhere on the row toggles the box. A checked row submits `value` under
+- `ui_radio_card(name:, value:, label:, hint: nil, info: nil, checked: false)`
+  — a selectable card backed by a real radio input; selection styling is pure
+  CSS. `hint:` is a line of text always shown under the label. `info:` is
+  longer text about the option, kept hidden: passing it adds an info button on
+  the row with the label, named "About <label>" for screen readers, and the
+  text shows in a panel floating below the card while the button is hovered,
+  and tapping the button toggles it. With no `info:` the card has no info
+  button.
+- `ui_checkbox_row(name:, value:, label:, hint: nil, info: nil, checked: false)`
+  — a real checkbox with its label and optional hint inside one `<label>`, so a
+  tap anywhere on the row toggles the box. A checked row submits `value` under
   `name`; give several rows the same array name, e.g. `"shown[]"`, to submit the
-  checked values as a list. An unchecked row submits nothing. No JavaScript.
+  checked values as a list. An unchecked row submits nothing. `hint:` is a line
+  of text always shown under the label. `info:` works as it does on
+  `ui_radio_card`: passing it adds an info button on the line with the label,
+  named "About <label>" for screen readers, and the text shows in a panel
+  floating below the row while the button is hovered, and tapping the button
+  toggles it. With no `info:` the row has no info button.
 - `ui_option_card(name:, value:, selected: false, input_data: {}, label_data: {})`
   — takes a block. A radio whose visible body is whatever the block renders.
   `input_data:`/`label_data:` become `data-*` attributes on the input and label.
@@ -381,6 +392,9 @@ outer element. See Conventions before using it.
    To show the arithmetic behind a figure, put `ui_calculation` under it rather
    than a hand-built list. Which lines and groups to show is the app's own
    calculation, so ask the developer which steps a reader needs to see.
+   On a radio card or a checkbox row, text every reader needs to choose goes in `hint:` and
+   text only some will want goes in `info:`. Which is which is the app's own
+   wording, so ask the developer rather than pick.
    Put the actions on a record, such as Edit and Delete, in an action menu
    rather than in a row of buttons: `menu:` on the `ui_section` that shows the
    record, `table.actions` for a table row, or `ui_action_menu` anywhere else.

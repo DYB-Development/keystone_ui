@@ -128,6 +128,7 @@ sources:
   - app/components/keystone/ui/theme_toggle_component.rb
   - app/components/keystone/ui/progress_component.rb
   - app/components/keystone/ui/radio_card_component.rb
+  - app/components/keystone/ui/radio_card_component.html.erb
   - app/components/keystone/ui/section_component.rb
   - app/components/keystone/ui/section_component.html.erb
   - app/components/keystone/ui/select_component.rb

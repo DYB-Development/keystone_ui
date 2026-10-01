@@ -7,14 +7,18 @@ module Keystone
       INPUT_CLASSES = "ks-checkbox-row-input size-4 shrink-0"
       LABEL_CLASSES = "ks-checkbox-row-label block text-sm"
       HINT_CLASSES = "ks-checkbox-row-hint block text-sm"
+      HEADER_CLASSES = RadioCardComponent::HEADER_CLASSES
+      INFO_BUTTON_CLASSES = RadioCardComponent::INFO_BUTTON_CLASSES
+      DISCLOSURE_CLASSES = RadioCardComponent::DISCLOSURE_CLASSES
 
-      attr_reader :name, :value, :label, :hint
+      attr_reader :name, :value, :label, :hint, :info
 
-      def initialize(name:, value:, label:, hint: nil, checked: false)
+      def initialize(name:, value:, label:, hint: nil, info: nil, checked: false)
         @name = name
         @value = value
         @label = label
         @hint = hint
+        @info = info
         @checked = checked
       end
 
@@ -26,12 +30,32 @@ module Keystone
         !@hint.nil?
       end
 
+      def info?
+        !@info.nil?
+      end
+
+      def info_button_classes
+        INFO_BUTTON_CLASSES
+      end
+
+      def disclosure_classes
+        DISCLOSURE_CLASSES
+      end
+
+      def info_icon
+        RadioCardComponent::INFO_ICON
+      end
+
       def row_classes
         ROW_CLASSES
       end
 
       def input_classes
         INPUT_CLASSES
+      end
+
+      def header_classes
+        HEADER_CLASSES
       end
 
       def label_classes

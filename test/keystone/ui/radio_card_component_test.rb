@@ -85,4 +85,16 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
   def test_hint_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::RadioCardComponent::HINT_CLASSES
   end
+
+  def test_info_panel_stays_hidden_until_asked
+    component = Keystone::Ui::RadioCardComponent.new(name: "kind", value: "anti", label: "Anti-guarantee", info: "No refunds")
+
+    assert_includes component.disclosure_classes.split, "hidden"
+  end
+
+  def test_info_panel_shows_while_the_info_button_is_hovered
+    component = Keystone::Ui::RadioCardComponent.new(name: "kind", value: "anti", label: "Anti-guarantee", info: "No refunds")
+
+    assert_equal [ true, true ], [ component.info_button_classes.split.include?("peer"), component.disclosure_classes.split.include?("peer-hover:block") ]
+  end
 end
