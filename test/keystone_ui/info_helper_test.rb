@@ -23,4 +23,12 @@ class KeystoneUi::InfoHelperTest < Minitest::Test
 
     assert_equal [ "Price minus cost of goods", "the working" ], [ view.rendered.summary, view.given ]
   end
+
+  def test_renders_a_breakdown_of_amounts_and_their_total
+    view = View.new
+
+    view.ui_breakdown(lines: [ { amount: "+$25.00", label: "Lawn mow" } ], total: { amount: "$25.00", label: "Total" })
+
+    assert_equal [ [ { amount: "+$25.00", label: "Lawn mow" } ], { amount: "$25.00", label: "Total" } ], [ view.rendered.lines, view.rendered.total ]
+  end
 end

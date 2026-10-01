@@ -233,6 +233,10 @@ module KeystoneUiHelper
     render(Keystone::Ui::InfoComponent.new(**args), &block)
   end
 
+  def ui_breakdown(**args)
+    render Keystone::Ui::BreakdownComponent.new(**args)
+  end
+
   private
 
   def keystone_theme_choice
