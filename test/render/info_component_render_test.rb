@@ -23,4 +23,10 @@ class Keystone::Ui::InfoComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Price $100.00, cost of goods $40.00", "click->stat-card-info#toggle", "panel", true ],
       [ panel&.text&.strip, page.at_css("button")["data-action"], panel&.[]("data-stat-card-info-target"), panel&.[]("class").to_s.split.include?("hidden") ]
   end
+
+  def test_an_info_given_only_a_summary_shows_it_when_tapped
+    page = render_inline(Keystone::Ui::InfoComponent.new(summary: "Price minus cost of goods"))
+
+    assert_equal [ "panel", nil ], [ page.at_css(".ks-info-summary")["data-stat-card-info-target"], page.at_css(".ks-info-detail") ]
+  end
 end
