@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.29.2] - 2026-10-01
+
+### Fixed
+
+- An info button's summary and detail open at a fixed spot on the screen under the button, so a table no longer cuts them off, and a click elsewhere or a scroll closes them.
+
 ## [0.29.1] - 2026-10-01
 
 ### Fixed
