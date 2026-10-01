@@ -9,4 +9,10 @@ class Keystone::Ui::FormFieldComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Nurse", "Teacher" ], list&.css("option")&.map { |option| option["value"] }
   end
+
+  def test_a_field_without_suggestions_links_to_no_list
+    page = render_inline(Keystone::Ui::FormFieldComponent.new(attribute: "answers[occupation]", label: "What do they do for work?"))
+
+    assert_equal [ nil, nil ], [ page.at_css("input")["list"], page.at_css("datalist") ]
+  end
 end
