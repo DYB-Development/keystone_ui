@@ -28,4 +28,10 @@ class Keystone::Ui::RadioCardComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Anti-guarantee", "About Anti-guarantee" ],
       [ page.at_css(".ks-radio-card-header .ks-radio-card-label")&.text, page.at_css(".ks-radio-card-header button")&.[]("aria-label") ]
   end
+
+  def test_a_card_without_info_offers_no_info_button
+    page = render_inline(Keystone::Ui::RadioCardComponent.new(name: "kind", value: "anti", label: "Anti-guarantee"))
+
+    assert_nil page.at_css("button.ks-radio-card-info")
+  end
 end
