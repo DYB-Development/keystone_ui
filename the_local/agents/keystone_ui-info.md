@@ -83,10 +83,11 @@ holds the catalog.
   "<label> this? This cannot be undone." unless it is given its own question,
   and other actions ask nothing unless given one. A data table puts each row's actions in one action menu at the end of the row,
   and a section can carry an action menu in its header beside its title.
-- **Info panels.** A stat card and a radio card can each carry extra text about
-  themselves. Given that text, the card shows an info button, and the text
-  stays hidden until the button is hovered or tapped. A card given no such
-  text shows no button. A radio card's button sits on the row with its label.
+- **Info panels.** A stat card, a radio card and a checkbox row can each carry
+  extra text about themselves. Given that text, the piece shows an info button,
+  and the text stays hidden until the button is hovered or tapped. A piece
+  given no such text shows no button. On a radio card and a checkbox row the
+  button sits on the line with the label.
 - **Options are symbols, and each component accepts its own set.** Appearance is
   chosen by name — `variant:`, `size:`, `type:`, `padding:`, `spacing:`,
   `max_width:`, `radius:` — on a size scale (`:sm` … `:xl`) or a short list of
