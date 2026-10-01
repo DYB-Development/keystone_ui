@@ -59,3 +59,12 @@ test("tapping a button that holds only a summary shows the summary", () => {
 
   assert.deepEqual([summary.classList.contains("hidden"), summary.style.position], [false, "fixed"])
 })
+
+test("a click anywhere else closes the detail", () => {
+  const { controller, panel } = infoAt({ bottom: 300, right: 900 })
+  controller.toggle({ stopPropagation() {} })
+
+  controller.hide({ target: {} })
+
+  assert.equal(panel.classList.contains("hidden"), true)
+})
