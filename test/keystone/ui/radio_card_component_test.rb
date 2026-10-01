@@ -91,4 +91,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_includes component.disclosure_classes.split, "hidden"
   end
+
+  def test_info_panel_shows_while_the_info_button_is_hovered
+    component = Keystone::Ui::RadioCardComponent.new(name: "kind", value: "anti", label: "Anti-guarantee", info: "No refunds")
+
+    assert_equal [ true, true ], [ component.info_button_classes.split.include?("peer"), component.disclosure_classes.split.include?("peer-hover:block") ]
+  end
 end

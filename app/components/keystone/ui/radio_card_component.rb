@@ -7,8 +7,8 @@ module Keystone
       HIGHLIGHT_CLASSES = "ks-radio-card-highlight"
       LABEL_CLASSES = "ks-radio-card-label block"
       HINT_CLASSES = "ks-radio-card-hint block text-sm"
-      INFO_BUTTON_CLASSES = "ks-radio-card-info"
-      DISCLOSURE_CLASSES = "ks-radio-card-disclosure hidden"
+      INFO_BUTTON_CLASSES = "ks-radio-card-info peer shrink-0"
+      DISCLOSURE_CLASSES = "ks-radio-card-disclosure hidden peer-hover:block absolute inset-x-0 top-full z-10 text-sm"
       INFO_ICON = Keystone::Ui::StatCardComponent::INFO_ICON
 
       attr_reader :name, :value, :label, :hint, :info
