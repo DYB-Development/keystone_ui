@@ -20,4 +20,4 @@ pin "keystone_ui/page_theme", to: "keystone_ui/page_theme.js"
 
 # Chart.js for the line-chart controller, so host apps don't pin it themselves.
 # Vendored as a single self-contained bundle (deps inlined, no external imports).
-pin "chart.js", to: "keystone_ui/chartjs.js"
+pin "chart.js", to: "keystone_ui/chartjs.js", preload: false

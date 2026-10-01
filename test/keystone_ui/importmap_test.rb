@@ -21,6 +21,12 @@ class KeystoneUi::ImportmapTest < Minitest::Test
     assert_includes pins, 'pin "chart.js"'
   end
 
+  def test_chart_js_is_not_fetched_by_pages_that_have_no_chart
+    pins = File.read(File.join(ROOT, "config/importmap.rb"))
+
+    assert_match(/^pin "chart\.js",.*preload: false/, pins)
+  end
+
   def test_the_page_theme_module_is_pinned
     pins = File.read(File.join(ROOT, "config/importmap.rb"))
 
