@@ -14,7 +14,8 @@ Keystone UI is a Rails engine gem that supplies a host app's visual layer as a
 library of view helpers built on ViewComponent. Screens are built from named
 pieces — page shells, sections, panels, grids, form fields, data tables,
 navigation bars, breadcrumbs, cards, stat tiles, charts, funnels, goal buckets, pipelines,
-banners, the calculation behind a figure — instead of hand-written ERB and
+banners, the calculation behind a figure, a breakdown of amounts and their
+total, an info button — instead of hand-written ERB and
 Tailwind. Every class the UI renders lives inside the gem, in frozen constants,
 so the look is defined in one place.
 
@@ -88,6 +89,17 @@ holds the catalog.
   and the text stays hidden until the button is hovered or tapped. A piece
   given no such text shows no button. On a radio card and a checkbox row the
   button sits on the line with the label.
+- **Standalone info button.** The same info button can be placed on its own,
+  beside anything. It takes a short summary, which is required, and shows it
+  when the button is hovered. Given nothing more, a tap shows the summary too.
+  Given a block of further detail, a tap opens that detail instead, in a panel
+  under the button, and the summary stays the hover text.
+- **A breakdown is text.** A breakdown lists amounts, each beside a label
+  saying what it is, and ends with a total set apart from the lines above it.
+  Every line and the total are an amount and a label, passed as
+  already-formatted text and shown as written. The component adds nothing up,
+  so the total is whatever it is given. It has no button and no hidden state of
+  its own, and it can be placed inside an info button's detail.
 - **Suggestions.** A form field can carry a list of suggested values. The
   browser offers them while the field's text is typed, and the user can still
   enter a value that is not on the list. This applies to a field with a typed

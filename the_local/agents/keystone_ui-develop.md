@@ -269,6 +269,23 @@ outer element. See Conventions before using it.
   — with the result right-aligned. Every value is printed as given, so format
   numbers and currency before passing them. Place it directly under the figure
   it explains, such as a `ui_stat_card`.
+- `ui_info(summary:)` — an info button, named "More about this" for screen
+  readers, placed inline beside the thing it explains. `summary:` is a short
+  line of text shown in a floating panel while the button is hovered. The block
+  is optional and holds the full detail. With a block, tapping or clicking the
+  button toggles a second floating panel holding the block's content, and the
+  summary stays hover-only. With no block, tapping the button toggles the
+  summary itself. Both panels render inside a `<span>`, so the block may hold
+  text and inline elements only, such as a `ui_breakdown`, and never a `<div>`,
+  list or table. Toggling needs the gem's Stimulus controllers registered.
+- `ui_breakdown(lines:, total:)` — no block. A list of amounts ending in their
+  total. `lines:` is `[{ amount:, label: }, ...]` and `total:` is one
+  `{ amount:, label: }`, both required. Each line renders its amount
+  right-aligned in a fixed-width column with its label beside it, and the total
+  renders last, emphasized. Every value is printed as given and nothing is
+  added up, so compute the total and format numbers and currency before
+  passing them. It renders inline elements only, so it can sit inside a
+  `ui_info` block.
 - `ui_accordion(items: [])` — a stack of independently expandable rows. `items:`
   is `[{ question:, answer: }, ...]`.
 - `ui_tab_switcher(tabs:)` — takes a block. `tabs:` is an array of label strings;
@@ -397,6 +414,11 @@ outer element. See Conventions before using it.
    To show the arithmetic behind a figure, put `ui_calculation` under it rather
    than a hand-built list. Which lines and groups to show is the app's own
    calculation, so ask the developer which steps a reader needs to see.
+   To explain a figure or label that is not a stat card, put `ui_info` beside
+   it, with the one-line explanation as `summary:` and, when the figure is a
+   sum of parts, a `ui_breakdown` in its block. Which amounts the breakdown
+   lists, and the wording of the summary, are the app's own, so ask the
+   developer rather than pick.
    A field whose value must be one of a fixed list is a `:select` with
    `options:`, and a field that accepts any text and offers common values is a
    text field with `suggestions:`. Which one a field is, and which values it
