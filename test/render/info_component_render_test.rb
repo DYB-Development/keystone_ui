@@ -13,20 +13,21 @@ class Keystone::Ui::InfoComponentRenderTest < ViewComponent::TestCase
     page = render_inline(Keystone::Ui::InfoComponent.new(summary: "Price minus cost of goods"))
     tip = page.at_css(".ks-info-summary")
 
-    assert_equal [ "Price minus cost of goods", true, true ], [ tip&.text&.strip, tip&.[]("class").to_s.split.include?("hidden"), tip&.[]("class").to_s.split.include?("peer-hover:block") ]
+    assert_equal [ "Price minus cost of goods", true, "summary", "mouseenter->info#peek mouseleave->info#unpeek click->info#toggle" ],
+      [ tip&.text&.strip, tip&.[]("class").to_s.split.include?("hidden"), tip&.[]("data-info-target"), page.at_css("button")["data-action"] ]
   end
 
   def test_clicking_the_button_opens_what_it_is_given_in_full
     page = render_inline(Keystone::Ui::InfoComponent.new(summary: "Price minus cost of goods")) { "Price $100.00, cost of goods $40.00" }
     panel = page.at_css(".ks-info-detail")
 
-    assert_equal [ "Price $100.00, cost of goods $40.00", "click->stat-card-info#toggle", "panel", true ],
-      [ panel&.text&.strip, page.at_css("button")["data-action"], panel&.[]("data-stat-card-info-target"), panel&.[]("class").to_s.split.include?("hidden") ]
+    assert_equal [ "Price $100.00, cost of goods $40.00", "detail", true ],
+      [ panel&.text&.strip, panel&.[]("data-info-target"), panel&.[]("class").to_s.split.include?("hidden") ]
   end
 
-  def test_an_info_given_only_a_summary_shows_it_when_tapped
+  def test_an_info_closes_its_popups_on_a_click_elsewhere_or_a_scroll
     page = render_inline(Keystone::Ui::InfoComponent.new(summary: "Price minus cost of goods"))
 
-    assert_equal [ "panel", nil ], [ page.at_css(".ks-info-summary")["data-stat-card-info-target"], page.at_css(".ks-info-detail") ]
+    assert_equal [ "info", "click@window->info#hide scroll@window->info#close" ], [ page.at_css("[data-controller]")["data-controller"], page.at_css("[data-controller]")["data-action"] ]
   end
 end
