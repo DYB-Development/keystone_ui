@@ -1,0 +1,8 @@
+<span class="block">
+  <% lines.each do |line| %>
+    <span class="<%= Keystone::Ui::BreakdownComponent::LINE_CLASSES %>">
+      <span class="<%= Keystone::Ui::BreakdownComponent::AMOUNT_CLASSES %>"><%= line[:amount] %></span>
+      <span class="<%= Keystone::Ui::BreakdownComponent::LABEL_CLASSES %>"><%= line[:label] %></span>
+    </span>
+  <% end %>
+</span>
