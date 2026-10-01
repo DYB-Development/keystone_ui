@@ -30,11 +30,10 @@ export default class extends Controller {
 
   place(shown) {
     const button = this.buttonTarget.getBoundingClientRect()
+    Object.assign(shown.style, { position: "fixed", right: "auto" })
     Object.assign(shown.style, {
-      position: "fixed",
       top: `${button.bottom}px`,
-      left: `${Math.max(8, button.right - shown.offsetWidth)}px`,
-      right: "auto"
+      left: `${Math.max(8, button.right - shown.offsetWidth)}px`
     })
   }
 }

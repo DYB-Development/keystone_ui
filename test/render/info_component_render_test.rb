@@ -30,4 +30,10 @@ class Keystone::Ui::InfoComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "info", "click@window->info#hide scroll@window->info#close" ], [ page.at_css("[data-controller]")["data-controller"], page.at_css("[data-controller]")["data-action"] ]
   end
+
+  def test_an_infos_popups_wrap_their_text_and_fit_the_screen
+    page = render_inline(Keystone::Ui::InfoComponent.new(summary: "Price minus cost of goods")) { "the working" }
+
+    assert_equal [ true, true ], [ page.at_css(".ks-info-summary")["class"].split.include?("ks-info-popup"), page.at_css(".ks-info-detail")["class"].split.include?("ks-info-popup") ]
+  end
 end

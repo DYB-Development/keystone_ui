@@ -5,8 +5,8 @@ module Keystone
     class InfoComponent < ViewComponent::Base
       BUTTON_CLASSES = RadioCardComponent::INFO_BUTTON_CLASSES
       ICON = RadioCardComponent::INFO_ICON
-      SUMMARY_CLASSES = "ks-info-summary ks-radio-card-disclosure hidden z-30 w-64 text-sm"
-      DETAIL_CLASSES = "ks-info-detail ks-radio-card-disclosure hidden z-30 w-72 text-sm"
+      SUMMARY_CLASSES = "ks-info-summary ks-info-popup ks-radio-card-disclosure hidden z-30 w-64 text-sm"
+      DETAIL_CLASSES = "ks-info-detail ks-info-popup ks-radio-card-disclosure hidden z-30 w-80 text-sm"
 
       def initialize(summary:)
         @summary = summary

@@ -278,8 +278,11 @@ outer element. See Conventions before using it.
   summary itself. A second tap closes what the first opened, a click anywhere
   else on the page closes the detail panel, and scrolling the page closes both
   panels. Each panel opens just under the button with its right edge on the
-  button's right edge, and stays at least 8 pixels from the left edge of the
-  screen. The panels are placed against the screen, so the button can sit
+  button's right edge, the first time it opens as well as every later time,
+  and stays at least 8 pixels from the left edge of the screen. The detail
+  panel is wider than the summary panel, and the text in both wraps, so pass
+  plain sentences and add no line breaks or widths of your own. The panels are
+  placed against the screen, so the button can sit
   inside a table or any other container that clips its contents without the
   panels being cut off. Both panels render inside a `<span>`, so the block may
   hold text and inline elements only, such as a `ui_breakdown`, and never a
@@ -287,12 +290,14 @@ outer element. See Conventions before using it.
   controllers registered, and without them the button shows nothing.
 - `ui_breakdown(lines:, total:)` — no block. A list of amounts ending in their
   total. `lines:` is `[{ amount:, label: }, ...]` and `total:` is one
-  `{ amount:, label: }`, both required. Each line renders its amount
-  right-aligned in a fixed-width column with its label beside it, and the total
-  renders last, emphasized. Every value is printed as given and nothing is
-  added up, so compute the total and format numbers and currency before
-  passing them. It renders inline elements only, so it can sit inside a
-  `ui_info` block.
+  `{ amount:, label: }`, both required. Each line renders its amount with its
+  label beside it, and the total renders last, set apart from the lines above
+  it. Every value is printed as given and nothing is added up, so compute the
+  total and format numbers and currency before passing them. How the amounts
+  and labels line up, and how the total is set apart, come from the
+  `ks-breakdown` classes in the keystone_ui-styles gem, and the helper sets no
+  widths or spacing of its own. It renders inline elements only, so it can sit
+  inside a `ui_info` block.
 - `ui_accordion(items: [])` — a stack of independently expandable rows. `items:`
   is `[{ question:, answer: }, ...]`.
 - `ui_tab_switcher(tabs:)` — takes a block. `tabs:` is an array of label strings;
@@ -427,7 +432,10 @@ outer element. See Conventions before using it.
    lists, and the wording of the summary, are the app's own, so ask the
    developer rather than pick. If an info button shows nothing when hovered or
    tapped, the gem's Stimulus controllers are not registered, so stop and hand
-   that part to `keystone_ui-install`.
+   that part to `keystone_ui-install`. If a breakdown renders as one run of
+   text with no columns and no separate total, the app's keystone_ui-styles
+   version does not define the `ks-breakdown` classes, so stop and hand that
+   part to `keystone_ui-install` as well, and add no classes to fix it.
    A field whose value must be one of a fixed list is a `:select` with
    `options:`, and a field that accepts any text and offers common values is a
    text field with `suggestions:`. Which one a field is, and which values it

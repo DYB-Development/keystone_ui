@@ -17,4 +17,10 @@ class Keystone::Ui::BreakdownComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "$22.00", "Total" ], [ page.at_css(".ks-breakdown-total .ks-breakdown-amount")&.text&.strip, page.at_css(".ks-breakdown-total .ks-breakdown-label")&.text&.strip ]
   end
+
+  def test_a_breakdown_sets_its_lines_out_as_an_equation
+    page = render_inline(Keystone::Ui::BreakdownComponent.new(lines: lines, total: { amount: "$22.00", label: "Total" }))
+
+    assert_equal [ true, 2, nil ], [ page.at_css(".ks-breakdown").present?, page.css(".ks-breakdown-total .ks-breakdown-sum").size, page.to_html[/&nbsp;| /] ]
+  end
 end

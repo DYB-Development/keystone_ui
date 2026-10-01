@@ -3,10 +3,12 @@
 module Keystone
   module Ui
     class BreakdownComponent < ViewComponent::Base
-      LINE_CLASSES = "ks-breakdown-line block"
-      AMOUNT_CLASSES = "ks-breakdown-amount inline-block w-24 text-right tabular-nums"
+      LINE_CLASSES = "ks-breakdown-line"
+      AMOUNT_CLASSES = "ks-breakdown-amount"
       LABEL_CLASSES = "ks-breakdown-label"
-      TOTAL_CLASSES = "ks-breakdown-total ks-stat-card-emphasis block"
+      BREAKDOWN_CLASSES = "ks-breakdown"
+      TOTAL_CLASSES = "ks-breakdown-total"
+      SUM_CLASSES = "ks-breakdown-sum"
 
       attr_reader :lines, :total
 

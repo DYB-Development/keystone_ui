@@ -96,15 +96,22 @@ holds the catalog.
   under the button, and the summary stays the hover text. Both popups are
   placed against the screen, not against the element the button sits in, so a
   table or any other container that clips its contents does not cut them off.
-  Each opens under the button with its right edge on the button's, and is kept
-  on the screen when the button is near the left edge. A second tap closes
+  Each opens under the button with its right edge on the button's, the first
+  time as well as every later time, and is kept on the screen when the button
+  is near the left edge. The detail panel is wider than the summary. Both carry
+  one shared popup class from keystone_ui-styles, which decides how their text
+  wraps and how they fit a narrow screen. A second tap closes
   what the first opened, a click anywhere else closes the detail, and
   scrolling the page closes both.
 - **A breakdown is text.** A breakdown lists amounts, each beside a label
   saying what it is, and ends with a total set apart from the lines above it.
   Every line and the total are an amount and a label, passed as
   already-formatted text and shown as written. The component adds nothing up,
-  so the total is whatever it is given. It has no button and no hidden state of
+  so the total is whatever it is given. Its whole layout comes from
+  keystone_ui-styles' `ks-breakdown` classes: how the amounts and labels line
+  up, and how the total is set apart. The component sets no widths or spacing
+  of its own, so a breakdown looks right only with a keystone_ui-styles version
+  that defines those classes. It has no button and no hidden state of
   its own, and it can be placed inside an info button's detail.
 - **Suggestions.** A form field can carry a list of suggested values. The
   browser offers them while the field's text is typed, and the user can still
