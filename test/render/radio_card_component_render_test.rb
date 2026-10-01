@@ -21,4 +21,11 @@ class Keystone::Ui::RadioCardComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "stat-card-info", "click->stat-card-info#toggle", "panel" ],
       [ page.at_css("label")["data-controller"], page.at_css("button.ks-radio-card-info")["data-action"], page.at_css(".ks-radio-card-disclosure")["data-stat-card-info-target"] ]
   end
+
+  def test_the_info_button_shares_a_row_with_the_label
+    page = render_inline(Keystone::Ui::RadioCardComponent.new(name: "kind", value: "anti", label: "Anti-guarantee", info: "No refunds"))
+
+    assert_equal [ "Anti-guarantee", "About Anti-guarantee" ],
+      [ page.at_css(".ks-radio-card-header .ks-radio-card-label")&.text, page.at_css(".ks-radio-card-header button")&.[]("aria-label") ]
+  end
 end

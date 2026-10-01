@@ -5,6 +5,7 @@ module Keystone
     class RadioCardComponent < ViewComponent::Base
       BASE_CLASSES = "ks-radio-card inline-flex flex-col cursor-pointer transition"
       HIGHLIGHT_CLASSES = "ks-radio-card-highlight"
+      HEADER_CLASSES = "ks-radio-card-header flex items-start justify-between"
       LABEL_CLASSES = "ks-radio-card-label block"
       HINT_CLASSES = "ks-radio-card-hint block text-sm"
       INFO_BUTTON_CLASSES = "ks-radio-card-info peer shrink-0"
@@ -48,6 +49,10 @@ module Keystone
 
       def classes
         "#{BASE_CLASSES} #{HIGHLIGHT_CLASSES}"
+      end
+
+      def header_classes
+        HEADER_CLASSES
       end
 
       def label_classes
