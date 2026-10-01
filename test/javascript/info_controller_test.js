@@ -51,3 +51,11 @@ test("clicking the button opens its detail on the screen just under it", () => {
 
   assert.deepEqual([panel.classList.contains("hidden"), panel.style.position, panel.style.top, panel.style.left], [false, "fixed", "300px", "612px"])
 })
+
+test("tapping a button that holds only a summary shows the summary", () => {
+  const { controller, summary } = infoAt({ bottom: 300, right: 900 }, { detail: false })
+
+  controller.toggle({ stopPropagation() {} })
+
+  assert.deepEqual([summary.classList.contains("hidden"), summary.style.position], [false, "fixed"])
+})

@@ -14,8 +14,9 @@ export default class extends Controller {
 
   toggle(event) {
     event.stopPropagation()
-    this.detailTarget.classList.toggle("hidden")
-    if (!this.detailTarget.classList.contains("hidden")) this.place(this.detailTarget)
+    const shown = this.hasDetailTarget ? this.detailTarget : this.summaryTarget
+    shown.classList.toggle("hidden")
+    if (!shown.classList.contains("hidden")) this.place(shown)
   }
 
   place(shown) {
