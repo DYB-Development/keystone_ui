@@ -128,6 +128,37 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
     assert_equal false, component.empty?
   end
 
+  def test_reads_its_items_once_to_tell_whether_it_is_empty_and_build_its_rows
+    items = CountingItems.new(hash_items)
+    component = klass.new(items: items, columns: columns)
+
+    component.empty?
+    component.row_cells
+
+    assert_equal 1, items.reads
+  end
+
+  class CountingItems
+    include Enumerable
+
+    attr_reader :reads
+
+    def initialize(items)
+      @items = items
+      @reads = 0
+    end
+
+    def each(&block)
+      @reads += 1
+      @items.each(&block)
+    end
+
+    def empty?
+      @reads += 1
+      @items.empty?
+    end
+  end
+
   # ---- column_count
 
   def test_column_count_returns_the_number_of_columns
