@@ -76,3 +76,13 @@ test("a popup near the left edge of the screen stays on the screen", () => {
 
   assert.equal(summary.style.left, "8px")
 })
+
+test("scrolling the page closes its popups, which would otherwise float in place", () => {
+  const { controller, summary, panel } = infoAt({ bottom: 300, right: 900 })
+  controller.peek()
+  controller.toggle({ stopPropagation() {} })
+
+  controller.close()
+
+  assert.deepEqual([summary.classList.contains("hidden"), panel.classList.contains("hidden")], [true, true])
+})
