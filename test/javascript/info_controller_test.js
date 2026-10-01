@@ -86,3 +86,12 @@ test("scrolling the page closes its popups, which would otherwise float in place
 
   assert.deepEqual([summary.classList.contains("hidden"), panel.classList.contains("hidden")], [true, true])
 })
+
+test("the first time a popup opens it is measured where it will show, not where it sat in the page", () => {
+  const { controller, summary } = infoAt({ bottom: 300, right: 900 })
+  Object.defineProperty(summary, "offsetWidth", { get: () => (summary.style.position === "fixed" ? 256 : 1200) })
+
+  controller.peek()
+
+  assert.equal(summary.style.left, "644px")
+})
