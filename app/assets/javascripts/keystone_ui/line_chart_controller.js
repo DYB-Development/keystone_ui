@@ -1,13 +1,19 @@
 import { Controller } from "@hotwired/stimulus"
-import { Chart, registerables } from "chart.js"
 
-Chart.register(...registerables)
+const loadChart = async () => {
+  const { Chart, registerables } = await import("chart.js")
+  Chart.register(...registerables)
+  return Chart
+}
 
 export default class extends Controller {
   static targets = ["canvas"]
   static values = { data: Object }
 
-  connect() {
+  async connect() {
+    const Chart = await loadChart()
+    if (!this.element.isConnected) return
+
     this.chart = new Chart(this.canvasTarget, {
       type: "line",
       data: this.resolveColors(this.dataValue),
