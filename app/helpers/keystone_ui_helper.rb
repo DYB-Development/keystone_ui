@@ -229,6 +229,10 @@ module KeystoneUiHelper
     render Keystone::Ui::CalculationComponent.new(**args)
   end
 
+  def ui_info(**args, &block)
+    render(Keystone::Ui::InfoComponent.new(**args), &block)
+  end
+
   private
 
   def keystone_theme_choice
