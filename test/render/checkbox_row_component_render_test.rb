@@ -22,4 +22,11 @@ class Keystone::Ui::CheckboxRowComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "stat-card-info", "click->stat-card-info#toggle", "panel" ],
       [ page.at_css("label")["data-controller"], page.at_css("button.ks-radio-card-info")["data-action"], page.at_css(".ks-radio-card-disclosure")["data-stat-card-info-target"] ]
   end
+
+  def test_a_rows_info_button_shares_a_line_with_its_label
+    page = render_inline(Keystone::Ui::CheckboxRowComponent.new(name: "conditions[]", value: "proof", label: "Shows proof", info: "They send photos of the work"))
+
+    assert_equal [ "Shows proof", "About Shows proof" ],
+      [ page.at_css(".ks-radio-card-header .ks-checkbox-row-label")&.text, page.at_css(".ks-radio-card-header button")&.[]("aria-label") ]
+  end
 end

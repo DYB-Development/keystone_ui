@@ -7,6 +7,7 @@ module Keystone
       INPUT_CLASSES = "ks-checkbox-row-input size-4 shrink-0"
       LABEL_CLASSES = "ks-checkbox-row-label block text-sm"
       HINT_CLASSES = "ks-checkbox-row-hint block text-sm"
+      HEADER_CLASSES = RadioCardComponent::HEADER_CLASSES
       INFO_BUTTON_CLASSES = RadioCardComponent::INFO_BUTTON_CLASSES
       DISCLOSURE_CLASSES = RadioCardComponent::DISCLOSURE_CLASSES
 
@@ -51,6 +52,10 @@ module Keystone
 
       def input_classes
         INPUT_CLASSES
+      end
+
+      def header_classes
+        HEADER_CLASSES
       end
 
       def label_classes

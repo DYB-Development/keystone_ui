@@ -1,11 +1,13 @@
 <label class="<%= row_classes %> relative"<%= ' data-controller="stat-card-info"'.html_safe if info? %>>
   <input type="checkbox" name="<%= name %>" value="<%= value %>" <%= "checked" if checked? %> class="<%= input_classes %>">
   <span>
-    <span class="<%= label_classes %>"><%= label %></span>
-    <% if info? %>
-      <button type="button" class="<%= info_button_classes %>" data-action="click->stat-card-info#toggle" aria-label="About <%= label %>"><%= info_icon.html_safe %></button>
-      <span class="<%= disclosure_classes %>" data-stat-card-info-target="panel"><%= info %></span>
-    <% end %>
+    <span class="<%= header_classes %>">
+      <span class="<%= label_classes %>"><%= label %></span>
+      <% if info? %>
+        <button type="button" class="<%= info_button_classes %>" data-action="click->stat-card-info#toggle" aria-label="About <%= label %>"><%= info_icon.html_safe %></button>
+        <span class="<%= disclosure_classes %>" data-stat-card-info-target="panel"><%= info %></span>
+      <% end %>
+    </span>
     <% if hint? %>
       <span class="<%= hint_classes %>"><%= hint %></span>
     <% end %>
