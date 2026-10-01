@@ -6,8 +6,9 @@ module Keystone
       LINE_CLASSES = "ks-breakdown-line flex gap-2"
       AMOUNT_CLASSES = "ks-breakdown-amount w-24 shrink-0 text-right tabular-nums"
       LABEL_CLASSES = "ks-breakdown-label"
+      TOTAL_CLASSES = "ks-breakdown-total ks-stat-card-emphasis flex gap-2 border-t"
 
-      attr_reader :lines
+      attr_reader :lines, :total
 
       def initialize(lines:, total:)
         @lines = lines

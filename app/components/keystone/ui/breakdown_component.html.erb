@@ -5,4 +5,8 @@
       <span class="<%= Keystone::Ui::BreakdownComponent::LABEL_CLASSES %>"><%= line[:label] %></span>
     </span>
   <% end %>
+  <span class="<%= Keystone::Ui::BreakdownComponent::TOTAL_CLASSES %>">
+    <span class="<%= Keystone::Ui::BreakdownComponent::AMOUNT_CLASSES %>"><%= total[:amount] %></span>
+    <span class="<%= Keystone::Ui::BreakdownComponent::LABEL_CLASSES %>"><%= total[:label] %></span>
+  </span>
 </span>
