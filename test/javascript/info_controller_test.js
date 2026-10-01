@@ -34,3 +34,12 @@ test("hovering the button shows its summary on the screen just under it, lined u
 
   assert.deepEqual([summary.classList.contains("hidden"), summary.style.position, summary.style.top, summary.style.left], [false, "fixed", "300px", "644px"])
 })
+
+test("moving off the button hides its summary again", () => {
+  const { controller, summary } = infoAt({ bottom: 300, right: 900 })
+  controller.peek()
+
+  controller.unpeek()
+
+  assert.equal(summary.classList.contains("hidden"), true)
+})

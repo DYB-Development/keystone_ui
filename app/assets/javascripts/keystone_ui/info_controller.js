@@ -8,6 +8,10 @@ export default class extends Controller {
     this.place(this.summaryTarget)
   }
 
+  unpeek() {
+    this.summaryTarget.classList.add("hidden")
+  }
+
   place(shown) {
     const button = this.buttonTarget.getBoundingClientRect()
     Object.assign(shown.style, {
