@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.29.1] - 2026-10-01
+
 ### Fixed
 
 - A data table given a database query runs it once, instead of once to check whether it is empty and again to draw its rows.
