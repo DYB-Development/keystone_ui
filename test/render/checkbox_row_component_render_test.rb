@@ -29,4 +29,10 @@ class Keystone::Ui::CheckboxRowComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Shows proof", "About Shows proof" ],
       [ page.at_css(".ks-radio-card-header .ks-checkbox-row-label")&.text, page.at_css(".ks-radio-card-header button")&.[]("aria-label") ]
   end
+
+  def test_a_row_without_info_offers_no_info_button
+    page = render_inline(Keystone::Ui::CheckboxRowComponent.new(name: "conditions[]", value: "proof", label: "Shows proof"))
+
+    assert_nil page.at_css("button.ks-radio-card-info")
+  end
 end
