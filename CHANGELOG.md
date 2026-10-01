@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.29.4] - 2026-10-01
+
+### Fixed
+
+- An info button's popup opens just under the button the first time, instead of in the middle of the screen.
+- An info button's popups wrap their text inside a table and never grow wider than the screen.
+- A breakdown sets its lines out as an equation, with its total below a rule, through keystone_ui-styles 0.9.0, which keystone_ui now requires.
+
 ## [0.29.3] - 2026-10-01
 
 ### Fixed
