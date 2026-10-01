@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.28.0] - 2026-10-01
+
+### Added
+- `ui_form_field` takes `suggestions:`, offered while the field's text is typed through the browser's own suggestion list.
+
 ## [0.27.0] - 2026-09-30
 
 ### Added
