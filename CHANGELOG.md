@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.29.3] - 2026-10-01
+
+### Fixed
+
+- A page with no line chart no longer downloads the charting script, which now loads when a chart appears on the page.
+
 ## [0.29.2] - 2026-10-01
 
 ### Fixed
