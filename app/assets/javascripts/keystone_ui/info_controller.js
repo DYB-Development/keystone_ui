@@ -28,7 +28,7 @@ export default class extends Controller {
     Object.assign(shown.style, {
       position: "fixed",
       top: `${button.bottom}px`,
-      left: `${button.right - shown.offsetWidth}px`,
+      left: `${Math.max(8, button.right - shown.offsetWidth)}px`,
       right: "auto"
     })
   }

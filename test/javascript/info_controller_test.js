@@ -68,3 +68,11 @@ test("a click anywhere else closes the detail", () => {
 
   assert.equal(panel.classList.contains("hidden"), true)
 })
+
+test("a popup near the left edge of the screen stays on the screen", () => {
+  const { controller, summary } = infoAt({ bottom: 300, right: 40 })
+
+  controller.peek()
+
+  assert.equal(summary.style.left, "8px")
+})
