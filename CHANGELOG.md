@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.27.0] - 2026-09-30
+
+### Added
+- `ui_radio_card` and `ui_checkbox_row` take `info:`, shown in a panel behind an info button beside the label that opens on hover and toggles on tap.
+
+### Changed
+- keystone_ui requires keystone_ui-styles 0.8.0 or later, which styles the info button and panel.
+
 ## [0.26.0] - 2026-09-30
 
 ### Added
