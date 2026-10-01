@@ -83,6 +83,10 @@ holds the catalog.
   "<label> this? This cannot be undone." unless it is given its own question,
   and other actions ask nothing unless given one. A data table puts each row's actions in one action menu at the end of the row,
   and a section can carry an action menu in its header beside its title.
+- **Info panels.** A stat card and a radio card can each carry extra text about
+  themselves. Given that text, the card shows an info button, and the text
+  stays hidden until the button is hovered or tapped. A card given no such
+  text shows no button. A radio card's button sits on the row with its label.
 - **Options are symbols, and each component accepts its own set.** Appearance is
   chosen by name — `variant:`, `size:`, `type:`, `padding:`, `spacing:`,
   `max_width:`, `radius:` — on a size scale (`:sm` … `:xl`) or a short list of
@@ -141,7 +145,7 @@ holds the catalog.
   at boot where the component files are.
 - **Interactivity is Stimulus.** Dropdowns, modals, dismissible alerts, file
   uploads, the color picker, the multi-select, tab switchers, accordions, the
-  swipe deck, column pickers, stat card info panels, line charts, clipboard copy
+  swipe deck, column pickers, info panels, line charts, clipboard copy
   and the theme toggle ship with the gem as Stimulus controllers registered once
   at install. A host writes no JavaScript to use them. Components that post
   somewhere, such as the column picker and the pipeline, post to endpoints the
