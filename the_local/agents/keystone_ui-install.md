@@ -81,8 +81,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
 
    - `app/javascript/controllers/index.js not found` — ask the developer where
      the Stimulus application is set up and add those two lines there. Without
-     them, dropdowns, modals, file uploads, the column picker, the theme toggle
-     and the other interactive components do nothing.
+     them, dropdowns, modals, file uploads, the column picker, the theme toggle,
+     the info button's popups and the other interactive components do nothing.
      `registerControllers(application)` also copies `data-theme` and `data-look`
      from each page Turbo renders onto the `<html>` tag. Without it, a Turbo
      visit keeps the theme and look of the first page loaded.
@@ -153,8 +153,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
    checkbox row, radio card, option card, file upload and colour picker read
    these variables. So do the data display components: stat card, chart card,
    card link, CTA banner, feature grid, hero, data table, code, accordion,
-   disclosure, calculation, tab switcher, progress, funnel, bucket, pipeline and
-   swipe deck.
+   disclosure, calculation, info button, breakdown, tab switcher, progress,
+   funnel, bucket, pipeline and swipe deck.
    So do the navigation components: navbar, nav item, nav dropdown, bottom nav,
    mobile header and settings link. The desktop "Back" link and the breadcrumbs
    on form and show pages use the mobile header's back link variables. The
@@ -244,7 +244,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
   exists after a boot, the Stimulus setup calls `registerControllers(application)`,
   and the layout's `<html>` tag contains `<%= keystone_theme_attributes %>`. Then
   load one page that renders a `ui_*` helper and confirm it is styled and that an
-  interactive component (a dropdown, a dismissible alert) responds.
+  interactive component (a dropdown, a dismissible alert, an info button)
+  responds.
 - **Importmap is the supported JS path.** For apps configured with importmap the
   gem pins its own controllers, and the charting library they need, on boot, so
   the host pins nothing. If the app bundles JavaScript instead (esbuild, bun,

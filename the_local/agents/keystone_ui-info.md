@@ -93,7 +93,13 @@ holds the catalog.
   beside anything. It takes a short summary, which is required, and shows it
   when the button is hovered. Given nothing more, a tap shows the summary too.
   Given a block of further detail, a tap opens that detail instead, in a panel
-  under the button, and the summary stays the hover text.
+  under the button, and the summary stays the hover text. Both popups are
+  placed against the screen, not against the element the button sits in, so a
+  table or any other container that clips its contents does not cut them off.
+  Each opens under the button with its right edge on the button's, and is kept
+  on the screen when the button is near the left edge. A second tap closes
+  what the first opened, a click anywhere else closes the detail, and
+  scrolling the page closes both.
 - **A breakdown is text.** A breakdown lists amounts, each beside a label
   saying what it is, and ends with a total set apart from the lines above it.
   Every line and the total are an amount and a label, passed as

@@ -275,9 +275,16 @@ outer element. See Conventions before using it.
   is optional and holds the full detail. With a block, tapping or clicking the
   button toggles a second floating panel holding the block's content, and the
   summary stays hover-only. With no block, tapping the button toggles the
-  summary itself. Both panels render inside a `<span>`, so the block may hold
-  text and inline elements only, such as a `ui_breakdown`, and never a `<div>`,
-  list or table. Toggling needs the gem's Stimulus controllers registered.
+  summary itself. A second tap closes what the first opened, a click anywhere
+  else on the page closes the detail panel, and scrolling the page closes both
+  panels. Each panel opens just under the button with its right edge on the
+  button's right edge, and stays at least 8 pixels from the left edge of the
+  screen. The panels are placed against the screen, so the button can sit
+  inside a table or any other container that clips its contents without the
+  panels being cut off. Both panels render inside a `<span>`, so the block may
+  hold text and inline elements only, such as a `ui_breakdown`, and never a
+  `<div>`, list or table. Hovering and tapping both need the gem's Stimulus
+  controllers registered, and without them the button shows nothing.
 - `ui_breakdown(lines:, total:)` — no block. A list of amounts ending in their
   total. `lines:` is `[{ amount:, label: }, ...]` and `total:` is one
   `{ amount:, label: }`, both required. Each line renders its amount
@@ -418,7 +425,9 @@ outer element. See Conventions before using it.
    it, with the one-line explanation as `summary:` and, when the figure is a
    sum of parts, a `ui_breakdown` in its block. Which amounts the breakdown
    lists, and the wording of the summary, are the app's own, so ask the
-   developer rather than pick.
+   developer rather than pick. If an info button shows nothing when hovered or
+   tapped, the gem's Stimulus controllers are not registered, so stop and hand
+   that part to `keystone_ui-install`.
    A field whose value must be one of a fixed list is a `:select` with
    `options:`, and a field that accepts any text and offers common values is a
    text field with `suggestions:`. Which one a field is, and which values it
