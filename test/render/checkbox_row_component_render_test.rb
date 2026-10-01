@@ -8,4 +8,11 @@ class Keystone::Ui::CheckboxRowComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "About Shows proof", page.at_css("button.ks-radio-card-info")&.[]("aria-label")
   end
+
+  def test_a_row_given_info_holds_it_in_a_panel_hidden_until_hovered
+    page = render_inline(Keystone::Ui::CheckboxRowComponent.new(name: "conditions[]", value: "proof", label: "Shows proof", info: "They send photos of the work"))
+    panel = page.at_css(".ks-radio-card-disclosure")
+
+    assert_equal [ "They send photos of the work", true, true ], [ panel&.text&.strip, panel&.[]("class").to_s.split.include?("hidden"), panel&.[]("class").to_s.split.include?("peer-hover:block") ]
+  end
 end

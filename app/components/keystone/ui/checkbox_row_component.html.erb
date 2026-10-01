@@ -4,6 +4,7 @@
     <span class="<%= label_classes %>"><%= label %></span>
     <% if info? %>
       <button type="button" class="<%= info_button_classes %>" aria-label="About <%= label %>"><%= info_icon.html_safe %></button>
+      <span class="<%= disclosure_classes %>"><%= info %></span>
     <% end %>
     <% if hint? %>
       <span class="<%= hint_classes %>"><%= hint %></span>

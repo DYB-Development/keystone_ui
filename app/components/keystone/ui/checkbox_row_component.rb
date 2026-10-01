@@ -8,6 +8,7 @@ module Keystone
       LABEL_CLASSES = "ks-checkbox-row-label block text-sm"
       HINT_CLASSES = "ks-checkbox-row-hint block text-sm"
       INFO_BUTTON_CLASSES = RadioCardComponent::INFO_BUTTON_CLASSES
+      DISCLOSURE_CLASSES = RadioCardComponent::DISCLOSURE_CLASSES
 
       attr_reader :name, :value, :label, :hint, :info
 
@@ -34,6 +35,10 @@ module Keystone
 
       def info_button_classes
         INFO_BUTTON_CLASSES
+      end
+
+      def disclosure_classes
+        DISCLOSURE_CLASSES
       end
 
       def info_icon
