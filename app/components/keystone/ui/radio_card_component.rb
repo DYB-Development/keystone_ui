@@ -8,6 +8,7 @@ module Keystone
       LABEL_CLASSES = "ks-radio-card-label block"
       HINT_CLASSES = "ks-radio-card-hint block text-sm"
       INFO_BUTTON_CLASSES = "ks-radio-card-info"
+      DISCLOSURE_CLASSES = "ks-radio-card-disclosure"
       INFO_ICON = Keystone::Ui::StatCardComponent::INFO_ICON
 
       attr_reader :name, :value, :label, :hint, :info
@@ -39,6 +40,10 @@ module Keystone
 
       def info_icon
         INFO_ICON
+      end
+
+      def disclosure_classes
+        DISCLOSURE_CLASSES
       end
 
       def classes
