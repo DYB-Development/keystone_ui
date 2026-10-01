@@ -15,4 +15,12 @@ class Keystone::Ui::InfoComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Price minus cost of goods", true, true ], [ tip&.text&.strip, tip&.[]("class").to_s.split.include?("hidden"), tip&.[]("class").to_s.split.include?("peer-hover:block") ]
   end
+
+  def test_clicking_the_button_opens_what_it_is_given_in_full
+    page = render_inline(Keystone::Ui::InfoComponent.new(summary: "Price minus cost of goods")) { "Price $100.00, cost of goods $40.00" }
+    panel = page.at_css(".ks-info-detail")
+
+    assert_equal [ "Price $100.00, cost of goods $40.00", "click->stat-card-info#toggle", "panel", true ],
+      [ panel&.text&.strip, page.at_css("button")["data-action"], panel&.[]("data-stat-card-info-target"), panel&.[]("class").to_s.split.include?("hidden") ]
+  end
 end
