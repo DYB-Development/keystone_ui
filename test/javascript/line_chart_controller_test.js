@@ -42,3 +42,9 @@ test("hovering a point on a dated chart names its date", async () => {
 
   assert.equal(chartOptions(true).plugins.tooltip.callbacks.title([{ parsed: { x: 20614 } }]), "Jun 10, 2026")
 })
+
+test("a dated chart's axis runs from its first day to its last", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(chartOptions(true).scales.x.bounds, "data")
+})
