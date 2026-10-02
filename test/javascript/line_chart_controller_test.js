@@ -18,3 +18,9 @@ test("a chart with labels keeps the charting script's own axis", async () => {
 
   assert.equal(chartOptions(false).scales, undefined)
 })
+
+test("a dated chart spaces its points by the days between them", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(chartOptions(true).scales.x.type, "linear")
+})

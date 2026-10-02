@@ -11,10 +11,15 @@ const MILLISECONDS_IN_A_DAY = 86_400_000
 export const dayLabel = (day) =>
   new Date(day * MILLISECONDS_IN_A_DAY).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" })
 
+const DATED_OPTIONS = {
+  scales: { x: { type: "linear" } }
+}
+
 export const chartOptions = (dated) => ({
   responsive: true,
   maintainAspectRatio: false,
-  interaction: { mode: "index", intersect: false }
+  interaction: { mode: "index", intersect: false },
+  ...(dated ? DATED_OPTIONS : {})
 })
 
 export default class extends Controller {
