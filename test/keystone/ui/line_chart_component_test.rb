@@ -40,6 +40,12 @@ class Keystone::Ui::LineChartComponentTest < Minitest::Test
     assert_equal [ { x: 20_614, y: 100 }, { x: 20_642, y: 250 } ], component.chart_data[:datasets].first[:data]
   end
 
+  def test_a_chart_given_dates_carries_no_labels
+    component = Keystone::Ui::LineChartComponent.new(series: [], dates: [ Date.new(2026, 6, 10) ])
+
+    refute component.chart_data.key?(:labels)
+  end
+
   def test_chart_data_includes_labels
     component = Keystone::Ui::LineChartComponent.new(series: [], labels: %w[Mon Tue Wed])
 

@@ -23,7 +23,7 @@ module Keystone
       end
 
       def chart_data
-        { labels: @labels, datasets: @series.map { |s| dataset_for(s) } }
+        { labels: @labels, datasets: @series.map { |s| dataset_for(s) } }.compact
       end
 
       def chart_data_json
