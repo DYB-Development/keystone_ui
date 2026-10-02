@@ -16,6 +16,8 @@ module Keystone
       EPOCH = Date.new(1970, 1, 1)
 
       def initialize(series:, labels: nil, dates: nil, height: :md)
+        raise ArgumentError, "a line chart takes labels: or dates:" if labels.nil? && dates.nil?
+
         @series = series
         @labels = labels
         @dates = dates
