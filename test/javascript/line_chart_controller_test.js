@@ -36,3 +36,9 @@ test("a dated chart's axis marks whole days only", async () => {
 
   assert.equal(chartOptions(true).scales.x.ticks.precision, 0)
 })
+
+test("hovering a point on a dated chart names its date", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(chartOptions(true).plugins.tooltip.callbacks.title([{ parsed: { x: 20614 } }]), "Jun 10, 2026")
+})
