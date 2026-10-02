@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.29.5] - 2026-10-01
+
+### Fixed
+
+- An info button's popup opens just under the button on the first hover or click, because the button is now measured after the popup has left the page's layout rather than before.
+
 ## [0.29.4] - 2026-10-01
 
 ### Fixed
