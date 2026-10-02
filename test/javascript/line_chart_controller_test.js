@@ -24,3 +24,9 @@ test("a dated chart spaces its points by the days between them", async () => {
 
   assert.equal(chartOptions(true).scales.x.type, "linear")
 })
+
+test("a dated chart's axis reads each day as its date", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(chartOptions(true).scales.x.ticks.callback(20614), "Jun 10, 2026")
+})

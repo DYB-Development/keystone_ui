@@ -12,7 +12,7 @@ export const dayLabel = (day) =>
   new Date(day * MILLISECONDS_IN_A_DAY).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" })
 
 const DATED_OPTIONS = {
-  scales: { x: { type: "linear" } }
+  scales: { x: { type: "linear", ticks: { callback: dayLabel } } }
 }
 
 export const chartOptions = (dated) => ({
