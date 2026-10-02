@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "date"
 require "json"
 
 module Keystone
@@ -12,19 +13,27 @@ module Keystone
       }.freeze
 
       DASH_PATTERN = [ 6, 6 ].freeze
+      EPOCH = Date.new(1970, 1, 1)
 
-      def initialize(series:, labels:, height: :md)
+      def initialize(series:, labels: nil, dates: nil, height: :md)
+        raise ArgumentError, "a line chart takes labels: or dates:" unless labels.nil? ^ dates.nil?
+
         @series = series
         @labels = labels
+        @dates = dates
         @height = height
       end
 
       def chart_data
-        { labels: @labels, datasets: @series.map { |s| dataset_for(s) } }
+        { labels: @labels, datasets: @series.map { |s| dataset_for(s) } }.compact
       end
 
       def chart_data_json
         chart_data.to_json
+      end
+
+      def dated?
+        !@dates.nil?
       end
 
       def height_class
@@ -38,10 +47,16 @@ module Keystone
       private
 
       def dataset_for(series)
-        dataset = { label: series[:name], data: series[:data] }
+        dataset = { label: series[:name], data: points_for(series[:data]) }
         dataset[:borderColor] = series[:color] if series[:color]
         dataset[:borderDash] = DASH_PATTERN if series[:dashed]
         dataset
+      end
+
+      def points_for(values)
+        return values unless @dates
+
+        @dates.zip(values).map { |date, value| { x: (date.to_date - EPOCH).to_i, y: value } }
       end
     end
   end

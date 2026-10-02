@@ -98,6 +98,7 @@ sources:
   - app/components/keystone/ui/info_component.rb
   - app/components/keystone/ui/info_component.html.erb
   - app/assets/javascripts/keystone_ui/info_controller.js
+  - app/assets/javascripts/keystone_ui/line_chart_controller.js
   - app/components/keystone/ui/breakdown_component.rb
   - app/components/keystone/ui/breakdown_component.html.erb
   - app/components/keystone/ui/feature_grid_component.rb

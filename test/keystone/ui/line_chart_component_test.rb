@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "date"
 
 class Keystone::Ui::LineChartComponentTest < Minitest::Test
   def test_builds_datasets_from_series
@@ -28,6 +29,29 @@ class Keystone::Ui::LineChartComponentTest < Minitest::Test
     )
 
     assert_equal [ 6, 6 ], component.chart_data[:datasets].first[:borderDash]
+  end
+
+  def test_a_series_given_dates_places_each_value_at_its_day
+    component = Keystone::Ui::LineChartComponent.new(
+      series: [ { name: "Revenue", data: [ 100, 250 ] } ],
+      dates: [ Date.new(2026, 6, 10), Date.new(2026, 7, 8) ]
+    )
+
+    assert_equal [ { x: 20_614, y: 100 }, { x: 20_642, y: 250 } ], component.chart_data[:datasets].first[:data]
+  end
+
+  def test_a_chart_given_dates_carries_no_labels
+    component = Keystone::Ui::LineChartComponent.new(series: [], dates: [ Date.new(2026, 6, 10) ])
+
+    refute component.chart_data.key?(:labels)
+  end
+
+  def test_a_chart_given_neither_labels_nor_dates_is_refused
+    assert_raises(ArgumentError) { Keystone::Ui::LineChartComponent.new(series: []) }
+  end
+
+  def test_a_chart_given_both_labels_and_dates_is_refused
+    assert_raises(ArgumentError) { Keystone::Ui::LineChartComponent.new(series: [], labels: %w[Mon], dates: [ Date.new(2026, 6, 10) ]) }
   end
 
   def test_chart_data_includes_labels
