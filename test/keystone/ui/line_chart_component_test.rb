@@ -50,6 +50,10 @@ class Keystone::Ui::LineChartComponentTest < Minitest::Test
     assert_raises(ArgumentError) { Keystone::Ui::LineChartComponent.new(series: []) }
   end
 
+  def test_a_chart_given_both_labels_and_dates_is_refused
+    assert_raises(ArgumentError) { Keystone::Ui::LineChartComponent.new(series: [], labels: %w[Mon], dates: [ Date.new(2026, 6, 10) ]) }
+  end
+
   def test_chart_data_includes_labels
     component = Keystone::Ui::LineChartComponent.new(series: [], labels: %w[Mon Tue Wed])
 
