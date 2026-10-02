@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.30.0] - 2026-10-02
+
+### Added
+- `ui_line_chart(dates:)` takes dates in place of `labels:` and spaces its points by the days between them, on an axis that runs from the first day to the last and reads each day as a date.
+
+### Changed
+- `ui_line_chart` raises `ArgumentError` when it is given both `labels:` and `dates:`, or neither.
+
 ## [0.29.5] - 2026-10-01
 
 ### Fixed
