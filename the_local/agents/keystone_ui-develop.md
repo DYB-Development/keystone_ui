@@ -323,10 +323,20 @@ outer element. See Conventions before using it.
 
 - `ui_chart_card(title:, height: :md)` — takes a block holding a chart. `height:`
   `:sm` `:md` `:lg`.
-- `ui_line_chart(series:, labels:, height: :md)` — a line chart. `labels:` is the
-  x-axis labels; `series:` is `[{ name:, data:, color:, dashed: }, ...]` where
-  `color:` (a CSS color string for the line) and `dashed: true` are optional.
-  `height:` `:sm` `:md` `:lg`.
+- `ui_line_chart(series:, labels: nil, dates: nil, height: :md)` — a line chart
+  with one line per series. `series:` is
+  `[{ name:, data:, color:, dashed: }, ...]` where `data:` is the array of
+  values, and `color:` (a CSS color string for the line) and `dashed: true` are
+  optional. `height:` `:sm` `:md` `:lg`. Pass exactly one of `labels:` and
+  `dates:` for the horizontal axis: passing both, or neither, raises
+  `ArgumentError`. `labels:` is an array of strings, one per value, spaced
+  evenly and shown as written. `dates:` is an array of `Date`, `Time` or
+  `DateTime` values, one per value, matched to each series' `data:` by
+  position. A dated chart places each point by its day, so a gap of a week is
+  seven times as wide as a gap of a day. Its axis runs from the first day to
+  the last, marks only whole days, and reads each day as a date such as
+  "Oct 2, 2026", which is also the heading a hovered point shows. The time of
+  day is dropped, so pass one value per day.
 - `ui_funnel(steps:)` — a conversion funnel. `steps:` is
   `[{ label:, value:, color: }, ...]` in order, with `color:` optional. Bar
   widths are relative to the first step; the caption between two layers is the
@@ -443,6 +453,12 @@ outer element. See Conventions before using it.
    On a radio card or a checkbox row, text every reader needs to choose goes in `hint:` and
    text only some will want goes in `info:`. Which is which is the app's own
    wording, so ask the developer rather than pick.
+   For a line chart, pass `dates:` when each value belongs to a calendar day
+   and `labels:` when the horizontal axis is anything else, such as week names
+   or categories. With `dates:`, a day with no value leaves a wider gap between
+   its neighbours rather than a point at zero. Whether a missing day is left
+   out or passed as a zero is the app's own rule, so ask the developer rather
+   than pick. Never format dates into strings and pass them as `labels:`.
    Put the actions on a record, such as Edit and Delete, in an action menu
    rather than in a row of buttons: `menu:` on the `ui_section` that shows the
    record, `table.actions` for a table row, or `ui_action_menu` anywhere else.

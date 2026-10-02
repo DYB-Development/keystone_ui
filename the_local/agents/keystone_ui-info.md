@@ -129,6 +129,16 @@ holds the catalog.
 - **Figures are numbers.** Components that measure or compare values, such as
   progress bars, funnels and buckets, do arithmetic on them. Pass a number, not
   a formatted string such as `"9,000"`. A bucket raises on one.
+- **A line chart is labelled or dated.** A line chart draws one line per
+  series, and each series is a name and its values, with an optional colour
+  and an optional dashed line. Its horizontal axis is given one of two ways,
+  never both and never neither, and the wrong combination raises
+  `ArgumentError`. Labels are text, one per value, spaced evenly and shown as
+  written. Dates are one day per value, and a dated chart places each point by
+  its day, so a gap of a week is seven times as wide as a gap of a day. A dated
+  axis runs from the first day to the last, marks only whole days, and reads
+  each day as a date such as "Oct 2, 2026", which is also what a hovered point
+  shows. A time of day is dropped, so a dated chart has one position per day.
 - **A calculation is text.** The calculation behind a figure is the opposite
   case. It is a list of groups, each with an optional title and its lines, and
   each line is a label, the working and the result. They are passed as
