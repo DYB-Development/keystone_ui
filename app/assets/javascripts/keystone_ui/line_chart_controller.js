@@ -6,6 +6,11 @@ const loadChart = async () => {
   return Chart
 }
 
+const MILLISECONDS_IN_A_DAY = 86_400_000
+
+export const dayLabel = (day) =>
+  new Date(day * MILLISECONDS_IN_A_DAY).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" })
+
 export default class extends Controller {
   static targets = ["canvas"]
   static values = { data: Object }

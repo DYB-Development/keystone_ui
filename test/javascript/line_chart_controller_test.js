@@ -6,3 +6,9 @@ test("the chart controller loads without the charting script, so a page with no 
 
   assert.equal(typeof module.default, "function")
 })
+
+test("a day on a dated chart's axis reads as its date", async () => {
+  const { dayLabel } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(dayLabel(20614), "Jun 10, 2026")
+})
