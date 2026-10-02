@@ -12,3 +12,9 @@ test("a day on a dated chart's axis reads as its date", async () => {
 
   assert.equal(dayLabel(20614), "Jun 10, 2026")
 })
+
+test("a chart with labels keeps the charting script's own axis", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(chartOptions(false).scales, undefined)
+})
