@@ -30,6 +30,10 @@ module Keystone
         chart_data.to_json
       end
 
+      def dated?
+        !@dates.nil?
+      end
+
       def height_class
         HEIGHT_CLASSES.fetch(@height)
       end
