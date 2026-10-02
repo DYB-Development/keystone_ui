@@ -20,7 +20,7 @@ function infoAt(button, { detail = true } = {}) {
   const summary = element(256)
   const panel = detail ? element(288) : null
   const controller = new InfoController({ scope: { element: { contains: () => false } } })
-  Object.defineProperty(controller, "buttonTarget", { value: { getBoundingClientRect: () => button } })
+  Object.defineProperty(controller, "buttonTarget", { value: { getBoundingClientRect: () => button }, configurable: true })
   Object.defineProperty(controller, "summaryTarget", { value: summary })
   Object.defineProperty(controller, "hasDetailTarget", { value: detail })
   if (detail) Object.defineProperty(controller, "detailTarget", { value: panel })
@@ -94,4 +94,14 @@ test("the first time a popup opens it is measured where it will show, not where 
   controller.peek()
 
   assert.equal(summary.style.left, "644px")
+})
+
+test("the button is measured after its popup leaves the page's layout, so revealing the popup cannot move the button first", () => {
+  const { controller, summary } = infoAt({ bottom: 300, right: 900 })
+  const inLayout = () => !summary.classList.contains("hidden") && summary.style.position !== "fixed"
+  Object.defineProperty(controller, "buttonTarget", { value: { getBoundingClientRect: () => (inLayout() ? { bottom: 358, right: 644 } : { bottom: 300, right: 900 }) } })
+
+  controller.peek()
+
+  assert.deepEqual([summary.style.top, summary.style.left], ["300px", "644px"])
 })
