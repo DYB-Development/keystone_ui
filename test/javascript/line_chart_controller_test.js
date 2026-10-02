@@ -30,3 +30,9 @@ test("a dated chart's axis reads each day as its date", async () => {
 
   assert.equal(chartOptions(true).scales.x.ticks.callback(20614), "Jun 10, 2026")
 })
+
+test("a dated chart's axis marks whole days only", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(chartOptions(true).scales.x.ticks.precision, 0)
+})
