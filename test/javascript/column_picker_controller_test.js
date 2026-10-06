@@ -48,3 +48,14 @@ test("moving a column down sends the new order and the hidden columns in one req
 
   assert.deepEqual(bodies, [ { hidden_columns: [ "outreach" ], column_order: [ "outreach", "pipeline" ] } ])
 })
+
+test("ticking or unticking a column sends the hidden columns with the order the menu shows", () => {
+  const { controller } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: false }
+  ])
+
+  const bodies = sentBodies(() => controller.save())
+
+  assert.deepEqual(bodies, [ { hidden_columns: [ "pipeline" ], column_order: [ "outreach", "pipeline" ] } ])
+})
