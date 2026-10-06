@@ -24,6 +24,7 @@
         <button type="button"
                 data-action="click->column-picker#moveDown"
                 aria-label="Move down"
+                <%= "disabled" if index == hideable_columns.size - 1 %>
                 class="<%= MOVE_BUTTON_CLASSES %>">&darr;</button>
       </div>
     <% end %>
