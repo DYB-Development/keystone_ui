@@ -12,7 +12,9 @@
         <span class="<%= value_classes %>"><%= layer.value %></span>
         <span class="<%= label_classes %>"><%= layer.label %></span>
       </div>
-      <div></div>
+      <div class="<%= BLOCK_CLASSES %>">
+        <div class="<%= BLOCK_FILL_CLASSES %> <%= layer.color_classes %>" style="width: <%= layer.width_percent %>%"></div>
+      </div>
     <% end %>
   </div>
 <% else %>

@@ -17,4 +17,10 @@ class Keystone::Ui::FunnelComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "26%" ], page.css(".ks-funnel-band-label").map(&:text)
   end
+
+  def test_a_joined_funnel_draws_each_block_at_its_share_of_the_top_step
+    page = render_inline(Keystone::Ui::FunnelComponent.new(steps: steps, shape: :joined))
+
+    assert_equal "width: 26%", page.at_css(".ks-funnel-joined .ks-funnel-bar-sky")&.[]("style")
+  end
 end
