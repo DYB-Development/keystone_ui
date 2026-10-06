@@ -64,6 +64,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month" ], page.css("thead th").map { |header| header.text.strip }
   end
 
+  def test_given_no_key_does_not_ask_the_lookup_for_a_saved_value
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "hidden_columns" => [ "pipeline" ] } } } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_equal [ "Month", "Pipeline" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
   def test_puts_each_row_s_actions_in_an_action_menu
     page = render_in_view_context do
       ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ]) do |table|
