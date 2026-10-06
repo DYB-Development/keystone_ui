@@ -117,6 +117,66 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
 
 
+  def test_shape_defaults_to_bars
+    component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ])
+
+    assert_equal :bars, component.shape
+  end
+
+  def test_joined_shape_draws_one_joined_funnel
+    component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ], shape: :joined)
+
+    assert component.joined?
+  end
+
+  def test_an_unknown_shape_is_refused
+    assert_raises(ArgumentError) { Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ], shape: :pyramid) }
+  end
+
+  def test_lower_layer_knows_the_width_of_the_step_above
+    component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Contacts", value: 161 }, { label: "Conversations", value: 42 } ])
+
+    assert_equal 100, component.layers.last.previous_width_percent
+  end
+
+  def test_band_narrows_from_the_step_above_to_the_step_below
+    component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Contacts", value: 161 }, { label: "Conversations", value: 42 } ], shape: :joined)
+
+    assert_equal "polygon(0% 0, 100% 0, 63% 100%, 37% 100%)", component.band_clip_path(component.layers.last)
+  end
+
+  def test_joined_classes_render_the_ks_funnel_joined_class
+    assert_includes Keystone::Ui::FunnelComponent::JOINED_CLASSES, "ks-funnel-joined"
+  end
+
+  def test_band_classes_render_the_ks_funnel_band_class
+    assert_includes Keystone::Ui::FunnelComponent::BAND_CLASSES, "ks-funnel-band"
+  end
+
+  def test_band_label_classes_render_the_ks_funnel_band_label_class
+    assert_includes Keystone::Ui::FunnelComponent::BAND_LABEL_CLASSES, "ks-funnel-band-label"
+  end
+
+  def test_words_classes_stack_the_value_over_the_label
+    assert_includes Keystone::Ui::FunnelComponent::WORDS_CLASSES, "flex-col"
+  end
+
+  def test_block_classes_centre_each_block
+    assert_includes Keystone::Ui::FunnelComponent::BLOCK_CLASSES, "justify-center"
+  end
+
+  def test_block_fill_classes_fill_the_block_height
+    assert_includes Keystone::Ui::FunnelComponent::BLOCK_FILL_CLASSES, "h-full"
+  end
+
+  def test_band_row_classes_hold_the_band_in_place
+    assert_includes Keystone::Ui::FunnelComponent::BAND_ROW_CLASSES, "relative"
+  end
+
+  def test_band_label_row_classes_centre_the_percent
+    assert_includes Keystone::Ui::FunnelComponent::BAND_LABEL_ROW_CLASSES, "items-center"
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end

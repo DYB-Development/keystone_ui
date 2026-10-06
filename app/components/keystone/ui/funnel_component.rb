@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class FunnelComponent < ViewComponent::Base
-      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, :color_classes, keyword_init: true)
+      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, :color_classes, :previous_width_percent, keyword_init: true)
 
       CONTAINER_CLASSES = "ks-funnel"
       LAYER_CLASSES = "ks-funnel-layer"
@@ -12,6 +12,14 @@ module Keystone
       VALUE_CLASSES = "ks-funnel-value text-sm tabular-nums"
       BAR_CLASSES = "ks-funnel-bar h-8 transition-all"
       TRANSITION_CLASSES = "ks-funnel-transition text-center text-xs"
+      BAND_LABEL_ROW_CLASSES = "absolute inset-0 flex items-center justify-center"
+      BAND_ROW_CLASSES = "relative h-7"
+      BLOCK_FILL_CLASSES = "h-full"
+      BLOCK_CLASSES = "flex justify-center h-12"
+      WORDS_CLASSES = "flex flex-col justify-center"
+      BAND_LABEL_CLASSES = "ks-funnel-band-label text-xs"
+      BAND_CLASSES = "ks-funnel-band absolute inset-0"
+      JOINED_CLASSES = "ks-funnel-joined grid grid-cols-[max-content_1fr]"
       STEP_COLOR_CLASSES = {
         accent: "ks-funnel-bar-accent",
         sky: "ks-funnel-bar-sky",
@@ -20,10 +28,24 @@ module Keystone
         rose: "ks-funnel-bar-rose"
       }.freeze
 
-      attr_reader :steps
+      attr_reader :steps, :shape
 
-      def initialize(steps:)
+      def initialize(steps:, shape: :bars)
+        raise ArgumentError, "a funnel's shape is :bars or :joined, got #{shape.inspect}" unless %i[bars joined].include?(shape)
+
         @steps = steps
+        @shape = shape
+      end
+
+      def joined?
+        shape == :joined
+      end
+
+      def band_clip_path(layer)
+        top = (100 - layer.previous_width_percent) / 2.0
+        bottom = (100 - layer.width_percent) / 2.0
+
+        "polygon(#{format("%g%%", top)} 0, #{format("%g%%", 100 - top)} 0, #{format("%g%%", 100 - bottom)} 100%, #{format("%g%%", bottom)} 100%)"
       end
 
       def layers
@@ -35,7 +57,8 @@ module Keystone
             value: step[:value],
             width_percent: width_percent(step[:value]),
             conversion_percent: conversion_percent(step[:value], previous),
-            color_classes: color_classes(step[:color], index)
+            color_classes: color_classes(step[:color], index),
+            previous_width_percent: previous && width_percent(previous)
           )
           previous = step[:value]
           layer

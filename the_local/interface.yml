@@ -112,6 +112,7 @@ sources:
   - app/components/keystone/ui/breadcrumbs_component.rb
   - app/components/keystone/ui/breadcrumbs_component.html.erb
   - app/components/keystone/ui/funnel_component.rb
+  - app/components/keystone/ui/funnel_component.html.erb
   - app/components/keystone/ui/bucket_component.rb
   - app/components/keystone/ui/bucket_series_component.rb
   - app/components/keystone/ui/grid_component.rb

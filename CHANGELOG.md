@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_funnel` takes `shape: :joined` to draw one joined shape: each step's value and label on the left, each block at its share of the first step, and a neutral band between two blocks holding the percent from one to the next.
+
 ## [0.30.0] - 2026-10-02
 
 ### Added
