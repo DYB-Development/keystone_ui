@@ -8,6 +8,8 @@ module Keystone
       MENU_CLASSES = "ks-menu absolute right-0 z-10 w-56 hidden"
       OPTION_CLASSES = "ks-menu-option flex items-center text-sm cursor-pointer"
       CHECKBOX_CLASSES = "ks-menu-checkbox"
+      OPTION_ROW_CLASSES = "flex items-center"
+      MOVE_BUTTON_CLASSES = "ks-menu-move text-sm"
 
       COLUMNS_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">

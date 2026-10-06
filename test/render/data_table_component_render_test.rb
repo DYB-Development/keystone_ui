@@ -171,6 +171,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "outreach", "pipeline" ], page.css("[data-controller=column-picker] input[type=checkbox]").map { |box| box["value"] }
   end
 
+  def test_gives_each_column_in_its_columns_menu_an_up_button
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Move Pipeline up", "Move Outreach up" ], page.css("button[data-action=\"click->column-picker#moveUp\"]").map { |button| button["aria-label"] }
+  end
+
   private
 
   def three_columns
