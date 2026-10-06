@@ -165,6 +165,10 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_includes Keystone::Ui::FunnelComponent::BLOCK_CLASSES, "justify-center"
   end
 
+  def test_block_fill_classes_fill_the_block_height
+    assert_includes Keystone::Ui::FunnelComponent::BLOCK_FILL_CLASSES, "h-full"
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end

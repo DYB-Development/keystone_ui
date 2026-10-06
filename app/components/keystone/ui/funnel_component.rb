@@ -12,6 +12,7 @@ module Keystone
       VALUE_CLASSES = "ks-funnel-value text-sm tabular-nums"
       BAR_CLASSES = "ks-funnel-bar h-8 transition-all"
       TRANSITION_CLASSES = "ks-funnel-transition text-center text-xs"
+      BLOCK_FILL_CLASSES = "h-full"
       BLOCK_CLASSES = "flex justify-center h-12"
       WORDS_CLASSES = "flex flex-col justify-center"
       BAND_LABEL_CLASSES = "ks-funnel-band-label text-xs"
