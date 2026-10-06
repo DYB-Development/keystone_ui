@@ -12,6 +12,7 @@ module Keystone
       VALUE_CLASSES = "ks-funnel-value text-sm tabular-nums"
       BAR_CLASSES = "ks-funnel-bar h-8 transition-all"
       TRANSITION_CLASSES = "ks-funnel-transition text-center text-xs"
+      BAND_LABEL_CLASSES = "ks-funnel-band-label text-xs"
       BAND_CLASSES = "ks-funnel-band absolute inset-0"
       JOINED_CLASSES = "ks-funnel-joined grid grid-cols-[max-content_1fr]"
       STEP_COLOR_CLASSES = {
