@@ -179,7 +179,18 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
       ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
     end
 
-    assert_equal [ "Move Pipeline up", "Move Outreach up" ], page.css("button[data-action=\"click->column-picker#moveUp\"]").map { |button| button["aria-label"] }
+    assert_equal 2, page.css("button[data-action=\"click->column-picker#moveUp\"]").size
+  end
+
+  def test_labels_each_up_button_in_plain_words_whatever_its_column_header_holds
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = [ Keystone::Ui::Column.new(:month, "Month"), Keystone::Ui::Column.new(:pipeline, "<b>Pipeline</b>".html_safe, hideable: true) ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Move up" ], page.css("button[data-action=\"click->column-picker#moveUp\"]").map { |button| button["aria-label"] }
   end
 
   private
