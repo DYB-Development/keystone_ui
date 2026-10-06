@@ -173,6 +173,10 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_includes Keystone::Ui::FunnelComponent::BAND_ROW_CLASSES, "relative"
   end
 
+  def test_band_label_row_classes_centre_the_percent
+    assert_includes Keystone::Ui::FunnelComponent::BAND_LABEL_ROW_CLASSES, "items-center"
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end
