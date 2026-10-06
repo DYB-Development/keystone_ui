@@ -1,4 +1,4 @@
-<span class="inline-flex" data-controller="info" data-action="click@window->info#hide scroll@window->info#close">
+<span class="<%= wrapper_classes %>" data-controller="info" data-action="click@window->info#hide scroll@window->info#close">
   <button type="button" class="<%= button_classes %>" data-info-target="button" data-action="mouseenter->info#peek mouseleave->info#unpeek click->info#toggle" aria-label="More about this"><%= icon.html_safe %></button>
   <span class="<%= summary_classes %>" data-info-target="summary"><%= summary %></span>
   <% if content? %>
