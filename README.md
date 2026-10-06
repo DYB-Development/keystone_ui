@@ -386,6 +386,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 - `sort_direction:` (Symbol) — `:asc` or `:desc`
 - `sort_url:` (Lambda) — `(col, dir) → url` for generating sort links
 - `hidden_columns:` (Array) — column keys to hide (only affects `hideable` columns)
+- `key:` (Symbol/String) — names the table so its saved layout can be found through `config.preference_supplier`
 
 **Column options**
 
@@ -443,6 +444,27 @@ Mark columns as `hideable: true` and pass `hidden_columns:` to filter them out s
   columns: columns,
   hidden_columns: current_user.hidden_columns_for(:products)
 ) %>
+```
+
+**Saved layouts**
+
+Give a table a `key:` and it looks up its saved layout itself. The columns the call hides with `hidden_columns:` are the table's default layout, used whenever nothing is saved for the key.
+
+```erb
+<%= ui_data_table(
+  items: @products,
+  columns: columns,
+  key: :products,
+  hidden_columns: [ :sku ]
+) %>
+```
+
+Set `config.preference_supplier` to a lambda that receives the view and the key and returns `{ value:, save_url: }`, or `nil` when nothing is saved. A gem that stores layouts, such as keystone_ui-preferences, sets it for the app. The table hides the hideable columns listed under `"hidden_columns"` in `value`. When `save_url` is present, the table shows a "Columns" menu above itself that saves to it. A table given no `key:`, or rendered with no supplier set, renders from its own call.
+
+```ruby
+KeystoneUi.configure do |config|
+  config.preference_supplier = ->(view, key) { TablePreferences.for(view.current_user, key) }
+end
 ```
 
 **Linkable cells**
