@@ -33,6 +33,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month" ], page.css("thead th").map { |header| header.text.strip }
   end
 
+  def test_given_a_save_address_shows_a_columns_menu_that_saves_to_it
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: {}, save_url: "/preferences/months" } } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "/preferences/months" ], page.css("[data-controller=column-picker]").map { |picker| picker["data-column-picker-save-url-value"] }
+  end
+
   def test_puts_each_row_s_actions_in_an_action_menu
     page = render_in_view_context do
       ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ]) do |table|

@@ -29,6 +29,7 @@ module Keystone
       def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil)
         @items = items.to_a
         @all_columns = columns.map { |col| normalize_column(col) }
+        @hidden_columns = hidden_columns
         @columns = visible_columns(hidden_columns)
         @key = key
         @empty_message = empty_message
@@ -54,6 +55,12 @@ module Keystone
 
       def actions?
         !!@actions_block
+      end
+
+      def column_picker
+        return unless @save_url
+
+        @column_picker ||= ColumnPickerComponent.new(columns: @all_columns, hidden_columns: @hidden_columns, save_url: @save_url)
       end
 
       def column_keys
@@ -137,7 +144,11 @@ module Keystone
 
       def apply_saved_layout
         saved = KeystoneUi.configuration.supplied_preference(helpers, @key)
-        @columns = visible_columns(saved[:value]["hidden_columns"]) if saved
+        return unless saved
+
+        @hidden_columns = saved[:value]["hidden_columns"]
+        @columns = visible_columns(@hidden_columns)
+        @save_url = saved[:save_url]
       end
 
       def visible_columns(hidden_columns)
