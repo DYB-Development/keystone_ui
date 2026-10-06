@@ -119,13 +119,13 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
   def test_shape_defaults_to_bars
     component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ])
-    
+
     assert_equal :bars, component.shape
   end
 
   def test_joined_shape_draws_one_joined_funnel
     component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ], shape: :joined)
-    
+
     assert component.joined?
   end
 
@@ -135,13 +135,13 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
   def test_lower_layer_knows_the_width_of_the_step_above
     component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Contacts", value: 161 }, { label: "Conversations", value: 42 } ])
-    
+
     assert_equal 100, component.layers.last.previous_width_percent
   end
 
   def test_band_narrows_from_the_step_above_to_the_step_below
     component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Contacts", value: 161 }, { label: "Conversations", value: 42 } ], shape: :joined)
-    
+
     assert_equal "polygon(0% 0, 100% 0, 63% 100%, 37% 100%)", component.band_clip_path(component.layers.last)
   end
 
