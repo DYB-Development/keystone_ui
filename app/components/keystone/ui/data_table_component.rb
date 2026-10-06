@@ -26,11 +26,12 @@ module Keystone
       SORT_DESC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 0 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg>'
       SORT_NEUTRAL_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908 2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z" clip-rule="evenodd" /></svg>'
 
-      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [])
+      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil)
         @items = items.to_a
-        all_columns = columns.map { |col| normalize_column(col) }
-        hidden_keys = Array(hidden_columns).map(&:to_sym).to_set
-        @columns = all_columns.reject { |col| col.hideable? && hidden_keys.include?(col.key) }
+        @all_columns = columns.map { |col| normalize_column(col) }
+        @hidden_columns = hidden_columns
+        @columns = visible_columns(hidden_columns)
+        @key = key
         @empty_message = empty_message
         @sort = sort&.to_sym
         @sort_direction = sort_direction&.to_sym
@@ -41,6 +42,7 @@ module Keystone
 
       def before_render
         content
+        apply_saved_layout if @key
       end
 
       def link(column_key, &block)
@@ -53,6 +55,12 @@ module Keystone
 
       def actions?
         !!@actions_block
+      end
+
+      def column_picker
+        return unless @save_url
+
+        @column_picker ||= ColumnPickerComponent.new(columns: @all_columns, hidden_columns: @hidden_columns, save_url: @save_url)
       end
 
       def column_keys
@@ -133,6 +141,20 @@ module Keystone
       end
 
       private
+
+      def apply_saved_layout
+        saved = KeystoneUi.configuration.supplied_preference(helpers, @key)
+        return unless saved
+
+        @hidden_columns = saved[:value]["hidden_columns"]
+        @columns = visible_columns(@hidden_columns)
+        @save_url = saved[:save_url]
+      end
+
+      def visible_columns(hidden_columns)
+        hidden_keys = Array(hidden_columns).map(&:to_sym).to_set
+        @all_columns.reject { |col| col.hideable? && hidden_keys.include?(col.key) }
+      end
 
       def visual_column_count
         @columns.length + (actions? ? 1 : 0)

@@ -207,7 +207,7 @@ outer element. See Conventions before using it.
 
 ### Tables
 
-- `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [])`
+- `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil)`
   — takes a block yielding the table. `items:` are records or hashes; each cell
   value is read by calling the column key on the item, falling back to `item[key]`.
   `columns:` accepts plain `{ key: "Label" }` hashes or `Keystone::Ui::Column`
@@ -221,7 +221,15 @@ outer element. See Conventions before using it.
   current column key), `sort_direction:` (`:asc`/`:desc`), and `sort_url:` (a
   lambda taking `(column_key, direction)` and returning a URL); headers then
   render as links that flip direction. `hidden_columns:` drops columns
-  server-side and only affects columns declared `hideable: true`.
+  server-side and only affects columns declared `hideable: true`. `key:` (a
+  symbol or string) names the table so it looks up a saved layout through the
+  app's preference supplier. When the supplier returns a saved value for the
+  key, the hideable columns listed under its `"hidden_columns"` replace the
+  ones passed in `hidden_columns:`, and when it also returns a save address the
+  table renders a "Columns" menu above itself that saves to it. When the
+  supplier returns nothing, when no supplier is set, or when no `key:` is
+  passed, the table renders from `hidden_columns:` with no Columns menu, so
+  `hidden_columns:` is the table's default layout.
 - `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false)`
   — a column with per-column options, for when a `{ key: "Label" }` hash is not
   enough. `mobile_hidden:` hides the column below `sm:`; `sortable:` opts it into
@@ -230,7 +238,9 @@ outer element. See Conventions before using it.
   dropdown of checkboxes for every `hideable` column. Pass it the same columns
   and hidden keys as the table. On toggle it sends `PATCH save_url` with JSON
   `{ "hidden_columns": ["key", ...] }` and a `X-CSRF-Token` header, then reloads
-  the page. The app must provide that endpoint and persist the list.
+  the page. The app must provide that endpoint and persist the list. A table
+  given `key:` renders its own Columns menu when the supplier gives a save
+  address, so never add `ui_column_picker` beside such a table.
 
 ### Content and status
 
@@ -501,6 +511,15 @@ outer element. See Conventions before using it.
    when every column is plain. Switch the whole set to `Keystone::Ui::Column`
    objects as soon as one column needs `mobile_hidden:`, `sortable:`, or
    `hideable:`.
+
+   For a table whose hideable columns a user should be able to choose and keep,
+   check whether the app's Keystone UI initializer sets a
+   `preference_supplier`. If it does, pass `key:` and the default
+   `hidden_columns:`, and add no `ui_column_picker`. Which key names the table
+   and which columns it hides by default are the developer's choice, so ask
+   rather than pick. If the app sets no supplier, either use `ui_column_picker`
+   with an endpoint the app owns, as in step 7, or hand setting up a supplier to
+   `keystone_ui-install`, and ask the developer which.
 
 7. Wire up anything that posts back. Several helpers render controls whose
    endpoints the app must own — the column picker's save URL, the pipeline's box
