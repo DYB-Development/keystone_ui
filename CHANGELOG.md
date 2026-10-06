@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.33.1] - 2026-10-06
+
 ### Fixed
 - A data table given a key keeps the columns its own call hides when the supplied value is `nil` or names no hidden columns, so a person with nothing saved still sees the default layout and the Columns menu.
 
