@@ -146,7 +146,7 @@ module Keystone
         saved = KeystoneUi.configuration.supplied_preference(helpers, @key)
         return unless saved
 
-        @hidden_columns = saved[:value]["hidden_columns"]
+        @hidden_columns = saved[:value].to_h.fetch("hidden_columns", @hidden_columns)
         @columns = visible_columns(@hidden_columns)
         @save_url = saved[:save_url]
       end
