@@ -554,6 +554,10 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
     assert_includes Keystone::Ui::DataTableComponent::WRAPPER_CLASSES, "ks-table"
   end
 
+  def test_wrapper_scrolls_sideways_when_the_table_is_wider_than_it
+    assert_includes Keystone::Ui::DataTableComponent::WRAPPER_CLASSES.split, "overflow-x-auto"
+  end
+
   def test_head_classes_render_the_ks_table_head_class
     assert_includes Keystone::Ui::DataTableComponent::HEAD_CLASSES, "ks-table-head"
   end
