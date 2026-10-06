@@ -6,7 +6,7 @@ module Keystone
       EMPTY_CELL_CLASSES = "ks-table-cell-middle text-sm"
       BODY_CLASSES = "ks-table-body"
       HEAD_CLASSES = "ks-table-head"
-      WRAPPER_CLASSES = "ks-table overflow-hidden"
+      WRAPPER_CLASSES = "ks-table overflow-x-auto"
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
       HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
       HEADER_CLASSES_LAST = "ks-table-header-last"
