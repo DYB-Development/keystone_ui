@@ -131,9 +131,17 @@ holds the catalog.
   the table's own call hides are its default layout. A saved layout that lists
   columns to hide replaces that default, and a saved empty list shows every
   column. When nothing is saved, or the saved layout lists no columns to hide,
-  the table keeps its default. When the supplier gives an address to save to,
-  a "Columns" menu appears above the table and saves the user's choice there,
-  even before anything has been saved.
+  the table keeps its default. A saved layout can also list an order for the
+  columns. Only hideable columns move: they fill the places hideable columns
+  held in the table's own call, in the saved order, and any the order leaves
+  out follow the ones it names. Every other column keeps its place, and a
+  layout with no order keeps the order the columns were declared in. When the
+  supplier gives an address to save to, a "Columns" menu appears above the
+  table and saves the user's choice there, even before anything has been
+  saved. The menu lists the hideable columns in the order the table shows
+  them, each with a box to show or hide it and buttons to move it up or down.
+  Ticking a box or moving a column saves the hidden columns and the order
+  together, then reloads the page.
   A table with no key, or an app with no supplier, renders from its own call
   alone. Setting up the supplier belongs to the install local.
 - **Suggestions.** A form field can carry a list of suggested values. The

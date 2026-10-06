@@ -26,8 +26,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
   `look_supplier` (which registered look a page gets),
   `trail_supplier` (a callable that supplies the breadcrumb trail for form and
   show pages that pass none, and their Back link when they pass none either),
-  `preference_supplier` (a callable that supplies the saved column layout of a
-  data table given a `key:`, and the address its Columns menu saves to),
+  `preference_supplier` (a callable that supplies the saved hidden columns and
+  column order of a data table given a `key:`, and the address its Columns menu
+  saves to),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 - `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
@@ -245,15 +246,28 @@ built on ViewComponent; hook it in before building any screen with those helpers
    - When `value` is `nil`, or has no `"hidden_columns"` string key, the table
      keeps the hidden columns its own call passes. A symbol key is not read, so
      `{ hidden_columns: [...] }` also keeps them.
+   - `value` may also hold a list of hideable column names under the string
+     key `"column_order"`, such as
+     `{ "hidden_columns" => ["sku"], "column_order" => ["price", "sku"] }`.
+     The table renders its hideable columns in that order, in the places
+     hideable columns hold in its own call, then any hideable columns the list
+     leaves out in the order they were declared. Columns that are not hideable
+     keep their place, and names that match no hideable column are ignored.
+     With no `"column_order"` string key the columns keep their declared order.
    - When nothing is saved yet for a person who may save a layout, return
      `{ value: nil, save_url: }`. The table then shows its own default layout
      with the Columns menu, so the person can save a first layout.
-   - When `save_url` is present, the table shows a Columns menu above itself,
-     with the currently hidden columns unchecked.
-     Toggling a column sends a `PATCH` to `save_url` with the JSON body
-     `{"hidden_columns": [...]}` and the page's CSRF token, then reloads the
-     page. The host must have a route and action at that address that store the
-     list for that key. With no `save_url`, the saved layout applies and no menu
+   - When `save_url` is present, the table shows a Columns menu above itself.
+     It lists the hideable columns in the order the table shows them, with the
+     currently hidden columns unchecked, and gives each column an up and a down
+     button. Ticking or unticking a column, or moving one, sends a `PATCH` to
+     `save_url` with the page's CSRF token and the JSON body
+     `{"hidden_columns": [...], "column_order": [...]}`, then reloads the page.
+     `column_order` lists every hideable column's name in the menu's order.
+   - The host must have a route and action at `save_url` that store both lists
+     for that key. The supplier must return them in `value` under the same
+     string keys, `"hidden_columns"` and `"column_order"`, or the saved order
+     is not applied. With no `save_url`, the saved layout applies and no menu
      is shown.
    - A companion preferences gem may set this supplier for the app. Ask the
      developer whether the app uses one, or which code stores each user's table
