@@ -160,6 +160,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("thead th").map { |header| header.text.strip }
   end
 
+  def test_lists_the_columns_in_its_columns_menu_in_the_order_it_shows_them
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "column_order" => [ "outreach", "pipeline" ] }, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "outreach", "pipeline" ], page.css("[data-controller=column-picker] input[type=checkbox]").map { |box| box["value"] }
+  end
+
   private
 
   def three_columns
