@@ -147,8 +147,17 @@ module Keystone
         return unless saved
 
         @hidden_columns = saved[:value].to_h.fetch("hidden_columns", @hidden_columns)
+        @all_columns = ordered_columns(saved[:value].to_h["column_order"])
         @columns = visible_columns(@hidden_columns)
         @save_url = saved[:save_url]
+      end
+
+      def ordered_columns(column_order)
+        return @all_columns unless column_order
+
+        positions = Array(column_order).map(&:to_sym).each_with_index.to_h
+        hideable = @all_columns.select(&:hideable?).sort_by.with_index { |col, index| [ positions.fetch(col.key, positions.size + index) ] }
+        @all_columns.map { |col| col.hideable? ? hideable.shift : col }
       end
 
       def visible_columns(hidden_columns)

@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["menu"]
+  static targets = ["menu", "option"]
   static values = { saveUrl: String }
 
   connect() {
@@ -25,23 +25,53 @@ export default class extends Controller {
   }
 
   save() {
-    const allCheckboxes = this.element.querySelectorAll("input[type=checkbox]")
-    const hiddenColumns = Array.from(allCheckboxes)
-      .filter(cb => !cb.checked)
-      .map(cb => cb.value)
+    this.send(this.columnOrder())
+  }
 
-    if (this.hasSaveUrlValue) {
-      const token = document.querySelector('meta[name="csrf-token"]')?.content
-      fetch(this.saveUrlValue, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": token
-        },
-        body: JSON.stringify({ hidden_columns: hiddenColumns })
-      }).then(() => {
-        Turbo.visit(window.location.href, { action: "replace" })
-      })
-    }
+  moveUp(event) {
+    this.move(event, -1)
+  }
+
+  moveDown(event) {
+    this.move(event, 1)
+  }
+
+  move(event, step) {
+    const order = this.columnOrder()
+    const index = this.optionTargets.indexOf(event.currentTarget.closest('[data-column-picker-target="option"]'))
+    const [key] = order.splice(index, 1)
+    order.splice(index + step, 0, key)
+    this.send(order)
+  }
+
+  columnOrder() {
+    return this.optionTargets.map(option => this.checkboxIn(option).value)
+  }
+
+  hiddenColumns() {
+    return this.optionTargets
+      .map(option => this.checkboxIn(option))
+      .filter(checkbox => !checkbox.checked)
+      .map(checkbox => checkbox.value)
+  }
+
+  checkboxIn(option) {
+    return option.querySelector("input[type=checkbox]")
+  }
+
+  send(columnOrder) {
+    if (!this.hasSaveUrlValue) return
+
+    const token = document.querySelector('meta[name="csrf-token"]')?.content
+    fetch(this.saveUrlValue, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": token
+      },
+      body: JSON.stringify({ hidden_columns: this.hiddenColumns(), column_order: columnOrder })
+    }).then(() => {
+      Turbo.visit(window.location.href, { action: "replace" })
+    })
   }
 }

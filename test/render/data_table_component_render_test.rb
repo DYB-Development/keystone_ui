@@ -127,7 +127,110 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month", "Pipeline" ], page.css("thead th").map { |header| header.text.strip }
   end
 
+  def test_given_a_saved_order_renders_its_hideable_columns_in_that_order
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "column_order" => [ "outreach", "pipeline" ] } } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
+  def test_given_no_saved_order_renders_its_columns_in_the_order_they_were_declared
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "hidden_columns" => [] } } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Month", "Pipeline", "Outreach" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
+  def test_given_a_saved_order_naming_some_columns_renders_the_rest_after_them
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "column_order" => [ "outreach" ] } } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
+  def test_lists_the_columns_in_its_columns_menu_in_the_order_it_shows_them
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "column_order" => [ "outreach", "pipeline" ] }, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "outreach", "pipeline" ], page.css("[data-controller=column-picker] input[type=checkbox]").map { |box| box["value"] }
+  end
+
+  def test_gives_each_column_in_its_columns_menu_an_up_button
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal 2, page.css("button[data-action=\"click->column-picker#moveUp\"]").size
+  end
+
+  def test_labels_each_up_button_in_plain_words_whatever_its_column_header_holds
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = [ Keystone::Ui::Column.new(:month, "Month"), Keystone::Ui::Column.new(:pipeline, "<b>Pipeline</b>".html_safe, hideable: true) ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Move up" ], page.css("button[data-action=\"click->column-picker#moveUp\"]").map { |button| button["aria-label"] }
+  end
+
+  def test_gives_each_column_in_its_columns_menu_a_down_button
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Move down", "Move down" ], page.css("button[data-action=\"click->column-picker#moveDown\"]").map { |button| button["aria-label"] }
+  end
+
+  def test_disables_the_up_button_of_the_first_column_in_its_columns_menu
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ true, false ], page.css("button[data-action=\"click->column-picker#moveUp\"]").map { |button| button.key?("disabled") }
+  end
+
+  def test_disables_the_down_button_of_the_last_column_in_its_columns_menu
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ false, true ], page.css("button[data-action=\"click->column-picker#moveDown\"]").map { |button| button.key?("disabled") }
+  end
+
   private
+
+  def three_columns
+    month_columns + [ Keystone::Ui::Column.new(:outreach, "Outreach", hideable: true) ]
+  end
 
   def month_columns
     [ Keystone::Ui::Column.new(:month, "Month"), Keystone::Ui::Column.new(:pipeline, "Pipeline", hideable: true) ]

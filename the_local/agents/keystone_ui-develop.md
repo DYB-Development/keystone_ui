@@ -227,7 +227,12 @@ outer element. See Conventions before using it.
   key that lists `"hidden_columns"`, the hideable columns in that list replace
   the ones passed in `hidden_columns:`, and a saved empty list shows every
   column. When the saved value is `nil` or lists no `"hidden_columns"`, the
-  table keeps the columns `hidden_columns:` hides. Whenever the supplier
+  table keeps the columns `hidden_columns:` hides. When the saved value lists
+  `"column_order"`, an array of column keys, the hideable columns render in
+  that order, followed by any hideable columns the list leaves out in the order
+  they were declared. Columns that are not hideable keep their declared place,
+  and the hideable ones fill the remaining places. With no `"column_order"` the
+  columns keep their declared order. Whenever the supplier
   returns a save address, the table renders a "Columns" menu above itself that
   saves to it, including for a person with nothing saved yet. When the
   supplier returns nothing, when no supplier is set, or when no `key:` is
@@ -236,12 +241,22 @@ outer element. See Conventions before using it.
 - `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false)`
   — a column with per-column options, for when a `{ key: "Label" }` hash is not
   enough. `mobile_hidden:` hides the column below `sm:`; `sortable:` opts it into
-  sort headers; `hideable:` lets the column picker hide it.
+  sort headers; `hideable:` lets the Columns menu hide it and move it, and a
+  saved `"column_order"` place it.
 - `ui_column_picker(columns:, hidden_columns: [], save_url: nil)` — a "Columns"
-  dropdown of checkboxes for every `hideable` column. Pass it the same columns
-  and hidden keys as the table. On toggle it sends `PATCH save_url` with JSON
-  `{ "hidden_columns": ["key", ...] }` and a `X-CSRF-Token` header, then reloads
-  the page. The app must provide that endpoint and persist the list. A table
+  dropdown with one row per `hideable` column, in the order `columns:` lists
+  them. Each row has a checkbox and an up and a down button that move the
+  column one place; the first row's up button and the last row's down button
+  are disabled. Pass it the same columns, in the order the table shows them,
+  and the same hidden keys as the table. On a checkbox change or a move it
+  sends `PATCH save_url` with JSON
+  `{ "hidden_columns": ["key", ...], "column_order": ["key", ...] }` and a
+  `X-CSRF-Token` header, then reloads the page. `column_order` lists every
+  hideable column's key in the menu's order after the move. With no
+  `save_url:` it sends nothing. The app must provide that endpoint and persist
+  both lists. The picker does not reorder the table: beside a table without
+  `key:`, the app must pass the table and the picker its columns in the saved
+  order itself. A table
   given `key:` renders its own Columns menu when the supplier gives a save
   address, so never add `ui_column_picker` beside such a table.
 
@@ -518,9 +533,11 @@ outer element. See Conventions before using it.
    For a table whose hideable columns a user should be able to choose and keep,
    check whether the app's Keystone UI initializer sets a
    `preference_supplier`. If it does, pass `key:` and the default
-   `hidden_columns:`, and add no `ui_column_picker`. Which key names the table
-   and which columns it hides by default are the developer's choice, so ask
-   rather than pick. If the app sets no supplier, either use `ui_column_picker`
+   `hidden_columns:`, and add no `ui_column_picker`. The order the columns are
+   declared in is the default order, and only columns declared
+   `hideable: true` can be hidden or moved from the Columns menu. Which key
+   names the table, which columns are hideable, and which it hides by default
+   are the developer's choice, so ask rather than pick. If the app sets no supplier, either use `ui_column_picker`
    with an endpoint the app owns, as in step 7, or hand setting up a supplier to
    `keystone_ui-install`, and ask the developer which.
 
