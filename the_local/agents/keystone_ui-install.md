@@ -233,15 +233,23 @@ built on ViewComponent; hook it in before building any screen with those helpers
      where their Back link should come from before enabling the supplier or
      leaving it out.
    - `preference_supplier` — a callable that receives the view and a data
-     table's key and returns `{ value:, save_url: }`, or `nil` when nothing is
-     saved for that key. It is asked only for tables rendered with a `key:`. A
-     table with no `key:`, a supplier returning `nil`, or no supplier at all
-     renders with the hidden columns its own call passes.
-   - `value` must hold the hidden column names under the string key
-     `"hidden_columns"`, such as `{ "hidden_columns" => ["sku"] }`. A symbol key
-     is not read, and the table then hides no columns. Only columns marked
-     hideable are hidden.
-   - When `save_url` is present, the table shows a Columns menu above itself.
+     table's key and returns `{ value:, save_url: }`, or `nil` when the person
+     can neither see nor save a layout for that key. It is asked only for
+     tables rendered with a `key:`. A table with no `key:`, a supplier returning
+     `nil`, or no supplier at all renders with the hidden columns its own call
+     passes and shows no Columns menu.
+   - `value` holds the hidden column names under the string key
+     `"hidden_columns"`, such as `{ "hidden_columns" => ["sku"] }`. That list
+     replaces the hidden columns the table's own call passes, and an empty list
+     shows every column. Only columns marked hideable are hidden.
+   - When `value` is `nil`, or has no `"hidden_columns"` string key, the table
+     keeps the hidden columns its own call passes. A symbol key is not read, so
+     `{ hidden_columns: [...] }` also keeps them.
+   - When nothing is saved yet for a person who may save a layout, return
+     `{ value: nil, save_url: }`. The table then shows its own default layout
+     with the Columns menu, so the person can save a first layout.
+   - When `save_url` is present, the table shows a Columns menu above itself,
+     with the currently hidden columns unchecked.
      Toggling a column sends a `PATCH` to `save_url` with the JSON body
      `{"hidden_columns": [...]}` and the page's CSRF token, then reloads the
      page. The host must have a route and action at that address that store the

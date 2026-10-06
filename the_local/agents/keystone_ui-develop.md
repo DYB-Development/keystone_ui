@@ -224,12 +224,15 @@ outer element. See Conventions before using it.
   server-side and only affects columns declared `hideable: true`. `key:` (a
   symbol or string) names the table so it looks up a saved layout through the
   app's preference supplier. When the supplier returns a saved value for the
-  key, the hideable columns listed under its `"hidden_columns"` replace the
-  ones passed in `hidden_columns:`, and when it also returns a save address the
-  table renders a "Columns" menu above itself that saves to it. When the
+  key that lists `"hidden_columns"`, the hideable columns in that list replace
+  the ones passed in `hidden_columns:`, and a saved empty list shows every
+  column. When the saved value is `nil` or lists no `"hidden_columns"`, the
+  table keeps the columns `hidden_columns:` hides. Whenever the supplier
+  returns a save address, the table renders a "Columns" menu above itself that
+  saves to it, including for a person with nothing saved yet. When the
   supplier returns nothing, when no supplier is set, or when no `key:` is
-  passed, the table renders from `hidden_columns:` with no Columns menu, so
-  `hidden_columns:` is the table's default layout.
+  passed, the table renders from `hidden_columns:` with no Columns menu. In
+  every case `hidden_columns:` is the table's default layout.
 - `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false)`
   — a column with per-column options, for when a `{ key: "Label" }` hash is not
   enough. `mobile_hidden:` hides the column below `sm:`; `sortable:` opts it into
