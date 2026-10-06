@@ -169,6 +169,10 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_includes Keystone::Ui::FunnelComponent::BLOCK_FILL_CLASSES, "h-full"
   end
 
+  def test_band_row_classes_hold_the_band_in_place
+    assert_includes Keystone::Ui::FunnelComponent::BAND_ROW_CLASSES, "relative"
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end
