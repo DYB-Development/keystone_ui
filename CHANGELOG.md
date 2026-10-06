@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.34.0] - 2026-10-06
+
 ### Added
 - A data table renders its hideable columns in the order a saved `"column_order"` names, and its Columns menu gives each column up and down buttons that save the new order with the hidden columns.
 
