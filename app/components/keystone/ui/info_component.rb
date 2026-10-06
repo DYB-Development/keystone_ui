@@ -14,6 +14,12 @@ module Keystone
 
       attr_reader :summary
 
+      WRAPPER_CLASSES = "inline-flex align-middle"
+
+      def wrapper_classes
+        WRAPPER_CLASSES
+      end
+
       def summary_classes
         SUMMARY_CLASSES
       end

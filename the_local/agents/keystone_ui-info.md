@@ -15,7 +15,7 @@ library of view helpers built on ViewComponent. Screens are built from named
 pieces — page shells, sections, panels, grids, form fields, data tables,
 navigation bars, breadcrumbs, cards, stat tiles, charts, funnels, goal buckets, pipelines,
 banners, the calculation behind a figure, a breakdown of amounts and their
-total, an info button — instead of hand-written ERB and
+total, a figure coloured as a gain or a loss, an info button — instead of hand-written ERB and
 Tailwind. Every class the UI renders lives inside the gem, in frozen constants,
 so the look is defined in one place.
 
@@ -88,7 +88,8 @@ holds the catalog.
   extra text about themselves. Given that text, the piece shows an info button,
   and the text stays hidden until the button is hovered or tapped. A piece
   given no such text shows no button. On a radio card and a checkbox row the
-  button sits on the line with the label.
+  button sits on the line with the label. Wherever it is placed, the button
+  sits level with the text beside it.
 - **Standalone info button.** The same info button can be placed on its own,
   beside anything. It takes a short summary, which is required, and shows it
   when the button is hovered. Given nothing more, a tap shows the summary too.
@@ -113,6 +114,15 @@ holds the catalog.
   of its own, so a breakdown looks right only with a keystone_ui-styles version
   that defines those classes. It has no button and no hidden state of
   its own, and it can be placed inside an info button's detail.
+- **A toned figure is text.** A figure shows one amount inline, in plain text
+  or in the success or danger colour, so it reads as a gain or a loss without a
+  badge around it. The amount is passed as already-formatted text and shown as
+  written, and the tone is chosen by name. An unknown tone raises at render
+  time. The colours come from keystone_ui-styles, so a figure shows its tone
+  only with a keystone_ui-styles version that defines those classes.
+- **The last table column is right-aligned.** In a data table with no actions
+  column, the last column's header is right-aligned like the cells beneath it,
+  so a figure or total placed in that header lines up with the figures below.
 - **Suggestions.** A form field can carry a list of suggested values. The
   browser offers them while the field's text is typed, and the user can still
   enter a value that is not on the list. This applies to a field with a typed
@@ -126,7 +136,7 @@ holds the catalog.
   different symbols, and the develop local carries the real values. Most
   components raise on a symbol they do not know, so a wrong guess fails at
   render time.
-- **Figures are numbers.** Components that measure or compare values, such as
+- **Measured values are numbers.** Components that measure or compare values, such as
   progress bars, funnels and buckets, do arithmetic on them. Pass a number, not
   a formatted string such as `"9,000"`. A bucket raises on one.
 - **A funnel has two shapes.** Both size each step against the first step and

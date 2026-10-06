@@ -569,4 +569,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_empty_cell_classes_render_the_ks_table_cell_middle_class
     assert_includes Keystone::Ui::DataTableComponent::EMPTY_CELL_CLASSES, "ks-table-cell-middle"
   end
+
+  def test_the_last_header_is_right_aligned_like_the_cells_beneath_it
+    assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_LAST.split, "text-right"
+  end
 end

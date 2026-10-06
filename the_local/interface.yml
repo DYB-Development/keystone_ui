@@ -62,11 +62,13 @@ develop:
   - ui_disclosure
   - ui_calculation
   - ui_info
+  - ui_figure
   - ui_breakdown
   - ui_theme_toggle
   - Keystone::Ui::Column
 
 sources:
+  - app/components/keystone/ui/figure_component.rb
   - lib/generators/keystone/install_generator.rb
   - lib/keystone_ui/configuration.rb
   - lib/keystone_ui/missing_back_link.rb
