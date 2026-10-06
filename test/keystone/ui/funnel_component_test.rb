@@ -149,6 +149,10 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_includes Keystone::Ui::FunnelComponent::JOINED_CLASSES, "ks-funnel-joined"
   end
 
+  def test_band_classes_render_the_ks_funnel_band_class
+    assert_includes Keystone::Ui::FunnelComponent::BAND_CLASSES, "ks-funnel-band"
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end
