@@ -461,6 +461,8 @@ Give a table a `key:` and it looks up its saved layout itself. The columns the c
 
 Set `config.preference_supplier` to a lambda that receives the view and the key and returns `{ value:, save_url: }`, or `nil` when the person can neither see nor save a layout. A gem that stores layouts, such as keystone_ui-preferences, sets it for the app. The table hides the hideable columns listed under `"hidden_columns"` in `value`, and keeps the columns its own call hides when `value` is `nil` or lists no `"hidden_columns"`. When nothing is saved yet, return `{ value: nil, save_url: }` so the person can save a first layout. When `save_url` is present, the table shows a "Columns" menu above itself that saves to it. A table given no `key:`, or rendered with no supplier set, renders from its own call.
 
+A saved `value` may also hold `"column_order"`, a list of hideable column keys. The table renders its hideable columns in that order, then any hideable columns the list leaves out in the order they were declared. Columns that are not hideable keep their declared place, and the Columns menu lists its columns in the order the table shows them.
+
 ```ruby
 KeystoneUi.configure do |config|
   config.preference_supplier = ->(view, key) { TablePreferences.for(view.current_user, key) }
@@ -519,7 +521,7 @@ Renders a "Columns" dropdown button with checkboxes for showing/hiding `hideable
 - `hidden_columns:` (Array) — currently hidden column keys
 - `save_url:` (String) — PATCH endpoint to persist preferences; omit for no persistence
 
-On checkbox change, the Stimulus `column-picker` controller PATCHes `{ hidden_columns: [...] }` as JSON to `save_url`, then reloads via `Turbo.visit`.
+Each column in the menu has an up and a down button that move it one place; the first column's up button and the last column's down button are disabled. On a checkbox change or a move, the Stimulus `column-picker` controller PATCHes `{ "hidden_columns": [...], "column_order": [...] }` as JSON to `save_url`, then reloads via `Turbo.visit`.
 
 ```erb
 <%= ui_column_picker(
