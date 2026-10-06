@@ -794,6 +794,23 @@ Renders an inline status badge.
 <%= ui_badge(label: "Expired", variant: :danger) %>
 ```
 
+### `ui_figure`
+
+Shows a figure, such as an amount, in plain text or in the success or danger colour.
+
+**Required props**
+
+- `text:` (String)
+
+**Optional props**
+
+- `tone:` (`:neutral | :success | :danger`, default `:neutral`)
+
+```erb
+<%= ui_figure(text: "$4,700.00", tone: :success) %>
+<%= ui_figure(text: "-$300.00", tone: :danger) %>
+```
+
 ### `ui_stat_card`
 
 Renders a metric card for dashboards.

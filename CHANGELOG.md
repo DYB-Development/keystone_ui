@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_figure(text:, tone:)` shows a figure in plain text, or in the success or danger colour, so an amount can read as gain or loss without a badge around it.
+
+### Fixed
+- A data table's last column header is right-aligned like the cells beneath it, so a figure placed in that header lines up with the figures below.
+- The info button sits level with the text beside it instead of above it.
+
 ## [0.31.0] - 2026-10-06
 
 ### Added
