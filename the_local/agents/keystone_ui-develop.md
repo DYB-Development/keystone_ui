@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has Keystone UI — pages, forms, tables, navigation, action menus for a record's Edit and Delete, dashboards, charts, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has Keystone UI — pages, forms, tables, navigation, action menus for a record's Edit and Delete, dashboards, charts, amounts shown in green or red as a gain or loss, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -213,7 +213,9 @@ outer element. See Conventions before using it.
   `columns:` accepts plain `{ key: "Label" }` hashes or `Keystone::Ui::Column`
   objects. In the block, `table.link(:column_key) { |item| url }` turns that
   column's cells into links and `table.actions { |item| ... }` appends a
-  right-aligned actions column. Each row's actions render inside an action
+  right-aligned actions column. With no actions column, the last data
+  column's header and cells are both right-aligned, so put the column of
+  amounts last to line them up under their header. Each row's actions render inside an action
   menu, so the `actions` block holds `ui_action_menu_item` calls and nothing
   else, never buttons or bare links. Sorting requires all three of `sort:` (the
   current column key), `sort_direction:` (`:asc`/`:desc`), and `sort_url:` (a
@@ -238,6 +240,13 @@ outer element. See Conventions before using it.
   only to the button form.
 - `ui_badge(label:, variant: :neutral, class: nil)` — a pill. `variant:`
   `:neutral` `:success` `:danger` `:warning` `:info`.
+- `ui_figure(text:, tone: :neutral)` — no block. One figure, such as an amount,
+  as inline text with no pill or box around it. `tone:` `:neutral` prints it in
+  the surrounding text colour, `:success` in green and `:danger` in red; any
+  other symbol raises `KeyError`. `text:` is printed as given, so format
+  numbers, currency and any minus sign before passing it. Its output can be
+  passed anywhere a string is shown, such as a `ui_data_table` cell value or
+  column label.
 - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)` —
   a banner.
   `type:` `:info` `:success` `:warning` `:error`. `dismissible: true` adds a
@@ -270,7 +279,8 @@ outer element. See Conventions before using it.
   numbers and currency before passing them. Place it directly under the figure
   it explains, such as a `ui_stat_card`.
 - `ui_info(summary:)` — an info button, named "More about this" for screen
-  readers, placed inline beside the thing it explains. `summary:` is a short
+  readers, placed inline beside the thing it explains, and sits level with the
+  middle of the text beside it. `summary:` is a short
   line of text shown in a floating panel while the button is hovered. The block
   is optional and holds the full detail. With a block, tapping or clicking the
   button toggles a second floating panel holding the block's content, and the
@@ -453,6 +463,13 @@ outer element. See Conventions before using it.
    text with no columns and no separate total, the app's keystone_ui-styles
    version does not define the `ks-breakdown` classes, so stop and hand that
    part to `keystone_ui-install` as well, and add no classes to fix it.
+   To show an amount as a gain or a loss, use `ui_figure` with `tone:` rather
+   than a `ui_badge` or a colour class. Which amounts are coloured, and whether
+   a value counts as a gain or a loss, is the app's own rule, so ask the
+   developer rather than pick. If a figure with `:success` or `:danger` shows in
+   the plain text colour, the app's keystone_ui-styles version does not define
+   the `ks-figure` and `ks-tone-*` classes, so stop and hand that part to
+   `keystone_ui-install`, and add no classes to fix it.
    A field whose value must be one of a fixed list is a `:select` with
    `options:`, and a field that accepts any text and offers common values is a
    text field with `suggestions:`. Which one a field is, and which values it
