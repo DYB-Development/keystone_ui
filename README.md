@@ -459,7 +459,7 @@ Give a table a `key:` and it looks up its saved layout itself. The columns the c
 ) %>
 ```
 
-Set `config.preference_supplier` to a lambda that receives the view and the key and returns `{ value:, save_url: }`, or `nil` when nothing is saved. A gem that stores layouts, such as keystone_ui-preferences, sets it for the app. The table hides the hideable columns listed under `"hidden_columns"` in `value`. When `save_url` is present, the table shows a "Columns" menu above itself that saves to it. A table given no `key:`, or rendered with no supplier set, renders from its own call.
+Set `config.preference_supplier` to a lambda that receives the view and the key and returns `{ value:, save_url: }`, or `nil` when the person can neither see nor save a layout. A gem that stores layouts, such as keystone_ui-preferences, sets it for the app. The table hides the hideable columns listed under `"hidden_columns"` in `value`, and keeps the columns its own call hides when `value` is `nil` or lists no `"hidden_columns"`. When nothing is saved yet, return `{ value: nil, save_url: }` so the person can save a first layout. When `save_url` is present, the table shows a "Columns" menu above itself that saves to it. A table given no `key:`, or rendered with no supplier set, renders from its own call.
 
 ```ruby
 KeystoneUi.configure do |config|

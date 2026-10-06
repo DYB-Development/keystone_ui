@@ -94,6 +94,39 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ 1, 0 ], page.css("tbody tr").map { |row| row.css("[data-controller=action-menu]").size }
   end
 
+  def test_given_a_save_address_and_no_saved_value_hides_the_columns_its_own_call_hides
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months, hidden_columns: [ :pipeline ])
+    end
+
+    assert_equal [ "Month" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
+  def test_given_a_saved_value_naming_no_hidden_columns_hides_the_columns_its_own_call_hides
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: {}, save_url: "/preferences/months" } } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months, hidden_columns: [ :pipeline ])
+    end
+
+    assert_equal [ "Month" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
+  def test_given_a_saved_empty_list_of_hidden_columns_shows_every_column
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "hidden_columns" => [] } } } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months, hidden_columns: [ :pipeline ])
+    end
+
+    assert_equal [ "Month", "Pipeline" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
   private
 
   def month_columns

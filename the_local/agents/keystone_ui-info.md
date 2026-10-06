@@ -127,11 +127,13 @@ holds the catalog.
 - **Saved table layouts.** A data table can be given a key naming it. A table
   with a key asks the app, or another gem such as keystone_ui-preferences, for
   the layout saved under that key for the request. A saved layout lists the
-  columns to hide, and only columns marked hideable can be hidden. When a
-  layout is saved, it replaces the columns the table hides by default. When
-  nothing is saved, the table hides the columns its own call names, so those
-  are its default layout. When the supplier also gives an address to save to,
-  a "Columns" menu appears above the table and saves the user's choice there.
+  columns to hide, and only columns marked hideable can be hidden. The columns
+  the table's own call hides are its default layout. A saved layout that lists
+  columns to hide replaces that default, and a saved empty list shows every
+  column. When nothing is saved, or the saved layout lists no columns to hide,
+  the table keeps its default. When the supplier gives an address to save to,
+  a "Columns" menu appears above the table and saves the user's choice there,
+  even before anything has been saved.
   A table with no key, or an app with no supplier, renders from its own call
   alone. Setting up the supplier belongs to the install local.
 - **Suggestions.** A form field can carry a list of suggested values. The
