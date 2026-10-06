@@ -44,6 +44,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "/preferences/months" ], page.css("[data-controller=column-picker]").map { |picker| picker["data-column-picker-save-url-value"] }
   end
 
+  def test_given_no_save_address_shows_no_columns_menu
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: {} } } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months)
+    end
+
+    assert_empty page.css("[data-controller=column-picker]")
+  end
+
   def test_puts_each_row_s_actions_in_an_action_menu
     page = render_in_view_context do
       ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ]) do |table|
