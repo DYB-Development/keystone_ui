@@ -157,6 +157,10 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_includes Keystone::Ui::FunnelComponent::BAND_LABEL_CLASSES, "ks-funnel-band-label"
   end
 
+  def test_words_classes_stack_the_value_over_the_label
+    assert_includes Keystone::Ui::FunnelComponent::WORDS_CLASSES, "flex-col"
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end
