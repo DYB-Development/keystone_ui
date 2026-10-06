@@ -9,7 +9,7 @@ module Keystone
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
       HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
-      HEADER_CLASSES_LAST = "ks-table-header-last"
+      HEADER_CLASSES_LAST = "ks-table-header ks-table-header-last text-right text-sm"
 
       ROW_CLASSES_FIRST = "ks-table-cell-first text-sm whitespace-nowrap"
       ROW_CLASSES_MIDDLE = "ks-table-cell-middle text-sm whitespace-nowrap"
