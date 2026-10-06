@@ -161,6 +161,10 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_includes Keystone::Ui::FunnelComponent::WORDS_CLASSES, "flex-col"
   end
 
+  def test_block_classes_centre_each_block
+    assert_includes Keystone::Ui::FunnelComponent::BLOCK_CLASSES, "justify-center"
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end
