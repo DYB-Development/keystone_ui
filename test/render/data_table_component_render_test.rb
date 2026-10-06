@@ -204,6 +204,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Move down", "Move down" ], page.css("button[data-action=\"click->column-picker#moveDown\"]").map { |button| button["aria-label"] }
   end
 
+  def test_disables_the_up_button_of_the_first_column_in_its_columns_menu
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ true, false ], page.css("button[data-action=\"click->column-picker#moveUp\"]").map { |button| button.key?("disabled") }
+  end
+
   private
 
   def three_columns

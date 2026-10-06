@@ -6,7 +6,7 @@
     Columns
   </button>
   <div data-column-picker-target="menu" class="<%= MENU_CLASSES %>">
-    <% hideable_columns.each do |col| %>
+    <% hideable_columns.each_with_index do |col, index| %>
       <div class="<%= OPTION_ROW_CLASSES %>" data-column-picker-target="option">
         <label class="<%= OPTION_CLASSES %>">
           <input type="checkbox"
@@ -19,6 +19,7 @@
         <button type="button"
                 data-action="click->column-picker#moveUp"
                 aria-label="Move up"
+                <%= "disabled" if index.zero? %>
                 class="<%= MOVE_BUTTON_CLASSES %>">&uarr;</button>
         <button type="button"
                 data-action="click->column-picker#moveDown"
