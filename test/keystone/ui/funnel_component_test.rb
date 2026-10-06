@@ -123,6 +123,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_equal :bars, component.shape
   end
 
+  def test_joined_shape_draws_one_joined_funnel
+    component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ], shape: :joined)
+    
+    assert component.joined?
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end

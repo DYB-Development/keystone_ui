@@ -27,6 +27,10 @@ module Keystone
         @shape = shape
       end
 
+      def joined?
+        shape == :joined
+      end
+
       def layers
         previous = nil
 
