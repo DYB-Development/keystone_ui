@@ -23,4 +23,10 @@ class Keystone::Ui::FunnelComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "width: 26%", page.at_css(".ks-funnel-joined .ks-funnel-bar-sky")&.[]("style")
   end
+
+  def test_a_joined_funnel_band_narrows_from_one_block_to_the_next
+    page = render_inline(Keystone::Ui::FunnelComponent.new(steps: steps, shape: :joined))
+
+    assert_equal "clip-path: polygon(0% 0, 100% 0, 63% 100%, 37% 100%)", page.at_css(".ks-funnel-band")&.[]("style")
+  end
 end

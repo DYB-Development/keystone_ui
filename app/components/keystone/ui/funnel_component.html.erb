@@ -4,7 +4,7 @@
       <% if layer.conversion_percent %>
         <div></div>
         <div class="<%= BAND_ROW_CLASSES %>">
-          <div class="<%= BAND_CLASSES %>"></div>
+          <div class="<%= BAND_CLASSES %>" style="clip-path: <%= band_clip_path(layer) %>"></div>
           <div class="<%= BAND_LABEL_ROW_CLASSES %>"><span class="<%= BAND_LABEL_CLASSES %>"><%= layer.conversion_percent %>%</span></div>
         </div>
       <% end %>
