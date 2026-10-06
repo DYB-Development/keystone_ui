@@ -20,10 +20,11 @@ module Keystone
         rose: "ks-funnel-bar-rose"
       }.freeze
 
-      attr_reader :steps
+      attr_reader :steps, :shape
 
-      def initialize(steps:)
+      def initialize(steps:, shape: :bars)
         @steps = steps
+        @shape = shape
       end
 
       def layers

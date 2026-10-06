@@ -117,6 +117,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
 
 
 
+  def test_shape_defaults_to_bars
+    component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ])
+    
+    assert_equal :bars, component.shape
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end
