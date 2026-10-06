@@ -22,6 +22,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month" ], page.css("thead th").map { |header| header.text.strip }
   end
 
+  def test_given_a_key_with_nothing_saved_hides_the_columns_its_own_call_hides
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { nil } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months, hidden_columns: [ :pipeline ])
+    end
+
+    assert_equal [ "Month" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
   def test_puts_each_row_s_actions_in_an_action_menu
     page = render_in_view_context do
       ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ]) do |table|
