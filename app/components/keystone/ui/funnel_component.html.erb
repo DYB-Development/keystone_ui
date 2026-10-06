@@ -1,6 +1,13 @@
 <% if joined? %>
   <div class="<%= JOINED_CLASSES %>">
     <% layers.each do |layer| %>
+      <% if layer.conversion_percent %>
+        <div></div>
+        <div class="<%= BAND_ROW_CLASSES %>">
+          <div class="<%= BAND_CLASSES %>"></div>
+          <div class="<%= BAND_LABEL_ROW_CLASSES %>"><span class="<%= BAND_LABEL_CLASSES %>"><%= layer.conversion_percent %>%</span></div>
+        </div>
+      <% end %>
       <div class="<%= WORDS_CLASSES %>">
         <span class="<%= value_classes %>"><%= layer.value %></span>
         <span class="<%= label_classes %>"><%= layer.label %></span>

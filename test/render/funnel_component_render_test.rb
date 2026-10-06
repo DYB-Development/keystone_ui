@@ -11,4 +11,10 @@ class Keystone::Ui::FunnelComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "161", "Contacts" ], [ "42", "Conversations" ] ],
       page.css(".ks-funnel-joined .ks-funnel-value").map(&:text).zip(page.css(".ks-funnel-joined .ks-funnel-label").map(&:text))
   end
+
+  def test_a_joined_funnel_shows_the_percent_on_the_band_between_two_steps
+    page = render_inline(Keystone::Ui::FunnelComponent.new(steps: steps, shape: :joined))
+
+    assert_equal [ "26%" ], page.css(".ks-funnel-band-label").map(&:text)
+  end
 end
