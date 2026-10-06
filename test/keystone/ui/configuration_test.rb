@@ -85,4 +85,11 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal [ [ "Invoices", "/invoices" ] ], KeystoneUi.configuration.supplied_trail(view)
   end
+
+  def test_supplies_the_preference_a_registered_supplier_returns_for_the_view_and_key
+    view = Struct.new(:saved).new({ months: { value: { "hidden_columns" => [ "pipeline" ] }, save_url: "/preferences/months" } })
+    KeystoneUi.configure { |c| c.preference_supplier = ->(from, key) { from.saved[key] } }
+
+    assert_equal({ value: { "hidden_columns" => [ "pipeline" ] }, save_url: "/preferences/months" }, KeystoneUi.configuration.supplied_preference(view, :months))
+  end
 end
