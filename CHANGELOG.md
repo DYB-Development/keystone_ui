@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.33.0] - 2026-10-06
+
 ### Added
 - `ui_data_table` takes `key:` to find its saved layout through `config.preference_supplier`, hiding the columns the saved value names and showing a Columns menu above itself when the supplier gives a save address.
 
