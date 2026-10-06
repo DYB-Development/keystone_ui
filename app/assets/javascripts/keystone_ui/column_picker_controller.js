@@ -32,6 +32,10 @@ export default class extends Controller {
     this.move(event, -1)
   }
 
+  moveDown(event) {
+    this.move(event, 1)
+  }
+
   move(event, step) {
     const order = this.columnOrder()
     const index = this.optionTargets.indexOf(event.currentTarget.closest('[data-column-picker-target="option"]'))

@@ -37,3 +37,14 @@ test("moving a column up sends the new order and the hidden columns in one reque
 
   assert.deepEqual(bodies, [ { hidden_columns: [ "outreach" ], column_order: [ "outreach", "pipeline" ] } ])
 })
+
+test("moving a column down sends the new order and the hidden columns in one request", () => {
+  const { controller, options } = pickerWith([
+    { key: "pipeline", shown: true },
+    { key: "outreach", shown: false }
+  ])
+
+  const bodies = sentBodies(() => controller.moveDown({ currentTarget: { closest: () => options[0] } }))
+
+  assert.deepEqual(bodies, [ { hidden_columns: [ "outreach" ], column_order: [ "outreach", "pipeline" ] } ])
+})
