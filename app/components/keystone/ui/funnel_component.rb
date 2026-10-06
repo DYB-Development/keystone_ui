@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class FunnelComponent < ViewComponent::Base
-      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, :color_classes, keyword_init: true)
+      Layer = Struct.new(:label, :value, :width_percent, :conversion_percent, :color_classes, :previous_width_percent, keyword_init: true)
 
       CONTAINER_CLASSES = "ks-funnel"
       LAYER_CLASSES = "ks-funnel-layer"
@@ -42,7 +42,8 @@ module Keystone
             value: step[:value],
             width_percent: width_percent(step[:value]),
             conversion_percent: conversion_percent(step[:value], previous),
-            color_classes: color_classes(step[:color], index)
+            color_classes: color_classes(step[:color], index),
+            previous_width_percent: previous && width_percent(previous)
           )
           previous = step[:value]
           layer

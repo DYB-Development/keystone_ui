@@ -133,6 +133,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_raises(ArgumentError) { Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ], shape: :pyramid) }
   end
 
+  def test_lower_layer_knows_the_width_of_the_step_above
+    component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Contacts", value: 161 }, { label: "Conversations", value: 42 } ])
+    
+    assert_equal 100, component.layers.last.previous_width_percent
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end
