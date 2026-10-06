@@ -47,7 +47,8 @@ shell also uses the page container.
 This local declares no commands. The two working surfaces belong elsewhere:
 
 - **Getting the gem into a host app** — adding it, wiring Tailwind, Stimulus and
-  the theme attributes on the layout, setting the palette → **`keystone_ui-install`**.
+  the theme attributes on the layout, setting the palette, and the suppliers
+  for trails, themes, looks and saved table layouts → **`keystone_ui-install`**.
 - **Building UI with it** — which helper renders what, what keywords it takes,
   how helpers nest → **`keystone_ui-develop`**.
 
@@ -123,6 +124,16 @@ holds the catalog.
 - **The last table column is right-aligned.** In a data table with no actions
   column, the last column's header is right-aligned like the cells beneath it,
   so a figure or total placed in that header lines up with the figures below.
+- **Saved table layouts.** A data table can be given a key naming it. A table
+  with a key asks the app, or another gem such as keystone_ui-preferences, for
+  the layout saved under that key for the request. A saved layout lists the
+  columns to hide, and only columns marked hideable can be hidden. When a
+  layout is saved, it replaces the columns the table hides by default. When
+  nothing is saved, the table hides the columns its own call names, so those
+  are its default layout. When the supplier also gives an address to save to,
+  a "Columns" menu appears above the table and saves the user's choice there.
+  A table with no key, or an app with no supplier, renders from its own call
+  alone. Setting up the supplier belongs to the install local.
 - **Suggestions.** A form field can carry a list of suggested values. The
   browser offers them while the field's text is typed, and the user can still
   enter a value that is not on the list. This applies to a field with a typed
@@ -208,5 +219,5 @@ holds the catalog.
   and the theme toggle ship with the gem as Stimulus controllers registered once
   at install. A host writes no JavaScript to use them. Components that post
   somewhere, such as the column picker and the pipeline, post to endpoints the
-  host app owns.
+  host app or another gem owns.
 - Ruby >= 3.2. ViewComponent >= 2.0 and < 5.

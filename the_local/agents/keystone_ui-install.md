@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-install
-description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks, the breadcrumb trail supplier and extra Tailwind imports and sources.
+description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks, the breadcrumb trail supplier, the saved table layout supplier and extra Tailwind imports and sources.
 tools: Bash, Read, Edit
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -26,6 +26,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
   `look_supplier` (which registered look a page gets),
   `trail_supplier` (a callable that supplies the breadcrumb trail for form and
   show pages that pass none, and their Back link when they pass none either),
+  `preference_supplier` (a callable that supplies the saved column layout of a
+  data table given a `key:`, and the address its Columns menu saves to),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 - `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
@@ -179,6 +181,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
      config.default_look = :compact
      config.look_supplier = ->(view) { view.current_user&.look }
      config.trail_supplier = ->(view) { view.breadcrumb_trail }
+     config.preference_supplier = ->(view, key) { TablePreferences.for(view.current_user, key) }
      config.tailwind_imports << "/absolute/path/to/extra.css"
      config.tailwind_sources << "/absolute/path/to/components/**/*.{erb,rb}"
    end
@@ -229,6 +232,24 @@ built on ViewComponent; hook it in before building any screen with those helpers
      writing the callable. If some form or show pages pass no `back_url:`, ask
      where their Back link should come from before enabling the supplier or
      leaving it out.
+   - `preference_supplier` — a callable that receives the view and a data
+     table's key and returns `{ value:, save_url: }`, or `nil` when nothing is
+     saved for that key. It is asked only for tables rendered with a `key:`. A
+     table with no `key:`, a supplier returning `nil`, or no supplier at all
+     renders with the hidden columns its own call passes.
+   - `value` must hold the hidden column names under the string key
+     `"hidden_columns"`, such as `{ "hidden_columns" => ["sku"] }`. A symbol key
+     is not read, and the table then hides no columns. Only columns marked
+     hideable are hidden.
+   - When `save_url` is present, the table shows a Columns menu above itself.
+     Toggling a column sends a `PATCH` to `save_url` with the JSON body
+     `{"hidden_columns": [...]}` and the page's CSRF token, then reloads the
+     page. The host must have a route and action at that address that store the
+     list for that key. With no `save_url`, the saved layout applies and no menu
+     is shown.
+   - A companion preferences gem may set this supplier for the app. Ask the
+     developer whether the app uses one, or which code stores each user's table
+     layouts, before writing the callable.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for
