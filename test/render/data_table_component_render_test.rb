@@ -149,6 +149,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month", "Pipeline", "Outreach" ], page.css("thead th").map { |header| header.text.strip }
   end
 
+  def test_given_a_saved_order_naming_some_columns_renders_the_rest_after_them
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "column_order" => [ "outreach" ] } } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
   private
 
   def three_columns
