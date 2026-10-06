@@ -139,6 +139,12 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert_equal 100, component.layers.last.previous_width_percent
   end
 
+  def test_band_narrows_from_the_step_above_to_the_step_below
+    component = Keystone::Ui::FunnelComponent.new(steps: [ { label: "Contacts", value: 161 }, { label: "Conversations", value: 42 } ], shape: :joined)
+    
+    assert_equal "polygon(0% 0, 100% 0, 63% 100%, 37% 100%)", component.band_clip_path(component.layers.last)
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end

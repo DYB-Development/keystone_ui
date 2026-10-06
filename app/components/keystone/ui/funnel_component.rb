@@ -33,6 +33,13 @@ module Keystone
         shape == :joined
       end
 
+      def band_clip_path(layer)
+        top = (100 - layer.previous_width_percent) / 2.0
+        bottom = (100 - layer.width_percent) / 2.0
+
+        "polygon(#{format("%g%%", top)} 0, #{format("%g%%", 100 - top)} 0, #{format("%g%%", 100 - bottom)} 100%, #{format("%g%%", bottom)} 100%)"
+      end
+
       def layers
         previous = nil
 
