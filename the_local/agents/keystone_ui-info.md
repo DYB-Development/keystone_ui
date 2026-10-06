@@ -129,6 +129,13 @@ holds the catalog.
 - **Figures are numbers.** Components that measure or compare values, such as
   progress bars, funnels and buckets, do arithmetic on them. Pass a number, not
   a formatted string such as `"9,000"`. A bucket raises on one.
+- **A funnel has two shapes.** Both size each step against the first step and
+  show the percent carried from one step to the next. The default draws one bar
+  per step, each with its label and value on a row above it. The joined shape
+  draws the steps as one figure: each step's value and label sit in a column on
+  the left, each step is a block centred at its width, and a neutral band
+  between two blocks narrows from one width to the next and holds the percent.
+  Any other shape raises `ArgumentError`. Neither shape needs JavaScript.
 - **A line chart is labelled or dated.** A line chart draws one line per
   series, and each series is a name and its values, with an optional colour
   and an optional dashed line. Its horizontal axis is given one of two ways,

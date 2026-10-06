@@ -337,13 +337,20 @@ outer element. See Conventions before using it.
   the last, marks only whole days, and reads each day as a date such as
   "Oct 2, 2026", which is also the heading a hovered point shows. The time of
   day is dropped, so pass one value per day.
-- `ui_funnel(steps:)` — a conversion funnel. `steps:` is
-  `[{ label:, value:, color: }, ...]` in order, with `color:` optional. Bar
-  widths are relative to the first step; the caption between two layers is the
-  step-to-step conversion. Each bar takes the next colour in the order
-  `:accent` `:sky` `:violet` `:amber` `:rose`, starting again after `:rose`; a
-  step passing one of those symbols as `color:` uses it instead, and any other
-  symbol raises. Divide-by-zero safe, no JavaScript.
+- `ui_funnel(steps:, shape: :bars)` — a conversion funnel. `steps:` is
+  `[{ label:, value:, color: }, ...]` in order, with `color:` optional. Each
+  step's width is its value as a share of the first step's value, and the
+  percent shown between two steps is the second step's value divided by the
+  first's. Each step takes the next colour in the order `:accent` `:sky`
+  `:violet` `:amber` `:rose`, starting again after `:rose`; a step passing one
+  of those symbols as `color:` uses it instead, and any other symbol raises.
+  Values are printed as given. Divide-by-zero safe, no JavaScript. `shape:`
+  `:bars` draws one bar per step, left-aligned, with the label and value on a
+  row above it and a `↓ N%` caption between two bars. `shape: :joined` draws
+  one shape: each step's value over its label in a column on the left, each
+  step's block centred at its width, and between two blocks a neutral band
+  that narrows from the block above to the block below, with the percent on it.
+  Any other `shape:` raises `ArgumentError`.
 - `ui_bucket(goal:, actual:, label: nil, over: :success)` — an upright container
   for one target, filled from the bottom toward `goal:`. It shows the optional
   `label` on top, then `goal`, the container, `actual`, and the percent reached.
@@ -459,6 +466,12 @@ outer element. See Conventions before using it.
    its neighbours rather than a point at zero. Whether a missing day is left
    out or passed as a zero is the app's own rule, so ask the developer rather
    than pick. Never format dates into strings and pass them as `labels:`.
+   For a funnel, whether it is drawn as separate bars or as one joined shape
+   is the developer's choice, so ask before passing `shape:`. If a joined
+   funnel shows its blocks but no band between them, the app's
+   keystone_ui-styles version does not define the `ks-funnel-band` classes, so
+   stop and hand that part to `keystone_ui-install`, and add no classes to fix
+   it.
    Put the actions on a record, such as Edit and Delete, in an action menu
    rather than in a row of buttons: `menu:` on the `ui_section` that shows the
    record, `table.actions` for a table row, or `ui_action_menu` anywhere else.
