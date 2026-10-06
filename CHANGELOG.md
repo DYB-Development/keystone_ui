@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.32.0] - 2026-10-06
+
 ### Added
 - `ui_figure(text:, tone:)` shows a figure in plain text, or in the success or danger colour, so an amount can read as gain or loss without a badge around it.
 
