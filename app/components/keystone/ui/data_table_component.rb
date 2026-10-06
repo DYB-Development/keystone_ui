@@ -137,7 +137,7 @@ module Keystone
 
       def apply_saved_layout
         saved = KeystoneUi.configuration.supplied_preference(helpers, @key)
-        @columns = visible_columns(saved[:value]["hidden_columns"])
+        @columns = visible_columns(saved[:value]["hidden_columns"]) if saved
       end
 
       def visible_columns(hidden_columns)
