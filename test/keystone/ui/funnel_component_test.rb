@@ -129,6 +129,10 @@ class Keystone::Ui::FunnelComponentTest < Minitest::Test
     assert component.joined?
   end
 
+  def test_an_unknown_shape_is_refused
+    assert_raises(ArgumentError) { Keystone::Ui::FunnelComponent.new(steps: [ { label: "Visitors", value: 10_000 } ], shape: :pyramid) }
+  end
+
   def test_container_classes_render_the_ks_funnel_class
     assert_includes Keystone::Ui::FunnelComponent::CONTAINER_CLASSES, "ks-funnel"
   end

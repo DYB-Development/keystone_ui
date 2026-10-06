@@ -23,6 +23,8 @@ module Keystone
       attr_reader :steps, :shape
 
       def initialize(steps:, shape: :bars)
+        raise ArgumentError, "a funnel's shape is :bars or :joined, got #{shape.inspect}" unless %i[bars joined].include?(shape)
+
         @steps = steps
         @shape = shape
       end
