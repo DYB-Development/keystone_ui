@@ -24,4 +24,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :pipeline ], layout.visible_columns.map(&:key)
   end
+
+  def test_puts_its_hideable_columns_in_the_saved_order_and_leaves_the_others_in_place
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => [ "outreach", "pipeline" ] }, default_hidden: [])
+
+    assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
+  end
 end

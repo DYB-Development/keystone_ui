@@ -9,8 +9,12 @@ module Keystone
         @default_hidden = default_hidden
       end
 
+      def columns
+        @ordered_columns ||= ordered_columns
+      end
+
       def visible_columns
-        @columns.reject { |column| hidden?(column.key) }
+        columns.reject { |column| hidden?(column.key) }
       end
 
       def hidden?(key)
@@ -19,6 +23,15 @@ module Keystone
       end
 
       private
+
+      def ordered_columns
+        column_order = @value["column_order"]
+        return @columns unless column_order
+
+        positions = Array(column_order).map(&:to_sym).each_with_index.to_h
+        hideable = @columns.select(&:hideable?).sort_by.with_index { |col, index| positions.fetch(col.key, positions.size + index) }
+        @columns.map { |col| col.hideable? ? hideable.shift : col }
+      end
 
       def hidden_keys
         @hidden_keys ||= Array(@value.fetch("hidden_columns", @default_hidden)).map(&:to_sym).to_set
