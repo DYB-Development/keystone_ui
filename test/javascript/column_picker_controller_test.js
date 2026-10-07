@@ -190,3 +190,18 @@ test("after a move only the new first column's up button and the new last column
 
   assert.deepEqual(options.map(({ parts }) => [ parts.checkbox.value, parts.up.disabled, parts.down.disabled ]), [ [ "outreach", true, false ], [ "pipeline", false, true ] ])
 })
+
+test("closing the menu with its Columns button after a tick sends the hidden columns and the order once", () => {
+  const { controller, options, on } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: true }
+  ])
+  options[1].parts.checkbox.checked = false
+
+  const bodies = sentBodies(() => {
+    controller.mark(on(1))
+    controller.toggle({ stopPropagation() {} })
+  })
+
+  assert.deepEqual(bodies, [ { hidden_columns: [ "pipeline" ], column_order: [ "outreach", "pipeline" ] } ])
+})
