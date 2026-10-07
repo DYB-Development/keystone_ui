@@ -227,6 +227,7 @@ test("a save the server answers with an error shows that the change was not save
   options[1].parts.checkbox.checked = false
 
   await afterSaving(() => Promise.resolve({ ok: false }), () => {
+    controller.connect()
     controller.mark(on(1))
     controller.close(outside)
   })
@@ -242,6 +243,7 @@ test("a save that cannot reach the server shows that the change was not saved", 
   options[1].parts.checkbox.checked = false
 
   await afterSaving(() => Promise.reject(new TypeError("Failed to fetch")), () => {
+    controller.connect()
     controller.mark(on(1))
     controller.close(outside)
   })
@@ -257,6 +259,7 @@ test("a failed save leaves the page without reloading it", async () => {
   options[1].parts.checkbox.checked = false
 
   const visits = await afterSaving(() => Promise.resolve({ ok: false }), () => {
+    controller.connect()
     controller.mark(on(1))
     controller.close(outside)
   })
