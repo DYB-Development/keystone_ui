@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+require "test_helper"
+require_relative "../../../app/components/keystone/ui/column"
+require_relative "../../../app/components/keystone/ui/saved_layout"
+
+class Keystone::Ui::SavedLayoutTest < Minitest::Test
+  def columns
+    @columns ||= [
+      Keystone::Ui::Column.new(:month, "Month", locked: true),
+      Keystone::Ui::Column.new(:pipeline, "Pipeline", hideable: true),
+      Keystone::Ui::Column.new(:outreach, "Outreach", hideable: true)
+    ]
+  end
+
+  def test_hides_the_hideable_columns_its_value_names
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "hidden_columns" => [ "pipeline" ] }, default_hidden: [])
+
+    assert_equal [ :month, :outreach ], layout.visible_columns.map(&:key)
+  end
+end
