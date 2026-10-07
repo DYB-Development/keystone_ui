@@ -18,4 +18,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :outreach ], layout.visible_columns.map(&:key)
   end
+
+  def test_hides_the_default_hidden_columns_when_nothing_is_saved
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: nil, default_hidden: [ :outreach ])
+
+    assert_equal [ :month, :pipeline ], layout.visible_columns.map(&:key)
+  end
 end
