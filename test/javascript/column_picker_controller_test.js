@@ -43,13 +43,15 @@ function pickerWith(columns) {
   })
   const inside = {}
   const menu = { classList: classes() }
+  const error = { classList: classes("hidden") }
   const controller = new ColumnPickerController({ scope: { element: { contains: (target) => target === inside } } })
   Object.defineProperty(controller, "optionTargets", { get: () => options.slice() })
   Object.defineProperty(controller, "menuTarget", { value: menu })
+  Object.defineProperty(controller, "errorTarget", { value: error })
   Object.defineProperty(controller, "hasSaveUrlValue", { value: true })
   Object.defineProperty(controller, "saveUrlValue", { value: "/preferences/months" })
   const on = (index) => ({ currentTarget: { closest: () => options[index] } })
-  return { controller, options, menu, on, outside: { target: {} } }
+  return { controller, options, menu, error, on, outside: { target: {} } }
 }
 
 function sentBodies(run) {
@@ -59,7 +61,7 @@ function sentBodies(run) {
   globalThis.window = { location: { href: "/months" } }
   globalThis.fetch = (url, request) => {
     bodies.push(JSON.parse(request.body))
-    return Promise.resolve()
+    return Promise.resolve({ ok: true })
   }
   run()
   return bodies
@@ -204,4 +206,30 @@ test("closing the menu with its Columns button after a tick sends the hidden col
   })
 
   assert.deepEqual(bodies, [ { hidden_columns: [ "pipeline" ], column_order: [ "outreach", "pipeline" ] } ])
+})
+
+async function afterSaving(answer, run) {
+  const visits = []
+  globalThis.document = { querySelector: () => null }
+  globalThis.Turbo = { visit: (url) => visits.push(url) }
+  globalThis.window = { location: { href: "/months" } }
+  globalThis.fetch = () => answer()
+  run()
+  await new Promise((resolve) => setImmediate(resolve))
+  return visits
+}
+
+test("a save the server answers with an error shows that the change was not saved", async () => {
+  const { controller, options, error, on, outside } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: true }
+  ])
+  options[1].parts.checkbox.checked = false
+
+  await afterSaving(() => Promise.resolve({ ok: false }), () => {
+    controller.mark(on(1))
+    controller.close(outside)
+  })
+
+  assert.equal(error.classList.contains("hidden"), false)
 })

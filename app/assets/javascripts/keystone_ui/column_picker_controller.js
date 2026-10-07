@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["menu", "option"]
+  static targets = ["menu", "option", "error"]
   static values = { saveUrl: String }
 
   connect() {
@@ -99,8 +99,14 @@ export default class extends Controller {
         "X-CSRF-Token": token
       },
       body: JSON.stringify({ hidden_columns: this.hiddenColumns(), column_order: this.columnOrder() })
-    }).then(() => {
+    }).then((response) => {
+      if (!response.ok) return this.failed()
+
       Turbo.visit(window.location.href, { action: "replace" })
     })
+  }
+
+  failed() {
+    this.errorTarget.classList.remove("hidden")
   }
 }
