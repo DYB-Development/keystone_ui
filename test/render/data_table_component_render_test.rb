@@ -257,6 +257,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[ks-table-header-locked sticky left-0] - page.css("thead th").first["class"].split
   end
 
+  def test_keeps_the_cells_of_a_locked_first_column_in_place_while_the_rest_scrolls
+    columns = [ Keystone::Ui::Column.new(:month, "Month", locked: true), Keystone::Ui::Column.new(:pipeline, "Pipeline") ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty %w[ks-table-cell-locked sticky left-0] - page.css("tbody td").first["class"].split
+  end
+
   private
 
   def three_columns
