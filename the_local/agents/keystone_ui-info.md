@@ -127,6 +127,13 @@ holds the catalog.
 - **The last table column is right-aligned.** In a data table with no actions
   column, the last column's header is right-aligned like the cells beneath it,
   so a figure or total placed in that header lines up with the figures below.
+- **A locked first column.** A table column can be marked locked. When it is
+  the table's first column, its header and cells stay in view while the rest
+  of the table scrolls sideways, styled by keystone_ui-styles' locked header
+  and cell classes. A locked column anywhere else renders as an ordinary
+  column. A locked column cannot be hidden or moved, so it never appears in the
+  "Columns" menu and a saved layout leaves it where it is, even when it is also
+  marked hideable.
 - **Saved table layouts.** A data table can be given a key naming it. A table
   with a key asks the app, or another gem such as keystone_ui-preferences, for
   the layout saved under that key for the request. A saved layout lists the
