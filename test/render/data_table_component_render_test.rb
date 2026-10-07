@@ -275,6 +275,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css(".ks-table-header-locked, .ks-table-cell-locked, .sticky")
   end
 
+  def test_gives_a_locked_column_no_checkbox_in_its_columns_menu
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = [ Keystone::Ui::Column.new(:month, "Month", hideable: true, locked: true), Keystone::Ui::Column.new(:pipeline, "Pipeline", hideable: true) ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "pipeline" ], page.css("[data-controller=column-picker] input[type=checkbox]").map { |box| box["value"] }
+  end
+
   private
 
   def three_columns

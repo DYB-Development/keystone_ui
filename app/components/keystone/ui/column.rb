@@ -16,7 +16,7 @@ module Keystone
 
       def mobile_hidden? = @mobile_hidden
       def sortable? = @sortable
-      def hideable? = @hideable
+      def hideable? = @hideable && !@locked
       def locked? = @locked
     end
   end
