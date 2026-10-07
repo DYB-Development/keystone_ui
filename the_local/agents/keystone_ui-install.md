@@ -43,7 +43,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
 ## How to use it
 
 1. Confirm the prerequisites: Ruby >= 3.2 and **tailwindcss-rails v4+** in the
-   host app. The gem brings ViewComponent and keystone_ui-styles 0.11.0 or later with it.
+   host app. The gem brings ViewComponent and keystone_ui-styles 0.12.0 or later with it.
    Tailwind does not have to be initialized first, because the generator creates
    the stylesheet if it is missing.
 
@@ -248,6 +248,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
      `"hidden_columns"`, such as `{ "hidden_columns" => ["sku"] }`. That list
      replaces the hidden columns the table's own call passes, and an empty list
      shows every column. Only columns marked hideable are hidden.
+   - A column marked locked is never hideable, even when it is also marked
+     hideable. A saved layout cannot hide it or move it, and the Columns menu
+     does not list it.
    - When `value` is `nil`, or has no `"hidden_columns"` string key, the table
      keeps the hidden columns its own call passes. A symbol key is not read, so
      `{ hidden_columns: [...] }` also keeps them.

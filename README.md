@@ -390,13 +390,14 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 
 **Column options**
 
-`Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false)`
+`Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false)`
 
 | Option | Default | Description |
 |--------|---------|-------------|
 | `mobile_hidden:` | `false` | hide on small screens (`hidden sm:table-cell`) |
 | `sortable:` | `false` | render header as clickable sort link |
 | `hideable:` | `false` | allow hiding via `hidden_columns:` / column picker |
+| `locked:` | `false` | on the first column, keep it in view while the rest of the table scrolls sideways; a locked column cannot be hidden or moved |
 
 **Mobile-hidden columns**
 

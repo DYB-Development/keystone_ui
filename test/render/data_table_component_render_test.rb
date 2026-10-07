@@ -248,6 +248,53 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal({ "pipeline" => true, "outreach" => false }, page.css("[data-controller=column-picker] label").to_h { |label| [ label.at_css("input")["value"], label["class"].split.include?("ks-menu-option-hidden") ] })
   end
 
+  def test_keeps_the_header_of_a_locked_first_column_in_place_while_the_rest_scrolls
+    columns = [ Keystone::Ui::Column.new(:month, "Month", locked: true), Keystone::Ui::Column.new(:pipeline, "Pipeline") ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty %w[ks-table-header-locked sticky left-0] - page.css("thead th").first["class"].split
+  end
+
+  def test_keeps_the_cells_of_a_locked_first_column_in_place_while_the_rest_scrolls
+    columns = [ Keystone::Ui::Column.new(:month, "Month", locked: true), Keystone::Ui::Column.new(:pipeline, "Pipeline") ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty %w[ks-table-cell-locked sticky left-0] - page.css("tbody td").first["class"].split
+  end
+
+  def test_renders_a_locked_column_that_is_not_first_as_an_ordinary_column
+    columns = [ Keystone::Ui::Column.new(:month, "Month"), Keystone::Ui::Column.new(:pipeline, "Pipeline", locked: true) ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty page.css(".ks-table-header-locked, .ks-table-cell-locked, .sticky")
+  end
+
+  def test_gives_a_locked_column_no_checkbox_in_its_columns_menu
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = [ Keystone::Ui::Column.new(:month, "Month", hideable: true, locked: true), Keystone::Ui::Column.new(:pipeline, "Pipeline", hideable: true) ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "pipeline" ], page.css("[data-controller=column-picker] input[type=checkbox]").map { |box| box["value"] }
+  end
+
+  def test_given_no_locked_column_keeps_every_column_scrolling_with_the_table
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty page.css(".ks-table-header-locked, .ks-table-cell-locked, .sticky")
+  end
+
   private
 
   def three_columns

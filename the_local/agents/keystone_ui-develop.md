@@ -245,11 +245,16 @@ outer element. See Conventions before using it.
   supplier returns nothing, when no supplier is set, or when no `key:` is
   passed, the table renders from `hidden_columns:` with no Columns menu. In
   every case `hidden_columns:` is the table's default layout.
-- `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false)`
+- `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false)`
   — a column with per-column options, for when a `{ key: "Label" }` hash is not
   enough. `mobile_hidden:` hides the column below `sm:`; `sortable:` opts it into
   sort headers; `hideable:` lets the Columns menu hide it and move it, and a
-  saved `"column_order"` place it.
+  saved `"column_order"` place it. `locked: true` on the table's first column
+  keeps its header and cells in view while the rest of the table scrolls
+  sideways. A locked column that is not first renders as an ordinary column. A
+  locked column is never hideable, even with `hideable: true`: it is left out of
+  the Columns menu, `hidden_columns:` and a saved layout cannot hide it, and a
+  saved `"column_order"` cannot move it.
 - `ui_column_picker(columns:, hidden_columns: [], save_url: nil)` — a "Columns"
   dropdown with one row per `hideable` column, in the order `columns:` lists
   them. Each row has a checkbox and an up and a down button that move the
@@ -540,8 +545,16 @@ outer element. See Conventions before using it.
 
 6. For a table, decide how columns are declared. Use `{ key: "Label" }` hashes
    when every column is plain. Switch the whole set to `Keystone::Ui::Column`
-   objects as soon as one column needs `mobile_hidden:`, `sortable:`, or
-   `hideable:`.
+   objects as soon as one column needs `mobile_hidden:`, `sortable:`,
+   `hideable:`, or `locked:`.
+
+   To keep a wide table's first column, such as a name, in view while the rest
+   scrolls sideways, declare it first with `locked: true`. Whether a table locks
+   its first column is the developer's choice, so ask rather than pick. If the
+   locked column stays in place but the scrolled columns show through its
+   cells, the app's keystone_ui-styles version does not define the
+   `ks-table-header-locked` and `ks-table-cell-locked` classes, so stop and hand
+   that part to `keystone_ui-install`, and add no classes to fix it.
 
    For a table whose hideable columns a user should be able to choose and keep,
    check whether the app's Keystone UI initializer sets a
