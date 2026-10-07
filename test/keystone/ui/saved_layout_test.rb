@@ -36,4 +36,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :pipeline ], layout.visible_columns.map(&:key)
   end
+
+  def test_treats_a_saved_order_that_is_not_a_list_as_no_saved_order
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => "outreach" }, default_hidden: [])
+
+    assert_equal [ :month, :pipeline, :outreach ], layout.columns.map(&:key)
+  end
 end

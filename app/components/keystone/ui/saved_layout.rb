@@ -25,7 +25,7 @@ module Keystone
       private
 
       def ordered_columns
-        column_order = @value["column_order"]
+        column_order = saved_list("column_order")
         return @columns unless column_order
 
         positions = Array(column_order).map(&:to_sym).each_with_index.to_h
