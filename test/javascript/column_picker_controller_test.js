@@ -177,3 +177,16 @@ test("moving a column down sends nothing while the menu is open", () => {
 
   assert.deepEqual(bodies, [])
 })
+
+test("after a move only the new first column's up button and the new last column's down button are disabled", () => {
+  const { controller, options, on } = pickerWith([
+    { key: "pipeline", shown: true },
+    { key: "outreach", shown: true }
+  ])
+  options[0].parts.up.disabled = true
+  options[1].parts.down.disabled = true
+
+  sentBodies(() => controller.moveUp(on(1)))
+
+  assert.deepEqual(options.map(({ parts }) => [ parts.checkbox.value, parts.up.disabled, parts.down.disabled ]), [ [ "outreach", true, false ], [ "pipeline", false, true ] ])
+})

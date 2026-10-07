@@ -48,7 +48,7 @@ export default class extends Controller {
     if (!previous) return
 
     option.parentNode.insertBefore(option, previous)
-    this.changed = true
+    this.moved()
   }
 
   moveDown(event) {
@@ -57,7 +57,16 @@ export default class extends Controller {
     if (!next) return
 
     option.parentNode.insertBefore(next, option)
+    this.moved()
+  }
+
+  moved() {
     this.changed = true
+    const options = this.optionTargets
+    options.forEach((option, index) => {
+      option.querySelector('[data-action="click->column-picker#moveUp"]').disabled = index === 0
+      option.querySelector('[data-action="click->column-picker#moveDown"]').disabled = index === options.length - 1
+    })
   }
 
   columnOrder() {
