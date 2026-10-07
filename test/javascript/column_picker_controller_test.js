@@ -124,3 +124,15 @@ test("clicking outside the menu with nothing changed sends nothing", () => {
 
   assert.deepEqual(bodies, [])
 })
+
+test("unticking a column greys its name straight away", () => {
+  const { controller, options, on } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: true }
+  ])
+  options[1].parts.checkbox.checked = false
+
+  sentBodies(() => controller.mark(on(1)))
+
+  assert.equal(options[1].parts.label.classList.contains("ks-menu-option-hidden"), true)
+})

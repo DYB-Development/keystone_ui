@@ -32,8 +32,14 @@ export default class extends Controller {
     this.send(this.columnOrder())
   }
 
-  mark() {
+  mark(event) {
+    const option = this.optionFor(event)
+    option.querySelector("label").classList.toggle("ks-menu-option-hidden", !this.checkboxIn(option).checked)
     this.changed = true
+  }
+
+  optionFor(event) {
+    return event.currentTarget.closest('[data-column-picker-target="option"]')
   }
 
   moveUp(event) {
