@@ -213,26 +213,31 @@ built on ViewComponent; hook it in before building any screen with those helpers
      name for the request. A name that is not registered, or `nil`, leaves the
      page on the default look.
    - `trail_supplier` — a callable that receives the view and returns the
-     breadcrumb trail as an array of `[label, href]` pairs, or `nil`. A form or
-     show page that passes no trail of its own shows the supplied one on `lg:`
-     screens, ending with the page's title, in place of the desktop "Back" link.
-     A page that passes no Back link goes back to the trail's last link. A page
-     that passes its own trail or Back link keeps it. With no supplier, or a
-     `nil` return, the page shows its Back link. Return `nil`, not an empty
-     array, for a page with no trail. An empty array replaces the page's Back
-     link with breadcrumbs holding only its title, and on a page that passes
-     no Back link it raises `KeystoneUi::MissingBackLink`.
-   - Every form and show page must end up with a Back link. A page that passes
-     no Back link and no trail, and gets no trail from the supplier, raises
-     `KeystoneUi::MissingBackLink` naming the page's title when it renders.
-     So does a page whose trail's last link has no address.
-   - Every link the supplier returns needs both a label and an address. A trail
-     with a blank label or address raises `KeystoneUi::IncompleteTrail` naming
-     the page's title.
-   - Ask the developer which code in the app knows each page's trail before
-     writing the callable. If some form or show pages pass no `back_url:`, ask
-     where their Back link should come from before enabling the supplier or
-     leaving it out.
+     breadcrumb trail as an array of `[label, href]` pairs, an empty array, or
+     `nil`. It is asked only by a form or show page that passes no `trail:`.
+     A page that passes its own trail, including an empty one, keeps it.
+   - On `lg:` screens a form or show page shows a "Back" link, and under it the
+     breadcrumbs ending with the page's title when the trail has any links. A
+     page that passes no `back_url:` goes back to the trail's last link. With
+     no supplier, or a `nil` return, the page shows only its Back link.
+   - An empty trail marks a nav tab's own page, which has nowhere to go back
+     to. The page shows no Back link and no breadcrumbs, and raises nothing.
+     Return `[]` from the supplier for those
+     pages, and `nil` for a page whose Back link comes from its own
+     `back_url:`.
+   - Every other form and show page must end up with a Back link. A page that
+     passes no `back_url:`, and has no trail or a trail whose last link has no
+     address, raises `KeystoneUi::MissingBackLink` naming the page's title when
+     it renders. The message tells the developer to pass `back_url:` or
+     `trail:`, to supply a trail through `trail_supplier`, or to pass
+     `trail: []` on a nav tab's own page.
+   - Every link in a trail needs both a label and an address. A trail with a
+     blank label or address raises `KeystoneUi::IncompleteTrail` naming the
+     page's title.
+   - Ask the developer which code in the app knows each page's trail, and which
+     pages are nav tabs' own pages, before writing the callable. If some form
+     or show pages pass no `back_url:`, ask where their Back link should come
+     from before enabling the supplier or leaving it out.
    - `preference_supplier` — a callable that receives the view and a data
      table's key and returns `{ value:, save_url: }`, or `nil` when the person
      can neither see nor save a layout for that key. It is asked only for

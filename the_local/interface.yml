@@ -125,6 +125,7 @@ sources:
   - app/components/keystone/ui/action_menu_component.rb
   - app/components/keystone/ui/action_menu_item_component.rb
   - app/components/keystone/ui/mobile_header_component.rb
+  - app/components/keystone/ui/mobile_header_component.html.erb
   - app/components/keystone/ui/modal_component.rb
   - app/components/keystone/ui/multi_select_component.rb
   - app/components/keystone/ui/nav_dropdown_component.rb
