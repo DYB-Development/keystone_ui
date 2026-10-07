@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- A form or show page with a trail shows its "Back" link above its breadcrumbs instead of replacing it with them.
+
+### Added
+- A form or show page given an empty trail is a nav tab's own page and shows no "Back" link and no breadcrumbs.
+- `ui_mobile_header` given a `nil` `back_url:` shows no back arrow.
+
 ## [0.34.0] - 2026-10-06
 
 ### Added
