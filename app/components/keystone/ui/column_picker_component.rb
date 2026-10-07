@@ -20,18 +20,17 @@ module Keystone
 
       attr_reader :save_url
 
-      def initialize(columns:, hidden_columns: [], save_url: nil)
-        @columns = columns
-        @hidden_keys = Array(hidden_columns).map(&:to_sym).to_set
+      def initialize(columns:, hidden_columns: [], save_url: nil, layout: nil)
+        @layout = layout || SavedLayout.new(columns: columns, value: nil, default_hidden: hidden_columns)
         @save_url = save_url
       end
 
       def hideable_columns
-        @columns.select(&:hideable?)
+        @layout.columns.select(&:hideable?)
       end
 
       def hidden?(key)
-        @hidden_keys.include?(key.to_sym)
+        @layout.hidden?(key)
       end
 
       def option_classes(key)
