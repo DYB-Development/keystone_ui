@@ -1,6 +1,8 @@
 <div class="<%= WRAPPER_CLASSES %>">
-  <%= link_to @back_url, class: BACK_LINK_CLASSES, aria: { label: "Back" } do %>
-    <%= BACK_ICON.html_safe %>
+  <% if @back_url %>
+    <%= link_to @back_url, class: BACK_LINK_CLASSES, aria: { label: "Back" } do %>
+      <%= BACK_ICON.html_safe %>
+    <% end %>
   <% end %>
 </div>
 <span class="<%= TITLE_CLASSES %>">
