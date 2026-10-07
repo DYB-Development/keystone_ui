@@ -5,7 +5,7 @@ module Keystone
     class SavedLayout
       def initialize(columns:, value:, default_hidden:)
         @columns = columns
-        @value = value.to_h
+        @value = value.is_a?(Hash) ? value : {}
         @default_hidden = default_hidden
       end
 
@@ -25,7 +25,7 @@ module Keystone
       private
 
       def ordered_columns
-        column_order = @value["column_order"]
+        column_order = saved_list("column_order")
         return @columns unless column_order
 
         positions = Array(column_order).map(&:to_sym).each_with_index.to_h
@@ -34,7 +34,12 @@ module Keystone
       end
 
       def hidden_keys
-        @hidden_keys ||= Array(@value.fetch("hidden_columns", @default_hidden)).map(&:to_sym).to_set
+        @hidden_keys ||= Array(saved_list("hidden_columns") || @default_hidden).map(&:to_sym).to_set
+      end
+
+      def saved_list(name)
+        list = @value[name]
+        list if list.is_a?(Array)
       end
     end
   end

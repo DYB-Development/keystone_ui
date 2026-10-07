@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- A data table treats a saved layout that is not a hash, or a hidden list or column order that is not a list, as nothing saved, instead of raising an error or reading text as a column name.
+
 ### Changed
 - A data table and its Columns menu read a saved layout through one shared `Keystone::Ui::SavedLayout`, so they always agree on which columns are hidden and in what order. `ui_column_picker` still takes `hidden_columns:`.
 

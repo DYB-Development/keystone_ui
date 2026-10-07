@@ -30,4 +30,46 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
   end
+
+  def test_treats_a_hidden_list_that_is_not_a_list_as_nothing_saved
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "hidden_columns" => "pipeline" }, default_hidden: [ :outreach ])
+
+    assert_equal [ :month, :pipeline ], layout.visible_columns.map(&:key)
+  end
+
+  def test_treats_a_saved_order_that_is_not_a_list_as_no_saved_order
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => "outreach" }, default_hidden: [])
+
+    assert_equal [ :month, :pipeline, :outreach ], layout.columns.map(&:key)
+  end
+
+  def test_treats_a_saved_value_that_is_not_a_hash_as_nothing_saved
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: "pipeline", default_hidden: [ :outreach ])
+
+    assert_equal [ :month, :pipeline ], layout.visible_columns.map(&:key)
+  end
+
+  def test_ignores_a_column_the_saved_order_names_that_the_table_no_longer_has
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => [ "gone", "outreach", "pipeline" ] }, default_hidden: [])
+
+    assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
+  end
+
+  def test_shows_a_column_the_saved_order_names_twice_once
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => [ "outreach", "outreach", "pipeline" ] }, default_hidden: [])
+
+    assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
+  end
+
+  def test_never_moves_the_locked_first_column
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => [ "outreach", "month", "pipeline" ] }, default_hidden: [])
+
+    assert_equal :month, layout.columns.first.key
+  end
+
+  def test_never_hides_the_locked_first_column
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "hidden_columns" => [ "month" ] }, default_hidden: [])
+
+    assert_equal :month, layout.visible_columns.first.key
+  end
 end
