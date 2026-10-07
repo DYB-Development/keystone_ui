@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.35.0] - 2026-10-07
+
 ### Changed
 - A data table's Columns menu saves once when it closes, instead of after every tick or move, and greys an unticked column's name straight away.
 - A data table shows its Columns menu in a row above itself, aligned right.
