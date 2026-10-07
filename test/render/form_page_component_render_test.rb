@@ -95,6 +95,12 @@ class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css("a")
   end
 
+  def test_given_an_empty_trail_shows_no_breadcrumbs
+    page = render_form_page(title: "Settings", trail: [])
+
+    assert_empty page.css("nav[aria-label=Breadcrumb]")
+  end
+
   def test_given_a_trail_link_with_no_label_raises_an_error_naming_the_page
     KeystoneUi.configure { |c| c.trail_supplier = ->(_view) { [ [ nil, "/invoices" ] ] } }
 
