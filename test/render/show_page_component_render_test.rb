@@ -37,6 +37,12 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     assert_equal "/invoices", page.css("a.lg\\:inline-flex").attr("href")&.value
   end
 
+  def test_given_a_trail_shows_the_desktop_back_link_above_the_breadcrumbs
+    page = render_show_page(title: "Invoice #42", trail: [ [ "Invoices", "/invoices" ] ])
+
+    assert_equal [ "a", "nav" ], page.css("div.ks-page > *").first(2).map(&:name)
+  end
+
   def test_given_no_trail_shows_the_trail_the_app_supplies
     KeystoneUi.configure { |c| c.trail_supplier = ->(_view) { [ [ "Invoices", "/invoices" ] ] } }
 
