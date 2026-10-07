@@ -54,4 +54,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
   end
+
+  def test_shows_a_column_the_saved_order_names_twice_once
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => [ "outreach", "outreach", "pipeline" ] }, default_hidden: [])
+
+    assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
+  end
 end
