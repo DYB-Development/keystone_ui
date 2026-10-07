@@ -60,4 +60,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
   end
+
+  def test_never_moves_the_locked_first_column
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => [ "outreach", "month", "pipeline" ] }, default_hidden: [])
+
+    assert_equal :month, layout.columns.first.key
+  end
 end
