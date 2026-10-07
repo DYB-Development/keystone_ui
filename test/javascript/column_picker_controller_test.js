@@ -79,13 +79,16 @@ test("moving a column up and clicking outside the menu sends the new order and t
   assert.deepEqual(bodies, [ { hidden_columns: [ "outreach" ], column_order: [ "outreach", "pipeline" ] } ])
 })
 
-test("moving a column down sends the new order and the hidden columns in one request", () => {
-  const { controller, options } = pickerWith([
+test("moving a column down and clicking outside the menu sends the new order and the hidden columns once", () => {
+  const { controller, on, outside } = pickerWith([
     { key: "pipeline", shown: true },
     { key: "outreach", shown: false }
   ])
 
-  const bodies = sentBodies(() => controller.moveDown({ currentTarget: { closest: () => options[0] } }))
+  const bodies = sentBodies(() => {
+    controller.moveDown(on(0))
+    controller.close(outside)
+  })
 
   assert.deepEqual(bodies, [ { hidden_columns: [ "outreach" ], column_order: [ "outreach", "pipeline" ] } ])
 })
@@ -160,6 +163,17 @@ test("moving a column up sends nothing while the menu is open", () => {
   ])
 
   const bodies = sentBodies(() => controller.moveUp(on(1)))
+
+  assert.deepEqual(bodies, [])
+})
+
+test("moving a column down sends nothing while the menu is open", () => {
+  const { controller, on } = pickerWith([
+    { key: "pipeline", shown: true },
+    { key: "outreach", shown: false }
+  ])
+
+  const bodies = sentBodies(() => controller.moveDown(on(0)))
 
   assert.deepEqual(bodies, [])
 })

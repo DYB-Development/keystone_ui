@@ -52,15 +52,12 @@ export default class extends Controller {
   }
 
   moveDown(event) {
-    this.move(event, 1)
-  }
+    const option = this.optionFor(event)
+    const next = option.nextElementSibling
+    if (!next) return
 
-  move(event, step) {
-    const order = this.columnOrder()
-    const index = this.optionTargets.indexOf(this.optionFor(event))
-    const [key] = order.splice(index, 1)
-    order.splice(index + step, 0, key)
-    this.send(order)
+    option.parentNode.insertBefore(next, option)
+    this.changed = true
   }
 
   columnOrder() {
