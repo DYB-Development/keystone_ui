@@ -17,6 +17,7 @@ module Keystone
       ROW_CLASSES_LAST = "ks-table-cell-last text-right text-sm whitespace-nowrap"
 
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
+      HEADER_LOCKED_CLASSES = "ks-table-header-locked sticky left-0"
 
       SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
       SORT_ICON_CLASSES = "h-4 w-4 flex-shrink-0"
@@ -76,6 +77,7 @@ module Keystone
         cells = @columns.map.with_index do |column, index|
           tokens = [ header_classes_for(index) ]
           tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
+          tokens << HEADER_LOCKED_CLASSES if index.zero? && column.locked?
 
           cell = {
             label: column.header_text,

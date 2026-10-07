@@ -248,6 +248,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal({ "pipeline" => true, "outreach" => false }, page.css("[data-controller=column-picker] label").to_h { |label| [ label.at_css("input")["value"], label["class"].split.include?("ks-menu-option-hidden") ] })
   end
 
+  def test_keeps_the_header_of_a_locked_first_column_in_place_while_the_rest_scrolls
+    columns = [ Keystone::Ui::Column.new(:month, "Month", locked: true), Keystone::Ui::Column.new(:pipeline, "Pipeline") ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty %w[ks-table-header-locked sticky left-0] - page.css("thead th").first["class"].split
+  end
+
   private
 
   def three_columns
