@@ -17,6 +17,10 @@ class Keystone::Ui::DesktopBackLinkComponentTest < Minitest::Test
     assert_includes Keystone::Ui::DesktopBackLinkComponent::CLASSES.split, "ks-mobile-header-back"
   end
 
+  def test_renders_the_ks_class_that_spaces_it_from_the_page_content
+    assert_includes Keystone::Ui::DesktopBackLinkComponent::CLASSES.split, "ks-page-back"
+  end
+
   def test_is_labelled_back
     assert_equal "Back", Keystone::Ui::DesktopBackLinkComponent::LABEL
   end

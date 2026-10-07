@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - A data table's Columns menu saves once when it closes, instead of after every tick or move, and greys an unticked column's name straight away.
 - A data table shows its Columns menu in a row above itself, aligned right.
 - A form or show page with a trail shows its "Back" link above its breadcrumbs instead of replacing it with them.
+- The desktop "Back" link and the breadcrumbs leave space between themselves and the page content, with the Back link kept close above the breadcrumbs. This needs keystone_ui-styles 0.12.0 or later.
 
 ### Added
 - A form or show page given an empty trail is a nav tab's own page and shows no "Back" link and no breadcrumbs.
