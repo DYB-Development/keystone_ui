@@ -113,3 +113,14 @@ test("ticking or unticking a column sends nothing while the menu is open", () =>
 
   assert.deepEqual(bodies, [])
 })
+
+test("clicking outside the menu with nothing changed sends nothing", () => {
+  const { controller, outside } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: false }
+  ])
+
+  const bodies = sentBodies(() => controller.close(outside))
+
+  assert.deepEqual(bodies, [])
+})
