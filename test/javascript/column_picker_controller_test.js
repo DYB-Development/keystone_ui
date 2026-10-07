@@ -248,3 +248,18 @@ test("a save that cannot reach the server shows that the change was not saved", 
 
   assert.equal(error.classList.contains("hidden"), false)
 })
+
+test("a failed save leaves the page without reloading it", async () => {
+  const { controller, options, on, outside } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: true }
+  ])
+  options[1].parts.checkbox.checked = false
+
+  const visits = await afterSaving(() => Promise.resolve({ ok: false }), () => {
+    controller.mark(on(1))
+    controller.close(outside)
+  })
+
+  assert.deepEqual(visits, [])
+})
