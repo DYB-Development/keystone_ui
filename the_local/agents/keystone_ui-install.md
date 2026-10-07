@@ -282,6 +282,11 @@ built on ViewComponent; hook it in before building any screen with those helpers
      string keys, `"hidden_columns"` and `"column_order"`, or the saved order
      is not applied. With no `save_url`, the saved layout applies and no menu
      is shown.
+   - The action at `save_url` must answer a stored layout with a 2xx status.
+     Any other status, or a request that cannot reach the server, leaves the
+     page unreloaded. The table then shows "Your column changes were not
+     saved." beside its Columns button, and the menu's boxes and order go back
+     to what the table shows.
    - A companion preferences gem may set this supplier for the app. Ask the
      developer whether the app uses one, or which code stores each user's table
      layouts, before writing the callable.

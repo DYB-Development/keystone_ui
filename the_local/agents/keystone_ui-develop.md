@@ -240,8 +240,9 @@ outer element. See Conventions before using it.
   and the hideable ones fill the remaining places. With no `"column_order"` the
   columns keep their declared order. Whenever the supplier
   returns a save address, the table renders a "Columns" menu in a row above
-  itself, aligned right, that saves to it as `ui_column_picker` does, including
-  for a person with nothing saved yet. That menu lists the hideable columns in
+  itself, aligned right, that saves to it as `ui_column_picker` does and shows
+  the same message when a save fails, including for a person with nothing saved
+  yet. That menu lists the hideable columns in
   the order the table shows them and leaves ticked exactly the ones the table
   shows. When the
   supplier returns nothing, when no supplier is set, or when no `key:` is
@@ -271,7 +272,11 @@ outer element. See Conventions before using it.
   `X-CSRF-Token` header, then reloads the page. A menu closed with nothing
   changed sends nothing. `column_order` lists every hideable column's key in
   the menu's order when it closes. With no `save_url:` it sends nothing. The app must provide that endpoint and persist
-  both lists. The picker does not reorder the table: beside a table without
+  both lists. The endpoint must answer with a success status when it has saved
+  them. When it answers with an error status, or the request cannot reach the
+  server, the menu does not reload the page: it shows "Your column changes were
+  not saved." under the Columns button, and puts its boxes and its order back
+  to what the table shows. The picker does not reorder the table: beside a table without
   `key:`, the app must pass the table and the picker its columns in the saved
   order itself. A table
   given `key:` renders its own Columns menu when the supplier gives a save

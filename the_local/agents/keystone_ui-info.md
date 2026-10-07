@@ -155,7 +155,10 @@ holds the catalog.
   columns sends nothing while the menu is open. Closing the menu, with its
   Columns button or by clicking anywhere outside it, saves the hidden columns
   and the order together once, then reloads the page. Closing it with nothing
-  changed saves nothing.
+  changed saves nothing. When the save is refused or cannot reach the server,
+  the page does not reload. The Columns menu shows the message "Your
+  column changes were not saved." and puts its boxes and order back to what
+  the table shows.
   A table with no key, or an app with no supplier, renders from its own call
   alone. Setting up the supplier belongs to the install local.
 - **Suggestions.** A form field can carry a list of suggested values. The
