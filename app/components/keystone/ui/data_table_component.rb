@@ -32,8 +32,9 @@ module Keystone
       def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil)
         @items = items.to_a
         @all_columns = columns.map { |col| normalize_column(col) }
-        @hidden_columns = hidden_columns
-        @columns = visible_columns(hidden_columns)
+        @default_hidden = hidden_columns
+        @layout = SavedLayout.new(columns: @all_columns, value: nil, default_hidden: hidden_columns)
+        @columns = @layout.visible_columns
         @key = key
         @empty_message = empty_message
         @sort = sort&.to_sym
@@ -63,7 +64,7 @@ module Keystone
       def column_picker
         return unless @save_url
 
-        @column_picker ||= ColumnPickerComponent.new(columns: @all_columns, hidden_columns: @hidden_columns, save_url: @save_url)
+        @column_picker ||= ColumnPickerComponent.new(columns: @all_columns, layout: @layout, save_url: @save_url)
       end
 
       def column_keys
@@ -151,23 +152,9 @@ module Keystone
         saved = KeystoneUi.configuration.supplied_preference(helpers, @key)
         return unless saved
 
-        @hidden_columns = saved[:value].to_h.fetch("hidden_columns", @hidden_columns)
-        @all_columns = ordered_columns(saved[:value].to_h["column_order"])
-        @columns = visible_columns(@hidden_columns)
+        @layout = SavedLayout.new(columns: @all_columns, value: saved[:value], default_hidden: @default_hidden)
+        @columns = @layout.visible_columns
         @save_url = saved[:save_url]
-      end
-
-      def ordered_columns(column_order)
-        return @all_columns unless column_order
-
-        positions = Array(column_order).map(&:to_sym).each_with_index.to_h
-        hideable = @all_columns.select(&:hideable?).sort_by.with_index { |col, index| [ positions.fetch(col.key, positions.size + index) ] }
-        @all_columns.map { |col| col.hideable? ? hideable.shift : col }
-      end
-
-      def visible_columns(hidden_columns)
-        hidden_keys = Array(hidden_columns).map(&:to_sym).to_set
-        @all_columns.reject { |col| col.hideable? && hidden_keys.include?(col.key) }
       end
 
       def visual_column_count

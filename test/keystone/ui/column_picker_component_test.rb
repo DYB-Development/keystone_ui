@@ -2,6 +2,7 @@
 
 require "test_helper"
 require_relative "../../../app/components/keystone/ui/column"
+require_relative "../../../app/components/keystone/ui/saved_layout"
 require_relative "../../../app/components/keystone/ui/column_picker_component"
 
 class Keystone::Ui::ColumnPickerComponentTest < Minitest::Test
@@ -76,5 +77,12 @@ class Keystone::Ui::ColumnPickerComponentTest < Minitest::Test
 
   def test_checkbox_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ColumnPickerComponent::CHECKBOX_CLASSES
+  end
+
+  def test_given_a_saved_layout_lists_and_marks_its_columns_as_the_layout_reads_them
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "hidden_columns" => [ "quantity" ], "column_order" => [ "price", "quantity" ] }, default_hidden: [])
+    component = Keystone::Ui::ColumnPickerComponent.new(columns: columns, layout: layout)
+
+    assert_equal [ [ :price, false ], [ :quantity, true ] ], component.hideable_columns.map { |col| [ col.key, component.hidden?(col.key) ] }
   end
 end

@@ -2,6 +2,7 @@
 
 require "test_helper"
 require_relative "../../../app/components/keystone/ui/column"
+require_relative "../../../app/components/keystone/ui/saved_layout"
 require_relative "../../../app/components/keystone/ui/data_table_component"
 
 class Keystone::Ui::DataTableComponentTest < Minitest::Test

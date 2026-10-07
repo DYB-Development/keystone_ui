@@ -241,7 +241,9 @@ outer element. See Conventions before using it.
   columns keep their declared order. Whenever the supplier
   returns a save address, the table renders a "Columns" menu in a row above
   itself, aligned right, that saves to it as `ui_column_picker` does, including
-  for a person with nothing saved yet. When the
+  for a person with nothing saved yet. That menu lists the hideable columns in
+  the order the table shows them and leaves ticked exactly the ones the table
+  shows. When the
   supplier returns nothing, when no supplier is set, or when no `key:` is
   passed, the table renders from `hidden_columns:` with no Columns menu. In
   every case `hidden_columns:` is the table's default layout.
