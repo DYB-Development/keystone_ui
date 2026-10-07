@@ -266,6 +266,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[ks-table-cell-locked sticky left-0] - page.css("tbody td").first["class"].split
   end
 
+  def test_renders_a_locked_column_that_is_not_first_as_an_ordinary_column
+    columns = [ Keystone::Ui::Column.new(:month, "Month"), Keystone::Ui::Column.new(:pipeline, "Pipeline", locked: true) ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty page.css(".ks-table-header-locked, .ks-table-cell-locked, .sticky")
+  end
+
   private
 
   def three_columns
