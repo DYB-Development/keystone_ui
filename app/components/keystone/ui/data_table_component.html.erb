@@ -1,5 +1,7 @@
 <% if column_picker %>
-  <%= render column_picker %>
+  <div class="<%= Keystone::Ui::DataTableComponent::TOOLBAR_CLASSES %>">
+    <%= render column_picker %>
+  </div>
 <% end %>
 <div class="<%= Keystone::Ui::DataTableComponent::WRAPPER_CLASSES %>">
   <table class="relative min-w-full divide-y divide-gray-300 dark:divide-white/15">

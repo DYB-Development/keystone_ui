@@ -7,6 +7,7 @@ module Keystone
       BODY_CLASSES = "ks-table-body"
       HEAD_CLASSES = "ks-table-head"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
+      TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
       HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
       HEADER_CLASSES_LAST = "ks-table-header ks-table-header-last text-right text-sm"

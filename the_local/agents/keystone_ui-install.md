@@ -43,7 +43,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
 ## How to use it
 
 1. Confirm the prerequisites: Ruby >= 3.2 and **tailwindcss-rails v4+** in the
-   host app. The gem brings ViewComponent and keystone_ui-styles 0.10.0 or later with it.
+   host app. The gem brings ViewComponent and keystone_ui-styles 0.11.0 or later with it.
    Tailwind does not have to be initialized first, because the generator creates
    the stylesheet if it is missing.
 
@@ -262,13 +262,18 @@ built on ViewComponent; hook it in before building any screen with those helpers
    - When nothing is saved yet for a person who may save a layout, return
      `{ value: nil, save_url: }`. The table then shows its own default layout
      with the Columns menu, so the person can save a first layout.
-   - When `save_url` is present, the table shows a Columns menu above itself.
-     It lists the hideable columns in the order the table shows them, with the
-     currently hidden columns unchecked, and gives each column an up and a down
-     button. Ticking or unticking a column, or moving one, sends a `PATCH` to
-     `save_url` with the page's CSRF token and the JSON body
-     `{"hidden_columns": [...], "column_order": [...]}`, then reloads the page.
-     `column_order` lists every hideable column's name in the menu's order.
+   - When `save_url` is present, the table shows a Columns button above its
+     right edge. The button opens a menu listing the hideable columns in the
+     order the table shows them, with the currently hidden columns unchecked,
+     and gives each column an up and a down button.
+   - Ticking, unticking and moving columns change only the menu while it is
+     open. When the menu is closed, by its Columns button or by a click
+     outside it, it sends one `PATCH` to `save_url` if anything was changed
+     while it was open, then reloads the page. A menu closed with no change
+     sends nothing.
+   - The `PATCH` carries the page's CSRF token and the JSON body
+     `{"hidden_columns": [...], "column_order": [...]}`. `column_order` lists
+     every hideable column's name in the menu's order.
    - The host must have a route and action at `save_url` that store both lists
      for that key. The supplier must return them in `value` under the same
      string keys, `"hidden_columns"` and `"column_order"`, or the saved order

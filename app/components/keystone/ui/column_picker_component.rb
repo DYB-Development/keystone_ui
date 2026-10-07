@@ -8,6 +8,7 @@ module Keystone
       MENU_CLASSES = "ks-menu absolute right-0 z-10 w-56 hidden"
       OPTION_CLASSES = "ks-menu-option flex items-center text-sm cursor-pointer"
       CHECKBOX_CLASSES = "ks-menu-checkbox"
+      OPTION_HIDDEN_CLASSES = "ks-menu-option-hidden"
       OPTION_ROW_CLASSES = "flex items-center"
       MOVE_BUTTON_CLASSES = "ks-menu-move text-sm"
 
@@ -31,6 +32,10 @@ module Keystone
 
       def hidden?(key)
         @hidden_keys.include?(key.to_sym)
+      end
+
+      def option_classes(key)
+        hidden?(key) ? "#{OPTION_CLASSES} #{OPTION_HIDDEN_CLASSES}" : OPTION_CLASSES
       end
     end
   end
