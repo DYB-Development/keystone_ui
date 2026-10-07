@@ -136,3 +136,16 @@ test("unticking a column greys its name straight away", () => {
 
   assert.equal(options[1].parts.label.classList.contains("ks-menu-option-hidden"), true)
 })
+
+test("ticking a hidden column again takes the grey off its name", () => {
+  const { controller, options, on } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: false }
+  ])
+  options[1].parts.label.classList.add("ks-menu-option-hidden")
+  options[1].parts.checkbox.checked = true
+
+  sentBodies(() => controller.mark(on(1)))
+
+  assert.equal(options[1].parts.label.classList.contains("ks-menu-option-hidden"), false)
+})
