@@ -5,6 +5,7 @@ export default class extends Controller {
   static values = { saveUrl: String }
 
   connect() {
+    this.shown = this.optionTargets.map(option => [ option, this.checkboxIn(option).checked ])
     this._close = this.close.bind(this)
     document.addEventListener("click", this._close)
   }
@@ -108,5 +109,9 @@ export default class extends Controller {
 
   failed() {
     this.errorTarget.classList.remove("hidden")
+    this.shown.forEach(([ option, checked ]) => {
+      this.checkboxIn(option).checked = checked
+      option.querySelector("label").classList.toggle("ks-menu-option-hidden", !checked)
+    })
   }
 }

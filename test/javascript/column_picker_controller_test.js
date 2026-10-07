@@ -210,7 +210,7 @@ test("closing the menu with its Columns button after a tick sends the hidden col
 
 async function afterSaving(answer, run) {
   const visits = []
-  globalThis.document = { querySelector: () => null }
+  globalThis.document = { querySelector: () => null, addEventListener() {}, removeEventListener() {} }
   globalThis.Turbo = { visit: (url) => visits.push(url) }
   globalThis.window = { location: { href: "/months" } }
   globalThis.fetch = () => answer()
@@ -262,4 +262,20 @@ test("a failed save leaves the page without reloading it", async () => {
   })
 
   assert.deepEqual(visits, [])
+})
+
+test("after a failed save the menu's boxes go back to what the table shows", async () => {
+  const { controller, options, on, outside } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: true }
+  ])
+
+  await afterSaving(() => Promise.resolve({ ok: false }), () => {
+    controller.connect()
+    options[1].parts.checkbox.checked = false
+    controller.mark(on(1))
+    controller.close(outside)
+  })
+
+  assert.deepEqual(options.map(({ parts }) => [ parts.checkbox.checked, parts.label.classList.contains("ks-menu-option-hidden") ]), [ [ true, false ], [ true, false ] ])
 })
