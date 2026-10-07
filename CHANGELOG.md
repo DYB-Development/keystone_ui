@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- A data table's Columns menu says when a change was not saved, puts its boxes and order back to what the table shows, and does not reload the page.
+
 ### Fixed
 - A data table treats a saved layout that is not a hash, or a hidden list or column order that is not a list, as nothing saved, instead of raising an error or reading text as a column name.
 
