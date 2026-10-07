@@ -11,6 +11,7 @@ module Keystone
       OPTION_HIDDEN_CLASSES = "ks-menu-option-hidden"
       OPTION_ROW_CLASSES = "flex items-center"
       MOVE_BUTTON_CLASSES = "ks-menu-move text-sm"
+      ERROR_CLASSES = "ks-error hidden"
 
       COLUMNS_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">

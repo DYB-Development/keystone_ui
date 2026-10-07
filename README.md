@@ -522,7 +522,7 @@ Renders a "Columns" dropdown button with checkboxes for showing/hiding `hideable
 - `hidden_columns:` (Array) — currently hidden column keys
 - `save_url:` (String) — PATCH endpoint to persist preferences; omit for no persistence
 
-Each column in the menu has an up and a down button that move it one place; the first column's up button and the last column's down button are disabled. Ticking, unticking and moving change only the open menu, and an unticked column's name turns grey straight away. When the menu closes, by a click outside it or on its Columns button, the Stimulus `column-picker` controller PATCHes `{ "hidden_columns": [...], "column_order": [...] }` as JSON to `save_url` once, then reloads via `Turbo.visit`. Closing it with nothing changed sends nothing.
+Each column in the menu has an up and a down button that move it one place; the first column's up button and the last column's down button are disabled. Ticking, unticking and moving change only the open menu, and an unticked column's name turns grey straight away. When the menu closes, by a click outside it or on its Columns button, the Stimulus `column-picker` controller PATCHes `{ "hidden_columns": [...], "column_order": [...] }` as JSON to `save_url` once, then reloads via `Turbo.visit`. Closing it with nothing changed sends nothing. When the save is refused or cannot reach the server, the menu says "Your column changes were not saved.", puts its boxes and order back to what the table shows, and does not reload the page.
 
 ```erb
 <%= ui_column_picker(

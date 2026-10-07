@@ -1,10 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["menu", "option"]
+  static targets = ["menu", "option", "error"]
   static values = { saveUrl: String }
 
   connect() {
+    this.shown = this.optionTargets.map(option => [ option, this.checkboxIn(option).checked ])
     this._close = this.close.bind(this)
     document.addEventListener("click", this._close)
   }
@@ -66,6 +67,10 @@ export default class extends Controller {
 
   moved() {
     this.changed = true
+    this.refreshMoveButtons()
+  }
+
+  refreshMoveButtons() {
     const options = this.optionTargets
     options.forEach((option, index) => {
       option.querySelector('[data-action="click->column-picker#moveUp"]').disabled = index === 0
@@ -99,8 +104,20 @@ export default class extends Controller {
         "X-CSRF-Token": token
       },
       body: JSON.stringify({ hidden_columns: this.hiddenColumns(), column_order: this.columnOrder() })
-    }).then(() => {
+    }).then((response) => {
+      if (!response.ok) return this.failed()
+
       Turbo.visit(window.location.href, { action: "replace" })
+    }).catch(() => this.failed())
+  }
+
+  failed() {
+    this.errorTarget.classList.remove("hidden")
+    this.shown.forEach(([ option, checked ]) => {
+      option.parentNode.insertBefore(option, null)
+      this.checkboxIn(option).checked = checked
+      option.querySelector("label").classList.toggle("ks-menu-option-hidden", !checked)
     })
+    this.refreshMoveButtons()
   }
 }
