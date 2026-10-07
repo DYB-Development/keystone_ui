@@ -33,7 +33,7 @@ export default class extends Controller {
     if (!this.changed) return
 
     this.changed = false
-    this.send(this.columnOrder())
+    this.send()
   }
 
   mark(event) {
@@ -88,7 +88,7 @@ export default class extends Controller {
     return option.querySelector("input[type=checkbox]")
   }
 
-  send(columnOrder) {
+  send() {
     if (!this.hasSaveUrlValue) return
 
     const token = document.querySelector('meta[name="csrf-token"]')?.content
@@ -98,7 +98,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         "X-CSRF-Token": token
       },
-      body: JSON.stringify({ hidden_columns: this.hiddenColumns(), column_order: columnOrder })
+      body: JSON.stringify({ hidden_columns: this.hiddenColumns(), column_order: this.columnOrder() })
     }).then(() => {
       Turbo.visit(window.location.href, { action: "replace" })
     })
