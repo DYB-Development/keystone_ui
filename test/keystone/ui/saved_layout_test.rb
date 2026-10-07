@@ -42,4 +42,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :pipeline, :outreach ], layout.columns.map(&:key)
   end
+
+  def test_treats_a_saved_value_that_is_not_a_hash_as_nothing_saved
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: "pipeline", default_hidden: [ :outreach ])
+
+    assert_equal [ :month, :pipeline ], layout.visible_columns.map(&:key)
+  end
 end

@@ -5,7 +5,7 @@ module Keystone
     class SavedLayout
       def initialize(columns:, value:, default_hidden:)
         @columns = columns
-        @value = value.to_h
+        @value = value.is_a?(Hash) ? value : {}
         @default_hidden = default_hidden
       end
 
