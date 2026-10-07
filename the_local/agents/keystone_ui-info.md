@@ -150,7 +150,8 @@ holds the catalog.
   table, at its right, and saves the user's choice there, even before anything
   has been saved. The menu lists the hideable columns in the order the table
   shows them, each with a box to show or hide it and buttons to move it up or
-  down. An unticked column's name is greyed at once. Ticking boxes and moving
+  down. The menu and the table read the same saved layout, so the menu's
+  ticked boxes and order always match the columns the table shows. An unticked column's name is greyed at once. Ticking boxes and moving
   columns sends nothing while the menu is open. Closing the menu, with its
   Columns button or by clicking anywhere outside it, saves the hidden columns
   and the order together once, then reloads the page. Closing it with nothing
