@@ -31,10 +31,10 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true ], page.css("nav[aria-label=Breadcrumb]").map { |nav| nav.ancestors("div.ks-page").any? }
   end
 
-  def test_given_a_trail_leaves_out_the_desktop_back_link
-    page = render_show_page(title: "Invoice #42", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ])
+  def test_given_a_trail_shows_a_desktop_link_back_to_its_last_step
+    page = render_show_page(title: "Invoice #42", trail: [ [ "Billing", "/billing" ], [ "Invoices", "/invoices" ] ])
 
-    assert_empty page.css("a.lg\\:inline-flex")
+    assert_equal "/invoices", page.css("a.lg\\:inline-flex").attr("href")&.value
   end
 
   def test_given_no_trail_shows_the_trail_the_app_supplies
