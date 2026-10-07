@@ -34,7 +34,12 @@ module Keystone
       end
 
       def hidden_keys
-        @hidden_keys ||= Array(@value.fetch("hidden_columns", @default_hidden)).map(&:to_sym).to_set
+        @hidden_keys ||= Array(saved_list("hidden_columns") || @default_hidden).map(&:to_sym).to_set
+      end
+
+      def saved_list(name)
+        list = @value[name]
+        list if list.is_a?(Array)
       end
     end
   end

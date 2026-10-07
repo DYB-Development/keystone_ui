@@ -30,4 +30,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
   end
+
+  def test_treats_a_hidden_list_that_is_not_a_list_as_nothing_saved
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "hidden_columns" => "pipeline" }, default_hidden: [ :outreach ])
+
+    assert_equal [ :month, :pipeline ], layout.visible_columns.map(&:key)
+  end
 end
