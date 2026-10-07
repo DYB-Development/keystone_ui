@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.36.0] - 2026-10-07
+
 ### Added
 - `Keystone::Ui::Column` takes `locked: true`, which keeps a data table's first column in view while the rest of the table scrolls sideways, and leaves it out of the Columns menu so it cannot be hidden or moved.
 
