@@ -66,4 +66,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal :month, layout.columns.first.key
   end
+
+  def test_never_hides_the_locked_first_column
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "hidden_columns" => [ "month" ] }, default_hidden: [])
+
+    assert_equal :month, layout.visible_columns.first.key
+  end
 end
