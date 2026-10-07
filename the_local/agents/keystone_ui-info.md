@@ -140,11 +140,14 @@ holds the catalog.
   out follow the ones it names. Every other column keeps its place, and a
   layout with no order keeps the order the columns were declared in. When the
   supplier gives an address to save to, a "Columns" menu appears above the
-  table and saves the user's choice there, even before anything has been
-  saved. The menu lists the hideable columns in the order the table shows
-  them, each with a box to show or hide it and buttons to move it up or down.
-  Ticking a box or moving a column saves the hidden columns and the order
-  together, then reloads the page.
+  table, at its right, and saves the user's choice there, even before anything
+  has been saved. The menu lists the hideable columns in the order the table
+  shows them, each with a box to show or hide it and buttons to move it up or
+  down. An unticked column's name is greyed at once. Ticking boxes and moving
+  columns sends nothing while the menu is open. Closing the menu, with its
+  Columns button or by clicking anywhere outside it, saves the hidden columns
+  and the order together once, then reloads the page. Closing it with nothing
+  changed saves nothing.
   A table with no key, or an app with no supplier, renders from its own call
   alone. Setting up the supplier belongs to the install local.
 - **Suggestions.** A form field can carry a list of suggested values. The

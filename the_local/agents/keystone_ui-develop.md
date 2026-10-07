@@ -239,8 +239,9 @@ outer element. See Conventions before using it.
   they were declared. Columns that are not hideable keep their declared place,
   and the hideable ones fill the remaining places. With no `"column_order"` the
   columns keep their declared order. Whenever the supplier
-  returns a save address, the table renders a "Columns" menu above itself that
-  saves to it, including for a person with nothing saved yet. When the
+  returns a save address, the table renders a "Columns" menu in a row above
+  itself, aligned right, that saves to it as `ui_column_picker` does, including
+  for a person with nothing saved yet. When the
   supplier returns nothing, when no supplier is set, or when no `key:` is
   passed, the table renders from `hidden_columns:` with no Columns menu. In
   every case `hidden_columns:` is the table's default layout.
@@ -253,13 +254,16 @@ outer element. See Conventions before using it.
   dropdown with one row per `hideable` column, in the order `columns:` lists
   them. Each row has a checkbox and an up and a down button that move the
   column one place; the first row's up button and the last row's down button
-  are disabled. Pass it the same columns, in the order the table shows them,
-  and the same hidden keys as the table. On a checkbox change or a move it
-  sends `PATCH save_url` with JSON
-  `{ "hidden_columns": ["key", ...], "column_order": ["key", ...] }` and a
-  `X-CSRF-Token` header, then reloads the page. `column_order` lists every
-  hideable column's key in the menu's order after the move. With no
-  `save_url:` it sends nothing. The app must provide that endpoint and persist
+  are disabled, and after a move the disabled buttons follow the new first and
+  last rows. A hidden column's name renders greyed, and unticking a box greys
+  its name at once. Pass it the same columns, in the order the table shows
+  them, and the same hidden keys as the table. Ticking, unticking and moving
+  change only the open menu and send nothing. When the menu closes, by its
+  Columns button or by a click outside it, it sends one `PATCH save_url` with
+  JSON `{ "hidden_columns": ["key", ...], "column_order": ["key", ...] }` and a
+  `X-CSRF-Token` header, then reloads the page. A menu closed with nothing
+  changed sends nothing. `column_order` lists every hideable column's key in
+  the menu's order when it closes. With no `save_url:` it sends nothing. The app must provide that endpoint and persist
   both lists. The picker does not reorder the table: beside a table without
   `key:`, the app must pass the table and the picker its columns in the saved
   order itself. A table
@@ -548,7 +552,10 @@ outer element. See Conventions before using it.
    names the table, which columns are hideable, and which it hides by default
    are the developer's choice, so ask rather than pick. If the app sets no supplier, either use `ui_column_picker`
    with an endpoint the app owns, as in step 7, or hand setting up a supplier to
-   `keystone_ui-install`, and ask the developer which.
+   `keystone_ui-install`, and ask the developer which. If a Columns menu shows
+   no greyed name for a hidden column, the app's keystone_ui-styles version is
+   older than 0.11.0, so stop and hand that part to `keystone_ui-install`, and
+   add no classes to fix it.
 
 7. Wire up anything that posts back. Several helpers render controls whose
    endpoints the app must own — the column picker's save URL, the pipeline's box

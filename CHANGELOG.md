@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Changed
+- A data table's Columns menu saves once when it closes, instead of after every tick or move, and greys an unticked column's name straight away.
+- A data table shows its Columns menu in a row above itself, aligned right.
 - A form or show page with a trail shows its "Back" link above its breadcrumbs instead of replacing it with them.
 
 ### Added

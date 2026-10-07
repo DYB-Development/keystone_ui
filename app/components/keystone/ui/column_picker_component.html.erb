@@ -8,11 +8,11 @@
   <div data-column-picker-target="menu" class="<%= MENU_CLASSES %>">
     <% hideable_columns.each_with_index do |col, index| %>
       <div class="<%= OPTION_ROW_CLASSES %>" data-column-picker-target="option">
-        <label class="<%= OPTION_CLASSES %>">
+        <label class="<%= option_classes(col.key) %>">
           <input type="checkbox"
                  value="<%= col.key %>"
                  <%= "checked" unless hidden?(col.key) %>
-                 data-action="change->column-picker#save"
+                 data-action="change->column-picker#mark"
                  class="<%= CHECKBOX_CLASSES %>">
           <%= col.header_text %>
         </label>

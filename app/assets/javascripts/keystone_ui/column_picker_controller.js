@@ -15,33 +15,62 @@ export default class extends Controller {
 
   toggle(event) {
     event.stopPropagation()
-    this.menuTarget.classList.toggle("hidden")
+    if (this.menuTarget.classList.contains("hidden")) {
+      this.menuTarget.classList.remove("hidden")
+    } else {
+      this.hideMenu()
+    }
   }
 
   close(event) {
     if (!this.element.contains(event.target)) {
-      this.menuTarget.classList.add("hidden")
+      this.hideMenu()
     }
   }
 
-  save() {
-    this.send(this.columnOrder())
+  hideMenu() {
+    this.menuTarget.classList.add("hidden")
+    if (!this.changed) return
+
+    this.changed = false
+    this.send()
+  }
+
+  mark(event) {
+    const option = this.optionFor(event)
+    option.querySelector("label").classList.toggle("ks-menu-option-hidden", !this.checkboxIn(option).checked)
+    this.changed = true
+  }
+
+  optionFor(event) {
+    return event.currentTarget.closest('[data-column-picker-target="option"]')
   }
 
   moveUp(event) {
-    this.move(event, -1)
+    const option = this.optionFor(event)
+    const previous = option.previousElementSibling
+    if (!previous) return
+
+    option.parentNode.insertBefore(option, previous)
+    this.moved()
   }
 
   moveDown(event) {
-    this.move(event, 1)
+    const option = this.optionFor(event)
+    const next = option.nextElementSibling
+    if (!next) return
+
+    option.parentNode.insertBefore(next, option)
+    this.moved()
   }
 
-  move(event, step) {
-    const order = this.columnOrder()
-    const index = this.optionTargets.indexOf(event.currentTarget.closest('[data-column-picker-target="option"]'))
-    const [key] = order.splice(index, 1)
-    order.splice(index + step, 0, key)
-    this.send(order)
+  moved() {
+    this.changed = true
+    const options = this.optionTargets
+    options.forEach((option, index) => {
+      option.querySelector('[data-action="click->column-picker#moveUp"]').disabled = index === 0
+      option.querySelector('[data-action="click->column-picker#moveDown"]').disabled = index === options.length - 1
+    })
   }
 
   columnOrder() {
@@ -59,7 +88,7 @@ export default class extends Controller {
     return option.querySelector("input[type=checkbox]")
   }
 
-  send(columnOrder) {
+  send() {
     if (!this.hasSaveUrlValue) return
 
     const token = document.querySelector('meta[name="csrf-token"]')?.content
@@ -69,7 +98,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         "X-CSRF-Token": token
       },
-      body: JSON.stringify({ hidden_columns: this.hiddenColumns(), column_order: columnOrder })
+      body: JSON.stringify({ hidden_columns: this.hiddenColumns(), column_order: this.columnOrder() })
     }).then(() => {
       Turbo.visit(window.location.href, { action: "replace" })
     })
