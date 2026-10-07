@@ -286,6 +286,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "pipeline" ], page.css("[data-controller=column-picker] input[type=checkbox]").map { |box| box["value"] }
   end
 
+  def test_given_no_locked_column_keeps_every_column_scrolling_with_the_table
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty page.css(".ks-table-header-locked, .ks-table-cell-locked, .sticky")
+  end
+
   private
 
   def three_columns
