@@ -20,11 +20,15 @@ export default class extends Controller {
 
   close(event) {
     if (!this.element.contains(event.target)) {
-      this.menuTarget.classList.add("hidden")
+      this.hideMenu()
     }
   }
 
-  save() {
+  hideMenu() {
+    this.menuTarget.classList.add("hidden")
+    if (!this.changed) return
+
+    this.changed = false
     this.send(this.columnOrder())
   }
 
