@@ -237,6 +237,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ %w[ks-table-toolbar flex justify-end] ], page.css("div:has(> [data-controller=column-picker])").map { |row| row["class"].split }
   end
 
+  def test_greys_the_name_of_a_hidden_column_in_its_columns_menu
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "hidden_columns" => [ "pipeline" ] }, save_url: "/preferences/months" } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "$5" } ], columns: columns, key: :months)
+    end
+
+    assert_equal({ "pipeline" => true, "outreach" => false }, page.css("[data-controller=column-picker] label").to_h { |label| [ label.at_css("input")["value"], label["class"].split.include?("ks-menu-option-hidden") ] })
+  end
+
   private
 
   def three_columns
