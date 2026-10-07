@@ -295,6 +295,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css(".ks-table-header-locked, .ks-table-cell-locked, .sticky")
   end
 
+  def test_holds_a_hidden_message_in_its_columns_menu_for_a_change_that_was_not_saved
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ "Your column changes were not saved." ], page.css("[data-column-picker-target=error].hidden[role=alert]").map { |message| message.text.strip }
+  end
+
   private
 
   def three_columns
