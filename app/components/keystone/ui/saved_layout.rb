@@ -17,6 +17,10 @@ module Keystone
         columns.reject { |column| hidden?(column.key) }
       end
 
+      def hidden_column_keys
+        hidden_keys.to_a
+      end
+
       def hidden?(key)
         column = @columns.find { |col| col.key == key.to_sym }
         column&.hideable? && hidden_keys.include?(key.to_sym)
