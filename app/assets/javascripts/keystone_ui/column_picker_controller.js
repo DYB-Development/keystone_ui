@@ -103,7 +103,7 @@ export default class extends Controller {
       if (!response.ok) return this.failed()
 
       Turbo.visit(window.location.href, { action: "replace" })
-    })
+    }).catch(() => this.failed())
   }
 
   failed() {

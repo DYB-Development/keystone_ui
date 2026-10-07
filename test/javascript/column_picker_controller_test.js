@@ -233,3 +233,18 @@ test("a save the server answers with an error shows that the change was not save
 
   assert.equal(error.classList.contains("hidden"), false)
 })
+
+test("a save that cannot reach the server shows that the change was not saved", async () => {
+  const { controller, options, error, on, outside } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: true }
+  ])
+  options[1].parts.checkbox.checked = false
+
+  await afterSaving(() => Promise.reject(new TypeError("Failed to fetch")), () => {
+    controller.mark(on(1))
+    controller.close(outside)
+  })
+
+  assert.equal(error.classList.contains("hidden"), false)
+})
