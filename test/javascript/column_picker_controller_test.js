@@ -282,3 +282,18 @@ test("after a failed save the menu's boxes go back to what the table shows", asy
 
   assert.deepEqual(options.map(({ parts }) => [ parts.checkbox.checked, parts.label.classList.contains("ks-menu-option-hidden") ]), [ [ true, false ], [ true, false ] ])
 })
+
+test("after a failed save the menu's order goes back to what the table shows", async () => {
+  const { controller, options, on, outside } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: true }
+  ])
+
+  await afterSaving(() => Promise.resolve({ ok: false }), () => {
+    controller.connect()
+    controller.moveUp(on(1))
+    controller.close(outside)
+  })
+
+  assert.deepEqual(options.map(({ parts }) => parts.checkbox.value), [ "outreach", "pipeline" ])
+})
