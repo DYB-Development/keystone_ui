@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- A data table and its Columns menu read a saved layout through one shared `Keystone::Ui::SavedLayout`, so they always agree on which columns are hidden and in what order. `ui_column_picker` still takes `hidden_columns:`.
+
 ## [0.36.0] - 2026-10-07
 
 ### Added
