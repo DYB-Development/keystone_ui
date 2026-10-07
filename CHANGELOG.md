@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.37.0] - 2026-10-07
+
 ### Added
 - A data table's Columns menu says when a change was not saved, puts its boxes and order back to what the table shows, and does not reload the page.
 
