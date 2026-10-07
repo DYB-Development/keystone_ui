@@ -64,7 +64,7 @@ module Keystone
       def column_picker
         return unless @save_url
 
-        @column_picker ||= ColumnPickerComponent.new(columns: @layout.columns, hidden_columns: @layout.hidden_column_keys, save_url: @save_url)
+        @column_picker ||= ColumnPickerComponent.new(columns: @all_columns, layout: @layout, save_url: @save_url)
       end
 
       def column_keys
