@@ -31,10 +31,16 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true ], page.css("nav[aria-label=Breadcrumb]").map { |nav| nav.ancestors("div.ks-page").any? }
   end
 
-  def test_given_a_trail_leaves_out_the_desktop_back_link
-    page = render_show_page(title: "Invoice #42", back_url: "/invoices", trail: [ [ "Invoices", "/invoices" ] ])
+  def test_given_a_trail_shows_a_desktop_link_back_to_its_last_step
+    page = render_show_page(title: "Invoice #42", trail: [ [ "Billing", "/billing" ], [ "Invoices", "/invoices" ] ])
 
-    assert_empty page.css("a.lg\\:inline-flex")
+    assert_equal "/invoices", page.css("a.lg\\:inline-flex").attr("href")&.value
+  end
+
+  def test_given_a_trail_shows_the_desktop_back_link_above_the_breadcrumbs
+    page = render_show_page(title: "Invoice #42", trail: [ [ "Invoices", "/invoices" ] ])
+
+    assert_equal [ "a", "nav" ], page.css("div.ks-page > *").first(2).map(&:name)
   end
 
   def test_given_no_trail_shows_the_trail_the_app_supplies
@@ -75,6 +81,18 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     error = assert_raises(KeystoneUi::MissingBackLink) { render_show_page(title: "Invoice #42") }
 
     assert_match(/Invoice #42/, error.message)
+  end
+
+  def test_given_an_empty_trail_shows_no_back_link
+    page = render_show_page(title: "Invoices", trail: [])
+
+    assert_empty page.css("a")
+  end
+
+  def test_given_an_empty_trail_shows_no_breadcrumbs
+    page = render_show_page(title: "Invoices", trail: [])
+
+    assert_empty page.css("nav[aria-label=Breadcrumb]")
   end
 
   def test_given_a_trail_link_with_no_label_raises_an_error_naming_the_page

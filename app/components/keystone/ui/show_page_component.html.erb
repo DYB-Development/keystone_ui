@@ -3,8 +3,9 @@
 <% content_for :show_page_back_url, @back_url %>
 <% content_for :show_page_subtitle, @subtitle if @subtitle.present? %>
 
-<% if @trail %>
-  <% content_for :keystone_page_header, render(Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title)) %>
-<% else %>
+<% unless top_level? %>
   <% content_for :keystone_page_header, render(Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url)) %>
+<% end %>
+<% if @trail&.any? %>
+  <% content_for :keystone_page_header, render(Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title)) %>
 <% end %>

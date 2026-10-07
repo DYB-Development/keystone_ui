@@ -2,10 +2,11 @@
 <% content_for :form_page_title, @title %>
 <% content_for :form_page_back_url, @back_url %>
 
-<% if @trail %>
-  <% content_for :keystone_page_header, render(Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title)) %>
-<% else %>
+<% unless top_level? %>
   <% content_for :keystone_page_header, render(Keystone::Ui::DesktopBackLinkComponent.new(url: @back_url)) %>
+<% end %>
+<% if @trail&.any? %>
+  <% content_for :keystone_page_header, render(Keystone::Ui::BreadcrumbsComponent.new(trail: @trail, current: @title)) %>
 <% end %>
 
 <% content_for :keystone_page_header do %>

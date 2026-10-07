@@ -26,21 +26,24 @@ component updates every page that uses it. It is mobile-first — components shi
 separate mobile and desktop treatments (a bottom tab bar and mobile header on
 small screens, a full navigation bar from the `lg:` breakpoint up), because
 these apps are often viewed in a native webview. The form and show page shells
-follow the same split for going back: the mobile header carries the back link on
+follow the same split for going back: the mobile header carries the back arrow on
 small screens, and from `lg:` up the shell shows a "Back" link. Given a trail of
-earlier pages instead, the shell shows breadcrumbs in place of that link, ending
-with the page's own title. A page that passes no trail gets the one the app or
+earlier pages, the shell shows breadcrumbs under that "Back" link, ending with
+the page's own title. A page that passes no trail gets the one the app or
 another gem supplies for the request, if any, and a page that passes no back
 link goes back to that trail's last link. A trail or back link the page passes
 itself always wins. Supplying a trail is set up through the install local.
 
-Every form and show page must end up with a Back link. A page with no back
-link, no trail and no supplied trail raises `KeystoneUi::MissingBackLink` when it
-renders, and the message names the page's title. A trail with a link missing
-its label or its address raises `KeystoneUi::IncompleteTrail`, also naming the
-page. That link or those breadcrumbs, and the form page's title, appear at the
-top of the page container, inside its width and padding, so a page using either
-shell also uses the page container.
+A nav tab's own page has nowhere to go back to, and it says so by passing an
+empty trail. Such a page shows no "Back" link and no breadcrumbs, and its mobile
+header shows no back arrow. Every other form and show page must end up with a
+Back link. A page with no back link, no trail and no supplied trail raises
+`KeystoneUi::MissingBackLink` when it renders, and the message names the page's
+title and says an empty trail marks a nav tab's page. A trail with a link
+missing its label or its address raises `KeystoneUi::IncompleteTrail`, also
+naming the page. The "Back" link, the breadcrumbs and the form page's title
+appear at the top of the page container, inside its width and padding, so a
+page using either shell also uses the page container.
 
 ## Interface
 

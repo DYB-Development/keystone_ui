@@ -1163,7 +1163,7 @@ Renders a single bottom nav tab.
 
 ### `ui_mobile_header`
 
-Renders a mobile header with back link, centered title, and optional subtitle. Hidden on `lg:` screens.
+Renders a mobile header with back link, centered title, and optional subtitle. Hidden on `lg:` screens. With a `nil` `back_url:` it shows no back link, as on a nav tab's own page.
 
 **Required props**
 
@@ -1223,9 +1223,9 @@ Wraps a form page with title and back navigation. Sets `content_for` signals so 
 
 **Optional props**
 
-- `back_url:` (String) — defaults to the last link of the trail; with no `back_url:` and no trail, rendering raises `KeystoneUi::MissingBackLink` naming the page
+- `back_url:` (String) — defaults to the last link of the trail; with no `back_url:` and no trail, rendering raises `KeystoneUi::MissingBackLink` naming the page, while an empty trail needs no `back_url:`
 - `subtitle:` (String)
-- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link. When the page passes none, it uses the trail the app supplies through `config.trail_supplier`
+- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, the back link sits above breadcrumbs ending with `title`. An empty trail marks a nav tab's own page, which shows no back link and no breadcrumbs. When the page passes none, it uses the trail the app supplies through `config.trail_supplier`
 
 ```erb
 <%= ui_form_page(title: "New Product", back_url: products_path) %>
@@ -1242,9 +1242,9 @@ Wraps a show/detail page with title and back navigation. Sets `content_for` sign
 
 **Optional props**
 
-- `back_url:` (String) — defaults to the last link of the trail; with no `back_url:` and no trail, rendering raises `KeystoneUi::MissingBackLink` naming the page
+- `back_url:` (String) — defaults to the last link of the trail; with no `back_url:` and no trail, rendering raises `KeystoneUi::MissingBackLink` naming the page, while an empty trail needs no `back_url:`
 - `subtitle:` (String)
-- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, breadcrumbs ending with `title` take the place of the back link. When the page passes none, it uses the trail the app supplies through `config.trail_supplier`
+- `trail:` (Array of `[label, href]` pairs) — the pages above this one; on `lg` screens and wider, the back link sits above breadcrumbs ending with `title`. An empty trail marks a nav tab's own page, which shows no back link and no breadcrumbs. When the page passes none, it uses the trail the app supplies through `config.trail_supplier`
 
 ```erb
 <%= ui_show_page(title: @product.name, back_url: products_path, subtitle: "Details") %>
@@ -1253,7 +1253,7 @@ Wraps a show/detail page with title and back navigation. Sets `content_for` sign
 
 #### Supplying every page's trail from the app
 
-Set `config.trail_supplier` to a lambda that receives the view and returns that page's trail. `ui_form_page` and `ui_show_page` call it when the page passes no `trail:`, and a page that passes no `back_url:` goes back to the trail's last link. Returning `nil` leaves the page with its own `back_url` and no breadcrumbs.
+Set `config.trail_supplier` to a lambda that receives the view and returns that page's trail. `ui_form_page` and `ui_show_page` call it when the page passes no `trail:`, and a page that passes no `back_url:` goes back to the trail's last link. Returning `nil` leaves the page with its own `back_url` and no breadcrumbs. Returning `[]` marks the page as a nav tab's own page, which shows no back link and no breadcrumbs.
 
 ```ruby
 KeystoneUi.configure do |config|
