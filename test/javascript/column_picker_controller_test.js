@@ -2,16 +2,54 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import ColumnPickerController from "../../app/assets/javascripts/keystone_ui/column_picker_controller.js"
 
+function classes(...names) {
+  const set = new Set(names)
+  return {
+    add: (name) => set.add(name),
+    remove: (name) => set.delete(name),
+    toggle: (name, force) => ((force ?? !set.has(name)) ? set.add(name) : set.delete(name)),
+    contains: (name) => set.has(name)
+  }
+}
+
 function pickerWith(columns) {
-  const options = columns.map(({ key, shown }) => {
-    const checkbox = { value: key, checked: shown }
-    return { querySelector: () => checkbox }
+  const options = []
+  const list = {
+    insertBefore(node, reference) {
+      options.splice(options.indexOf(node), 1)
+      options.splice(reference ? options.indexOf(reference) : options.length, 0, node)
+    }
+  }
+  columns.forEach(({ key, shown }) => {
+    const parts = {
+      checkbox: { value: key, checked: shown },
+      label: { classList: classes() },
+      up: { disabled: false },
+      down: { disabled: false }
+    }
+    const option = {
+      parts,
+      parentNode: list,
+      get previousElementSibling() { return options[options.indexOf(option) - 1] || null },
+      get nextElementSibling() { return options[options.indexOf(option) + 1] || null },
+      querySelector(selector) {
+        if (selector.includes("checkbox")) return parts.checkbox
+        if (selector.includes("moveUp")) return parts.up
+        if (selector.includes("moveDown")) return parts.down
+        return parts.label
+      }
+    }
+    options.push(option)
   })
-  const controller = new ColumnPickerController({ scope: { element: {} } })
-  Object.defineProperty(controller, "optionTargets", { value: options })
+  const inside = {}
+  const menu = { classList: classes() }
+  const controller = new ColumnPickerController({ scope: { element: { contains: (target) => target === inside } } })
+  Object.defineProperty(controller, "optionTargets", { get: () => options.slice() })
+  Object.defineProperty(controller, "menuTarget", { value: menu })
   Object.defineProperty(controller, "hasSaveUrlValue", { value: true })
   Object.defineProperty(controller, "saveUrlValue", { value: "/preferences/months" })
-  return { controller, options }
+  const on = (index) => ({ currentTarget: { closest: () => options[index] } })
+  return { controller, options, menu, on, outside: { target: {} } }
 }
 
 function sentBodies(run) {
@@ -58,4 +96,16 @@ test("ticking or unticking a column sends the hidden columns with the order the 
   const bodies = sentBodies(() => controller.save())
 
   assert.deepEqual(bodies, [ { hidden_columns: [ "pipeline" ], column_order: [ "outreach", "pipeline" ] } ])
+})
+
+test("ticking or unticking a column sends nothing while the menu is open", () => {
+  const { controller, options, on } = pickerWith([
+    { key: "outreach", shown: true },
+    { key: "pipeline", shown: true }
+  ])
+  options[1].parts.checkbox.checked = false
+
+  const bodies = sentBodies(() => controller.mark(on(1)))
+
+  assert.deepEqual(bodies, [])
 })

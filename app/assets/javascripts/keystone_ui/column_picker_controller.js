@@ -28,6 +28,10 @@ export default class extends Controller {
     this.send(this.columnOrder())
   }
 
+  mark() {
+    this.changed = true
+  }
+
   moveUp(event) {
     this.move(event, -1)
   }

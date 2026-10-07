@@ -12,7 +12,7 @@
           <input type="checkbox"
                  value="<%= col.key %>"
                  <%= "checked" unless hidden?(col.key) %>
-                 data-action="change->column-picker#save"
+                 data-action="change->column-picker#mark"
                  class="<%= CHECKBOX_CLASSES %>">
           <%= col.header_text %>
         </label>
