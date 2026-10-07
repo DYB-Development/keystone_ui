@@ -226,6 +226,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ false, true ], page.css("button[data-action=\"click->column-picker#moveDown\"]").map { |button| button.key?("disabled") }
   end
 
+  def test_puts_its_columns_menu_in_a_row_above_itself_aligned_right
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
+
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, key: :months)
+    end
+
+    assert_equal [ %w[ks-table-toolbar flex justify-end] ], page.css("div:has(> [data-controller=column-picker])").map { |row| row["class"].split }
+  end
+
   private
 
   def three_columns
