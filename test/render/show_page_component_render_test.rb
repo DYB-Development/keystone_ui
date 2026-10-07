@@ -77,6 +77,12 @@ class Keystone::Ui::ShowPageComponentRenderTest < ViewComponent::TestCase
     assert_match(/Invoice #42/, error.message)
   end
 
+  def test_given_an_empty_trail_shows_no_back_link
+    page = render_show_page(title: "Invoices", trail: [])
+
+    assert_empty page.css("a")
+  end
+
   def test_given_a_trail_link_with_no_label_raises_an_error_naming_the_page
     KeystoneUi.configure { |c| c.trail_supplier = ->(_view) { [ [ nil, "/invoices" ] ] } }
 
