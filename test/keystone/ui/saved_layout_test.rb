@@ -48,4 +48,10 @@ class Keystone::Ui::SavedLayoutTest < Minitest::Test
 
     assert_equal [ :month, :pipeline ], layout.visible_columns.map(&:key)
   end
+
+  def test_ignores_a_column_the_saved_order_names_that_the_table_no_longer_has
+    layout = Keystone::Ui::SavedLayout.new(columns: columns, value: { "column_order" => [ "gone", "outreach", "pipeline" ] }, default_hidden: [])
+
+    assert_equal [ :month, :outreach, :pipeline ], layout.columns.map(&:key)
+  end
 end
