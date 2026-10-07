@@ -43,7 +43,12 @@ export default class extends Controller {
   }
 
   moveUp(event) {
-    this.move(event, -1)
+    const option = this.optionFor(event)
+    const previous = option.previousElementSibling
+    if (!previous) return
+
+    option.parentNode.insertBefore(option, previous)
+    this.changed = true
   }
 
   moveDown(event) {
@@ -52,7 +57,7 @@ export default class extends Controller {
 
   move(event, step) {
     const order = this.columnOrder()
-    const index = this.optionTargets.indexOf(event.currentTarget.closest('[data-column-picker-target="option"]'))
+    const index = this.optionTargets.indexOf(this.optionFor(event))
     const [key] = order.splice(index, 1)
     order.splice(index + step, 0, key)
     this.send(order)
