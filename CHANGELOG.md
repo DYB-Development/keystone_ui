@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- The `keystone_ui-develop` local can run commands in the host app, so it can run the app's tests, linter and git as the app's own process requires.
+
 ### Added
 - The app refuses to start when its navigation declaration has a tab with no label or no link, two tabs sharing a key, or a group with no tabs, and the error names the tab, the key or the group.
 
