@@ -16,6 +16,16 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ [ "Sales", [ "quotes" ] ] ], groups.map { |entry| [ entry.label, entry.tabs.map(&:label) ] }
   end
 
+  def test_lists_the_groups_and_their_tabs_in_the_saved_order
+    sales = group("Sales", [ :quotes, ->(_view) { true } ], [ :orders, ->(_view) { true } ])
+    admin = group("Admin", [ :users, ->(_view) { true } ])
+    saved_order = [ { "group" => "Admin" }, { "group" => "Sales", "tabs" => [ "orders" ] } ]
+
+    groups = visible(sales, admin, view: View.new(:rep), saved_order: saved_order)
+
+    assert_equal [ [ "Admin", [ "users" ] ], [ "Sales", [ "orders", "quotes" ] ] ], groups.map { |entry| [ entry.label, entry.tabs.map(&:label) ] }
+  end
+
   private
 
   def visible(*groups, view:, saved_order: [], current_tab: nil)
