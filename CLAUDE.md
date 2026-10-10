@@ -56,6 +56,7 @@ Components use semantic CSS custom properties (`--color-accent-*`, `--color-surf
 - ButtonComponent conditionally renders `<a>` or `<button>` based on whether `href` is provided.
 - NavbarComponent is the top-level navigation bar with slots for `logo`, `desktop_links`, `desktop_right`, `mobile_left`, `mobile_center`, and `mobile_right`. Supports `sticky: true` (default) for fixed positioning. Mobile sections are hidden on `lg:` screens and vice versa.
 - NavDropdownComponent renders a dropdown menu within the navbar. Accepts `title`, `area`, and `active` flag. Uses Stimulus `dropdown` controller for toggle behavior.
+- NavigationComponent (`ui_navigation`) draws the groups declared with `KeystoneUi.configuration.navigation_group` as NavDropdownComponent menus of NavItemComponent tabs in a NavbarComponent, inside a `hidden lg:block` sticky wrapper, then the page content passed as a block. `KeystoneUi::NavigationGroup` holds a group's label and tabs, and each tab's key, label, `href` (an address or a callable given the view) and `permitted` callable given the view. A tab whose `permitted` returns false is left out, a group with no tab left is left out, and with no group left it draws only the content.
 - NavItemComponent is a single nav link with `label`, `href`, and `active` state.
 - BottomNavComponent renders a mobile bottom tab bar, hidden on desktop (`lg:hidden`).
 - BottomNavItemComponent is a single bottom nav tab with `label`, `href`, `icon` (SVG string), and `active` state.
