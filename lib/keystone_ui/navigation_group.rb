@@ -15,6 +15,10 @@ module KeystoneUi
       @tabs = []
     end
 
+    def tabs_permitted_for(view)
+      tabs.select { |tab| tab.permitted.call(view) }
+    end
+
     def tab(key, label:, href:, permitted:)
       @tabs << Tab.new(key: key, label: label, href: href, permitted: permitted)
     end

@@ -33,6 +33,14 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "/application/quotes", page.at_css(".ks-nav-item")&.[]("href")
   end
 
+  def test_hides_a_tab_whose_permission_check_fails_for_the_view
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :refunds, "Refunds", "/refunds", ->(view) { view.controller_name == "admin" } ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Quotes" ], page.css(".ks-nav-item").map(&:text)
+  end
+
   private
 
   def declare_group(label, *tabs)
