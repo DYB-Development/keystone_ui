@@ -26,6 +26,16 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ [ "Admin", [ "users" ] ], [ "Sales", [ "orders", "quotes" ] ] ], groups.map { |entry| [ entry.label, entry.tabs.map(&:label) ] }
   end
 
+  def test_gives_each_tab_the_link_its_declaration_returns_for_the_view
+    sales = KeystoneUi::NavigationGroup.new("Sales")
+    sales.tab(:quotes, label: "Quotes", href: ->(view) { "/#{view.role}/quotes" }, permitted: ->(_view) { true })
+    sales.tab(:orders, label: "Orders", href: "/orders", permitted: ->(_view) { true })
+
+    groups = visible(sales, view: View.new(:rep))
+
+    assert_equal [ "/rep/quotes", "/orders" ], groups.first.tabs.map(&:href)
+  end
+
   private
 
   def visible(*groups, view:, saved_order: [], current_tab: nil)
