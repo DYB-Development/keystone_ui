@@ -36,6 +36,12 @@ class KeystoneUi::EngineBootTest < Minitest::Test
     KeystoneUi.reset_configuration!
   end
 
+  def test_checking_the_hosts_navigation_passes_when_the_host_declares_none
+    KeystoneUi.reset_configuration!
+
+    assert_nil KeystoneUi::Engine.check_navigation
+  end
+
   private
 
   def boot_with_root(root)
