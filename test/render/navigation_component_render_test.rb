@@ -94,6 +94,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "Account", page.at_css("nav.top-nav .lg\\:flex > nav:last-child:not(:first-child)")&.text&.strip
   end
 
+  def test_leaves_the_dropdown_panels_of_the_top_bar_menus_positioned_as_the_host_draws_them
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_empty page.css("[class]").select { |element| element["class"].include?("data-dropdown-target") }
+  end
+
   def test_holds_only_the_tabs_in_the_top_bar_when_the_layout_hands_it_no_logo_or_menus
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
 
@@ -191,6 +202,79 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     end
 
     assert_equal "Acme", page.at_css(".ks-sidebar .ks-sidebar-logo")&.text&.strip
+  end
+
+  def test_opens_the_dropdown_panels_of_the_sidebar_menus_in_place_instead_of_over_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_includes page.at_css(".ks-sidebar").element_children.last["class"].split, "[&_[data-dropdown-target=menu]]:static"
+  end
+
+  def test_lets_a_sidebar_menu_wrap_its_panel_onto_a_line_below_its_button
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_includes page.at_css(".ks-sidebar").element_children.last["class"].split, "[&_[data-controller~=dropdown]]:flex-wrap"
+  end
+
+  def test_keeps_a_closed_sidebar_menu_panel_in_the_sidebar_width_while_taking_no_height
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    closed_panel = %w[block h-0 overflow-hidden my-0 py-0].map { |utility| "[&_[data-dropdown-target=menu].hidden]:#{utility}" }
+    assert_empty closed_panel - page.at_css(".ks-sidebar").element_children.last["class"].split
+  end
+
+  def test_hides_a_closed_sidebar_menu_panel_from_sight_keyboard_and_screen_readers
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_includes page.at_css(".ks-sidebar").element_children.last["class"].split, "[&_[data-dropdown-target=menu].hidden]:invisible"
+  end
+
+  def test_gives_a_sidebar_menu_panel_a_line_of_its_own_below_its_button
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_includes page.at_css(".ks-sidebar").element_children.last["class"].split, "[&_[data-dropdown-target=menu]]:basis-full"
+  end
+
+  def test_scrolls_the_sidebar_when_its_content_and_an_open_menu_are_taller_than_the_screen
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("right")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_includes page.at_css(".ks-sidebar")["class"].split, "overflow-y-auto"
   end
 
   def test_draws_only_the_page_content_when_the_saved_placement_is_a_side_and_nothing_is_left_to_show
