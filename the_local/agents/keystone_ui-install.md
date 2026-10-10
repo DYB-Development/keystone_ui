@@ -29,6 +29,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
   `preference_supplier` (a callable that supplies the saved hidden columns and
   column order of a data table given a `key:`, and the address its Columns menu
   saves to),
+  `navigation_group` (a labelled group of desktop tabs that `ui_navigation`
+  draws, each tab declared with `tab key, label:, href:, permitted:`),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 - `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
@@ -183,6 +185,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
      config.look_supplier = ->(view) { view.current_user&.look }
      config.trail_supplier = ->(view) { view.breadcrumb_trail }
      config.preference_supplier = ->(view, key) { TablePreferences.for(view.current_user, key) }
+     config.navigation_group "Sales" do |group|
+       group.tab :quotes, label: "Quotes", href: ->(view) { view.quotes_path }, permitted: ->(view) { view.policy(Quote).index? }
+     end
      config.tailwind_imports << "/absolute/path/to/extra.css"
      config.tailwind_sources << "/absolute/path/to/components/**/*.{erb,rb}"
    end
@@ -290,6 +295,14 @@ built on ViewComponent; hook it in before building any screen with those helpers
    - A companion preferences gem may set this supplier for the app. Ask the
      developer whether the app uses one, or which code stores each user's table
      layouts, before writing the callable.
+   - `navigation_group "Label" do |group| ... end` — declares one menu of
+     desktop tabs, in the order the groups are declared. Inside the block,
+     `group.tab key, label:, href:, permitted:` adds a tab in order. `href:` is
+     an address or a callable that receives the view and returns one.
+     `permitted:` is a callable that receives the view and returns whether the
+     current person may see the tab. The layout renders them with
+     `ui_navigation` around `yield`. Ask the developer which tabs and groups the
+     app has, and which permission check guards each, before declaring them.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for

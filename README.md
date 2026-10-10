@@ -1094,6 +1094,27 @@ Renders the top-level navigation bar with slots for desktop and mobile sections.
 <% end %>
 ```
 
+### `ui_navigation`
+
+Draws the app's declared tabs as a top bar on `lg` screens and wider, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs in declared order. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content.
+
+```erb
+<%= ui_navigation do %>
+  <%= yield %>
+<% end %>
+```
+
+Declare the groups and tabs in the app's Keystone UI initializer. A tab's `href:` is an address or a lambda that receives the view and returns one, and `permitted:` is a lambda that receives the view and returns whether the current person may see the tab.
+
+```ruby
+KeystoneUi.configure do |config|
+  config.navigation_group "Sales" do |group|
+    group.tab :quotes, label: "Quotes", href: ->(view) { view.quotes_path }, permitted: ->(view) { view.policy(Quote).index? }
+    group.tab :orders, label: "Orders", href: "/orders", permitted: ->(_view) { true }
+  end
+end
+```
+
 ### `ui_nav_item`
 
 Renders a single nav link within the navbar.

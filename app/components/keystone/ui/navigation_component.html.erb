@@ -1,0 +1,16 @@
+<% if menus.any? %>
+<div class="<%= TOP_BAR_CLASSES %>">
+<%= render Keystone::Ui::NavbarComponent.new(sticky: false) do |navbar| %>
+  <% navbar.with_desktop_links do %>
+    <% menus.each do |group, tabs| %>
+      <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label) do %>
+        <% tabs.each do |tab| %>
+          <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href_for(helpers)) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+</div>
+<% end %>
+<%= content %>

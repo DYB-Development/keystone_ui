@@ -37,6 +37,7 @@ module Keystone
       Keystone::Ui::NavItemComponent,
       Keystone::Ui::BottomNavItemComponent,
       Keystone::Ui::NavbarComponent,
+      Keystone::Ui::NavigationComponent,
       Keystone::Ui::BottomNavComponent,
       Keystone::Ui::SettingsLinkComponent,
       Keystone::Ui::FormPageComponent,

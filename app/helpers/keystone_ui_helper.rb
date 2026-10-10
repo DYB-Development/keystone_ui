@@ -141,6 +141,10 @@ module KeystoneUiHelper
     render Keystone::Ui::NavbarComponent.new(**args), &block
   end
 
+  def ui_navigation(&block)
+    render Keystone::Ui::NavigationComponent.new, &block
+  end
+
   def ui_nav_item(**args)
     render Keystone::Ui::NavItemComponent.new(**args)
   end

@@ -112,6 +112,13 @@ outer element. See Conventions before using it.
   `mobile_center`, `mobile_right`. Desktop slots are hidden below `lg:` and the
   mobile slots above it. `desktop_right` renders only when `desktop_links` is
   also filled.
+- `ui_navigation` — no keywords, takes a block holding the page content. Placed
+  in the layout around `yield`, it draws the tabs the app declares with
+  `config.navigation_group` as a top bar of menus from `lg:` up, then the
+  content. It leaves out tabs whose permission check fails and groups with no
+  tab left, and below `lg:` it draws only the content. Check whether the app's
+  Keystone UI initializer declares navigation groups before adding desktop tabs
+  by hand; declaring them is `keystone_ui-install`'s job.
 - `ui_nav_item(label:, href:, active: false)` — one desktop navigation link.
 - `ui_nav_dropdown(title:, area:, active: false)` — takes a block. A navbar
   dropdown; the block holds the menu links.
