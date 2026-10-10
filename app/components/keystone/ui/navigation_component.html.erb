@@ -1,7 +1,9 @@
 <% if sidebar? %>
+<% sidebar = capture do %><nav class="<%= SIDEBAR_CLASSES %>"></nav><% end %>
 <div class="<%= SIDEBAR_ROW_CLASSES %>">
-  <nav class="<%= SIDEBAR_CLASSES %>"></nav>
+  <%= sidebar if sidebar_first? %>
   <div class="<%= SIDEBAR_CONTENT_CLASSES %>"><%= content %></div>
+  <%= sidebar unless sidebar_first? %>
 </div>
 <% else %>
 <% if groups.any? || logo? || menus? %>

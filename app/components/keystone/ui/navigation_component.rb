@@ -7,6 +7,7 @@ module Keystone
       SIDEBAR_ROW_CLASSES = "lg:flex"
       SIDEBAR_CLASSES = "ks-sidebar"
       SIDEBAR_CONTENT_CLASSES = "min-w-0 flex-1"
+      SIDEBAR_PLACEMENTS = %w[left right].freeze
 
       renders_one :logo
       renders_one :menus
@@ -20,6 +21,10 @@ module Keystone
       end
 
       def sidebar?
+        SIDEBAR_PLACEMENTS.include?(placement)
+      end
+
+      def sidebar_first?
         placement == "left"
       end
 
