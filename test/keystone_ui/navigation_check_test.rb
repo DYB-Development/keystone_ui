@@ -47,4 +47,12 @@ class KeystoneUi::NavigationCheckTest < Minitest::Test
 
     assert_includes error.message, "Admin"
   end
+
+  def test_a_valid_declaration_passes
+    work = KeystoneUi::NavigationGroup.new("Work")
+    work.tab :deals, label: "Deals", href: ->(_view) { "/deals" }, permitted: ->(_view) { true }
+    work.tab :reports, label: "Reports", href: "/reports", permitted: ->(_view) { true }
+
+    assert_nil KeystoneUi::NavigationCheck.new(groups: [ work ]).call
+  end
 end
