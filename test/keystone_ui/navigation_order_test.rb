@@ -55,6 +55,14 @@ class KeystoneUi::NavigationOrderTest < Minitest::Test
     assert_equal [ "Sales", "Admin" ], arranged.map { |group, _tabs| group.label }
   end
 
+  def test_skips_a_saved_entry_that_is_not_a_hash
+    order = KeystoneUi::NavigationOrder.new([ nil, 3, "Sales", { "group" => "Admin" } ])
+
+    arranged = order.arrange([ group("Sales", :quotes), group("Help", :guides), group("Admin", :users) ])
+
+    assert_equal [ "Admin", "Sales", "Help" ], arranged.map { |group, _tabs| group.label }
+  end
+
   private
 
   def group(label, *keys)

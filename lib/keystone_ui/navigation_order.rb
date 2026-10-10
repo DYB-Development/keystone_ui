@@ -3,7 +3,7 @@
 module KeystoneUi
   class NavigationOrder
     def initialize(saved)
-      @saved = saved.is_a?(Array) ? saved : []
+      @saved = saved.is_a?(Array) ? saved.grep(Hash) : []
     end
 
     def arrange(groups)
