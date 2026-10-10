@@ -44,6 +44,15 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ false, true ], groups.first.tabs.map(&:active)
   end
 
+  def test_marks_only_the_group_holding_the_current_tab_as_active
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+    admin = group("Admin", [ :users, ->(_view) { true } ])
+
+    groups = visible(sales, admin, view: View.new(:rep), current_tab: :users)
+
+    assert_equal [ false, true ], groups.map(&:active)
+  end
+
   private
 
   def visible(*groups, view:, saved_order: [], current_tab: nil)

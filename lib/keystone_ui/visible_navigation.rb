@@ -4,7 +4,7 @@ require "keystone_ui/navigation_order"
 
 module KeystoneUi
   class VisibleNavigation
-    Group = Struct.new(:label, :tabs, keyword_init: true)
+    Group = Struct.new(:label, :tabs, :active, keyword_init: true)
     Tab = Struct.new(:label, :href, :active, keyword_init: true)
 
     def initialize(declared_groups, view:, saved_order:, current_tab:)
@@ -27,7 +27,8 @@ module KeystoneUi
     end
 
     def visible_group(group, tabs)
-      Group.new(label: group.label, tabs: tabs.map { |tab| visible_tab(tab) })
+      visible_tabs = tabs.map { |tab| visible_tab(tab) }
+      Group.new(label: group.label, tabs: visible_tabs, active: visible_tabs.any?(&:active))
     end
 
     def visible_tab(tab)
