@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.39.0] - 2026-10-10
+
 ### Changed
 - The `keystone_ui-develop` local can run commands in the host app, so it can run the app's tests, linter and git as the app's own process requires.
 
