@@ -13,7 +13,7 @@ module Keystone
       SIDEBAR_GROUP_LABEL_CLASSES = "ks-sidebar-group-label"
       SIDEBAR_TAB_CLASSES = "ks-sidebar-tab"
       ACTIVE_CLASS = "active"
-      SIDEBAR_MENUS_CLASSES = "mt-auto"
+      SIDEBAR_MENUS_CLASSES = "mt-auto [&_[data-dropdown-target=menu]]:static"
       SIDEBAR_CONTENT_CLASSES = "min-w-0 flex-1"
       SIDEBAR_PLACEMENTS = %w[left right].freeze
 
