@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - `ui_navigation` draws the tabs an app declares with `config.navigation_group` as a top bar of menus on desktop screens, above the page content a layout passes it, leaving out tabs whose permission check fails and groups with no tab left.
 - A layout can hand `ui_navigation` a logo, drawn at the left end of its top bar, and menus such as an account menu and a user menu, drawn at its right end.
+- `ui_navigation` draws a sidebar on the left or the right of the page content on desktop screens when the preference supplied for `:navigation` names that placement, showing each group's label above its tabs, the logo at its top and the menus at its bottom, and draws the top bar for any other placement.
 
 ## [0.37.0] - 2026-10-07
 
