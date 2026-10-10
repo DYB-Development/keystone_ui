@@ -4,12 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.38.0] - 2026-10-10
+
 ### Added
 - `ui_navigation` draws the tabs an app declares with `config.navigation_group` as a top bar of menus on desktop screens, above the page content a layout passes it, leaving out tabs whose permission check fails and groups with no tab left.
 - A layout can hand `ui_navigation` a logo, drawn at the left end of its top bar, and menus such as an account menu and a user menu, drawn at its right end.
 - `ui_navigation` draws a sidebar on the left or the right of the page content on desktop screens when the preference supplied for `:navigation` names that placement, showing each group's label above its tabs, the logo at its top and the menus at its bottom, and draws the top bar for any other placement.
 - `config.current_tab_supplier` lets an app name the declared tab the current page belongs to, and `ui_navigation` shows that tab and its group as active in the top bar and the sidebar.
 - `ui_navigation` draws its groups and each group's tabs in the order saved under `"order"` in the preference supplied for `:navigation`, naming groups by label and tabs by key, with unnamed ones after in declared order and names no longer declared ignored.
+
+### Changed
+- Requires keystone_ui-styles 0.14.0 or later, which styles the navigation sidebar.
 
 ## [0.37.0] - 2026-10-07
 
