@@ -158,6 +158,21 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [], [ "lg:flex" ] ], [ %w[hidden lg:flex] - sidebar["class"].split, sidebar.parent["class"].split ]
   end
 
+  def test_shows_the_logo_at_the_top_of_the_sidebar_and_the_menus_pushed_to_its_bottom
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("right")
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    sidebar = page.at_css(".ks-sidebar")
+    parts = sidebar.element_children
+    assert_equal [ "Acme", "Account", true, true ], [ parts.first.text.strip, parts.last.text.strip, parts.last["class"].to_s.split.include?("mt-auto"), sidebar["class"].split.include?("lg:h-screen") ]
+  end
+
   private
 
   def save_placement(placement)
