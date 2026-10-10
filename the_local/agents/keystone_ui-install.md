@@ -321,7 +321,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
      `navigation.with_logo` and its account and user menus with
      `navigation.with_menus` inside the block, so the layout draws no other
      top bar. Ask the developer which tabs and groups the app has, and which
-     permission check guards each, before declaring them.
+     permission check guards each, before declaring them. Boot stops with
+     `KeystoneUi::NavigationCheck::Error` when a tab has no label or no
+     `href:`, when two tabs share a key, or when a group has no tabs.
    - `current_tab_supplier` — a callable that receives the view and returns the
      key of the declared tab the current page belongs to, or `nil`.
      `ui_navigation` shows that tab and its group as active in the top bar and
