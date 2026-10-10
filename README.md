@@ -1096,7 +1096,7 @@ Renders the top-level navigation bar with slots for desktop and mobile sections.
 
 ### `ui_navigation`
 
-Draws the app's declared tabs as a top bar on `lg` screens and wider, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs in declared order. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below.
+Draws the app's declared tabs as a top bar on `lg` screens and wider, or as a sidebar when the person's saved placement is left or right as described below, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs in declared order. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below.
 
 ```erb
 <%= ui_navigation do %>
