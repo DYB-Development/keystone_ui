@@ -47,6 +47,14 @@ class KeystoneUi::NavigationOrderTest < Minitest::Test
     assert_equal [ [ "Sales", [ :orders, :quotes ] ], [ "Admin", [ :users ] ] ], arranged.map { |group, tabs| [ group.label, tabs.map(&:key) ] }
   end
 
+  def test_draws_the_declared_order_when_the_saved_order_is_not_a_list
+    order = KeystoneUi::NavigationOrder.new("Admin")
+
+    arranged = order.arrange([ group("Sales", :quotes), group("Admin", :users) ])
+
+    assert_equal [ "Sales", "Admin" ], arranged.map { |group, _tabs| group.label }
+  end
+
   private
 
   def group(label, *keys)
