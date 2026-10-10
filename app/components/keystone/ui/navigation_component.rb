@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "keystone_ui/navigation_order"
+
 module Keystone
   module Ui
     class NavigationComponent < ViewComponent::Base
@@ -20,9 +22,10 @@ module Keystone
       attr_reader :groups
 
       def before_render
-        @groups = KeystoneUi.configuration.navigation_groups
+        permitted = KeystoneUi.configuration.navigation_groups
           .map { |group| [ group, group.tabs_permitted_for(helpers) ] }
           .reject { |_group, tabs| tabs.empty? }
+        @groups = KeystoneUi::NavigationOrder.new(saved_navigation["order"] || []).arrange(permitted)
         @current_tab = KeystoneUi.configuration.supplied_current_tab(helpers)
       end
 
@@ -57,8 +60,12 @@ module Keystone
       private
 
       def placement
+        saved_navigation["placement"]
+      end
+
+      def saved_navigation
         value = KeystoneUi.configuration.supplied_preference(helpers, :navigation)&.dig(:value)
-        value["placement"] if value.is_a?(Hash)
+        value.is_a?(Hash) ? value : {}
       end
     end
   end
