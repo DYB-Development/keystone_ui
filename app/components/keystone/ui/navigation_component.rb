@@ -4,6 +4,9 @@ module Keystone
   module Ui
     class NavigationComponent < ViewComponent::Base
       TOP_BAR_CLASSES = "hidden lg:block sticky top-0 z-40"
+      SIDEBAR_ROW_CLASSES = "lg:flex"
+      SIDEBAR_CLASSES = "ks-sidebar"
+      SIDEBAR_CONTENT_CLASSES = "min-w-0 flex-1"
 
       renders_one :logo
       renders_one :menus
@@ -14,6 +17,17 @@ module Keystone
         @groups = KeystoneUi.configuration.navigation_groups
           .map { |group| [ group, group.tabs_permitted_for(helpers) ] }
           .reject { |_group, tabs| tabs.empty? }
+      end
+
+      def sidebar?
+        placement == "left"
+      end
+
+      private
+
+      def placement
+        saved = KeystoneUi.configuration.supplied_preference(helpers, :navigation)
+        saved&.dig(:value, "placement")
       end
     end
   end

@@ -106,7 +106,20 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Acme", "Account" ], [ page.at_css(".hidden.lg\\:block nav.top-nav .logo")&.text&.strip, page.at_css(".hidden.lg\\:block nav.top-nav .lg\\:flex > nav:last-child")&.text&.strip ]
   end
 
+  def test_draws_the_navigation_as_a_sidebar_left_of_the_page_content_when_the_saved_placement_is_left
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal "Page", page.at_xpath(".//*[contains(concat(' ', @class, ' '), ' ks-sidebar ')]/following-sibling::*[1]/p")&.text
+  end
+
   private
+
+  def save_placement(placement)
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, key) { { value: { "placement" => placement } } if key == :navigation } }
+  end
 
   def declare_group(label, *tabs)
     KeystoneUi.configure do |c|
