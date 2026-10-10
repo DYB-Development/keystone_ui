@@ -24,8 +24,7 @@ module KeystoneUi
     end
 
     def arrange_tabs(group, tabs)
-      keys = saved_tab_keys(group)
-      tabs.sort_by { |tab| keys.index(tab.key.to_s) }
+      in_saved_order(tabs, saved_tab_keys(group)) { |tab| tab.key.to_s }
     end
 
     def saved_tab_keys(group)
