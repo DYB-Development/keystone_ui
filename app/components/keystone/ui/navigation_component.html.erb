@@ -1,2 +1,12 @@
-<%= render Keystone::Ui::NavbarComponent.new %>
+<%= render Keystone::Ui::NavbarComponent.new do |navbar| %>
+  <% navbar.with_desktop_links do %>
+    <% groups.each do |group| %>
+      <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label) do %>
+        <% group.tabs.each do |tab| %>
+          <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
 <%= content %>
