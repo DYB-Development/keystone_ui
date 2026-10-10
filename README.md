@@ -1096,10 +1096,26 @@ Renders the top-level navigation bar with slots for desktop and mobile sections.
 
 ### `ui_navigation`
 
-Draws the app's declared tabs as a top bar on `lg` screens and wider, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs in declared order. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content.
+Draws the app's declared tabs as a top bar on `lg` screens and wider, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs in declared order. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below.
 
 ```erb
 <%= ui_navigation do %>
+  <%= yield %>
+<% end %>
+```
+
+To put the app's logo and its menus, such as the account menu and the user menu, in the same top bar, set them inside the block. The logo is drawn at the left end of the bar and the menus at its right end, after the tabs. A layout that sets neither gets a bar holding only the tabs. When the person may see no tab, a layout that sets either still gets the bar, holding just the logo and menus.
+
+```erb
+<%= ui_navigation do |navigation| %>
+  <% navigation.with_logo do %>
+    <%= link_to "MyApp", root_path %>
+  <% end %>
+  <% navigation.with_menus do %>
+    <%= ui_nav_dropdown(title: "Account", area: "account") do %>
+      <%= link_to "Settings", settings_path %>
+    <% end %>
+  <% end %>
   <%= yield %>
 <% end %>
 ```

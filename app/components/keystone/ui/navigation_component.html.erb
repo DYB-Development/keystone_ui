@@ -1,14 +1,20 @@
-<% if menus.any? %>
+<% if groups.any? || logo? || menus? %>
 <div class="<%= TOP_BAR_CLASSES %>">
 <%= render Keystone::Ui::NavbarComponent.new(sticky: false) do |navbar| %>
+  <% if logo? %>
+    <% navbar.with_logo do %><%= logo %><% end %>
+  <% end %>
   <% navbar.with_desktop_links do %>
-    <% menus.each do |group, tabs| %>
+    <% groups.each do |group, tabs| %>
       <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label) do %>
         <% tabs.each do |tab| %>
           <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href_for(helpers)) %>
         <% end %>
       <% end %>
     <% end %>
+  <% end %>
+  <% if menus? %>
+    <% navbar.with_desktop_right do %><%= menus %><% end %>
   <% end %>
 <% end %>
 </div>

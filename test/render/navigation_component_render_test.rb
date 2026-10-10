@@ -64,6 +64,48 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "p" ], page.element_children.map(&:name)
   end
 
+  def test_shows_the_logo_a_layout_hands_it_at_the_left_end_of_the_top_bar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal "Acme", page.at_css("nav.top-nav > *:first-child.logo")&.text&.strip
+  end
+
+  def test_shows_the_menus_a_layout_hands_it_after_the_tabs_at_the_right_end_of_the_top_bar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal "Account", page.at_css("nav.top-nav .lg\\:flex > nav:last-child:not(:first-child)")&.text&.strip
+  end
+
+  def test_holds_only_the_tabs_in_the_top_bar_when_the_layout_hands_it_no_logo_or_menus
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ [ "div", [ "nav" ] ] ], page.at_css("nav.top-nav").element_children.map { |part| [ part.name, part.element_children.map(&:name) ] }
+  end
+
+  def test_draws_the_top_bar_holding_the_logo_and_menus_when_no_group_is_visible
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal [ "Acme", "Account" ], [ page.at_css(".hidden.lg\\:block nav.top-nav .logo")&.text&.strip, page.at_css(".hidden.lg\\:block nav.top-nav .lg\\:flex > nav:last-child")&.text&.strip ]
+  end
+
   private
 
   def declare_group(label, *tabs)

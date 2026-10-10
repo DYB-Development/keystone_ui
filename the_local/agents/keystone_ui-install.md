@@ -301,8 +301,11 @@ built on ViewComponent; hook it in before building any screen with those helpers
      an address or a callable that receives the view and returns one.
      `permitted:` is a callable that receives the view and returns whether the
      current person may see the tab. The layout renders them with
-     `ui_navigation` around `yield`. Ask the developer which tabs and groups the
-     app has, and which permission check guards each, before declaring them.
+     `ui_navigation` around `yield`, setting the app's logo with
+     `navigation.with_logo` and its account and user menus with
+     `navigation.with_menus` inside the block, so the layout draws no other
+     top bar. Ask the developer which tabs and groups the app has, and which
+     permission check guards each, before declaring them.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for
