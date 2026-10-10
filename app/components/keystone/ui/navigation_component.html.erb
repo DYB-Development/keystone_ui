@@ -4,7 +4,7 @@
 <% sidebar = capture do %>
   <nav class="<%= SIDEBAR_CLASSES %>">
     <% if logo? %>
-      <div><%= logo %></div>
+      <div class="<%= SIDEBAR_LOGO_CLASSES %>"><%= logo %></div>
     <% end %>
     <% groups.each do |group| %>
       <div class="<%= SIDEBAR_GROUP_CLASSES %>">

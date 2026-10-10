@@ -8,6 +8,7 @@ module Keystone
       TOP_BAR_CLASSES = "hidden lg:block sticky top-0 z-40"
       SIDEBAR_ROW_CLASSES = "lg:flex"
       SIDEBAR_CLASSES = "ks-sidebar hidden lg:flex lg:sticky lg:top-0 lg:h-screen shrink-0 overflow-y-auto"
+      SIDEBAR_LOGO_CLASSES = "ks-sidebar-logo"
       SIDEBAR_GROUP_CLASSES = "flex flex-col"
       SIDEBAR_GROUP_LABEL_CLASSES = "ks-sidebar-group-label"
       SIDEBAR_TAB_CLASSES = "ks-sidebar-tab"
