@@ -58,6 +58,12 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [] ], page.css("nav.top-nav").map { |bar| %w[hidden lg:block] - bar.parent["class"].to_s.split }
   end
 
+  def test_draws_only_the_page_content_when_the_host_declares_no_navigation
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "p" ], page.element_children.map(&:name)
+  end
+
   private
 
   def declare_group(label, *tabs)

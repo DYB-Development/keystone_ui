@@ -1,3 +1,4 @@
+<% if menus.any? %>
 <div class="<%= TOP_BAR_CLASSES %>">
 <%= render Keystone::Ui::NavbarComponent.new(sticky: false) do |navbar| %>
   <% navbar.with_desktop_links do %>
@@ -11,4 +12,5 @@
   <% end %>
 <% end %>
 </div>
+<% end %>
 <%= content %>
