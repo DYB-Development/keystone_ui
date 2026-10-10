@@ -31,6 +31,12 @@ module KeystoneUi
       @navigation_groups << group
     end
 
+    def navigation_tab(key, label:, href:, permitted:)
+      group = NavigationGroup.new(label, standalone: true)
+      group.tab(key, label: label, href: href, permitted: permitted)
+      @navigation_groups << group
+    end
+
     def supplied_look(view)
       look_supplier&.call(view)&.to_s
     end

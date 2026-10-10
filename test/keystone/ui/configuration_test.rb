@@ -110,4 +110,13 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal [ [ "Sales", [ [ :quotes, "Quotes", "/quotes", permitted ] ] ] ], declared
   end
+
+  def test_declares_a_tab_outside_any_group_as_a_standalone_group_named_by_its_label
+    permitted = ->(_view) { true }
+    KeystoneUi.configure { |c| c.navigation_tab(:home, label: "Home", href: "/", permitted: permitted) }
+
+    declared = KeystoneUi.configuration.navigation_groups.map { |group| [ group.label, group.standalone?, group.tabs.map { |tab| [ tab.key, tab.label, tab.href, tab.permitted ] } ] }
+
+    assert_equal [ [ "Home", true, [ [ :home, "Home", "/", permitted ] ] ] ], declared
+  end
 end
