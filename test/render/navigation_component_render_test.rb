@@ -195,6 +195,15 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Acme", "Account" ], page.css(".ks-sidebar > *").map { |part| part.text.strip }
   end
 
+  def test_draws_the_top_bar_when_the_saved_value_holds_no_placement_entry
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: "left" } } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal 1, page.css("nav.top-nav").size
+  end
+
   private
 
   def save_placement(placement)

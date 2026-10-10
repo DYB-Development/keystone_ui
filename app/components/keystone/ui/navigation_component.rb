@@ -39,8 +39,8 @@ module Keystone
       private
 
       def placement
-        saved = KeystoneUi.configuration.supplied_preference(helpers, :navigation)
-        saved&.dig(:value, "placement")
+        value = KeystoneUi.configuration.supplied_preference(helpers, :navigation)&.dig(:value)
+        value["placement"] if value.is_a?(Hash)
       end
     end
   end
