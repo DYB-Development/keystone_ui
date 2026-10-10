@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - The sidebar drawn by `ui_navigation` wraps the logo in an element with the class `ks-sidebar-logo`, so keystone_ui-styles can give the logo its own spacing and remove its underline.
 
 ### Fixed
+- A menu in the sidebar drawn by `ui_navigation` opens in place below its button inside the sidebar, instead of as a dropdown cut off by the sidebar's edge, including a menu whose panel the app positions absolutely in its own stylesheet. Menus in the top bar still open as dropdowns.
 - At the top placement, `ui_navigation` hands the layout its top bar and the page content inside one element, as it already did for a sidebar, so in a body laid out as a grid of header, stretching row and footer a short page shows its content directly under the top bar.
 
 ## [0.39.0] - 2026-10-10
