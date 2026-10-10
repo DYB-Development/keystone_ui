@@ -302,6 +302,12 @@ built on ViewComponent; hook it in before building any screen with those helpers
      right of the page content on desktop screens for the first two, and the
      top bar for `"top"`, `nil`, a value with no `"placement"` string key, or
      any other placement.
+   - The same `:navigation` value may hold the person's order of groups and
+     tabs under `"order"`, as
+     `[ { "group" => "Admin" }, { "group" => "Sales", "tabs" => [ "orders", "quotes" ] } ]`.
+     A group is named by its declared label and a tab by its key as a string.
+     `ui_navigation` draws the named groups and tabs first in that order, then
+     the rest in declared order, and ignores names no longer declared.
    - A companion preferences gem may set this supplier for the app. Ask the
      developer whether the app uses one, or which code stores each user's table
      layouts, before writing the callable.
