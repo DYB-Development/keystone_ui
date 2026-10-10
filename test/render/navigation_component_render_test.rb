@@ -15,6 +15,14 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "Page", page.at_xpath(".//nav[contains(@class, 'top-nav')]/following::p")&.text
   end
 
+  def test_hands_the_host_the_top_bar_and_the_page_content_inside_one_element
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ [ "nav", "p" ] ], page.element_children.map { |part| [ part.element_children.first&.at_css("nav.top-nav")&.name, part.element_children.last&.name ] }
+  end
+
   def test_shows_each_group_as_a_menu_in_the_top_bar_holding_its_tabs_in_declared_order
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
     declare_group("Admin", [ :users, "Users", "/users" ])
@@ -171,6 +179,18 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     sidebar = page.at_css(".ks-sidebar")
     parts = sidebar.element_children
     assert_equal [ "Acme", "Account", true, true ], [ parts.first.text.strip, parts.last.text.strip, parts.last["class"].to_s.split.include?("mt-auto"), sidebar["class"].split.include?("lg:h-screen") ]
+  end
+
+  def test_wraps_the_logo_in_the_sidebar_logo_element_in_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal "Acme", page.at_css(".ks-sidebar .ks-sidebar-logo")&.text&.strip
   end
 
   def test_draws_only_the_page_content_when_the_saved_placement_is_a_side_and_nothing_is_left_to_show
