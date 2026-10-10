@@ -10,7 +10,7 @@
       <div class="<%= SIDEBAR_GROUP_CLASSES %>">
         <p class="<%= SIDEBAR_GROUP_LABEL_CLASSES %>"><%= group.label %></p>
         <% tabs.each do |tab| %>
-          <a class="<%= SIDEBAR_TAB_CLASSES %>" href="<%= tab.href_for(helpers) %>"><%= tab.label %></a>
+          <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href_for(helpers) %>"><%= tab.label %></a>
         <% end %>
       </div>
     <% end %>

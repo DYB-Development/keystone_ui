@@ -223,6 +223,16 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Admin" ], page.css(".ks-nav-dropdown-trigger.active").map { |menu| menu.text.strip }
   end
 
+  def test_shows_the_tab_the_current_page_belongs_to_as_active_in_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
+    save_placement("left")
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :orders } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Orders" ], page.css(".ks-sidebar-tab.active").map(&:text)
+  end
+
   private
 
   def save_placement(placement)
