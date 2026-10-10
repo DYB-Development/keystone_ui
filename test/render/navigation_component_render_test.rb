@@ -182,6 +182,19 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "p" ], page.element_children.map(&:name)
   end
 
+  def test_draws_the_sidebar_holding_the_logo_and_menus_when_no_group_is_visible
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal [ "Acme", "Account" ], page.css(".ks-sidebar > *").map { |part| part.text.strip }
+  end
+
   private
 
   def save_placement(placement)
