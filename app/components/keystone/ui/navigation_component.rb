@@ -34,6 +34,10 @@ module Keystone
         tabs.any? { |tab| current?(tab) }
       end
 
+      def sidebar_group_label_classes(tabs)
+        [ SIDEBAR_GROUP_LABEL_CLASSES, (ACTIVE_CLASS if holds_current?(tabs)) ].compact.join(" ")
+      end
+
       def sidebar_tab_classes(tab)
         [ SIDEBAR_TAB_CLASSES, (ACTIVE_CLASS if current?(tab)) ].compact.join(" ")
       end

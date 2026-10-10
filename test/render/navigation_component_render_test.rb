@@ -233,6 +233,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Orders" ], page.css(".ks-sidebar-tab.active").map(&:text)
   end
 
+  def test_shows_the_group_holding_the_current_page_tab_as_active_in_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_group("Admin", [ :users, "Users", "/users" ])
+    save_placement("left")
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :users } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Admin" ], page.css(".ks-sidebar-group-label.active").map(&:text)
+  end
+
   private
 
   def save_placement(placement)
