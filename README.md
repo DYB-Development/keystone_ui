@@ -1120,6 +1120,14 @@ To put the app's logo and its menus, such as the account menu and the user menu,
 <% end %>
 ```
 
+The navigation asks `config.preference_supplier` for the key `:navigation` and reads the placement under `"placement"` in the returned `value`. With `"left"` or `"right"` it draws a sidebar on that side of the page content on `lg` screens and wider, showing each group's label above its tabs, the logo at the top and the menus at the bottom. Below `lg` the sidebar is not drawn and the page content takes the full width. With `"top"`, no supplier, no saved value or any other placement it draws the top bar. A gem that stores preferences, such as keystone_ui-preferences, sets the supplier for the app.
+
+```ruby
+KeystoneUi.configure do |config|
+  config.preference_supplier = ->(view, key) { { value: { "placement" => "left" } } if key == :navigation }
+end
+```
+
 Declare the groups and tabs in the app's Keystone UI initializer. A tab's `href:` is an address or a lambda that receives the view and returns one, and `permitted:` is a lambda that receives the view and returns whether the current person may see the tab.
 
 ```ruby
