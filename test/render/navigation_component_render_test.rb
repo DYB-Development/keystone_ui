@@ -173,6 +173,15 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Acme", "Account", true, true ], [ parts.first.text.strip, parts.last.text.strip, parts.last["class"].to_s.split.include?("mt-auto"), sidebar["class"].split.include?("lg:h-screen") ]
   end
 
+  def test_draws_only_the_page_content_when_the_saved_placement_is_a_side_and_nothing_is_left_to_show
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "p" ], page.element_children.map(&:name)
+  end
+
   private
 
   def save_placement(placement)

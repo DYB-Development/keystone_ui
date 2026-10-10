@@ -24,6 +24,10 @@ module Keystone
           .reject { |_group, tabs| tabs.empty? }
       end
 
+      def anything_to_show?
+        groups.any? || logo? || menus?
+      end
+
       def sidebar?
         SIDEBAR_PLACEMENTS.include?(placement)
       end

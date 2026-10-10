@@ -1,4 +1,6 @@
-<% if sidebar? %>
+<% if !anything_to_show? %>
+<%= content %>
+<% elsif sidebar? %>
 <% sidebar = capture do %>
   <nav class="<%= SIDEBAR_CLASSES %>">
     <% if logo? %>
@@ -23,7 +25,6 @@
   <%= sidebar unless sidebar_first? %>
 </div>
 <% else %>
-<% if groups.any? || logo? || menus? %>
 <div class="<%= TOP_BAR_CLASSES %>">
 <%= render Keystone::Ui::NavbarComponent.new(sticky: false) do |navbar| %>
   <% if logo? %>
@@ -43,6 +44,5 @@
   <% end %>
 <% end %>
 </div>
-<% end %>
 <%= content %>
 <% end %>
