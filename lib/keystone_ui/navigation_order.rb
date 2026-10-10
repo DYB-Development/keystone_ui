@@ -28,7 +28,8 @@ module KeystoneUi
     end
 
     def saved_tab_keys(group)
-      @saved.find { |entry| entry["group"] == group.label }&.fetch("tabs", nil) || []
+      tabs = @saved.find { |entry| entry["group"] == group.label }&.fetch("tabs", nil)
+      tabs.is_a?(Array) ? tabs : []
     end
   end
 end
