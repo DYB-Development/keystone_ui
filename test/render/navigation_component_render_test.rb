@@ -336,6 +336,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Sales" ], page.css(".ks-sidebar details:not([open]) > summary.ks-sidebar-group-label").map { |label| label.text.strip }
   end
 
+  def test_opens_the_sidebar_group_holding_the_current_page_tab_when_the_page_loads
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_group("Admin", [ :users, "Users", "/users" ])
+    save_placement("left")
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :users } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Admin" ], page.css(".ks-sidebar details[open] > summary").map { |label| label.text.strip }
+  end
+
   def test_shows_the_tab_the_current_page_belongs_to_as_active_in_the_sidebar
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
     save_placement("left")

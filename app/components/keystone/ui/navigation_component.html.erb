@@ -7,7 +7,7 @@
       <div class="<%= SIDEBAR_LOGO_CLASSES %>"><%= logo %></div>
     <% end %>
     <% groups.each do |group| %>
-      <details class="<%= SIDEBAR_GROUP_CLASSES %>">
+      <details class="<%= SIDEBAR_GROUP_CLASSES %>"<%= " open" if group.active %>>
         <summary class="<%= sidebar_group_label_classes(group) %>"><%= group.label %></summary>
         <% group.tabs.each do |tab| %>
           <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
