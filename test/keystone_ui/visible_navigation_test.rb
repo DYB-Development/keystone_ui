@@ -36,6 +36,14 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ "/rep/quotes", "/orders" ], groups.first.tabs.map(&:href)
   end
 
+  def test_marks_only_the_tab_whose_key_is_the_current_tab_as_active
+    sales = group("Sales", [ :quotes, ->(_view) { true } ], [ :orders, ->(_view) { true } ])
+
+    groups = visible(sales, view: View.new(:rep), current_tab: :orders)
+
+    assert_equal [ false, true ], groups.first.tabs.map(&:active)
+  end
+
   private
 
   def visible(*groups, view:, saved_order: [], current_tab: nil)

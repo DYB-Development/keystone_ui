@@ -5,12 +5,13 @@ require "keystone_ui/navigation_order"
 module KeystoneUi
   class VisibleNavigation
     Group = Struct.new(:label, :tabs, keyword_init: true)
-    Tab = Struct.new(:label, :href, keyword_init: true)
+    Tab = Struct.new(:label, :href, :active, keyword_init: true)
 
     def initialize(declared_groups, view:, saved_order:, current_tab:)
       @declared_groups = declared_groups
       @view = view
       @saved_order = saved_order
+      @current_tab = current_tab
     end
 
     def groups
@@ -30,7 +31,7 @@ module KeystoneUi
     end
 
     def visible_tab(tab)
-      Tab.new(label: tab.label, href: tab.href_for(@view))
+      Tab.new(label: tab.label, href: tab.href_for(@view), active: tab.key == @current_tab)
     end
   end
 end
