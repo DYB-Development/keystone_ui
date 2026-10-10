@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- At the top placement, `ui_navigation` hands the layout its top bar and the page content inside one element, as it already did for a sidebar, so in a body laid out as a grid of header, stretching row and footer a short page shows its content directly under the top bar.
+
 ## [0.39.0] - 2026-10-10
 
 ### Changed
