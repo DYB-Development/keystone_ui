@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "keystone_ui/navigation_order"
+require "keystone_ui/visible_navigation"
 
 module Keystone
   module Ui
@@ -22,27 +22,20 @@ module Keystone
       attr_reader :groups
 
       def before_render
-        permitted = KeystoneUi.configuration.navigation_groups
-          .map { |group| [ group, group.tabs_permitted_for(helpers) ] }
-          .reject { |_group, tabs| tabs.empty? }
-        @groups = KeystoneUi::NavigationOrder.new(saved_navigation["order"] || []).arrange(permitted)
-        @current_tab = KeystoneUi.configuration.supplied_current_tab(helpers)
+        @groups = KeystoneUi::VisibleNavigation.new(
+          KeystoneUi.configuration.navigation_groups,
+          view: helpers,
+          saved_order: saved_navigation["order"] || [],
+          current_tab: KeystoneUi.configuration.supplied_current_tab(helpers)
+        ).groups
       end
 
-      def current?(tab)
-        tab.key == @current_tab
-      end
-
-      def holds_current?(tabs)
-        tabs.any? { |tab| current?(tab) }
-      end
-
-      def sidebar_group_label_classes(tabs)
-        [ SIDEBAR_GROUP_LABEL_CLASSES, (ACTIVE_CLASS if holds_current?(tabs)) ].compact.join(" ")
+      def sidebar_group_label_classes(group)
+        [ SIDEBAR_GROUP_LABEL_CLASSES, (ACTIVE_CLASS if group.active) ].compact.join(" ")
       end
 
       def sidebar_tab_classes(tab)
-        [ SIDEBAR_TAB_CLASSES, (ACTIVE_CLASS if current?(tab)) ].compact.join(" ")
+        [ SIDEBAR_TAB_CLASSES, (ACTIVE_CLASS if tab.active) ].compact.join(" ")
       end
 
       def anything_to_show?

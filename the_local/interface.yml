@@ -74,6 +74,7 @@ sources:
   - lib/keystone_ui/configuration.rb
   - lib/keystone_ui/navigation_group.rb
   - lib/keystone_ui/navigation_order.rb
+  - lib/keystone_ui/visible_navigation.rb
   - lib/keystone_ui/missing_back_link.rb
   - lib/keystone_ui/incomplete_trail.rb
   - lib/keystone_ui/theme_choice.rb

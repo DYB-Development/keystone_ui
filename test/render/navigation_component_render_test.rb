@@ -280,7 +280,36 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "Admin", "Sales" ], [ "Admin", "Sales" ] ], drawn
   end
 
+  def test_shows_the_same_groups_tabs_order_and_active_marks_in_the_top_bar_and_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :refunds, "Refunds", "/refunds", ->(_view) { false } ], [ :orders, "Orders", "/orders" ])
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+    declare_group("Help", [ :guides, "Guides", "/guides" ])
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :orders } }
+    order = [ { "group" => "Help" }, { "group" => "Sales", "tabs" => [ "orders" ] } ]
+
+    top_bar, sidebar = [ "top", "left" ].map do |placement|
+      save_navigation("placement" => placement, "order" => order)
+      render_navigation { "<p>Page</p>".html_safe }
+    end
+
+    assert_equal drawn_in_top_bar(top_bar), drawn_in_sidebar(sidebar)
+  end
+
   private
+
+  def drawn_in_top_bar(page)
+    page.css(".ks-nav-dropdown").map do |menu|
+      trigger = menu.at_css(".ks-nav-dropdown-trigger")
+      [ trigger.text.strip, trigger["class"].split.include?("active"), menu.css(".ks-nav-item").map { |tab| [ tab.text.strip, tab["href"], tab["class"].split.include?("active") ] } ]
+    end
+  end
+
+  def drawn_in_sidebar(page)
+    page.css(".ks-sidebar > div").map do |group|
+      label = group.at_css(".ks-sidebar-group-label")
+      [ label.text.strip, label["class"].split.include?("active"), group.css(".ks-sidebar-tab").map { |tab| [ tab.text.strip, tab["href"], tab["class"].split.include?("active") ] } ]
+    end
+  end
 
   def save_navigation(value)
     KeystoneUi.configure { |c| c.preference_supplier = ->(_view, key) { { value: value } if key == :navigation } }
