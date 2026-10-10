@@ -64,6 +64,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "p" ], page.element_children.map(&:name)
   end
 
+  def test_shows_the_logo_a_layout_hands_it_at_the_left_end_of_the_top_bar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal "Acme", page.at_css("nav.top-nav > *:first-child.logo")&.text&.strip
+  end
+
   private
 
   def declare_group(label, *tabs)
