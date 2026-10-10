@@ -1104,6 +1104,22 @@ Draws the app's declared tabs as a top bar on `lg` screens and wider, then the p
 <% end %>
 ```
 
+To put the app's logo and its menus, such as the account menu and the user menu, in the same top bar, set them inside the block. The logo is drawn at the left end of the bar and the menus at its right end, after the tabs. A layout that sets neither gets a bar holding only the tabs.
+
+```erb
+<%= ui_navigation do |navigation| %>
+  <% navigation.with_logo do %>
+    <%= link_to "MyApp", root_path %>
+  <% end %>
+  <% navigation.with_menus do %>
+    <%= ui_nav_dropdown(title: "Account", area: "account") do %>
+      <%= link_to "Settings", settings_path %>
+    <% end %>
+  <% end %>
+  <%= yield %>
+<% end %>
+```
+
 Declare the groups and tabs in the app's Keystone UI initializer. A tab's `href:` is an address or a lambda that receives the view and returns one, and `permitted:` is a lambda that receives the view and returns whether the current person may see the tab.
 
 ```ruby
