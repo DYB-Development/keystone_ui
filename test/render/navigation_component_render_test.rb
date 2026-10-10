@@ -163,7 +163,7 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
 
     page = render_navigation { "<p>Page</p>".html_safe }
 
-    groups = page.css(".ks-sidebar > div").map { |group| group.element_children.map { |part| [ part["class"], part.text.strip, part["href"] ] } }
+    groups = page.css(".ks-sidebar > details").map { |group| group.element_children.map { |part| [ part["class"], part.text.strip, part["href"] ] } }
     assert_equal [ [ [ "ks-sidebar-group-label", "Sales", nil ], [ "ks-sidebar-tab", "Quotes", "/quotes" ], [ "ks-sidebar-tab", "Orders", "/orders" ] ], [ [ "ks-sidebar-group-label", "Help", nil ], [ "ks-sidebar-tab", "Guides", "/guides" ] ] ], groups
   end
 
@@ -327,6 +327,15 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Admin" ], page.css(".ks-nav-dropdown-trigger.active").map { |menu| menu.text.strip }
   end
 
+  def test_shows_a_sidebar_group_holding_no_current_tab_closed_to_its_label
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Sales" ], page.css(".ks-sidebar details:not([open]) > summary.ks-sidebar-group-label").map { |label| label.text.strip }
+  end
+
   def test_shows_the_tab_the_current_page_belongs_to_as_active_in_the_sidebar
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
     save_placement("left")
@@ -409,7 +418,7 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
   end
 
   def drawn_in_sidebar(page)
-    page.css(".ks-sidebar > div").map do |group|
+    page.css(".ks-sidebar > details").map do |group|
       label = group.at_css(".ks-sidebar-group-label")
       [ label.text.strip, label["class"].split.include?("active"), group.css(".ks-sidebar-tab").map { |tab| [ tab.text.strip, tab["href"], tab["class"].split.include?("active") ] } ]
     end

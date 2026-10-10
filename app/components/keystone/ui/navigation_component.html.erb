@@ -7,12 +7,12 @@
       <div class="<%= SIDEBAR_LOGO_CLASSES %>"><%= logo %></div>
     <% end %>
     <% groups.each do |group| %>
-      <div class="<%= SIDEBAR_GROUP_CLASSES %>">
-        <p class="<%= sidebar_group_label_classes(group) %>"><%= group.label %></p>
+      <details class="<%= SIDEBAR_GROUP_CLASSES %>">
+        <summary class="<%= sidebar_group_label_classes(group) %>"><%= group.label %></summary>
         <% group.tabs.each do |tab| %>
           <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
         <% end %>
-      </div>
+      </details>
     <% end %>
     <% if menus? %>
       <div class="<%= SIDEBAR_MENUS_CLASSES %>"><%= menus %></div>
