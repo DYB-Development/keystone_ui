@@ -94,6 +94,18 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "div", [ "nav" ] ] ], page.at_css("nav.top-nav").element_children.map { |part| [ part.name, part.element_children.map(&:name) ] }
   end
 
+  def test_draws_the_top_bar_holding_the_logo_and_menus_when_no_group_is_visible
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal [ "Acme", "Account" ], [ page.at_css(".hidden.lg\\:block nav.top-nav .logo")&.text&.strip, page.at_css(".hidden.lg\\:block nav.top-nav .lg\\:flex > nav:last-child")&.text&.strip ]
+  end
+
   private
 
   def declare_group(label, *tabs)
