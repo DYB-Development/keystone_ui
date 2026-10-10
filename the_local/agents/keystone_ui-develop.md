@@ -116,9 +116,13 @@ outer element. See Conventions before using it.
   in the layout around `yield`, it draws the tabs the app declares with
   `config.navigation_group` as a top bar of menus from `lg:` up, then the
   content. It leaves out tabs whose permission check fails and groups with no
-  tab left, and below `lg:` it draws only the content. Check whether the app's
-  Keystone UI initializer declares navigation groups before adding desktop tabs
-  by hand; declaring them is `keystone_ui-install`'s job.
+  tab left, and below `lg:` it draws only the content. Inside the block, a
+  `navigation.with_logo do ... end` block puts the app's logo at the left end
+  of the top bar, and a `navigation.with_menus do ... end` block puts menus
+  such as the account menu and the user menu at its right end, so the layout
+  draws no second bar for them. Check whether the app's Keystone UI
+  initializer declares navigation groups before adding desktop tabs by hand;
+  declaring them is `keystone_ui-install`'s job.
 - `ui_nav_item(label:, href:, active: false)` — one desktop navigation link.
 - `ui_nav_dropdown(title:, area:, active: false)` — takes a block. A navbar
   dropdown; the block holds the menu links.
