@@ -228,6 +228,19 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-sidebar").element_children.last["class"].split, "[&_[data-controller~=dropdown]]:flex-wrap"
   end
 
+  def test_keeps_a_closed_sidebar_menu_panel_in_the_sidebar_width_while_taking_no_height
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    closed_panel = %w[block h-0 overflow-hidden my-0 py-0].map { |utility| "[&_[data-dropdown-target=menu].hidden]:#{utility}" }
+    assert_empty closed_panel - page.at_css(".ks-sidebar").element_children.last["class"].split
+  end
+
   def test_gives_a_sidebar_menu_panel_a_line_of_its_own_below_its_button
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
     save_placement("left")
