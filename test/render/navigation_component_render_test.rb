@@ -229,6 +229,18 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-sidebar").element_children.last["class"].split, "[&_[data-dropdown-target=menu]]:basis-full"
   end
 
+  def test_scrolls_the_sidebar_when_its_content_and_an_open_menu_are_taller_than_the_screen
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("right")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_includes page.at_css(".ks-sidebar")["class"].split, "overflow-y-auto"
+  end
+
   def test_draws_only_the_page_content_when_the_saved_placement_is_a_side_and_nothing_is_left_to_show
     declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
     save_placement("left")
