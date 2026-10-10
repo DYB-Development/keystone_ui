@@ -9,6 +9,9 @@ module KeystoneUi
     end
 
     def call
+      @groups.each do |group|
+        raise Error, "The #{group.label} navigation group has no tabs." if group.tabs.empty?
+      end
       tabs.each do |tab|
         raise Error, "The #{tab.key} tab has no label." if blank?(tab.label)
         raise Error, "The #{tab.key} tab has no link." if blank?(tab.href)

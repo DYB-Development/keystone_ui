@@ -39,4 +39,12 @@ class KeystoneUi::NavigationCheckTest < Minitest::Test
 
     assert_includes error.message, "reports"
   end
+
+  def test_a_group_with_no_tabs_stops_boot_naming_the_group
+    error = assert_raises(KeystoneUi::NavigationCheck::Error) do
+      KeystoneUi::NavigationCheck.new(groups: [ KeystoneUi::NavigationGroup.new("Admin") ]).call
+    end
+
+    assert_includes error.message, "Admin"
+  end
 end
