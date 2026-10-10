@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- The sidebar drawn by `ui_navigation` wraps the logo in an element with the class `ks-sidebar-logo`, so keystone_ui-styles can give the logo its own spacing and remove its underline.
+
 ### Fixed
 - At the top placement, `ui_navigation` hands the layout its top bar and the page content inside one element, as it already did for a sidebar, so in a body laid out as a grid of header, stretching row and footer a short page shows its content directly under the top bar.
 
