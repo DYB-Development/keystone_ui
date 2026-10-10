@@ -22,6 +22,11 @@ module Keystone
         @groups = KeystoneUi.configuration.navigation_groups
           .map { |group| [ group, group.tabs_permitted_for(helpers) ] }
           .reject { |_group, tabs| tabs.empty? }
+        @current_tab = KeystoneUi.configuration.supplied_current_tab(helpers)
+      end
+
+      def current?(tab)
+        tab.key == @current_tab
       end
 
       def anything_to_show?

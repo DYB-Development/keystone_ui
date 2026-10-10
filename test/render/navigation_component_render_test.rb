@@ -204,6 +204,15 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal 1, page.css("nav.top-nav").size
   end
 
+  def test_shows_the_tab_the_current_page_belongs_to_as_active_in_the_top_bar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :orders } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Orders" ], page.css(".ks-nav-item.active").map(&:text)
+  end
+
   private
 
   def save_placement(placement)
