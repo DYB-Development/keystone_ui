@@ -125,7 +125,10 @@ outer element. See Conventions before using it.
   sidebar on that side of the content from `lg:` up instead, with each group's
   label above its tabs, the logo at its top and the menus at its bottom, and
   below `lg:` the content takes the full width. Any other placement draws the
-  top bar. Check whether the app's Keystone UI
+  top bar. When the app sets `config.current_tab_supplier`, the tab whose key
+  it returns for the page and that tab's group are shown as active in either
+  placement, and nothing is marked when it returns `nil`, a key no declared
+  tab has, or is not set. Check whether the app's Keystone UI
   initializer declares navigation groups before adding desktop tabs by hand;
   declaring them is `keystone_ui-install`'s job.
 - `ui_nav_item(label:, href:, active: false)` — one desktop navigation link.
