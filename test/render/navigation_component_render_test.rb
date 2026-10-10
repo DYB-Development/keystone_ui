@@ -41,6 +41,15 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Quotes" ], page.css(".ks-nav-item").map(&:text)
   end
 
+  def test_hides_a_group_whose_tabs_are_all_hidden
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Sales" ], page.css(".ks-nav-dropdown button").map { |menu| menu.text.strip }
+  end
+
   private
 
   def declare_group(label, *tabs)

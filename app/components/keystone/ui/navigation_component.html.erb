@@ -1,8 +1,8 @@
 <%= render Keystone::Ui::NavbarComponent.new do |navbar| %>
   <% navbar.with_desktop_links do %>
-    <% groups.each do |group| %>
+    <% menus.each do |group, tabs| %>
       <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label) do %>
-        <% group.tabs_permitted_for(helpers).each do |tab| %>
+        <% tabs.each do |tab| %>
           <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href_for(helpers)) %>
         <% end %>
       <% end %>
