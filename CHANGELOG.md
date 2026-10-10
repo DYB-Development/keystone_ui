@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.40.0] - 2026-10-10
+
+### Changed
+- keystone_ui requires keystone_ui-styles 0.15.0 or later, which styles the sidebar's logo, tabs and collapsing group labels.
+
 ### Added
 - Each group in the sidebar drawn by `ui_navigation` shows only its label until it is clicked, and clicking the label opens or closes its tabs without reloading the page, using the browser's own disclosure element so it needs no script. The group holding the current page's tab is open when the page loads.
 - The sidebar drawn by `ui_navigation` wraps the logo in an element with the class `ks-sidebar-logo`, so keystone_ui-styles can give the logo its own spacing and remove its underline.
