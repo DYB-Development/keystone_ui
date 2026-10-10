@@ -256,6 +256,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ 0, 0 ], marked
   end
 
+  def test_shows_nothing_as_active_when_the_host_sets_no_current_tab_supplier
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    marked = [ "top", "left" ].map do |placement|
+      save_placement(placement)
+      render_navigation { "<p>Page</p>".html_safe }.css(".active").size
+    end
+
+    assert_equal [ 0, 0 ], marked
+  end
+
   private
 
   def save_placement(placement)
