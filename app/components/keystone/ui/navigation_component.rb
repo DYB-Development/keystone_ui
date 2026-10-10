@@ -6,6 +6,9 @@ module Keystone
       TOP_BAR_CLASSES = "hidden lg:block sticky top-0 z-40"
       SIDEBAR_ROW_CLASSES = "lg:flex"
       SIDEBAR_CLASSES = "ks-sidebar"
+      SIDEBAR_GROUP_CLASSES = "flex flex-col"
+      SIDEBAR_GROUP_LABEL_CLASSES = "ks-sidebar-group-label"
+      SIDEBAR_TAB_CLASSES = "ks-sidebar-tab"
       SIDEBAR_CONTENT_CLASSES = "min-w-0 flex-1"
       SIDEBAR_PLACEMENTS = %w[left right].freeze
 
