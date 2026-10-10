@@ -7,12 +7,17 @@ module KeystoneUi
     end
 
     def arrange(groups)
-      groups
-        .sort_by { |group, _tabs| group_labels.index(group.label) }
+      in_saved_order(groups, group_labels) { |group, _tabs| group.label }
         .map { |group, tabs| [ group, arrange_tabs(group, tabs) ] }
     end
 
     private
+
+    def in_saved_order(items, saved_names)
+      items.each_with_index
+        .sort_by { |item, declared| [ saved_names.index(yield(item)) || saved_names.size, declared ] }
+        .map(&:first)
+    end
 
     def group_labels
       @saved.map { |entry| entry["group"] }

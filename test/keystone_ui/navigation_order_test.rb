@@ -23,6 +23,14 @@ class KeystoneUi::NavigationOrderTest < Minitest::Test
     assert_equal [ [ :orders, :quotes ] ], arranged.map { |_group, tabs| tabs.map(&:key) }
   end
 
+  def test_draws_the_groups_the_saved_order_does_not_name_after_the_named_ones_in_declared_order
+    order = KeystoneUi::NavigationOrder.new([ { "group" => "Admin" } ])
+
+    arranged = order.arrange([ group("Sales", :quotes), group("Help", :guides), group("Admin", :users) ])
+
+    assert_equal [ "Admin", "Sales", "Help" ], arranged.map { |group, _tabs| group.label }
+  end
+
   private
 
   def group(label, *keys)
