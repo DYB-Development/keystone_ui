@@ -3,6 +3,7 @@
 require "keystone_ui/source_css"
 require "keystone_ui/leftover_stylesheet"
 require "keystone_ui/look_check"
+require "keystone_ui/navigation_check"
 
 module KeystoneUi
   class Engine < ::Rails::Engine
@@ -32,8 +33,13 @@ module KeystoneUi
       KeystoneUi::LookCheck.new(looks: config.looks, default: config.default_look).call
     end
 
+    def self.check_navigation
+      KeystoneUi::NavigationCheck.new(groups: KeystoneUi.configuration.navigation_groups).call
+    end
+
     config.after_initialize do
       KeystoneUi::Engine.check_looks
+      KeystoneUi::Engine.check_navigation
 
       tailwind_dir = Rails.root.join("app/assets/tailwind")
       css_path = tailwind_dir.join("application.css")

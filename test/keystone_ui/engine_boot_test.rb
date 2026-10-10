@@ -26,6 +26,22 @@ class KeystoneUi::EngineBootTest < Minitest::Test
     KeystoneUi.reset_configuration!
   end
 
+  def test_checking_the_hosts_navigation_stops_boot_on_a_tab_with_no_label
+    KeystoneUi.configure do |config|
+      config.navigation_group("Work") { |group| group.tab :deals, label: nil, href: "/deals", permitted: ->(_view) { true } }
+    end
+
+    assert_raises(KeystoneUi::NavigationCheck::Error) { KeystoneUi::Engine.check_navigation }
+  ensure
+    KeystoneUi.reset_configuration!
+  end
+
+  def test_checking_the_hosts_navigation_passes_when_the_host_declares_none
+    KeystoneUi.reset_configuration!
+
+    assert_nil KeystoneUi::Engine.check_navigation
+  end
+
   private
 
   def boot_with_root(root)
