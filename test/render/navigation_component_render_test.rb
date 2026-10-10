@@ -75,6 +75,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "Acme", page.at_css("nav.top-nav > *:first-child.logo")&.text&.strip
   end
 
+  def test_shows_the_menus_a_layout_hands_it_after_the_tabs_at_the_right_end_of_the_top_bar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal "Account", page.at_css("nav.top-nav .lg\\:flex > nav:last-child:not(:first-child)")&.text&.strip
+  end
+
   private
 
   def declare_group(label, *tabs)

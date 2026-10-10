@@ -6,11 +6,12 @@ module Keystone
       TOP_BAR_CLASSES = "hidden lg:block sticky top-0 z-40"
 
       renders_one :logo
+      renders_one :menus
 
-      attr_reader :menus
+      attr_reader :groups
 
       def before_render
-        @menus = KeystoneUi.configuration.navigation_groups
+        @groups = KeystoneUi.configuration.navigation_groups
           .map { |group| [ group, group.tabs_permitted_for(helpers) ] }
           .reject { |_group, tabs| tabs.empty? }
       end
