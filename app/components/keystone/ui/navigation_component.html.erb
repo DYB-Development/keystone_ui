@@ -32,7 +32,7 @@
   <% end %>
   <% navbar.with_desktop_links do %>
     <% groups.each do |group, tabs| %>
-      <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label) do %>
+      <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label, active: holds_current?(tabs)) do %>
         <% tabs.each do |tab| %>
           <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href_for(helpers), active: current?(tab)) %>
         <% end %>

@@ -29,6 +29,10 @@ module Keystone
         tab.key == @current_tab
       end
 
+      def holds_current?(tabs)
+        tabs.any? { |tab| current?(tab) }
+      end
+
       def anything_to_show?
         groups.any? || logo? || menus?
       end
