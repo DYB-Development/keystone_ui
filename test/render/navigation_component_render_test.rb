@@ -86,6 +86,14 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "Account", page.at_css("nav.top-nav .lg\\:flex > nav:last-child:not(:first-child)")&.text&.strip
   end
 
+  def test_holds_only_the_tabs_in_the_top_bar_when_the_layout_hands_it_no_logo_or_menus
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ [ "div", [ "nav" ] ] ], page.at_css("nav.top-nav").element_children.map { |part| [ part.name, part.element_children.map(&:name) ] }
+  end
+
   private
 
   def declare_group(label, *tabs)
