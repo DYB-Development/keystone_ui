@@ -92,4 +92,15 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal({ value: { "hidden_columns" => [ "pipeline" ] }, save_url: "/preferences/months" }, KeystoneUi.configuration.supplied_preference(view, :months))
   end
+
+  def test_declares_navigation_groups_each_with_a_label_and_tabs
+    permitted = ->(_view) { true }
+    KeystoneUi.configure do |c|
+      c.navigation_group("Sales") { |group| group.tab(:quotes, label: "Quotes", href: "/quotes", permitted: permitted) }
+    end
+
+    declared = KeystoneUi.configuration.navigation_groups.map { |group| [ group.label, group.tabs.map { |tab| [ tab.key, tab.label, tab.href, tab.permitted ] } ] }
+
+    assert_equal [ [ "Sales", [ [ :quotes, "Quotes", "/quotes", permitted ] ] ] ], declared
+  end
 end

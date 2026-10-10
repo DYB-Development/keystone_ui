@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require "keystone_ui/navigation_group"
+
 module KeystoneUi
   class Configuration
     attr_accessor :accent, :surface, :theme_mode_supplier, :look_supplier, :trail_supplier, :preference_supplier
-    attr_reader :tailwind_imports, :tailwind_sources, :looks, :default_look
+    attr_reader :tailwind_imports, :tailwind_sources, :looks, :default_look, :navigation_groups
 
     def initialize
       @accent = :blue
@@ -11,6 +13,7 @@ module KeystoneUi
       @tailwind_imports = []
       @tailwind_sources = []
       @looks = {}
+      @navigation_groups = []
     end
 
     def default_look=(name)
@@ -20,6 +23,12 @@ module KeystoneUi
     def register_look(name, path)
       @looks[name.to_s] = path.to_s
       @tailwind_imports << path.to_s
+    end
+
+    def navigation_group(label)
+      group = NavigationGroup.new(label)
+      yield(group)
+      @navigation_groups << group
     end
 
     def supplied_look(view)
