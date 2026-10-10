@@ -1,4 +1,5 @@
-<%= render Keystone::Ui::NavbarComponent.new do |navbar| %>
+<div class="<%= TOP_BAR_CLASSES %>">
+<%= render Keystone::Ui::NavbarComponent.new(sticky: false) do |navbar| %>
   <% navbar.with_desktop_links do %>
     <% menus.each do |group, tabs| %>
       <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label) do %>
@@ -9,4 +10,5 @@
     <% end %>
   <% end %>
 <% end %>
+</div>
 <%= content %>

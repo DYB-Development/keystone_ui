@@ -12,7 +12,7 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
 
     page = render_navigation { "<p>Page</p>".html_safe }
 
-    assert_equal "Page", page.at_css("nav ~ p")&.text
+    assert_equal "Page", page.at_xpath(".//nav[contains(@class, 'top-nav')]/following::p")&.text
   end
 
   def test_shows_each_group_as_a_menu_in_the_top_bar_holding_its_tabs_in_declared_order
@@ -48,6 +48,14 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     page = render_navigation { "<p>Page</p>".html_safe }
 
     assert_equal [ "Sales" ], page.css(".ks-nav-dropdown button").map { |menu| menu.text.strip }
+  end
+
+  def test_hides_the_top_bar_below_the_desktop_width
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ [] ], page.css("nav.top-nav").map { |bar| %w[hidden lg:block] - bar.parent["class"].to_s.split }
   end
 
   private

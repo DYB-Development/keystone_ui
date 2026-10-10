@@ -3,6 +3,8 @@
 module Keystone
   module Ui
     class NavigationComponent < ViewComponent::Base
+      TOP_BAR_CLASSES = "hidden lg:block sticky top-0 z-40"
+
       attr_reader :menus
 
       def before_render
