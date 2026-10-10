@@ -16,7 +16,7 @@ module Keystone
       SIDEBAR_MENUS_CLASSES = [
         "mt-auto [&_[data-dropdown-target=menu]]:static [&_[data-controller~=dropdown]]:flex-wrap [&_[data-dropdown-target=menu]]:basis-full",
         "[&_[data-dropdown-target=menu].hidden]:block [&_[data-dropdown-target=menu].hidden]:h-0 [&_[data-dropdown-target=menu].hidden]:overflow-hidden",
-        "[&_[data-dropdown-target=menu].hidden]:my-0 [&_[data-dropdown-target=menu].hidden]:py-0"
+        "[&_[data-dropdown-target=menu].hidden]:my-0 [&_[data-dropdown-target=menu].hidden]:py-0 [&_[data-dropdown-target=menu].hidden]:invisible"
       ].join(" ")
       SIDEBAR_CONTENT_CLASSES = "min-w-0 flex-1"
       SIDEBAR_PLACEMENTS = %w[left right].freeze

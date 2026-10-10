@@ -241,6 +241,18 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_empty closed_panel - page.at_css(".ks-sidebar").element_children.last["class"].split
   end
 
+  def test_hides_a_closed_sidebar_menu_panel_from_sight_keyboard_and_screen_readers
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_includes page.at_css(".ks-sidebar").element_children.last["class"].split, "[&_[data-dropdown-target=menu].hidden]:invisible"
+  end
+
   def test_gives_a_sidebar_menu_panel_a_line_of_its_own_below_its_button
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
     save_placement("left")
