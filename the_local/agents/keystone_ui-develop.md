@@ -125,7 +125,10 @@ outer element. See Conventions before using it.
   sidebar on that side of the content from `lg:` up instead, with each group's
   label above its tabs, the logo at its top and the menus at its bottom, and
   below `lg:` the content takes the full width. Any other placement draws the
-  top bar. When the app sets `config.current_tab_supplier`, the tab whose key
+  top bar. When that value holds an `"order"` list of
+  `{ "group" => label, "tabs" => [tab key strings] }` entries, both placements
+  draw the named groups and tabs first in that order, then the rest in
+  declared order, ignoring names no longer declared. When the app sets `config.current_tab_supplier`, the tab whose key
   it returns for the page and that tab's group are shown as active in either
   placement, and nothing is marked when it returns `nil`, a key no declared
   tab has, or is not set. Check whether the app's Keystone UI

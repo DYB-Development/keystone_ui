@@ -1096,7 +1096,7 @@ Renders the top-level navigation bar with slots for desktop and mobile sections.
 
 ### `ui_navigation`
 
-Draws the app's declared tabs as a top bar on `lg` screens and wider, or as a sidebar when the person's saved placement is left or right as described below, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs in declared order. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below.
+Draws the app's declared tabs as a top bar on `lg` screens and wider, or as a sidebar when the person's saved placement is left or right as described below, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs, in declared order unless the person saved an order as described below. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below.
 
 ```erb
 <%= ui_navigation do %>
@@ -1126,6 +1126,12 @@ For the `:navigation` key the supplier returns the saved value in this shape:
 
 ```ruby
 { value: { "placement" => "left" } }
+```
+
+The same value may hold the person's order of groups and tabs under `"order"`, a list with one entry per group. Each entry names a group by its declared label under `"group"`, and may list that group's tab keys as strings under `"tabs"`. Both placements draw the groups, and each group's tabs, in that order. Groups and tabs the order does not name come after the named ones, in declared order. A group label or tab key in the order that is no longer declared is ignored.
+
+```ruby
+{ value: { "placement" => "left", "order" => [ { "group" => "Admin" }, { "group" => "Sales", "tabs" => [ "orders", "quotes" ] } ] } }
 ```
 
 Declare the groups and tabs in the app's Keystone UI initializer. A tab's `href:` is an address or a lambda that receives the view and returns one, and `permitted:` is a lambda that receives the view and returns whether the current person may see the tab.

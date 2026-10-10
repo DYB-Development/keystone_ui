@@ -267,7 +267,24 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ 0, 0 ], marked
   end
 
+  def test_draws_the_groups_in_the_saved_order_in_every_placement
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_group("Admin", [ :users, "Users", "/users" ])
+
+    drawn = [ "top", "left" ].map do |placement|
+      save_navigation("placement" => placement, "order" => [ { "group" => "Admin" }, { "group" => "Sales" } ])
+      page = render_navigation { "<p>Page</p>".html_safe }
+      page.css(".ks-nav-dropdown button, .ks-sidebar-group-label").map { |label| label.text.strip }
+    end
+
+    assert_equal [ [ "Admin", "Sales" ], [ "Admin", "Sales" ] ], drawn
+  end
+
   private
+
+  def save_navigation(value)
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, key) { { value: value } if key == :navigation } }
+  end
 
   def save_placement(placement)
     KeystoneUi.configure { |c| c.preference_supplier = ->(_view, key) { { value: { "placement" => placement } } if key == :navigation } }
