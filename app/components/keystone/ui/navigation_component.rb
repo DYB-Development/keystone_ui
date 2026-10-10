@@ -9,6 +9,7 @@ module Keystone
       SIDEBAR_GROUP_CLASSES = "flex flex-col"
       SIDEBAR_GROUP_LABEL_CLASSES = "ks-sidebar-group-label"
       SIDEBAR_TAB_CLASSES = "ks-sidebar-tab"
+      ACTIVE_CLASS = "active"
       SIDEBAR_MENUS_CLASSES = "mt-auto"
       SIDEBAR_CONTENT_CLASSES = "min-w-0 flex-1"
       SIDEBAR_PLACEMENTS = %w[left right].freeze
@@ -22,6 +23,23 @@ module Keystone
         @groups = KeystoneUi.configuration.navigation_groups
           .map { |group| [ group, group.tabs_permitted_for(helpers) ] }
           .reject { |_group, tabs| tabs.empty? }
+        @current_tab = KeystoneUi.configuration.supplied_current_tab(helpers)
+      end
+
+      def current?(tab)
+        tab.key == @current_tab
+      end
+
+      def holds_current?(tabs)
+        tabs.any? { |tab| current?(tab) }
+      end
+
+      def sidebar_group_label_classes(tabs)
+        [ SIDEBAR_GROUP_LABEL_CLASSES, (ACTIVE_CLASS if holds_current?(tabs)) ].compact.join(" ")
+      end
+
+      def sidebar_tab_classes(tab)
+        [ SIDEBAR_TAB_CLASSES, (ACTIVE_CLASS if current?(tab)) ].compact.join(" ")
       end
 
       def anything_to_show?

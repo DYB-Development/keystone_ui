@@ -1139,6 +1139,20 @@ KeystoneUi.configure do |config|
 end
 ```
 
+To mark where the person is, set `config.current_tab_supplier` to a lambda that receives the view and returns the key of the declared tab the current page belongs to. The top bar shows that tab and the menu holding it as active, and the sidebar gives that tab and its group's label the `active` class. Returning `nil` or a key no declared tab has marks nothing, and so does setting no supplier. In this example each controller names its tab, and a controller that names none marks nothing:
+
+```ruby
+KeystoneUi.configure do |config|
+  config.current_tab_supplier = ->(view) { view.controller.try(:navigation_tab) }
+end
+```
+
+```ruby
+class QuotesController < ApplicationController
+  def navigation_tab = :quotes
+end
+```
+
 ### `ui_nav_item`
 
 Renders a single nav link within the navbar.

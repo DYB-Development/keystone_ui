@@ -204,6 +204,69 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal 1, page.css("nav.top-nav").size
   end
 
+  def test_shows_the_tab_the_current_page_belongs_to_as_active_in_the_top_bar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :orders } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Orders" ], page.css(".ks-nav-item.active").map(&:text)
+  end
+
+  def test_shows_the_group_holding_the_current_page_tab_as_active_in_the_top_bar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_group("Admin", [ :users, "Users", "/users" ])
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :users } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Admin" ], page.css(".ks-nav-dropdown-trigger.active").map { |menu| menu.text.strip }
+  end
+
+  def test_shows_the_tab_the_current_page_belongs_to_as_active_in_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
+    save_placement("left")
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :orders } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Orders" ], page.css(".ks-sidebar-tab.active").map(&:text)
+  end
+
+  def test_shows_the_group_holding_the_current_page_tab_as_active_in_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_group("Admin", [ :users, "Users", "/users" ])
+    save_placement("left")
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :users } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Admin" ], page.css(".ks-sidebar-group-label.active").map(&:text)
+  end
+
+  def test_shows_nothing_as_active_on_a_page_that_belongs_to_no_declared_tab
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :reports } }
+
+    marked = [ "top", "left" ].map do |placement|
+      save_placement(placement)
+      render_navigation { "<p>Page</p>".html_safe }.css(".active").size
+    end
+
+    assert_equal [ 0, 0 ], marked
+  end
+
+  def test_shows_nothing_as_active_when_the_host_sets_no_current_tab_supplier
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    marked = [ "top", "left" ].map do |placement|
+      save_placement(placement)
+      render_navigation { "<p>Page</p>".html_safe }.css(".active").size
+    end
+
+    assert_equal [ 0, 0 ], marked
+  end
+
   private
 
   def save_placement(placement)

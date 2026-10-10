@@ -93,6 +93,13 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
     assert_equal({ value: { "hidden_columns" => [ "pipeline" ] }, save_url: "/preferences/months" }, KeystoneUi.configuration.supplied_preference(view, :months))
   end
 
+  def test_supplies_the_current_tab_a_registered_supplier_returns_for_the_view
+    view = Struct.new(:tab_key).new(:quotes)
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(from) { from.tab_key } }
+
+    assert_equal :quotes, KeystoneUi.configuration.supplied_current_tab(view)
+  end
+
   def test_declares_navigation_groups_each_with_a_label_and_tabs
     permitted = ->(_view) { true }
     KeystoneUi.configure do |c|

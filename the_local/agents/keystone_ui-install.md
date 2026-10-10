@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-install
-description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks, the breadcrumb trail supplier, the saved table layout supplier and extra Tailwind imports and sources.
+description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks, the breadcrumb trail supplier, the saved table layout supplier, the navigation groups and current tab supplier, and extra Tailwind imports and sources.
 tools: Bash, Read, Edit
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -31,6 +31,9 @@ built on ViewComponent; hook it in before building any screen with those helpers
   saves to, and the navigation's placement under the key `:navigation`),
   `navigation_group` (a labelled group of desktop tabs that `ui_navigation`
   draws, each tab declared with `tab key, label:, href:, permitted:`),
+  `current_tab_supplier` (a callable that supplies the key of the declared tab
+  the current page belongs to, so `ui_navigation` marks it and its group
+  active),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 - `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
@@ -188,6 +191,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
      config.navigation_group "Sales" do |group|
        group.tab :quotes, label: "Quotes", href: ->(view) { view.quotes_path }, permitted: ->(view) { view.policy(Quote).index? }
      end
+     config.current_tab_supplier = ->(view) { view.controller.try(:navigation_tab) }
      config.tailwind_imports << "/absolute/path/to/extra.css"
      config.tailwind_sources << "/absolute/path/to/components/**/*.{erb,rb}"
    end
@@ -312,6 +316,14 @@ built on ViewComponent; hook it in before building any screen with those helpers
      `navigation.with_menus` inside the block, so the layout draws no other
      top bar. Ask the developer which tabs and groups the app has, and which
      permission check guards each, before declaring them.
+   - `current_tab_supplier` — a callable that receives the view and returns the
+     key of the declared tab the current page belongs to, or `nil`.
+     `ui_navigation` shows that tab and its group as active in the top bar and
+     gives that tab and its group's label the `active` class in the sidebar.
+     `nil`, a key no declared tab has, or no supplier marks nothing. The
+     callable must answer for every page the layout draws, so a page with no
+     tab returns `nil` rather than raising. Ask the developer how a page names
+     its tab, such as a method on each controller, before writing the callable.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for

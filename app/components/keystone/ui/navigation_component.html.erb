@@ -8,9 +8,9 @@
     <% end %>
     <% groups.each do |group, tabs| %>
       <div class="<%= SIDEBAR_GROUP_CLASSES %>">
-        <p class="<%= SIDEBAR_GROUP_LABEL_CLASSES %>"><%= group.label %></p>
+        <p class="<%= sidebar_group_label_classes(tabs) %>"><%= group.label %></p>
         <% tabs.each do |tab| %>
-          <a class="<%= SIDEBAR_TAB_CLASSES %>" href="<%= tab.href_for(helpers) %>"><%= tab.label %></a>
+          <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href_for(helpers) %>"><%= tab.label %></a>
         <% end %>
       </div>
     <% end %>
@@ -32,9 +32,9 @@
   <% end %>
   <% navbar.with_desktop_links do %>
     <% groups.each do |group, tabs| %>
-      <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label) do %>
+      <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label, active: holds_current?(tabs)) do %>
         <% tabs.each do |tab| %>
-          <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href_for(helpers)) %>
+          <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href_for(helpers), active: current?(tab)) %>
         <% end %>
       <% end %>
     <% end %>
