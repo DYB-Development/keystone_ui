@@ -124,6 +124,18 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "Page", page.at_xpath(".//*[contains(concat(' ', @class, ' '), ' ks-sidebar ')]/preceding-sibling::*[1]/p")&.text
   end
 
+  def test_draws_the_top_bar_when_the_saved_placement_is_top_missing_or_unknown
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    drawn = [ "top", nil, "bottom" ].map do |placement|
+      save_placement(placement)
+      page = render_navigation { "<p>Page</p>".html_safe }
+      [ page.css("nav.top-nav").size, page.css(".ks-sidebar").size ]
+    end
+
+    assert_equal [ [ 1, 0 ], [ 1, 0 ], [ 1, 0 ] ], drawn
+  end
+
   private
 
   def save_placement(placement)
