@@ -318,6 +318,16 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "div", "flex flex-col", "Sales", nil ], [ "a", "ks-sidebar-tab", "Home", "/" ], [ "div", "flex flex-col", "Admin", nil ] ], parts
   end
 
+  def test_shows_a_tab_outside_any_group_as_active_in_the_top_bar_when_the_current_page_belongs_to_it
+    declare_tab(:home, "Home", "/")
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :home } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Home" ], page.css(".ks-nav-item.active").map(&:text)
+  end
+
   private
 
   def drawn_in_top_bar(page)
