@@ -244,6 +244,18 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Admin" ], page.css(".ks-sidebar-group-label.active").map(&:text)
   end
 
+  def test_shows_nothing_as_active_on_a_page_that_belongs_to_no_declared_tab
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :reports } }
+
+    marked = [ "top", "left" ].map do |placement|
+      save_placement(placement)
+      render_navigation { "<p>Page</p>".html_safe }.css(".active").size
+    end
+
+    assert_equal [ 0, 0 ], marked
+  end
+
   private
 
   def save_placement(placement)
