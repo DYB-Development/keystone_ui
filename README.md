@@ -1145,6 +1145,8 @@ KeystoneUi.configure do |config|
 end
 ```
 
+Boot stops with `KeystoneUi::NavigationCheck::Error` when a declared tab has no label or no `href:`, naming the tab's key, when two declared tabs share a key, naming the key, or when a declared group has no tabs, naming the group, so a mistake shows up the moment the app starts. It does not check that a tab's link leads to a page that exists.
+
 To mark where the person is, set `config.current_tab_supplier` to a lambda that receives the view and returns the key of the declared tab the current page belongs to. The top bar shows that tab and the menu holding it as active, and the sidebar gives that tab and its group's label the `active` class. Returning `nil` or a key no declared tab has marks nothing, and so does setting no supplier. In this example each controller names its tab, and a controller that names none marks nothing:
 
 ```ruby
