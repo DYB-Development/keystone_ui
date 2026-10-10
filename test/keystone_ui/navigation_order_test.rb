@@ -39,6 +39,14 @@ class KeystoneUi::NavigationOrderTest < Minitest::Test
     assert_equal [ [ :refunds, :quotes, :orders ] ], arranged.map { |_group, tabs| tabs.map(&:key) }
   end
 
+  def test_ignores_a_group_and_a_tab_the_saved_order_names_that_are_no_longer_declared
+    order = KeystoneUi::NavigationOrder.new([ { "group" => "Reports" }, { "group" => "Sales", "tabs" => [ "invoices", "orders" ] } ])
+
+    arranged = order.arrange([ group("Admin", :users), group("Sales", :quotes, :orders) ])
+
+    assert_equal [ [ "Sales", [ :orders, :quotes ] ], [ "Admin", [ :users ] ] ], arranged.map { |group, tabs| [ group.label, tabs.map(&:key) ] }
+  end
+
   private
 
   def group(label, *keys)
