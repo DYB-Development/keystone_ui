@@ -94,6 +94,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "Account", page.at_css("nav.top-nav .lg\\:flex > nav:last-child:not(:first-child)")&.text&.strip
   end
 
+  def test_leaves_the_dropdown_panels_of_the_top_bar_menus_positioned_as_the_host_draws_them
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation do |navigation|
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_empty page.css("[class]").select { |element| element["class"].include?("data-dropdown-target") }
+  end
+
   def test_holds_only_the_tabs_in_the_top_bar_when_the_layout_hands_it_no_logo_or_menus
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
 
