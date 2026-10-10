@@ -148,6 +148,16 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ [ "ks-sidebar-group-label", "Sales", nil ], [ "ks-sidebar-tab", "Quotes", "/quotes" ], [ "ks-sidebar-tab", "Orders", "/orders" ] ], [ [ "ks-sidebar-group-label", "Help", nil ], [ "ks-sidebar-tab", "Guides", "/guides" ] ] ], groups
   end
 
+  def test_hides_the_sidebar_and_leaves_the_page_content_full_width_below_the_desktop_width
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    sidebar = page.at_css(".ks-sidebar")
+    assert_equal [ [], [ "lg:flex" ] ], [ %w[hidden lg:flex] - sidebar["class"].split, sidebar.parent["class"].split ]
+  end
+
   private
 
   def save_placement(placement)
