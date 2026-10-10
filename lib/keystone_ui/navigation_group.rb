@@ -2,7 +2,11 @@
 
 module KeystoneUi
   class NavigationGroup
-    Tab = Struct.new(:key, :label, :href, :permitted, keyword_init: true)
+    Tab = Struct.new(:key, :label, :href, :permitted, keyword_init: true) do
+      def href_for(view)
+        href.respond_to?(:call) ? href.call(view) : href
+      end
+    end
 
     attr_reader :label, :tabs
 

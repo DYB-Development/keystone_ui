@@ -25,6 +25,14 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "Sales", [ [ "Quotes", "/quotes" ], [ "Orders", "/orders" ] ] ], [ "Admin", [ [ "Users", "/users" ] ] ] ], menus
   end
 
+  def test_links_a_tab_declared_with_a_callable_link_to_what_it_returns_for_the_view
+    declare_group("Sales", [ :quotes, "Quotes", ->(view) { "/#{view.controller_name}/quotes" } ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal "/application/quotes", page.at_css(".ks-nav-item")&.[]("href")
+  end
+
   private
 
   def declare_group(label, *tabs)

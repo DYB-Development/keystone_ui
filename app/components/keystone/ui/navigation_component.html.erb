@@ -3,7 +3,7 @@
     <% groups.each do |group| %>
       <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label) do %>
         <% group.tabs.each do |tab| %>
-          <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href) %>
+          <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href_for(helpers)) %>
         <% end %>
       <% end %>
     <% end %>
