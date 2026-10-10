@@ -32,9 +32,14 @@
   <% end %>
   <% navbar.with_desktop_links do %>
     <% groups.each do |group| %>
-      <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label, active: group.active) do %>
-        <% group.tabs.each do |tab| %>
-          <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href, active: tab.active) %>
+      <% if group.standalone %>
+        <% tab = group.tabs.first %>
+        <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href) %>
+      <% else %>
+        <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label, active: group.active) do %>
+          <% group.tabs.each do |tab| %>
+            <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href, active: tab.active) %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
