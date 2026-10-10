@@ -120,7 +120,12 @@ outer element. See Conventions before using it.
   `navigation.with_logo do ... end` block puts the app's logo at the left end
   of the top bar, and a `navigation.with_menus do ... end` block puts menus
   such as the account menu and the user menu at its right end, so the layout
-  draws no second bar for them. Check whether the app's Keystone UI
+  draws no second bar for them. When the preference supplied for
+  `:navigation` holds `{ "placement" => "left" }` or `"right"`, it draws a
+  sidebar on that side of the content from `lg:` up instead, with each group's
+  label above its tabs, the logo at its top and the menus at its bottom, and
+  below `lg:` the content takes the full width. Any other placement draws the
+  top bar. Check whether the app's Keystone UI
   initializer declares navigation groups before adding desktop tabs by hand;
   declaring them is `keystone_ui-install`'s job.
 - `ui_nav_item(label:, href:, active: false)` — one desktop navigation link.

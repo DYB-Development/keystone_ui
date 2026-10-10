@@ -28,7 +28,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
   show pages that pass none, and their Back link when they pass none either),
   `preference_supplier` (a callable that supplies the saved hidden columns and
   column order of a data table given a `key:`, and the address its Columns menu
-  saves to),
+  saves to, and the navigation's placement under the key `:navigation`),
   `navigation_group` (a labelled group of desktop tabs that `ui_navigation`
   draws, each tab declared with `tab key, label:, href:, permitted:`),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
@@ -292,6 +292,12 @@ built on ViewComponent; hook it in before building any screen with those helpers
      page unreloaded. The table then shows "Your column changes were not
      saved." beside its Columns button, and the menu's boxes and order go back
      to what the table shows.
+   - For the key `:navigation` the supplier returns the person's navigation
+     placement as `{ value: { "placement" => "left" } }`, with `"left"`,
+     `"right"` or `"top"`. `ui_navigation` draws a sidebar on the left or the
+     right of the page content on desktop screens for the first two, and the
+     top bar for `"top"`, `nil`, a value with no `"placement"` string key, or
+     any other placement.
    - A companion preferences gem may set this supplier for the app. Ask the
      developer whether the app uses one, or which code stores each user's table
      layouts, before writing the callable.

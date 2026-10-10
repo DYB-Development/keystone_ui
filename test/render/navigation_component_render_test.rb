@@ -106,7 +106,109 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Acme", "Account" ], [ page.at_css(".hidden.lg\\:block nav.top-nav .logo")&.text&.strip, page.at_css(".hidden.lg\\:block nav.top-nav .lg\\:flex > nav:last-child")&.text&.strip ]
   end
 
+  def test_draws_the_navigation_as_a_sidebar_left_of_the_page_content_when_the_saved_placement_is_left
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal "Page", page.at_xpath(".//*[contains(concat(' ', @class, ' '), ' ks-sidebar ')]/following-sibling::*[1]/p")&.text
+  end
+
+  def test_draws_the_navigation_as_a_sidebar_right_of_the_page_content_when_the_saved_placement_is_right
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("right")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal "Page", page.at_xpath(".//*[contains(concat(' ', @class, ' '), ' ks-sidebar ')]/preceding-sibling::*[1]/p")&.text
+  end
+
+  def test_draws_the_top_bar_when_the_saved_placement_is_top_missing_or_unknown
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    drawn = [ "top", nil, "bottom" ].map do |placement|
+      save_placement(placement)
+      page = render_navigation { "<p>Page</p>".html_safe }
+      [ page.css("nav.top-nav").size, page.css(".ks-sidebar").size ]
+    end
+
+    assert_equal [ [ 1, 0 ], [ 1, 0 ], [ 1, 0 ] ], drawn
+  end
+
+  def test_shows_each_visible_group_label_in_the_sidebar_above_its_visible_tabs
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :refunds, "Refunds", "/refunds", ->(_view) { false } ], [ :orders, "Orders", "/orders" ])
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+    declare_group("Help", [ :guides, "Guides", "/guides" ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    groups = page.css(".ks-sidebar > div").map { |group| group.element_children.map { |part| [ part["class"], part.text.strip, part["href"] ] } }
+    assert_equal [ [ [ "ks-sidebar-group-label", "Sales", nil ], [ "ks-sidebar-tab", "Quotes", "/quotes" ], [ "ks-sidebar-tab", "Orders", "/orders" ] ], [ [ "ks-sidebar-group-label", "Help", nil ], [ "ks-sidebar-tab", "Guides", "/guides" ] ] ], groups
+  end
+
+  def test_hides_the_sidebar_and_leaves_the_page_content_full_width_below_the_desktop_width
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    sidebar = page.at_css(".ks-sidebar")
+    assert_equal [ [], [ "lg:flex" ] ], [ %w[hidden lg:flex] - sidebar["class"].split, sidebar.parent["class"].split ]
+  end
+
+  def test_shows_the_logo_at_the_top_of_the_sidebar_and_the_menus_pushed_to_its_bottom
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("right")
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    sidebar = page.at_css(".ks-sidebar")
+    parts = sidebar.element_children
+    assert_equal [ "Acme", "Account", true, true ], [ parts.first.text.strip, parts.last.text.strip, parts.last["class"].to_s.split.include?("mt-auto"), sidebar["class"].split.include?("lg:h-screen") ]
+  end
+
+  def test_draws_only_the_page_content_when_the_saved_placement_is_a_side_and_nothing_is_left_to_show
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "p" ], page.element_children.map(&:name)
+  end
+
+  def test_draws_the_sidebar_holding_the_logo_and_menus_when_no_group_is_visible
+    declare_group("Admin", [ :users, "Users", "/users", ->(_view) { false } ])
+    save_placement("left")
+
+    page = render_navigation do |navigation|
+      navigation.with_logo { "Acme" }
+      navigation.with_menus { "Account" }
+      "<p>Page</p>".html_safe
+    end
+
+    assert_equal [ "Acme", "Account" ], page.css(".ks-sidebar > *").map { |part| part.text.strip }
+  end
+
+  def test_draws_the_top_bar_when_the_saved_value_holds_no_placement_entry
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: "left" } } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal 1, page.css("nav.top-nav").size
+  end
+
   private
+
+  def save_placement(placement)
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, key) { { value: { "placement" => placement } } if key == :navigation } }
+  end
 
   def declare_group(label, *tabs)
     KeystoneUi.configure do |c|

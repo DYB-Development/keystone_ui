@@ -1,4 +1,30 @@
-<% if groups.any? || logo? || menus? %>
+<% if !anything_to_show? %>
+<%= content %>
+<% elsif sidebar? %>
+<% sidebar = capture do %>
+  <nav class="<%= SIDEBAR_CLASSES %>">
+    <% if logo? %>
+      <div><%= logo %></div>
+    <% end %>
+    <% groups.each do |group, tabs| %>
+      <div class="<%= SIDEBAR_GROUP_CLASSES %>">
+        <p class="<%= SIDEBAR_GROUP_LABEL_CLASSES %>"><%= group.label %></p>
+        <% tabs.each do |tab| %>
+          <a class="<%= SIDEBAR_TAB_CLASSES %>" href="<%= tab.href_for(helpers) %>"><%= tab.label %></a>
+        <% end %>
+      </div>
+    <% end %>
+    <% if menus? %>
+      <div class="<%= SIDEBAR_MENUS_CLASSES %>"><%= menus %></div>
+    <% end %>
+  </nav>
+<% end %>
+<div class="<%= SIDEBAR_ROW_CLASSES %>">
+  <%= sidebar if sidebar_first? %>
+  <div class="<%= SIDEBAR_CONTENT_CLASSES %>"><%= content %></div>
+  <%= sidebar unless sidebar_first? %>
+</div>
+<% else %>
 <div class="<%= TOP_BAR_CLASSES %>">
 <%= render Keystone::Ui::NavbarComponent.new(sticky: false) do |navbar| %>
   <% if logo? %>
@@ -18,5 +44,5 @@
   <% end %>
 <% end %>
 </div>
-<% end %>
 <%= content %>
+<% end %>

@@ -1096,7 +1096,7 @@ Renders the top-level navigation bar with slots for desktop and mobile sections.
 
 ### `ui_navigation`
 
-Draws the app's declared tabs as a top bar on `lg` screens and wider, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs in declared order. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below.
+Draws the app's declared tabs as a top bar on `lg` screens and wider, or as a sidebar when the person's saved placement is left or right as described below, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs in declared order. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below.
 
 ```erb
 <%= ui_navigation do %>
@@ -1118,6 +1118,14 @@ To put the app's logo and its menus, such as the account menu and the user menu,
   <% end %>
   <%= yield %>
 <% end %>
+```
+
+The navigation asks `config.preference_supplier` for the key `:navigation` and reads the placement under `"placement"` in the returned `value`. With `"left"` or `"right"` it draws a sidebar on that side of the page content on `lg` screens and wider, showing each group's label above its tabs, the logo at the top and the menus at the bottom. Below `lg` the sidebar is not drawn and the page content takes the full width. With `"top"`, no supplier, no saved value or any other placement it draws the top bar. A gem that stores preferences, such as keystone_ui-preferences, sets the supplier for the app.
+
+For the `:navigation` key the supplier returns the saved value in this shape:
+
+```ruby
+{ value: { "placement" => "left" } }
 ```
 
 Declare the groups and tabs in the app's Keystone UI initializer. A tab's `href:` is an address or a lambda that receives the view and returns one, and `permitted:` is a lambda that receives the view and returns whether the current person may see the tab.
