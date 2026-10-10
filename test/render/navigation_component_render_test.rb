@@ -15,6 +15,14 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "Page", page.at_xpath(".//nav[contains(@class, 'top-nav')]/following::p")&.text
   end
 
+  def test_hands_the_host_the_top_bar_and_the_page_content_inside_one_element
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ [ "nav", "p" ] ], page.element_children.map { |part| [ part.element_children.first&.at_css("nav.top-nav")&.name, part.element_children.last&.name ] }
+  end
+
   def test_shows_each_group_as_a_menu_in_the_top_bar_holding_its_tabs_in_declared_order
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
     declare_group("Admin", [ :users, "Users", "/users" ])

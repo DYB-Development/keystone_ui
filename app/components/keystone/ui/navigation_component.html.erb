@@ -25,6 +25,7 @@
   <%= sidebar unless sidebar_first? %>
 </div>
 <% else %>
+<div>
 <div class="<%= TOP_BAR_CLASSES %>">
 <%= render Keystone::Ui::NavbarComponent.new(sticky: false) do |navbar| %>
   <% if logo? %>
@@ -45,4 +46,5 @@
 <% end %>
 </div>
 <%= content %>
+</div>
 <% end %>
