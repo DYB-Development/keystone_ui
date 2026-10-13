@@ -115,7 +115,9 @@ outer element. See Conventions before using it.
 - `ui_navigation` — no keywords, takes a block holding the page content. Placed
   in the layout around `yield`, it draws the tabs the app declares with
   `config.navigation_group` as a top bar of menus from `lg:` up, then the
-  content. It leaves out tabs whose permission check fails and groups with no
+  content. A tab declared outside any group with `config.navigation_tab` is
+  drawn as a plain link in the top bar and as a plain tab with no group label
+  in the sidebar. It leaves out tabs whose permission check fails and groups with no
   tab left, and below `lg:` it draws only the content. Inside the block, a
   `navigation.with_logo do ... end` block puts the app's logo at the left end
   of the top bar, and a `navigation.with_menus do ... end` block puts menus
