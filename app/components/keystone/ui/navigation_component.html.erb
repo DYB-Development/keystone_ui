@@ -9,7 +9,7 @@
     <% groups.each do |group| %>
       <% if group.standalone %>
         <% tab = group.tabs.first %>
-        <a class="<%= SIDEBAR_TAB_CLASSES %>" href="<%= tab.href %>"><%= tab.label %></a>
+        <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
       <% else %>
         <div class="<%= SIDEBAR_GROUP_CLASSES %>">
           <p class="<%= sidebar_group_label_classes(group) %>"><%= group.label %></p>
