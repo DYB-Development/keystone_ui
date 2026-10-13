@@ -419,6 +419,50 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal drawn_in_top_bar(top_bar), drawn_in_sidebar(sidebar)
   end
 
+  def test_shows_a_tab_outside_any_group_as_a_plain_link_among_the_menus_in_the_top_bar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_tab(:home, "Home", "/")
+    declare_group("Admin", [ :users, "Users", "/users" ])
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    links = page.at_css("nav.top-nav .lg\\:flex > nav").element_children.map { |part| part.at_css("button") ? [ "menu", part.at_css("button").text.strip ] : [ "link", part.text.strip, part["href"] ] }
+    assert_equal [ [ "menu", "Sales" ], [ "link", "Home", "/" ], [ "menu", "Admin" ] ], links
+  end
+
+  def test_shows_a_tab_outside_any_group_as_a_plain_tab_with_no_group_label_among_the_groups_in_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_tab(:home, "Home", "/")
+    declare_group("Admin", [ :users, "Users", "/users" ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    parts = page.at_css(".ks-sidebar").element_children.map { |part| [ part.name, part["class"], part.name == "a" ? part.text.strip : part.at_css(".ks-sidebar-group-label").text, part["href"] ] }
+    assert_equal [ [ "details", "flex flex-col", "Sales", nil ], [ "a", "ks-sidebar-tab", "Home", "/" ], [ "details", "flex flex-col", "Admin", nil ] ], parts
+  end
+
+  def test_shows_a_tab_outside_any_group_as_active_in_the_top_bar_when_the_current_page_belongs_to_it
+    declare_tab(:home, "Home", "/")
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :home } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Home" ], page.css(".ks-nav-item.active").map(&:text)
+  end
+
+  def test_shows_a_tab_outside_any_group_as_active_in_the_sidebar_when_the_current_page_belongs_to_it
+    declare_tab(:home, "Home", "/")
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    save_placement("left")
+    KeystoneUi.configure { |c| c.current_tab_supplier = ->(_view) { :home } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Home" ], page.css(".ks-sidebar-tab.active").map(&:text)
+  end
+
   private
 
   def drawn_in_top_bar(page)
@@ -449,6 +493,10 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
         tabs.each { |key, tab_label, href, permitted = ->(_view) { true }| group.tab(key, label: tab_label, href: href, permitted: permitted) }
       end
     end
+  end
+
+  def declare_tab(key, label, href, permitted = ->(_view) { true })
+    KeystoneUi.configure { |c| c.navigation_tab(key, label: label, href: href, permitted: permitted) }
   end
 
   def render_navigation(&page_content)

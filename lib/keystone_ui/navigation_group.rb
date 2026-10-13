@@ -10,9 +10,14 @@ module KeystoneUi
 
     attr_reader :label, :tabs
 
-    def initialize(label)
+    def initialize(label, standalone: false)
       @label = label
+      @standalone = standalone
       @tabs = []
+    end
+
+    def standalone?
+      @standalone
     end
 
     def tabs_permitted_for(view)

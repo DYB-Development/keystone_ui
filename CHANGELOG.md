@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `config.navigation_tab` declares a tab outside any group, which `ui_navigation` draws as a plain link in the top bar and as a plain tab with no group label in the sidebar, marked active on its own page in both.
+
 ## [0.40.0] - 2026-10-10
 
 ### Changed

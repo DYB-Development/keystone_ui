@@ -197,7 +197,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      it goes around `yield`. It draws the tabs the app declares with
      `config.navigation_group` as a top bar of menus from `lg:` up, then the
      content, and below `lg:` it draws only the content. It leaves out tabs
-     whose permission check fails and groups with no tab left.
+     whose permission check fails and groups with no tab left. A tab declared
+     outside any group with `config.navigation_tab` is drawn as a plain link
+     in the top bar and as a plain tab with no group label in the sidebar,
+     which does not open or close.
    - Inside its block, `navigation.with_logo do ... end` puts the app's logo at
      the left of the top bar, and `navigation.with_menus do ... end` puts menus
      such as the account menu at its right, so the layout draws no second bar.

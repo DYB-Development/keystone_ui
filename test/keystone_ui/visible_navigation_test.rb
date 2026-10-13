@@ -53,6 +53,16 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ false, true ], groups.map(&:active)
   end
 
+  def test_says_which_groups_are_standalone
+    home = KeystoneUi::NavigationGroup.new("Home", standalone: true)
+    home.tab(:home, label: "Home", href: "/", permitted: ->(_view) { true })
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+
+    groups = visible(home, sales, view: View.new(:rep))
+
+    assert_equal [ true, false ], groups.map(&:standalone)
+  end
+
   private
 
   def visible(*groups, view:, saved_order: [], current_tab: nil)

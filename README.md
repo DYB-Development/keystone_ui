@@ -1096,7 +1096,7 @@ Renders the top-level navigation bar with slots for desktop and mobile sections.
 
 ### `ui_navigation`
 
-Draws the app's declared tabs as a top bar on `lg` screens and wider, or as a sidebar when the person's saved placement is left or right as described below, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs, in declared order unless the person saved an order as described below. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below. Whenever it draws a top bar or a sidebar, it hands the layout one element holding both the navigation and the page content, so a layout that arranges the body's children, such as a grid of header, stretching row and footer, sees the same single element in every placement.
+Draws the app's declared tabs as a top bar on `lg` screens and wider, or as a sidebar when the person's saved placement is left or right as described below, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs, and each tab declared outside any group is a plain link, in declared order unless the person saved an order as described below. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below. Whenever it draws a top bar or a sidebar, it hands the layout one element holding both the navigation and the page content, so a layout that arranges the body's children, such as a grid of header, stretching row and footer, sees the same single element in every placement.
 
 ```erb
 <%= ui_navigation do %>
@@ -1145,9 +1145,20 @@ KeystoneUi.configure do |config|
 end
 ```
 
+To show a tab on its own, outside any group, declare it with `config.navigation_tab`, which takes the same key, `label:`, `href:` and `permitted:` as a group's tab. The top bar draws it as a plain link among the menus, and the sidebar draws it as a plain tab with no group label, which does not open or close, in the place it was declared among the groups. A saved order names it under `"group"` by its label, the same as a group.
+
+```ruby
+KeystoneUi.configure do |config|
+  config.navigation_tab :console, label: "Console", href: "/console", permitted: ->(_view) { true }
+  config.navigation_group "Sales" do |group|
+    group.tab :quotes, label: "Quotes", href: "/quotes", permitted: ->(_view) { true }
+  end
+end
+```
+
 Boot stops with `KeystoneUi::NavigationCheck::Error` when a declared tab has no label or no `href:`, naming the tab's key, when two declared tabs share a key, naming the key, or when a declared group has no tabs, naming the group, so a mistake shows up the moment the app starts. It does not check that a tab's link leads to a page that exists.
 
-To mark where the person is, set `config.current_tab_supplier` to a lambda that receives the view and returns the key of the declared tab the current page belongs to. The top bar shows that tab and the menu holding it as active, and the sidebar gives that tab and its group's label the `active` class. Returning `nil` or a key no declared tab has marks nothing, and so does setting no supplier. In this example each controller names its tab, and a controller that names none marks nothing:
+To mark where the person is, set `config.current_tab_supplier` to a lambda that receives the view and returns the key of the declared tab the current page belongs to. The top bar shows that tab and the menu holding it as active, and the sidebar gives that tab and its group's label the `active` class. A tab declared outside any group is marked the same way, with no menu or group label to mark. Returning `nil` or a key no declared tab has marks nothing, and so does setting no supplier. In this example each controller names its tab, and a controller that names none marks nothing:
 
 ```ruby
 KeystoneUi.configure do |config|
