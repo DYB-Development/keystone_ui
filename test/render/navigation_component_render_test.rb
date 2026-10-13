@@ -439,7 +439,7 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     page = render_navigation { "<p>Page</p>".html_safe }
 
     parts = page.at_css(".ks-sidebar").element_children.map { |part| [ part.name, part["class"], part.name == "a" ? part.text.strip : part.at_css(".ks-sidebar-group-label").text, part["href"] ] }
-    assert_equal [ [ "div", "flex flex-col", "Sales", nil ], [ "a", "ks-sidebar-tab", "Home", "/" ], [ "div", "flex flex-col", "Admin", nil ] ], parts
+    assert_equal [ [ "details", "flex flex-col", "Sales", nil ], [ "a", "ks-sidebar-tab", "Home", "/" ], [ "details", "flex flex-col", "Admin", nil ] ], parts
   end
 
   def test_shows_a_tab_outside_any_group_as_active_in_the_top_bar_when_the_current_page_belongs_to_it
