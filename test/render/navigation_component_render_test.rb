@@ -472,6 +472,16 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Quotes", "Orders" ], page.css(".ks-sidebar > details > .ks-sidebar-group-tabs > .ks-sidebar-tab").map(&:text)
   end
 
+  def test_holds_no_tab_outside_any_group_inside_a_group_tabs_element_in_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_tab(:home, "Home", "/")
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Quotes" ], page.css(".ks-sidebar-group-tabs .ks-sidebar-tab").map(&:text)
+  end
+
   private
 
   def drawn_in_top_bar(page)
