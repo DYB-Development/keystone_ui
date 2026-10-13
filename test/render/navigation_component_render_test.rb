@@ -163,7 +163,7 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
 
     page = render_navigation { "<p>Page</p>".html_safe }
 
-    groups = page.css(".ks-sidebar > details").map { |group| group.element_children.map { |part| [ part["class"], part.text.strip, part["href"] ] } }
+    groups = page.css(".ks-sidebar > details").map { |group| group.css(".ks-sidebar-group-label, .ks-sidebar-tab").map { |part| [ part["class"], part.text.strip, part["href"] ] } }
     assert_equal [ [ [ "ks-sidebar-group-label", "Sales", nil ], [ "ks-sidebar-tab", "Quotes", "/quotes" ], [ "ks-sidebar-tab", "Orders", "/orders" ] ], [ [ "ks-sidebar-group-label", "Help", nil ], [ "ks-sidebar-tab", "Guides", "/guides" ] ] ], groups
   end
 
@@ -461,6 +461,25 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     page = render_navigation { "<p>Page</p>".html_safe }
 
     assert_equal [ "Home" ], page.css(".ks-sidebar-tab.active").map(&:text)
+  end
+
+  def test_holds_a_sidebar_group_tabs_inside_one_element_below_its_label
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :orders, "Orders", "/orders" ])
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Quotes", "Orders" ], page.css(".ks-sidebar > details > .ks-sidebar-group-tabs > .ks-sidebar-tab").map(&:text)
+  end
+
+  def test_holds_no_tab_outside_any_group_inside_a_group_tabs_element_in_the_sidebar
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_tab(:home, "Home", "/")
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Quotes" ], page.css(".ks-sidebar-group-tabs .ks-sidebar-tab").map(&:text)
   end
 
   private
