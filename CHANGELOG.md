@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- `config.navigation_tab` declares a tab outside any group, which `ui_navigation` draws as a plain link in the top bar and as a plain tab with no group label in the sidebar, marked active on its own page in both.
 - The app refuses to start when its navigation declaration has a tab with no label or no link, two tabs sharing a key, or a group with no tabs, and the error names the tab, the key or the group.
 
 ## [0.38.0] - 2026-10-10
