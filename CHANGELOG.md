@@ -6,6 +6,26 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - `config.navigation_tab` declares a tab outside any group, which `ui_navigation` draws as a plain link in the top bar and as a plain tab with no group label in the sidebar, marked active on its own page in both.
+
+## [0.40.0] - 2026-10-10
+
+### Changed
+- keystone_ui requires keystone_ui-styles 0.15.0 or later, which styles the sidebar's logo, tabs and collapsing group labels.
+
+### Added
+- Each group in the sidebar drawn by `ui_navigation` shows only its label until it is clicked, and clicking the label opens or closes its tabs without reloading the page, using the browser's own disclosure element so it needs no script. The group holding the current page's tab is open when the page loads.
+- The sidebar drawn by `ui_navigation` wraps the logo in an element with the class `ks-sidebar-logo`, so keystone_ui-styles can give the logo its own spacing and remove its underline.
+
+### Fixed
+- A menu in the sidebar drawn by `ui_navigation` opens in place below its button inside the sidebar, instead of as a dropdown cut off by the sidebar's edge, including a menu whose panel the app positions absolutely in its own stylesheet. The sidebar is as wide as its widest item, closed menu items included, so opening or closing a menu does not change its width. Menus in the top bar still open as dropdowns.
+- At the top placement, `ui_navigation` hands the layout its top bar and the page content inside one element, as it already did for a sidebar, so in a body laid out as a grid of header, stretching row and footer a short page shows its content directly under the top bar.
+
+## [0.39.0] - 2026-10-10
+
+### Changed
+- The `keystone_ui-develop` local can run commands in the host app, so it can run the app's tests, linter and git as the app's own process requires.
+
+### Added
 - The app refuses to start when its navigation declaration has a tab with no label or no link, two tabs sharing a key, or a group with no tabs, and the error names the tab, the key or the group.
 
 ## [0.38.0] - 2026-10-10

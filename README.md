@@ -1096,7 +1096,7 @@ Renders the top-level navigation bar with slots for desktop and mobile sections.
 
 ### `ui_navigation`
 
-Draws the app's declared tabs as a top bar on `lg` screens and wider, or as a sidebar when the person's saved placement is left or right as described below, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs, and each tab declared outside any group is a plain link, in declared order unless the person saved an order as described below. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below.
+Draws the app's declared tabs as a top bar on `lg` screens and wider, or as a sidebar when the person's saved placement is left or right as described below, then the page content the layout passes as a block. Each declared group is a menu in the top bar holding its tabs, and each tab declared outside any group is a plain link, in declared order unless the person saved an order as described below. A tab whose permission check fails for the view is left out, and so is a group whose tabs are all left out. Below `lg` it draws only the page content, so the phone's bottom tab bar and mobile header stay as they are. With no tabs declared, or none the person may see, it draws only the page content, unless the layout hands it a logo or menus as shown below. Whenever it draws a top bar or a sidebar, it hands the layout one element holding both the navigation and the page content, so a layout that arranges the body's children, such as a grid of header, stretching row and footer, sees the same single element in every placement.
 
 ```erb
 <%= ui_navigation do %>
@@ -1120,7 +1120,7 @@ To put the app's logo and its menus, such as the account menu and the user menu,
 <% end %>
 ```
 
-The navigation asks `config.preference_supplier` for the key `:navigation` and reads the placement under `"placement"` in the returned `value`. With `"left"` or `"right"` it draws a sidebar on that side of the page content on `lg` screens and wider, showing each group's label above its tabs, the logo at the top and the menus at the bottom. Below `lg` the sidebar is not drawn and the page content takes the full width. With `"top"`, no supplier, no saved value or any other placement it draws the top bar. A gem that stores preferences, such as keystone_ui-preferences, sets the supplier for the app.
+The navigation asks `config.preference_supplier` for the key `:navigation` and reads the placement under `"placement"` in the returned `value`. With `"left"` or `"right"` it draws a sidebar on that side of the page content on `lg` screens and wider, showing each group as its label alone, which opens to list the group's tabs when clicked and closes when clicked again, with the group holding the current page's tab open when the page loads, the logo at the top and the menus at the bottom. A menu in the sidebar opens in place: the panel marked `data-dropdown-target="menu"` inside an element with `data-controller="dropdown"` is drawn on its own line below its button, inside the sidebar, instead of as a dropdown laid over it, even when the app's own stylesheet positions that panel absolutely, as long as that stylesheet is in a CSS layer below Tailwind's utilities, such as `components`. A closed menu's panel, marked by the `hidden` class both the gem's dropdown controller and tailwindcss-stimulus-components toggle, stays out of sight, out of the keyboard's tab order and away from screen readers, but still counts toward the sidebar's width, so the sidebar is always as wide as its widest item and opening or closing a menu never changes it. The sidebar scrolls when its content is taller than the screen. Menus in the top bar still open as dropdowns. Below `lg` the sidebar is not drawn and the page content takes the full width. With `"top"`, no supplier, no saved value or any other placement it draws the top bar. A gem that stores preferences, such as keystone_ui-preferences, sets the supplier for the app.
 
 For the `:navigation` key the supplier returns the saved value in this shape:
 
@@ -1145,7 +1145,7 @@ KeystoneUi.configure do |config|
 end
 ```
 
-To show a tab on its own, outside any group, declare it with `config.navigation_tab`, which takes the same key, `label:`, `href:` and `permitted:` as a group's tab. The top bar draws it as a plain link among the menus, and the sidebar draws it as a plain tab with no group label above it, in the place it was declared among the groups. A saved order names it under `"group"` by its label, the same as a group.
+To show a tab on its own, outside any group, declare it with `config.navigation_tab`, which takes the same key, `label:`, `href:` and `permitted:` as a group's tab. The top bar draws it as a plain link among the menus, and the sidebar draws it as a plain tab with no group label, which does not open or close, in the place it was declared among the groups. A saved order names it under `"group"` by its label, the same as a group.
 
 ```ruby
 KeystoneUi.configure do |config|

@@ -4,19 +4,19 @@
 <% sidebar = capture do %>
   <nav class="<%= SIDEBAR_CLASSES %>">
     <% if logo? %>
-      <div><%= logo %></div>
+      <div class="<%= SIDEBAR_LOGO_CLASSES %>"><%= logo %></div>
     <% end %>
     <% groups.each do |group| %>
       <% if group.standalone %>
         <% tab = group.tabs.first %>
         <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
       <% else %>
-        <div class="<%= SIDEBAR_GROUP_CLASSES %>">
-          <p class="<%= sidebar_group_label_classes(group) %>"><%= group.label %></p>
+        <details class="<%= SIDEBAR_GROUP_CLASSES %>"<%= " open" if group.active %>>
+          <summary class="<%= sidebar_group_label_classes(group) %>"><%= group.label %></summary>
           <% group.tabs.each do |tab| %>
             <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
           <% end %>
-        </div>
+        </details>
       <% end %>
     <% end %>
     <% if menus? %>
@@ -30,6 +30,7 @@
   <%= sidebar unless sidebar_first? %>
 </div>
 <% else %>
+<div>
 <div class="<%= TOP_BAR_CLASSES %>">
 <%= render Keystone::Ui::NavbarComponent.new(sticky: false) do |navbar| %>
   <% if logo? %>
@@ -55,4 +56,5 @@
 <% end %>
 </div>
 <%= content %>
+</div>
 <% end %>

@@ -8,11 +8,16 @@ module Keystone
       TOP_BAR_CLASSES = "hidden lg:block sticky top-0 z-40"
       SIDEBAR_ROW_CLASSES = "lg:flex"
       SIDEBAR_CLASSES = "ks-sidebar hidden lg:flex lg:sticky lg:top-0 lg:h-screen shrink-0 overflow-y-auto"
+      SIDEBAR_LOGO_CLASSES = "ks-sidebar-logo"
       SIDEBAR_GROUP_CLASSES = "flex flex-col"
       SIDEBAR_GROUP_LABEL_CLASSES = "ks-sidebar-group-label"
       SIDEBAR_TAB_CLASSES = "ks-sidebar-tab"
       ACTIVE_CLASS = "active"
-      SIDEBAR_MENUS_CLASSES = "mt-auto"
+      SIDEBAR_MENUS_CLASSES = [
+        "mt-auto [&_[data-dropdown-target=menu]]:static [&_[data-controller~=dropdown]]:flex-wrap [&_[data-dropdown-target=menu]]:basis-full",
+        "[&_[data-dropdown-target=menu].hidden]:block [&_[data-dropdown-target=menu].hidden]:h-0 [&_[data-dropdown-target=menu].hidden]:overflow-hidden",
+        "[&_[data-dropdown-target=menu].hidden]:my-0 [&_[data-dropdown-target=menu].hidden]:py-0 [&_[data-dropdown-target=menu].hidden]:invisible"
+      ].join(" ")
       SIDEBAR_CONTENT_CLASSES = "min-w-0 flex-1"
       SIDEBAR_PLACEMENTS = %w[left right].freeze
 
