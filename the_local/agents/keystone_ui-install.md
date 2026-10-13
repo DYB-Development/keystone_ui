@@ -31,6 +31,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
   saves to, and the navigation's placement under the key `:navigation`),
   `navigation_group` (a labelled group of desktop tabs that `ui_navigation`
   draws, each tab declared with `tab key, label:, href:, permitted:`),
+  `navigation_tab` (a single desktop tab outside any group, declared with
+  `navigation_tab key, label:, href:, permitted:`),
   `current_tab_supplier` (a callable that supplies the key of the declared tab
   the current page belongs to, so `ui_navigation` marks it and its group
   active),
@@ -324,6 +326,11 @@ built on ViewComponent; hook it in before building any screen with those helpers
      permission check guards each, before declaring them. Boot stops with
      `KeystoneUi::NavigationCheck::Error` when a tab has no label or no
      `href:`, when two tabs share a key, or when a group has no tabs.
+   - `navigation_tab key, label:, href:, permitted:` — declares one tab
+     outside any group, such as a Console or Clients tab, in its place among
+     the groups. `ui_navigation` draws it as a plain link in the top bar and as
+     a plain tab with no group label in the sidebar. A saved `"order"` names
+     it under `"group"` by its label.
    - `current_tab_supplier` — a callable that receives the view and returns the
      key of the declared tab the current page belongs to, or `nil`.
      `ui_navigation` shows that tab and its group as active in the top bar and
