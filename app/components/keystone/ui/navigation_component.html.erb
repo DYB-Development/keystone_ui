@@ -13,9 +13,11 @@
       <% else %>
         <details class="<%= SIDEBAR_GROUP_CLASSES %>"<%= " open" if group.active %>>
           <summary class="<%= sidebar_group_label_classes(group) %>"><%= group.label %></summary>
-          <% group.tabs.each do |tab| %>
-            <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
-          <% end %>
+          <div class="<%= SIDEBAR_GROUP_TABS_CLASSES %>">
+            <% group.tabs.each do |tab| %>
+              <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
+            <% end %>
+          </div>
         </details>
       <% end %>
     <% end %>

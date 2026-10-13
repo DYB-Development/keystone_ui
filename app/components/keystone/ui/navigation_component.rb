@@ -11,6 +11,7 @@ module Keystone
       SIDEBAR_LOGO_CLASSES = "ks-sidebar-logo"
       SIDEBAR_GROUP_CLASSES = "flex flex-col"
       SIDEBAR_GROUP_LABEL_CLASSES = "ks-sidebar-group-label"
+      SIDEBAR_GROUP_TABS_CLASSES = "ks-sidebar-group-tabs"
       SIDEBAR_TAB_CLASSES = "ks-sidebar-tab"
       ACTIVE_CLASS = "active"
       SIDEBAR_MENUS_CLASSES = [
