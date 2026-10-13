@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.41.0] - 2026-10-13
+
 ### Added
 - `config.navigation_tab` declares a tab outside any group, which `ui_navigation` draws as a plain link in the top bar and as a plain tab with no group label in the sidebar, marked active on its own page in both.
 - The sidebar drawn by `ui_navigation` holds each group's tabs inside one element with the class `ks-sidebar-group-tabs`, so keystone_ui-styles can draw a border around an open group's tabs and lines between them, and a tab declared outside any group is not inside one.
