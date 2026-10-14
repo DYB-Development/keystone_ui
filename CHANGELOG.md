@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- keystone_ui requires keystone_ui-styles 0.17.0 or later, which defines the theme's five chart colours and their dark-mode versions.
+- `ui_line_chart` draws a series with no colour of its own in the next of the theme's five chart colours, in order, and keeps a colour its caller gives it.
+- `ui_line_chart` draws thin lines with no dot on each data point, and shows a dot in the line's colour on a data point only while the cursor is over it.
+- `ui_line_chart` draws only horizontal grid lines, in the theme's border colour.
+- `ui_line_chart` draws its axis text small, in the theme's muted text colour and the app's body font, or the font the chart inherits when the body font is left to inherit.
+- `ui_line_chart` draws its tooltip in the theme's surface, border and text colours.
+- `ui_line_chart` draws each line in from left to right when it first appears, and appears without animating for someone who prefers reduced motion.
+- `ui_line_chart` redraws in the new colours when dark mode, the look or the palette changes, without a page reload.
+
 ## [0.41.0] - 2026-10-13
 
 ### Changed
