@@ -87,3 +87,11 @@ test("a dot appears on a data point while the cursor is over it", async () => {
 
   assert.equal(chartOptions(false).elements.point.hoverRadius, 4)
 })
+
+test("the dot on a data point under the cursor is filled in its line's colour", async () => {
+  const { themeColors, styleDatasets } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const [dataset] = styleDatasets([{ borderColor: "#94a3b8" }], themeColors(readVariableName, false), (color) => color)
+
+  assert.equal(dataset.pointHoverBackgroundColor, "#94a3b8")
+})

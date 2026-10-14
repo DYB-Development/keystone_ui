@@ -37,7 +37,7 @@ export const styleDatasets = (datasets, theme, resolve) => {
   let uncolored = 0
   return datasets.map((dataset) => {
     const color = dataset.borderColor ? resolve(dataset.borderColor) : theme.series[uncolored++ % theme.series.length]
-    return { ...dataset, borderColor: color }
+    return { ...dataset, borderColor: color, pointHoverBackgroundColor: color }
   })
 }
 
