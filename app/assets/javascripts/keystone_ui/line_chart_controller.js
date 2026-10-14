@@ -27,17 +27,15 @@ const DRAW_IN_MILLISECONDS = 600
 
 const pointStep = (context) => DRAW_IN_MILLISECONDS / context.chart.data.datasets[context.datasetIndex].data.length
 
+const drawsIn = (context) => context.type === "data" && context.mode === "default"
+
 const drawIn = {
   x: {
     type: "number",
     easing: "linear",
     from: NaN,
-    duration: (context) => (context.type === "data" ? pointStep(context) : 0),
-    delay: (context) => {
-      if (context.type !== "data" || context.drawnIn) return 0
-      context.drawnIn = true
-      return context.index * pointStep(context)
-    }
+    duration: (context) => (drawsIn(context) ? pointStep(context) : 0),
+    delay: (context) => (drawsIn(context) ? context.index * pointStep(context) : 0)
   },
   y: { duration: 0 }
 }

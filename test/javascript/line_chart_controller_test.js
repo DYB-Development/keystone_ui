@@ -139,7 +139,7 @@ test("when the chart first appears, each line draws in from left to right", asyn
 
   const { animations } = chartOptions(false, {}, true)
   const chart = { data: { datasets: [{ data: [1, 2, 3, 4, 5, 6] }] } }
-  const delays = [0, 1, 2, 3, 4, 5].map((index) => animations.x.delay({ type: "data", index, datasetIndex: 0, chart }))
+  const delays = [0, 1, 2, 3, 4, 5].map((index) => animations.x.delay({ type: "data", mode: "default", index, datasetIndex: 0, chart }))
 
   assert.deepEqual(delays, [0, 100, 200, 300, 400, 500])
 })
@@ -148,4 +148,13 @@ test("a chart for someone who prefers reduced motion appears without animating",
   const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
 
   assert.equal(chartOptions(false, {}, false).animation, false)
+})
+
+test("resizing a chart moves its lines without drawing them in again", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const { animations } = chartOptions(false, {}, true)
+  const chart = { data: { datasets: [{ data: [1, 2, 3, 4, 5, 6] }] } }
+
+  assert.equal(animations.x.duration({ type: "data", mode: "resize", index: 3, datasetIndex: 0, chart }), 0)
 })
