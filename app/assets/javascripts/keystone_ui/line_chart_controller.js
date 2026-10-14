@@ -13,7 +13,15 @@ export const dayLabel = (day) =>
 
 const DATED_AXIS = { type: "linear", bounds: "data" }
 const DATED_TICKS = { precision: 0, callback: dayLabel }
-const DATED_PLUGINS = { tooltip: { callbacks: { title: ([point]) => dayLabel(point.parsed.x) } } }
+const DATED_TOOLTIP = { callbacks: { title: ([point]) => dayLabel(point.parsed.x) } }
+
+const tooltip = (theme) => ({
+  backgroundColor: theme.surface,
+  borderColor: theme.border,
+  borderWidth: 1,
+  titleColor: theme.text,
+  bodyColor: theme.text
+})
 
 const axisText = (theme) => ({ color: theme.mutedText, font: { size: 11, family: theme.font } })
 
@@ -26,7 +34,7 @@ export const chartOptions = (dated, theme = {}) => ({
     x: { ...(dated ? DATED_AXIS : {}), grid: { display: false }, ticks: { ...(dated ? DATED_TICKS : {}), ...axisText(theme) } },
     y: { border: { display: false }, grid: { color: theme.border }, ticks: axisText(theme) }
   },
-  ...(dated ? { plugins: DATED_PLUGINS } : {})
+  plugins: { tooltip: { ...(dated ? DATED_TOOLTIP : {}), ...tooltip(theme) } }
 })
 
 const CHART_COLOR_COUNT = 5
@@ -39,6 +47,8 @@ export const themeColors = (read, dark, inheritedFont) => {
   return {
     series: Array.from({ length: CHART_COLOR_COUNT }, (_, index) => variable(`--ks-color-chart-${index + 1}`)),
     border: variable("--ks-color-border"),
+    surface: variable("--ks-color-surface"),
+    text: variable("--ks-color-text"),
     mutedText: variable("--ks-color-text-muted"),
     font: INHERITED_FONTS.includes(bodyFont) ? inheritedFont : bodyFont
   }

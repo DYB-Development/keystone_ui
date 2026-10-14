@@ -120,3 +120,16 @@ test("axis text uses the font the chart inherits when the theme's body font is l
 
   assert.equal(theme.font, "Inter, sans-serif")
 })
+
+test("the tooltip uses the theme's surface, border and text colours", async () => {
+  const { chartOptions, themeColors } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const { backgroundColor, borderColor, titleColor, bodyColor } = chartOptions(true, themeColors(readVariableName, false)).plugins.tooltip
+
+  assert.deepEqual([backgroundColor, borderColor, titleColor, bodyColor], [
+    "color of --ks-color-surface",
+    "color of --ks-color-border",
+    "color of --ks-color-text",
+    "color of --ks-color-text"
+  ])
+})
