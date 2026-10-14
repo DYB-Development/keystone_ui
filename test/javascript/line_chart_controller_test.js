@@ -48,3 +48,20 @@ test("a dated chart's axis runs from its first day to its last", async () => {
 
   assert.equal(chartOptions(true).scales.x.bounds, "data")
 })
+
+const readVariableName = (name) => `color of ${name}`
+
+test("series with no colour of their own take the theme's five chart colours in order", async () => {
+  const { themeColors, styleDatasets } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const datasets = styleDatasets([{}, {}, {}, {}, {}, {}], themeColors(readVariableName, false), (color) => color)
+
+  assert.deepEqual(datasets.map((dataset) => dataset.borderColor), [
+    "color of --ks-color-chart-1",
+    "color of --ks-color-chart-2",
+    "color of --ks-color-chart-3",
+    "color of --ks-color-chart-4",
+    "color of --ks-color-chart-5",
+    "color of --ks-color-chart-1"
+  ])
+})

@@ -23,6 +23,23 @@ export const chartOptions = (dated) => ({
   ...(dated ? DATED_OPTIONS : {})
 })
 
+const CHART_COLOR_COUNT = 5
+
+export const themeColors = (read, dark) => {
+  const variable = (name) => read(dark ? `${name}-dark` : name)
+  return {
+    series: Array.from({ length: CHART_COLOR_COUNT }, (_, index) => variable(`--ks-color-chart-${index + 1}`))
+  }
+}
+
+export const styleDatasets = (datasets, theme, resolve) => {
+  let uncolored = 0
+  return datasets.map((dataset) => {
+    const color = dataset.borderColor ? resolve(dataset.borderColor) : theme.series[uncolored++ % theme.series.length]
+    return { ...dataset, borderColor: color }
+  })
+}
+
 export default class extends Controller {
   static targets = ["canvas"]
   static values = { data: Object, dated: Boolean }
@@ -33,7 +50,7 @@ export default class extends Controller {
 
     this.chart = new Chart(this.canvasTarget, {
       type: "line",
-      data: this.resolveColors(this.dataValue),
+      data: this.styledData(),
       options: chartOptions(this.datedValue)
     })
   }
@@ -42,16 +59,14 @@ export default class extends Controller {
     this.chart?.destroy()
   }
 
-  resolveColors(data) {
+  styledData() {
     const styles = getComputedStyle(this.element)
+    const read = (name) => styles.getPropertyValue(name).trim()
     const resolve = (color) => {
       const match = typeof color === "string" && color.match(/^var\((--[^)]+)\)$/)
-      return match ? styles.getPropertyValue(match[1]).trim() || color : color
+      return match ? read(match[1]) || color : color
     }
 
-    data.datasets.forEach((dataset) => {
-      if (dataset.borderColor) dataset.borderColor = resolve(dataset.borderColor)
-    })
-    return data
+    return { ...this.dataValue, datasets: styleDatasets(this.dataValue.datasets, themeColors(read, false), resolve) }
   }
 }
