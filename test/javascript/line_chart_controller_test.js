@@ -65,3 +65,11 @@ test("series with no colour of their own take the theme's five chart colours in 
     "color of --ks-color-chart-1"
   ])
 })
+
+test("a series keeps the colour its caller gives it", async () => {
+  const { themeColors, styleDatasets } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const [dataset] = styleDatasets([{ borderColor: "#94a3b8" }], themeColors(readVariableName, false), (color) => color)
+
+  assert.equal(dataset.borderColor, "#94a3b8")
+})
