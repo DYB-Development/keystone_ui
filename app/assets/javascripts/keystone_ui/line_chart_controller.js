@@ -20,7 +20,7 @@ export const chartOptions = (dated) => ({
   responsive: true,
   maintainAspectRatio: false,
   interaction: { mode: "index", intersect: false },
-  elements: { line: { borderWidth: 1.5 }, point: { radius: 0 } },
+  elements: { line: { borderWidth: 1.5 }, point: { radius: 0, hoverRadius: 4 } },
   ...(dated ? DATED_OPTIONS : {})
 })
 

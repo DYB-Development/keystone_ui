@@ -81,3 +81,9 @@ test("lines are thin and show no dot on each data point", async () => {
 
   assert.deepEqual([elements.line.borderWidth, elements.point.radius], [1.5, 0])
 })
+
+test("a dot appears on a data point while the cursor is over it", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(chartOptions(false).elements.point.hoverRadius, 4)
+})
