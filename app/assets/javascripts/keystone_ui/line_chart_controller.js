@@ -31,13 +31,16 @@ export const chartOptions = (dated, theme = {}) => ({
 
 const CHART_COLOR_COUNT = 5
 
-export const themeColors = (read, dark) => {
+const INHERITED_FONTS = ["", "inherit"]
+
+export const themeColors = (read, dark, inheritedFont) => {
   const variable = (name) => read(dark ? `${name}-dark` : name)
+  const bodyFont = read("--ks-font-body")
   return {
     series: Array.from({ length: CHART_COLOR_COUNT }, (_, index) => variable(`--ks-color-chart-${index + 1}`)),
     border: variable("--ks-color-border"),
     mutedText: variable("--ks-color-text-muted"),
-    font: read("--ks-font-body")
+    font: INHERITED_FONTS.includes(bodyFont) ? inheritedFont : bodyFont
   }
 }
 
@@ -77,6 +80,6 @@ export default class extends Controller {
       return match ? read(match[1]) || color : color
     }
 
-    return { theme: themeColors(read, false), resolve }
+    return { theme: themeColors(read, false, styles.fontFamily), resolve }
   }
 }

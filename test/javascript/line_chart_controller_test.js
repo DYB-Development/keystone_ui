@@ -112,3 +112,11 @@ test("axis text is small, in the theme's muted text colour and the app's body fo
 
   assert.deepEqual([scales.x.ticks, scales.y.ticks].map(({ color, font }) => ({ color, font })), [axisText, axisText])
 })
+
+test("axis text uses the font the chart inherits when the theme's body font is left to inherit", async () => {
+  const { themeColors } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const theme = themeColors((name) => (name === "--ks-font-body" ? "inherit" : ""), false, "Inter, sans-serif")
+
+  assert.equal(theme.font, "Inter, sans-serif")
+})
