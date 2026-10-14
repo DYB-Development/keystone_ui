@@ -143,3 +143,9 @@ test("when the chart first appears, each line draws in from left to right", asyn
 
   assert.deepEqual(delays, [0, 100, 200, 300, 400, 500])
 })
+
+test("a chart for someone who prefers reduced motion appears without animating", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  assert.equal(chartOptions(false, {}, false).animation, false)
+})

@@ -48,7 +48,7 @@ export const chartOptions = (dated, theme = {}, animated = false) => ({
   responsive: true,
   maintainAspectRatio: false,
   interaction: { mode: "index", intersect: false },
-  ...(animated ? { animations: drawIn } : {}),
+  ...(animated ? { animations: drawIn } : { animation: false }),
   elements: { line: { borderWidth: 1.5 }, point: { radius: 0, hoverRadius: 4 } },
   scales: {
     x: { ...(dated ? DATED_AXIS : {}), grid: { display: false }, ticks: { ...(dated ? DATED_TICKS : {}), ...axisText(theme) } },
@@ -94,7 +94,7 @@ export default class extends Controller {
     this.chart = new Chart(this.canvasTarget, {
       type: "line",
       data: { ...this.dataValue, datasets: styleDatasets(this.dataValue.datasets, theme, resolve) },
-      options: chartOptions(this.datedValue, theme, true)
+      options: chartOptions(this.datedValue, theme, !matchMedia("(prefers-reduced-motion: reduce)").matches)
     })
   }
 
