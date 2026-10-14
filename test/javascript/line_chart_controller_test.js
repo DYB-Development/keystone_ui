@@ -158,3 +158,11 @@ test("resizing a chart moves its lines without drawing them in again", async () 
 
   assert.equal(animations.x.duration({ type: "data", mode: "resize", index: 3, datasetIndex: 0, chart }), 0)
 })
+
+test("the chart takes its dark colours when the page is dark, or follows a dark operating system", async () => {
+  const { isDarkMode } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const pages = [["dark", false], ["light", true], ["custom", true], ["system", true], [undefined, true], [undefined, false]]
+
+  assert.deepEqual(pages.map(([theme, prefersDark]) => isDarkMode(theme, prefersDark)), [true, false, false, true, true, false])
+})

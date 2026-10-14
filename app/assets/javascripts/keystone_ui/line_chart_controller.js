@@ -55,6 +55,10 @@ export const chartOptions = (dated, theme = {}, animated = false) => ({
   plugins: { tooltip: { ...(dated ? DATED_TOOLTIP : {}), ...tooltip(theme) } }
 })
 
+const LIGHT_THEMES = ["light", "custom"]
+
+export const isDarkMode = (theme, prefersDark) => theme === "dark" || (prefersDark && !LIGHT_THEMES.includes(theme))
+
 const CHART_COLOR_COUNT = 5
 
 const INHERITED_FONTS = ["", "inherit"]
@@ -108,6 +112,7 @@ export default class extends Controller {
       return match ? read(match[1]) || color : color
     }
 
-    return { theme: themeColors(read, false, styles.fontFamily), resolve }
+    const dark = isDarkMode(document.documentElement.dataset.theme, matchMedia("(prefers-color-scheme: dark)").matches)
+    return { theme: themeColors(read, dark, styles.fontFamily), resolve }
   }
 }
