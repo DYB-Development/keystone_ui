@@ -73,3 +73,11 @@ test("a series keeps the colour its caller gives it", async () => {
 
   assert.equal(dataset.borderColor, "#94a3b8")
 })
+
+test("lines are thin and show no dot on each data point", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const { elements } = chartOptions(false)
+
+  assert.deepEqual([elements.line.borderWidth, elements.point.radius], [1.5, 0])
+})
