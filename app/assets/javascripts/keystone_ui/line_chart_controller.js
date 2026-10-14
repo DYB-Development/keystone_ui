@@ -84,6 +84,19 @@ export const styleDatasets = (datasets, theme, resolve) => {
   })
 }
 
+export const watchTheme = ({ document, matchMedia, MutationObserver }, onChange) => {
+  const observer = new MutationObserver(onChange)
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-look"] })
+  observer.observe(document.head, { childList: true, subtree: true, characterData: true })
+  const darkPreference = matchMedia("(prefers-color-scheme: dark)")
+  darkPreference.addEventListener("change", onChange)
+
+  return () => {
+    observer.disconnect()
+    darkPreference.removeEventListener("change", onChange)
+  }
+}
+
 export default class extends Controller {
   static targets = ["canvas"]
   static values = { data: Object, dated: Boolean }
@@ -93,15 +106,26 @@ export default class extends Controller {
     if (!this.element.isConnected) return
 
     const { theme, resolve } = this.readTheme()
+    this.animated = !matchMedia("(prefers-reduced-motion: reduce)").matches
     this.chart = new Chart(this.canvasTarget, {
       type: "line",
       data: { ...this.dataValue, datasets: styleDatasets(this.dataValue.datasets, theme, resolve) },
-      options: chartOptions(this.datedValue, theme, !matchMedia("(prefers-reduced-motion: reduce)").matches)
+      options: chartOptions(this.datedValue, theme, this.animated)
     })
+    this.stopWatchingTheme = watchTheme({ document, matchMedia: (query) => matchMedia(query), MutationObserver }, () => this.redraw())
   }
 
   disconnect() {
+    this.stopWatchingTheme?.()
     this.chart?.destroy()
+  }
+
+  redraw() {
+    const { theme, resolve } = this.readTheme()
+    const styled = styleDatasets(this.dataValue.datasets, theme, resolve)
+    this.chart.data.datasets.forEach((dataset, index) => Object.assign(dataset, styled[index]))
+    this.chart.options = chartOptions(this.datedValue, theme, this.animated)
+    this.chart.update("none")
   }
 
   readTheme() {

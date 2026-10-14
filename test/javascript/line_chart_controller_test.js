@@ -166,3 +166,32 @@ test("the chart takes its dark colours when the page is dark, or follows a dark 
 
   assert.deepEqual(pages.map(([theme, prefersDark]) => isDarkMode(theme, prefersDark)), [true, false, false, true, true, false])
 })
+
+function pageWatchingTheme() {
+  const watchers = new Map()
+  const watch = (target, callback) => watchers.set(target, [...(watchers.get(target) || []), callback])
+  const page = {
+    document: { documentElement: { name: "html" }, head: { name: "head" } },
+    darkPreference: { name: "dark preference", addEventListener: (_, callback) => watch(page.darkPreference, callback) },
+    matchMedia: () => page.darkPreference,
+    MutationObserver: class {
+      constructor(callback) { this.callback = callback }
+      observe(target) { watch(target, this.callback) }
+    },
+    change: (target) => (watchers.get(target) || []).forEach((callback) => callback())
+  }
+  return page
+}
+
+test("switching dark mode, the look or the palette redraws the chart", async () => {
+  const { watchTheme } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+  const page = pageWatchingTheme()
+  let redraws = 0
+  watchTheme(page, () => redraws++)
+
+  page.change(page.document.documentElement)
+  page.change(page.darkPreference)
+  page.change(page.document.head)
+
+  assert.equal(redraws, 3)
+})
