@@ -133,3 +133,13 @@ test("the tooltip uses the theme's surface, border and text colours", async () =
     "color of --ks-color-text"
   ])
 })
+
+test("when the chart first appears, each line draws in from left to right", async () => {
+  const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const { animations } = chartOptions(false, {}, true)
+  const chart = { data: { datasets: [{ data: [1, 2, 3, 4, 5, 6] }] } }
+  const delays = [0, 1, 2, 3, 4, 5].map((index) => animations.x.delay({ type: "data", index, datasetIndex: 0, chart }))
+
+  assert.deepEqual(delays, [0, 100, 200, 300, 400, 500])
+})

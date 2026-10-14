@@ -23,12 +23,32 @@ const tooltip = (theme) => ({
   bodyColor: theme.text
 })
 
+const DRAW_IN_MILLISECONDS = 600
+
+const pointStep = (context) => DRAW_IN_MILLISECONDS / context.chart.data.datasets[context.datasetIndex].data.length
+
+const drawIn = {
+  x: {
+    type: "number",
+    easing: "linear",
+    from: NaN,
+    duration: (context) => (context.type === "data" ? pointStep(context) : 0),
+    delay: (context) => {
+      if (context.type !== "data" || context.drawnIn) return 0
+      context.drawnIn = true
+      return context.index * pointStep(context)
+    }
+  },
+  y: { duration: 0 }
+}
+
 const axisText = (theme) => ({ color: theme.mutedText, font: { size: 11, family: theme.font } })
 
-export const chartOptions = (dated, theme = {}) => ({
+export const chartOptions = (dated, theme = {}, animated = false) => ({
   responsive: true,
   maintainAspectRatio: false,
   interaction: { mode: "index", intersect: false },
+  ...(animated ? { animations: drawIn } : {}),
   elements: { line: { borderWidth: 1.5 }, point: { radius: 0, hoverRadius: 4 } },
   scales: {
     x: { ...(dated ? DATED_AXIS : {}), grid: { display: false }, ticks: { ...(dated ? DATED_TICKS : {}), ...axisText(theme) } },
@@ -74,7 +94,7 @@ export default class extends Controller {
     this.chart = new Chart(this.canvasTarget, {
       type: "line",
       data: { ...this.dataValue, datasets: styleDatasets(this.dataValue.datasets, theme, resolve) },
-      options: chartOptions(this.datedValue, theme)
+      options: chartOptions(this.datedValue, theme, true)
     })
   }
 
