@@ -11,17 +11,19 @@ const MILLISECONDS_IN_A_DAY = 86_400_000
 export const dayLabel = (day) =>
   new Date(day * MILLISECONDS_IN_A_DAY).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" })
 
-const DATED_OPTIONS = {
-  scales: { x: { type: "linear", bounds: "data", ticks: { precision: 0, callback: dayLabel } } },
-  plugins: { tooltip: { callbacks: { title: ([point]) => dayLabel(point.parsed.x) } } }
-}
+const DATED_AXIS = { type: "linear", bounds: "data", ticks: { precision: 0, callback: dayLabel } }
+const DATED_PLUGINS = { tooltip: { callbacks: { title: ([point]) => dayLabel(point.parsed.x) } } }
 
-export const chartOptions = (dated) => ({
+export const chartOptions = (dated, theme = {}) => ({
   responsive: true,
   maintainAspectRatio: false,
   interaction: { mode: "index", intersect: false },
   elements: { line: { borderWidth: 1.5 }, point: { radius: 0, hoverRadius: 4 } },
-  ...(dated ? DATED_OPTIONS : {})
+  scales: {
+    x: { ...(dated ? DATED_AXIS : {}), grid: { display: false } },
+    y: { border: { display: false }, grid: { color: theme.border } }
+  },
+  ...(dated ? { plugins: DATED_PLUGINS } : {})
 })
 
 const CHART_COLOR_COUNT = 5
@@ -29,7 +31,8 @@ const CHART_COLOR_COUNT = 5
 export const themeColors = (read, dark) => {
   const variable = (name) => read(dark ? `${name}-dark` : name)
   return {
-    series: Array.from({ length: CHART_COLOR_COUNT }, (_, index) => variable(`--ks-color-chart-${index + 1}`))
+    series: Array.from({ length: CHART_COLOR_COUNT }, (_, index) => variable(`--ks-color-chart-${index + 1}`)),
+    border: variable("--ks-color-border")
   }
 }
 
@@ -49,10 +52,11 @@ export default class extends Controller {
     const Chart = await loadChart()
     if (!this.element.isConnected) return
 
+    const { theme, resolve } = this.readTheme()
     this.chart = new Chart(this.canvasTarget, {
       type: "line",
-      data: this.styledData(),
-      options: chartOptions(this.datedValue)
+      data: { ...this.dataValue, datasets: styleDatasets(this.dataValue.datasets, theme, resolve) },
+      options: chartOptions(this.datedValue, theme)
     })
   }
 
@@ -60,7 +64,7 @@ export default class extends Controller {
     this.chart?.destroy()
   }
 
-  styledData() {
+  readTheme() {
     const styles = getComputedStyle(this.element)
     const read = (name) => styles.getPropertyValue(name).trim()
     const resolve = (color) => {
@@ -68,6 +72,6 @@ export default class extends Controller {
       return match ? read(match[1]) || color : color
     }
 
-    return { ...this.dataValue, datasets: styleDatasets(this.dataValue.datasets, themeColors(read, false), resolve) }
+    return { theme: themeColors(read, false), resolve }
   }
 }

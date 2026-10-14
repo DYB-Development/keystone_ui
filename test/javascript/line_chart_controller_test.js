@@ -16,7 +16,7 @@ test("a day on a dated chart's axis reads as its date", async () => {
 test("a chart with labels keeps the charting script's own axis", async () => {
   const { chartOptions } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
 
-  assert.equal(chartOptions(false).scales, undefined)
+  assert.equal(chartOptions(false).scales.x.type, undefined)
 })
 
 test("a dated chart spaces its points by the days between them", async () => {
@@ -94,4 +94,12 @@ test("the dot on a data point under the cursor is filled in its line's colour", 
   const [dataset] = styleDatasets([{ borderColor: "#94a3b8" }], themeColors(readVariableName, false), (color) => color)
 
   assert.equal(dataset.pointHoverBackgroundColor, "#94a3b8")
+})
+
+test("the chart draws only horizontal grid lines, in the theme's border colour", async () => {
+  const { chartOptions, themeColors } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const { scales } = chartOptions(false, themeColors(readVariableName, false))
+
+  assert.deepEqual([scales.x.grid.display, scales.y.grid.color], [false, "color of --ks-color-border"])
 })
