@@ -103,3 +103,12 @@ test("the chart draws only horizontal grid lines, in the theme's border colour",
 
   assert.deepEqual([scales.x.grid.display, scales.y.grid.color], [false, "color of --ks-color-border"])
 })
+
+test("axis text is small, in the theme's muted text colour and the app's body font", async () => {
+  const { chartOptions, themeColors } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const { scales } = chartOptions(true, themeColors(readVariableName, false))
+  const axisText = { color: "color of --ks-color-text-muted", font: { size: 11, family: "color of --ks-font-body" } }
+
+  assert.deepEqual([scales.x.ticks, scales.y.ticks].map(({ color, font }) => ({ color, font })), [axisText, axisText])
+})

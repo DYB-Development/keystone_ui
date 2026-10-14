@@ -11,8 +11,11 @@ const MILLISECONDS_IN_A_DAY = 86_400_000
 export const dayLabel = (day) =>
   new Date(day * MILLISECONDS_IN_A_DAY).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" })
 
-const DATED_AXIS = { type: "linear", bounds: "data", ticks: { precision: 0, callback: dayLabel } }
+const DATED_AXIS = { type: "linear", bounds: "data" }
+const DATED_TICKS = { precision: 0, callback: dayLabel }
 const DATED_PLUGINS = { tooltip: { callbacks: { title: ([point]) => dayLabel(point.parsed.x) } } }
+
+const axisText = (theme) => ({ color: theme.mutedText, font: { size: 11, family: theme.font } })
 
 export const chartOptions = (dated, theme = {}) => ({
   responsive: true,
@@ -20,8 +23,8 @@ export const chartOptions = (dated, theme = {}) => ({
   interaction: { mode: "index", intersect: false },
   elements: { line: { borderWidth: 1.5 }, point: { radius: 0, hoverRadius: 4 } },
   scales: {
-    x: { ...(dated ? DATED_AXIS : {}), grid: { display: false } },
-    y: { border: { display: false }, grid: { color: theme.border } }
+    x: { ...(dated ? DATED_AXIS : {}), grid: { display: false }, ticks: { ...(dated ? DATED_TICKS : {}), ...axisText(theme) } },
+    y: { border: { display: false }, grid: { color: theme.border }, ticks: axisText(theme) }
   },
   ...(dated ? { plugins: DATED_PLUGINS } : {})
 })
@@ -32,7 +35,9 @@ export const themeColors = (read, dark) => {
   const variable = (name) => read(dark ? `${name}-dark` : name)
   return {
     series: Array.from({ length: CHART_COLOR_COUNT }, (_, index) => variable(`--ks-color-chart-${index + 1}`)),
-    border: variable("--ks-color-border")
+    border: variable("--ks-color-border"),
+    mutedText: variable("--ks-color-text-muted"),
+    font: read("--ks-font-body")
   }
 }
 
