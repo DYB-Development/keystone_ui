@@ -16,4 +16,11 @@ class Keystone::Ui::DataTableReportRenderTest < ViewComponent::TestCase
 
     assert_equal [ true, true ], [ page.css("thead th").last[:class].split.include?("text-left"), page.css("tbody td").last[:class].split.include?("text-left") ]
   end
+
+  def test_lists_rows_sharing_a_group_value_under_one_heading_row_named_by_it
+    items = [ { project: "Portal", task: "Export" }, { project: "Portal", task: "Login" }, { project: "Reporting", task: "Charts" } ]
+    page = render_inline(Keystone::Ui::DataTableComponent.new(items: items, columns: [ { task: "Task" } ], group_by: :project))
+
+    assert_equal %w[Portal Export Login Reporting Charts], page.css("tbody tr").map { |row| row.text.strip }
+  end
 end

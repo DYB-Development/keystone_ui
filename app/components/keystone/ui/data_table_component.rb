@@ -30,8 +30,9 @@ module Keystone
       SORT_DESC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 0 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg>'
       SORT_NEUTRAL_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908 2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z" clip-rule="evenodd" /></svg>'
 
-      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil)
+      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil)
         @items = items.to_a
+        @group_by = group_by
         @all_columns = columns.map { |col| normalize_column(col) }
         @default_hidden = hidden_columns
         @layout = SavedLayout.new(columns: @all_columns, value: nil, default_hidden: hidden_columns)
@@ -145,6 +146,19 @@ module Keystone
 
       def column_count
         visual_column_count
+      end
+
+      def group_starting_at(index)
+        return unless @group_by
+
+        name = resolve_value(@items[index], @group_by)
+        name if index.zero? || name != resolve_value(@items[index - 1], @group_by)
+      end
+
+      def group_cells(name)
+        @columns.map.with_index do |column, index|
+          { value: (name if index.zero?), classes: aligned(header_classes_for(index), column) }
+        end
       end
 
       private

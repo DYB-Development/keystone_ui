@@ -36,6 +36,14 @@
         <% end %>
       <% else %>
         <% @items.each_with_index do |item, idx| %>
+          <% if (group = group_starting_at(idx)) %>
+            <tr class="<%= Keystone::Ui::DataTableComponent::HEAD_CLASSES %>" data-table-group>
+              <% group_cells(group).each do |cell| %>
+                <th scope="colgroup" class="<%= cell[:classes] %>"><%= cell[:value] %></th>
+              <% end %>
+              <% if actions? %><th></th><% end %>
+            </tr>
+          <% end %>
           <tr>
             <% row_cells[idx].each do |cell| %>
               <td class="<%= cell[:classes] %>">
