@@ -66,6 +66,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_heading` — a heading at one of three sizes, with an optional short note on its right.
 - `ui_caption` — small uppercase muted text placed above a title or a figure.
 - `ui_paragraph` — a paragraph of running text.
+- `ui_value_list` — rows of a label and its value, such as a ledger or a byline.
 - `ui_alert` — a banner message, optionally dismissible.
 - `ui_progress` — a labelled progress bar.
 - `ui_stat_card` — a single metric tile with optional change, link and info button.
@@ -404,6 +405,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      and `note:` puts a short muted note at the right end of the heading's row.
    - `ui_caption(text:)` shows small uppercase muted text above a title or a figure.
    - `ui_paragraph(text:)` shows running text.
+   - `ui_value_list(rows:, align: :start)` — each row is `{ label:, value: }`
+     with optional `note:`, `total: true` and `fallback:`, shown when the value
+     is `nil` or empty. `align: :end` pushes values to the right, as in a ledger.
 
 10. Explain figures.
 

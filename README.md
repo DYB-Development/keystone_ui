@@ -878,6 +878,27 @@ Shows a paragraph of running text.
 <%= ui_paragraph(text: "Work from 1 to 30 September.") %>
 ```
 
+### `ui_value_list`
+
+Shows rows of a label and its value, such as a ledger, a byline beside a title, or a list of terms and what they mean.
+
+**Required props**
+
+- `rows:` (Array of Hashes) — each row is `{ label:, value: }`, with optional `note:` (a short note under the label), `total: true` (draws the row with more weight) and `fallback:` (shown when the value is `nil` or empty)
+
+**Optional props**
+
+- `align:` (`:start | :end`, default `:start`) — `:start` places each value beside its label, `:end` pushes it to the right end of its row
+
+```erb
+<%= ui_value_list(align: :end, rows: [
+  { label: "Rate", value: "$150.00", note: "per hour" },
+  { label: "Billable hours", value: "12.5" },
+  { label: "Reviews", value: nil, fallback: "N/A" },
+  { label: "Total billed", value: "$1,875.00", total: true }
+]) %>
+```
+
 ### `ui_stat_card`
 
 Renders a metric card for dashboards.

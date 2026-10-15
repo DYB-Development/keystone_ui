@@ -67,6 +67,7 @@ develop:
   - ui_heading
   - ui_caption
   - ui_paragraph
+  - ui_value_list
   - ui_breakdown
   - ui_theme_toggle
   - Keystone::Ui::Column
