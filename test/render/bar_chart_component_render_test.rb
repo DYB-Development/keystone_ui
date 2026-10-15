@@ -39,4 +39,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[0 2 4 6 8], page.css("text.ks-bar-chart-text[data-axis-tick]").map(&:text)
   end
+
+  def test_labels_a_value_axis_of_fractions_without_rounding_noise
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "0.7" } ]))
+
+    assert_equal %w[0 0.2 0.4 0.6 0.8], page.css("text.ks-bar-chart-text[data-axis-tick]").map(&:text)
+  end
 end

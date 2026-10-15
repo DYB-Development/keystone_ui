@@ -35,7 +35,7 @@ module Keystone
 
       def ticks
         (0..TICK_COUNT).map do |position|
-          value = step * position
+          value = (step * position).round(6)
           { y: TOP + plot_height - (value / axis_max * plot_height), label: (value % 1).zero? ? value.to_i.to_s : value.to_s }
         end
       end
@@ -57,13 +57,13 @@ module Keystone
       def step
         @step ||= begin
           raw = largest / TICK_COUNT
-          magnitude = 10**Math.log10(raw).floor
+          magnitude = 10.0**Math.log10(raw).floor
           ROUND_STEPS.map { |round| round * magnitude }.find { |candidate| candidate >= raw }
         end
       end
 
       def largest
-        [ bars.map { |bar| bar[:value].to_f }.max.to_f, 1.0 ].max
+        bars.map { |bar| bar[:value].to_f }.select(&:positive?).max || 1.0
       end
 
       def band
