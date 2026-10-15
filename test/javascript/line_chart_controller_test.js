@@ -208,3 +208,21 @@ test("a script setting theme variables on the page's root element redraws the ch
 
   assert.equal(redraws, 1)
 })
+
+function elementInside(...themesFromNearest) {
+  const ancestors = themesFromNearest.map((theme) => ({ dataset: theme ? { theme } : {} }))
+  return { closest: (selector) => (selector === "[data-theme]" ? ancestors.find((ancestor) => ancestor.dataset.theme) || null : null) }
+}
+
+test("the chart takes light or dark from the nearest element around it marked light or dark", async () => {
+  const { drawnDark } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+
+  const charts = [
+    [elementInside(undefined, "dark", "light"), false],
+    [elementInside("light", "dark"), true],
+    [elementInside(undefined, undefined), true],
+    [elementInside(undefined, undefined), false]
+  ]
+
+  assert.deepEqual(charts.map(([element, prefersDark]) => drawnDark(element, prefersDark)), [true, false, true, false])
+})
