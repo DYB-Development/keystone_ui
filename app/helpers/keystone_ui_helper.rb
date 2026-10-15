@@ -249,6 +249,10 @@ module KeystoneUiHelper
     render Keystone::Ui::ParagraphComponent.new(**args)
   end
 
+  def ui_value_list(**args)
+    render Keystone::Ui::ValueListComponent.new(**args)
+  end
+
   def ui_info(**args, &block)
     render(Keystone::Ui::InfoComponent.new(**args), &block)
   end

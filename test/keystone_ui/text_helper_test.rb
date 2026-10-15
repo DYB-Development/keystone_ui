@@ -38,4 +38,12 @@ class KeystoneUi::TextHelperTest < Minitest::Test
 
     assert_equal "Work from 1 to 30 September.", view.rendered.text
   end
+
+  def test_renders_a_value_list_with_its_rows
+    view = View.new
+
+    view.ui_value_list(rows: [ { label: "Rate", value: "$150.00" } ])
+
+    assert_equal [ { label: "Rate", value: "$150.00" } ], view.rendered.rows
+  end
 end
