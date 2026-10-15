@@ -420,7 +420,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 10. Explain figures.
 
-    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil)`
+    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil)`
       — `variant:` is `:neutral` `:success` `:danger` `:warning` `:info` and
       colours the value. `change:` is a signed number shown as `▲ 4.2%` in
       green, `▼` in red, or plain at zero. `href:` links the value only, so
