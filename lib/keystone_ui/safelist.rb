@@ -34,6 +34,7 @@ module Keystone
       Keystone::Ui::TextareaComponent,
       Keystone::Ui::FormFieldComponent,
       Keystone::Ui::PageHeaderComponent,
+      Keystone::Ui::ParagraphComponent,
       Keystone::Ui::AlertComponent,
       Keystone::Ui::NavDropdownComponent,
       Keystone::Ui::NavItemComponent,
