@@ -9,6 +9,8 @@ module Keystone
 
       PANEL_CLASSES = "ks-color-picker-panel absolute z-50 hidden"
 
+      TEXT_FIELD_CLASSES = "ks-input w-28 text-sm"
+
       attr_reader :name, :value, :label
 
       def initialize(name:, value: "#000000", label: nil)
