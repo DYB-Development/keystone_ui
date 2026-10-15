@@ -26,4 +26,8 @@ class Keystone::Ui::PrintedNavigationTest < Minitest::Test
   def test_the_mobile_actions_menu_is_left_off_a_printed_page
     assert_includes Keystone::Ui::MobileActionsComponent::WRAPPER_CLASSES.split, "print:hidden"
   end
+
+  def test_the_breadcrumbs_are_left_off_a_printed_page
+    assert_includes Keystone::Ui::BreadcrumbsComponent::CLASSES.split, "print:hidden"
+  end
 end
