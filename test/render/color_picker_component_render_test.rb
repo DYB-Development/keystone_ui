@@ -20,4 +20,11 @@ class Keystone::Ui::ColorPickerComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "input->color-picker#textChanged", page.at_css("input[type=text]")&.[]("data-action")
   end
+
+  def test_a_picker_given_hex_draws_it_on_the_swatch_and_submits_it_under_its_name
+    page = render_inline(Keystone::Ui::ColorPickerComponent.new(name: "accent", value: "#3b82f6"))
+
+    assert_equal [ "background-color: #3b82f6;", "#3b82f6" ],
+      [ page.at_css("button.ks-color-swatch")&.[]("style"), page.at_css("input[type=hidden][name=accent]")&.[]("value") ]
+  end
 end
