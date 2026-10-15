@@ -9,4 +9,10 @@ class Keystone::Ui::ValueListComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "Rate", "$150.00" ], [ "Billable hours", "12.5" ] ],
       page.css(".ks-value-list-row").map { |row| [ row.css(".ks-value-list-label").text.strip, row.css(".ks-value-list-value").text.strip ] }
   end
+
+  def test_given_a_note_shows_it_under_the_row_label
+    page = render_inline(Keystone::Ui::ValueListComponent.new(rows: [ { label: "Rate", value: "$150.00", note: "per hour" } ]))
+
+    assert_equal "per hour", page.css(".ks-value-list-label .ks-value-list-note").text.strip
+  end
 end

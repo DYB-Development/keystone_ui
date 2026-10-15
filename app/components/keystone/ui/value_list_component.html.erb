@@ -1,7 +1,10 @@
 <dl class="ks-value-list">
   <% rows.each do |row| %>
     <div class="ks-value-list-row">
-      <dt class="ks-value-list-label"><%= row[:label] %></dt>
+      <dt class="ks-value-list-label">
+        <%= row[:label] %>
+        <% if row[:note] %><span class="ks-value-list-note"><%= row[:note] %></span><% end %>
+      </dt>
       <dd class="ks-value-list-value"><%= row[:value] %></dd>
     </div>
   <% end %>
