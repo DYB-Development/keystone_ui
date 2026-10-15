@@ -333,13 +333,18 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 8. Build tables.
 
-   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil)`
+   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil)`
      takes a block yielding the table. `items:` are records or hashes, and a
      cell's value is the column key called on the item, or `item[key]`.
+     `group_by:` lists rows under heading rows named by that key's value,
+     `group_totals:` (`{ "Group name" => { column_key => value } }`) puts
+     subtotals in each heading row, and `total:` (`{ column_key => value }`)
+     ends the table with a total row. Pass every subtotal and total already
+     calculated. `align: :start` or `:end` on a `Column` aligns it left or right.
    - `columns:` takes `{ key: "Label" }` hashes when every column is plain.
      Switch the whole set to `Keystone::Ui::Column` objects once one column
      needs an option.
-   - `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false)`
+   - `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil)`
      — `mobile_hidden:` hides the column below `sm:`, `sortable:` gives it a
      sort header, and `hideable:` lets it be hidden and moved.
      `locked: true` on the first column keeps it in view while the rest scrolls

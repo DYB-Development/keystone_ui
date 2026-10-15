@@ -387,10 +387,13 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 - `sort_url:` (Lambda) — `(col, dir) → url` for generating sort links
 - `hidden_columns:` (Array) — column keys to hide (only affects `hideable` columns)
 - `key:` (Symbol/String) — names the table so its saved layout can be found through `config.preference_supplier`
+- `group_by:` (Symbol/String) — lists the rows under heading rows named by this key's value, one heading for each run of rows that share it
+- `group_totals:` (Hash) — subtotals for each group, keyed by the group's name, each a hash of column key to value shown under that column in the group's heading row
+- `total:` (Hash) — column key to value for a total row at the end of the table
 
 **Column options**
 
-`Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false)`
+`Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil)`
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -398,6 +401,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 | `sortable:` | `false` | render header as clickable sort link |
 | `hideable:` | `false` | allow hiding via `hidden_columns:` / column picker |
 | `locked:` | `false` | on the first column, keep it in view while the rest of the table scrolls sideways; a locked column cannot be hidden or moved |
+| `align:` | `nil` | `:start` aligns the heading and cells left, `:end` aligns them right; `nil` keeps the table's own alignment, which puts the last column right |
 
 **Mobile-hidden columns**
 
