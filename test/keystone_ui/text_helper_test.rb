@@ -22,4 +22,12 @@ class KeystoneUi::TextHelperTest < Minitest::Test
 
     assert_equal [ "Work", "12.5 billable hours" ], [ view.rendered.text, view.rendered.note ]
   end
+
+  def test_renders_a_caption_with_its_text
+    view = View.new
+
+    view.ui_caption(text: "Work report")
+
+    assert_equal "Work report", view.rendered.text
+  end
 end
