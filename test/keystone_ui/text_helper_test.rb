@@ -30,4 +30,12 @@ class KeystoneUi::TextHelperTest < Minitest::Test
 
     assert_equal "Work report", view.rendered.text
   end
+
+  def test_renders_a_paragraph_with_its_text
+    view = View.new
+
+    view.ui_paragraph(text: "Work from 1 to 30 September.")
+
+    assert_equal "Work from 1 to 30 September.", view.rendered.text
+  end
 end
