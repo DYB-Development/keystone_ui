@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.44.0] - 2026-10-15
+
 ### Added
 - `ui_value_list(rows:, align: :start)` shows rows of a label and its value, each with an optional note under the label, an optional total marking and optional fallback text shown when the value is missing, and `align: :end` pushes each value to the right end of its row.
 
