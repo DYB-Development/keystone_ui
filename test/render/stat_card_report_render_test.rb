@@ -14,4 +14,10 @@ class Keystone::Ui::StatCardReportRenderTest < ViewComponent::TestCase
 
     assert_equal [ true, false ], [ page.css(".ks-metric-plain").any?, page.css(".ks-metric-card").any? ]
   end
+
+  def test_shows_its_fallback_muted_when_its_value_is_missing
+    page = render_inline(Keystone::Ui::StatCardComponent.new(label: "Reviews", value: "", fallback: "N/A"))
+
+    assert_equal "N/A", page.css(".ks-stat-card-value .ks-stat-card-fallback").text.strip
+  end
 end

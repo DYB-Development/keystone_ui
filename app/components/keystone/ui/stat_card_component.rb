@@ -15,6 +15,7 @@ module Keystone
       VALUE_LINK_CLASSES = "hover:underline focus:outline-none focus-visible:underline"
       INFO_BUTTON_CLASSES = "ks-stat-card-info peer shrink-0 transition"
       NOTE_CLASSES = "ks-stat-card-note text-sm"
+      FALLBACK_CLASSES = "ks-stat-card-fallback"
 
       INFO_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -30,8 +31,9 @@ module Keystone
 
       attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href, :note
 
-      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false)
+      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil)
         @label = label
+        @fallback = fallback
         @note = note
         @plain = plain
         @value = value
@@ -41,6 +43,14 @@ module Keystone
         @calculation = calculation
         @change = change
         @href = href
+      end
+
+      def missing?
+        @value.to_s.empty? && !@fallback.nil?
+      end
+
+      def fallback
+        @fallback
       end
 
       def classes
