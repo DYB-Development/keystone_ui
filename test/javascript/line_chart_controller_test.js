@@ -176,9 +176,11 @@ function pageWatchingTheme() {
     matchMedia: () => page.darkPreference,
     MutationObserver: class {
       constructor(callback) { this.callback = callback }
-      observe(target) { watch(target, this.callback) }
+      observe(target, { attributeFilter } = {}) {
+        watch(target, (attribute) => (!attribute || !attributeFilter || attributeFilter.includes(attribute)) && this.callback())
+      }
     },
-    change: (target) => (watchers.get(target) || []).forEach((callback) => callback())
+    change: (target, attribute) => (watchers.get(target) || []).forEach((callback) => callback(attribute))
   }
   return page
 }
@@ -194,4 +196,15 @@ test("switching dark mode, the look or the palette redraws the chart", async () 
   page.change(page.document.head)
 
   assert.equal(redraws, 3)
+})
+
+test("a script setting theme variables on the page's root element redraws the chart", async () => {
+  const { watchTheme } = await import("../../app/assets/javascripts/keystone_ui/line_chart_controller.js")
+  const page = pageWatchingTheme()
+  let redraws = 0
+  watchTheme(page, () => redraws++)
+
+  page.change(page.document.documentElement, "style")
+
+  assert.equal(redraws, 1)
 })

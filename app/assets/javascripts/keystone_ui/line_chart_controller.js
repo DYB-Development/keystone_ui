@@ -86,7 +86,7 @@ export const styleDatasets = (datasets, theme, resolve) => {
 
 export const watchTheme = ({ document, matchMedia, MutationObserver }, onChange) => {
   const observer = new MutationObserver(onChange)
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-look"] })
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-look", "style"] })
   observer.observe(document.head, { childList: true, subtree: true, characterData: true })
   const darkPreference = matchMedia("(prefers-color-scheme: dark)")
   darkPreference.addEventListener("change", onChange)
