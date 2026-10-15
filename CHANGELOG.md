@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_bar_chart(bars:, show_values: false)` draws a bar chart on the server as an SVG, with a value axis in round steps and a grid line at each, each bar's label under it, a faded bar for one marked `shaded: true`, and each bar's value on it when `show_values: true`.
+
+### Changed
+- keystone_ui requires keystone_ui-styles 0.22.0 or later, which defines the bar chart classes.
+
 ## [0.45.0] - 2026-10-15
 
 ### Added

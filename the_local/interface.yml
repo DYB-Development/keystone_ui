@@ -11,6 +11,7 @@ develop:
   - ui_stat_card
   - ui_chart_card
   - ui_line_chart
+  - ui_bar_chart
   - ui_cta_banner
   - ui_feature_grid
   - ui_hero

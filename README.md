@@ -903,6 +903,25 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
 ]) %>
 ```
 
+### `ui_bar_chart`
+
+Draws a bar chart on the server as an SVG, so it shows with no JavaScript and prints as it shows on screen. The value axis is labelled in round steps reaching just past the largest value, with a grid line at each step.
+
+**Required props**
+
+- `bars:` (Array of Hashes) — each bar is `{ label:, value: }`, with optional `shaded: true` to draw it faded, such as a weekend day
+
+**Optional props**
+
+- `show_values:` (Boolean, default `false`) — write each bar's value on it
+
+```erb
+<%= ui_bar_chart(show_values: true, bars: [
+  { label: "Fri", value: "2.5" },
+  { label: "Sat", value: "0.5", shaded: true }
+]) %>
+```
+
 ### `ui_stat_card`
 
 Renders a metric card for dashboards.
