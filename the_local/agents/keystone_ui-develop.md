@@ -198,6 +198,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 5. Wire navigation in the layout.
 
+   Every navigation component is left off a printed page, so a printed page or
+   a PDF holds only the page's content.
+
    - `ui_navigation` takes no keywords and a block holding the page content, so
      it goes around `yield`. It draws the tabs the app declares with
      `config.navigation_group` as a top bar of menus from `lg:` up, then the
