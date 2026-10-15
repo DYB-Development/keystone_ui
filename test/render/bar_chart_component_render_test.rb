@@ -45,4 +45,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[0 0.2 0.4 0.6 0.8], page.css("text.ks-bar-chart-text[data-axis-tick]").map(&:text)
   end
+
+  def test_draws_a_grid_line_at_each_step_of_its_value_axis
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "7.5" } ]))
+
+    assert_equal 5, page.css("line.ks-bar-chart-grid").size
+  end
 end
