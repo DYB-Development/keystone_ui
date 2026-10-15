@@ -1,0 +1,34 @@
+import { test } from "node:test"
+import assert from "node:assert/strict"
+import ColorPickerController from "../../app/assets/javascripts/keystone_ui/color_picker_controller.js"
+
+function pickerWith(value) {
+  const changes = []
+  const parts = {
+    swatch: { style: { backgroundColor: value } },
+    text: { value },
+    input: { value, dispatchEvent: (event) => changes.push(event.type) },
+    hueSlider: { value: "0" },
+    svGradient: { style: {} },
+    svCursor: { style: {} }
+  }
+  const controller = new ColorPickerController({ scope: { element: {} } })
+  Object.entries(parts).forEach(([ name, target ]) => {
+    Object.defineProperty(controller, `${name}Target`, { value: target })
+    Object.defineProperty(controller, `has${name[0].toUpperCase()}${name.slice(1)}Target`, { value: true })
+  })
+  Object.defineProperty(controller, "valueValue", { value })
+  controller.connect()
+  return { controller, changes, ...parts }
+}
+
+test("choosing a hue in the panel shows its six-digit hex in the text field", () => {
+  const { controller, hueSlider, text } = pickerWith("#000000")
+  controller.val = 1
+  controller.sat = 1
+  hueSlider.value = "120"
+
+  controller.hueChanged()
+
+  assert.equal(text.value, "#00ff00")
+})

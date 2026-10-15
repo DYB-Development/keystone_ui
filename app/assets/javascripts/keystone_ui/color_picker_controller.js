@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["swatch", "hexLabel", "input", "panel", "svArea", "svGradient", "svCursor", "hueSlider"]
+  static targets = ["swatch", "text", "input", "panel", "svArea", "svGradient", "svCursor", "hueSlider"]
   static values = { value: String }
 
   connect() {
@@ -92,7 +92,7 @@ export default class extends Controller {
   updateColor() {
     const hex = this.hsvToHex(this.hue, this.sat, this.val)
     this.swatchTarget.style.backgroundColor = hex
-    this.hexLabelTarget.textContent = hex
+    this.textTarget.value = hex
     this.inputTarget.value = hex
 
     this.inputTarget.dispatchEvent(new Event("change", { bubbles: true }))
