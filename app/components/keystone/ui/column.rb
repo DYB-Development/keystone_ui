@@ -3,10 +3,11 @@
 module Keystone
   module Ui
     class Column
-      attr_reader :key, :header_text
+      attr_reader :key, :header_text, :align
 
-      def initialize(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false)
+      def initialize(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil)
         @key = key
+        @align = align
         @header_text = header_text
         @mobile_hidden = mobile_hidden
         @sortable = sortable
