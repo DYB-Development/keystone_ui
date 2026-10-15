@@ -10,6 +10,8 @@ module Keystone
       TOP = 18
       BOTTOM = 24
       BAR_SHARE = 0.7
+      TICK_COUNT = 4
+      ROUND_STEPS = [ 1, 2, 2.5, 5, 10 ].freeze
 
       attr_reader :bars
 
@@ -31,6 +33,17 @@ module Keystone
         end
       end
 
+      def ticks
+        (0..TICK_COUNT).map do |position|
+          value = step * position
+          { y: TOP + plot_height - (value / axis_max * plot_height), label: (value % 1).zero? ? value.to_i.to_s : value.to_s }
+        end
+      end
+
+      def axis_x
+        LEFT - 6
+      end
+
       def label_baseline
         HEIGHT - 6
       end
@@ -38,7 +51,19 @@ module Keystone
       private
 
       def axis_max
-        [ bars.map { |bar| bar[:value].to_f }.max.to_f, 1 ].max
+        step * (largest / step).ceil
+      end
+
+      def step
+        @step ||= begin
+          raw = largest / TICK_COUNT
+          magnitude = 10**Math.log10(raw).floor
+          ROUND_STEPS.map { |round| round * magnitude }.find { |candidate| candidate >= raw }
+        end
+      end
+
+      def largest
+        [ bars.map { |bar| bar[:value].to_f }.max.to_f, 1.0 ].max
       end
 
       def band

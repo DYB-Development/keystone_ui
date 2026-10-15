@@ -33,4 +33,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[2.5 4], page.css("text.ks-bar-chart-value").map(&:text)
   end
+
+  def test_labels_its_value_axis_in_round_steps_reaching_just_past_the_largest_value
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "7.5" }, { label: "Tue", value: "3" } ]))
+
+    assert_equal %w[0 2 4 6 8], page.css("text.ks-bar-chart-text[data-axis-tick]").map(&:text)
+  end
 end

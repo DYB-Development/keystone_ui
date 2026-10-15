@@ -1,4 +1,7 @@
 <svg class="ks-bar-chart" viewBox="0 0 <%= Keystone::Ui::BarChartComponent::WIDTH %> <%= Keystone::Ui::BarChartComponent::HEIGHT %>" role="img">
+  <% ticks.each do |tick| %>
+    <text class="ks-bar-chart-text" data-axis-tick x="<%= axis_x %>" y="<%= (tick[:y] + 4).round(2) %>" text-anchor="end"><%= tick[:label] %></text>
+  <% end %>
   <% drawn_bars.each do |bar| %>
     <rect class="<%= bar[:classes] %>" x="<%= bar[:x].round(2) %>" y="<%= bar[:y].round(2) %>" width="<%= bar[:width].round(2) %>" height="<%= bar[:height].round(2) %>"></rect>
     <% if show_values? %>
