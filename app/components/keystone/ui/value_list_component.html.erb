@@ -1,6 +1,6 @@
 <dl class="ks-value-list">
   <% rows.each do |row| %>
-    <div class="ks-value-list-row">
+    <div class="<%= row_classes(row) %>">
       <dt class="ks-value-list-label">
         <%= row[:label] %>
         <% if row[:note] %><span class="ks-value-list-note"><%= row[:note] %></span><% end %>

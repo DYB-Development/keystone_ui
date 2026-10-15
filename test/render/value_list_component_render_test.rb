@@ -15,4 +15,10 @@ class Keystone::Ui::ValueListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "per hour", page.css(".ks-value-list-label .ks-value-list-note").text.strip
   end
+
+  def test_draws_a_row_marked_as_the_total_as_a_total_row
+    page = render_inline(Keystone::Ui::ValueListComponent.new(rows: [ { label: "Rate", value: "$150.00" }, { label: "Total billed", value: "$1,875.00", total: true } ]))
+
+    assert_equal [ "Total billed" ], page.css(".ks-value-list-row.ks-value-list-total .ks-value-list-label").map { |label| label.text.strip }
+  end
 end
