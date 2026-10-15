@@ -31,4 +31,12 @@ class Keystone::Ui::DataTableReportRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Portal", "3.5" ], page.css("tbody tr[data-table-group] th").map { |cell| cell.text.strip }
   end
+
+  def test_ends_with_a_total_row_showing_the_values_given_under_their_columns
+    items = [ { task: "Export", hours: "2.0" }, { task: "Login", hours: "1.5" } ]
+    page = render_inline(Keystone::Ui::DataTableComponent.new(items: items, columns: [ { task: "Task" }, { hours: "Hours" } ],
+      total: { task: "Total", hours: "3.5" }))
+
+    assert_equal [ "Total", "3.5" ], page.css("tfoot tr th").map { |cell| cell.text.strip }
+  end
 end

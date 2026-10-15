@@ -68,5 +68,15 @@
         <% end %>
       <% end %>
     </tbody>
+    <% if total_cells.any? %>
+      <tfoot class="<%= Keystone::Ui::DataTableComponent::HEAD_CLASSES %>">
+        <tr>
+          <% total_cells.each do |cell| %>
+            <th scope="row" class="<%= cell[:classes] %>"><%= cell[:value] %></th>
+          <% end %>
+          <% if actions? %><th></th><% end %>
+        </tr>
+      </tfoot>
+    <% end %>
   </table>
 </div>
