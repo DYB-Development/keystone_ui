@@ -21,4 +21,10 @@ class Keystone::Ui::ValueListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Total billed" ], page.css(".ks-value-list-row.ks-value-list-total .ks-value-list-label").map { |label| label.text.strip }
   end
+
+  def test_shows_a_rows_fallback_when_its_value_is_missing
+    page = render_inline(Keystone::Ui::ValueListComponent.new(rows: [ { label: "Reviews", value: nil, fallback: "N/A" }, { label: "Deploys", value: "", fallback: "N/A" } ]))
+
+    assert_equal [ "N/A", "N/A" ], page.css(".ks-value-list-value").map { |value| value.text.strip }
+  end
 end

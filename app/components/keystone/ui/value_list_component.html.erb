@@ -5,7 +5,7 @@
         <%= row[:label] %>
         <% if row[:note] %><span class="ks-value-list-note"><%= row[:note] %></span><% end %>
       </dt>
-      <dd class="ks-value-list-value"><%= row[:value] %></dd>
+      <dd class="ks-value-list-value"><%= shown_value(row) %></dd>
     </div>
   <% end %>
 </dl>
