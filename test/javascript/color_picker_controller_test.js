@@ -43,3 +43,17 @@ test("choosing a hue in the panel submits its six-digit hex", () => {
 
   assert.equal(input.value, "#0000ff")
 })
+
+function browserReads(...colours) {
+  globalThis.CSS = { supports: (property, value) => property === "color" && colours.includes(value) }
+}
+
+test("typing a colour the browser reads draws it in the swatch", () => {
+  browserReads("oklch(0.62 0.19 259)")
+  const { controller, text, swatch } = pickerWith("#000000")
+  text.value = "oklch(0.62 0.19 259)"
+
+  controller.textChanged()
+
+  assert.equal(swatch.style.backgroundColor, "oklch(0.62 0.19 259)")
+})

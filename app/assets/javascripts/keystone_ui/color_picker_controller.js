@@ -55,6 +55,10 @@ export default class extends Controller {
     this.updateColor()
   }
 
+  textChanged() {
+    this.swatchTarget.style.backgroundColor = this.textTarget.value
+  }
+
   svDown(event) {
     event.preventDefault()
     this.dragging = true
