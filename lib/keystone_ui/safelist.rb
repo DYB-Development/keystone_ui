@@ -32,6 +32,7 @@ module Keystone
       Keystone::Ui::CardLinkComponent,
       Keystone::Ui::InputComponent,
       Keystone::Ui::TextareaComponent,
+      Keystone::Ui::ValueListComponent,
       Keystone::Ui::FormFieldComponent,
       Keystone::Ui::PageHeaderComponent,
       Keystone::Ui::ParagraphComponent,
