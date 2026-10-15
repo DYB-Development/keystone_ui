@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class HeadingComponent < ViewComponent::Base
-      SIZE_CLASSES = { md: "ks-heading-md" }.freeze
+      SIZE_CLASSES = { sm: "ks-heading-sm", md: "ks-heading-md", lg: "ks-heading-lg" }.freeze
 
       attr_reader :text
 
