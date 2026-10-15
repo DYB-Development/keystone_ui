@@ -61,6 +61,7 @@ export default class extends Controller {
 
     this.swatchTarget.style.backgroundColor = colour
     this.inputTarget.value = colour
+    this.inputTarget.dispatchEvent(new Event("change", { bubbles: true }))
   }
 
   svDown(event) {
