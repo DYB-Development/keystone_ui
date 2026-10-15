@@ -1,0 +1,11 @@
+<dl class="<%= classes %>">
+  <% rows.each do |row| %>
+    <div class="<%= row_classes(row) %>">
+      <dt class="ks-value-list-label">
+        <%= row[:label] %>
+        <% if row[:note] %><span class="ks-value-list-note"><%= row[:note] %></span><% end %>
+      </dt>
+      <dd class="ks-value-list-value"><%= shown_value(row) %></dd>
+    </div>
+  <% end %>
+</dl>
