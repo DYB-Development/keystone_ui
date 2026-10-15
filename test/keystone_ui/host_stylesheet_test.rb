@@ -16,7 +16,7 @@ class KeystoneUi::HostStylesheetTest < Minitest::Test
   def test_dark_classes_in_host_html_follow_keystones_explicit_dark_choice
     css = compile_host_stylesheet(%(<div class="dark:bg-red-500"></div>))
 
-    assert_match(/\.dark\\:bg-red-500:where\(\[data-theme="dark"\]/, css)
+    assert_match(/\.dark\\:bg-red-500:where\(:is\(\[data-theme="dark"\]/, css)
   end
 
   def test_a_dark_theme_choice_marks_the_page_with_the_attribute_keystones_dark_styles_select_on

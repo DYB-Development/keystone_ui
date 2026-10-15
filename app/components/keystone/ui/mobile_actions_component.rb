@@ -9,7 +9,7 @@ module Keystone
         </svg>
       SVG
 
-      WRAPPER_CLASSES = "relative lg:hidden"
+      WRAPPER_CLASSES = "relative lg:hidden print:hidden"
       BUTTON_CLASSES = "ks-action-menu-button"
       DROPDOWN_CLASSES = "ks-action-menu hidden absolute right-0 z-50 w-48 origin-top-right"
 

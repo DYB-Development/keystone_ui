@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- `ui_navbar`, `ui_navigation`'s top bar and sidebar, `ui_bottom_nav`, `ui_mobile_header`, `ui_mobile_actions`, `ui_breadcrumbs` and the desktop back link are left off a printed page, so a page prints with its content only.
+
 ## [0.47.0] - 2026-10-15
 
 ### Changed

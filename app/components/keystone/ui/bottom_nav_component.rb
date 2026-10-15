@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class BottomNavComponent < ViewComponent::Base
-      NAV_CLASSES = "ks-bottom-nav lg:hidden hotwire-native:hidden"
+      NAV_CLASSES = "ks-bottom-nav lg:hidden hotwire-native:hidden print:hidden"
 
       def nav_classes
         NAV_CLASSES
