@@ -21,6 +21,7 @@ module Keystone
       Keystone::Ui::ModalComponent,
       Keystone::Ui::SelectComponent,
       Keystone::Ui::BadgeComponent,
+      Keystone::Ui::BarChartComponent,
       Keystone::Ui::CopyButtonComponent,
       Keystone::Ui::CardComponent,
       Keystone::Ui::ButtonComponent,
