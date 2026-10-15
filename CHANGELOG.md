@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.45.0] - 2026-10-15
+
 ### Added
 - `Keystone::Ui::Column` takes `align: :start` or `align: :end` to align a column's heading and cells left or right, and a column given no alignment keeps the table's own.
 - `ui_data_table` takes `group_by:` to list rows under heading rows named by a value in each row, and `group_totals:` to show each group's subtotals under their columns in its heading row.
