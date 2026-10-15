@@ -9,4 +9,11 @@ class Keystone::Ui::DataTableReportRenderTest < ViewComponent::TestCase
 
     assert_equal [ true, true ], [ page.css("thead th").first[:class].split.include?("text-right"), page.css("tbody td").first[:class].split.include?("text-right") ]
   end
+
+  def test_aligns_the_last_column_left_when_it_is_given_start_alignment
+    columns = [ Keystone::Ui::Column.new(:task, "Task"), Keystone::Ui::Column.new(:notes, "Notes", align: :start) ]
+    page = render_inline(Keystone::Ui::DataTableComponent.new(items: [ { task: "Export", notes: "Done" } ], columns: columns))
+
+    assert_equal [ true, true ], [ page.css("thead th").last[:class].split.include?("text-left"), page.css("tbody td").last[:class].split.include?("text-left") ]
+  end
 end

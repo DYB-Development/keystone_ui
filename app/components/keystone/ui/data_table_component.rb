@@ -16,7 +16,7 @@ module Keystone
       ROW_CLASSES_MIDDLE = "ks-table-cell-middle text-sm whitespace-nowrap"
       ROW_CLASSES_LAST = "ks-table-cell-last text-right text-sm whitespace-nowrap"
 
-      ALIGN_CLASSES = { end: "text-right" }.freeze
+      ALIGN_CLASSES = { start: "text-left", end: "text-right" }.freeze
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
       HEADER_LOCKED_CLASSES = "ks-table-header-locked sticky left-0"
       CELL_LOCKED_CLASSES = "ks-table-cell-locked sticky left-0"
