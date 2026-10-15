@@ -20,8 +20,13 @@ module Keystone
       def drawn_bars
         bars.each_with_index.map do |bar, index|
           height = bar[:value].to_f / axis_max * plot_height
-          { x: LEFT + (index * band) + (band * (1 - BAR_SHARE) / 2), y: TOP + plot_height - height, width: band * BAR_SHARE, height: height }
+          { x: LEFT + (index * band) + (band * (1 - BAR_SHARE) / 2), y: TOP + plot_height - height, width: band * BAR_SHARE, height: height,
+            center: LEFT + (index * band) + (band / 2), label: bar[:label] }
         end
+      end
+
+      def label_baseline
+        HEIGHT - 6
       end
 
       private

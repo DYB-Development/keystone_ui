@@ -15,4 +15,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_in_delta 0.5, heights.first / heights.last, 0.001
   end
+
+  def test_writes_each_bars_label_under_it
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: 2 }, { label: "Tue", value: 4 } ]))
+
+    assert_equal %w[Mon Tue], page.css("text.ks-bar-chart-text[data-bar-label]").map(&:text)
+  end
 end
