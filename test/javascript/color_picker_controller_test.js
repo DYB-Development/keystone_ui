@@ -87,3 +87,9 @@ test("typing a colour the browser reads announces a change on the submitted fiel
 
   assert.deepEqual(changes, [ "change" ])
 })
+
+test("a picker opened on a colour that is not six-digit hex leaves the hue panel at its start", () => {
+  const { hueSlider } = pickerWith("oklch(0.62 0.19 259)")
+
+  assert.equal(hueSlider.value, "0")
+})

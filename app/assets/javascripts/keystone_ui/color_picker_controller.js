@@ -10,7 +10,7 @@ export default class extends Controller {
     this.val = 1
     this.dragging = false
 
-    if (this.valueValue) {
+    if (this.isSixDigitHex(this.valueValue)) {
       this.setFromHex(this.valueValue)
     }
 
@@ -125,6 +125,10 @@ export default class extends Controller {
       this.svCursorTarget.style.left = `${(s * 100)}%`
       this.svCursorTarget.style.top = `${((1 - v) * 100)}%`
     }
+  }
+
+  isSixDigitHex(colour) {
+    return /^#[0-9a-f]{6}$/i.test(colour)
   }
 
   hsvToHex(h, s, v) {
