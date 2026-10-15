@@ -67,3 +67,13 @@ test("typing a colour the browser reads submits it exactly as typed", () => {
 
   assert.equal(input.value, "hsl(210 40% 50%)")
 })
+
+test("typing a colour the browser cannot read leaves the swatch and the submitted value as they were", () => {
+  browserReads()
+  const { controller, text, swatch, input } = pickerWith("#3b82f6")
+  text.value = "red; background: url(x)"
+
+  controller.textChanged()
+
+  assert.deepEqual([ swatch.style.backgroundColor, input.value ], [ "#3b82f6", "#3b82f6" ])
+})
