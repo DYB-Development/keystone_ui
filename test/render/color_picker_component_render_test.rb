@@ -8,4 +8,10 @@ class Keystone::Ui::ColorPickerComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "oklch(0.62 0.19 259)", page.at_css("input[type=text].ks-input")&.[]("value")
   end
+
+  def test_a_picker_shows_its_value_only_in_the_text_field
+    page = render_inline(Keystone::Ui::ColorPickerComponent.new(name: "accent", value: "#3b82f6"))
+
+    refute_includes page.text, "#3b82f6"
+  end
 end
