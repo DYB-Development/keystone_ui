@@ -5,10 +5,11 @@ module Keystone
     class HeadingComponent < ViewComponent::Base
       SIZE_CLASSES = { sm: "ks-heading-sm", md: "ks-heading-md", lg: "ks-heading-lg" }.freeze
 
-      attr_reader :text
+      attr_reader :text, :note
 
-      def initialize(text:, size: :md)
+      def initialize(text:, size: :md, note: nil)
         @text = text
+        @note = note
         @size = size
       end
 
