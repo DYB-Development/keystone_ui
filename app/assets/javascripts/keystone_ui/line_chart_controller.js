@@ -59,6 +59,8 @@ const LIGHT_THEMES = ["light", "custom"]
 
 export const isDarkMode = (theme, prefersDark) => theme === "dark" || (prefersDark && !LIGHT_THEMES.includes(theme))
 
+export const drawnDark = (element, prefersDark) => isDarkMode(element.closest("[data-theme]")?.dataset.theme, prefersDark)
+
 const CHART_COLOR_COUNT = 5
 
 const INHERITED_FONTS = ["", "inherit"]
@@ -86,7 +88,7 @@ export const styleDatasets = (datasets, theme, resolve) => {
 
 export const watchTheme = ({ document, matchMedia, MutationObserver }, onChange) => {
   const observer = new MutationObserver(onChange)
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-look"] })
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-look", "style"] })
   observer.observe(document.head, { childList: true, subtree: true, characterData: true })
   const darkPreference = matchMedia("(prefers-color-scheme: dark)")
   darkPreference.addEventListener("change", onChange)
@@ -136,7 +138,7 @@ export default class extends Controller {
       return match ? read(match[1]) || color : color
     }
 
-    const dark = isDarkMode(document.documentElement.dataset.theme, matchMedia("(prefers-color-scheme: dark)").matches)
+    const dark = drawnDark(this.element, matchMedia("(prefers-color-scheme: dark)").matches)
     return { theme: themeColors(read, dark, styles.fontFamily), resolve }
   }
 }

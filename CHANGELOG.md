@@ -11,6 +11,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - keystone_ui requires keystone_ui-styles 0.22.0 or later, which defines the bar chart classes.
+- `ui_line_chart` redraws in the new colours when a script sets theme variables on the page's root element.
+- `ui_line_chart` draws in the light or dark of the nearest element around it with a `data-theme` attribute, so a chart inside a dark panel on a light page draws dark.
 
 ## [0.45.0] - 2026-10-15
 
