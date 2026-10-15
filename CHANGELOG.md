@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.46.0] - 2026-10-15
+
 ### Added
 - `ui_bar_chart(bars:, show_values: false)` draws a bar chart on the server as an SVG, with a value axis in round steps and a grid line at each, each bar's label under it, a faded bar for one marked `shaded: true`, and each bar's value on it when `show_values: true`.
 
