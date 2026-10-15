@@ -15,7 +15,7 @@ module Keystone
         </svg>
       SVG
 
-      WRAPPER_CLASSES = "lg:hidden"
+      WRAPPER_CLASSES = "lg:hidden print:hidden"
       BACK_LINK_CLASSES = "ks-mobile-header-back"
       TITLE_CLASSES = "ks-mobile-header-title absolute left-1/2 -translate-x-1/2 lg:hidden truncate max-w-[60%]"
       SUBTITLE_CLASSES = "ks-mobile-header-subtitle block text-xs truncate text-center"

@@ -18,4 +18,8 @@ class Keystone::Ui::PrintedNavigationTest < Minitest::Test
   def test_the_navigation_sidebar_is_left_off_a_printed_page
     assert_includes Keystone::Ui::NavigationComponent::SIDEBAR_CLASSES.split, "print:hidden"
   end
+
+  def test_the_mobile_header_is_left_off_a_printed_page
+    assert_includes Keystone::Ui::MobileHeaderComponent::WRAPPER_CLASSES.split, "print:hidden"
+  end
 end
