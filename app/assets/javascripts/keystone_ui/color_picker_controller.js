@@ -57,6 +57,7 @@ export default class extends Controller {
 
   textChanged() {
     this.swatchTarget.style.backgroundColor = this.textTarget.value
+    this.inputTarget.value = this.textTarget.value
   }
 
   svDown(event) {

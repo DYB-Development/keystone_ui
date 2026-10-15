@@ -57,3 +57,13 @@ test("typing a colour the browser reads draws it in the swatch", () => {
 
   assert.equal(swatch.style.backgroundColor, "oklch(0.62 0.19 259)")
 })
+
+test("typing a colour the browser reads submits it exactly as typed", () => {
+  browserReads("hsl(210 40% 50%)")
+  const { controller, text, input } = pickerWith("#000000")
+  text.value = "hsl(210 40% 50%)"
+
+  controller.textChanged()
+
+  assert.equal(input.value, "hsl(210 40% 50%)")
+})
