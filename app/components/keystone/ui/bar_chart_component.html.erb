@@ -1,0 +1,13 @@
+<svg class="ks-bar-chart" viewBox="0 0 <%= Keystone::Ui::BarChartComponent::WIDTH %> <%= Keystone::Ui::BarChartComponent::HEIGHT %>" role="img">
+  <% ticks.each do |tick| %>
+    <line class="ks-bar-chart-grid" x1="<%= Keystone::Ui::BarChartComponent::LEFT %>" x2="<%= Keystone::Ui::BarChartComponent::WIDTH - Keystone::Ui::BarChartComponent::RIGHT %>" y1="<%= tick[:y].round(2) %>" y2="<%= tick[:y].round(2) %>"></line>
+    <text class="ks-bar-chart-text" data-axis-tick x="<%= axis_x %>" y="<%= (tick[:y] + 4).round(2) %>" text-anchor="end"><%= tick[:label] %></text>
+  <% end %>
+  <% drawn_bars.each do |bar| %>
+    <rect class="<%= bar[:classes] %>" x="<%= bar[:x].round(2) %>" y="<%= bar[:y].round(2) %>" width="<%= bar[:width].round(2) %>" height="<%= bar[:height].round(2) %>"></rect>
+    <% if show_values? %>
+      <text class="ks-bar-chart-value" x="<%= bar[:center].round(2) %>" y="<%= (bar[:y] - 4).round(2) %>" text-anchor="middle"><%= bar[:value] %></text>
+    <% end %>
+    <text class="ks-bar-chart-text" data-bar-label x="<%= bar[:center].round(2) %>" y="<%= label_baseline %>" text-anchor="middle"><%= bar[:label] %></text>
+  <% end %>
+</svg>
