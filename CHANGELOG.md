@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.42.0] - 2026-10-15
+
 ### Added
 - `ui_heading(text:, size: :md, note: nil)` shows a heading small, medium or large, with an optional short note at the right end of its row.
 - `ui_caption(text:)` shows small, uppercase, muted text for placing above a title or a figure.
