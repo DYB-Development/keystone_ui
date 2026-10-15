@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["swatch", "hexLabel", "input", "panel", "svArea", "svGradient", "svCursor", "hueSlider"]
+  static targets = ["swatch", "text", "input", "panel", "svArea", "svGradient", "svCursor", "hueSlider"]
   static values = { value: String }
 
   connect() {
@@ -10,7 +10,7 @@ export default class extends Controller {
     this.val = 1
     this.dragging = false
 
-    if (this.valueValue) {
+    if (this.isSixDigitHex(this.valueValue)) {
       this.setFromHex(this.valueValue)
     }
 
@@ -55,6 +55,16 @@ export default class extends Controller {
     this.updateColor()
   }
 
+  textChanged() {
+    const colour = this.textTarget.value
+    if (!CSS.supports("color", colour)) return
+
+    if (this.isSixDigitHex(colour)) this.setFromHex(colour)
+    this.swatchTarget.style.backgroundColor = colour
+    this.inputTarget.value = colour
+    this.inputTarget.dispatchEvent(new Event("change", { bubbles: true }))
+  }
+
   svDown(event) {
     event.preventDefault()
     this.dragging = true
@@ -92,7 +102,7 @@ export default class extends Controller {
   updateColor() {
     const hex = this.hsvToHex(this.hue, this.sat, this.val)
     this.swatchTarget.style.backgroundColor = hex
-    this.hexLabelTarget.textContent = hex
+    this.textTarget.value = hex
     this.inputTarget.value = hex
 
     this.inputTarget.dispatchEvent(new Event("change", { bubbles: true }))
@@ -116,6 +126,10 @@ export default class extends Controller {
       this.svCursorTarget.style.left = `${(s * 100)}%`
       this.svCursorTarget.style.top = `${((1 - v) * 100)}%`
     }
+  }
+
+  isSixDigitHex(colour) {
+    return /^#[0-9a-f]{6}$/i.test(colour)
   }
 
   hsvToHex(h, s, v) {

@@ -72,4 +72,8 @@ class Keystone::Ui::ColorPickerComponentTest < Minitest::Test
   def test_label_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::ColorPickerComponent::LABEL_CLASSES
   end
+
+  def test_text_field_classes_render_the_shared_input_class
+    assert_includes Keystone::Ui::ColorPickerComponent::TEXT_FIELD_CLASSES, "ks-input"
+  end
 end

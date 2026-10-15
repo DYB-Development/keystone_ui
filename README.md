@@ -1100,7 +1100,9 @@ Renders a call-to-action banner with title, subtitle, and action buttons.
 
 ### `ui_color_picker`
 
-Renders an HSV color picker with swatch preview. Uses Stimulus `color-picker` controller.
+Renders an HSV color picker with swatch preview and a text field holding its value. Uses Stimulus `color-picker` controller.
+
+A colour typed in the text field as hex, `rgb()`, `hsl()` or `oklch()` is drawn in the swatch and submitted exactly as typed. A typed value the browser cannot read as a colour is not drawn or submitted. A colour chosen in the hue panel is submitted as six-digit hex.
 
 **Required props**
 
@@ -1108,7 +1110,7 @@ Renders an HSV color picker with swatch preview. Uses Stimulus `color-picker` co
 
 **Optional props**
 
-- `value:` (String, default `"#000000"`) — initial hex color
+- `value:` (String, default `"#000000"`) — initial colour, as hex, `rgb()`, `hsl()` or `oklch()`
 - `label:` (String)
 
 ```erb
