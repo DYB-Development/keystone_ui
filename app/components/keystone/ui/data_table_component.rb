@@ -16,6 +16,7 @@ module Keystone
       ROW_CLASSES_MIDDLE = "ks-table-cell-middle text-sm whitespace-nowrap"
       ROW_CLASSES_LAST = "ks-table-cell-last text-right text-sm whitespace-nowrap"
 
+      ALIGN_CLASSES = { end: "text-right" }.freeze
       MOBILE_HIDDEN_CLASSES = "hidden sm:table-cell"
       HEADER_LOCKED_CLASSES = "ks-table-header-locked sticky left-0"
       CELL_LOCKED_CLASSES = "ks-table-cell-locked sticky left-0"
@@ -83,7 +84,7 @@ module Keystone
 
           cell = {
             label: column.header_text,
-            classes: tokens.join(" "),
+            classes: aligned(tokens.join(" "), column),
             scope: "col"
           }
 
@@ -127,7 +128,7 @@ module Keystone
 
             cell = {
               value: resolve_value(item, column.key),
-              classes: tokens.join(" ")
+              classes: aligned(tokens.join(" "), column)
             }
 
             link_block = @link_blocks[column.key]
@@ -168,6 +169,12 @@ module Keystone
           key, label = col.first
           Column.new(key, label)
         end
+      end
+
+      def aligned(classes, column)
+        return classes unless column.align
+
+        [ *classes.split.grep_v(/\Atext-(left|right)\z/), ALIGN_CLASSES.fetch(column.align) ].join(" ")
       end
 
       def resolve_value(item, key)
