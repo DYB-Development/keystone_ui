@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class NavbarComponent < ViewComponent::Base
-      NAV_BASE = "top-nav"
+      NAV_BASE = "top-nav print:hidden"
       NAV_STICKY = "sticky top-0 z-40"
       MOBILE_LEFT_CLASSES = "lg:hidden flex items-center"
       LOGO_CLASSES = "logo"
