@@ -32,3 +32,14 @@ test("choosing a hue in the panel shows its six-digit hex in the text field", ()
 
   assert.equal(text.value, "#00ff00")
 })
+
+test("choosing a hue in the panel submits its six-digit hex", () => {
+  const { controller, hueSlider, input } = pickerWith("#000000")
+  controller.val = 1
+  controller.sat = 1
+  hueSlider.value = "240"
+
+  controller.hueChanged()
+
+  assert.equal(input.value, "#0000ff")
+})
