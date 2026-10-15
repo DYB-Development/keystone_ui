@@ -6,6 +6,7 @@ module Keystone
       EMPHASIS_CLASSES = "ks-stat-card-emphasis"
       HEADER_CLASSES = "ks-stat-card-header flex items-start justify-between"
       CARD_CLASSES = "ks-metric-card relative"
+      PLAIN_CLASSES = "ks-metric-plain relative"
       LABEL_CLASSES = "ks-stat-card-label text-sm"
       VALUE_BASE_CLASSES = "ks-stat-card-value text-3xl"
       SUFFIX_CLASSES = "ks-stat-card-suffix text-lg"
@@ -29,9 +30,10 @@ module Keystone
 
       attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href, :note
 
-      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil)
+      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false)
         @label = label
         @note = note
+        @plain = plain
         @value = value
         @variant = variant
         @suffix = suffix
@@ -42,7 +44,7 @@ module Keystone
       end
 
       def classes
-        CARD_CLASSES
+        @plain ? PLAIN_CLASSES : CARD_CLASSES
       end
 
       def label_classes
