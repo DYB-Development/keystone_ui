@@ -3,10 +3,17 @@
 module Keystone
   module Ui
     class ValueListComponent < ViewComponent::Base
+      ALIGN_CLASSES = { start: nil, end: "ks-value-list-end" }.freeze
+
       attr_reader :rows
 
-      def initialize(rows:)
+      def initialize(rows:, align: :start)
         @rows = rows
+        @align = align
+      end
+
+      def classes
+        [ "ks-value-list", ALIGN_CLASSES.fetch(@align) ].compact.join(" ")
       end
 
       def row_classes(row)
