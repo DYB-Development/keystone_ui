@@ -13,15 +13,20 @@ module Keystone
 
       attr_reader :bars
 
-      def initialize(bars:)
+      def initialize(bars:, show_values: false)
         @bars = bars
+        @show_values = show_values
+      end
+
+      def show_values?
+        @show_values
       end
 
       def drawn_bars
         bars.each_with_index.map do |bar, index|
           height = bar[:value].to_f / axis_max * plot_height
           { x: LEFT + (index * band) + (band * (1 - BAR_SHARE) / 2), y: TOP + plot_height - height, width: band * BAR_SHARE, height: height,
-            center: LEFT + (index * band) + (band / 2), label: bar[:label],
+            center: LEFT + (index * band) + (band / 2), label: bar[:label], value: bar[:value],
             classes: [ "ks-bar-chart-bar", ("ks-bar-chart-bar-shaded" if bar[:shaded]) ].compact.join(" ") }
         end
       end

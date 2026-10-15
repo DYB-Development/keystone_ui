@@ -27,4 +27,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ false, true ], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.include?("ks-bar-chart-bar-shaded") }
   end
+
+  def test_writes_each_bars_value_on_it_when_asked_to_show_values
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "2.5" }, { label: "Tue", value: "4" } ], show_values: true))
+
+    assert_equal %w[2.5 4], page.css("text.ks-bar-chart-value").map(&:text)
+  end
 end
