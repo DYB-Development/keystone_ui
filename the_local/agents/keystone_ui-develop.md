@@ -63,6 +63,9 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_button` — a link or a button styled as a button.
 - `ui_badge` — a coloured pill holding a short label.
 - `ui_figure` — one amount as inline text, coloured as a gain or a loss.
+- `ui_heading` — a heading at one of three sizes, with an optional short note on its right.
+- `ui_caption` — small uppercase muted text placed above a title or a figure.
+- `ui_paragraph` — a paragraph of running text.
 - `ui_alert` — a banner message, optionally dismissible.
 - `ui_progress` — a labelled progress bar.
 - `ui_stat_card` — a single metric tile with optional change, link and info button.
@@ -397,6 +400,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_disclosure(open: false)` takes a block yielding the component. Fill
      its `summary` slot with the header, and the rest of the block is the body.
    - `ui_accordion(items: [])` — `items:` is `[{ question:, answer: }, ...]`.
+   - `ui_heading(text:, size: :md, note: nil)` — `size:` is `:sm` `:md` `:lg`,
+     and `note:` puts a short muted note at the right end of the heading's row.
+   - `ui_caption(text:)` shows small uppercase muted text above a title or a figure.
+   - `ui_paragraph(text:)` shows running text.
 
 10. Explain figures.
 

@@ -64,6 +64,9 @@ develop:
   - ui_calculation
   - ui_info
   - ui_figure
+  - ui_heading
+  - ui_caption
+  - ui_paragraph
   - ui_breakdown
   - ui_theme_toggle
   - Keystone::Ui::Column
