@@ -1,6 +1,6 @@
 <svg class="ks-bar-chart" viewBox="0 0 <%= Keystone::Ui::BarChartComponent::WIDTH %> <%= Keystone::Ui::BarChartComponent::HEIGHT %>" role="img">
   <% drawn_bars.each do |bar| %>
-    <rect class="ks-bar-chart-bar" x="<%= bar[:x].round(2) %>" y="<%= bar[:y].round(2) %>" width="<%= bar[:width].round(2) %>" height="<%= bar[:height].round(2) %>"></rect>
+    <rect class="<%= bar[:classes] %>" x="<%= bar[:x].round(2) %>" y="<%= bar[:y].round(2) %>" width="<%= bar[:width].round(2) %>" height="<%= bar[:height].round(2) %>"></rect>
     <text class="ks-bar-chart-text" data-bar-label x="<%= bar[:center].round(2) %>" y="<%= label_baseline %>" text-anchor="middle"><%= bar[:label] %></text>
   <% end %>
 </svg>

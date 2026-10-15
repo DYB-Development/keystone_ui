@@ -21,4 +21,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[Mon Tue], page.css("text.ks-bar-chart-text[data-bar-label]").map(&:text)
   end
+
+  def test_draws_a_bar_marked_as_shaded_shaded
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Fri", value: 2 }, { label: "Sat", value: 1, shaded: true } ]))
+
+    assert_equal [ false, true ], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.include?("ks-bar-chart-bar-shaded") }
+  end
 end
