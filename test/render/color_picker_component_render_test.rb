@@ -14,4 +14,10 @@ class Keystone::Ui::ColorPickerComponentRenderTest < ViewComponent::TestCase
 
     refute_includes page.text, "#3b82f6"
   end
+
+  def test_typing_in_the_text_field_hands_the_colour_to_the_picker
+    page = render_inline(Keystone::Ui::ColorPickerComponent.new(name: "accent"))
+
+    assert_equal "input->color-picker#textChanged", page.at_css("input[type=text]")&.[]("data-action")
+  end
 end

@@ -10,7 +10,7 @@
       data-color-picker-target="swatch"
       data-action="color-picker#toggle">
     </button>
-    <input type="text" class="<%= TEXT_FIELD_CLASSES %>" value="<%= value %>" data-color-picker-target="text">
+    <input type="text" class="<%= TEXT_FIELD_CLASSES %>" value="<%= value %>" data-color-picker-target="text" data-action="input->color-picker#textChanged">
   </div>
 
   <input type="hidden" name="<%= name %>" value="<%= value %>" data-color-picker-target="input">
