@@ -59,6 +59,7 @@ export default class extends Controller {
     const colour = this.textTarget.value
     if (!CSS.supports("color", colour)) return
 
+    if (this.isSixDigitHex(colour)) this.setFromHex(colour)
     this.swatchTarget.style.backgroundColor = colour
     this.inputTarget.value = colour
     this.inputTarget.dispatchEvent(new Event("change", { bubbles: true }))

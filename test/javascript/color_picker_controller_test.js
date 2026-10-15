@@ -93,3 +93,13 @@ test("a picker opened on a colour that is not six-digit hex leaves the hue panel
 
   assert.equal(hueSlider.value, "0")
 })
+
+test("typing a six-digit hex colour moves the hue panel to it", () => {
+  browserReads("#00ff00")
+  const { controller, text, hueSlider } = pickerWith("#000000")
+  text.value = "#00ff00"
+
+  controller.textChanged()
+
+  assert.equal(hueSlider.value, 120)
+})
