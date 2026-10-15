@@ -23,4 +23,12 @@ class Keystone::Ui::DataTableReportRenderTest < ViewComponent::TestCase
 
     assert_equal %w[Portal Export Login Reporting Charts], page.css("tbody tr").map { |row| row.text.strip }
   end
+
+  def test_shows_a_groups_subtotals_under_their_columns_in_its_heading_row
+    items = [ { project: "Portal", task: "Export", hours: "2.0" }, { project: "Portal", task: "Login", hours: "1.5" } ]
+    page = render_inline(Keystone::Ui::DataTableComponent.new(items: items, columns: [ { task: "Task" }, { hours: "Hours" } ],
+      group_by: :project, group_totals: { "Portal" => { hours: "3.5" } }))
+
+    assert_equal [ "Portal", "3.5" ], page.css("tbody tr[data-table-group] th").map { |cell| cell.text.strip }
+  end
 end
