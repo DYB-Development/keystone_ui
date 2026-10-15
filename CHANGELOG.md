@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.43.0] - 2026-10-15
+
 ### Changed
 - `ui_color_picker` shows its value in a text field in place of the hex label, and a colour typed there as hex, `rgb()`, `hsl()` or `oklch()` is drawn in the swatch and submitted exactly as typed.
 - `ui_color_picker` ignores a typed colour the browser cannot read, so the swatch and the submitted value keep the last colour it could.
