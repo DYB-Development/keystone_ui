@@ -836,6 +836,48 @@ Shows a figure, such as an amount, in plain text or in the success or danger col
 <%= ui_figure(text: "-$300.00", tone: :danger) %>
 ```
 
+### `ui_heading`
+
+Shows a heading at one of three sizes, with an optional short note at the right end of its row.
+
+**Required props**
+
+- `text:` (String)
+
+**Optional props**
+
+- `size:` (`:sm | :md | :lg`, default `:md`)
+- `note:` (String) — a short note in muted text at the right end of the heading's row
+
+```erb
+<%= ui_heading(text: "Work", note: "12.5 billable hours") %>
+<%= ui_heading(text: "Monthly report", size: :lg) %>
+```
+
+### `ui_caption`
+
+Shows small, uppercase, muted text for placing above a title or a figure.
+
+**Required props**
+
+- `text:` (String)
+
+```erb
+<%= ui_caption(text: "Work report") %>
+```
+
+### `ui_paragraph`
+
+Shows a paragraph of running text.
+
+**Required props**
+
+- `text:` (String)
+
+```erb
+<%= ui_paragraph(text: "Work from 1 to 30 September.") %>
+```
+
 ### `ui_stat_card`
 
 Renders a metric card for dashboards.

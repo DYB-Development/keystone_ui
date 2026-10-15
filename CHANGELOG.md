@@ -4,8 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_heading(text:, size: :md, note: nil)` shows a heading small, medium or large, with an optional short note at the right end of its row.
+- `ui_caption(text:)` shows small, uppercase, muted text for placing above a title or a figure.
+- `ui_paragraph(text:)` shows a paragraph of running text.
+
 ### Changed
 - keystone_ui requires keystone_ui-styles 0.17.0 or later, which defines the theme's five chart colours and their dark-mode versions.
+- keystone_ui requires keystone_ui-styles 0.19.0 or later, which defines the heading, caption and paragraph classes.
 - `ui_line_chart` draws a series with no colour of its own in the next of the theme's five chart colours, in order, and keeps a colour its caller gives it.
 - `ui_line_chart` draws thin lines with no dot on each data point, and shows a dot in the line's colour on a data point only while the cursor is over it.
 - `ui_line_chart` draws only horizontal grid lines, in the theme's border colour.
