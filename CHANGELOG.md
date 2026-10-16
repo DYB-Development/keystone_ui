@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.50.0] - 2026-10-16
+
 ### Fixed
 - `ui_bar_chart` keeps its labels at the page's small text size and grows no taller than it is in an 800px-wide column, so a chart on a wide page spreads its bars across the width instead of growing tall with large text.
 - `ui_bar_chart` labels no step above the top of its value axis.
