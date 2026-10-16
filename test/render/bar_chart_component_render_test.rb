@@ -57,4 +57,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ 7, 0 ], [ page.css("svg text").size, page.css("svg[viewBox] text").size ]
   end
+
+  def test_labels_no_step_above_the_top_of_its_value_axis
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ]))
+
+    assert_equal %w[0 2 4 6], page.css("text.ks-bar-chart-text[data-axis-tick]").map(&:text)
+  end
 end

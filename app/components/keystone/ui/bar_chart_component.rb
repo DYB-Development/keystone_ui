@@ -35,7 +35,7 @@ module Keystone
       end
 
       def ticks
-        (0..TICK_COUNT).map do |position|
+        (0..(axis_max / step).round).map do |position|
           value = (step * position).round(6)
           { y: FULL - (value / axis_max * FULL), label: (value % 1).zero? ? value.to_i.to_s : value.to_s }
         end
