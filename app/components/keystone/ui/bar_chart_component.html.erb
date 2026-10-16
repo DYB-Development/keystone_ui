@@ -23,9 +23,12 @@
       <% end %>
     </div>
   </div>
-  <svg class="<%= Keystone::Ui::BarChartComponent::LABEL_ROW_CLASSES %>">
-    <% drawn_bars.each do |bar| %>
-      <text class="ks-bar-chart-text" data-bar-label x="<%= bar[:center].round(2) %>%" y="100%" dy="-6" text-anchor="middle"><%= bar[:label] %></text>
-    <% end %>
-  </svg>
+  <div class="<%= Keystone::Ui::BarChartComponent::LABEL_ROW_CLASSES %>">
+    <span class="<%= Keystone::Ui::BarChartComponent::LABEL_SPACER_CLASSES %>"></span>
+    <svg class="<%= Keystone::Ui::BarChartComponent::LABELS_CLASSES %>">
+      <% drawn_bars.each do |bar| %>
+        <text class="ks-bar-chart-text" data-bar-label x="<%= bar[:center].round(2) %>%" y="100%" dy="-6" text-anchor="middle"><%= bar[:label] %></text>
+      <% end %>
+    </svg>
+  </div>
 </div>

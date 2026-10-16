@@ -3,13 +3,16 @@
 module Keystone
   module Ui
     class BarChartComponent < ViewComponent::Base
-      FRAME_CLASSES = "ks-bar-chart flex aspect-[5/2] max-h-80 w-full flex-col pr-2"
-      PLOT_ROW_CLASSES = "flex min-h-0 flex-1 pt-[18px]"
+      FRAME_CLASSES = "ks-bar-chart flex aspect-[5/2] max-h-80 w-full flex-col"
+      PLOT_ROW_CLASSES = "flex min-h-0 flex-1"
       AXIS_CLASSES = "h-full w-10 shrink-0 overflow-visible"
       PLOT_CLASSES = "relative min-w-0 flex-1"
       LAYER_CLASSES = "absolute inset-0 h-full w-full overflow-visible"
-      LABEL_ROW_CLASSES = "ml-10 h-6 shrink-0 overflow-visible"
+      LABEL_ROW_CLASSES = "flex h-6 shrink-0"
+      LABEL_SPACER_CLASSES = "w-10 shrink-0"
+      LABELS_CLASSES = "h-full min-w-0 flex-1 overflow-visible"
       FULL = 100.0
+      HEADROOM = 8.0
       BAR_SHARE = 0.7
       TICK_COUNT = 4
       ROUND_STEPS = [ 1, 2, 2.5, 5, 10 ].freeze
@@ -27,7 +30,7 @@ module Keystone
 
       def drawn_bars
         bars.each_with_index.map do |bar, index|
-          height = bar[:value].to_f / axis_max * FULL
+          height = bar[:value].to_f / axis_max * (FULL - HEADROOM)
           { x: (index * band) + (band * (1 - BAR_SHARE) / 2), y: FULL - height, width: band * BAR_SHARE, height: height,
             center: (index * band) + (band / 2), label: bar[:label], value: bar[:value],
             classes: [ "ks-bar-chart-bar", ("ks-bar-chart-bar-shaded" if bar[:shaded]) ].compact.join(" ") }
@@ -37,7 +40,7 @@ module Keystone
       def ticks
         (0..(axis_max / step).round).map do |position|
           value = (step * position).round(6)
-          { y: FULL - (value / axis_max * FULL), label: (value % 1).zero? ? value.to_i.to_s : value.to_s }
+          { y: FULL - (value / axis_max * (FULL - HEADROOM)), label: (value % 1).zero? ? value.to_i.to_s : value.to_s }
         end
       end
 
