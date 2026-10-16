@@ -51,4 +51,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 5, page.css("line.ks-bar-chart-grid").size
   end
+
+  def test_draws_its_text_outside_any_drawing_that_scales_with_the_charts_width
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "2" } ], show_values: true))
+
+    assert_equal [ 7, 0 ], [ page.css("svg text").size, page.css("svg[viewBox] text").size ]
+  end
 end
