@@ -939,6 +939,9 @@ Renders a metric card for dashboards.
 - `calculation:` (String) — how the metric is computed
 - `change:` (Number) — percent change against the previous period, shown as ▲/▼
 - `href:` (String) — turns the value into a link to that URL; the card itself stays unlinked
+- `note:` (String) — a short note shown under the value
+- `plain:` (Boolean, default `false`) — draws a plain figure with no card border or background, for a row of figures
+- `fallback:` (String) — shown in a muted colour when the value is missing, such as `"N/A"`
 
 When `definition:` or `calculation:` is given, an info button appears. Hovering or focusing it shows the details in a panel floating below the card, and tapping it toggles the panel on touch screens. The card never changes size.
 

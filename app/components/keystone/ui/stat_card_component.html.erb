@@ -12,7 +12,8 @@
     <% end %>
   </div>
   <p class="<%= value_classes %>">
-    <% if link? %><a href="<%= href %>" class="<%= value_link_classes %>"><%= value %></a><% else %><%= value %><% end %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %>
+    <% if missing? %><span class="<%= Keystone::Ui::StatCardComponent::FALLBACK_CLASSES %>"><%= fallback %></span><% elsif link? %><a href="<%= href %>" class="<%= value_link_classes %>"><%= value %></a><% else %><%= value %><% end %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %>
   </p>
+  <% if note %><p class="<%= Keystone::Ui::StatCardComponent::NOTE_CLASSES %>"><%= note %></p><% end %>
   <p class="<%= change_row_classes %>"><%= change_label %></p>
 </div>
