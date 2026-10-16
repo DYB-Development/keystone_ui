@@ -69,4 +69,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[aspect-[5/2] max-h-80], page.css(".ks-bar-chart").first[:class].split & %w[aspect-[5/2] max-h-80]
   end
+
+  def test_stretches_its_bars_across_whatever_width_it_is_drawn_at
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ]))
+
+    assert_equal "none", page.css("svg:has(rect.ks-bar-chart-bar)").first[:preserveAspectRatio]
+  end
 end
