@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.49.0] - 2026-10-15
+
 ### Added
 - `ui_stat_card` takes `note:` to show a short note under its value, `plain: true` to draw a plain figure with no card border or background, and `fallback:` to show muted text such as "N/A" when its value is missing, and a stat card given none of them looks as it did.
 
