@@ -63,4 +63,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[0 2 4 6], page.css("text.ks-bar-chart-text[data-axis-tick]").map(&:text)
   end
+
+  def test_keeps_the_height_it_has_in_an_800px_wide_column_however_wide_it_is_drawn
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ]))
+
+    assert_equal %w[aspect-[5/2] max-h-80], page.css(".ks-bar-chart").first[:class].split & %w[aspect-[5/2] max-h-80]
+  end
 end
