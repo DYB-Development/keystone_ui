@@ -905,7 +905,7 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
 
 ### `ui_bar_chart`
 
-Draws a bar chart on the server as an SVG, so it shows with no JavaScript and prints as it shows on screen. The value axis is labelled in round steps reaching just past the largest value, with a grid line at each step.
+Draws a bar chart on the server as an SVG, so it shows with no JavaScript and prints as it shows on screen. The value axis is labelled in round steps reaching just past the largest value, with a grid line at each step. The bars stretch to fill the chart's width, the chart grows no taller than it is in an 800px-wide column, and its labels stay at the page's small text size at any width.
 
 **Required props**
 

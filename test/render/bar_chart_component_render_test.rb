@@ -51,4 +51,28 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 5, page.css("line.ks-bar-chart-grid").size
   end
+
+  def test_draws_its_text_outside_any_drawing_that_scales_with_the_charts_width
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "2" } ], show_values: true))
+
+    assert_equal [ 7, 0 ], [ page.css("svg text").size, page.css("svg[viewBox] text").size ]
+  end
+
+  def test_labels_no_step_above_the_top_of_its_value_axis
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ]))
+
+    assert_equal %w[0 2 4 6], page.css("text.ks-bar-chart-text[data-axis-tick]").map(&:text)
+  end
+
+  def test_keeps_the_height_it_has_in_an_800px_wide_column_however_wide_it_is_drawn
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ]))
+
+    assert_equal %w[aspect-[5/2] max-h-80], page.css(".ks-bar-chart").first[:class].split & %w[aspect-[5/2] max-h-80]
+  end
+
+  def test_stretches_its_bars_across_whatever_width_it_is_drawn_at
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ]))
+
+    assert_equal "none", page.css("svg:has(rect.ks-bar-chart-bar)").first[:preserveAspectRatio]
+  end
 end
