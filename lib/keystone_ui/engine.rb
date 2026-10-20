@@ -7,7 +7,7 @@ require "keystone_ui/navigation_check"
 
 module KeystoneUi
   class Engine < ::Rails::Engine
-    config.autoload_paths << root.join("app/components")
+    config.autoload_paths << root.join("app/components").to_s
 
     # Pin JavaScript controllers for importmap-based host apps.
     initializer "keystone_ui.importmap", before: "importmap" do |app|
