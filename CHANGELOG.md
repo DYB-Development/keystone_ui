@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.50.1] - 2026-10-20
+
+### Fixed
+- An app using keystone_ui boots with view_component 4.17, which failed with `undefined method 'gsub' for an instance of Pathname` because the engine added its components folder to the autoload paths as a path object instead of text.
+
 ## [0.50.0] - 2026-10-16
 
 ### Fixed

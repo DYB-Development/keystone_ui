@@ -18,6 +18,10 @@ class KeystoneUi::EngineBootTest < Minitest::Test
     end
   end
 
+  def test_adds_its_components_folder_to_the_hosts_autoload_paths_as_text
+    assert_equal [ KeystoneUi::Engine.root.join("app/components").to_s ], KeystoneUi::Engine.config.autoload_paths
+  end
+
   def test_checking_the_hosts_looks_stops_boot_on_a_default_look_that_is_not_registered
     KeystoneUi.configure { |config| config.default_look = :missing }
 
