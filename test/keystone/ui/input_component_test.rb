@@ -19,6 +19,12 @@ class Keystone::Ui::InputComponentTest < Minitest::Test
     refute options.key?(:disabled)
   end
 
+  def test_formats_a_time_value_for_a_datetime_input
+    component = Keystone::Ui::InputComponent.new(name: "started_at", type: :datetime, value: Time.new(2026, 10, 21, 9, 5, 30))
+
+    assert_equal "2026-10-21T09:05", component.tag_options[:value]
+  end
+
   def test_includes_number_attributes_when_type_is_number
     component = Keystone::Ui::InputComponent.new(name: "qty", type: :number, value: 1, min: 0, max: 100, step: 1)
     options = component.tag_options
