@@ -12,7 +12,8 @@ module Keystone
         number: "number",
         email: "email",
         password: "password",
-        date: "date"
+        date: "date",
+        datetime: "datetime-local"
       }.freeze
 
       def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil)

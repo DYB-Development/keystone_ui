@@ -89,6 +89,13 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
     assert_equal "date", options[:type]
   end
 
+  def test_maps_datetime_type_to_datetime_local_input
+    component = Keystone::Ui::FormFieldComponent.new(attribute: "event[started_at]", type: :datetime)
+    options = component.input_options
+
+    assert_equal "datetime-local", options[:type]
+  end
+
   def test_includes_step_in_input_options_when_provided
     component = Keystone::Ui::FormFieldComponent.new(attribute: :price, type: :number, step: 0.01)
     options = component.input_options
