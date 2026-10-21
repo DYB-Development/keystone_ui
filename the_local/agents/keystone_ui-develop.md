@@ -268,7 +268,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      expects. Set `multipart: true` when the form holds a file upload.
    - `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [])`
      is the default way to render a field. `type:` is `:text` `:number`
-     `:email` `:password` `:date` `:textarea` `:checkbox` `:select`.
+     `:email` `:password` `:date` `:datetime` `:textarea` `:checkbox` `:select`.
+   - A `:datetime` field is a `datetime-local` input for a date and a time of
+     day. A `Time` or `DateTime` given as `value:` is written as
+     `YYYY-MM-DDTHH:MM`, and a string is used as given.
    - `attribute:` is used as the input's `name` as given, so pass the full
      param name, such as `"quote[title]"`, and pass `label:` whenever it is a
      nested name. `label:` defaults to the attribute with underscores turned to
@@ -282,14 +285,14 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      and `"1"` checked, and is checked when `value:` is `"1"`.
    - `suggestions:` is an array of strings the browser offers while typing, and
      the user can still type any value. It applies to `:text` `:number`
-     `:email` `:password` `:date` and is ignored by the other types. Its list
+     `:email` `:password` `:date` `:datetime` and is ignored by the other types. Its list
      is identified by `attribute:`, so two fields with suggestions on one
      screen need different `attribute:` values.
    - A value that must be one of a fixed list is a `:select`, and a free value
      with common choices is a text field with `suggestions:`. Ask the developer
      which a field is and which values it offers.
    - `ui_input(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil)`
-     takes `:text` `:number` `:email` `:password` `:date`.
+     takes `:text` `:number` `:email` `:password` `:date` `:datetime`.
      `ui_textarea(name:, value: nil, rows: 3, placeholder: nil, disabled: false)`
      and `ui_select(name:, options: [], selected: nil, include_blank: nil, disabled: false)`
      are the bare forms of the other two. Use them only where a label does not
