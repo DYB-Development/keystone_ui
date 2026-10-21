@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.51.0] - 2026-10-21
+
 ### Added
 - `ui_form_field` and `ui_input` take `type: :datetime`, which renders a `datetime-local` input, and a `Time` or `DateTime` given as `value:` is written as `YYYY-MM-DDTHH:MM` while a string is used as given.
 
