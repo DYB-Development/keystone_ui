@@ -682,7 +682,7 @@ Wraps a label, input, hint, and error message in a consistent layout. Infers lab
 **Optional props**
 
 - `label:` (String) — explicit label text (inferred from `attribute:` if omitted)
-- `type:` (`:text | :number | :email | :password | :textarea`, default `:text`)
+- `type:` (`:text | :number | :email | :password | :date | :datetime | :textarea`, default `:text`) — `:datetime` renders a `datetime-local` input, and a `Time` or `DateTime` given as `value:` is written as `YYYY-MM-DDTHH:MM`
 - `required:` (Boolean, default `false`) — shows a red asterisk after the label
 - `hint:` (String) — help text below the input
 - `placeholder:` (String)
@@ -708,7 +708,7 @@ Renders a standalone `<input>` element with consistent styling.
 
 **Optional props**
 
-- `type:` (`:text | :number | :email | :password`, default `:text`)
+- `type:` (`:text | :number | :email | :password | :date | :datetime`, default `:text`) — `:datetime` renders a `datetime-local` input, and a `Time` or `DateTime` given as `value:` is written as `YYYY-MM-DDTHH:MM`
 - `value:` (String/Number)
 - `placeholder:` (String)
 - `disabled:` (Boolean, default `false`)

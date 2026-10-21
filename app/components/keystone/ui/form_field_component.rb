@@ -79,7 +79,7 @@ module Keystone
           options[:type] = Keystone::Ui::InputComponent::TYPE_MAP.fetch(@type)
         end
         options[:placeholder] = @placeholder unless @placeholder.nil?
-        options[:value] = @value unless @value.nil?
+        options[:value] = Keystone::Ui::InputComponent.formatted_value(@type, @value) unless @value.nil?
         options[:min] = @min unless @min.nil?
         options[:max] = @max unless @max.nil?
         options[:step] = @step unless @step.nil?
