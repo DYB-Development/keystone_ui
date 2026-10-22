@@ -99,9 +99,11 @@ Place the toggle anywhere in a view:
 <%= ui_theme_toggle %>
 ```
 
-It offers Light, Dark and System. The choice applies at once and is kept in a
-`keystone_theme` cookie until the user picks another option, and the server marks
-the `html` tag from that cookie so later pages open in the chosen mode. The install
+It is one button showing a sun in light mode and a moon in dark mode. Pressing it
+switches to the other mode at once and keeps that mode in a `keystone_theme`
+cookie, and the server marks the `html` tag from that cookie so later pages open
+in it. A visitor who has never pressed it sees the mode their device is set to,
+and the button shows the sun or the moon to match. The install
 generator adds the helper that does this to `app/views/layouts/application.html.erb`:
 
 ```erb

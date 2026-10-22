@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- `ui_theme_toggle` is one button showing a sun in light mode and a moon in dark mode, which switches to the other mode when pressed, in place of the Light, Dark and System buttons.
+- A visitor who has never pressed the toggle still sees the mode their device is set to, and the toggle shows the sun or the moon to match.
+- `Keystone::Ui::ThemeToggleComponent` takes no `current:` argument and no longer has `options` or `pressed?`.
+
 ## [0.51.0] - 2026-10-21
 
 ### Added

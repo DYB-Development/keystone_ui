@@ -2,56 +2,35 @@ import { test } from "node:test"
 import assert from "node:assert/strict"
 import ThemeToggleController from "../../app/assets/javascripts/keystone_ui/theme_toggle_controller.js"
 
-function toggleOn(page, options = []) {
-  const element = { ownerDocument: page, querySelectorAll: () => options }
-  return new ThemeToggleController({ scope: { element } })
+function toggleOn(page) {
+  return new ThemeToggleController({ scope: { element: { ownerDocument: page } } })
 }
 
-function option(mode) {
-  return { dataset: { themeToggleModeParam: mode }, setAttribute(name, value) { this[name] = value } }
+function pageMarked(theme, { deviceDark = false } = {}) {
+  const dataset = theme ? { theme } : {}
+  return { documentElement: { dataset }, cookie: "", defaultView: { matchMedia: () => ({ matches: deviceDark }) } }
 }
 
-function pageWithNoChoice() {
-  return { documentElement: { dataset: {} }, cookie: "" }
-}
+test("pressing the toggle on a page marked light marks it dark", () => {
+  const page = pageMarked("light")
 
-test("choosing dark marks the page dark", () => {
-  const page = pageWithNoChoice()
-
-  toggleOn(page).choose({ params: { mode: "dark" } })
+  toggleOn(page).toggle()
 
   assert.equal(page.documentElement.dataset.theme, "dark")
 })
 
-test("choosing dark remembers the choice in the theme cookie for a year", () => {
-  const page = pageWithNoChoice()
+test("pressing the toggle remembers the new mode in the theme cookie for a year", () => {
+  const page = pageMarked("light")
 
-  toggleOn(page).choose({ params: { mode: "dark" } })
+  toggleOn(page).toggle()
 
   assert.equal(page.cookie, "keystone_theme=dark; path=/; max-age=31536000; samesite=lax")
 })
 
-test("choosing system removes the page's light or dark mark", () => {
-  const page = pageWithNoChoice()
-  page.documentElement.dataset.theme = "dark"
+test("pressing the toggle on an unmarked page whose device is dark marks it light", () => {
+  const page = pageMarked(null, { deviceDark: true })
 
-  toggleOn(page).choose({ params: { mode: "system" } })
+  toggleOn(page).toggle()
 
-  assert.equal("theme" in page.documentElement.dataset, false)
-})
-
-test("choosing system remembers the choice in the theme cookie for a year", () => {
-  const page = pageWithNoChoice()
-
-  toggleOn(page).choose({ params: { mode: "system" } })
-
-  assert.equal(page.cookie, "keystone_theme=system; path=/; max-age=31536000; samesite=lax")
-})
-
-test("choosing dark shows only the dark option as pressed", () => {
-  const options = ["light", "dark", "system"].map(option)
-
-  toggleOn(pageWithNoChoice(), options).choose({ params: { mode: "dark" } })
-
-  assert.deepEqual(options.map((o) => o["aria-pressed"]), ["false", "true", "false"])
+  assert.equal(page.documentElement.dataset.theme, "light")
 })
