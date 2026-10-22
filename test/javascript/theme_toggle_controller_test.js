@@ -26,3 +26,11 @@ test("pressing the toggle remembers the new mode in the theme cookie for a year"
 
   assert.equal(page.cookie, "keystone_theme=dark; path=/; max-age=31536000; samesite=lax")
 })
+
+test("pressing the toggle on an unmarked page whose device is dark marks it light", () => {
+  const page = pageMarked(null, { deviceDark: true })
+
+  toggleOn(page).toggle()
+
+  assert.equal(page.documentElement.dataset.theme, "light")
+})
