@@ -46,7 +46,7 @@ module KeystoneUiHelper
   end
 
   def ui_theme_toggle
-    render Keystone::Ui::ThemeToggleComponent.new(current: keystone_theme_choice.mode)
+    render Keystone::Ui::ThemeToggleComponent.new
   end
 
   def keystone_theme_attributes

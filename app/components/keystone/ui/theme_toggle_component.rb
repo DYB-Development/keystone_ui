@@ -3,21 +3,7 @@
 module Keystone
   module Ui
     class ThemeToggleComponent < ViewComponent::Base
-      OPTIONS = [ [ "Light", "light" ], [ "Dark", "dark" ], [ "System", "system" ] ].freeze
-      GROUP_CLASSES = "ks-theme-toggle inline-flex"
-      OPTION_CLASSES = "ks-theme-toggle-option ks-button ks-button-sm ks-button-secondary"
-
-      def initialize(current: nil)
-        @current = current
-      end
-
-      def options
-        OPTIONS
-      end
-
-      def pressed?(mode)
-        mode == KeystoneUi::ThemeChoice.new(@current).mode
-      end
+      BUTTON_CLASSES = "ks-theme-toggle ks-button ks-button-sm ks-button-secondary"
     end
   end
 end
