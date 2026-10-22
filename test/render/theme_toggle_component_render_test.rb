@@ -14,4 +14,10 @@ class Keystone::Ui::ThemeToggleComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.css("button svg[data-icon=sun]").first&.[]("class").to_s.split, "dark:hidden"
   end
+
+  def test_shows_a_moon_only_in_dark_mode
+    page = render_inline(Keystone::Ui::ThemeToggleComponent.new)
+
+    assert_equal %w[size-5 hidden dark:block], page.css("button svg[data-icon=moon]").first&.[]("class").to_s.split
+  end
 end
