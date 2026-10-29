@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.53.0] - 2026-10-29
+
+### Changed
+- Requires keystone_ui-styles 0.27.0 or later, which draws the match `ui_search_select`'s arrow keys highlight.
+
 ### Added
 - `ui_search_select` draws a form field that lists the host app's matches as a person types, from `GET url?q=`, and submits the id of the one they pick.
 - `ui_search_select` takes `selected_id:` and `selected_label:` to open with a record already chosen.
