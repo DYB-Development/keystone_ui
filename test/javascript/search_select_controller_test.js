@@ -46,3 +46,12 @@ test("a match's label is listed as text, not as markup", async () => {
 
   assert.equal(targets.list.innerHTML.includes("<b>"), false)
 })
+
+test("picking a match shows it in the field and sets the id the form submits", async () => {
+  const { controller, targets } = field({ typed: "main", matches: [{ id: 2, label: "400 Main St" }] })
+  await controller.search()
+
+  controller.choose({ params: { id: 2, label: "400 Main St" }, preventDefault() {} })
+
+  assert.deepEqual([targets.id.value, targets.input.value, targets.list.classList.contains("hidden")], ["2", "400 Main St", true])
+})

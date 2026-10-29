@@ -13,6 +13,13 @@ export default class extends Controller {
     this.listTarget.classList.remove("hidden")
   }
 
+  choose(event) {
+    event.preventDefault()
+    this.idTarget.value = String(event.params.id)
+    this.inputTarget.value = event.params.label
+    this.listTarget.classList.add("hidden")
+  }
+
   option(match) {
     return `<li role="option" class="ks-menu-option" data-action="mousedown->search-select#choose" data-search-select-id-param="${escaped(match.id)}" data-search-select-label-param="${escaped(match.label)}">${escaped(match.label)}</li>`
   }
