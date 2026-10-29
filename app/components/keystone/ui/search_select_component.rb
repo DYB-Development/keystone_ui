@@ -5,6 +5,7 @@ module Keystone
     class SearchSelectComponent < ViewComponent::Base
       WRAPPER_CLASSES = "ks-form-field relative"
       LABEL_CLASSES = "ks-label"
+      LIST_CLASSES = "ks-menu absolute z-10 w-full hidden"
 
       attr_reader :name, :label, :url, :selected_id, :selected_label
 
