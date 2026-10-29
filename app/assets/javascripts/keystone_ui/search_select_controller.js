@@ -17,6 +17,7 @@ export default class extends Controller {
     event.preventDefault()
     this.idTarget.value = String(event.params.id)
     this.inputTarget.value = event.params.label
+    if (this.hasNewFieldsTarget) this.newFieldsTarget.classList.add("hidden")
     this.listTarget.classList.add("hidden")
   }
 

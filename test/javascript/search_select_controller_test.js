@@ -68,3 +68,13 @@ test("the list ends with the choice to enter a new record, and choosing it clear
 
   assert.deepEqual([targets.list.innerHTML.includes("Enter a new address"), targets.id.value, targets.newFields.classList.contains("hidden")], [true, "", false])
 })
+
+test("picking a match after choosing to enter a new record hides the fields for the new record", async () => {
+  const { controller, targets } = field({ typed: "main", matches: [{ id: 2, label: "400 Main St" }], newLabel: "Enter a new address" })
+  await controller.search()
+  controller.chooseNew({ preventDefault() {} })
+
+  controller.choose({ params: { id: 2, label: "400 Main St" }, preventDefault() {} })
+
+  assert.equal(targets.newFields.classList.contains("hidden"), true)
+})
