@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, data tables with saved columns, desktop navigation, sidebars and bottom tabs, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels and goal buckets, amounts shown in green or red as a gain or loss, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels and goal buckets, amounts shown in green or red as a gain or loss, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -52,6 +52,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_textarea` — a bare styled textarea with no label.
 - `ui_select` — a bare styled select with no label.
 - `ui_multi_select` — a dropdown of checkboxes posting every checked value.
+- `ui_search_select` — a form field that searches the app as a person types and submits the id of the record they pick.
 - `ui_file_upload` — a file drop zone with selected-file feedback.
 - `ui_color_picker` — a colour swatch that writes a hex value into a hidden input.
 - `ui_radio_card` — a selectable card backed by a radio input.
@@ -302,6 +303,31 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `"status[]"`. `options:` is `[[label, value], ...]` and `selected:` is the
      values to check. Its button reads "All <label>" with nothing checked and
      "N selected" otherwise.
+   - `ui_search_select(name:, label:, url:, selected_id: nil, selected_label: nil, new_label: nil)`
+     is one field inside a `ui_form`, for picking one record from more than a
+     select can list. Each keystroke sends `GET url?q=<typed text>` with
+     `Accept: application/json`, and the app answers with a JSON array of
+     `{ "id": ..., "label": ... }` objects in the order to list them. Labels
+     are shown as plain text. Picking a match by click, or by the arrow keys
+     and Enter, puts its id in a hidden input named `name` and its label in
+     the field. Escape closes the list.
+   - The app owns the search endpoint: the route, which records it searches,
+     how it matches the typed text, how many matches it returns, and which
+     records the current user may see. Ask the developer for each, and scope
+     the query to the current account.
+   - `selected_id:` and `selected_label:` open the field with a record already
+     chosen, such as on an edit screen, so the form submits that id unchanged
+     when nothing else is picked.
+   - Typing without picking leaves the hidden id as it was, so the form submits
+     the last picked id, or `selected_id:`, whatever the field shows.
+   - `new_label:` adds a last choice, such as "Enter a new address", shown in
+     the list after each search. Picking it clears the hidden id and shows the
+     block passed to the helper, which holds the fields for a new record such
+     as `ui_form_field` calls. Picking a match afterwards hides them again.
+   - The block's fields are submitted whether shown or hidden, so the app's
+     controller treats a blank id as "create from the new fields" and a present
+     id as "use that record and ignore the new fields". Ask the developer
+     whether a person may enter a new record, and what `new_label:` says.
    - `ui_file_upload(name:, label: nil, accept: nil, multiple: false, hint: nil)`
      needs the enclosing form to be multipart.
    - `ui_color_picker(name:, value: "#000000", label: nil)` writes the chosen
@@ -516,7 +542,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       and rejecting sends `swipe-deck:skip`. Both carry `detail.itemId` (the
       item's `id`, or its position) and `detail.card`, and `complete` carries
       `detail.value` from an input marked `data-swipe-deck-value`, or `null`.
-    - For these, the pipeline's URLs and the column picker's save URL, do not
+    - For these, the pipeline's URLs, the column picker's save URL and the
+      search select's search URL, do not
       invent routes or how the outcome is stored. Ask the developer, then
       build what they pick.
 

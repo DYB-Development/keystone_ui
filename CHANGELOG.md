@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_search_select` draws a form field that lists the host app's matches as a person types, from `GET url?q=`, and submits the id of the one they pick.
+- `ui_search_select` takes `selected_id:` and `selected_label:` to open with a record already chosen.
+- `ui_search_select` takes `new_label:` and a block, and choosing that last option clears the id and shows the block's fields for a new record.
+- The arrow keys move through `ui_search_select`'s matches, Enter picks one, and Escape closes the list.
+
 ## [0.52.0] - 2026-10-22
 
 ### Changed

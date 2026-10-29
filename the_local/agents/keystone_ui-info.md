@@ -12,7 +12,7 @@ nothing and gives no steps.
 
 keystone_ui is a Rails engine gem that supplies a host app's UI as view helpers
 built on ViewComponent. Screens are built from named pieces — page shells,
-sections, panels, grids, forms and fields, data tables, navigation, cards, stat
+sections, panels, grids, forms and fields, search dropdowns, data tables, navigation, cards, stat
 tiles, charts, funnels, goal buckets, pipelines, breakdowns and info buttons —
 instead of hand-written ERB and Tailwind. Every class the UI renders lives in the
 gem, so two pages built from the same helpers cannot disagree about spacing,
@@ -78,6 +78,14 @@ One decision: is keystone_ui set up in the app?
   it: which hideable columns to hide and their order. With a save address, a
   "Columns" menu lets the user change it. A locked first column stays in view
   while the table scrolls sideways and is never hidden or moved.
+- **Search dropdowns.** A search dropdown picks one record by its id from
+  matches the host serves. As the user types, it requests the host's search
+  address with the text as `q` and expects JSON back: a list of matches, each
+  with an `id` and a `label`. Picking a match submits its id under the field's
+  name. When the dropdown offers a choice to enter a new record, picking it
+  submits an empty id and shows the new record's fields the page placed inside
+  the dropdown, and picking a match afterwards hides them again. The arrow keys
+  move through the list, Enter picks, and Escape closes it.
 - **Action menus.** Each action is a label, an address and an HTTP method. A
   plain visit is a link, and any other method is a button, so an action that
   changes data is never a bare link. A delete asks for confirmation by default.
@@ -98,9 +106,9 @@ One decision: is keystone_ui set up in the app?
 - **Static Tailwind classes.** Class names are never interpolated, so Tailwind's
   scanner finds them. Sizes that depend on data, such as a progress bar's
   width, use an inline style. The host needs tailwindcss-rails v4+.
-- **Interactivity is Stimulus.** Dropdowns, modals, tab switchers, the column
-  picker, info buttons, charts, copy buttons and the theme toggle ship as
+- **Interactivity is Stimulus.** Dropdowns, search dropdowns, modals, tab
+  switchers, the column picker, info buttons, charts, copy buttons and the theme toggle ship as
   Stimulus controllers, so a host writes no JavaScript. Components that post,
   such as the column picker and the pipeline, post to endpoints the host or
   another gem owns.
-- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.14.0.
+- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.25.0.
