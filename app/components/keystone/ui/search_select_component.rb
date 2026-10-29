@@ -6,12 +6,14 @@ module Keystone
       WRAPPER_CLASSES = "ks-form-field relative"
       LABEL_CLASSES = "ks-label"
 
-      attr_reader :name, :label, :url
+      attr_reader :name, :label, :url, :selected_id, :selected_label
 
-      def initialize(name:, label:, url:)
+      def initialize(name:, label:, url:, selected_id: nil, selected_label: nil)
         @name = name
         @label = label
         @url = url
+        @selected_id = selected_id
+        @selected_label = selected_label
       end
     end
   end

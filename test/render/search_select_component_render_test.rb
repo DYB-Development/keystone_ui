@@ -11,4 +11,10 @@ class Keystone::Ui::SearchSelectComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "/addresses/matches", "space[address_id]" ],
       [ page.at_css("[data-controller=search-select]")["data-search-select-url-value"], page.at_css("input[type=hidden][data-search-select-target=id]")["name"] ]
   end
+
+  def test_a_search_dropdown_opened_with_a_record_chosen_shows_that_record_and_submits_its_id
+    page = render_inline(Keystone::Ui::SearchSelectComponent.new(name: "space[address_id]", label: "Address", url: "/addresses/matches", selected_id: 7, selected_label: "9 Dock Rd, Springfield"))
+
+    assert_equal [ "7", "9 Dock Rd, Springfield" ], [ page.at_css("input[data-search-select-target=id]")["value"], page.at_css("input[data-search-select-target=input]")["value"] ]
+  end
 end

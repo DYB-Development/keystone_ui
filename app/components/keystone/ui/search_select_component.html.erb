@@ -1,5 +1,5 @@
 <div class="<%= WRAPPER_CLASSES %>" data-controller="search-select" data-search-select-url-value="<%= url %>">
   <label class="<%= LABEL_CLASSES %>"><%= label %></label>
-  <input type="hidden" name="<%= name %>" data-search-select-target="id">
-  <input type="text" autocomplete="off" class="<%= Keystone::Ui::InputComponent::BASE_CLASSES %>" data-search-select-target="input">
+  <input type="hidden" name="<%= name %>" value="<%= selected_id %>" data-search-select-target="id">
+  <input type="text" autocomplete="off" value="<%= selected_label %>" class="<%= Keystone::Ui::InputComponent::BASE_CLASSES %>" data-search-select-target="input">
 </div>
