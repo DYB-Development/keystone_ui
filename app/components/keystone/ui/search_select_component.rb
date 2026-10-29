@@ -7,14 +7,15 @@ module Keystone
       LABEL_CLASSES = "ks-label"
       LIST_CLASSES = "ks-menu absolute z-10 w-full hidden"
 
-      attr_reader :name, :label, :url, :selected_id, :selected_label
+      attr_reader :name, :label, :url, :selected_id, :selected_label, :new_label
 
-      def initialize(name:, label:, url:, selected_id: nil, selected_label: nil)
+      def initialize(name:, label:, url:, selected_id: nil, selected_label: nil, new_label: nil)
         @name = name
         @label = label
         @url = url
         @selected_id = selected_id
         @selected_label = selected_label
+        @new_label = new_label
       end
     end
   end

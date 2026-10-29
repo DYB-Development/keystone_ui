@@ -17,4 +17,10 @@ class Keystone::Ui::SearchSelectComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "7", "9 Dock Rd, Springfield" ], [ page.at_css("input[data-search-select-target=id]")["value"], page.at_css("input[data-search-select-target=input]")["value"] ]
   end
+
+  def test_fields_for_a_new_record_are_drawn_hidden_inside_the_search_dropdown
+    page = render_inline(Keystone::Ui::SearchSelectComponent.new(name: "space[address_id]", label: "Address", url: "/addresses/matches", new_label: "Enter a new address")) { "<input name=\"address[line1]\">".html_safe }
+
+    assert_equal [ "address[line1]", true ], [ page.at_css("[data-search-select-target=newFields] input")["name"], page.at_css("[data-search-select-target=newFields]")["class"].split.include?("hidden") ]
+  end
 end
