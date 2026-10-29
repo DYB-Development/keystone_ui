@@ -87,3 +87,13 @@ test("the down and up arrow keys move the highlighted match through the list", a
 
   assert.deepEqual([...targets.list.innerHTML.matchAll(/aria-selected="true"[^>]*>([^<]+)</g)].map((match) => match[1]), ["400 Main St"])
 })
+
+test("Enter picks the highlighted match", async () => {
+  const { controller, targets } = field({ typed: "main", matches: [{ id: 2, label: "400 Main St" }, { id: 1, label: "12 Main St" }] })
+  await controller.search()
+  ;["ArrowDown", "ArrowDown"].forEach((key) => controller.key({ key, preventDefault() {} }))
+
+  controller.key({ key: "Enter", preventDefault() {} })
+
+  assert.deepEqual([targets.id.value, targets.input.value], ["1", "12 Main St"])
+})

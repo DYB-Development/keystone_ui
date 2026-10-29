@@ -15,12 +15,22 @@ export default class extends Controller {
   }
 
   key(event) {
+    if (event.key === "Enter") return this.pickHighlighted(event)
+
     const moves = { ArrowDown: 1, ArrowUp: -1 }
     if (!(event.key in moves)) return
 
     event.preventDefault()
     this.highlighted = Math.min(Math.max(this.highlighted + moves[event.key], 0), this.choiceCount() - 1)
     this.draw()
+  }
+
+  pickHighlighted(event) {
+    if (this.highlighted === undefined || this.highlighted < 0) return
+
+    const match = this.matches[this.highlighted]
+    if (match) this.choose({ params: match, preventDefault: () => event.preventDefault() })
+    else this.chooseNew(event)
   }
 
   draw() {
