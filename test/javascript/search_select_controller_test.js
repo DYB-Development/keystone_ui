@@ -97,3 +97,12 @@ test("Enter picks the highlighted match", async () => {
 
   assert.deepEqual([targets.id.value, targets.input.value], ["1", "12 Main St"])
 })
+
+test("Escape closes the list of matches", async () => {
+  const { controller, targets } = field({ typed: "main", matches: [{ id: 2, label: "400 Main St" }] })
+  await controller.search()
+
+  controller.key({ key: "Escape", preventDefault() {} })
+
+  assert.equal(targets.list.classList.contains("hidden"), true)
+})

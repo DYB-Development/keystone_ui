@@ -16,6 +16,7 @@ export default class extends Controller {
 
   key(event) {
     if (event.key === "Enter") return this.pickHighlighted(event)
+    if (event.key === "Escape") return this.listTarget.classList.add("hidden")
 
     const moves = { ArrowDown: 1, ArrowUp: -1 }
     if (!(event.key in moves)) return
