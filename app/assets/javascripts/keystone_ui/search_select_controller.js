@@ -19,7 +19,7 @@ export default class extends Controller {
     if (event.key === "Escape") return this.listTarget.classList.add("hidden")
 
     const moves = { ArrowDown: 1, ArrowUp: -1 }
-    if (!(event.key in moves)) return
+    if (!(event.key in moves) || !this.matches) return
 
     event.preventDefault()
     this.highlighted = Math.min(Math.max(this.highlighted + moves[event.key], 0), this.choiceCount() - 1)

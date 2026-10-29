@@ -106,3 +106,11 @@ test("Escape closes the list of matches", async () => {
 
   assert.equal(targets.list.classList.contains("hidden"), true)
 })
+
+test("an arrow key pressed before anything is typed changes nothing", () => {
+  const { controller, targets } = field()
+
+  controller.key({ key: "ArrowDown", preventDefault() {} })
+
+  assert.equal(targets.list.innerHTML, "")
+})
