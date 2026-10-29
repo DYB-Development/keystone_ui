@@ -38,3 +38,11 @@ test("typing lists the matches the host returns, in the host's order", async () 
 
   assert.deepEqual([...targets.list.innerHTML.matchAll(/">([^<]+)<\/li>/g)].map((match) => match[1]), ["400 Main St", "12 Main St"])
 })
+
+test("a match's label is listed as text, not as markup", async () => {
+  const { controller, targets } = field({ typed: "yard", matches: [{ id: 3, label: "<b>Yard</b>" }] })
+
+  await controller.search()
+
+  assert.equal(targets.list.innerHTML.includes("<b>"), false)
+})
