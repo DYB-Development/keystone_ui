@@ -204,7 +204,7 @@ A look is one CSS file that changes how components look without editing the
 gem. It sets the `--ks-` variables that keystone_ui-styles defines, and a
 component reads them through the `ks-` classes it renders. Buttons, panels,
 cards, alerts, badges, form fields, the modal, the mobile action menu, the column
-picker, multi select, copy button, theme toggle, checkbox row, radio card, option
+picker, multi select, search select, copy button, theme toggle, checkbox row, radio card, option
 card, file upload and colour picker read them today. So do the stat card, chart
 card, card link, call to action banner, feature grid, hero, data table, code,
 accordion, disclosure, tab switcher, progress, funnel, bucket, pipeline and swipe
@@ -671,6 +671,30 @@ Renders a styled file upload with a clickable drop zone. Clicking anywhere on th
 ```erb
 <%= ui_file_upload(name: "avatar", accept: "image/*", hint: "PNG or JPG, max 5MB") %>
 <%= ui_file_upload(name: "documents[]", multiple: true, label: "Upload documents", hint: "PDF, DOC up to 10MB each") %>
+```
+
+### `ui_search_select`
+
+A form field that searches the host app as a person types and submits the id of the record they pick. It is one field of an ordinary form, not a separate form. Uses the `search-select` Stimulus controller.
+
+As the person types, the field asks `url` for matches with `GET url?q=<typed text>` and an `Accept: application/json` header. The host answers with a JSON array of `{"id": ..., "label": ...}` objects, and the field lists their labels in the order given, as text. Picking one sets a hidden input named by `name:` to its id and shows its label in the field. The down and up arrow keys move the highlight, Enter picks the highlighted choice, and Escape closes the list.
+
+**Required props**
+
+- `name:` (String) — the name of the hidden input that submits the chosen id
+- `label:` (String) — label text above the field
+- `url:` (String) — where matches are fetched from
+
+**Optional props**
+
+- `selected_id:` / `selected_label:` — open the field with a record already chosen, so the form submits its id unchanged when nothing new is picked
+- `new_label:` (String) — adds a last choice, such as "Enter a new address", that clears the chosen id and shows the block passed to the helper. The block is drawn hidden inside the field and holds the host's fields for the new record.
+
+```erb
+<%= ui_search_select(name: "space[address_id]", label: "Address", url: matches_addresses_path,
+      selected_id: @space.address_id, selected_label: @space.address&.address, new_label: "Enter a new address") do %>
+  <%= ui_form_field(attribute: "address[line1]", label: "Street") %>
+<% end %>
 ```
 
 ### `ui_form_field`

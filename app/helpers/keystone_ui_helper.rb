@@ -193,6 +193,10 @@ module KeystoneUiHelper
     render Keystone::Ui::MultiSelectComponent.new(**args)
   end
 
+  def ui_search_select(**args, &block)
+    render Keystone::Ui::SearchSelectComponent.new(**args), &block
+  end
+
   def ui_swipe_deck(**args, &block)
     render Keystone::Ui::SwipeDeckComponent.new(**args), &block
   end

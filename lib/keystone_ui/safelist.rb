@@ -51,6 +51,7 @@ module Keystone
       Keystone::Ui::ShowPageComponent,
       Keystone::Ui::OptionCardComponent,
       Keystone::Ui::RadioCardComponent,
+      Keystone::Ui::SearchSelectComponent,
       Keystone::Ui::CheckboxRowComponent,
       Keystone::Ui::ProgressComponent,
       Keystone::Ui::ColorPickerComponent,
