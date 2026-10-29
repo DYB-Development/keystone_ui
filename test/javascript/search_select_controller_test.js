@@ -78,3 +78,12 @@ test("picking a match after choosing to enter a new record hides the fields for 
 
   assert.equal(targets.newFields.classList.contains("hidden"), true)
 })
+
+test("the down and up arrow keys move the highlighted match through the list", async () => {
+  const { controller, targets } = field({ typed: "main", matches: [{ id: 2, label: "400 Main St" }, { id: 1, label: "12 Main St" }] })
+  await controller.search()
+
+  ;["ArrowDown", "ArrowDown", "ArrowUp"].forEach((key) => controller.key({ key, preventDefault() {} }))
+
+  assert.deepEqual([...targets.list.innerHTML.matchAll(/aria-selected="true"[^>]*>([^<]+)</g)].map((match) => match[1]), ["400 Main St"])
+})
