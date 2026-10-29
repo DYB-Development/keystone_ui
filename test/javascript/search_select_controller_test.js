@@ -16,18 +16,21 @@ function element(properties = {}) {
   }
 }
 
-function field({ matches = [], typed = "" } = {}) {
+function field({ matches = [], typed = "", newLabel = "" } = {}) {
   const requested = []
   globalThis.fetch = async (url) => {
     requested.push(url)
     return { json: async () => matches }
   }
   const controller = new SearchSelectController({ scope: { element: {} } })
-  const targets = { id: element(), input: element({ value: typed }), list: element({ hidden: true }) }
+  const targets = { id: element(), input: element({ value: typed }), list: element({ hidden: true }), newFields: element({ hidden: true }) }
   Object.defineProperty(controller, "idTarget", { value: targets.id })
   Object.defineProperty(controller, "inputTarget", { value: targets.input })
   Object.defineProperty(controller, "listTarget", { value: targets.list })
   Object.defineProperty(controller, "urlValue", { value: "/addresses/matches" })
+  Object.defineProperty(controller, "newFieldsTarget", { value: targets.newFields })
+  Object.defineProperty(controller, "hasNewFieldsTarget", { value: true })
+  Object.defineProperty(controller, "newLabelValue", { value: newLabel })
   return { controller, targets, requested }
 }
 
@@ -54,4 +57,14 @@ test("picking a match shows it in the field and sets the id the form submits", a
   controller.choose({ params: { id: 2, label: "400 Main St" }, preventDefault() {} })
 
   assert.deepEqual([targets.id.value, targets.input.value, targets.list.classList.contains("hidden")], ["2", "400 Main St", true])
+})
+
+test("the list ends with the choice to enter a new record, and choosing it clears the id and shows the fields for it", async () => {
+  const { controller, targets } = field({ typed: "elm", matches: [{ id: 2, label: "400 Main St" }], newLabel: "Enter a new address" })
+  targets.id.value = "2"
+  await controller.search()
+
+  controller.chooseNew({ preventDefault() {} })
+
+  assert.deepEqual([targets.list.innerHTML.includes("Enter a new address"), targets.id.value, targets.newFields.classList.contains("hidden")], [true, "", false])
 })
