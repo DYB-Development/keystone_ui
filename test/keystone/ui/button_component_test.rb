@@ -40,4 +40,10 @@ class Keystone::Ui::ButtonComponentTest < Minitest::Test
     assert_equal "/products", component.tag_options[:href]
     refute component.tag_options.key?(:type)
   end
+
+  def test_a_full_width_button_is_as_wide_as_its_row
+    component = Keystone::Ui::ButtonComponent.new(label: "Answer", full_width: true)
+
+    assert_equal "ks-button ks-button-primary ks-button-md w-full", component.classes
+  end
 end
