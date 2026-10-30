@@ -58,7 +58,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_radio_card` — a selectable card backed by a radio input.
 - `ui_checkbox_row` — a checkbox with its label and hint, toggled by a tap anywhere on the row.
 - `ui_option_card` — a radio whose visible body is whatever its block renders.
-- `ui_data_table` — a table of records with links, row actions, sorting and hideable columns.
+- `ui_data_table` — a table of records with links, row actions, sorting, hideable columns and the viewer's own row marked.
 - `Keystone::Ui::Column` — a table column with options a `{ key: "Label" }` hash cannot carry.
 - `ui_column_picker` — a Columns menu that saves which columns are hidden and their order to an app endpoint.
 - `ui_button` — a link or a button styled as a button, or a button sending a POST, PATCH or DELETE request.
@@ -367,7 +367,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 8. Build tables.
 
-   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil)`
+   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil)`
      takes a block yielding the table. `items:` are records or hashes, and a
      cell's value is the column key called on the item, or `item[key]`.
      `group_by:` lists rows under heading rows named by that key's value,
@@ -394,6 +394,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `sort_direction:` (`:asc` or `:desc`) and `sort_url:` (a lambda taking
      `(column_key, direction)` and returning a URL). Headers then render as
      links that flip direction.
+   - `current_row:` takes the item whose row is the viewer's own, such as
+     their entry on a scoreboard or leaderboard. That row carries the
+     `ks-table-row-current` class, which keystone_ui-styles colours, and
+     `aria-current="true"`, so a screen reader announces it. The item
+     is compared with `==` and only the first equal row is marked, so pass the
+     same record or an equal hash. Use it instead of a "You" badge in a cell.
    - `hidden_columns:` is the table's default layout and drops only hideable
      columns. The declared order is the default order.
    - For a table whose columns a user chooses and keeps, check whether the

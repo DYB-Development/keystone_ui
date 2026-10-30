@@ -5,6 +5,7 @@ module Keystone
     class DataTableComponent < ViewComponent::Base
       EMPTY_CELL_CLASSES = "ks-table-cell-middle text-sm"
       BODY_CLASSES = "ks-table-body"
+      CURRENT_ROW_CLASSES = "ks-table-row-current"
       HEAD_CLASSES = "ks-table-head"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
@@ -30,8 +31,9 @@ module Keystone
       SORT_DESC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 0 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg>'
       SORT_NEUTRAL_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908 2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z" clip-rule="evenodd" /></svg>'
 
-      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil)
+      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil)
         @items = items.to_a
+        @current_index = @items.index(current_row) unless current_row.nil?
         @group_by = group_by
         @group_totals = group_totals.to_h.transform_keys(&:to_s)
         @total = total&.to_h&.transform_keys(&:to_s)
@@ -140,6 +142,10 @@ module Keystone
             cell
           end
         end
+      end
+
+      def current_row?(index)
+        index == @current_index
       end
 
       def empty?
