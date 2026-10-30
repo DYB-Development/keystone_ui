@@ -14,4 +14,10 @@ class Keystone::Ui::PictureComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("img")["class"].to_s.split, "max-h-[50svh]"
   end
+
+  def test_a_picture_given_its_full_size_address_links_to_it
+    page = render_inline(Keystone::Ui::PictureComponent.new(src: "/pictures/eiffel-small.jpg", alt: "The Eiffel Tower", full_size_url: "/pictures/eiffel.jpg"))
+
+    assert_equal "/pictures/eiffel.jpg", page.at_css("a:has(img)")&.[]("href")
+  end
 end
