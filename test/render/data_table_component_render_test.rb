@@ -316,6 +316,16 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Feb" ], page.css("tbody tr[aria-current=true] td:first-child").map { |cell| cell.text.strip }
   end
 
+  def test_gives_the_row_of_its_current_item_the_current_row_look
+    columns = month_columns
+    items = [ { month: "Jan", pipeline: "$10" }, { month: "Feb", pipeline: "$20" } ]
+    page = render_in_view_context do
+      ui_data_table(items: items, columns: columns, current_row: items.last)
+    end
+
+    assert_equal [ "Feb" ], page.css("tbody tr.ks-table-row-current td:first-child").map { |cell| cell.text.strip }
+  end
+
   private
 
   def three_columns
