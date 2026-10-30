@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.54.0] - 2026-10-30
+
 ### Added
 - `ui_button` takes `method:` with `href:`, and a POST, PATCH or DELETE button sends that request from its own small form when tapped.
 - `ui_button` takes `full_width: true` to make the button, and the form of a button sending a request, as wide as its row.
