@@ -5,6 +5,7 @@ module Keystone
     class DataTableComponent < ViewComponent::Base
       EMPTY_CELL_CLASSES = "ks-table-cell-middle text-sm"
       BODY_CLASSES = "ks-table-body"
+      CURRENT_ROW_CLASSES = "ks-table-row-current"
       HEAD_CLASSES = "ks-table-head"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"

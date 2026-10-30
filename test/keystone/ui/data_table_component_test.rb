@@ -580,4 +580,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
 
     assert_equal [ false, true ], [ component.current_row?(0), component.current_row?(1) ]
   end
+
+  def test_current_row_classes_render_the_ks_table_row_current_class
+    assert_equal "ks-table-row-current", Keystone::Ui::DataTableComponent::CURRENT_ROW_CLASSES
+  end
 end
