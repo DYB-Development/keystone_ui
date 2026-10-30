@@ -369,8 +369,14 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 **Optional props**
 
 - `href:` (String or URL)
+- `method:` (`:get | :post | :patch | :put | :delete`, default `:get`) — with `href:`, any method other than `:get` renders the button inside its own small form that sends that request when tapped
 - `variant:` (`:primary | :secondary | :danger`, default `:primary`)
 - `size:` (`:sm | :md | :lg`, default `:md`)
+- `full_width:` (Boolean, default `false`) — makes the button, and the form of a button sending a request, as wide as its row
+
+```erb
+<%= ui_button(label: "Start game", href: game_start_path(@game), method: :post, full_width: true) %>
+```
 
 ### `ui_data_table`
 
@@ -864,6 +870,23 @@ Shows a figure, such as an amount, in plain text or in the success or danger col
 ```erb
 <%= ui_figure(text: "$4,700.00", tone: :success) %>
 <%= ui_figure(text: "-$300.00", tone: :danger) %>
+```
+
+### `ui_picture`
+
+Shows an image, centred and never taller than half the visible screen, so what follows it stays in view on a phone.
+
+**Required props**
+
+- `src:` (String) — the address of the image to show
+- `alt:` (String) — the text read out in place of the image
+
+**Optional props**
+
+- `full_size_url:` (String) — when given, tapping the picture opens this address in a new tab
+
+```erb
+<%= ui_picture(src: url_for(question.picture.variant(:display)), alt: question.text, full_size_url: url_for(question.picture)) %>
 ```
 
 ### `ui_heading`

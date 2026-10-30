@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_button` takes `method:` with `href:`, and a POST, PATCH or DELETE button sends that request from its own small form when tapped.
+- `ui_button` takes `full_width: true` to make the button, and the form of a button sending a request, as wide as its row.
+- `ui_picture` shows an image no taller than half the screen, with `alt:` text.
+- `ui_picture` takes `full_size_url:` to open the full-size file in a new tab when the picture is tapped.
+
 ## [0.53.0] - 2026-10-29
 
 ### Changed
