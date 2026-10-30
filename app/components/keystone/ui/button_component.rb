@@ -16,9 +16,13 @@ module Keystone
         lg: "ks-button-lg"
       }.freeze
 
-      def initialize(label:, href: nil, variant: :primary, size: :md, type: :submit, data: nil)
+      FULL_WIDTH_CLASSES = "w-full"
+
+      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil)
         @label = label
         @href = href
+        @method = method.to_sym
+        @full_width = full_width
         @variant = variant
         @size = size
         @type = type.to_s
@@ -31,7 +35,7 @@ module Keystone
         else
           VARIANT_CLASSES.fetch(@variant)
         end
-        [ BASE_CLASSES, variant_css, SIZE_CLASSES.fetch(@size) ].join(" ")
+        [ BASE_CLASSES, variant_css, SIZE_CLASSES.fetch(@size), (FULL_WIDTH_CLASSES if @full_width) ].compact.join(" ")
       end
 
       def tag_name
@@ -51,6 +55,20 @@ module Keystone
 
       def button?
         @href.nil?
+      end
+
+      def call
+        return button_to(@href, method: @method, class: classes, form_class: form_classes) { @label } if request?
+
+        content_tag(tag_name, @label, **tag_options)
+      end
+
+      def form_classes
+        FULL_WIDTH_CLASSES if @full_width
+      end
+
+      def request?
+        @href && @method != :get
       end
     end
   end

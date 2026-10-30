@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels and goal buckets, amounts shown in green or red as a gain or loss, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels and goal buckets, amounts shown in green or red as a gain or loss, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -61,9 +61,10 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_data_table` — a table of records with links, row actions, sorting and hideable columns.
 - `Keystone::Ui::Column` — a table column with options a `{ key: "Label" }` hash cannot carry.
 - `ui_column_picker` — a Columns menu that saves which columns are hidden and their order to an app endpoint.
-- `ui_button` — a link or a button styled as a button.
+- `ui_button` — a link or a button styled as a button, or a button sending a POST, PATCH or DELETE request.
 - `ui_badge` — a coloured pill holding a short label.
 - `ui_figure` — one amount as inline text, coloured as a gain or a loss.
+- `ui_picture` — an image never taller than half the screen, optionally opening its full-size file.
 - `ui_heading` — a heading at one of three sizes, with an optional short note on its right.
 - `ui_caption` — small uppercase muted text placed above a title or a figure.
 - `ui_paragraph` — a paragraph of running text.
@@ -421,10 +422,24 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 9. Show content and status.
 
-   - `ui_button(label:, href: nil, variant: :primary, size: :md, type: :submit, data: nil)`
+   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil)`
      renders a link with `href:` and a button without it. `variant:` is
      `:primary` `:secondary` `:danger`, `size:` is `:sm` `:md` `:lg`, and
      `type:` applies only to the button.
+   - With `href:` and `method:` `:post` `:patch` `:put` or `:delete`, it
+     renders a button inside its own small form that sends that request to
+     `href:` when tapped. Do not write a form around it. It cannot sit inside
+     another form, since a form cannot hold a form. `type:` and `data:` are not
+     used on it.
+   - `full_width: true` makes the button as wide as its row at every screen
+     width, and for a button sending a request its form too. Use it for large
+     choices stacked down a phone screen.
+   - `ui_picture(src:, alt:, full_size_url: nil)` shows an image centred and
+     never taller than half the visible screen, so what follows it stays in
+     view. `alt:` is the text read out in place of the image. With
+     `full_size_url:`, tapping the picture opens that address in a new tab, so
+     pass `src:` a smaller version and `full_size_url:` the original file. Ask
+     the developer which version of an uploaded image each address points at.
    - `ui_badge(label:, variant: :neutral, class: nil)` — `variant:` is
      `:neutral` `:success` `:danger` `:warning` `:info`.
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
