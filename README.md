@@ -398,6 +398,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 - `group_by:` (Symbol/String) — lists the rows under heading rows named by this key's value, one heading for each run of rows that share it
 - `group_totals:` (Hash) — subtotals for each group, keyed by the group's name, each a hash of column key to value shown under that column in the group's heading row
 - `total:` (Hash) — column key to value for a total row at the end of the table
+- `current_row:` (item) — the item whose row is the viewer's own, given the `ks-table-row-current` class and `aria-current="true"`; only the first row equal to it is marked
 
 **Column options**
 
@@ -517,6 +518,18 @@ Pass a block to add a trailing "Actions" column. The block receives the componen
     <%= ui_action_menu_item(label: "Delete", href: product_path(item), method: :delete) %>
   <% end %>
 <% end %>
+```
+
+**Current row**
+
+Pass `current_row:` the item whose row belongs to the viewer, such as their own entry on a scoreboard. That row gets the `ks-table-row-current` class, which keystone_ui-styles colours, and `aria-current="true"`, so a screen reader announces it as the current row. The item is compared with `==`, and only the first equal row is marked.
+
+```erb
+<%= ui_data_table(
+  items: @scores,
+  columns: [ { team: "Team" }, { points: "Points" } ],
+  current_row: @my_score
+) %>
 ```
 
 Each row's actions show in an action menu, opened by an ellipsis button, so a table never shows buttons. When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.

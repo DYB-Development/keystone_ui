@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_data_table` takes `current_row:`, and the first row equal to that item gets the `ks-table-row-current` class and `aria-current="true"`.
+
 ## [0.54.0] - 2026-10-30
 
 ### Added
