@@ -574,4 +574,10 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_the_last_header_is_right_aligned_like_the_cells_beneath_it
     assert_includes Keystone::Ui::DataTableComponent::HEADER_CLASSES_LAST.split, "text-right"
   end
+
+  def test_current_row_is_the_first_row_equal_to_its_current_item
+    component = Keystone::Ui::DataTableComponent.new(items: hash_items, columns: columns, current_row: hash_items.last.dup)
+
+    assert_equal [ false, true ], [ component.current_row?(0), component.current_row?(1) ]
+  end
 end
