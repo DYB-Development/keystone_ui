@@ -52,6 +52,10 @@ module Keystone
       def button?
         @href.nil?
       end
+
+      def call
+        content_tag(tag_name, @label, **tag_options)
+      end
     end
   end
 end
