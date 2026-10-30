@@ -44,7 +44,7 @@
               <% if actions? %><th></th><% end %>
             </tr>
           <% end %>
-          <tr>
+          <tr<% if current_row?(idx) %> aria-current="true"<% end %>>
             <% row_cells[idx].each do |cell| %>
               <td class="<%= cell[:classes] %>">
                 <% if cell[:href] %>
