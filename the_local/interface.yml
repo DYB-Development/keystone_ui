@@ -66,6 +66,7 @@ develop:
   - ui_calculation
   - ui_info
   - ui_figure
+  - ui_picture
   - ui_heading
   - ui_caption
   - ui_paragraph
