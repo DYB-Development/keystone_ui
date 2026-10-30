@@ -20,4 +20,10 @@ class Keystone::Ui::PictureComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "/pictures/eiffel.jpg", page.at_css("a:has(img)")&.[]("href")
   end
+
+  def test_a_picture_opens_its_full_size_file_in_a_new_tab
+    page = render_inline(Keystone::Ui::PictureComponent.new(src: "/pictures/eiffel-small.jpg", alt: "The Eiffel Tower", full_size_url: "/pictures/eiffel.jpg"))
+
+    assert_equal "_blank", page.at_css("a")&.[]("target")
+  end
 end

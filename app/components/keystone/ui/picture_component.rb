@@ -15,7 +15,7 @@ module Keystone
         image = tag.img(src: @src, alt: @alt, class: IMAGE_CLASSES)
         return image unless @full_size_url
 
-        link_to(image, @full_size_url)
+        link_to(image, @full_size_url, target: "_blank", rel: "noopener")
       end
     end
   end
