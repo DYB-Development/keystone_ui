@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.55.0] - 2026-10-30
+
+### Changed
+- Requires keystone_ui-styles 0.28.0 or later, which colours the row `ui_data_table` marks with `current_row:`.
+
 ### Added
 - `ui_data_table` takes `current_row:`, and the first row equal to that item gets the `ks-table-row-current` class and `aria-current="true"`.
 
