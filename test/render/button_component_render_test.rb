@@ -15,4 +15,10 @@ class Keystone::Ui::ButtonComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "delete", page.at_css("form input[name=_method]")&.[]("value")
   end
+
+  def test_a_full_width_button_sending_a_request_has_a_form_as_wide_as_its_row
+    page = render_inline(Keystone::Ui::ButtonComponent.new(label: "Answer", href: "/answers", method: :post, full_width: true))
+
+    assert_equal "w-full", page.at_css("form")["class"]
+  end
 end

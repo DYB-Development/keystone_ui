@@ -58,9 +58,13 @@ module Keystone
       end
 
       def call
-        return button_to(@href, method: @method, class: classes) { @label } if request?
+        return button_to(@href, method: @method, class: classes, form_class: form_classes) { @label } if request?
 
         content_tag(tag_name, @label, **tag_options)
+      end
+
+      def form_classes
+        FULL_WIDTH_CLASSES if @full_width
       end
 
       def request?
