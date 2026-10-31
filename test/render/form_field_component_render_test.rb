@@ -21,4 +21,10 @@ class Keystone::Ui::FormFieldComponentRenderTest < ViewComponent::TestCase
 
     assert_equal page.at_css("input")["id"], page.at_css("label")["for"]
   end
+
+  def test_a_textarea_fields_label_names_its_textarea
+    page = render_inline(Keystone::Ui::FormFieldComponent.new(attribute: "player[bio]", type: :textarea))
+
+    assert_equal page.at_css("label")["for"], page.at_css("textarea")["id"]
+  end
 end

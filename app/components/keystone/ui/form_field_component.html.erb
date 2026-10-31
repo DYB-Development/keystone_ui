@@ -12,7 +12,7 @@
       <span class="text-sm text-gray-700 dark:text-gray-300"><%= label_text %></span>
     </div>
   <% elsif textarea? %>
-    <textarea name="<%= @attribute %>" rows="3" class="<%= Keystone::Ui::TextareaComponent::BASE_CLASSES %>"<% if @placeholder %> placeholder="<%= @placeholder %>"<% end %>><%= @value %></textarea>
+    <textarea name="<%= @attribute %>" id="<%= field_id %>" rows="3" class="<%= Keystone::Ui::TextareaComponent::BASE_CLASSES %>"<% if @placeholder %> placeholder="<%= @placeholder %>"<% end %>><%= @value %></textarea>
   <% elsif select? %>
     <select name="<%= @attribute %>" class="<%= Keystone::Ui::SelectComponent::BASE_CLASSES %>">
       <% unless required? %><option value=""><%= blank_option_text %></option><% end %>
