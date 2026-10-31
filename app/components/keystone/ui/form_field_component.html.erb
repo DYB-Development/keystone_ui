@@ -1,6 +1,6 @@
 <div class="<%= WRAPPER_CLASSES %>">
   <% unless checkbox? %>
-    <label class="<%= LABEL_CLASSES %>">
+    <label for="<%= field_id %>" class="<%= LABEL_CLASSES %>">
       <%= label_text %><% if required? %><span class="<%= REQUIRED_CLASSES %>">*</span><% end %>
     </label>
   <% end %>
