@@ -11,7 +11,7 @@ module Keystone
       CHECKBOX_CLASSES = "ks-checkbox"
       CHECKBOX_WRAPPER_CLASSES = "ks-form-field-checkbox flex items-center"
 
-      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [])
+      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [], autofocus: false)
         @attribute = attribute
         @label = label
         @type = type
@@ -27,6 +27,7 @@ module Keystone
         @include_blank = include_blank.to_s
         @disabled = disabled
         @suggestions = Array(suggestions)
+        @autofocus = autofocus
       end
 
       def label_text
@@ -84,6 +85,7 @@ module Keystone
         options[:max] = @max unless @max.nil?
         options[:step] = @step unless @step.nil?
         options[:disabled] = true if @disabled
+        options[:autofocus] = true if @autofocus
         options[:list] = suggestions_id if suggestions?
         options
       end

@@ -176,4 +176,10 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
   def test_checkbox_wrapper_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FormFieldComponent::CHECKBOX_WRAPPER_CLASSES
   end
+
+  def test_focuses_the_input_when_autofocus
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :name, autofocus: true)
+
+    assert_equal true, component.input_options[:autofocus]
+  end
 end
