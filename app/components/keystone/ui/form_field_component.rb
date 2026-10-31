@@ -88,6 +88,7 @@ module Keystone
         options[:max] = @max unless @max.nil?
         options[:step] = @step unless @step.nil?
         options[:disabled] = true if @disabled
+        options[:required] = true if required?
         options[:autofocus] = true if @autofocus
         options[:autocomplete] = @autocomplete unless @autocomplete.nil?
         options[:autocapitalize] = @autocapitalize unless @autocapitalize.nil?

@@ -200,4 +200,10 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
 
     assert_equal "numeric", component.input_options[:inputmode]
   end
+
+  def test_requires_the_input_when_required
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :name, required: true)
+
+    assert_equal true, component.input_options[:required]
+  end
 end
