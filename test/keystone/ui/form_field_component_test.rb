@@ -206,4 +206,10 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
 
     assert_equal true, component.input_options[:required]
   end
+
+  def test_gives_the_input_an_id_built_from_the_attribute
+    component = Keystone::Ui::FormFieldComponent.new(attribute: "player[email]")
+
+    assert_equal "player-email", component.input_options[:id]
+  end
 end

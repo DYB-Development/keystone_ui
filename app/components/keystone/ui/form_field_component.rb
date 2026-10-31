@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext/string/inflections"
+
 module Keystone
   module Ui
     class FormFieldComponent < ViewComponent::Base
@@ -78,7 +80,7 @@ module Keystone
       end
 
       def input_options
-        options = { name: @attribute.to_s, class: Keystone::Ui::InputComponent::BASE_CLASSES }
+        options = { name: @attribute.to_s, id: field_id, class: Keystone::Ui::InputComponent::BASE_CLASSES }
         unless textarea?
           options[:type] = Keystone::Ui::InputComponent::TYPE_MAP.fetch(@type)
         end
@@ -103,6 +105,10 @@ module Keystone
 
       def suggestions
         @suggestions
+      end
+
+      def field_id
+        @attribute.to_s.parameterize
       end
 
       def suggestions_id
