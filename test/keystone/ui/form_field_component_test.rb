@@ -194,4 +194,10 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
 
     assert_equal "none", component.input_options[:autocapitalize]
   end
+
+  def test_passes_inputmode_to_the_input
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :code, inputmode: "numeric")
+
+    assert_equal "numeric", component.input_options[:inputmode]
+  end
 end
