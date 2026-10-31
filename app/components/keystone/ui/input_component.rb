@@ -24,7 +24,7 @@ module Keystone
         value.strftime(DATETIME_FORMAT)
       end
 
-      def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil)
+      def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil)
         @name = name
         @type = type
         @value = value
@@ -36,6 +36,7 @@ module Keystone
         @autofocus = autofocus
         @autocomplete = autocomplete
         @autocapitalize = autocapitalize
+        @inputmode = inputmode
       end
 
       def classes
@@ -63,6 +64,7 @@ module Keystone
         options[:autofocus] = true if @autofocus
         options[:autocomplete] = @autocomplete unless @autocomplete.nil?
         options[:autocapitalize] = @autocapitalize unless @autocapitalize.nil?
+        options[:inputmode] = @inputmode unless @inputmode.nil?
         options
       end
     end

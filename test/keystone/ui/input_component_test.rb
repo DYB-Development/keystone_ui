@@ -60,4 +60,10 @@ class Keystone::Ui::InputComponentTest < Minitest::Test
 
     assert_equal "none", component.tag_options[:autocapitalize]
   end
+
+  def test_passes_inputmode_to_the_input
+    component = Keystone::Ui::InputComponent.new(name: "email", inputmode: "email")
+
+    assert_equal "email", component.tag_options[:inputmode]
+  end
 end
