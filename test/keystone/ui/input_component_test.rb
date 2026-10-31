@@ -66,4 +66,10 @@ class Keystone::Ui::InputComponentTest < Minitest::Test
 
     assert_equal "email", component.tag_options[:inputmode]
   end
+
+  def test_requires_the_input_when_required
+    component = Keystone::Ui::InputComponent.new(name: "name", required: true)
+
+    assert_equal true, component.tag_options[:required]
+  end
 end
