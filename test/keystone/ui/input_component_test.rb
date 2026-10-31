@@ -42,4 +42,10 @@ class Keystone::Ui::InputComponentTest < Minitest::Test
     assert_equal "ks-input ks-input-disabled", component.classes
     assert_equal true, component.tag_options[:disabled]
   end
+
+  def test_focuses_the_input_when_autofocus
+    component = Keystone::Ui::InputComponent.new(name: "name", autofocus: true)
+
+    assert_equal true, component.tag_options[:autofocus]
+  end
 end

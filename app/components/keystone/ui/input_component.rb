@@ -24,7 +24,7 @@ module Keystone
         value.strftime(DATETIME_FORMAT)
       end
 
-      def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil)
+      def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false)
         @name = name
         @type = type
         @value = value
@@ -33,6 +33,7 @@ module Keystone
         @min = min
         @max = max
         @step = step
+        @autofocus = autofocus
       end
 
       def classes
@@ -57,6 +58,7 @@ module Keystone
         options[:min] = @min unless @min.nil?
         options[:max] = @max unless @max.nil?
         options[:step] = @step unless @step.nil?
+        options[:autofocus] = true if @autofocus
         options
       end
     end
