@@ -188,4 +188,10 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
 
     assert_equal "email", component.input_options[:autocomplete]
   end
+
+  def test_passes_autocapitalize_to_the_input
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :email, type: :email, autocapitalize: "none")
+
+    assert_equal "none", component.input_options[:autocapitalize]
+  end
 end
