@@ -728,11 +728,15 @@ Wraps a label, input, hint, and error message in a consistent layout. Infers lab
 
 - `label:` (String) — explicit label text (inferred from `attribute:` if omitted)
 - `type:` (`:text | :number | :email | :password | :date | :datetime | :textarea`, default `:text`) — `:datetime` renders a `datetime-local` input, and a `Time` or `DateTime` given as `value:` is written as `YYYY-MM-DDTHH:MM`
-- `required:` (Boolean, default `false`) — shows a red asterisk after the label
+- `required:` (Boolean, default `false`) — shows a red asterisk after the label, and on an input sets the `required` attribute so the form will not send while it is empty
 - `hint:` (String) — help text below the input
 - `placeholder:` (String)
 - `min:` / `max:` (for number inputs)
 - `disabled:` (Boolean, default `false`) — shows the value in an input that cannot be typed into and is not submitted
+- `autofocus:` (Boolean, default `false`) — puts the cursor in the input when the page opens
+- `autocomplete:` / `autocapitalize:` / `inputmode:` (String) — written onto the input as given, such as `"email"`, `"none"` and `"numeric"`
+
+The label is tied to its input, textarea or select through an `id` built from `attribute:`, so `"player[email]"` gets the id `player-email`.
 
 ```erb
 <%= ui_form_field(
@@ -758,6 +762,8 @@ Renders a standalone `<input>` element with consistent styling.
 - `placeholder:` (String)
 - `disabled:` (Boolean, default `false`)
 - `min:` / `max:` / `step:` (for number type)
+- `autofocus:` / `required:` (Boolean, default `false`)
+- `autocomplete:` / `autocapitalize:` / `inputmode:` (String) — written onto the input as given
 
 ```erb
 <%= ui_input(name: "search", placeholder: "Search...") %>

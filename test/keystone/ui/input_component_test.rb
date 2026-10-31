@@ -42,4 +42,34 @@ class Keystone::Ui::InputComponentTest < Minitest::Test
     assert_equal "ks-input ks-input-disabled", component.classes
     assert_equal true, component.tag_options[:disabled]
   end
+
+  def test_focuses_the_input_when_autofocus
+    component = Keystone::Ui::InputComponent.new(name: "name", autofocus: true)
+
+    assert_equal true, component.tag_options[:autofocus]
+  end
+
+  def test_passes_autocomplete_to_the_input
+    component = Keystone::Ui::InputComponent.new(name: "email", autocomplete: "email")
+
+    assert_equal "email", component.tag_options[:autocomplete]
+  end
+
+  def test_passes_autocapitalize_to_the_input
+    component = Keystone::Ui::InputComponent.new(name: "email", autocapitalize: "none")
+
+    assert_equal "none", component.tag_options[:autocapitalize]
+  end
+
+  def test_passes_inputmode_to_the_input
+    component = Keystone::Ui::InputComponent.new(name: "email", inputmode: "email")
+
+    assert_equal "email", component.tag_options[:inputmode]
+  end
+
+  def test_requires_the_input_when_required
+    component = Keystone::Ui::InputComponent.new(name: "name", required: true)
+
+    assert_equal true, component.tag_options[:required]
+  end
 end

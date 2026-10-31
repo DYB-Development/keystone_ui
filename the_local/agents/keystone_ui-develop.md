@@ -268,7 +268,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_form(action:, method: :post, multipart: false, data: nil)` takes a
      block. `method:` may be `:patch`, `:put` or `:delete`, sent as Rails
      expects. Set `multipart: true` when the form holds a file upload.
-   - `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [])`
+   - `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [], autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil)`
      is the default way to render a field. `type:` is `:text` `:number`
      `:email` `:password` `:date` `:datetime` `:textarea` `:checkbox` `:select`.
    - A `:datetime` field is a `datetime-local` input for a date and a time of
@@ -290,11 +290,31 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `:email` `:password` `:date` `:datetime` and is ignored by the other types. Its list
      is identified by `attribute:`, so two fields with suggestions on one
      screen need different `attribute:` values.
+   - The field's label is tied to its input, textarea or select through an
+     `id` built from `attribute:`, so tapping the label focuses the input and
+     a screen reader reads the label. `"player[email]"` gets the id
+     `player-email`, so two fields on one screen need different `attribute:`
+     values.
+   - `required: true` marks the label with an asterisk and, on a `:text`
+     `:number` `:email` `:password` `:date` `:datetime` field, sets the
+     input's `required` attribute so the browser will not send the form with
+     it empty.
+   - `autofocus: true` puts the cursor in the input when the page opens. Give
+     it to one field per page at most.
+   - `autocomplete:`, `autocapitalize:` and `inputmode:` are written onto the
+     input as given, such as `autocomplete: "email"`, `autocapitalize: "none"`
+     and `inputmode: "numeric"`. They let a phone suggest a saved value, stop
+     capitalizing the first letter, and open the right keyboard.
+   - `autofocus:`, `autocomplete:`, `autocapitalize:` and `inputmode:` apply to
+     the same types as `suggestions:` and are ignored by `:textarea`
+     `:checkbox` and `:select`.
    - A value that must be one of a fixed list is a `:select`, and a free value
      with common choices is a text field with `suggestions:`. Ask the developer
      which a field is and which values it offers.
-   - `ui_input(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil)`
-     takes `:text` `:number` `:email` `:password` `:date` `:datetime`.
+   - `ui_input(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, required: false)`
+     takes `:text` `:number` `:email` `:password` `:date` `:datetime`. Its
+     `autofocus:` `autocomplete:` `autocapitalize:` and `inputmode:` work as on
+     `ui_form_field`, and `required: true` sets the `required` attribute.
      `ui_textarea(name:, value: nil, rows: 3, placeholder: nil, disabled: false)`
      and `ui_select(name:, options: [], selected: nil, include_blank: nil, disabled: false)`
      are the bare forms of the other two. Use them only where a label does not

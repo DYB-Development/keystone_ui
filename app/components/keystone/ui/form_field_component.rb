@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext/string/inflections"
+
 module Keystone
   module Ui
     class FormFieldComponent < ViewComponent::Base
@@ -11,7 +13,7 @@ module Keystone
       CHECKBOX_CLASSES = "ks-checkbox"
       CHECKBOX_WRAPPER_CLASSES = "ks-form-field-checkbox flex items-center"
 
-      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [])
+      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [], autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil)
         @attribute = attribute
         @label = label
         @type = type
@@ -27,6 +29,10 @@ module Keystone
         @include_blank = include_blank.to_s
         @disabled = disabled
         @suggestions = Array(suggestions)
+        @autofocus = autofocus
+        @autocomplete = autocomplete
+        @autocapitalize = autocapitalize
+        @inputmode = inputmode
       end
 
       def label_text
@@ -74,7 +80,7 @@ module Keystone
       end
 
       def input_options
-        options = { name: @attribute.to_s, class: Keystone::Ui::InputComponent::BASE_CLASSES }
+        options = { name: @attribute.to_s, id: field_id, class: Keystone::Ui::InputComponent::BASE_CLASSES }
         unless textarea?
           options[:type] = Keystone::Ui::InputComponent::TYPE_MAP.fetch(@type)
         end
@@ -84,6 +90,11 @@ module Keystone
         options[:max] = @max unless @max.nil?
         options[:step] = @step unless @step.nil?
         options[:disabled] = true if @disabled
+        options[:required] = true if required?
+        options[:autofocus] = true if @autofocus
+        options[:autocomplete] = @autocomplete unless @autocomplete.nil?
+        options[:autocapitalize] = @autocapitalize unless @autocapitalize.nil?
+        options[:inputmode] = @inputmode unless @inputmode.nil?
         options[:list] = suggestions_id if suggestions?
         options
       end
@@ -94,6 +105,10 @@ module Keystone
 
       def suggestions
         @suggestions
+      end
+
+      def field_id
+        @attribute.to_s.parameterize
       end
 
       def suggestions_id

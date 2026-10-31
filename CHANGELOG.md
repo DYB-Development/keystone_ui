@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_form_field` and `ui_input` take `autofocus:`, `autocomplete:`, `autocapitalize:` and `inputmode:`, and write each one given onto the input.
+- `ui_input` takes `required: true` to stop the form sending while the input is empty.
+
+### Changed
+- A `ui_form_field` label is tied to its input, textarea or select through an id built from `attribute:`.
+- A `ui_form_field` with `required: true` also sets the `required` attribute on its input, so the browser will not send the form while it is empty.
+
 ## [0.55.0] - 2026-10-30
 
 ### Changed
