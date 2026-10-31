@@ -182,4 +182,10 @@ class Keystone::Ui::FormFieldComponentTest < Minitest::Test
 
     assert_equal true, component.input_options[:autofocus]
   end
+
+  def test_passes_autocomplete_to_the_input
+    component = Keystone::Ui::FormFieldComponent.new(attribute: :email, type: :email, autocomplete: "email")
+
+    assert_equal "email", component.input_options[:autocomplete]
+  end
 end
