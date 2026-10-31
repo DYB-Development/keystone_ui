@@ -27,4 +27,10 @@ class Keystone::Ui::FormFieldComponentRenderTest < ViewComponent::TestCase
 
     assert_equal page.at_css("label")["for"], page.at_css("textarea")["id"]
   end
+
+  def test_a_select_fields_label_names_its_select
+    page = render_inline(Keystone::Ui::FormFieldComponent.new(attribute: "player[team_id]", type: :select, options: [ [ "Red", "1" ] ]))
+
+    assert_equal page.at_css("label")["for"], page.at_css("select")["id"]
+  end
 end
