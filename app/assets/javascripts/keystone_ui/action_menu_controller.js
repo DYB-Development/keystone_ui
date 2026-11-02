@@ -21,9 +21,11 @@ export default class extends Controller {
 
   place() {
     const button = this.buttonTarget.getBoundingClientRect()
+    const screenHeight = this.element.ownerDocument.documentElement.clientHeight
+    const roomBelow = button.bottom + this.menuTarget.offsetHeight <= screenHeight
     Object.assign(this.menuTarget.style, {
       position: "fixed",
-      top: `${button.bottom}px`,
+      top: `${roomBelow ? button.bottom : button.top - this.menuTarget.offsetHeight}px`,
       left: `${button.right - this.menuTarget.offsetWidth}px`,
       right: "auto"
     })
