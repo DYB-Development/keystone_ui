@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.56.0] - 2026-10-31
+
 ### Added
 - `ui_form_field` and `ui_input` take `autofocus:`, `autocomplete:`, `autocapitalize:` and `inputmode:`, and write each one given onto the input.
 - `ui_input` takes `required: true` to stop the form sending while the input is empty.
