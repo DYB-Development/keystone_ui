@@ -37,6 +37,14 @@ test("opening a menu with no room under its button places it just above the butt
   assert.equal(menu.style.top, "620px")
 })
 
+test("opening a menu with room neither under nor above its button places it at the top of the screen", () => {
+  const { controller, menu } = menuUnder({ top: 100, bottom: 130, right: 900 }, { screenHeight: 200, menuHeight: 180 })
+
+  controller.toggle({ stopPropagation() {} })
+
+  assert.equal(menu.style.top, "0px")
+})
+
 test("closing the menu hides it, as when the page scrolls under it", () => {
   const { controller, menu } = menuUnder({ bottom: 300, right: 900 })
   controller.toggle({ stopPropagation() {} })

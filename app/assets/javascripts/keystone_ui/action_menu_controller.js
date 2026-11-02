@@ -25,7 +25,7 @@ export default class extends Controller {
     const roomBelow = button.bottom + this.menuTarget.offsetHeight <= screenHeight
     Object.assign(this.menuTarget.style, {
       position: "fixed",
-      top: `${roomBelow ? button.bottom : button.top - this.menuTarget.offsetHeight}px`,
+      top: `${roomBelow ? button.bottom : Math.max(0, button.top - this.menuTarget.offsetHeight)}px`,
       left: `${button.right - this.menuTarget.offsetWidth}px`,
       right: "auto"
     })
