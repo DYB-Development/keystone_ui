@@ -1418,7 +1418,7 @@ Renders a mobile header with back link, centered title, and optional subtitle. H
 
 ### `ui_action_menu`
 
-Renders an ellipsis (⋯) button that opens a dropdown of actions, at every screen size. Uses Stimulus `dropdown` controller. Fill it with `ui_action_menu_item`.
+Renders an ellipsis (⋯) button that opens a dropdown of actions, at every screen size. Uses the Stimulus `action-menu` controller. The menu opens under its button, or above it when there is no room below, and at the top of the screen when it fits neither way. An open menu moves with its button while the page scrolls, and closes when a tap or click is released outside it or the screen resizes. Fill it with `ui_action_menu_item`.
 
 ```erb
 <%= ui_action_menu do %>
@@ -1440,7 +1440,7 @@ One entry in an action menu. A link when `method:` is `:get`, and a form button 
 
 ### `ui_mobile_actions`
 
-Renders an ellipsis dropdown for mobile action menus. Hidden on `lg:` screens. Uses Stimulus `dropdown` controller.
+Renders an ellipsis dropdown for mobile action menus. Hidden on `lg:` screens. Uses the Stimulus `action-menu` controller, so it opens, moves and closes as `ui_action_menu` does.
 
 No props. Pass action links as block content.
 
