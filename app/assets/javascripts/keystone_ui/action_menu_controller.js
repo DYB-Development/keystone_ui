@@ -19,6 +19,10 @@ export default class extends Controller {
     this.menuTarget.classList.add("hidden")
   }
 
+  follow() {
+    if (!this.menuTarget.classList.contains("hidden")) this.place()
+  }
+
   place() {
     const button = this.buttonTarget.getBoundingClientRect()
     const screenHeight = this.element.ownerDocument.documentElement.clientHeight

@@ -17,8 +17,9 @@ function menuUnder(button, { screenHeight = 800, menuHeight = 120 } = {}) {
   }
   const controller = new ActionMenuController({ scope: { element: { contains: () => false, ownerDocument: { documentElement: { clientHeight: screenHeight } } } } })
   Object.defineProperty(controller, "menuTarget", { value: menu })
-  Object.defineProperty(controller, "buttonTarget", { value: { getBoundingClientRect: () => button } })
-  return { controller, menu }
+  const buttonTarget = { getBoundingClientRect: () => button }
+  Object.defineProperty(controller, "buttonTarget", { value: buttonTarget })
+  return { controller, menu, buttonTarget }
 }
 
 test("opening the menu places it on the screen just under its button, lined up with the button's right edge", () => {
@@ -43,6 +44,16 @@ test("opening a menu with room neither under nor above its button places it at t
   controller.toggle({ stopPropagation() {} })
 
   assert.equal(menu.style.top, "0px")
+})
+
+test("scrolling the page keeps an open menu open and moves it with its button", () => {
+  const { controller, menu, buttonTarget } = menuUnder({ top: 270, bottom: 300, right: 900 })
+  controller.toggle({ stopPropagation() {} })
+  buttonTarget.getBoundingClientRect = () => ({ top: 170, bottom: 200, right: 900 })
+
+  controller.follow()
+
+  assert.deepEqual([menu.classList.contains("hidden"), menu.style.top], [false, "200px"])
 })
 
 test("closing the menu hides it, as when the page scrolls under it", () => {
