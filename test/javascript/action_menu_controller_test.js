@@ -56,7 +56,7 @@ test("scrolling the page keeps an open menu open and moves it with its button", 
   assert.deepEqual([menu.classList.contains("hidden"), menu.style.top], [false, "200px"])
 })
 
-test("closing the menu hides it, as when the page scrolls under it", () => {
+test("closing the menu hides it, as when the screen resizes under it", () => {
   const { controller, menu } = menuUnder({ bottom: 300, right: 900 })
   controller.toggle({ stopPropagation() {} })
 
