@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.57.0] - 2026-11-02
+
 ### Changed
 - An action menu with no room under its button opens above it, and at the top of the screen when it fits neither under nor above its button.
 - An open action menu stays open while the page scrolls and moves with its button, instead of closing.
