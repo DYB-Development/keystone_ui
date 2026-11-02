@@ -14,7 +14,7 @@ module Keystone
       DROPDOWN_CLASSES = "ks-action-menu hidden absolute right-0 z-50 w-48 origin-top-right"
 
       def wrapper_data
-        { controller: "dropdown" }
+        { controller: "action-menu" }
       end
     end
   end

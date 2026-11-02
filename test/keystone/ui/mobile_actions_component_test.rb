@@ -21,10 +21,10 @@ class Keystone::Ui::MobileActionsComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileActionsComponent::ELLIPSIS_ICON, "<svg"
   end
 
-  def test_provides_dropdown_stimulus_controller_data
+  def test_provides_action_menu_stimulus_controller_data
     component = Keystone::Ui::MobileActionsComponent.new
 
-    assert_equal "dropdown", component.wrapper_data[:controller]
+    assert_equal "action-menu", component.wrapper_data[:controller]
   end
 
   def test_button_classes_render_the_ks_action_menu_button_class
