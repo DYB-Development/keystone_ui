@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- An action menu with no room under its button opens above it, and at the top of the screen when it fits neither under nor above its button.
+- An open action menu stays open while the page scrolls and moves with its button, instead of closing.
+- An open action menu closes when a tap or click is released outside it, which an iPhone web view sends for a tap on plain page content.
+- `ui_mobile_actions` uses the `action-menu` Stimulus controller, so it opens, moves and closes as `ui_action_menu` does, and its markup carries `data-action-menu-target` in place of `data-dropdown-target`.
+
 ## [0.56.0] - 2026-10-31
 
 ### Added
