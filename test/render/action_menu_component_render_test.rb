@@ -15,6 +15,12 @@ class Keystone::Ui::ActionMenuComponentRenderTest < ViewComponent::TestCase
     assert_equal "scroll@window->action-menu#follow resize@window->action-menu#close", page.at_css("[data-controller=action-menu]")["data-action"]
   end
 
+  def test_a_tap_or_click_released_outside_an_open_menu_closes_it
+    page = render_inline(Keystone::Ui::ActionMenuComponent.new) { "Edit" }
+
+    assert_equal "click->action-menu#toggle pointerup@window->action-menu#hide", page.at_css("button[aria-label=Actions]")["data-action"]
+  end
+
   def test_a_view_draws_an_action_menu_of_items_with_the_ui_action_menu_helpers
     page = render_in_view_context do
       ui_action_menu do

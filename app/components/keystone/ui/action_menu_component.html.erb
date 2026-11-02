@@ -1,6 +1,6 @@
 <div class="<%= WRAPPER_CLASSES %>" data-controller="action-menu" data-action="scroll@window->action-menu#follow resize@window->action-menu#close">
   <button type="button"
-          data-action="click->action-menu#toggle click@window->action-menu#hide"
+          data-action="click->action-menu#toggle pointerup@window->action-menu#hide"
           data-action-menu-target="button"
           class="<%= BUTTON_CLASSES %>"
           aria-label="Actions">
