@@ -50,6 +50,10 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "min-w-0"
   end
 
+  def test_title_is_centred_vertically_in_the_bar
+    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "self-center"
+  end
+
   def test_hides_title_on_large_screens_with_lg_hidden
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "lg:hidden"
   end

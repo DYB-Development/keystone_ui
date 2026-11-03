@@ -17,7 +17,7 @@ module Keystone
 
       WRAPPER_CLASSES = "lg:hidden print:hidden"
       BACK_LINK_CLASSES = "ks-mobile-header-back"
-      TITLE_CLASSES = "ks-mobile-header-title flex-[1_1_6rem] min-w-0 lg:hidden truncate"
+      TITLE_CLASSES = "ks-mobile-header-title flex-[1_1_6rem] min-w-0 self-center lg:hidden truncate"
       SUBTITLE_CLASSES = "ks-mobile-header-subtitle block text-xs truncate text-center"
       DROPDOWN_CLASSES = "ks-action-menu hidden absolute right-0 z-50 w-48 origin-top-right"
 
