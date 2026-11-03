@@ -33,6 +33,12 @@ class Keystone::Ui::NavbarComponentTest < Minitest::Test
     assert_includes component.logo_classes.split, "lg:flex"
   end
 
+  def test_keeps_the_logo_below_desktop_width_by_default
+    component = Keystone::Ui::NavbarComponent.new
+
+    refute_includes component.logo_classes.split, "hidden"
+  end
+
   def test_has_mobile_left_classes_hidden_on_desktop
     assert_includes Keystone::Ui::NavbarComponent::MOBILE_LEFT_CLASSES, "lg:hidden"
     assert_includes Keystone::Ui::NavbarComponent::MOBILE_LEFT_CLASSES, "flex"
