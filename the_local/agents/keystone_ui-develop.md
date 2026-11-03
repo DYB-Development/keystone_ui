@@ -602,10 +602,13 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 13. Build marketing sections.
 
-    - `ui_hero(title:, subtitle: nil, badge: nil, layout: :split)` takes a
-      block holding the call-to-action buttons and yields the component, so
-      its `aside` slot can hold an image or panel. `layout:` is `:split` or
-      `:centered`.
+    - `ui_hero(title:, subtitle: nil, badge: nil, layout: :split,
+      height: :screen)` takes a block holding the call-to-action buttons and
+      yields the component, so its `aside` slot can hold an image or panel.
+      `layout:` is `:split` or `:centered`. `height: :screen` keeps the hero at
+      least the full screen height, and `height: :content` draws it only as
+      tall as its content and its padding, for a page with more sections
+      after it.
     - `ui_cta_banner(title:, subtitle: nil)` takes a block holding the
       buttons.
     - `ui_feature_grid(title:, features:, subtitle: nil)` — `features:` is
