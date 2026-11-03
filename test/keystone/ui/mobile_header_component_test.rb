@@ -42,6 +42,10 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     refute_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "absolute"
   end
 
+  def test_title_takes_the_space_the_controls_leave
+    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "flex-[1_1_6rem]"
+  end
+
   def test_hides_title_on_large_screens_with_lg_hidden
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "lg:hidden"
   end
