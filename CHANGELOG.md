@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.59.0] - 2026-11-03
+
 ### Changed
 - On a phone, a `ui_mobile_header` title and subtitle sit in the top bar's row between the Back arrow, or the bar's left edge, and the right-side controls, and start at the left of that space. They are no longer centred on the bar, so the controls can no longer cover them. A title or subtitle too long for the space ends in an ellipsis.
 - A `ui_mobile_header` with a subtitle makes the top bar 40px tall inside its padding when the bar's other contents are shorter than that, since the title and subtitle now count toward the bar's height.
