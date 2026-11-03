@@ -10,7 +10,7 @@ module Keystone
       LOGO_MOBILE_HIDDEN_CLASSES = "hidden lg:flex"
       MOBILE_CENTER_CLASSES = "ks-navbar-title absolute left-1/2 -translate-x-1/2 lg:hidden truncate max-w-[60%]"
       DESKTOP_LINKS_CLASSES = "nav-container hidden lg:flex"
-      MOBILE_RIGHT_CLASSES = "nav-user-controls ml-auto max-lg:in-[.top-nav:has(.ks-mobile-header-title)]:flex-wrap"
+      MOBILE_RIGHT_CLASSES = "nav-user-controls ml-auto max-lg:in-[.top-nav:has(.ks-mobile-header-title)]:flex-wrap max-lg:in-[.top-nav:has(.ks-mobile-header-title)]:justify-end"
 
       renders_one :logo
       renders_one :desktop_links

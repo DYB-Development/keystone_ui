@@ -5,6 +5,10 @@ require "test_helper"
 class Keystone::Ui::NavbarComponentTest < Minitest::Test
   VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
 
+  def test_wrapped_controls_beside_a_mobile_header_stay_on_the_right
+    assert_includes Keystone::Ui::NavbarComponent::MOBILE_RIGHT_CLASSES.split, "max-lg:in-[.top-nav:has(.ks-mobile-header-title)]:justify-end"
+  end
+
   def test_controls_wider_than_the_bar_beside_a_mobile_header_wrap_onto_more_rows
     assert_includes Keystone::Ui::NavbarComponent::MOBILE_RIGHT_CLASSES.split, "max-lg:in-[.top-nav:has(.ks-mobile-header-title)]:flex-wrap"
   end
