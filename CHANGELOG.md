@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - `ui_page_header` with `action_url:` and no `header.action` block draws a button to that address with `action_label:`. A `header.action` block is still drawn alone when both are given.
+- A `ui_form_field` checkbox has its words as a label tied to its box through an id built from `attribute:`, so tapping the words ticks and unticks the box and a screen reader reads them as its label.
 
 ## [0.57.0] - 2026-11-02
 
