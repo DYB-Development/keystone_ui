@@ -7,6 +7,7 @@ module Keystone
       NAV_STICKY = "sticky top-0 z-40"
       MOBILE_LEFT_CLASSES = "lg:hidden flex items-center"
       LOGO_CLASSES = "logo"
+      LOGO_MOBILE_HIDDEN_CLASSES = "hidden"
       MOBILE_CENTER_CLASSES = "ks-navbar-title absolute left-1/2 -translate-x-1/2 lg:hidden truncate max-w-[60%]"
       DESKTOP_LINKS_CLASSES = "nav-container hidden lg:flex"
       MOBILE_RIGHT_CLASSES = "nav-user-controls ml-auto"
@@ -18,13 +19,20 @@ module Keystone
       renders_one :mobile_center
       renders_one :mobile_right
 
-      def initialize(sticky: true)
+      def initialize(sticky: true, hide_logo_on_mobile: false)
         @sticky = sticky
+        @hide_logo_on_mobile = hide_logo_on_mobile
       end
 
       def nav_classes
         classes = [ NAV_BASE ]
         classes << NAV_STICKY if @sticky
+        classes.join(" ")
+      end
+
+      def logo_classes
+        classes = [ LOGO_CLASSES ]
+        classes << LOGO_MOBILE_HIDDEN_CLASSES if @hide_logo_on_mobile
         classes.join(" ")
       end
     end

@@ -21,6 +21,12 @@ class Keystone::Ui::NavbarComponentTest < Minitest::Test
     refute_includes component.nav_classes, "sticky"
   end
 
+  def test_hide_logo_on_mobile_hides_the_logo_below_desktop_width
+    component = Keystone::Ui::NavbarComponent.new(hide_logo_on_mobile: true)
+
+    assert_includes component.logo_classes.split, "hidden"
+  end
+
   def test_has_mobile_left_classes_hidden_on_desktop
     assert_includes Keystone::Ui::NavbarComponent::MOBILE_LEFT_CLASSES, "lg:hidden"
     assert_includes Keystone::Ui::NavbarComponent::MOBILE_LEFT_CLASSES, "flex"
