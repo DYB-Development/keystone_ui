@@ -34,6 +34,10 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
   end
 
 
+  def test_back_arrow_is_centred_vertically_in_the_bar
+    assert_includes Keystone::Ui::MobileHeaderComponent::WRAPPER_CLASSES.split, "items-center"
+  end
+
   def test_has_title_classes_with_truncation
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "truncate"
   end
