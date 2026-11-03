@@ -15,6 +15,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "Create", top_bar_link(page)&.[]("aria-label")
   end
 
+  def test_given_no_published_action_draws_nothing
+    page = render_inline(Keystone::Ui::MobileActionComponent.new)
+
+    assert_empty page.css("a")
+  end
+
   private
 
   def render_after_page_header(**header)
