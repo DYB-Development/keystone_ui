@@ -46,6 +46,10 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "flex-[1_1_6rem]"
   end
 
+  def test_title_can_shrink_below_the_width_of_its_text
+    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "min-w-0"
+  end
+
   def test_hides_title_on_large_screens_with_lg_hidden
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "lg:hidden"
   end
