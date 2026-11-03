@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - `ui_mobile_action` draws the main action a screen publishes as a plus icon link in a host's top bar, on phones only. It draws nothing when the screen publishes no action, and it is hidden from `sm:` up, inside a Hotwire Native web view and when the page is printed.
 - `ui_hero` takes `height:`. `height: :content` draws the hero only as tall as its content and its padding, and the default `height: :screen` keeps it at least the full screen height. Any other value raises `ArgumentError`.
+- `ui_navbar` takes `hide_logo_on_mobile: true`, for a page that shows its own title in the phone header. The `logo` slot is hidden below `lg:` and still shows from `lg:` up. The default, `false`, keeps the logo at every width.
 
 ### Changed
 - `ui_page_header` with `action_url:` and no `header.action` block draws a button to that address with `action_label:`. A `header.action` block is still drawn alone when both are given.
