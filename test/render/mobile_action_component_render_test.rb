@@ -9,6 +9,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "/events/new", top_bar_link(page)&.[]("href")
   end
 
+  def test_names_the_link_with_the_label_a_page_header_publishes
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert_equal "Create", top_bar_link(page)&.[]("aria-label")
+  end
+
   private
 
   def render_after_page_header(**header)
