@@ -39,6 +39,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_includes top_bar_link(page)&.[]("class").to_s.split, "print:hidden"
   end
 
+  def test_colours_the_link_like_the_action_menu_button_beside_it
+    page = render_after_page_header(title: "Events", action_url: "/events/new")
+
+    assert_includes top_bar_link(page)&.[]("class").to_s.split, Keystone::Ui::MobileActionsComponent::BUTTON_CLASSES
+  end
+
   private
 
   def render_after_page_header(**header)
