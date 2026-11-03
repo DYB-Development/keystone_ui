@@ -34,10 +34,12 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
   end
 
 
-  def test_has_title_classes_with_centered_positioning_and_truncation
-    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "absolute"
-    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "-translate-x-1/2"
+  def test_has_title_classes_with_truncation
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "truncate"
+  end
+
+  def test_title_is_not_taken_out_of_the_bars_layout
+    refute_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "absolute"
   end
 
   def test_hides_title_on_large_screens_with_lg_hidden
