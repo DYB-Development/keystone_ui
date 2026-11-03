@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class MobileActionComponent < ViewComponent::Base
-      LINK_CLASSES = "sm:hidden hotwire-native:hidden"
+      LINK_CLASSES = "sm:hidden hotwire-native:hidden print:hidden"
 
       def render?
         content_for?(:mobile_action_url)
