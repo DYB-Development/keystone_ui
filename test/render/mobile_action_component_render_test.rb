@@ -45,6 +45,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_includes top_bar_link(page)&.[]("class").to_s.split, Keystone::Ui::MobileActionsComponent::BUTTON_CLASSES
   end
 
+  def test_draws_the_action_as_an_icon
+    page = render_after_page_header(title: "Events", action_url: "/events/new")
+
+    assert_equal 1, top_bar_link(page)&.css("svg")&.size
+  end
+
   private
 
   def render_after_page_header(**header)
