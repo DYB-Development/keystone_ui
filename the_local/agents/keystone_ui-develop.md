@@ -244,6 +244,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `mobile_center`, `mobile_right`. Desktop slots are hidden below `lg:` and
      mobile slots from `lg:` up. `desktop_right` renders only when
      `desktop_links` is also filled.
+   - `ui_navbar(hide_logo_on_mobile: true)` hides the `logo` slot below `lg:`
+     and keeps it from `lg:` up, for a page that shows its own title in
+     `ui_mobile_header`. It defaults to `false`, which keeps the logo at every
+     width.
    - `ui_nav_item(label:, href:, active: false)` is one desktop link.
      `ui_nav_dropdown(title:, area:, active: false)` takes a block holding the
      menu links.

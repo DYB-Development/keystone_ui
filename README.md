@@ -1246,6 +1246,7 @@ Renders the top-level navigation bar with slots for desktop and mobile sections.
 **Optional props**
 
 - `sticky:` (Boolean, default `true`)
+- `hide_logo_on_mobile:` (Boolean, default `false`). Hides the `logo` slot below `lg` and keeps it from `lg` up, for a page that shows its own title in the phone header.
 
 **Slots:** `logo`, `desktop_links`, `desktop_right`, `mobile_left`, `mobile_center`, `mobile_right`
 
