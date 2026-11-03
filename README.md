@@ -800,9 +800,15 @@ Renders a page title area with an optional subtitle and action slot. On small sc
 **Optional props**
 
 - `subtitle:` (String) — secondary text below the title
+- `action_url:` (String) — the address of the screen's main action. It is drawn as a button when no `header.action` block is given, and published for `ui_mobile_action` either way
+- `action_label:` (String, default `"Add new"`) — the name of the main action
 - `class:` (String) — extra classes added to the component's outer element for this one use
 
-**Block API** — register an action slot via `header.action`:
+```erb
+<%= ui_page_header(title: "Products", action_url: new_product_path, action_label: "New Product") %>
+```
+
+**Block API** — register an action slot via `header.action`, which is drawn alone when `action_url:` is also given:
 
 ```erb
 <%= ui_page_header(title: "Products", subtitle: "Manage your catalog") do |header| %>
@@ -1448,6 +1454,20 @@ No props. Pass action links as block content.
 <%= ui_mobile_actions do %>
   <%= link_to "Edit", edit_product_path(@product) %>
   <%= link_to "Delete", product_path(@product), data: { turbo_method: :delete } %>
+<% end %>
+```
+
+### `ui_mobile_action`
+
+Draws the action a screen gives `ui_page_header` through `action_url:` as a plus icon link in the phone top bar, named with `action_label:`. It draws nothing on a screen with no action. It is hidden from `sm` screens up, where the page header shows the action, so the action shows once at every width. It is also hidden when the page is printed and inside a Hotwire Native web view, where the layout writes the `hotwire-native` class on `<html>` and declares that Tailwind variant, so give native users another way to reach the action, such as `ui_mobile_actions`.
+
+No props. Call it from the layout's top bar, which is rendered after the screen.
+
+```erb
+<%= ui_navbar do |nav| %>
+  <% nav.with_mobile_right do %>
+    <%= ui_mobile_action %>
+  <% end %>
 <% end %>
 ```
 

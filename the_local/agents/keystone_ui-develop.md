@@ -42,6 +42,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_bottom_nav_item` — one tab in the bottom tab bar.
 - `ui_mobile_header` — a mobile back arrow and centred title.
 - `ui_mobile_actions` — an ellipsis menu of actions shown only below `lg:`.
+- `ui_mobile_action` — a plus icon link to the action a screen's page header publishes, for the phone top bar.
 - `ui_action_menu` — an ellipsis menu of actions shown at every screen size.
 - `ui_action_menu_item` — one action in an action menu, as a link or a button sending a method.
 - `ui_settings_link` — a full-width settings row with a chevron.
@@ -166,9 +167,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      directly, since those pass `trail: []`.
    - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", class: nil)`
      takes a block yielding the header and is hidden below `sm:`. Call
-     `header.action { ... }` in the block to place a control on its right, and
-     only what `action` receives is rendered. `action_url:` publishes that URL
-     and label for a mobile navbar to pick up.
+     `header.action { ... }` in the block to place a control on its right.
+     `action_url:` declares the screen's main action. It publishes that URL and
+     label for `ui_mobile_action` to pick up, and with no `action` block the
+     header draws them as a button. An `action` block is drawn alone when both
+     are given.
    - `ui_breadcrumbs(trail:, current: nil)` renders `trail:` as links separated
      by `›`, then `current:` unlinked and marked as the current page, shown
      only from `lg:` up. On a form or detail screen pass `trail:` to the shell
@@ -251,6 +254,14 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_mobile_header(title:, back_url:, subtitle: nil)` is hidden from `lg:`
      up and goes in the navbar's `mobile_left` slot. `back_url:` must be
      passed, and `nil` renders the title with no back arrow.
+   - `ui_mobile_action` takes no keywords and no block, and goes in the top
+     bar's right side, such as the navbar's `mobile_right` slot. It draws a plus
+     icon linking to the `action_url:` a screen gives `ui_page_header`, named
+     with its `action_label:`, and draws nothing when the screen gives none. It
+     is hidden from `sm:` up, where the page header shows the action, and inside
+     a Hotwire Native web view, so give native users another way to reach the
+     action, such as `ui_mobile_actions`. The layout must also write the
+     `hotwire-native` class on `<html>` and declare that Tailwind variant.
    - `ui_settings_link(label:, href:)` renders one settings row.
    - `ui_theme_toggle` takes no keywords and no block. Its buttons switch the
      theme at once and store the choice in the `keystone_theme` cookie for a

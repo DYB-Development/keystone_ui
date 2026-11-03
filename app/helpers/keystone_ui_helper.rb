@@ -141,6 +141,10 @@ module KeystoneUiHelper
     render Keystone::Ui::MobileActionsComponent.new(**args), &block
   end
 
+  def ui_mobile_action
+    render Keystone::Ui::MobileActionComponent.new
+  end
+
   def ui_navbar(**args, &block)
     render Keystone::Ui::NavbarComponent.new(**args), &block
   end
