@@ -5,7 +5,7 @@ module Keystone
     class NavbarComponent < ViewComponent::Base
       NAV_BASE = "top-nav print:hidden"
       NAV_STICKY = "sticky top-0 z-40"
-      MOBILE_LEFT_CLASSES = "lg:hidden flex items-center"
+      MOBILE_LEFT_CLASSES = "lg:hidden flex items-center max-lg:has-[.ks-mobile-header-title]:contents"
       LOGO_CLASSES = "logo"
       LOGO_MOBILE_HIDDEN_CLASSES = "hidden lg:flex"
       MOBILE_CENTER_CLASSES = "ks-navbar-title absolute left-1/2 -translate-x-1/2 lg:hidden truncate max-w-[60%]"

@@ -5,6 +5,10 @@ require "test_helper"
 class Keystone::Ui::NavbarComponentTest < Minitest::Test
   VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
 
+  def test_mobile_left_slot_holding_a_mobile_header_lays_its_parts_out_in_the_bars_row
+    assert_includes Keystone::Ui::NavbarComponent::MOBILE_LEFT_CLASSES.split, "max-lg:has-[.ks-mobile-header-title]:contents"
+  end
+
   def test_includes_top_nav_and_sticky_classes_by_default
     component = Keystone::Ui::NavbarComponent.new
 
