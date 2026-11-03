@@ -21,7 +21,7 @@ module Keystone
 
       attr_reader :title, :subtitle, :badge
 
-      def initialize(title:, subtitle: nil, badge: nil, layout: :split)
+      def initialize(title:, subtitle: nil, badge: nil, layout: :split, height: :screen)
         @title = title
         @subtitle = subtitle
         @badge = badge
