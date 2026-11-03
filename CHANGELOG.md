@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_mobile_action` draws the main action a screen publishes as a plus icon link in a host's top bar, on phones only. It draws nothing when the screen publishes no action, and it is hidden from `sm:` up, inside a Hotwire Native web view and when the page is printed.
+
+### Changed
+- `ui_page_header` with `action_url:` and no `header.action` block draws a button to that address with `action_label:`. A `header.action` block is still drawn alone when both are given.
+
 ## [0.57.0] - 2026-11-02
 
 ### Changed
