@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- On a phone, a `ui_mobile_header` title and subtitle sit in the top bar's row between the Back arrow, or the bar's left edge, and the right-side controls, and start at the left of that space. They are no longer centred on the bar, so the controls can no longer cover them. A title or subtitle too long for the space ends in an ellipsis.
+- A `ui_mobile_header` with a subtitle makes the top bar 40px tall inside its padding when the bar's other contents are shorter than that, since the title and subtitle now count toward the bar's height.
+- In `ui_navbar`, right-side controls that leave less than 6rem for a `ui_mobile_header` title move to a second row under the title, so the bar is taller on those pages. Controls wider than the bar wrap onto more rows, aligned to the right. Pages with no `ui_mobile_header`, and every width from `lg:` up, are unchanged.
+
+### Host action
+- A host with its own top bar needs no change if its `ui_mobile_header` is a direct child of a flex row, as in a `.top-nav` bar. A host wrapping the header in another element must make that element `flex` with `min-w-0 flex-1`.
+- A hand-written bar whose right-side controls can fill the width adds `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to its `<nav>` to get the second row. Without it nothing overlaps, but the title can shrink until almost none of it shows.
+
 ## [0.58.0] - 2026-11-03
 
 ### Added

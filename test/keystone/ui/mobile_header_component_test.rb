@@ -27,17 +27,38 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileHeaderComponent::WRAPPER_CLASSES, "lg:hidden"
   end
 
-  def test_has_subtitle_classes_with_small_text_and_centering
+  def test_subtitle_starts_at_the_left_under_the_title
+    refute_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES.split, "text-center"
+  end
+
+  def test_has_subtitle_classes_with_small_text
     assert_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES, "text-xs"
-    assert_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES, "text-center"
     assert_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES, "truncate"
   end
 
 
-  def test_has_title_classes_with_centered_positioning_and_truncation
-    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "absolute"
-    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "-translate-x-1/2"
+  def test_back_arrow_is_centred_vertically_in_the_bar
+    assert_includes Keystone::Ui::MobileHeaderComponent::WRAPPER_CLASSES.split, "items-center"
+  end
+
+  def test_has_title_classes_with_truncation
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "truncate"
+  end
+
+  def test_title_is_not_taken_out_of_the_bars_layout
+    refute_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "absolute"
+  end
+
+  def test_title_takes_the_space_the_controls_leave
+    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "flex-[1_1_6rem]"
+  end
+
+  def test_title_can_shrink_below_the_width_of_its_text
+    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "min-w-0"
+  end
+
+  def test_title_is_centred_vertically_in_the_bar
+    assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES.split, "self-center"
   end
 
   def test_hides_title_on_large_screens_with_lg_hidden

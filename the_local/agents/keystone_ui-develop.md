@@ -40,7 +40,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_nav_dropdown` — a navbar dropdown menu.
 - `ui_bottom_nav` — the mobile bottom tab bar.
 - `ui_bottom_nav_item` — one tab in the bottom tab bar.
-- `ui_mobile_header` — a mobile back arrow and centred title.
+- `ui_mobile_header` — a mobile back arrow and a title beside it.
 - `ui_mobile_actions` — an ellipsis menu of actions shown only below `lg:`.
 - `ui_mobile_action` — a plus icon link to the action a screen's page header publishes, for the phone top bar.
 - `ui_action_menu` — an ellipsis menu of actions shown at every screen size.
@@ -257,7 +257,13 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      Hotwire Native web view.
    - `ui_mobile_header(title:, back_url:, subtitle: nil)` is hidden from `lg:`
      up and goes in the navbar's `mobile_left` slot. `back_url:` must be
-     passed, and `nil` renders the title with no back arrow.
+     passed, and `nil` renders the title with no back arrow. The title and
+     subtitle sit between the arrow and the right-side controls, start at the
+     left, and end in an ellipsis when too long. In `ui_navbar`, controls that
+     leave less than 6rem for the title move to a second row under it. In a
+     hand-written top bar, make the header a direct child of the bar's flex
+     row, and add `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if
+     its controls can fill its width.
    - `ui_mobile_action` takes no keywords and no block, and goes in the top
      bar's right side, such as the navbar's `mobile_right` slot. It draws a plus
      icon linking to the `action_url:` a screen gives `ui_page_header`, named

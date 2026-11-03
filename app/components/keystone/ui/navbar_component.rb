@@ -3,14 +3,14 @@
 module Keystone
   module Ui
     class NavbarComponent < ViewComponent::Base
-      NAV_BASE = "top-nav print:hidden"
+      NAV_BASE = "top-nav print:hidden max-lg:has-[.ks-mobile-header-title]:flex-wrap"
       NAV_STICKY = "sticky top-0 z-40"
-      MOBILE_LEFT_CLASSES = "lg:hidden flex items-center"
+      MOBILE_LEFT_CLASSES = "lg:hidden flex items-center max-lg:has-[.ks-mobile-header-title]:contents"
       LOGO_CLASSES = "logo"
       LOGO_MOBILE_HIDDEN_CLASSES = "hidden lg:flex"
       MOBILE_CENTER_CLASSES = "ks-navbar-title absolute left-1/2 -translate-x-1/2 lg:hidden truncate max-w-[60%]"
       DESKTOP_LINKS_CLASSES = "nav-container hidden lg:flex"
-      MOBILE_RIGHT_CLASSES = "nav-user-controls ml-auto"
+      MOBILE_RIGHT_CLASSES = "nav-user-controls ml-auto max-lg:in-[.top-nav:has(.ks-mobile-header-title)]:flex-wrap max-lg:in-[.top-nav:has(.ks-mobile-header-title)]:justify-end"
 
       renders_one :logo
       renders_one :desktop_links

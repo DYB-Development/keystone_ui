@@ -1409,7 +1409,9 @@ Renders a single bottom nav tab.
 
 ### `ui_mobile_header`
 
-Renders a mobile header with back link, centered title, and optional subtitle. Hidden on `lg:` screens. With a `nil` `back_url:` it shows no back link, as on a nav tab's own page.
+Renders a mobile header with back link, title, and optional subtitle. Hidden on `lg:` screens. With a `nil` `back_url:` it shows no back link, as on a nav tab's own page.
+
+The title and subtitle sit between the back link and the bar's right-side controls and start at the left of that space, and text too long for it ends in an ellipsis. In `ui_navbar`'s `mobile_left` slot, controls that leave less than 6rem for the title move to a second row under it. In a hand-written top bar, make the header a direct child of the bar's flex row, and add `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if its controls can fill its width.
 
 **Required props**
 
