@@ -21,6 +21,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css("a")
   end
 
+  def test_hides_from_the_width_where_the_page_header_shows
+    page = render_after_page_header(title: "Events", action_url: "/events/new")
+
+    assert_includes top_bar_link(page)&.[]("class").to_s.split, "sm:hidden"
+  end
+
   private
 
   def render_after_page_header(**header)
