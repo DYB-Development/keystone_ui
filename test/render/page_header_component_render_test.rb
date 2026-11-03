@@ -14,6 +14,6 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
       header.action { "Block" }
     end
 
-    assert_equal "Block", page.at_css(".ks-page-header-actions")&.text&.strip
+    assert_equal [ "Block" ], page.css(".ks-page-header-actions").map { |actions| actions.text.strip }
   end
 end
