@@ -7,7 +7,7 @@ module Keystone
       NAV_STICKY = "sticky top-0 z-40"
       MOBILE_LEFT_CLASSES = "lg:hidden flex items-center"
       LOGO_CLASSES = "logo"
-      LOGO_MOBILE_HIDDEN_CLASSES = "hidden"
+      LOGO_MOBILE_HIDDEN_CLASSES = "hidden lg:flex"
       MOBILE_CENTER_CLASSES = "ks-navbar-title absolute left-1/2 -translate-x-1/2 lg:hidden truncate max-w-[60%]"
       DESKTOP_LINKS_CLASSES = "nav-container hidden lg:flex"
       MOBILE_RIGHT_CLASSES = "nav-user-controls ml-auto"
