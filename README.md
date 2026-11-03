@@ -736,7 +736,7 @@ Wraps a label, input, hint, and error message in a consistent layout. Infers lab
 - `autofocus:` (Boolean, default `false`) — puts the cursor in the input when the page opens
 - `autocomplete:` / `autocapitalize:` / `inputmode:` (String) — written onto the input as given, such as `"email"`, `"none"` and `"numeric"`
 
-The label is tied to its input, textarea or select through an `id` built from `attribute:`, so `"player[email]"` gets the id `player-email`.
+The label is tied to its input, textarea, select or checkbox through an `id` built from `attribute:`, so `"player[email]"` gets the id `player-email`.
 
 ```erb
 <%= ui_form_field(

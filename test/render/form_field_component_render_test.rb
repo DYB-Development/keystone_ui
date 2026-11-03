@@ -33,4 +33,11 @@ class Keystone::Ui::FormFieldComponentRenderTest < ViewComponent::TestCase
 
     assert_equal page.at_css("label")["for"], page.at_css("select")["id"]
   end
+
+  def test_a_checkbox_fields_words_are_the_label_of_its_checkbox
+    page = render_inline(Keystone::Ui::FormFieldComponent.new(attribute: "player[accepted_terms]", label: "I accept the terms", type: :checkbox))
+    checkbox_id = page.at_css("input[type=checkbox]")["id"]
+
+    assert_equal "I accept the terms", page.at_css("label[for='#{checkbox_id}']")&.text
+  end
 end

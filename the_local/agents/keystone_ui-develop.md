@@ -301,9 +301,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `:email` `:password` `:date` `:datetime` and is ignored by the other types. Its list
      is identified by `attribute:`, so two fields with suggestions on one
      screen need different `attribute:` values.
-   - The field's label is tied to its input, textarea or select through an
-     `id` built from `attribute:`, so tapping the label focuses the input and
-     a screen reader reads the label. `"player[email]"` gets the id
+   - The field's label is tied to its input, textarea, select or checkbox
+     through an `id` built from `attribute:`, so tapping the label focuses the
+     input, or ticks and unticks the checkbox, and a screen reader reads the
+     label. `"player[email]"` gets the id
      `player-email`, so two fields on one screen need different `attribute:`
      values.
    - `required: true` marks the label with an asterisk and, on a `:text`
