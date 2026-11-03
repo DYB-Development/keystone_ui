@@ -1168,6 +1168,7 @@ Renders a large hero section for landing pages.
 - `subtitle:` (String)
 - `badge:` (String) — small badge text above the title
 - `layout:` (`:split | :centered`, default `:split`)
+- `height:` (`:screen | :content`, default `:screen`) — `:screen` keeps the hero at least the full screen height, and `:content` draws it only as tall as its content and its padding
 
 ```erb
 <%= ui_hero(title: "Build faster with Keystone", subtitle: "UI components for Rails", badge: "New") do |hero| %>

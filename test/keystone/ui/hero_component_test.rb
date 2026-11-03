@@ -43,6 +43,16 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
     assert_includes component.classes, "min-h-screen"
   end
 
+  def test_screen_height_keeps_the_hero_at_full_screen_height
+    component = Keystone::Ui::HeroComponent.new(title: "X", height: :screen)
+
+    assert_includes component.classes, "min-h-screen"
+  end
+
+  def test_rejects_a_height_it_does_not_know
+    assert_raises(ArgumentError) { Keystone::Ui::HeroComponent.new(title: "X", height: :short) }
+  end
+
   def test_exposes_title_classes
     component = Keystone::Ui::HeroComponent.new(title: "X")
 
