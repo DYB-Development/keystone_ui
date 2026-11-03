@@ -14,4 +14,9 @@
       <%= @action_block.call %>
     </div>
   <% end %>
+  <% if action_url %>
+    <div class="<%= ACTIONS_CLASSES %>">
+      <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url) %>
+    </div>
+  <% end %>
 </div>
