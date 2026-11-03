@@ -51,6 +51,14 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal 1, top_bar_link(page)&.css("svg")&.size
   end
 
+  def test_the_helper_draws_the_published_action
+    page = render_in_view_context do
+      safe_join([ ui_page_header(title: "Events", action_url: "/events/new"), ui_mobile_action ])
+    end
+
+    assert_equal "/events/new", top_bar_link(page)&.[]("href")
+  end
+
   private
 
   def render_after_page_header(**header)
