@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.58.0] - 2026-11-03
+
 ### Added
 - `ui_mobile_action` draws the main action a screen publishes as a plus icon link in a host's top bar, on phones only. It draws nothing when the screen publishes no action, and it is hidden from `sm:` up, inside a Hotwire Native web view and when the page is printed.
 - `ui_hero` takes `height:`. `height: :content` draws the hero only as tall as its content and its padding, and the default `height: :screen` keeps it at least the full screen height. Any other value raises `ArgumentError`.
