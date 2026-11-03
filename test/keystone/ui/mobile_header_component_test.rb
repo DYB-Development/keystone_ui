@@ -27,9 +27,12 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileHeaderComponent::WRAPPER_CLASSES, "lg:hidden"
   end
 
-  def test_has_subtitle_classes_with_small_text_and_centering
+  def test_subtitle_starts_at_the_left_under_the_title
+    refute_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES.split, "text-center"
+  end
+
+  def test_has_subtitle_classes_with_small_text
     assert_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES, "text-xs"
-    assert_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES, "text-center"
     assert_includes Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES, "truncate"
   end
 
