@@ -47,6 +47,7 @@ module Keystone
       Keystone::Ui::SettingsLinkComponent,
       Keystone::Ui::FormPageComponent,
       Keystone::Ui::MobileActionsComponent,
+      Keystone::Ui::MobileActionComponent,
       Keystone::Ui::MobileHeaderComponent,
       Keystone::Ui::ShowPageComponent,
       Keystone::Ui::OptionCardComponent,
