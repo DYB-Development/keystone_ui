@@ -3,7 +3,8 @@
 module Keystone
   module Ui
     class HeroComponent < ViewComponent::Base
-      WRAPPER_CLASSES = "ks-hero relative min-h-screen"
+      WRAPPER_CLASSES = "ks-hero relative"
+      SCREEN_HEIGHT_CLASSES = "min-h-screen"
       INNER_CLASSES = "ks-hero-inner mx-auto max-w-6xl"
 
       CONTENT_COLUMN_CLASSES = "ks-hero-content flex flex-col"
@@ -26,10 +27,13 @@ module Keystone
         @subtitle = subtitle
         @badge = badge
         @layout = layout
+        @height = height
       end
 
       def classes
-        WRAPPER_CLASSES
+        return WRAPPER_CLASSES if @height == :content
+
+        "#{WRAPPER_CLASSES} #{SCREEN_HEIGHT_CLASSES}"
       end
 
       def inner_classes
