@@ -36,6 +36,7 @@ export default class extends Controller {
   }
 
   drop() {
+    if (!this.dragged) return
     if (this.rowTargets.indexOf(this.dragged) !== this.startingIndex) this.announce(this.dragged)
     delete this.dragged.dataset.dragging
     this.dragged = null

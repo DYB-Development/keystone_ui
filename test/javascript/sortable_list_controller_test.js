@@ -174,3 +174,9 @@ test("a grabbed row is marked as dragging until it is dropped", () => {
 
   assert.deepEqual([whileGrabbed, row.dataset.dragging], ["true", undefined])
 })
+
+test("releasing a pointer that grabbed nothing does nothing", () => {
+  const { controller, rows } = list()
+
+  assert.doesNotThrow(() => controller.drop(pointer(handle(rows, "Bo"))))
+})
