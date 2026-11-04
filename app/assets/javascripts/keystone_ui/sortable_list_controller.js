@@ -24,6 +24,7 @@ export default class extends Controller {
   grab({ currentTarget, pointerId }) {
     currentTarget.setPointerCapture(pointerId)
     this.dragged = this.rowHolding(currentTarget)
+    this.startingIndex = this.rowTargets.indexOf(this.dragged)
   }
 
   drag({ clientY }) {
@@ -34,7 +35,7 @@ export default class extends Controller {
   }
 
   drop() {
-    this.announce(this.dragged)
+    if (this.rowTargets.indexOf(this.dragged) !== this.startingIndex) this.announce(this.dragged)
     this.dragged = null
   }
 

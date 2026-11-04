@@ -152,3 +152,13 @@ test("dropping a row in a new place announces its position", () => {
 
   assert.equal(status.textContent, "Bo is number 3 of 3.")
 })
+
+test("dropping a row where it started announces nothing", () => {
+  const { controller, rows, status } = list()
+  const bo = handle(rows, "Bo")
+  controller.grab(pointer(bo, { clientY: 60 }))
+
+  controller.drop(pointer(bo, { clientY: 60 }))
+
+  assert.equal(status.textContent, "")
+})
