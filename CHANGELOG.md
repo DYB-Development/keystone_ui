@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.60.0] - 2026-11-04
+
 ### Added
 - `ui_sortable_list(name:, label:, rows:)` draws a list whose rows can be dragged into a new order with a mouse or a finger, using a handle on each row, so the rest of the row still scrolls the page on a phone. `rows:` is an array of `{ id:, label: }` hashes, and each row holds a hidden field named by `name:` with its id, so the form the list sits in submits the ids in the order shown. Dragging makes no request of its own. Each row also has Move up and Move down buttons named for screen readers, and a change is announced in a status region. Without JavaScript the rows show with no controls and the form submits the starting order. Several lists on one page work independently. This release has not been tested in iPhone Safari or a Hotwire Native web view.
 
