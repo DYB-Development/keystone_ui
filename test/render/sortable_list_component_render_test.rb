@@ -57,6 +57,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
       page.css("li span[data-action]").map { |handle| handle["data-action"] }.uniq
   end
 
+  def test_a_finger_on_the_handle_drags_rather_than_scrolls
+    page = render_list
+
+    assert_includes page.at_css("li span[data-action]")["class"].to_s.split, "touch-none"
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)
