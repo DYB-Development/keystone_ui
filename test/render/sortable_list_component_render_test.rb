@@ -75,6 +75,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_equal "status", page.at_css("[data-sortable-list-target=status]")&.[]("role")
   end
 
+  def test_rows_are_divided_by_the_value_list_row_style
+    page = render_list
+
+    assert_equal [ true ], page.css("li").map { |row| row["class"].to_s.split.include?("ks-value-list-row") }.uniq
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)
