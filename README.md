@@ -716,6 +716,32 @@ As the person types, the field asks `url` for matches with `GET url?q=<typed tex
 <% end %>
 ```
 
+### `ui_sortable_list`
+
+A list whose rows can be dragged into a new order with a mouse or a finger. It is one field of an ordinary form and makes no request of its own, so nothing is saved until the form is submitted. Uses the `sortable-list` Stimulus controller, written with pointer events and no JavaScript dependency.
+
+Each row holds a hidden field named by `name:` with the row's id, and dragging moves the field with the row, so the form submits the ids in the order shown. Give each list its own `name:` when a page has several, and each list orders only its own rows.
+
+Dragging starts from the handle on the left of a row, so on a phone a finger on the rest of the row still scrolls the page. Each row also has Move up and Move down buttons, reachable by keyboard and named for screen readers, such as "Move Ann up". A status region announces the row's new position, such as "Ann is number 2 of 3.". A list longer than the screen does not scroll by itself during a drag.
+
+Without JavaScript running, the rows show with no handle and no buttons, and the form submits the starting order.
+
+Not tested in iPhone Safari or a Hotwire Native web view, only in Chrome with a mouse and emulated touch.
+
+**Required props**
+
+- `name:` (String) — the name of each hidden field, such as `"order[]"`
+- `label:` (String) — the list's name for screen readers
+- `rows:` (Array) — `{ id:, label: }` hashes in their starting order
+
+```erb
+<%= ui_form(action: tie_order_path, method: :patch) do %>
+  <%= ui_sortable_list(name: "order[#{group.id}][]", label: "Tied for #{group.place}",
+        rows: group.players.map { |player| { id: player.id, label: player.name } }) %>
+  <%= ui_button(label: "Save") %>
+<% end %>
+```
+
 ### `ui_form_field`
 
 Wraps a label, input, hint, and error message in a consistent layout. Infers label text from the attribute name when not explicitly provided.

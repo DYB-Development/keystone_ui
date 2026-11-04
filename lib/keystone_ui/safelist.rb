@@ -58,6 +58,7 @@ module Keystone
       Keystone::Ui::ColorPickerComponent,
       Keystone::Ui::MultiSelectComponent,
       Keystone::Ui::SwipeDeckComponent,
+      Keystone::Ui::SortableListComponent,
       Keystone::Ui::ColumnPickerComponent,
       Keystone::Ui::FormComponent,
       Keystone::Ui::FileUploadComponent,

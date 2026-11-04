@@ -32,4 +32,10 @@ class KeystoneUi::ImportmapTest < Minitest::Test
 
     assert_includes pins, 'pin "keystone_ui/page_theme"'
   end
+
+  def test_the_sortable_list_controller_is_registered
+    index = File.read(File.join(ROOT, "app/assets/javascripts/keystone_ui/index.js"))
+
+    assert_includes index, 'application.register("sortable-list", SortableListController)'
+  end
 end

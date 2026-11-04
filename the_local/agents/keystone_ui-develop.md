@@ -58,6 +58,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_color_picker` — a colour swatch that writes a hex value into a hidden input.
 - `ui_radio_card` — a selectable card backed by a radio input.
 - `ui_checkbox_row` — a checkbox with its label and hint, toggled by a tap anywhere on the row.
+- `ui_sortable_list` — a list of rows dragged into a new order, submitted with the form it sits in.
 - `ui_option_card` — a radio whose visible body is whatever its block renders.
 - `ui_data_table` — a table of records with links, row actions, sorting, hideable columns and the viewer's own row marked.
 - `Keystone::Ui::Column` — a table column with options a `{ key: "Label" }` hash cannot carry.
@@ -385,6 +386,14 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - A checked `ui_checkbox_row` submits `value` under `name`, an unchecked one
      submits nothing, and rows sharing an array name such as `"shown[]"`
      submit the checked values as a list.
+   - `ui_sortable_list(name:, label:, rows:)` is one field inside a `ui_form`,
+     for putting a short list in order. `rows:` is an array of
+     `{ id:, label: }` hashes, `label:` names the list for screen readers, and
+     `name:` names a hidden field in each row, so pass an array name such as
+     `"order[]"` and a different one for each list on a page. The form submits
+     the ids in the order shown, and the list makes no request of its own. A
+     row is dragged by its handle, or moved with its Move up and Move down
+     buttons. Without JavaScript the form submits the starting order.
    - `ui_option_card(name:, value:, selected: false, input_data: {}, label_data: {})`
      takes a block rendering the card's body. `input_data:` and `label_data:`
      become `data-*` attributes on the input and the label.
