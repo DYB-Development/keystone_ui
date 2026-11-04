@@ -12,14 +12,14 @@ module Keystone
             <% @rows.each do |row| %>
               <li data-sortable-list-target="row">
                 <input type="hidden" name="<%= @name %>" value="<%= row[:id] %>">
-                <span class="<%= HANDLE_CLASSES %>" data-action="pointerdown->sortable-list#grab pointermove->sortable-list#drag pointerup->sortable-list#drop pointercancel->sortable-list#drop">
+                <span hidden data-sortable-list-target="control" class="<%= HANDLE_CLASSES %>" data-action="pointerdown->sortable-list#grab pointermove->sortable-list#drag pointerup->sortable-list#drop pointercancel->sortable-list#drop">
                   <svg class="<%= ICON_CLASSES %>" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" d="M4 8h16M4 16h16" />
                   </svg>
                 </span>
                 <%= row[:label] %>
-                <button type="button" aria-label="Move <%= row[:label] %> up" data-action="sortable-list#moveUp"></button>
-                <button type="button" aria-label="Move <%= row[:label] %> down" data-action="sortable-list#moveDown"></button>
+                <button hidden data-sortable-list-target="control" type="button" aria-label="Move <%= row[:label] %> up" data-action="sortable-list#moveUp"></button>
+                <button hidden data-sortable-list-target="control" type="button" aria-label="Move <%= row[:label] %> down" data-action="sortable-list#moveDown"></button>
               </li>
             <% end %>
           </ul>

@@ -63,6 +63,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("li span[data-action]")["class"].to_s.split, "touch-none"
   end
 
+  def test_the_handle_and_buttons_are_hidden_until_the_controller_shows_them
+    page = render_list
+
+    assert_equal 9, page.css("li [data-sortable-list-target=control][hidden]").length
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)
