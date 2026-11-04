@@ -18,6 +18,7 @@ export default class extends Controller {
     const row = this.rowHolding(currentTarget)
     const next = row.nextElementSibling
     if (next) row.before(next)
+    this.announce(row)
   }
 
   announce(row) {

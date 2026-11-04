@@ -72,3 +72,11 @@ test("Move up announces the row's new position", () => {
 
   assert.equal(status.textContent, "Bo is number 1 of 3.")
 })
+
+test("Move down announces the row's new position", () => {
+  const { controller, button, status } = list()
+
+  controller.moveDown({ currentTarget: button("Bo") })
+
+  assert.equal(status.textContent, "Bo is number 3 of 3.")
+})
