@@ -80,3 +80,25 @@ test("Move down announces the row's new position", () => {
 
   assert.equal(status.textContent, "Bo is number 3 of 3.")
 })
+
+function pointer(handle, overrides = {}) {
+  return { currentTarget: handle, pointerId: 1, button: 0, clientY: 0, ...overrides }
+}
+
+function handle(rows, label) {
+  const captured = []
+  return {
+    captured,
+    setPointerCapture: (id) => captured.push(id),
+    closest: () => rows.find((row) => row.dataset.label === label)
+  }
+}
+
+test("grabbing a handle captures the pointer, so the row follows it off the handle", () => {
+  const { controller, rows } = list()
+  const bo = handle(rows, "Bo")
+
+  controller.grab(pointer(bo))
+
+  assert.deepEqual(bo.captured, [1])
+})

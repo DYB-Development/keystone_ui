@@ -21,6 +21,10 @@ export default class extends Controller {
     this.announce(row)
   }
 
+  grab({ currentTarget, pointerId }) {
+    currentTarget.setPointerCapture(pointerId)
+  }
+
   announce(row) {
     const rows = this.rowTargets
     this.statusTarget.textContent = `${row.dataset.label} is number ${rows.indexOf(row) + 1} of ${rows.length}.`
