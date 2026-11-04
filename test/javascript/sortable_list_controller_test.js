@@ -189,3 +189,14 @@ test("the right mouse button does not grab a row", () => {
 
   assert.deepEqual(bo.captured, [])
 })
+
+test("a second finger does not take over a drag", () => {
+  const { controller, rows, order } = list()
+  const bo = handle(rows, "Bo")
+  controller.grab(pointer(bo, { clientY: 60 }))
+  controller.grab(pointer(handle(rows, "Ann"), { pointerId: 2, clientY: 20 }))
+
+  controller.drag(pointer(bo, { pointerId: 2, clientY: 101 }))
+
+  assert.deepEqual(order(), ["Ann", "Bo", "Cy"])
+})

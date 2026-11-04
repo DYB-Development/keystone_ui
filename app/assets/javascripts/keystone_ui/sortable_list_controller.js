@@ -22,17 +22,18 @@ export default class extends Controller {
   }
 
   grab({ currentTarget, pointerId, button }) {
-    if (button !== 0) return
+    if (button !== 0 || this.dragged) return
 
     currentTarget.setPointerCapture(pointerId)
+    this.draggingPointer = pointerId
     this.dragged = this.rowHolding(currentTarget)
     this.startingIndex = this.rowTargets.indexOf(this.dragged)
     this.dragged.dataset.dragging = "true"
   }
 
-  drag({ clientY }) {
+  drag({ clientY, pointerId }) {
     const row = this.dragged
-    if (!row) return
+    if (!row || pointerId !== this.draggingPointer) return
     while (row.nextElementSibling && clientY > this.middleOf(row.nextElementSibling)) row.before(row.nextElementSibling)
     while (row.previousElementSibling && clientY < this.middleOf(row.previousElementSibling)) row.after(row.previousElementSibling)
   }
