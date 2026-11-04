@@ -122,3 +122,11 @@ test("dragging above the middle of the previous row moves the row up", () => {
 
   assert.deepEqual(order(), ["Cy", "Ann", "Bo"])
 })
+
+test("a pointer passing over a handle without grabbing it moves nothing", () => {
+  const { controller, rows, order } = list()
+
+  controller.drag(pointer(handle(rows, "Bo"), { clientY: 101 }))
+
+  assert.deepEqual(order(), ["Ann", "Bo", "Cy"])
+})

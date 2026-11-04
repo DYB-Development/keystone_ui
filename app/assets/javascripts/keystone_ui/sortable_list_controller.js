@@ -28,6 +28,7 @@ export default class extends Controller {
 
   drag({ clientY }) {
     const row = this.dragged
+    if (!row) return
     while (row.nextElementSibling && clientY > this.middleOf(row.nextElementSibling)) row.before(row.nextElementSibling)
     while (row.previousElementSibling && clientY < this.middleOf(row.previousElementSibling)) row.after(row.previousElementSibling)
   }
