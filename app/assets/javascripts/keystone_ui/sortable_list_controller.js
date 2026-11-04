@@ -11,12 +11,18 @@ export default class extends Controller {
     const row = this.rowHolding(currentTarget)
     const previous = row.previousElementSibling
     if (previous) row.after(previous)
+    this.announce(row)
   }
 
   moveDown({ currentTarget }) {
     const row = this.rowHolding(currentTarget)
     const next = row.nextElementSibling
     if (next) row.before(next)
+  }
+
+  announce(row) {
+    const rows = this.rowTargets
+    this.statusTarget.textContent = `${row.dataset.label} is number ${rows.indexOf(row) + 1} of ${rows.length}.`
   }
 
   rowHolding(element) {
