@@ -102,3 +102,13 @@ test("grabbing a handle captures the pointer, so the row follows it off the hand
 
   assert.deepEqual(bo.captured, [1])
 })
+
+test("dragging below the middle of the next row moves the row down", () => {
+  const { controller, rows, order } = list()
+  const bo = handle(rows, "Bo")
+  controller.grab(pointer(bo, { clientY: 60 }))
+
+  controller.drag(pointer(bo, { clientY: 101 }))
+
+  assert.deepEqual(order(), ["Ann", "Cy", "Bo"])
+})

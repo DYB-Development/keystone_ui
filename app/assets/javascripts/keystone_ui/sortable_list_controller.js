@@ -23,6 +23,17 @@ export default class extends Controller {
 
   grab({ currentTarget, pointerId }) {
     currentTarget.setPointerCapture(pointerId)
+    this.dragged = this.rowHolding(currentTarget)
+  }
+
+  drag({ clientY }) {
+    const row = this.dragged
+    while (row.nextElementSibling && clientY > this.middleOf(row.nextElementSibling)) row.before(row.nextElementSibling)
+  }
+
+  middleOf(row) {
+    const { top, height } = row.getBoundingClientRect()
+    return top + height / 2
   }
 
   announce(row) {
