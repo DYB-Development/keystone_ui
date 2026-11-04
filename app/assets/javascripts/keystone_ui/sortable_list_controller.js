@@ -34,6 +34,7 @@ export default class extends Controller {
   }
 
   drop() {
+    this.announce(this.dragged)
     this.dragged = null
   }
 

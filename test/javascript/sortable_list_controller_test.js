@@ -141,3 +141,14 @@ test("releasing the handle ends the drag", () => {
 
   assert.deepEqual(order(), ["Ann", "Bo", "Cy"])
 })
+
+test("dropping a row in a new place announces its position", () => {
+  const { controller, rows, status } = list()
+  const bo = handle(rows, "Bo")
+  controller.grab(pointer(bo, { clientY: 60 }))
+  controller.drag(pointer(bo, { clientY: 101 }))
+
+  controller.drop(pointer(bo, { clientY: 101 }))
+
+  assert.equal(status.textContent, "Bo is number 3 of 3.")
+})
