@@ -24,6 +24,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
       page.css("li input[type=hidden]").map { |field| [ field["name"], field["value"] ] }
   end
 
+  def test_each_row_is_a_target_of_the_sortable_list_controller
+    page = render_list
+
+    assert_equal 3, page.css("[data-controller=sortable-list] li[data-sortable-list-target=row]").length
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)
