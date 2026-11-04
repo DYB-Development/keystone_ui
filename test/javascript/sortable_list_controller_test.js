@@ -130,3 +130,14 @@ test("a pointer passing over a handle without grabbing it moves nothing", () => 
 
   assert.deepEqual(order(), ["Ann", "Bo", "Cy"])
 })
+
+test("releasing the handle ends the drag", () => {
+  const { controller, rows, order } = list()
+  const bo = handle(rows, "Bo")
+  controller.grab(pointer(bo, { clientY: 60 }))
+
+  controller.drop(pointer(bo, { clientY: 60 }))
+  controller.drag(pointer(bo, { clientY: 101 }))
+
+  assert.deepEqual(order(), ["Ann", "Bo", "Cy"])
+})

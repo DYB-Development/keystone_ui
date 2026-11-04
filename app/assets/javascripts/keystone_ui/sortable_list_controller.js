@@ -33,6 +33,10 @@ export default class extends Controller {
     while (row.previousElementSibling && clientY < this.middleOf(row.previousElementSibling)) row.after(row.previousElementSibling)
   }
 
+  drop() {
+    this.dragged = null
+  }
+
   middleOf(row) {
     const { top, height } = row.getBoundingClientRect()
     return top + height / 2
