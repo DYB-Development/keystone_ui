@@ -4,7 +4,11 @@ module Keystone
   module Ui
     class SortableListComponent < ViewComponent::Base
       erb_template <<~ERB
-        <ul aria-label="<%= @label %>"></ul>
+        <ul aria-label="<%= @label %>">
+          <% @rows.each do |row| %>
+            <li><%= row[:label] %></li>
+          <% end %>
+        </ul>
       ERB
 
       def initialize(name:, label:, rows:)

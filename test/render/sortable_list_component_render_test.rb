@@ -11,6 +11,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_equal "Tied for 2nd", page.at_css("ul")&.[]("aria-label")
   end
 
+  def test_each_row_shows_its_label_in_the_given_order
+    page = render_list
+
+    assert_equal [ "Ann", "Bo", "Cy" ], page.css("li").map { |row| row.text.strip }
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)
