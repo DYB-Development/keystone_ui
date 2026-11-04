@@ -58,6 +58,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_color_picker` — a colour swatch that writes a hex value into a hidden input.
 - `ui_radio_card` — a selectable card backed by a radio input.
 - `ui_checkbox_row` — a checkbox with its label and hint, toggled by a tap anywhere on the row.
+- `ui_sortable_list` — a list of rows dragged into a new order, submitted with the form it sits in.
 - `ui_option_card` — a radio whose visible body is whatever its block renders.
 - `ui_data_table` — a table of records with links, row actions, sorting, hideable columns and the viewer's own row marked.
 - `Keystone::Ui::Column` — a table column with options a `{ key: "Label" }` hash cannot carry.
