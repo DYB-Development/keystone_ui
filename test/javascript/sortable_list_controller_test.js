@@ -56,3 +56,11 @@ test("Move up puts the row above the one before it", () => {
 
   assert.deepEqual(order(), ["Bo", "Ann", "Cy"])
 })
+
+test("Move down puts the row below the one after it", () => {
+  const { controller, button, order } = list()
+
+  controller.moveDown({ currentTarget: button("Bo") })
+
+  assert.deepEqual(order(), ["Ann", "Cy", "Bo"])
+})

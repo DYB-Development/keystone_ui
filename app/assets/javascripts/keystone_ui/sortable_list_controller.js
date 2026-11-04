@@ -13,6 +13,12 @@ export default class extends Controller {
     if (previous) row.after(previous)
   }
 
+  moveDown({ currentTarget }) {
+    const row = this.rowHolding(currentTarget)
+    const next = row.nextElementSibling
+    if (next) row.before(next)
+  }
+
   rowHolding(element) {
     return element.closest('[data-sortable-list-target="row"]')
   }
