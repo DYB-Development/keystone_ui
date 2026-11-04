@@ -69,6 +69,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_equal 9, page.css("li [data-sortable-list-target=control][hidden]").length
   end
 
+  def test_the_list_has_a_status_region_for_announcing_changes
+    page = render_list
+
+    assert_equal "status", page.at_css("[data-sortable-list-target=status]")&.[]("role")
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)

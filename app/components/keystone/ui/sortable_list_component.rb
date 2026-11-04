@@ -5,6 +5,7 @@ module Keystone
     class SortableListComponent < ViewComponent::Base
       HANDLE_CLASSES = "ks-tone-muted flex size-11 shrink-0 cursor-grab touch-none select-none items-center justify-center"
       ICON_CLASSES = "size-5"
+      STATUS_CLASSES = "sr-only"
 
       erb_template <<~ERB
         <div data-controller="sortable-list">
@@ -23,6 +24,7 @@ module Keystone
               </li>
             <% end %>
           </ul>
+          <div role="status" class="<%= STATUS_CLASSES %>" data-sortable-list-target="status"></div>
         </div>
       ERB
 
