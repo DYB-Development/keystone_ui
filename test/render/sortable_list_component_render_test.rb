@@ -87,6 +87,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true ], page.css("li button").map { |button| (%w[ks-button ks-button-secondary ks-button-sm] - button["class"].to_s.split).empty? }.uniq
   end
 
+  def test_each_row_carries_its_label_for_announcements
+    page = render_list
+
+    assert_equal [ "Ann", "Bo", "Cy" ], page.css("li").map { |row| row["data-label"] }
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)

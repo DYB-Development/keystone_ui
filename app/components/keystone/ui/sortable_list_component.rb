@@ -14,7 +14,7 @@ module Keystone
         <div data-controller="sortable-list">
           <ul aria-label="<%= @label %>">
             <% @rows.each do |row| %>
-              <li class="<%= ROW_CLASSES %>" data-sortable-list-target="row">
+              <li class="<%= ROW_CLASSES %>" data-sortable-list-target="row" data-label="<%= row[:label] %>">
                 <input type="hidden" name="<%= @name %>" value="<%= row[:id] %>">
                 <span hidden data-sortable-list-target="control" class="<%= HANDLE_CLASSES %>" data-action="pointerdown->sortable-list#grab pointermove->sortable-list#drag pointerup->sortable-list#drop pointercancel->sortable-list#drop">
                   <svg class="<%= ICON_CLASSES %>" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
