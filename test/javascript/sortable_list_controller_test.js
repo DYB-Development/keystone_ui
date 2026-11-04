@@ -180,3 +180,12 @@ test("releasing a pointer that grabbed nothing does nothing", () => {
 
   assert.doesNotThrow(() => controller.drop(pointer(handle(rows, "Bo"))))
 })
+
+test("the right mouse button does not grab a row", () => {
+  const { controller, rows } = list()
+  const bo = handle(rows, "Bo")
+
+  controller.grab(pointer(bo, { button: 2 }))
+
+  assert.deepEqual(bo.captured, [])
+})

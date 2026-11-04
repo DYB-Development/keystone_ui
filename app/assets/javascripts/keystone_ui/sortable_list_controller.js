@@ -21,7 +21,9 @@ export default class extends Controller {
     this.announce(row)
   }
 
-  grab({ currentTarget, pointerId }) {
+  grab({ currentTarget, pointerId, button }) {
+    if (button !== 0) return
+
     currentTarget.setPointerCapture(pointerId)
     this.dragged = this.rowHolding(currentTarget)
     this.startingIndex = this.rowTargets.indexOf(this.dragged)
