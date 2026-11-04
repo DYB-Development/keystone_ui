@@ -81,6 +81,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true ], page.css("li").map { |row| row["class"].to_s.split.include?("ks-value-list-row") }.uniq
   end
 
+  def test_move_buttons_use_the_small_secondary_button_style
+    page = render_list
+
+    assert_equal [ true ], page.css("li button").map { |button| (%w[ks-button ks-button-secondary ks-button-sm] - button["class"].to_s.split).empty? }.uniq
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)
