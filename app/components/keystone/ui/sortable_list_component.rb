@@ -9,6 +9,7 @@ module Keystone
             <% @rows.each do |row| %>
               <li data-sortable-list-target="row">
                 <input type="hidden" name="<%= @name %>" value="<%= row[:id] %>">
+                <span data-action="pointerdown->sortable-list#grab pointermove->sortable-list#drag pointerup->sortable-list#drop pointercancel->sortable-list#drop"></span>
                 <%= row[:label] %>
                 <button type="button" aria-label="Move <%= row[:label] %> up" data-action="sortable-list#moveUp"></button>
                 <button type="button" aria-label="Move <%= row[:label] %> down" data-action="sortable-list#moveDown"></button>

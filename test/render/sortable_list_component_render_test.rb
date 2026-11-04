@@ -50,6 +50,13 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "button" ], page.css("li button").map { |button| button["type"] }.uniq
   end
 
+  def test_each_row_has_a_drag_handle_that_follows_the_pointer
+    page = render_list
+
+    assert_equal [ "pointerdown->sortable-list#grab pointermove->sortable-list#drag pointerup->sortable-list#drop pointercancel->sortable-list#drop" ],
+      page.css("li span[data-action]").map { |handle| handle["data-action"] }.uniq
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)
