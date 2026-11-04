@@ -48,3 +48,11 @@ test("connecting shows the handle and buttons that stay hidden without JavaScrip
 
   assert.deepEqual(controls.map((control) => control.hidden), [false, false])
 })
+
+test("Move up puts the row above the one before it", () => {
+  const { controller, button, order } = list()
+
+  controller.moveUp({ currentTarget: button("Bo") })
+
+  assert.deepEqual(order(), ["Bo", "Ann", "Cy"])
+})

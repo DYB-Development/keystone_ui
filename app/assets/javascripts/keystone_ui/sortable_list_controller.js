@@ -6,4 +6,14 @@ export default class extends Controller {
   connect() {
     this.controlTargets.forEach((control) => { control.hidden = false })
   }
+
+  moveUp({ currentTarget }) {
+    const row = this.rowHolding(currentTarget)
+    const previous = row.previousElementSibling
+    if (previous) row.after(previous)
+  }
+
+  rowHolding(element) {
+    return element.closest('[data-sortable-list-target="row"]')
+  }
 }
