@@ -44,6 +44,12 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
       page.css("li button[data-action='sortable-list#moveDown']").map { |button| button["aria-label"] }
   end
 
+  def test_pressing_a_move_button_does_not_submit_the_form
+    page = render_list
+
+    assert_equal [ "button" ], page.css("li button").map { |button| button["type"] }.uniq
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)

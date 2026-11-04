@@ -10,8 +10,8 @@ module Keystone
               <li data-sortable-list-target="row">
                 <input type="hidden" name="<%= @name %>" value="<%= row[:id] %>">
                 <%= row[:label] %>
-                <button aria-label="Move <%= row[:label] %> up" data-action="sortable-list#moveUp"></button>
-                <button aria-label="Move <%= row[:label] %> down" data-action="sortable-list#moveDown"></button>
+                <button type="button" aria-label="Move <%= row[:label] %> up" data-action="sortable-list#moveUp"></button>
+                <button type="button" aria-label="Move <%= row[:label] %> down" data-action="sortable-list#moveDown"></button>
               </li>
             <% end %>
           </ul>
