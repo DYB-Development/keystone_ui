@@ -162,3 +162,15 @@ test("dropping a row where it started announces nothing", () => {
 
   assert.equal(status.textContent, "")
 })
+
+test("a grabbed row is marked as dragging until it is dropped", () => {
+  const { controller, rows } = list()
+  const bo = handle(rows, "Bo")
+  const row = rows[1]
+
+  controller.grab(pointer(bo))
+  const whileGrabbed = row.dataset.dragging
+  controller.drop(pointer(bo))
+
+  assert.deepEqual([whileGrabbed, row.dataset.dragging], ["true", undefined])
+})
