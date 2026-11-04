@@ -30,6 +30,13 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_equal 3, page.css("[data-controller=sortable-list] li[data-sortable-list-target=row]").length
   end
 
+  def test_each_row_offers_a_move_up_button_named_for_its_label
+    page = render_list
+
+    assert_equal [ "Move Ann up", "Move Bo up", "Move Cy up" ],
+      page.css("li button[data-action='sortable-list#moveUp']").map { |button| button["aria-label"] }
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)
