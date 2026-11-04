@@ -17,6 +17,13 @@ class Keystone::Ui::SortableListComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Ann", "Bo", "Cy" ], page.css("li").map { |row| row.text.strip }
   end
 
+  def test_each_row_submits_its_id_in_a_hidden_field_named_by_the_caller
+    page = render_list(name: "order[2][]")
+
+    assert_equal [ [ "order[2][]", "7" ], [ "order[2][]", "3" ], [ "order[2][]", "9" ] ],
+      page.css("li input[type=hidden]").map { |field| [ field["name"], field["value"] ] }
+  end
+
   private
 
   def render_list(name: "order[]", label: "Tied players", rows: ROWS)

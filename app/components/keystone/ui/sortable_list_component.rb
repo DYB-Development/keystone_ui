@@ -6,7 +6,10 @@ module Keystone
       erb_template <<~ERB
         <ul aria-label="<%= @label %>">
           <% @rows.each do |row| %>
-            <li><%= row[:label] %></li>
+            <li>
+              <input type="hidden" name="<%= @name %>" value="<%= row[:id] %>">
+              <%= row[:label] %>
+            </li>
           <% end %>
         </ul>
       ERB
