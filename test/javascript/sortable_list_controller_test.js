@@ -200,3 +200,14 @@ test("a second finger does not take over a drag", () => {
 
   assert.deepEqual(order(), ["Ann", "Bo", "Cy"])
 })
+
+test("lifting a second finger does not end a drag", () => {
+  const { controller, rows, order } = list()
+  const bo = handle(rows, "Bo")
+  controller.grab(pointer(bo, { clientY: 60 }))
+
+  controller.drop(pointer(bo, { pointerId: 2 }))
+  controller.drag(pointer(bo, { clientY: 101 }))
+
+  assert.deepEqual(order(), ["Ann", "Cy", "Bo"])
+})

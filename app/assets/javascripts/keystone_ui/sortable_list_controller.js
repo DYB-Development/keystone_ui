@@ -38,8 +38,8 @@ export default class extends Controller {
     while (row.previousElementSibling && clientY < this.middleOf(row.previousElementSibling)) row.after(row.previousElementSibling)
   }
 
-  drop() {
-    if (!this.dragged) return
+  drop({ pointerId }) {
+    if (!this.dragged || pointerId !== this.draggingPointer) return
     if (this.rowTargets.indexOf(this.dragged) !== this.startingIndex) this.announce(this.dragged)
     delete this.dragged.dataset.dragging
     this.dragged = null
