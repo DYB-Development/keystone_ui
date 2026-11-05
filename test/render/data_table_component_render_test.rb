@@ -326,6 +326,30 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Feb" ], page.css("tbody tr.ks-table-row-current td:first-child").map { |cell| cell.text.strip }
   end
 
+  def test_colours_a_row_with_the_colour_its_row_colour_block_names
+    columns = month_columns
+    items = [ { month: "Jan", colour: :danger }, { month: "Feb", colour: :warning }, { month: "Mar", colour: :success }, { month: "Apr", colour: :info } ]
+    page = render_in_view_context do
+      ui_data_table(items: items, columns: columns) do |table|
+        table.row_colour { |row| row[:colour] }
+      end
+    end
+
+    assert_equal %w[ks-table-row-danger ks-table-row-warning ks-table-row-success ks-table-row-info], page.css("tbody tr").map { |row| row["class"] }
+  end
+
+  def test_keeps_the_current_row_look_on_a_current_row_that_also_has_a_colour
+    columns = month_columns
+    items = [ { month: "Jan", pipeline: "$10" } ]
+    page = render_in_view_context do
+      ui_data_table(items: items, columns: columns, current_row: items.first) do |table|
+        table.row_colour { |row| :warning }
+      end
+    end
+
+    assert_equal [ %w[ks-table-row-current ks-table-row-warning] ], page.css("tbody tr").map { |row| row["class"].split }
+  end
+
   private
 
   def three_columns

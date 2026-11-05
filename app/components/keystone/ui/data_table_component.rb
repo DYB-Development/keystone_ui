@@ -6,6 +6,12 @@ module Keystone
       EMPTY_CELL_CLASSES = "ks-table-cell-middle text-sm"
       BODY_CLASSES = "ks-table-body"
       CURRENT_ROW_CLASSES = "ks-table-row-current"
+      ROW_COLOUR_CLASSES = {
+        danger: "ks-table-row-danger",
+        warning: "ks-table-row-warning",
+        success: "ks-table-row-success",
+        info: "ks-table-row-info"
+      }.freeze
       HEAD_CLASSES = "ks-table-head"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
@@ -61,6 +67,16 @@ module Keystone
 
       def actions(&block)
         @actions_block = block
+      end
+
+      def row_colour(&block)
+        @row_colour_block = block
+      end
+
+      def row_classes(index)
+        classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]) ].compact
+
+        classes.join(" ") unless classes.empty?
       end
 
       def actions?
@@ -206,6 +222,12 @@ module Keystone
         return classes unless column.align
 
         [ *classes.split.grep_v(/\Atext-(left|right)\z/), ALIGN_CLASSES.fetch(column.align) ].join(" ")
+      end
+
+      def row_colour_class(item)
+        colour = @row_colour_block&.call(item)
+
+        ROW_COLOUR_CLASSES.fetch(colour) if colour
       end
 
       def wrapped(classes, column)
