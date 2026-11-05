@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_data_table` takes `table.row_colour { |item| ... }` in its block. A row whose item the block names `:danger`, `:warning`, `:success` or `:info` has every cell tinted in that colour, and `nil` leaves the row plain.
+
+### Changed
+- keystone_ui now requires keystone_ui-styles 0.29.0 or later, which holds the coloured row styles.
+
 ## [0.61.0] - 2026-11-05
 
 ### Added

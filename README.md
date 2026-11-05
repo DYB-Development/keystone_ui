@@ -533,6 +533,16 @@ Pass `current_row:` the item whose row belongs to the viewer, such as their own 
 ) %>
 ```
 
+**Row colour**
+
+In the block, `table.row_colour { |item| ... }` colours each row by what the block returns for its item: `:danger`, `:warning`, `:success` or `:info` tints every cell of the row in that colour, the same colours as the badge of the same name, and `nil` leaves the row plain. Any other value raises `KeyError`. Show the same meaning as text somewhere in the row, since a colour alone does not reach every reader.
+
+```erb
+<%= ui_data_table(items: @jobs, columns: [ { name: "Job" }, { status: "Status" } ]) do |table| %>
+  <% table.row_colour { |job| :danger if job.failed? } %>
+<% end %>
+```
+
 Each row's actions show in an action menu, opened by an ellipsis button, so a table never shows buttons. When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
 
 ### `ui_column_picker`
