@@ -338,6 +338,18 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[ks-table-row-danger ks-table-row-warning ks-table-row-success ks-table-row-info], page.css("tbody tr").map { |row| row["class"] }
   end
 
+  def test_keeps_the_current_row_look_on_a_current_row_that_also_has_a_colour
+    columns = month_columns
+    items = [ { month: "Jan", pipeline: "$10" } ]
+    page = render_in_view_context do
+      ui_data_table(items: items, columns: columns, current_row: items.first) do |table|
+        table.row_colour { |row| :warning }
+      end
+    end
+
+    assert_equal [ %w[ks-table-row-current ks-table-row-warning] ], page.css("tbody tr").map { |row| row["class"].split }
+  end
+
   private
 
   def three_columns
