@@ -113,6 +113,10 @@ module KeystoneUiHelper
     render Keystone::Ui::AlertComponent.new(**args)
   end
 
+  def ui_empty_state(**args)
+    render Keystone::Ui::EmptyStateComponent.new(**args)
+  end
+
   def ui_form_page(**args)
     render Keystone::Ui::FormPageComponent.new(**args)
   end

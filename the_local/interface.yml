@@ -32,6 +32,7 @@ develop:
   - ui_form_field
   - ui_page_header
   - ui_alert
+  - ui_empty_state
   - ui_form_page
   - ui_show_page
   - ui_breadcrumbs
@@ -91,6 +92,8 @@ sources:
   - app/helpers/keystone_ui_helper.rb
   - app/components/keystone/ui/accordion_component.rb
   - app/components/keystone/ui/alert_component.rb
+  - app/components/keystone/ui/empty_state_component.rb
+  - app/components/keystone/ui/empty_state_component.html.erb
   - app/components/keystone/ui/badge_component.rb
   - app/components/keystone/ui/bottom_nav_component.rb
   - app/components/keystone/ui/bottom_nav_item_component.rb
