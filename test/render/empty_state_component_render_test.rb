@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+require "render_helper"
+
+class Keystone::Ui::EmptyStateComponentRenderTest < ViewComponent::TestCase
+  def test_shows_its_title_as_a_heading
+    page = render_inline(Keystone::Ui::EmptyStateComponent.new(title: "No reports yet"))
+
+    assert_equal "No reports yet", page.css("h2.ks-heading-sm").text.strip
+  end
+end
