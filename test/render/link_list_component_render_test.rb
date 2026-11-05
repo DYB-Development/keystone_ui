@@ -14,4 +14,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "October 2026", page.css("a .ks-value-list-note").text.strip
   end
+
+  def test_shows_a_row_value_after_its_label
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Report PDF", href: "/products/abc", value: "2 downloads left" } ]))
+
+    assert_equal "2 downloads left", page.css("a .ks-value-list-value").text.strip
+  end
 end

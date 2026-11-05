@@ -7,6 +7,7 @@ module Keystone
       TEXT_CLASSES = "min-w-0 flex-1"
       LABEL_CLASSES = "ks-paragraph ks-settings-link-label block"
       SUBTITLE_CLASSES = "ks-value-list-note"
+      VALUE_CLASSES = "ks-value-list-value shrink-0"
 
       attr_reader :rows
 

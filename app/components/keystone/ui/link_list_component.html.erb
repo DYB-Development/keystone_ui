@@ -7,6 +7,9 @@
           <span class="<%= SUBTITLE_CLASSES %>"><%= row[:subtitle] %></span>
         <% end %>
       </span>
+      <% if row[:value] %>
+        <span class="<%= VALUE_CLASSES %>"><%= row[:value] %></span>
+      <% end %>
     <% end %>
   <% end %>
 </div>
