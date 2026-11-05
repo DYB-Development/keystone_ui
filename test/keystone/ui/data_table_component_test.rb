@@ -343,6 +343,17 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
     assert_equal klass::ROW_CLASSES_LAST, row[2][:classes]
   end
 
+  def test_a_wrapping_column_lets_its_cell_text_wrap
+    cols = [
+      Keystone::Ui::Column.new(:name, "Name"),
+      Keystone::Ui::Column.new(:quantity, "Quantity", wrap: true),
+      Keystone::Ui::Column.new(:price, "Price")
+    ]
+    component = klass.new(items: [ hash_items.first ], columns: cols)
+
+    assert_equal "ks-table-cell-middle text-sm whitespace-normal", component.row_cells.first[1][:classes]
+  end
+
   def test_column_objects_does_not_append_mobile_hidden_when_false
     cols = [
       Keystone::Ui::Column.new(:name, "Name"),
