@@ -429,9 +429,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `columns:` takes `{ key: "Label" }` hashes when every column is plain.
      Switch the whole set to `Keystone::Ui::Column` objects once one column
      needs an option.
-   - `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil)`
+   - `Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil, wrap: false)`
      — `mobile_hidden:` hides the column below `sm:`, `sortable:` gives it a
      sort header, and `hideable:` lets it be hidden and moved.
+     `wrap: true` lets long text in the column's cells wrap onto more lines
+     inside the cell instead of widening the table, every other cell keeps its
+     text on one line, and headings are unchanged.
      `locked: true` on the first column keeps it in view while the rest scrolls
      sideways, a locked column that is not first renders as an ordinary one,
      and a locked column is never hideable. Ask the developer whether a wide
