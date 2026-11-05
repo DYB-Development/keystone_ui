@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.63.0] - 2026-11-05
+
 ### Added
 - A navigation tab, declared with `group.tab` or `config.navigation_tab`, takes an optional `count:` callable given the view, such as the number of questions waiting on the signed-in person. The top bar and the sidebar show a count above zero in an info badge after the tab's label, and show nothing for zero or `nil`.
 - `ui_nav_item` takes an optional `count:`, shown in an info badge after its label when it is above zero.
