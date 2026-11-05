@@ -9,13 +9,13 @@
     <% groups.each do |group| %>
       <% if group.standalone %>
         <% tab = group.tabs.first %>
-        <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
+        <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %><% if tab.count.to_i.positive? %> <%= render Keystone::Ui::BadgeComponent.new(label: tab.count.to_s, variant: :info) %><% end %></a>
       <% else %>
         <details class="<%= SIDEBAR_GROUP_CLASSES %>"<%= " open" if group.active %>>
           <summary class="<%= sidebar_group_label_classes(group) %>"><%= group.label %></summary>
           <div class="<%= SIDEBAR_GROUP_TABS_CLASSES %>">
             <% group.tabs.each do |tab| %>
-              <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %></a>
+              <a class="<%= sidebar_tab_classes(tab) %>" href="<%= tab.href %>"><%= tab.label %><% if tab.count.to_i.positive? %> <%= render Keystone::Ui::BadgeComponent.new(label: tab.count.to_s, variant: :info) %><% end %></a>
             <% end %>
           </div>
         </details>

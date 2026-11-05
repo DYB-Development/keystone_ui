@@ -144,6 +144,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "Page", page.at_xpath(".//*[contains(concat(' ', @class, ' '), ' ks-sidebar ')]/following-sibling::*[1]/p")&.text
   end
 
+  def test_shows_a_tab_count_in_the_sidebar
+    KeystoneUi.configure do |c|
+      c.navigation_group("Decisions") { |group| group.tab(:questions, label: "Questions", href: "/questions", permitted: ->(_view) { true }, count: ->(_view) { 3 }) }
+    end
+    save_placement("left")
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal "3", page.at_css(".ks-sidebar .ks-sidebar-tab .ks-badge")&.text&.strip
+  end
+
   def test_draws_the_navigation_as_a_sidebar_right_of_the_page_content_when_the_saved_placement_is_right
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
     save_placement("right")
