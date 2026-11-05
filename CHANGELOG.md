@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- A navigation tab, declared with `group.tab` or `config.navigation_tab`, takes an optional `count:` callable given the view, such as the number of questions waiting on the signed-in person. The top bar and the sidebar show a count above zero in an info badge after the tab's label, and show nothing for zero or `nil`.
+- `ui_nav_item` takes an optional `count:`, shown in an info badge after its label when it is above zero.
+
+### Added
 - `ui_link_list(rows:)` draws a list of links, one row per `{ label:, href: }` hash, each ending in a chevron. A row may also carry a `subtitle:` shown as a note under its label, a `badge:` of `{ label:, variant: }` and a `value:` shown after the label. It uses the value list row, paragraph and settings link classes keystone_ui-styles already has, so rows are separated by a border and have no hover colour.
 
 ### Added

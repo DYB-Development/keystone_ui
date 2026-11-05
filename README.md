@@ -1389,6 +1389,13 @@ end
 
 To show a tab on its own, outside any group, declare it with `config.navigation_tab`, which takes the same key, `label:`, `href:` and `permitted:` as a group's tab. The top bar draws it as a plain link among the menus, and the sidebar draws it as a plain tab with no group label, which does not open or close, in the place it was declared among the groups. A saved order names it under `"group"` by its label, the same as a group.
 
+Either kind of tab takes an optional `count:`, a callable given the view that returns a number, such as how many items are waiting on the signed-in person. The top bar and the sidebar show a count above zero in an info badge after the tab's label, and show nothing for zero or `nil`. The callable runs on every page the navigation draws, so keep it to one cheap query.
+
+```ruby
+config.navigation_tab :questions, label: "Questions", href: "/questions", permitted: ->(_view) { true },
+  count: ->(view) { Question.waiting.where(assignee: view.current_user).count }
+```
+
 ```ruby
 KeystoneUi.configure do |config|
   config.navigation_tab :console, label: "Console", href: "/console", permitted: ->(_view) { true }
@@ -1426,6 +1433,7 @@ Renders a single nav link within the navbar.
 **Optional props**
 
 - `active:` (Boolean, default `false`)
+- `count:` (Integer) — shown in an info badge after the label when above zero
 
 ```erb
 <%= ui_nav_item(label: "Dashboard", href: "/", active: current_page?(root_path)) %>
