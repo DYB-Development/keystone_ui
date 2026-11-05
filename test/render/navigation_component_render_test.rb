@@ -41,6 +41,16 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal "/application/quotes", page.at_css(".ks-nav-item")&.[]("href")
   end
 
+  def test_shows_a_tab_count_in_the_top_bar
+    KeystoneUi.configure do |c|
+      c.navigation_group("Decisions") { |group| group.tab(:questions, label: "Questions", href: "/questions", permitted: ->(_view) { true }, count: ->(_view) { 3 }) }
+    end
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal "3", page.at_css("nav .lg\\:flex .ks-nav-item .ks-badge")&.text&.strip
+  end
+
   def test_hides_a_tab_whose_permission_check_fails_for_the_view
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ], [ :refunds, "Refunds", "/refunds", ->(view) { view.controller_name == "admin" } ])
 

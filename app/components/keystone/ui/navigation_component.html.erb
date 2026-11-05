@@ -42,11 +42,11 @@
     <% groups.each do |group| %>
       <% if group.standalone %>
         <% tab = group.tabs.first %>
-        <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href, active: tab.active) %>
+        <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href, active: tab.active, count: tab.count) %>
       <% else %>
         <%= render Keystone::Ui::NavDropdownComponent.new(title: group.label, area: group.label, active: group.active) do %>
           <% group.tabs.each do |tab| %>
-            <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href, active: tab.active) %>
+            <%= render Keystone::Ui::NavItemComponent.new(label: tab.label, href: tab.href, active: tab.active, count: tab.count) %>
           <% end %>
         <% end %>
       <% end %>
