@@ -1,1 +1,1 @@
-<%= link_to @label, @href, class: link_classes %>
+<%= link_to @href, class: link_classes do %><%= @label %><% if counted? %><%= render count_badge %><% end %><% end %>

@@ -327,6 +327,10 @@ built on ViewComponent; hook it in before building any screen with those helpers
      `href:`, when two tabs share a key, or when a group has no tabs. Drawing
      the declared groups in the layout is done with the navigation helper,
      which belongs to `keystone_ui-develop`.
+   - Both `group.tab` and `navigation_tab` take an optional `count:`, a
+     callable given the view that returns a number. A count above zero shows in
+     an info badge after the tab's label in the top bar and the sidebar. It runs
+     on every page, so keep it to one cheap query.
    - `navigation_tab key, label:, href:, permitted:` — declares one tab
      outside any group, such as a Console or Clients tab, in its place among
      the groups. The navigation helper draws it as a plain link in the top bar

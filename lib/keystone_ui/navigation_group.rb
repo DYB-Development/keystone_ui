@@ -2,9 +2,13 @@
 
 module KeystoneUi
   class NavigationGroup
-    Tab = Struct.new(:key, :label, :href, :permitted, keyword_init: true) do
+    Tab = Struct.new(:key, :label, :href, :permitted, :count, keyword_init: true) do
       def href_for(view)
         href.respond_to?(:call) ? href.call(view) : href
+      end
+
+      def count_for(view)
+        count&.call(view)
       end
     end
 
@@ -24,8 +28,8 @@ module KeystoneUi
       tabs.select { |tab| tab.permitted.call(view) }
     end
 
-    def tab(key, label:, href:, permitted:)
-      @tabs << Tab.new(key: key, label: label, href: href, permitted: permitted)
+    def tab(key, label:, href:, permitted:, count: nil)
+      @tabs << Tab.new(key: key, label: label, href: href, permitted: permitted, count: count)
     end
   end
 end

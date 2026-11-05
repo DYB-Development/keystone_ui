@@ -119,4 +119,11 @@ class KeystoneUi::ConfigurationTest < Minitest::Test
 
     assert_equal [ [ "Home", true, [ [ :home, "Home", "/", permitted ] ] ] ], declared
   end
+
+  def test_keeps_the_count_a_tab_outside_any_group_is_declared_with
+    count = ->(_view) { 3 }
+    KeystoneUi.configure { |c| c.navigation_tab(:questions, label: "Questions", href: "/questions", permitted: ->(_view) { true }, count: count) }
+
+    assert_equal count, KeystoneUi.configuration.navigation_groups.last.tabs.first.count
+  end
 end
