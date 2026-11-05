@@ -8,4 +8,10 @@ class Keystone::Ui::EmptyStateComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "No reports yet", page.css("h2.ks-heading-sm").text.strip
   end
+
+  def test_shows_its_message_in_muted_text_under_the_title
+    page = render_inline(Keystone::Ui::EmptyStateComponent.new(title: "No reports yet", message: "Reports appear here once the team shares one."))
+
+    assert_equal "Reports appear here once the team shares one.", page.css("p.ks-paragraph.ks-tone-muted").text.strip
+  end
 end
