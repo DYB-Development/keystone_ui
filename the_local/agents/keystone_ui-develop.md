@@ -444,6 +444,13 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      actions column whose block holds only `ui_action_menu_item` calls. With no
      actions column, the last column is right-aligned, so put a column of
      amounts last.
+   - `table.row_colour { |item| ... }` tints a whole row. The block returns
+     `:danger`, `:warning`, `:success`, `:info` or `nil` for each item. A named
+     colour tints every cell of that row in the same colour as the badge of
+     that name, `nil` leaves the row plain, and any other value raises
+     `KeyError`. Colour alone does not reach every reader, so also make the
+     row's meaning readable as text in the row, such as a status badge or a
+     word in a cell.
    - Sorting needs all three of `sort:` (the current column key),
      `sort_direction:` (`:asc` or `:desc`) and `sort_url:` (a lambda taking
      `(column_key, direction)` and returning a URL). Headers then render as
