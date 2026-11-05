@@ -402,7 +402,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 
 **Column options**
 
-`Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil)`
+`Keystone::Ui::Column.new(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil, wrap: false)`
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -411,6 +411,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 | `hideable:` | `false` | allow hiding via `hidden_columns:` / column picker |
 | `locked:` | `false` | on the first column, keep it in view while the rest of the table scrolls sideways; a locked column cannot be hidden or moved |
 | `align:` | `nil` | `:start` aligns the heading and cells left, `:end` aligns them right; `nil` keeps the table's own alignment, which puts the last column right |
+| `wrap:` | `false` | `true` lets long text in the column's cells wrap onto more lines inside the cell, where every other cell keeps its text on one line |
 
 **Mobile-hidden columns**
 

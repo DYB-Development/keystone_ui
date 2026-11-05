@@ -133,7 +133,7 @@ module Keystone
 
             cell = {
               value: resolve_value(item, column.key),
-              classes: aligned(tokens.join(" "), column)
+              classes: wrapped(aligned(tokens.join(" "), column), column)
             }
 
             link_block = @link_blocks[column.key]
@@ -206,6 +206,12 @@ module Keystone
         return classes unless column.align
 
         [ *classes.split.grep_v(/\Atext-(left|right)\z/), ALIGN_CLASSES.fetch(column.align) ].join(" ")
+      end
+
+      def wrapped(classes, column)
+        return classes unless column.wrap?
+
+        classes.sub("whitespace-nowrap", "whitespace-normal")
       end
 
       def resolve_value(item, key)

@@ -5,9 +5,10 @@ module Keystone
     class Column
       attr_reader :key, :header_text, :align
 
-      def initialize(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil)
+      def initialize(key, header_text, mobile_hidden: false, sortable: false, hideable: false, locked: false, align: nil, wrap: false)
         @key = key
         @align = align
+        @wrap = wrap
         @header_text = header_text
         @mobile_hidden = mobile_hidden
         @sortable = sortable
@@ -19,6 +20,7 @@ module Keystone
       def sortable? = @sortable
       def hideable? = @hideable && !@locked
       def locked? = @locked
+      def wrap? = @wrap
     end
   end
 end

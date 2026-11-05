@@ -20,4 +20,9 @@ class Keystone::Ui::ColumnTest < Minitest::Test
     column = Keystone::Ui::Column.new(:name, "Name", mobile_hidden: true)
     assert_equal true, column.mobile_hidden?
   end
+
+  def test_accepts_wrap_true
+    column = Keystone::Ui::Column.new(:notes, "Notes", wrap: true)
+    assert_equal true, column.wrap?
+  end
 end

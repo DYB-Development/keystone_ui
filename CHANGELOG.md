@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `Keystone::Ui::Column` takes `wrap:`. `wrap: true` lets long text in that column's body cells wrap onto more lines inside the cell, so it no longer widens the table. The default, `false`, keeps every cell on one line as before, and headings are unchanged.
+
 ## [0.60.0] - 2026-11-04
 
 ### Added
