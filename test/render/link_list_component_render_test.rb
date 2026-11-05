@@ -26,4 +26,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Invoice", page.css("a .ks-badge.ks-badge-info").text.strip
   end
+
+  def test_ends_each_row_with_a_chevron
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Monthly report", href: "/reports/abc" } ]))
+
+    assert_equal 1, page.css("a.ks-value-list-row svg.ks-settings-link-chevron").size
+  end
 end
