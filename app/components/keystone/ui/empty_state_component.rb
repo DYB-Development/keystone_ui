@@ -7,9 +7,14 @@ module Keystone
       TITLE_CLASSES = "ks-heading-sm"
       MESSAGE_CLASSES = "ks-paragraph ks-tone-muted"
 
-      def initialize(title:, message: nil)
+      def initialize(title:, message: nil, action: nil)
         @title = title
         @message = message
+        @action = action
+      end
+
+      def action_button
+        ButtonComponent.new(label: @action.fetch(:label), href: @action.fetch(:href), variant: :secondary)
       end
     end
   end

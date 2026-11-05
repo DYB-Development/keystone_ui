@@ -20,4 +20,10 @@ class Keystone::Ui::EmptyStateComponentRenderTest < ViewComponent::TestCase
 
     assert_empty page.css("p.ks-paragraph")
   end
+
+  def test_shows_its_action_as_a_secondary_button_link
+    page = render_inline(Keystone::Ui::EmptyStateComponent.new(title: "No forms started", action: { label: "Start", href: "/forms/new" }))
+
+    assert_equal "/forms/new", page.css("a.ks-button.ks-button-secondary").attr("href").value
+  end
 end

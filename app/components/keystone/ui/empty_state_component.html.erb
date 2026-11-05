@@ -3,4 +3,7 @@
   <% if @message %>
     <p class="<%= MESSAGE_CLASSES %>"><%= @message %></p>
   <% end %>
+  <% if @action %>
+    <%= render action_button %>
+  <% end %>
 </div>
