@@ -36,6 +36,15 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ "/rep/quotes", "/orders" ], groups.first.tabs.map(&:href)
   end
 
+  def test_gives_each_tab_the_count_its_declaration_returns_for_the_view
+    decisions = KeystoneUi::NavigationGroup.new("Decisions")
+    decisions.tab(:questions, label: "Questions", href: "/questions", permitted: ->(_view) { true }, count: ->(view) { view.role == :client ? 3 : 0 })
+
+    groups = visible(decisions, view: View.new(:client))
+
+    assert_equal [ 3 ], groups.first.tabs.map(&:count)
+  end
+
   def test_marks_only_the_tab_whose_key_is_the_current_tab_as_active
     sales = group("Sales", [ :quotes, ->(_view) { true } ], [ :orders, ->(_view) { true } ])
 
