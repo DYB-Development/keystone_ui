@@ -14,6 +14,10 @@ module Keystone
       def initialize(rows:)
         @rows = rows
       end
+
+      def badge(row)
+        BadgeComponent.new(**row[:badge])
+      end
     end
   end
 end

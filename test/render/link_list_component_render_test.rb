@@ -20,4 +20,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "2 downloads left", page.css("a .ks-value-list-value").text.strip
   end
+
+  def test_shows_a_row_badge_in_its_variant
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_equal "Invoice", page.css("a .ks-badge.ks-badge-info").text.strip
+  end
 end
