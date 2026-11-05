@@ -251,7 +251,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      and keeps it from `lg:` up, for a page that shows its own title in
      `ui_mobile_header`. It defaults to `false`, which keeps the logo at every
      width.
-   - `ui_nav_item(label:, href:, active: false)` is one desktop link.
+   - `ui_nav_item(label:, href:, active: false, count: nil)` is one desktop
+     link, with `count:` shown in a badge after the label when above zero.
      `ui_nav_dropdown(title:, area:, active: false)` takes a block holding the
      menu links.
    - `ui_bottom_nav` takes no keywords and a block of
