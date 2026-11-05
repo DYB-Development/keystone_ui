@@ -893,6 +893,26 @@ Shows what a list or section holds when it has nothing in it, centred, with a he
 <%= ui_empty_state(title: "No forms started", action: { label: "Start", href: new_form_path }) %>
 ```
 
+### `ui_link_list`
+
+A list of links, one row per item, each row ending in a chevron. Use it where each item opens its own page and a table would be too wide, such as on a phone.
+
+**Required props**
+
+- `rows:` (Array) — hashes with `label:` and `href:`, in the order shown
+
+**Optional keys on a row**
+
+- `subtitle:` (String) — a short note under the label
+- `badge:` (Hash) — `{ label:, variant: }`, drawn with `ui_badge`
+- `value:` (String) — a short value after the label, such as a count or a date
+
+```erb
+<%= ui_link_list(rows: @reports.map { |report|
+      { label: report.kind, subtitle: report.period, href: report_path(report),
+        badge: (report.invoice? ? { label: "Invoice", variant: :info } : nil) } }) %>
+```
+
 ### `ui_select`
 
 Renders a styled `<select>` dropdown.

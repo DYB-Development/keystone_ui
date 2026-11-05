@@ -72,6 +72,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_paragraph` — a paragraph of running text.
 - `ui_value_list` — rows of a label and its value, such as a ledger or a byline.
 - `ui_alert` — a banner message, optionally dismissible.
+- `ui_link_list` — a list of links, each row with a label, an optional subtitle, badge and value, and a chevron.
 - `ui_empty_state` — what a list or section shows when it has nothing in it, with an optional message and action.
 - `ui_progress` — a labelled progress bar.
 - `ui_stat_card` — a single metric tile with optional change, link and info button.
@@ -513,6 +514,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
      — `type:` is `:info` `:success` `:warning` `:error`, and `dismissible: true`
      adds a close button.
+   - `ui_link_list(rows:)` — each row is `{ label:, href:, subtitle: nil,
+     badge: nil, value: nil }`, and `badge:` takes `ui_badge`'s `{ label:, variant: }`.
+     Use it for a list of records that each open their own page, in place of a
+     hand-written `<ul>` of links.
    - `ui_empty_state(title:, message: nil, action: nil)` — `action:` is
      `{ label:, href: }` and draws a secondary button. Use it in place of a bare
      "Nothing yet" paragraph wherever a list or section can be empty.

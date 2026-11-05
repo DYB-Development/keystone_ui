@@ -1,0 +1,19 @@
+<div class="ks-value-list">
+  <% rows.each do |row| %>
+    <%= link_to row.fetch(:href), class: ROW_CLASSES do %>
+      <span class="<%= TEXT_CLASSES %>">
+        <span class="<%= LABEL_CLASSES %>"><%= row.fetch(:label) %></span>
+        <% if row[:subtitle] %>
+          <span class="<%= SUBTITLE_CLASSES %>"><%= row[:subtitle] %></span>
+        <% end %>
+      </span>
+      <% if row[:badge] %>
+        <%= render badge(row) %>
+      <% end %>
+      <% if row[:value] %>
+        <span class="<%= VALUE_CLASSES %>"><%= row[:value] %></span>
+      <% end %>
+      <%= Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON.html_safe %>
+    <% end %>
+  <% end %>
+</div>

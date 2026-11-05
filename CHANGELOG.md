@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- `ui_link_list(rows:)` draws a list of links, one row per `{ label:, href: }` hash, each ending in a chevron. A row may also carry a `subtitle:` shown as a note under its label, a `badge:` of `{ label:, variant: }` and a `value:` shown after the label. It uses the value list row, paragraph and settings link classes keystone_ui-styles already has, so rows are separated by a border and have no hover colour.
+
+### Added
 - `ui_empty_state(title:, message: nil, action: nil)` shows what a list or section holds when it has nothing in it: a heading, an optional muted message under it, and an optional `{ label:, href: }` action drawn as a secondary button. Its spacing comes from keystone_ui-styles' `ks-empty-state` class, so keystone_ui now requires keystone_ui-styles 0.29.0 or later.
 - `ui_data_table` takes `table.row_colour { |item| ... }` in its block. A row whose item the block names `:danger`, `:warning`, `:success` or `:info` has every cell tinted in that colour, using keystone_ui-styles' coloured row classes, and `nil` leaves the row plain.
 
