@@ -31,9 +31,9 @@ module KeystoneUi
       @navigation_groups << group
     end
 
-    def navigation_tab(key, label:, href:, permitted:)
+    def navigation_tab(key, label:, href:, permitted:, count: nil)
       group = NavigationGroup.new(label, standalone: true)
-      group.tab(key, label: label, href: href, permitted: permitted)
+      group.tab(key, label: label, href: href, permitted: permitted, count: count)
       @navigation_groups << group
     end
 
