@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class EmptyStateComponent < ViewComponent::Base
-      WRAPPER_CLASSES = "flex flex-col items-center gap-2 px-4 py-8 text-center"
+      WRAPPER_CLASSES = "ks-empty-state flex flex-col items-center text-center"
       TITLE_CLASSES = "ks-heading-sm"
       MESSAGE_CLASSES = "ks-paragraph ks-tone-muted"
 
