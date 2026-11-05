@@ -13,7 +13,7 @@
       <% if row[:value] %>
         <span class="<%= VALUE_CLASSES %>"><%= row[:value] %></span>
       <% end %>
-      <%= SettingsLinkComponent::CHEVRON_ICON.html_safe %>
+      <%= Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON.html_safe %>
     <% end %>
   <% end %>
 </div>
