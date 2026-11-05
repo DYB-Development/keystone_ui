@@ -5,10 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
-- `ui_data_table` takes `table.row_colour { |item| ... }` in its block. A row whose item the block names `:danger`, `:warning`, `:success` or `:info` has every cell tinted in that colour, and `nil` leaves the row plain.
-
-### Changed
-- keystone_ui now requires keystone_ui-styles 0.29.0 or later, which holds the coloured row styles.
+- `ui_empty_state(title:, message: nil, action: nil)` shows what a list or section holds when it has nothing in it: a heading, an optional muted message under it, and an optional `{ label:, href: }` action drawn as a secondary button. Its spacing comes from keystone_ui-styles' `ks-empty-state` class, so keystone_ui now requires keystone_ui-styles 0.29.0 or later.
+- `ui_data_table` takes `table.row_colour { |item| ... }` in its block. A row whose item the block names `:danger`, `:warning`, `:success` or `:info` has every cell tinted in that colour, using keystone_ui-styles' coloured row classes, and `nil` leaves the row plain.
 
 ## [0.61.0] - 2026-11-05
 

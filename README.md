@@ -875,6 +875,24 @@ Renders a styled alert/flash message with type variants, optional title, and dis
 <%= ui_alert(message: "Could not save record.", type: :error, title: "Error", dismissible: true) %>
 ```
 
+### `ui_empty_state`
+
+Shows what a list or section holds when it has nothing in it, centred, with a heading, an optional message and an optional action.
+
+**Required props**
+
+- `title:` (String) — the heading, such as "No reports yet"
+
+**Optional props**
+
+- `message:` (String) — muted text under the title saying when something will appear
+- `action:` (Hash) — `{ label:, href: }`, drawn as a secondary button linking to `href`
+
+```erb
+<%= ui_empty_state(title: "No reports yet", message: "Reports appear here once the team shares one.") %>
+<%= ui_empty_state(title: "No forms started", action: { label: "Start", href: new_form_path }) %>
+```
+
 ### `ui_select`
 
 Renders a styled `<select>` dropdown.

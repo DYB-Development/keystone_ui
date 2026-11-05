@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+module Keystone
+  module Ui
+    class EmptyStateComponent < ViewComponent::Base
+      WRAPPER_CLASSES = "ks-empty-state flex flex-col items-center text-center"
+      TITLE_CLASSES = "ks-heading-sm"
+      MESSAGE_CLASSES = "ks-paragraph ks-tone-muted"
+
+      def initialize(title:, message: nil, action: nil)
+        @title = title
+        @message = message
+        @action = action
+      end
+
+      def action_button
+        ButtonComponent.new(label: @action.fetch(:label), href: @action.fetch(:href), variant: :secondary)
+      end
+    end
+  end
+end

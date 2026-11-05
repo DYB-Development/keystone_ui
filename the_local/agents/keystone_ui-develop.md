@@ -72,6 +72,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_paragraph` — a paragraph of running text.
 - `ui_value_list` — rows of a label and its value, such as a ledger or a byline.
 - `ui_alert` — a banner message, optionally dismissible.
+- `ui_empty_state` — what a list or section shows when it has nothing in it, with an optional message and action.
 - `ui_progress` — a labelled progress bar.
 - `ui_stat_card` — a single metric tile with optional change, link and info button.
 - `ui_copy_button` — a button that copies text to the clipboard.
@@ -512,6 +513,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
      — `type:` is `:info` `:success` `:warning` `:error`, and `dismissible: true`
      adds a close button.
+   - `ui_empty_state(title:, message: nil, action: nil)` — `action:` is
+     `{ label:, href: }` and draws a secondary button. Use it in place of a bare
+     "Nothing yet" paragraph wherever a list or section can be empty.
    - `ui_progress(value:, max:, label: nil)` shows `value / max` as a percent,
      rounded and capped at 100.
    - `ui_copy_button(text:, label: "Copy", success_message: "Copied!", error_message: "Failed!")`.
