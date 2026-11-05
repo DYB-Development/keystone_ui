@@ -18,6 +18,10 @@ module Keystone
         [ "ks-nav-item", (ACTIVE_CLASS if @active) ].compact.join(" ")
       end
 
+      def counted?
+        @count.to_i.positive?
+      end
+
       def count_badge
         BadgeComponent.new(label: @count.to_s, variant: :info)
       end
