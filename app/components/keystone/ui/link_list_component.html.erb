@@ -3,6 +3,9 @@
     <%= link_to row.fetch(:href), class: ROW_CLASSES do %>
       <span class="<%= TEXT_CLASSES %>">
         <span class="<%= LABEL_CLASSES %>"><%= row.fetch(:label) %></span>
+        <% if row[:subtitle] %>
+          <span class="<%= SUBTITLE_CLASSES %>"><%= row[:subtitle] %></span>
+        <% end %>
       </span>
     <% end %>
   <% end %>

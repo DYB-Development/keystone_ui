@@ -8,4 +8,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "/reports/abc", page.css("a.ks-value-list-row", text: "Monthly report").attr("href").value
   end
+
+  def test_shows_a_row_subtitle_as_a_note_under_its_label
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Monthly report", href: "/reports/abc", subtitle: "October 2026" } ]))
+
+    assert_equal "October 2026", page.css("a .ks-value-list-note").text.strip
+  end
 end

@@ -6,6 +6,7 @@ module Keystone
       ROW_CLASSES = "ks-value-list-row items-center no-underline"
       TEXT_CLASSES = "min-w-0 flex-1"
       LABEL_CLASSES = "ks-paragraph ks-settings-link-label block"
+      SUBTITLE_CLASSES = "ks-value-list-note"
 
       attr_reader :rows
 
