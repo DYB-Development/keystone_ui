@@ -256,8 +256,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `ui_nav_dropdown(title:, area:, active: false)` takes a block holding the
      menu links.
    - `ui_bottom_nav` takes no keywords and a block of
-     `ui_bottom_nav_item(label:, href:, icon:, active: false)` calls, where
-     `icon:` is a raw SVG string. The bar is hidden from `lg:` up and inside a
+     `ui_bottom_nav_item(label:, href:, icon:, active: false, count: nil)` calls,
+     where `icon:` is a raw SVG string and `count:` above zero shows in a badge
+     over the icon. The bar is hidden from `lg:` up and inside a
      Hotwire Native web view.
    - `ui_mobile_header(title:, back_url:, subtitle: nil)` is hidden from `lg:`
      up and goes in the navbar's `mobile_left` slot. `back_url:` must be
