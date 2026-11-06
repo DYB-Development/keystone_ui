@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_form_page` passes its `subtitle:` to the layout as `content_for(:form_page_subtitle)`, as `ui_show_page` does with `:show_page_subtitle`, and sets nothing when there is no subtitle.
+
 ## [0.64.0] - 2026-11-06
 
 ### Added
