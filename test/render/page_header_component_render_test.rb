@@ -25,4 +25,15 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Events", title.text.strip
   end
+
+  def test_given_no_title_passes_none_to_the_layout
+    title_set = nil
+    render_in_view_context do
+      ui_page_header(title: nil)
+      title_set = content_for?(:mobile_page_title)
+      nil
+    end
+
+    assert_equal false, title_set
+  end
 end
