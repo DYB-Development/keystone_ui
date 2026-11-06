@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.66.0] - 2026-11-06
+
 ### Added
 - `ui_page_header` passes its `title:` to the layout as `content_for(:mobile_page_title)`, as it does its add action with `:mobile_action_url` and `:mobile_action_label`, and sets nothing when there is no title.
 
