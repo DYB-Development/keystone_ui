@@ -92,6 +92,17 @@ class Keystone::Ui::FormPageComponentRenderTest < ViewComponent::TestCase
     assert_equal "Invoice #42", subtitle.text.strip
   end
 
+  def test_given_no_subtitle_passes_none_to_the_layout
+    subtitle_set = nil
+    render_in_view_context do
+      ui_form_page(title: "New Invoice", back_url: "/invoices")
+      subtitle_set = content_for?(:form_page_subtitle)
+      nil
+    end
+
+    assert_equal false, subtitle_set
+  end
+
   def test_given_no_back_link_and_no_trail_raises_an_error_naming_the_page
     error = assert_raises(KeystoneUi::MissingBackLink) { render_form_page(title: "New Invoice") }
 
