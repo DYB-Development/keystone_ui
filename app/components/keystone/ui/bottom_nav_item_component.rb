@@ -23,6 +23,10 @@ module Keystone
         @active ? "#{ITEM_BASE} #{ACTIVE_CLASS}" : ITEM_BASE
       end
 
+      def counted?
+        @count.to_i.positive?
+      end
+
       def count_badge
         BadgeComponent.new(label: @count.to_s, variant: :info)
       end

@@ -10,4 +10,10 @@ class Keystone::Ui::BottomNavItemComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "3", page.css("a.ks-bottom-nav-item .ks-badge").text.strip
   end
+
+  def test_shows_no_badge_when_its_count_is_zero
+    page = render_inline(Keystone::Ui::BottomNavItemComponent.new(label: "Questions", href: "/questions", icon: ICON, count: 0))
+
+    assert_empty page.css(".ks-badge")
+  end
 end

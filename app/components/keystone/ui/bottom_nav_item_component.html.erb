@@ -1,7 +1,7 @@
 <a href="<%= @href %>" class="<%= item_classes %>">
   <span class="<%= ICON_CLASSES %>">
     <%= @icon.html_safe %>
-    <% if @count %>
+    <% if counted? %>
       <span class="<%= COUNT_CLASSES %>"><%= render count_badge %></span>
     <% end %>
   </span>
