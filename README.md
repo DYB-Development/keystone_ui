@@ -1485,6 +1485,7 @@ Renders a single bottom nav tab.
 **Optional props**
 
 - `active:` (Boolean, default `false`)
+- `count:` (Integer) — shown in an info badge over the icon when above zero
 
 ```erb
 <%= ui_bottom_nav_item(label: "Home", href: "/", icon: "<svg>…</svg>", active: true) %>

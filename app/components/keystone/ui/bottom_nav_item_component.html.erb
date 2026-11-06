@@ -1,4 +1,9 @@
 <a href="<%= @href %>" class="<%= item_classes %>">
-  <%= @icon.html_safe %>
+  <span class="<%= ICON_CLASSES %>">
+    <%= @icon.html_safe %>
+    <% if counted? %>
+      <span class="<%= COUNT_CLASSES %>"><%= render count_badge %></span>
+    <% end %>
+  </span>
   <span class="<%= LABEL_CLASSES %>"><%= @label %></span>
 </a>
