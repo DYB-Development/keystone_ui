@@ -16,4 +16,13 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Block" ], page.css(".ks-page-header-actions").map { |actions| actions.text.strip }
   end
+
+  def test_given_a_title_passes_it_to_the_layout
+    title = render_in_view_context do
+      ui_page_header(title: "Events")
+      content_for(:mobile_page_title)
+    end
+
+    assert_equal "Events", title.text.strip
+  end
 end
