@@ -483,6 +483,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "toggle" ], page.css("tbody button[aria-controls]").map { |button| button["data-row-detail-target"] }
   end
 
+  def test_opens_a_row_with_detail_when_it_is_clicked
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" }, { month: "Feb", pipeline: "$20" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for Jan" if row[:month] == "Jan" }
+      end
+    end
+
+    assert_equal [ "click->row-detail#toggle", nil, nil ], page.css("tbody tr").map { |row| row["data-action"] }
+  end
+
   private
 
   def three_columns

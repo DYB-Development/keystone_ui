@@ -45,7 +45,7 @@
             </tr>
           <% end %>
           <% detail = capture(item, &@row_detail_block) if row_detail? %>
-          <tr<% if (classes = row_classes(idx)) %> class="<%= classes %>"<% end %><% if current_row?(idx) %> aria-current="true"<% end %>>
+          <tr<% if (classes = row_classes(idx)) %> class="<%= classes %>"<% end %><% if current_row?(idx) %> aria-current="true"<% end %><% if detail.present? %> data-action="click->row-detail#toggle"<% end %>>
             <% row_cells[idx].each_with_index do |cell, cell_index| %>
               <td class="<%= cell[:classes] %>">
                 <% if detail.present? && cell_index.zero? %>
