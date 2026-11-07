@@ -73,6 +73,14 @@ module Keystone
         @row_colour_block = block
       end
 
+      def row_detail(&block)
+        @row_detail_block = block
+      end
+
+      def row_detail?
+        !!@row_detail_block
+      end
+
       def row_classes(index)
         classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]) ].compact
 

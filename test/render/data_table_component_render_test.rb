@@ -350,6 +350,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ %w[ks-table-row-current ks-table-row-warning] ], page.css("tbody tr").map { |row| row["class"].split }
   end
 
+  def test_puts_a_row_s_detail_in_a_row_under_it_spanning_every_column
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ [ nil, nil ], [ "2" ] ], page.css("tbody tr").map { |row| row.css("td").map { |cell| cell["colspan"] } }
+  end
+
   private
 
   def three_columns

@@ -65,6 +65,11 @@
               </td>
             <% end %>
           </tr>
+          <% if row_detail? %>
+            <tr>
+              <td colspan="<%= column_count %>"></td>
+            </tr>
+          <% end %>
         <% end %>
       <% end %>
     </tbody>
