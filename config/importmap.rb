@@ -18,6 +18,7 @@ pin "keystone_ui/info_controller", to: "keystone_ui/info_controller.js"
 pin "keystone_ui/auto_submit_controller", to: "keystone_ui/auto_submit_controller.js"
 pin "keystone_ui/line_chart_controller", to: "keystone_ui/line_chart_controller.js"
 pin "keystone_ui/theme_toggle_controller", to: "keystone_ui/theme_toggle_controller.js"
+pin "keystone_ui/row_detail_controller", to: "keystone_ui/row_detail_controller.js"
 pin "keystone_ui/page_theme", to: "keystone_ui/page_theme.js"
 
 # Chart.js for the line-chart controller, so host apps don't pin it themselves.
