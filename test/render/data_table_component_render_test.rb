@@ -383,6 +383,18 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Jan", "Feb", "Notes for Feb" ], page.css("tbody tr").map { |row| row.css("td").first.text.strip }
   end
 
+  def test_spans_a_row_s_detail_across_the_actions_column_too
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/months/1/edit") }
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "3" ], page.css("tbody td[colspan]").map { |cell| cell["colspan"] }
+  end
+
   private
 
   def three_columns
