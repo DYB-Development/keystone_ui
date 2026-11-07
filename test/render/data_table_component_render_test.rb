@@ -516,6 +516,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "detail" ], page.css("tbody tr[hidden]").map { |row| row["data-row-detail-target"] }
   end
 
+  def test_keeps_its_open_rows_open_through_a_turbo_morph
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "turbo:before-morph-attribute->row-detail#keep" ], page.css("tbody").map { |body| body["data-action"] }
+  end
+
   private
 
   def three_columns
