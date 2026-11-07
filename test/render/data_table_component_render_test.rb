@@ -439,6 +439,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Show detail" ], page.css("tbody button[aria-controls]").map { |button| button["aria-label"] }
   end
 
+  def test_shows_a_caret_in_the_detail_button
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal 1, page.css("tbody button[aria-controls] svg").length
+  end
+
   private
 
   def three_columns

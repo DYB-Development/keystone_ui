@@ -49,7 +49,7 @@
             <% row_cells[idx].each_with_index do |cell, cell_index| %>
               <td class="<%= cell[:classes] %>">
                 <% if detail.present? && cell_index.zero? %>
-                  <button type="button" aria-label="Show detail" aria-expanded="false" aria-controls="<%= row_detail_id(idx) %>"></button>
+                  <button type="button" aria-label="Show detail" aria-expanded="false" aria-controls="<%= row_detail_id(idx) %>"><%= Keystone::Ui::DisclosureComponent::CARET_ICON.html_safe %></button>
                 <% end %>
                 <% if cell[:href] %>
                   <a href="<%= cell[:href] %>"><%= cell[:value] %></a>
