@@ -505,6 +505,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "row-detail" ], page.css("tbody").map { |body| body["data-controller"] }
   end
 
+  def test_marks_a_row_s_detail_row_as_its_detail
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "detail" ], page.css("tbody tr[hidden]").map { |row| row["data-row-detail-target"] }
+  end
+
   private
 
   def three_columns
