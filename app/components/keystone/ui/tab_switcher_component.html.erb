@@ -1,3 +1,11 @@
+<% if link_tabs? %>
+<nav class="<%= classes %>">
+  <% tabs.each do |tab| %>
+    <a href="<%= tab[:href] %>" class="<%= TAB_BASE_CLASSES %>"><%= tab[:label] %></a>
+  <% end %>
+</nav>
+<%= content %>
+<% else %>
 <div data-controller="tab-switcher">
   <div class="<%= classes %>">
     <% tabs.each_with_index do |tab, index| %>
@@ -12,3 +20,4 @@
   </div>
   <%= content %>
 </div>
+<% end %>

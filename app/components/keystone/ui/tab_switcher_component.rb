@@ -13,6 +13,10 @@ module Keystone
         @tabs = tabs
       end
 
+      def link_tabs?
+        tabs.any? && tabs.all?(Hash)
+      end
+
       def classes
         TAB_BAR_CLASSES
       end
