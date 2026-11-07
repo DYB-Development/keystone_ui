@@ -81,6 +81,10 @@ module Keystone
         !!@row_detail_block
       end
 
+      def row_detail_id(index)
+        "row-detail-#{index}"
+      end
+
       def row_classes(index)
         classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]) ].compact
 

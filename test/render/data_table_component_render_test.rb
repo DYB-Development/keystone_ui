@@ -406,6 +406,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ false, true ], page.css("tbody tr").map { |row| row.key?("hidden") }
   end
 
+  def test_gives_a_row_with_detail_a_button_naming_its_detail_row
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal page.css("tbody tr[hidden]").map { |row| row["id"] }, page.css("tbody button[aria-controls]").map { |button| button["aria-controls"] }
+  end
+
   private
 
   def three_columns

@@ -44,9 +44,13 @@
               <% if actions? %><th></th><% end %>
             </tr>
           <% end %>
+          <% detail = capture(item, &@row_detail_block) if row_detail? %>
           <tr<% if (classes = row_classes(idx)) %> class="<%= classes %>"<% end %><% if current_row?(idx) %> aria-current="true"<% end %>>
-            <% row_cells[idx].each do |cell| %>
+            <% row_cells[idx].each_with_index do |cell, cell_index| %>
               <td class="<%= cell[:classes] %>">
+                <% if detail.present? && cell_index.zero? %>
+                  <button type="button" aria-controls="<%= row_detail_id(idx) %>"></button>
+                <% end %>
                 <% if cell[:href] %>
                   <a href="<%= cell[:href] %>"><%= cell[:value] %></a>
                 <% else %>
@@ -65,9 +69,8 @@
               </td>
             <% end %>
           </tr>
-          <% detail = capture(item, &@row_detail_block) if row_detail? %>
           <% if detail.present? %>
-            <tr hidden>
+            <tr id="<%= row_detail_id(idx) %>" hidden>
               <td colspan="<%= column_count %>"><%= detail %></td>
             </tr>
           <% end %>
