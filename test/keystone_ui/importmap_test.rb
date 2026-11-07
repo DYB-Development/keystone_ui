@@ -38,4 +38,10 @@ class KeystoneUi::ImportmapTest < Minitest::Test
 
     assert_includes index, 'application.register("sortable-list", SortableListController)'
   end
+
+  def test_the_row_detail_controller_is_registered
+    index = File.read(File.join(ROOT, "app/assets/javascripts/keystone_ui/index.js"))
+
+    assert_includes index, 'application.register("row-detail", RowDetailController)'
+  end
 end
