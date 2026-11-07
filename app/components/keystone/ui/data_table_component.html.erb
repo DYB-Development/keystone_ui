@@ -67,7 +67,7 @@
           </tr>
           <% detail = capture(item, &@row_detail_block) if row_detail? %>
           <% if detail.present? %>
-            <tr>
+            <tr hidden>
               <td colspan="<%= column_count %>"><%= detail %></td>
             </tr>
           <% end %>

@@ -395,6 +395,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "3" ], page.css("tbody td[colspan]").map { |cell| cell["colspan"] }
   end
 
+  def test_hides_a_row_s_detail_until_it_is_opened
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ false, true ], page.css("tbody tr").map { |row| row.key?("hidden") }
+  end
+
   private
 
   def three_columns
