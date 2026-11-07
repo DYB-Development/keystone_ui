@@ -22,6 +22,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
       page.css("a.ks-tab-active").map { |link| [ link.text.strip, link["aria-current"] ] }
   end
 
+  def test_only_the_chosen_link_tab_carries_the_mark_the_active_tab_style_reads
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
+
+    assert_equal [ "Value" ], page.css("a.ks-tab[data-active]").map { |link| link.text.strip }
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
