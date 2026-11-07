@@ -42,6 +42,14 @@ test("clicking an open row hides its detail again", () => {
   assert.equal(detail.hidden, true)
 })
 
+test("pressing the detail button of a closed row shows its detail", () => {
+  const { controller, row, button, detail } = closedRow()
+
+  controller.toggle({ currentTarget: row, target: button })
+
+  assert.equal(detail.hidden, false)
+})
+
 test("clicking a link in a row leaves its detail closed", () => {
   const { controller, row, detail } = closedRow()
   const link = {}
