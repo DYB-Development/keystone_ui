@@ -527,6 +527,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "turbo:before-morph-attribute->row-detail#keep" ], page.css("tbody").map { |body| body["data-action"] }
   end
 
+  def test_given_no_row_detail_renders_no_detail_rows_buttons_or_controller
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty page.css("[data-controller~=row-detail], [data-action], [aria-expanded], tr[hidden], tbody button")
+  end
+
   private
 
   def three_columns
