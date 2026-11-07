@@ -1,7 +1,7 @@
 <% if link_tabs? %>
 <nav class="<%= classes %>">
   <% tabs.each do |tab| %>
-    <a href="<%= tab[:href] %>" class="<%= TAB_BASE_CLASSES %>"><%= tab[:label] %></a>
+    <a href="<%= tab[:href] %>" class="<%= tab[:current] ? tab_classes : TAB_BASE_CLASSES %>"<% if tab[:current] %> aria-current="page"<% end %>><%= tab[:label] %></a>
   <% end %>
 </nav>
 <%= content %>
