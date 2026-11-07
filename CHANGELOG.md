@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.67.0] - 2026-11-07
+
 ### Added
 - `ui_tab_switcher` takes tabs as hashes of `label:`, `href:` and an optional `current: true`, drawn as links to each address. The current tab is drawn active with `aria-current="page"`, and following a tab replaces the history entry, so the host draws only the chosen tab's content. Tabs given as plain labels still switch in the browser as before.
 
