@@ -34,6 +34,13 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("nav.ks-tab-bar")["class"].split, "flex-wrap"
   end
 
+  def test_tabs_given_as_plain_labels_are_still_buttons_the_browser_switches_between
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ]))
+
+    assert_equal [ [ "One", "click->tab-switcher#select" ], [ "Two", "click->tab-switcher#select" ] ],
+      page.css("[data-controller=tab-switcher] button.ks-tab").map { |tab| [ tab.text.strip, tab["data-action"] ] }
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
