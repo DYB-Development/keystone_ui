@@ -456,14 +456,18 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      row's meaning readable as text in the row, such as a status badge or a
      word in a cell.
    - `table.row_detail { |item| ... }` gives a row detail that opens under
-     it. What the block returns is drawn in a hidden row under the item's
-     row, in one cell across every column, and `nil` gives that row no
-     detail. A row with detail opens and closes when it is clicked or when
-     Enter or Space is pressed on the caret button at the start of its first
-     cell, and links, buttons and the action menu in the row still work
-     without opening it. An open row stays open through a Turbo refresh
-     morph. Use it when a table should show a few columns and still hold
-     more about each row, rather than adding columns or a second table.
+     it. The block is ERB, so it may hold helpers such as `ui_value_list`.
+     What it renders is drawn in a hidden row under the item's row, in one
+     unstyled cell across every column, and a block that renders `nil` or
+     nothing but whitespace gives that row no detail and no caret. A row with
+     detail opens and closes when it is clicked or when Enter or Space is
+     pressed on the caret button at the start of its first cell. A click on a
+     link, button, form control, label or `summary` in the row does what it
+     always does and leaves the row as it is, so the action menu and linked
+     cells still work. An open row stays open through a Turbo refresh morph.
+     Use it when a table should show a few columns and still hold more about
+     each row, rather than adding columns or a second table, and ask the
+     developer what the detail shows.
    - Sorting needs all three of `sort:` (the current column key),
      `sort_direction:` (`:asc` or `:desc`) and `sort_url:` (a lambda taking
      `(column_key, direction)` and returning a URL). Headers then render as
@@ -677,8 +681,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     If a piece renders unstyled where it should not — an info button that
     shows nothing, a breakdown in one run of text, a `:success` or `:danger`
     figure in plain colour, a joined funnel with no band, a locked column the
-    others show through, or a Columns menu with no greyed name for a hidden
-    column — the app's Stimulus controllers or keystone_ui-styles version are
+    others show through, a Columns menu with no greyed name for a hidden
+    column, or a table row whose caret does not open its detail — the app's Stimulus controllers or keystone_ui-styles version are
     out of date. Stop and hand that part to `keystone_ui-install`, and add no
     classes to fix it.
 
