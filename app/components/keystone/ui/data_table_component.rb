@@ -83,7 +83,7 @@ module Keystone
       end
 
       def row_detail_id(index)
-        "row-detail-#{index}"
+        "row-detail-#{resolve_value(@items[index], :id) || index}"
       end
 
       def row_classes(index)

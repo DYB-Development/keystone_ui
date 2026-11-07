@@ -461,6 +461,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_includes page.css("tbody button[aria-controls]").first["class"].to_s.split, "aria-expanded:rotate-180"
   end
 
+  def test_names_a_row_s_detail_after_its_item_s_id_so_a_refresh_keeps_it_with_that_item
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { id: 7, month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "row-detail-7" ], page.css("tbody tr[hidden]").map { |row| row["id"] }
+  end
+
   private
 
   def three_columns
