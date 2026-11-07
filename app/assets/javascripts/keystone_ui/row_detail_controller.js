@@ -16,6 +16,6 @@ export default class extends Controller {
   }
 
   keep(event) {
-    event.preventDefault()
+    if (event.detail.attributeName === "hidden") event.preventDefault()
   }
 }

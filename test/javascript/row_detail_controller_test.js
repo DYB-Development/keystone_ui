@@ -69,6 +69,15 @@ test("a refresh keeps a detail row's hidden attribute as the viewer left it", ()
   assert.equal(event.cancelled, true)
 })
 
+test("a refresh still changes a detail row's other attributes", () => {
+  const { controller } = closedRow()
+  const event = morph("class")
+
+  controller.keep(event)
+
+  assert.equal(event.cancelled, false)
+})
+
 test("clicking a link in a row leaves its detail closed", () => {
   const { controller, row, detail } = closedRow()
   const link = {}
