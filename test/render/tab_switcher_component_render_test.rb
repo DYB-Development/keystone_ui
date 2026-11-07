@@ -28,6 +28,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Value" ], page.css("a.ks-tab[data-active]").map { |link| link.text.strip }
   end
 
+  def test_link_tabs_wrap_onto_a_new_line_when_they_do_not_fit_the_width
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
+
+    assert_includes page.at_css("nav.ks-tab-bar")["class"].split, "flex-wrap"
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
