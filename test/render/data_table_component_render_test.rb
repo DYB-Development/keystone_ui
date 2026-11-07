@@ -472,6 +472,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "row-detail-7" ], page.css("tbody tr[hidden]").map { |row| row["id"] }
   end
 
+  def test_marks_the_detail_button_as_the_row_s_toggle
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "toggle" ], page.css("tbody button[aria-controls]").map { |button| button["data-row-detail-target"] }
+  end
+
   private
 
   def three_columns
