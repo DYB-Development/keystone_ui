@@ -21,4 +21,10 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "Value", "page" ] ],
       page.css("a.ks-tab-active").map { |link| [ link.text.strip, link["aria-current"] ] }
   end
+
+  def test_following_a_link_tab_replaces_the_current_history_entry
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
+
+    assert_equal [ "replace", "replace" ], page.css("a.ks-tab").map { |link| link["data-turbo-action"] }
+  end
 end
