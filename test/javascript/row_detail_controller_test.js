@@ -78,6 +78,15 @@ test("a refresh keeps a detail button's expanded state as the viewer left it", (
   assert.equal(event.cancelled, true)
 })
 
+test("a refresh still hides or shows an element inside a row's detail", () => {
+  const { controller } = closedRow()
+  const event = morph("hidden", null)
+
+  controller.keep(event)
+
+  assert.equal(event.cancelled, false)
+})
+
 test("a refresh still changes a detail row's other attributes", () => {
   const { controller } = closedRow()
   const event = morph("class")

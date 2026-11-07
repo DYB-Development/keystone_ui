@@ -17,6 +17,8 @@ export default class extends Controller {
   }
 
   keep(event) {
+    if (!event.target.getAttribute("data-row-detail-target")) return
+
     if (KEPT_ATTRIBUTES.includes(event.detail.attributeName)) event.preventDefault()
   }
 }
