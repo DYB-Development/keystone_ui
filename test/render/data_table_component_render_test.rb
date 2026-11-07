@@ -372,6 +372,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Notes for Jan" ], page.css("tbody td[colspan]").map { |cell| cell.text.strip }
   end
 
+  def test_gives_no_detail_row_to_a_row_whose_row_detail_block_returns_nil
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" }, { month: "Feb", pipeline: "$20" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for Feb" if row[:month] == "Feb" }
+      end
+    end
+
+    assert_equal [ "Jan", "Feb", "Notes for Feb" ], page.css("tbody tr").map { |row| row.css("td").first.text.strip }
+  end
+
   private
 
   def three_columns
