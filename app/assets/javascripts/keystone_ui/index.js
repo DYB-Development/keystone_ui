@@ -17,6 +17,7 @@ import InfoController from "keystone_ui/info_controller"
 import AutoSubmitController from "keystone_ui/auto_submit_controller"
 import LineChartController from "keystone_ui/line_chart_controller"
 import ThemeToggleController from "keystone_ui/theme_toggle_controller"
+import RowDetailController from "keystone_ui/row_detail_controller"
 import { keepPageThemeInStep } from "keystone_ui/page_theme"
 
 export function registerControllers(application) {
@@ -39,6 +40,7 @@ export function registerControllers(application) {
   application.register("auto-submit", AutoSubmitController)
   application.register("line-chart", LineChartController)
   application.register("theme-toggle", ThemeToggleController)
+  application.register("row-detail", RowDetailController)
   keepPageThemeInStep()
 }
 

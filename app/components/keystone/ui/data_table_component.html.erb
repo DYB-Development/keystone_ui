@@ -25,7 +25,7 @@
         <% end %>
       </tr>
     </thead>
-    <tbody class="<%= Keystone::Ui::DataTableComponent::BODY_CLASSES %>">
+    <tbody class="<%= Keystone::Ui::DataTableComponent::BODY_CLASSES %>"<% if row_detail? %> data-controller="row-detail" data-action="turbo:before-morph-attribute->row-detail#keep"<% end %>>
       <% if empty? %>
         <% if @empty_message %>
           <tr>
@@ -44,9 +44,13 @@
               <% if actions? %><th></th><% end %>
             </tr>
           <% end %>
-          <tr<% if (classes = row_classes(idx)) %> class="<%= classes %>"<% end %><% if current_row?(idx) %> aria-current="true"<% end %>>
-            <% row_cells[idx].each do |cell| %>
+          <% detail = capture(item, &@row_detail_block) if row_detail? %>
+          <tr<% if (classes = row_classes(idx)) %> class="<%= classes %>"<% end %><% if current_row?(idx) %> aria-current="true"<% end %><% if detail.present? %> data-action="click->row-detail#toggle"<% end %>>
+            <% row_cells[idx].each_with_index do |cell, cell_index| %>
               <td class="<%= cell[:classes] %>">
+                <% if detail.present? && cell_index.zero? %>
+                  <button type="button" class="<%= Keystone::Ui::DataTableComponent::DETAIL_BUTTON_CLASSES %>" aria-label="Show detail" aria-expanded="false" aria-controls="<%= row_detail_id(idx) %>" data-row-detail-target="toggle"><%= Keystone::Ui::DisclosureComponent::CARET_ICON.html_safe %></button>
+                <% end %>
                 <% if cell[:href] %>
                   <a href="<%= cell[:href] %>"><%= cell[:value] %></a>
                 <% else %>
@@ -65,6 +69,11 @@
               </td>
             <% end %>
           </tr>
+          <% if detail.present? %>
+            <tr id="<%= row_detail_id(idx) %>" hidden data-row-detail-target="detail">
+              <td colspan="<%= column_count %>"><%= detail %></td>
+            </tr>
+          <% end %>
         <% end %>
       <% end %>
     </tbody>

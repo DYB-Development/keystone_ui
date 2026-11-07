@@ -12,6 +12,7 @@ module Keystone
         success: "ks-table-row-success",
         info: "ks-table-row-info"
       }.freeze
+      DETAIL_BUTTON_CLASSES = "ks-disclosure-icon inline-flex align-middle transition-transform aria-expanded:rotate-180"
       HEAD_CLASSES = "ks-table-head"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
@@ -71,6 +72,18 @@ module Keystone
 
       def row_colour(&block)
         @row_colour_block = block
+      end
+
+      def row_detail(&block)
+        @row_detail_block = block
+      end
+
+      def row_detail?
+        !!@row_detail_block
+      end
+
+      def row_detail_id(index)
+        "row-detail-#{resolve_value(@items[index], :id) || index}"
       end
 
       def row_classes(index)

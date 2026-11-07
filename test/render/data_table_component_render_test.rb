@@ -350,6 +350,192 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ %w[ks-table-row-current ks-table-row-warning] ], page.css("tbody tr").map { |row| row["class"].split }
   end
 
+  def test_puts_a_row_s_detail_in_a_row_under_it_spanning_every_column
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ [ nil, nil ], [ "2" ] ], page.css("tbody tr").map { |row| row.css("td").map { |cell| cell["colspan"] } }
+  end
+
+  def test_shows_what_its_row_detail_block_returns_in_the_detail_row
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "Notes for Jan" ], page.css("tbody td[colspan]").map { |cell| cell.text.strip }
+  end
+
+  def test_gives_no_detail_row_to_a_row_whose_row_detail_block_returns_nil
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" }, { month: "Feb", pipeline: "$20" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for Feb" if row[:month] == "Feb" }
+      end
+    end
+
+    assert_equal [ "Jan", "Feb", "Notes for Feb" ], page.css("tbody tr").map { |row| row.css("td").first.text.strip }
+  end
+
+  def test_spans_a_row_s_detail_across_the_actions_column_too
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/months/1/edit") }
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "3" ], page.css("tbody td[colspan]").map { |cell| cell["colspan"] }
+  end
+
+  def test_hides_a_row_s_detail_until_it_is_opened
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ false, true ], page.css("tbody tr").map { |row| row.key?("hidden") }
+  end
+
+  def test_gives_a_row_with_detail_a_button_naming_its_detail_row
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal page.css("tbody tr[hidden]").map { |row| row["id"] }, page.css("tbody button[aria-controls]").map { |button| button["aria-controls"] }
+  end
+
+  def test_marks_the_button_of_a_closed_row_as_not_expanded
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "false" ], page.css("tbody button[aria-controls]").map { |button| button["aria-expanded"] }
+  end
+
+  def test_labels_the_detail_button_in_plain_words
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "Show detail" ], page.css("tbody button[aria-controls]").map { |button| button["aria-label"] }
+  end
+
+  def test_shows_a_caret_in_the_detail_button
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal 1, page.css("tbody button[aria-controls] svg").length
+  end
+
+  def test_turns_the_caret_of_the_detail_button_over_while_its_row_is_open
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_includes page.css("tbody button[aria-controls]").first["class"].to_s.split, "aria-expanded:rotate-180"
+  end
+
+  def test_names_a_row_s_detail_after_its_item_s_id_so_a_refresh_keeps_it_with_that_item
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { id: 7, month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "row-detail-7" ], page.css("tbody tr[hidden]").map { |row| row["id"] }
+  end
+
+  def test_marks_the_detail_button_as_the_row_s_toggle
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "toggle" ], page.css("tbody button[aria-controls]").map { |button| button["data-row-detail-target"] }
+  end
+
+  def test_opens_a_row_with_detail_when_it_is_clicked
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" }, { month: "Feb", pipeline: "$20" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for Jan" if row[:month] == "Jan" }
+      end
+    end
+
+    assert_equal [ "click->row-detail#toggle", nil, nil ], page.css("tbody tr").map { |row| row["data-action"] }
+  end
+
+  def test_runs_the_row_detail_controller_on_its_body_when_given_row_detail
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "row-detail" ], page.css("tbody").map { |body| body["data-controller"] }
+  end
+
+  def test_marks_a_row_s_detail_row_as_its_detail
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "detail" ], page.css("tbody tr[hidden]").map { |row| row["data-row-detail-target"] }
+  end
+
+  def test_keeps_its_open_rows_open_through_a_turbo_morph
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "turbo:before-morph-attribute->row-detail#keep" ], page.css("tbody").map { |body| body["data-action"] }
+  end
+
+  def test_given_no_row_detail_renders_no_detail_rows_buttons_or_controller
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty page.css("[data-controller~=row-detail], [data-action], [aria-expanded], tr[hidden], tbody button")
+  end
+
   private
 
   def three_columns
