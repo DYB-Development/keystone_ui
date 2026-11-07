@@ -12,6 +12,7 @@ module Keystone
         success: "ks-table-row-success",
         info: "ks-table-row-info"
       }.freeze
+      DETAIL_BUTTON_CLASSES = "ks-disclosure-icon inline-flex align-middle transition-transform aria-expanded:rotate-180"
       HEAD_CLASSES = "ks-table-head"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
