@@ -417,6 +417,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal page.css("tbody tr[hidden]").map { |row| row["id"] }, page.css("tbody button[aria-controls]").map { |button| button["aria-controls"] }
   end
 
+  def test_marks_the_button_of_a_closed_row_as_not_expanded
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "false" ], page.css("tbody button[aria-controls]").map { |button| button["aria-expanded"] }
+  end
+
   private
 
   def three_columns
