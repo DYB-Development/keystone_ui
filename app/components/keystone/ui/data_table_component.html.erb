@@ -25,7 +25,7 @@
         <% end %>
       </tr>
     </thead>
-    <tbody class="<%= Keystone::Ui::DataTableComponent::BODY_CLASSES %>">
+    <tbody class="<%= Keystone::Ui::DataTableComponent::BODY_CLASSES %>"<% if row_detail? %> data-controller="row-detail"<% end %>>
       <% if empty? %>
         <% if @empty_message %>
           <tr>
