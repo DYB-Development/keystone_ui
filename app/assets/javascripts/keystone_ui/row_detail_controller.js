@@ -14,4 +14,8 @@ export default class extends Controller {
     button.setAttribute("aria-expanded", String(open))
     detail.hidden = !open
   }
+
+  keep(event) {
+    event.preventDefault()
+  }
 }

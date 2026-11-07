@@ -50,6 +50,25 @@ test("pressing the detail button of a closed row shows its detail", () => {
   assert.equal(detail.hidden, false)
 })
 
+function morph(attributeName, target = "detail") {
+  const event = {
+    target: { getAttribute: (name) => (name === "data-row-detail-target" ? target : null) },
+    detail: { attributeName, mutationType: "update" },
+    cancelled: false,
+    preventDefault: () => { event.cancelled = true }
+  }
+  return event
+}
+
+test("a refresh keeps a detail row's hidden attribute as the viewer left it", () => {
+  const { controller } = closedRow()
+  const event = morph("hidden")
+
+  controller.keep(event)
+
+  assert.equal(event.cancelled, true)
+})
+
 test("clicking a link in a row leaves its detail closed", () => {
   const { controller, row, detail } = closedRow()
   const link = {}
