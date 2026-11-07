@@ -32,3 +32,12 @@ test("clicking a closed row marks its button as expanded", () => {
 
   assert.equal(button.getAttribute("aria-expanded"), "true")
 })
+
+test("clicking an open row hides its detail again", () => {
+  const { controller, row, cell, detail } = closedRow()
+
+  controller.toggle({ currentTarget: row, target: cell })
+  controller.toggle({ currentTarget: row, target: cell })
+
+  assert.equal(detail.hidden, true)
+})
