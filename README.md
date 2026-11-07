@@ -543,6 +543,16 @@ In the block, `table.row_colour { |item| ... }` colours each row by what the blo
 <% end %>
 ```
 
+**Row detail**
+
+In the block, `table.row_detail { |item| ... }` gives a row more to show than its columns. What the block returns for an item is drawn in a row under that item's row, in one cell across every column including the actions column, and hidden until the row is opened. A row whose block returns `nil` gets no detail and does not open. A row with detail starts its first cell with a caret button labelled "Show detail", carrying `aria-expanded` and `aria-controls`, so clicking the row, or pressing Enter or Space on the button, opens and closes it. Links, buttons and the action menu inside the row work without opening it. An open row stays open when a Turbo refresh morphs the page, and the detail row's id comes from the item's `id`, or its position when it has none, so the open row stays with its item when the rows change order. The `row-detail` Stimulus controller is registered by `registerControllers`.
+
+```erb
+<%= ui_data_table(items: @sessions, columns: [ { name: "Session" }, { status: "Status" } ]) do |table| %>
+  <% table.row_detail { |session| render(SessionDetailComponent.new(session: session)) if session.running? } %>
+<% end %>
+```
+
 Each row's actions show in an action menu, opened by an ellipsis button, so a table never shows buttons. When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
 
 ### `ui_column_picker`

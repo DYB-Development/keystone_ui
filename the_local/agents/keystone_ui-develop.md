@@ -455,6 +455,15 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `KeyError`. Colour alone does not reach every reader, so also make the
      row's meaning readable as text in the row, such as a status badge or a
      word in a cell.
+   - `table.row_detail { |item| ... }` gives a row detail that opens under
+     it. What the block returns is drawn in a hidden row under the item's
+     row, in one cell across every column, and `nil` gives that row no
+     detail. A row with detail opens and closes when it is clicked or when
+     Enter or Space is pressed on the caret button at the start of its first
+     cell, and links, buttons and the action menu in the row still work
+     without opening it. An open row stays open through a Turbo refresh
+     morph. Use it when a table should show a few columns and still hold
+     more about each row, rather than adding columns or a second table.
    - Sorting needs all three of `sort:` (the current column key),
      `sort_direction:` (`:asc` or `:desc`) and `sort_url:` (a lambda taking
      `(column_key, direction)` and returning a URL). Headers then render as

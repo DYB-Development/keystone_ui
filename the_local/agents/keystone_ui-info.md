@@ -78,6 +78,11 @@ One decision: is keystone_ui set up in the app?
   it: which hideable columns to hide and their order. With a save address, a
   "Columns" menu lets the user change it. A locked first column stays in view
   while the table scrolls sideways and is never hidden or moved.
+- **Row detail.** A data table can give each row more to show than its
+  columns. That detail sits in a hidden row under its row, across every column,
+  and clicking the row or its caret button opens and closes it. Links, buttons
+  and the action menu inside the row work without opening it. A row with no
+  detail does not open, and an open row stays open through a Turbo morph.
 - **Search dropdowns.** A search dropdown picks one record by its id from
   matches the host serves. As the user types, it requests the host's search
   address with the text as `q` and expects JSON back: a list of matches, each
@@ -107,8 +112,9 @@ One decision: is keystone_ui set up in the app?
   scanner finds them. Sizes that depend on data, such as a progress bar's
   width, use an inline style. The host needs tailwindcss-rails v4+.
 - **Interactivity is Stimulus.** Dropdowns, search dropdowns, modals, tab
-  switchers, the column picker, info buttons, charts, copy buttons and the theme toggle ship as
+  switchers, the column picker, table row detail, info buttons, charts, copy
+  buttons and the theme toggle ship as
   Stimulus controllers, so a host writes no JavaScript. Components that post,
   such as the column picker and the pipeline, post to endpoints the host or
   another gem owns.
-- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.25.0.
+- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.29.0.

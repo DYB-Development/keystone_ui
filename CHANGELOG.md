@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_data_table` takes `table.row_detail { |item| ... }` in its block, and what the block returns for an item is drawn in a hidden row under that item's row, in one cell across every column. Clicking the row, or pressing Enter or Space on the caret button at the start of its first cell, opens and closes it, and links, buttons and the action menu in the row work without opening it. An open row stays open when a Turbo refresh morphs the page, through the new `row-detail` Stimulus controller. A row whose block returns `nil`, and a table with no `row_detail`, render as before.
+
 ## [0.67.0] - 2026-11-07
 
 ### Added
