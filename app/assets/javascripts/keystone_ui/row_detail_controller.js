@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 const CONTROLS = "a, button, input, select, textarea, label, summary"
+const KEPT_ATTRIBUTES = ["hidden", "aria-expanded"]
 
 export default class extends Controller {
   toggle(event) {
@@ -16,6 +17,6 @@ export default class extends Controller {
   }
 
   keep(event) {
-    if (event.detail.attributeName === "hidden") event.preventDefault()
+    if (KEPT_ATTRIBUTES.includes(event.detail.attributeName)) event.preventDefault()
   }
 }
