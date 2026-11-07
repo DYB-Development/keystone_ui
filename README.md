@@ -1201,11 +1201,24 @@ Renders a tab bar with active state indicator. Uses Stimulus `tab-switcher` cont
 
 **Required props**
 
-- `tabs:` (Array of Strings) — tab labels
+- `tabs:` (Array of Strings) — tab labels, switched in the browser by the `tab-switcher` controller
+- `tabs:` (Array of Hashes) — link tabs, each `{ label:, href:, current: }`, where `current: true` marks the chosen tab
 
 ```erb
 <%= ui_tab_switcher(tabs: ["Overview", "Details", "History"]) do %>
   <!-- tab panel content -->
+<% end %>
+```
+
+Link tabs name the chosen tab in the page address. Each tab is a link, the chosen one is drawn active with `aria-current="page"`, and following one replaces the current history entry. The host reads the chosen tab from its params and draws only that tab's content in the block.
+
+```erb
+<% tab = params[:tab].presence_in(%w[offer value]) || "offer" %>
+<%= ui_tab_switcher(tabs: [
+  { label: "Offer", href: offer_path(@offer, tab: "offer"), current: tab == "offer" },
+  { label: "Value", href: offer_path(@offer, tab: "value"), current: tab == "value" }
+]) do %>
+  <%= render "offers/#{tab}", offer: @offer %>
 <% end %>
 ```
 

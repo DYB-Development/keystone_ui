@@ -629,6 +629,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       rendered below the tabs. The first tab is active on load, and a click
       sends a `tab-switcher:change` event with the clicked index. Showing and
       hiding the panels is the app's code.
+    - `ui_tab_switcher(tabs:)` also takes link tabs, an array of hashes
+      `{ label:, href:, current: }`. Each is drawn as a link to its `href`, the
+      one with `current: true` is drawn active with `aria-current="page"`, and
+      following a tab is a Turbo visit that replaces the history entry. The
+      app reads the chosen tab from its params and draws only that tab's
+      content in the block.
     - `ui_swipe_deck(items:, empty_title: "All done!", empty_subtitle: nil)`
       takes a block yielding the deck, where `deck.item { |item| ... }` renders
       one card's face. Accepting sends a bubbling `swipe-deck:complete` event
