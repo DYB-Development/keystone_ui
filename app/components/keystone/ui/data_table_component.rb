@@ -14,6 +14,7 @@ module Keystone
       }.freeze
       DETAIL_BUTTON_CLASSES = "ks-disclosure-icon inline-flex align-middle transition-transform aria-expanded:rotate-180"
       HEAD_CLASSES = "ks-table-head"
+      TABLE_CLASSES = "relative min-w-full"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
@@ -30,6 +31,7 @@ module Keystone
       CELL_LOCKED_CLASSES = "ks-table-cell-locked sticky left-0"
 
       PHONE_LIST_HEAD_CLASSES = "max-sm:hidden"
+      PHONE_LIST_BLOCK_CLASSES = "max-sm:block"
       CELL_LABEL_CLASSES = "ks-caption block sm:hidden"
 
       SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
@@ -94,6 +96,10 @@ module Keystone
         classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]) ].compact
 
         classes.join(" ") unless classes.empty?
+      end
+
+      def table_classes
+        phone_list_classes(TABLE_CLASSES, PHONE_LIST_BLOCK_CLASSES)
       end
 
       def head_classes

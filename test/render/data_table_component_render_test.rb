@@ -563,6 +563,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_includes page.css("thead").first["class"].split, "max-sm:hidden"
   end
 
+  def test_given_phone_list_lays_its_table_out_as_a_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_includes page.css("table").first["class"].split, "max-sm:block"
+  end
+
   private
 
   def three_columns

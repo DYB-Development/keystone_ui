@@ -4,7 +4,7 @@
   </div>
 <% end %>
 <div class="<%= Keystone::Ui::DataTableComponent::WRAPPER_CLASSES %>">
-  <table class="relative min-w-full divide-y divide-gray-300 dark:divide-white/15">
+  <table class="<%= table_classes %> divide-y divide-gray-300 dark:divide-white/15">
     <thead class="<%= head_classes %>">
       <tr>
         <% header_cells.each do |cell| %>
