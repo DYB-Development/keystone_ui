@@ -59,12 +59,46 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "/events/new", top_bar_link(page)&.[]("href")
   end
 
+  def test_given_a_published_action_method_posts_to_the_action_address
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post)
+
+    assert_equal "post", top_bar_form(page)&.[]("method")
+  end
+
+  def test_given_a_published_action_method_sends_the_authenticity_token
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post)
+
+    assert_equal 1, top_bar_form(page)&.css("input[name='authenticity_token']")&.size
+  end
+
+  def test_given_a_published_action_method_names_the_button_with_the_published_label
+    page = render_after_page_header(title: "Events", action_url: "/events", action_label: "Copy", action_method: :post)
+
+    assert_equal "Copy", top_bar_form(page)&.at_css("button")&.[]("aria-label")
+  end
+
+  def test_given_a_published_action_method_hides_the_button_from_the_width_where_the_page_header_shows
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post)
+
+    assert_includes top_bar_form(page)&.at_css("button")&.[]("class").to_s.split, "sm:hidden"
+  end
+
+  def test_given_a_published_action_method_draws_the_button_as_an_icon
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post)
+
+    assert_equal 1, top_bar_form(page)&.css("button svg")&.size
+  end
+
   private
 
   def render_after_page_header(**header)
     render_in_view_context do
       safe_join([ render(Keystone::Ui::PageHeaderComponent.new(**header)), render(Keystone::Ui::MobileActionComponent.new) ])
     end
+  end
+
+  def top_bar_form(page)
+    page.css("form[action='/events']").find { |form| !form.ancestors(".ks-page-header").any? }
   end
 
   def top_bar_link(page)
