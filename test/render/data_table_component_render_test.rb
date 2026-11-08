@@ -752,6 +752,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "row-detail-0" ], page.css("tbody td button[data-row-detail-target=toggle]").map { |button| button["aria-controls"] }
   end
 
+  def test_given_phone_list_labels_its_cells_in_the_saved_column_order
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "column_order" => [ "outreach", "pipeline" ] } } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "4" } ], columns: columns, key: :months, phone_list: true)
+    end
+
+    assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("tbody td .ks-caption").map { |label| label.text.strip }
+  end
+
   private
 
   def three_columns
