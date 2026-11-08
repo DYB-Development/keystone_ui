@@ -723,6 +723,16 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "/months/Jan" ], page.css("tbody td a").map { |link| link["href"] }
   end
 
+  def test_given_phone_list_keeps_a_row_s_actions_in_an_action_menu_in_its_list_item
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ], phone_list: true) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/products/1/edit") }
+      end
+    end
+
+    assert_equal [ "/products/1/edit" ], page.css("tbody [data-action-menu-target=menu] a.ks-menu-option").map { |link| link["href"] }
+  end
+
   private
 
   def three_columns
