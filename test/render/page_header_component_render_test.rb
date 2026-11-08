@@ -74,4 +74,10 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "/orders/12", page.at_css(".ks-page-header-actions [data-controller='action-menu'] form")&.[]("action")
   end
+
+  def test_given_badges_shows_the_header_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", badges: [ { label: "Paid" } ]))
+
+    assert_includes page.at_css(".ks-page-header")["class"].split, "max-sm:flex"
+  end
 end

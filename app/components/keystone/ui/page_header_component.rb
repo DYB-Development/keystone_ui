@@ -7,6 +7,7 @@ module Keystone
       TITLE_CLASSES = "ks-page-header-title"
       SUBTITLE_CLASSES = "ks-page-header-subtitle"
       ACTIONS_CLASSES = "page-header-actions ks-page-header-actions"
+      PHONE_WRAPPER_CLASSES = "max-sm:flex max-sm:flex-wrap max-sm:items-center max-sm:justify-between"
       MENU_ROW_CLASSES = "sm:flex items-center ks-grid-gap-sm"
       TITLE_ROW_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
 
@@ -25,7 +26,7 @@ module Keystone
       end
 
       def wrapper_classes
-        [ WRAPPER_CLASSES, @extra_classes ].compact.join(" ")
+        [ WRAPPER_CLASSES, (PHONE_WRAPPER_CLASSES if phone?), @extra_classes ].compact.join(" ")
       end
 
       def before_render
@@ -42,6 +43,10 @@ module Keystone
 
       def actions_classes
         [ ACTIONS_CLASSES, (MENU_ROW_CLASSES if menu?) ].compact.join(" ")
+      end
+
+      def phone?
+        badges? || actions?
       end
 
       def actions?
