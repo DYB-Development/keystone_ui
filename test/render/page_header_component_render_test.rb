@@ -68,4 +68,10 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Paid", page.at_css(".ks-page-header-title + .ks-badge.ks-badge-success")&.text
   end
+
+  def test_given_menu_items_draws_them_in_an_action_menu_beside_the_actions
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", action_url: "/orders/12/edit", menu: [ { label: "Delete", href: "/orders/12", method: :delete } ]))
+
+    assert_equal "/orders/12", page.at_css(".ks-page-header-actions [data-controller='action-menu'] form")&.[]("action")
+  end
 end
