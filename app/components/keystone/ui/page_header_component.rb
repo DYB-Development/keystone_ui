@@ -8,7 +8,8 @@ module Keystone
       SUBTITLE_CLASSES = "ks-page-header-subtitle"
       ACTIONS_CLASSES = "page-header-actions ks-page-header-actions"
       PHONE_WRAPPER_CLASSES = "max-sm:flex max-sm:flex-wrap max-sm:items-center max-sm:justify-between"
-      MENU_ROW_CLASSES = "sm:flex items-center ks-grid-gap-sm"
+      PHONE_ACTIONS_CLASSES = "max-sm:block"
+      MENU_ROW_CLASSES = "flex items-center ks-grid-gap-sm"
       TITLE_ROW_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
 
       attr_reader :title, :action_url, :action_label, :action_method
@@ -42,7 +43,7 @@ module Keystone
       end
 
       def actions_classes
-        [ ACTIONS_CLASSES, (MENU_ROW_CLASSES if menu?) ].compact.join(" ")
+        [ ACTIONS_CLASSES, menu? ? MENU_ROW_CLASSES : PHONE_ACTIONS_CLASSES ].join(" ")
       end
 
       def phone?

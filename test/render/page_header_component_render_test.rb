@@ -80,4 +80,10 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-page-header")["class"].split, "max-sm:flex"
   end
+
+  def test_given_an_action_shows_the_actions_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new"))
+
+    assert_includes page.at_css(".ks-page-header-actions")["class"].split, "max-sm:block"
+  end
 end
