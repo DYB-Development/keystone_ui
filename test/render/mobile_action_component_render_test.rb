@@ -71,6 +71,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal 1, top_bar_form(page)&.css("input[name='authenticity_token']")&.size
   end
 
+  def test_given_a_published_action_method_names_the_button_with_the_published_label
+    page = render_after_page_header(title: "Events", action_url: "/events", action_label: "Copy", action_method: :post)
+
+    assert_equal "Copy", top_bar_form(page)&.at_css("button")&.[]("aria-label")
+  end
+
   private
 
   def render_after_page_header(**header)
