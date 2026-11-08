@@ -83,6 +83,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_includes top_bar_form(page)&.at_css("button")&.[]("class").to_s.split, "sm:hidden"
   end
 
+  def test_given_a_published_action_method_draws_the_button_as_an_icon
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post)
+
+    assert_equal 1, top_bar_form(page)&.css("button svg")&.size
+  end
+
   private
 
   def render_after_page_header(**header)
