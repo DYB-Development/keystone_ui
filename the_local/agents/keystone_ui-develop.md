@@ -182,11 +182,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `[{ label:, href:, method: }, ...]`, each hash taking the keywords of
      `ui_action_menu_item`, drawn in an action menu beside the actions. Put a
      record's Edit and Delete in `menu:` on its detail screen.
-   - Below `sm:` a header given no badges, no action and no menu is hidden. A
-     header given any of them is shown there with its badges, actions and
-     menu, and hides its title when the page holds `ui_mobile_header`'s title.
-     Its action then shows below `sm:` beside `ui_mobile_action`'s plus icon,
-     so ask the developer whether a screen with both keeps both.
+   - Below `sm:` a header given no badges and no menu is hidden, even with an
+     action. A header given badges or a menu is shown there with its badges,
+     actions and menu, and hides its title when the page holds
+     `ui_mobile_header`'s title. Its action then shows below `sm:` beside
+     `ui_mobile_action`'s plus icon, so ask the developer whether a screen
+     with both keeps both.
    - `ui_breadcrumbs(trail:, current: nil)` renders `trail:` as links separated
      by `›`, then `current:` unlinked and marked as the current page, shown
      only from `lg:` up. On a form or detail screen pass `trail:` to the shell
@@ -719,7 +720,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 - **Containers take blocks, leaves take keywords.** The data table, page header
   and swipe deck render only what is registered through the object they yield,
   so anything else emitted in their block is dropped.
-- **Check both screen sizes.** Page headers with no badges, action or menu, mobile headers, mobile actions,
+- **Check both screen sizes.** Page headers with no badges or menu, mobile headers, mobile actions,
   bottom navigation, breadcrumbs and `ui_navigation`'s bars render on one side
   of `lg:` or `sm:` only, so a screen needs both treatments.
 - Out of scope: installing or upgrading the gem, its configuration, the theme
