@@ -92,4 +92,10 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-page-header-title")["class"].split, "max-sm:[body:has(.ks-mobile-header-title)_&]:hidden"
   end
+
+  def test_given_menu_items_shows_the_menu_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", menu: [ { label: "Edit", href: "/orders/12/edit" } ]))
+
+    assert_includes page.at_css(".ks-page-header-actions")["class"].split, "flex"
+  end
 end
