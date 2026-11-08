@@ -763,6 +763,16 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("tbody td .ks-caption").map { |label| label.text.strip }
   end
 
+  def test_given_phone_list_changes_nothing_from_phone_width_up
+    columns = month_columns
+    items = [ { month: "Jan", pipeline: "$10" } ]
+    plain = render_in_view_context { ui_data_table(items: items, columns: columns) }
+    listed = render_in_view_context { ui_data_table(items: items, columns: columns, phone_list: true) }
+    added = listed.css("*").reject { |part| part["class"].to_s.split.include?("sm:hidden") }.zip(plain.css("*")).flat_map { |chosen, unchosen| chosen["class"].to_s.split - unchosen["class"].to_s.split }
+
+    assert(added.all? { |token| token.start_with?("max-sm:") })
+  end
+
   private
 
   def three_columns
