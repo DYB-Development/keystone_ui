@@ -773,6 +773,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert(added.all? { |token| token.start_with?("max-sm:") })
   end
 
+  def test_given_no_phone_list_draws_no_heading_labels_or_phone_width_layout
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty page.css(".ks-caption, [class*='max-sm:']")
+  end
+
   private
 
   def three_columns
