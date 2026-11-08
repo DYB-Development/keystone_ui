@@ -8,13 +8,13 @@
   <div>
     <% if badges? %>
       <div class="<%= TITLE_ROW_CLASSES %>">
-        <h1 class="<%= TITLE_CLASSES %>"><%= @title %></h1>
+        <h1 class="<%= title_classes %>"><%= @title %></h1>
         <% @badges.each do |badge| %>
           <%= render Keystone::Ui::BadgeComponent.new(**badge) %>
         <% end %>
       </div>
     <% else %>
-      <h1 class="<%= TITLE_CLASSES %>"><%= @title %></h1>
+      <h1 class="<%= title_classes %>"><%= @title %></h1>
     <% end %>
     <% if subtitle? %>
       <p class="<%= SUBTITLE_CLASSES %>"><%= subtitle_text %></p>

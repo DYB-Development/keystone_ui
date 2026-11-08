@@ -7,6 +7,7 @@ module Keystone
       TITLE_CLASSES = "ks-page-header-title"
       SUBTITLE_CLASSES = "ks-page-header-subtitle"
       ACTIONS_CLASSES = "page-header-actions ks-page-header-actions"
+      PHONE_TITLE_CLASSES = "ks-page-header-title max-sm:[body:has(.ks-mobile-header-title)_&]:hidden"
       PHONE_WRAPPER_CLASSES = "max-sm:flex max-sm:flex-wrap max-sm:items-center max-sm:justify-between"
       PHONE_ACTIONS_CLASSES = "max-sm:block"
       MENU_ROW_CLASSES = "flex items-center ks-grid-gap-sm"
@@ -44,6 +45,10 @@ module Keystone
 
       def actions_classes
         [ ACTIONS_CLASSES, menu? ? MENU_ROW_CLASSES : PHONE_ACTIONS_CLASSES ].join(" ")
+      end
+
+      def title_classes
+        phone? ? PHONE_TITLE_CLASSES : TITLE_CLASSES
       end
 
       def phone?
