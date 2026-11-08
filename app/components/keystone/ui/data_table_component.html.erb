@@ -84,7 +84,7 @@
       <tfoot class="<%= summary_row_classes %>">
         <tr<% if phone_list_block_classes %> class="<%= phone_list_block_classes %>"<% end %>>
           <% total_cells.each do |cell| %>
-            <th scope="row" class="<%= cell[:classes] %>"><%= cell[:value] %></th>
+            <th scope="row" class="<%= cell[:classes] %>"><% if cell[:label] %><span class="<%= Keystone::Ui::DataTableComponent::CELL_LABEL_CLASSES %>"><%= cell[:label] %></span><% end %><%= cell[:value] %></th>
           <% end %>
           <% if actions? %><th></th><% end %>
         </tr>
