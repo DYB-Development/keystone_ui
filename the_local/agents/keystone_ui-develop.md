@@ -168,13 +168,15 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - Ask the developer whether a screen shows breadcrumbs and which parent
      screens its trail names. Ask which screens a navigation tab opens
      directly, since those pass `trail: []`.
-   - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", class: nil)`
+   - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, class: nil)`
      takes a block yielding the header and is hidden below `sm:`. Call
      `header.action { ... }` in the block to place a control on its right.
      `action_url:` declares the screen's main action. It publishes that URL and
      label for `ui_mobile_action` to pick up, and with no `action` block the
      header draws them as a button. An `action` block is drawn alone when both
-     are given.
+     are given. `action_method:`, such as `:post`, makes the main action send
+     that method: the header's button and `ui_mobile_action`'s icon become
+     forms posting to `action_url:`.
    - `ui_breadcrumbs(trail:, current: nil)` renders `trail:` as links separated
      by `›`, then `current:` unlinked and marked as the current page, shown
      only from `lg:` up. On a form or detail screen pass `trail:` to the shell
