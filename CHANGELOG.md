@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.69.0] - 2026-11-07
+
 ### Added
 - `ui_page_header` takes an optional `action_method:`, such as `:post`, and its action button then sends that method to `action_url:` from a form. It passes the method to the layout as `content_for(:mobile_action_method)`, and sets nothing when no method is given.
 - `ui_mobile_action` draws its plus icon as a button in a form that sends the published `:mobile_action_method` to the action address with the authenticity token, with the same classes and label as the link. With no published method it is the link it was before.
