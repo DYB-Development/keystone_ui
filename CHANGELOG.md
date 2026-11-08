@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.70.0] - 2026-11-08
+
 ### Added
 - `ui_page_header` takes `badges:`, a list of `{ label:, variant: }` hashes, and draws each as a `ui_badge` beside the title, coloured by its variant.
 - `ui_page_header` takes `menu:`, a list of hashes of `ui_action_menu_item`'s keywords, and draws them in a `ui_action_menu` beside its actions.
