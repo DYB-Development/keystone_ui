@@ -16,7 +16,7 @@
     </div>
   <% elsif action_url %>
     <div class="<%= ACTIONS_CLASSES %>">
-      <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url) %>
+      <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url, method: action_method || :get) %>
     </div>
   <% end %>
 </div>
