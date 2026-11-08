@@ -599,6 +599,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true, true ], page.css("tbody td").map { |cell| cell["class"].split.include?("max-sm:block") }
   end
 
+  def test_given_phone_list_keeps_a_mobile_hidden_cell_hidden_below_phone_width
+    columns = [ Keystone::Ui::Column.new(:month, "Month"), Keystone::Ui::Column.new(:pipeline, "Pipeline", mobile_hidden: true) ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    refute_includes page.css("tbody td").last["class"].split, "max-sm:block"
+  end
+
   private
 
   def three_columns

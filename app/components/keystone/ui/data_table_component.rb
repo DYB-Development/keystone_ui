@@ -178,7 +178,7 @@ module Keystone
             tokens = [ row_classes_for(index) ]
             tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
             tokens << CELL_LOCKED_CLASSES if index.zero? && column.locked?
-            tokens << PHONE_LIST_CELL_CLASSES if @phone_list
+            tokens << PHONE_LIST_CELL_CLASSES if @phone_list && !column.mobile_hidden?
 
             cell = {
               value: resolve_value(item, column.key),
