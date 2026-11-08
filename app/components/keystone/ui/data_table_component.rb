@@ -93,7 +93,7 @@ module Keystone
       end
 
       def row_classes(index)
-        classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]) ].compact
+        classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]), (PHONE_LIST_BLOCK_CLASSES if @phone_list) ].compact
 
         classes.join(" ") unless classes.empty?
       end

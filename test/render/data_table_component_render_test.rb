@@ -581,6 +581,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_includes page.css("tbody").first["class"].split, "max-sm:block"
   end
 
+  def test_given_phone_list_shows_each_row_as_one_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" }, { month: "Feb", pipeline: "$20" } ], columns: columns, phone_list: true)
+    end
+
+    assert_equal [ true, true ], page.css("tbody tr").map { |row| row["class"].to_s.split.include?("max-sm:block") }
+  end
+
   private
 
   def three_columns
