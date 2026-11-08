@@ -98,4 +98,11 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-page-header-actions")["class"].split, "flex"
   end
+
+  def test_given_no_badges_and_no_menu_draws_the_same_classes_from_phone_width_up
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new", action_label: "Create"))
+    classes = page.css(".ks-page-header, .ks-page-header *").map { |node| node["class"].to_s.split.reject { |name| name.start_with?("max-sm:") }.join(" ") }
+
+    assert_equal [ "ks-page-header", "", "ks-page-header-title", "page-header-actions ks-page-header-actions" ], classes.first(4)
+  end
 end
