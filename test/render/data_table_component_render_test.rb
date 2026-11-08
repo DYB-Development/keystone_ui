@@ -647,6 +647,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_includes page.css("tr[data-row-detail-target=detail]").first["class"].to_s.split, "max-sm:block"
   end
 
+  def test_given_phone_list_lays_a_row_detail_s_cell_out_as_a_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_includes page.css("tr[data-row-detail-target=detail] td").first["class"].to_s.split, "max-sm:block"
+  end
+
   private
 
   def three_columns

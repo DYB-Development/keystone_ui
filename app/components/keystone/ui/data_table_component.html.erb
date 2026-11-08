@@ -74,7 +74,7 @@
           </tr>
           <% if detail.present? %>
             <tr id="<%= row_detail_id(idx) %>"<% if detail_row_classes %> class="<%= detail_row_classes %>"<% end %> hidden data-row-detail-target="detail">
-              <td colspan="<%= column_count %>"><%= detail %></td>
+              <td<% if detail_row_classes %> class="<%= detail_row_classes %>"<% end %> colspan="<%= column_count %>"><%= detail %></td>
             </tr>
           <% end %>
         <% end %>
