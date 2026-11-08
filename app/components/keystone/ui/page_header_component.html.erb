@@ -2,6 +2,7 @@
 <% if action_url %>
   <% content_for :mobile_action_url, action_url %>
   <% content_for :mobile_action_label, action_label %>
+  <% content_for :mobile_action_method, action_method.to_s if action_method %>
 <% end %>
 <div class="<%= wrapper_classes %>">
   <div>
