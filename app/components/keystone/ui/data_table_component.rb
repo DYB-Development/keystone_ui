@@ -107,11 +107,11 @@ module Keystone
         phone_list_classes(BODY_CLASSES, PHONE_LIST_BLOCK_CLASSES)
       end
 
-      def group_row_classes
+      def summary_row_classes
         phone_list_classes(HEAD_CLASSES, PHONE_LIST_BLOCK_CLASSES)
       end
 
-      def detail_row_classes
+      def phone_list_block_classes
         PHONE_LIST_BLOCK_CLASSES if @phone_list
       end
 

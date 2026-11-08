@@ -37,7 +37,7 @@
       <% else %>
         <% @items.each_with_index do |item, idx| %>
           <% if (group = group_starting_at(idx)) %>
-            <tr class="<%= group_row_classes %>" data-table-group>
+            <tr class="<%= summary_row_classes %>" data-table-group>
               <% group_cells(group).each do |cell| %>
                 <th scope="colgroup" class="<%= cell[:classes] %>"><% if cell[:label] %><span class="<%= Keystone::Ui::DataTableComponent::CELL_LABEL_CLASSES %>"><%= cell[:label] %></span><% end %><%= cell[:value] %></th>
               <% end %>
@@ -73,16 +73,16 @@
             <% end %>
           </tr>
           <% if detail.present? %>
-            <tr id="<%= row_detail_id(idx) %>"<% if detail_row_classes %> class="<%= detail_row_classes %>"<% end %> hidden data-row-detail-target="detail">
-              <td<% if detail_row_classes %> class="<%= detail_row_classes %>"<% end %> colspan="<%= column_count %>"><%= detail %></td>
+            <tr id="<%= row_detail_id(idx) %>"<% if phone_list_block_classes %> class="<%= phone_list_block_classes %>"<% end %> hidden data-row-detail-target="detail">
+              <td<% if phone_list_block_classes %> class="<%= phone_list_block_classes %>"<% end %> colspan="<%= column_count %>"><%= detail %></td>
             </tr>
           <% end %>
         <% end %>
       <% end %>
     </tbody>
     <% if total_cells.any? %>
-      <tfoot class="<%= Keystone::Ui::DataTableComponent::HEAD_CLASSES %>">
-        <tr>
+      <tfoot class="<%= summary_row_classes %>">
+        <tr<% if phone_list_block_classes %> class="<%= phone_list_block_classes %>"<% end %>>
           <% total_cells.each do |cell| %>
             <th scope="row" class="<%= cell[:classes] %>"><%= cell[:value] %></th>
           <% end %>
