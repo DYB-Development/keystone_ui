@@ -59,12 +59,22 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "/events/new", top_bar_link(page)&.[]("href")
   end
 
+  def test_given_a_published_action_method_posts_to_the_action_address
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post)
+
+    assert_equal "post", top_bar_form(page)&.[]("method")
+  end
+
   private
 
   def render_after_page_header(**header)
     render_in_view_context do
       safe_join([ render(Keystone::Ui::PageHeaderComponent.new(**header)), render(Keystone::Ui::MobileActionComponent.new) ])
     end
+  end
+
+  def top_bar_form(page)
+    page.css("form[action='/events']").find { |form| !form.ancestors(".ks-page-header").any? }
   end
 
   def top_bar_link(page)

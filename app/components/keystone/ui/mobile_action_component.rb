@@ -16,7 +16,19 @@ module Keystone
       end
 
       def call
-        link_to(PLUS_ICON.html_safe, content_for(:mobile_action_url), class: LINK_CLASSES, aria: { label: content_for(:mobile_action_label) })
+        return link_to(PLUS_ICON.html_safe, url, **options) unless content_for?(:mobile_action_method)
+
+        button_to(url, method: content_for(:mobile_action_method), **options) { PLUS_ICON.html_safe }
+      end
+
+      private
+
+      def url
+        content_for(:mobile_action_url)
+      end
+
+      def options
+        { class: LINK_CLASSES, aria: { label: content_for(:mobile_action_label) } }
       end
     end
   end
