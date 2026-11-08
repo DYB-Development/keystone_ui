@@ -39,7 +39,7 @@
           <% if (group = group_starting_at(idx)) %>
             <tr class="<%= group_row_classes %>" data-table-group>
               <% group_cells(group).each do |cell| %>
-                <th scope="colgroup" class="<%= cell[:classes] %>"><%= cell[:value] %></th>
+                <th scope="colgroup" class="<%= cell[:classes] %>"><% if cell[:label] %><span class="<%= Keystone::Ui::DataTableComponent::CELL_LABEL_CLASSES %>"><%= cell[:label] %></span><% end %><%= cell[:value] %></th>
               <% end %>
               <% if actions? %><th></th><% end %>
             </tr>

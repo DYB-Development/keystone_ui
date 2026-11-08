@@ -676,6 +676,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true, true ], page.css("tr[data-table-group] th").map { |cell| cell["class"].split.include?("max-sm:block") }
   end
 
+  def test_given_phone_list_labels_each_subtotal_of_a_group_heading_row_with_its_column_s_heading
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", quarter: "Q1" } ], columns: columns, group_by: :quarter, group_totals: { "Q1" => { pipeline: "$10" } }, phone_list: true)
+    end
+
+    assert_equal [ "Pipeline" ], page.css("tr[data-table-group] th .ks-caption").map { |label| label.text.strip }
+  end
+
   private
 
   def three_columns
