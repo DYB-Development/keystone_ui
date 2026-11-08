@@ -712,6 +712,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Pipeline" ], page.css("tfoot th .ks-caption").map { |label| label.text.strip }
   end
 
+  def test_given_phone_list_keeps_a_linked_cell_s_link_in_its_list_item
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true) do |table|
+        table.link(:month) { |row| "/months/#{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "/months/Jan" ], page.css("tbody td a").map { |link| link["href"] }
+  end
+
   private
 
   def three_columns
