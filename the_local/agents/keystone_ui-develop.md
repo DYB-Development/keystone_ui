@@ -435,7 +435,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 8. Build tables.
 
-   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil)`
+   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false)`
      takes a block yielding the table. `items:` are records or hashes, and a
      cell's value is the column key called on the item, or `item[key]`.
      `group_by:` lists rows under heading rows named by that key's value,
@@ -443,6 +443,15 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      subtotals in each heading row, and `total:` (`{ column_key => value }`)
      ends the table with a total row. Pass every subtotal and total already
      calculated. `align: :start` or `:end` on a `Column` aligns it left or right.
+   - `phone_list: true` shows the table as a list below `sm:`. The heading
+     row is hidden there, each row is one item, and each cell sits on its own
+     line under its column's heading, starting at the left and wrapping. A
+     row's links, badges, detail button and action menu stay in its item, and
+     group subtotals and totals after the first carry their headings. Sorting
+     is not reachable below `sm:`, since the sort links are in the heading row.
+     From `sm:` up the table is unchanged, and a table without it is unchanged
+     at every width. It is chosen table by table, so ask the developer which
+     tables show as a list on a phone.
    - `columns:` takes `{ key: "Label" }` hashes when every column is plain.
      Switch the whole set to `Keystone::Ui::Column` objects once one column
      needs an option.

@@ -536,6 +536,252 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css("[data-controller~=row-detail], [data-action], [aria-expanded], tr[hidden], tbody button")
   end
 
+  def test_given_phone_list_labels_each_cell_with_its_column_s_heading
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_equal [ "Month", "Pipeline" ], page.css("tbody td .ks-caption").map { |label| label.text.strip }
+  end
+
+  def test_given_phone_list_hides_each_cell_s_heading_label_from_phone_width_up
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert(page.css("tbody td .ks-caption").all? { |label| label["class"].split.include?("sm:hidden") })
+  end
+
+  def test_given_phone_list_hides_its_heading_row_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_includes page.css("thead").first["class"].split, "max-sm:hidden"
+  end
+
+  def test_given_phone_list_lays_its_table_out_as_a_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_includes page.css("table").first["class"].split, "max-sm:block"
+  end
+
+  def test_given_phone_list_lays_its_body_out_as_a_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_includes page.css("tbody").first["class"].split, "max-sm:block"
+  end
+
+  def test_given_phone_list_shows_each_row_as_one_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" }, { month: "Feb", pipeline: "$20" } ], columns: columns, phone_list: true)
+    end
+
+    assert_equal [ true, true ], page.css("tbody tr").map { |row| row["class"].to_s.split.include?("max-sm:block") }
+  end
+
+  def test_given_phone_list_puts_each_cell_on_its_own_line_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_equal [ true, true ], page.css("tbody td").map { |cell| cell["class"].split.include?("max-sm:block") }
+  end
+
+  def test_given_phone_list_keeps_a_mobile_hidden_cell_hidden_below_phone_width
+    columns = [ Keystone::Ui::Column.new(:month, "Month"), Keystone::Ui::Column.new(:pipeline, "Pipeline", mobile_hidden: true) ]
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    refute_includes page.css("tbody td").last["class"].split, "max-sm:block"
+  end
+
+  def test_given_phone_list_starts_each_cell_s_text_at_the_left_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_includes page.css("tbody td").last["class"].split, "max-sm:text-left"
+  end
+
+  def test_given_phone_list_wraps_long_text_in_a_cell_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_includes page.css("tbody td").first["class"].split, "max-sm:whitespace-normal"
+  end
+
+  def test_given_phone_list_puts_a_row_s_actions_menu_on_its_own_line_below_phone_width
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ], phone_list: true) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/products/1/edit") }
+      end
+    end
+
+    assert_includes page.css("tbody td").last["class"].split, "max-sm:block"
+  end
+
+  def test_given_phone_list_shows_an_open_row_detail_as_a_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_includes page.css("tr[data-row-detail-target=detail]").first["class"].to_s.split, "max-sm:block"
+  end
+
+  def test_given_phone_list_lays_a_row_detail_s_cell_out_as_a_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_includes page.css("tr[data-row-detail-target=detail] td").first["class"].to_s.split, "max-sm:block"
+  end
+
+  def test_given_phone_list_shows_a_group_heading_row_as_a_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", quarter: "Q1" } ], columns: columns, group_by: :quarter, phone_list: true)
+    end
+
+    assert_includes page.css("tr[data-table-group]").first["class"].split, "max-sm:block"
+  end
+
+  def test_given_phone_list_puts_each_cell_of_a_group_heading_row_on_its_own_line_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", quarter: "Q1" } ], columns: columns, group_by: :quarter, group_totals: { "Q1" => { pipeline: "$10" } }, phone_list: true)
+    end
+
+    assert_equal [ true, true ], page.css("tr[data-table-group] th").map { |cell| cell["class"].split.include?("max-sm:block") }
+  end
+
+  def test_given_phone_list_labels_each_subtotal_of_a_group_heading_row_with_its_column_s_heading
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", quarter: "Q1" } ], columns: columns, group_by: :quarter, group_totals: { "Q1" => { pipeline: "$10" } }, phone_list: true)
+    end
+
+    assert_equal [ "Pipeline" ], page.css("tr[data-table-group] th .ks-caption").map { |label| label.text.strip }
+  end
+
+  def test_given_phone_list_shows_its_total_row_as_a_block_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, total: { month: "Total", pipeline: "$10" }, phone_list: true)
+    end
+
+    assert_equal [ true, true ], page.css("tfoot, tfoot tr").map { |part| part["class"].to_s.split.include?("max-sm:block") }
+  end
+
+  def test_given_phone_list_puts_each_cell_of_its_total_row_on_its_own_line_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, total: { month: "Total", pipeline: "$10" }, phone_list: true)
+    end
+
+    assert_equal [ true, true ], page.css("tfoot th").map { |cell| cell["class"].split.include?("max-sm:block") }
+  end
+
+  def test_given_phone_list_labels_each_total_after_the_first_with_its_column_s_heading
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, total: { month: "Total", pipeline: "$10" }, phone_list: true)
+    end
+
+    assert_equal [ "Pipeline" ], page.css("tfoot th .ks-caption").map { |label| label.text.strip }
+  end
+
+  def test_given_phone_list_keeps_a_linked_cell_s_link_in_its_list_item
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true) do |table|
+        table.link(:month) { |row| "/months/#{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "/months/Jan" ], page.css("tbody td a").map { |link| link["href"] }
+  end
+
+  def test_given_phone_list_keeps_a_row_s_actions_in_an_action_menu_in_its_list_item
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ], phone_list: true) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/products/1/edit") }
+      end
+    end
+
+    assert_equal [ "/products/1/edit" ], page.css("tbody [data-action-menu-target=menu] a.ks-menu-option").map { |link| link["href"] }
+  end
+
+  def test_given_phone_list_keeps_a_cell_s_badge_in_its_list_item
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow", status: ui_badge(label: "Paid", variant: :success) } ], columns: [ { name: "Name" }, { status: "Status" } ], phone_list: true)
+    end
+
+    assert_equal [ "Paid" ], page.css("tbody td .ks-badge").map { |badge| badge.text.strip }
+  end
+
+  def test_given_phone_list_keeps_a_row_s_detail_button_in_its_list_item
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "row-detail-0" ], page.css("tbody td button[data-row-detail-target=toggle]").map { |button| button["aria-controls"] }
+  end
+
+  def test_given_phone_list_labels_its_cells_in_the_saved_column_order
+    KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: { "column_order" => [ "outreach", "pipeline" ] } } } }
+
+    columns = three_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", outreach: "4" } ], columns: columns, key: :months, phone_list: true)
+    end
+
+    assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("tbody td .ks-caption").map { |label| label.text.strip }
+  end
+
+  def test_given_phone_list_changes_nothing_from_phone_width_up
+    columns = month_columns
+    items = [ { month: "Jan", pipeline: "$10" } ]
+    plain = render_in_view_context { ui_data_table(items: items, columns: columns) }
+    listed = render_in_view_context { ui_data_table(items: items, columns: columns, phone_list: true) }
+    added = listed.css("*").reject { |part| part["class"].to_s.split.include?("sm:hidden") }.zip(plain.css("*")).flat_map { |chosen, unchosen| chosen["class"].to_s.split - unchosen["class"].to_s.split }
+
+    assert(added.all? { |token| token.start_with?("max-sm:") })
+  end
+
+  def test_given_no_phone_list_draws_no_heading_labels_or_phone_width_layout
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns)
+    end
+
+    assert_empty page.css(".ks-caption, [class*='max-sm:']")
+  end
+
   private
 
   def three_columns

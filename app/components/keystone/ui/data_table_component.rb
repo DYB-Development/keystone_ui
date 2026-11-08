@@ -14,6 +14,7 @@ module Keystone
       }.freeze
       DETAIL_BUTTON_CLASSES = "ks-disclosure-icon inline-flex align-middle transition-transform aria-expanded:rotate-180"
       HEAD_CLASSES = "ks-table-head"
+      TABLE_CLASSES = "relative min-w-full"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
@@ -29,6 +30,11 @@ module Keystone
       HEADER_LOCKED_CLASSES = "ks-table-header-locked sticky left-0"
       CELL_LOCKED_CLASSES = "ks-table-cell-locked sticky left-0"
 
+      PHONE_LIST_HEAD_CLASSES = "max-sm:hidden"
+      PHONE_LIST_BLOCK_CLASSES = "max-sm:block"
+      PHONE_LIST_CELL_CLASSES = "max-sm:block max-sm:text-left max-sm:whitespace-normal"
+      CELL_LABEL_CLASSES = "ks-caption block sm:hidden"
+
       SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
       SORT_ICON_CLASSES = "h-4 w-4 flex-shrink-0"
       SORT_ICON_ACTIVE = "ks-table-sort-icon-active"
@@ -38,7 +44,7 @@ module Keystone
       SORT_DESC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 0 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg>'
       SORT_NEUTRAL_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908 2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z" clip-rule="evenodd" /></svg>'
 
-      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil)
+      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false)
         @items = items.to_a
         @current_index = @items.index(current_row) unless current_row.nil?
         @group_by = group_by
@@ -55,6 +61,7 @@ module Keystone
         @sort_url = sort_url
         @actions_block = nil
         @link_blocks = {}
+        @phone_list = phone_list
       end
 
       def before_render
@@ -87,9 +94,33 @@ module Keystone
       end
 
       def row_classes(index)
-        classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]) ].compact
+        classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]), (PHONE_LIST_BLOCK_CLASSES if @phone_list) ].compact
 
         classes.join(" ") unless classes.empty?
+      end
+
+      def table_classes
+        phone_list_classes(TABLE_CLASSES, PHONE_LIST_BLOCK_CLASSES)
+      end
+
+      def body_classes
+        phone_list_classes(BODY_CLASSES, PHONE_LIST_BLOCK_CLASSES)
+      end
+
+      def summary_row_classes
+        phone_list_classes(HEAD_CLASSES, PHONE_LIST_BLOCK_CLASSES)
+      end
+
+      def phone_list_block_classes
+        PHONE_LIST_BLOCK_CLASSES if @phone_list
+      end
+
+      def actions_cell_classes
+        phone_list_classes(ROW_CLASSES_LAST, PHONE_LIST_BLOCK_CLASSES)
+      end
+
+      def head_classes
+        phone_list_classes(HEAD_CLASSES, PHONE_LIST_HEAD_CLASSES)
       end
 
       def actions?
@@ -159,11 +190,13 @@ module Keystone
             tokens = [ row_classes_for(index) ]
             tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
             tokens << CELL_LOCKED_CLASSES if index.zero? && column.locked?
+            tokens << PHONE_LIST_CELL_CLASSES if @phone_list && !column.mobile_hidden?
 
             cell = {
               value: resolve_value(item, column.key),
               classes: wrapped(aligned(tokens.join(" "), column), column)
             }
+            cell[:label] = column.header_text if @phone_list
 
             link_block = @link_blocks[column.key]
             cell[:href] = link_block.call(item) if link_block
@@ -196,18 +229,26 @@ module Keystone
         return [] unless @total
 
         @columns.map.with_index do |column, index|
-          { value: @total[column.key.to_s], classes: aligned(header_classes_for(index), column) }
+          { value: @total[column.key.to_s], classes: phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES), label: summary_label(index, column) }
         end
       end
 
       def group_cells(name)
         subtotals = @group_totals.fetch(name.to_s, {}).to_h.transform_keys(&:to_s)
         @columns.map.with_index do |column, index|
-          { value: index.zero? ? name : subtotals[column.key.to_s], classes: aligned(header_classes_for(index), column) }
+          { value: index.zero? ? name : subtotals[column.key.to_s], classes: phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES), label: summary_label(index, column) }
         end
       end
 
       private
+
+      def summary_label(index, column)
+        column.header_text if @phone_list && !index.zero?
+      end
+
+      def phone_list_classes(classes, phone_list_classes)
+        @phone_list ? "#{classes} #{phone_list_classes}" : classes
+      end
 
       def apply_saved_layout
         saved = KeystoneUi.configuration.supplied_preference(helpers, @key)

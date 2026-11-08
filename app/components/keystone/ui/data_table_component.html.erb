@@ -4,8 +4,8 @@
   </div>
 <% end %>
 <div class="<%= Keystone::Ui::DataTableComponent::WRAPPER_CLASSES %>">
-  <table class="relative min-w-full divide-y divide-gray-300 dark:divide-white/15">
-    <thead class="<%= Keystone::Ui::DataTableComponent::HEAD_CLASSES %>">
+  <table class="<%= table_classes %> divide-y divide-gray-300 dark:divide-white/15">
+    <thead class="<%= head_classes %>">
       <tr>
         <% header_cells.each do |cell| %>
           <th scope="<%= cell[:scope] %>" class="<%= cell[:classes] %>">
@@ -25,7 +25,7 @@
         <% end %>
       </tr>
     </thead>
-    <tbody class="<%= Keystone::Ui::DataTableComponent::BODY_CLASSES %>"<% if row_detail? %> data-controller="row-detail" data-action="turbo:before-morph-attribute->row-detail#keep"<% end %>>
+    <tbody class="<%= body_classes %>"<% if row_detail? %> data-controller="row-detail" data-action="turbo:before-morph-attribute->row-detail#keep"<% end %>>
       <% if empty? %>
         <% if @empty_message %>
           <tr>
@@ -37,9 +37,9 @@
       <% else %>
         <% @items.each_with_index do |item, idx| %>
           <% if (group = group_starting_at(idx)) %>
-            <tr class="<%= Keystone::Ui::DataTableComponent::HEAD_CLASSES %>" data-table-group>
+            <tr class="<%= summary_row_classes %>" data-table-group>
               <% group_cells(group).each do |cell| %>
-                <th scope="colgroup" class="<%= cell[:classes] %>"><%= cell[:value] %></th>
+                <th scope="colgroup" class="<%= cell[:classes] %>"><% if cell[:label] %><span class="<%= Keystone::Ui::DataTableComponent::CELL_LABEL_CLASSES %>"><%= cell[:label] %></span><% end %><%= cell[:value] %></th>
               <% end %>
               <% if actions? %><th></th><% end %>
             </tr>
@@ -48,6 +48,9 @@
           <tr<% if (classes = row_classes(idx)) %> class="<%= classes %>"<% end %><% if current_row?(idx) %> aria-current="true"<% end %><% if detail.present? %> data-action="click->row-detail#toggle"<% end %>>
             <% row_cells[idx].each_with_index do |cell, cell_index| %>
               <td class="<%= cell[:classes] %>">
+                <% if cell[:label] %>
+                  <span class="<%= Keystone::Ui::DataTableComponent::CELL_LABEL_CLASSES %>"><%= cell[:label] %></span>
+                <% end %>
                 <% if detail.present? && cell_index.zero? %>
                   <button type="button" class="<%= Keystone::Ui::DataTableComponent::DETAIL_BUTTON_CLASSES %>" aria-label="Show detail" aria-expanded="false" aria-controls="<%= row_detail_id(idx) %>" data-row-detail-target="toggle"><%= Keystone::Ui::DisclosureComponent::CARET_ICON.html_safe %></button>
                 <% end %>
@@ -59,7 +62,7 @@
               </td>
             <% end %>
             <% if actions? %>
-              <td class="<%= Keystone::Ui::DataTableComponent::ROW_CLASSES_LAST %>">
+              <td class="<%= actions_cell_classes %>">
                 <% row_actions = capture(item, &@actions_block) %>
                 <% if row_actions.present? %>
                   <%= render Keystone::Ui::ActionMenuComponent.new do %>
@@ -70,18 +73,18 @@
             <% end %>
           </tr>
           <% if detail.present? %>
-            <tr id="<%= row_detail_id(idx) %>" hidden data-row-detail-target="detail">
-              <td colspan="<%= column_count %>"><%= detail %></td>
+            <tr id="<%= row_detail_id(idx) %>"<% if phone_list_block_classes %> class="<%= phone_list_block_classes %>"<% end %> hidden data-row-detail-target="detail">
+              <td<% if phone_list_block_classes %> class="<%= phone_list_block_classes %>"<% end %> colspan="<%= column_count %>"><%= detail %></td>
             </tr>
           <% end %>
         <% end %>
       <% end %>
     </tbody>
     <% if total_cells.any? %>
-      <tfoot class="<%= Keystone::Ui::DataTableComponent::HEAD_CLASSES %>">
-        <tr>
+      <tfoot class="<%= summary_row_classes %>">
+        <tr<% if phone_list_block_classes %> class="<%= phone_list_block_classes %>"<% end %>>
           <% total_cells.each do |cell| %>
-            <th scope="row" class="<%= cell[:classes] %>"><%= cell[:value] %></th>
+            <th scope="row" class="<%= cell[:classes] %>"><% if cell[:label] %><span class="<%= Keystone::Ui::DataTableComponent::CELL_LABEL_CLASSES %>"><%= cell[:label] %></span><% end %><%= cell[:value] %></th>
           <% end %>
           <% if actions? %><th></th><% end %>
         </tr>

@@ -399,6 +399,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 - `group_totals:` (Hash) — subtotals for each group, keyed by the group's name, each a hash of column key to value shown under that column in the group's heading row
 - `total:` (Hash) — column key to value for a total row at the end of the table
 - `current_row:` (item) — the item whose row is the viewer's own, given the `ks-table-row-current` class and `aria-current="true"`; only the first row equal to it is marked
+- `phone_list:` (Boolean, default `false`) — `true` shows the table as a list below the `sm` breakpoint, one item per row with each cell under its column's heading; from `sm` up it is the same table
 
 **Column options**
 
@@ -550,6 +551,17 @@ In the block, `table.row_detail { |item| ... }` gives a row more to show than it
 ```erb
 <%= ui_data_table(items: @sessions, columns: [ { name: "Session" }, { status: "Status" } ]) do |table| %>
   <% table.row_detail { |session| render(SessionDetailComponent.new(session: session)) if session.running? } %>
+<% end %>
+```
+
+**Phone list**
+
+Pass `phone_list: true` to show a table as a list at phone width. Below `sm` the heading row is hidden, each row is one list item, and each of its cells sits on its own line under a `ks-caption` label holding its column's heading. Cells start at the left and wrap long text. A row's links, badges, detail button and action menu stay in its list item and work as they do in the table, and an open row's detail shows under its item. Each subtotal in a group heading row and each total after the first in the total row carries its column's heading too, while the group's name and the first total stand alone. Saved column layouts apply as they do to the table, so the labels follow the saved order and hidden columns are left out, and `mobile_hidden:` columns stay hidden. The sort links sit in the heading row, so a phone list cannot be sorted below `sm`. From `sm` up the table looks as it does without `phone_list:`, and a table that does not pass it looks the same at every width.
+
+```erb
+<%= ui_data_table(items: @quotes, columns: [ { name: "Quote" }, { status: "Status" }, { total: "Total" } ], phone_list: true) do |table| %>
+  <% table.link(:name) { |quote| quote_path(quote) } %>
+  <% table.actions { |quote| ui_action_menu_item(label: "Edit", href: edit_quote_path(quote)) } %>
 <% end %>
 ```
 
