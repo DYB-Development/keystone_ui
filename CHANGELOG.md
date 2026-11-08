@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_data_table` takes `phone_list: true`, and below `sm` it shows the table as a list with one item per row and each cell on its own line under its column's heading, while from `sm` up it looks as it did. A row's links, badges, detail button and action menu stay in its list item, and group subtotals and totals after the first carry their column's heading. A table that does not pass `phone_list:` renders as before at every width.
+
 ## [0.70.0] - 2026-11-08
 
 ### Added
