@@ -236,7 +236,7 @@ module Keystone
       def group_cells(name)
         subtotals = @group_totals.fetch(name.to_s, {}).to_h.transform_keys(&:to_s)
         @columns.map.with_index do |column, index|
-          { value: index.zero? ? name : subtotals[column.key.to_s], classes: aligned(header_classes_for(index), column) }
+          { value: index.zero? ? name : subtotals[column.key.to_s], classes: phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES) }
         end
       end
 
