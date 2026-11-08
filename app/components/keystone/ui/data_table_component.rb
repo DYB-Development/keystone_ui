@@ -102,6 +102,10 @@ module Keystone
         phone_list_classes(TABLE_CLASSES, PHONE_LIST_BLOCK_CLASSES)
       end
 
+      def body_classes
+        phone_list_classes(BODY_CLASSES, PHONE_LIST_BLOCK_CLASSES)
+      end
+
       def head_classes
         phone_list_classes(HEAD_CLASSES, PHONE_LIST_HEAD_CLASSES)
       end
