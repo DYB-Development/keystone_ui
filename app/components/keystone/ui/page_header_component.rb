@@ -52,7 +52,7 @@ module Keystone
       end
 
       def phone?
-        badges? || actions?
+        badges? || menu?
       end
 
       def actions?

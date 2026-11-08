@@ -88,7 +88,7 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
   end
 
   def test_hides_its_title_at_phone_width_when_the_top_bar_shows_one
-    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new"))
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", badges: [ { label: "Live" } ]))
 
     assert_includes page.at_css(".ks-page-header-title")["class"].split, "max-sm:[body:has(.ks-mobile-header-title)_&]:hidden"
   end
@@ -104,5 +104,11 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
     classes = page.css(".ks-page-header, .ks-page-header *").map { |node| node["class"].to_s.split.reject { |name| name.start_with?("max-sm:") }.join(" ") }
 
     assert_equal [ "ks-page-header", "", "ks-page-header-title", "page-header-actions ks-page-header-actions" ], classes.first(4)
+  end
+
+  def test_given_only_an_action_keeps_the_header_hidden_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new"))
+
+    assert_equal [ "ks-page-header" ], page.at_css(".ks-page-header")["class"].split
   end
 end
