@@ -741,6 +741,17 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Paid" ], page.css("tbody td .ks-badge").map { |badge| badge.text.strip }
   end
 
+  def test_given_phone_list_keeps_a_row_s_detail_button_in_its_list_item
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true) do |table|
+        table.row_detail { |row| "Notes for #{row[:month]}" }
+      end
+    end
+
+    assert_equal [ "row-detail-0" ], page.css("tbody td button[data-row-detail-target=toggle]").map { |button| button["aria-controls"] }
+  end
+
   private
 
   def three_columns
