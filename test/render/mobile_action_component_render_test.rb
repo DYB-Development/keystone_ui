@@ -77,6 +77,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "Copy", top_bar_form(page)&.at_css("button")&.[]("aria-label")
   end
 
+  def test_given_a_published_action_method_hides_the_button_from_the_width_where_the_page_header_shows
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post)
+
+    assert_includes top_bar_form(page)&.at_css("button")&.[]("class").to_s.split, "sm:hidden"
+  end
+
   private
 
   def render_after_page_header(**header)
