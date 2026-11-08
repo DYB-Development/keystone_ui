@@ -7,15 +7,17 @@ module Keystone
       TITLE_CLASSES = "ks-page-header-title"
       SUBTITLE_CLASSES = "ks-page-header-subtitle"
       ACTIONS_CLASSES = "page-header-actions ks-page-header-actions"
+      TITLE_ROW_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
 
       attr_reader :title, :action_url, :action_label, :action_method
 
-      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, class: nil)
+      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, badges: [], class: nil)
         @title = title
         @subtitle = subtitle
         @action_url = action_url
         @action_label = action_label
         @action_method = action_method
+        @badges = badges
         @action_block = nil
         @extra_classes = binding.local_variable_get(:class)
       end
@@ -34,6 +36,10 @@ module Keystone
 
       def action?
         !!@action_block
+      end
+
+      def badges?
+        @badges.any?
       end
 
       def subtitle?

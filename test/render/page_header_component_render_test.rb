@@ -62,4 +62,10 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal false, title_set
   end
+
+  def test_given_badges_draws_each_beside_the_title_in_its_colour
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", badges: [ { label: "Paid", variant: :success } ]))
+
+    assert_equal "Paid", page.at_css(".ks-page-header-title + .ks-badge.ks-badge-success")&.text
+  end
 end
