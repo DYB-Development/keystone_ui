@@ -48,6 +48,9 @@
           <tr<% if (classes = row_classes(idx)) %> class="<%= classes %>"<% end %><% if current_row?(idx) %> aria-current="true"<% end %><% if detail.present? %> data-action="click->row-detail#toggle"<% end %>>
             <% row_cells[idx].each_with_index do |cell, cell_index| %>
               <td class="<%= cell[:classes] %>">
+                <% if cell[:label] %>
+                  <span class="<%= Keystone::Ui::DataTableComponent::CELL_LABEL_CLASSES %>"><%= cell[:label] %></span>
+                <% end %>
                 <% if detail.present? && cell_index.zero? %>
                   <button type="button" class="<%= Keystone::Ui::DataTableComponent::DETAIL_BUTTON_CLASSES %>" aria-label="Show detail" aria-expanded="false" aria-controls="<%= row_detail_id(idx) %>" data-row-detail-target="toggle"><%= Keystone::Ui::DisclosureComponent::CARET_ICON.html_safe %></button>
                 <% end %>

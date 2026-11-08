@@ -536,6 +536,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css("[data-controller~=row-detail], [data-action], [aria-expanded], tr[hidden], tbody button")
   end
 
+  def test_given_phone_list_labels_each_cell_with_its_column_s_heading
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_equal [ "Month", "Pipeline" ], page.css("tbody td .ks-caption").map { |label| label.text.strip }
+  end
+
   private
 
   def three_columns
