@@ -32,6 +32,7 @@ module Keystone
 
       PHONE_LIST_HEAD_CLASSES = "max-sm:hidden"
       PHONE_LIST_BLOCK_CLASSES = "max-sm:block"
+      PHONE_LIST_CELL_CLASSES = "max-sm:block"
       CELL_LABEL_CLASSES = "ks-caption block sm:hidden"
 
       SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
@@ -177,6 +178,7 @@ module Keystone
             tokens = [ row_classes_for(index) ]
             tokens << MOBILE_HIDDEN_CLASSES if column.mobile_hidden?
             tokens << CELL_LOCKED_CLASSES if index.zero? && column.locked?
+            tokens << PHONE_LIST_CELL_CLASSES if @phone_list
 
             cell = {
               value: resolve_value(item, column.key),
