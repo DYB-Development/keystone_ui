@@ -29,7 +29,7 @@ module Keystone
       HEADER_LOCKED_CLASSES = "ks-table-header-locked sticky left-0"
       CELL_LOCKED_CLASSES = "ks-table-cell-locked sticky left-0"
 
-      CELL_LABEL_CLASSES = "ks-caption"
+      CELL_LABEL_CLASSES = "ks-caption block sm:hidden"
 
       SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
       SORT_ICON_CLASSES = "h-4 w-4 flex-shrink-0"

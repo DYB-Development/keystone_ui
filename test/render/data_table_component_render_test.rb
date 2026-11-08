@@ -545,6 +545,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month", "Pipeline" ], page.css("tbody td .ks-caption").map { |label| label.text.strip }
   end
 
+  def test_given_phone_list_hides_each_cell_s_heading_label_from_phone_width_up
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert(page.css("tbody td .ks-caption").all? { |label| label["class"].split.include?("sm:hidden") })
+  end
+
   private
 
   def three_columns
