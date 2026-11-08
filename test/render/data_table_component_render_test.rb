@@ -694,6 +694,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true, true ], page.css("tfoot, tfoot tr").map { |part| part["class"].to_s.split.include?("max-sm:block") }
   end
 
+  def test_given_phone_list_puts_each_cell_of_its_total_row_on_its_own_line_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, total: { month: "Total", pipeline: "$10" }, phone_list: true)
+    end
+
+    assert_equal [ true, true ], page.css("tfoot th").map { |cell| cell["class"].split.include?("max-sm:block") }
+  end
+
   private
 
   def three_columns

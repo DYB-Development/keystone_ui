@@ -229,7 +229,7 @@ module Keystone
         return [] unless @total
 
         @columns.map.with_index do |column, index|
-          { value: @total[column.key.to_s], classes: aligned(header_classes_for(index), column) }
+          { value: @total[column.key.to_s], classes: phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES) }
         end
       end
 
