@@ -15,6 +15,15 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
     assert_equal "post", page.at_css(".ks-page-header-actions form[action='/events']")&.[]("method")
   end
 
+  def test_given_an_action_method_passes_it_to_the_layout
+    method = render_in_view_context do
+      ui_page_header(title: "Events", action_url: "/events", action_method: :post)
+      content_for(:mobile_action_method)
+    end
+
+    assert_equal "post", method.text.strip
+  end
+
   def test_given_an_action_block_draws_only_the_block
     page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new")) do |header|
       header.action { "Block" }
