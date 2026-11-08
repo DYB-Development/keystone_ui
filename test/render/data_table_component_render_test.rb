@@ -617,6 +617,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_includes page.css("tbody td").last["class"].split, "max-sm:text-left"
   end
 
+  def test_given_phone_list_wraps_long_text_in_a_cell_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_includes page.css("tbody td").first["class"].split, "max-sm:whitespace-normal"
+  end
+
   private
 
   def three_columns
