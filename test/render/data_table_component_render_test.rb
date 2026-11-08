@@ -554,6 +554,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert(page.css("tbody td .ks-caption").all? { |label| label["class"].split.include?("sm:hidden") })
   end
 
+  def test_given_phone_list_hides_its_heading_row_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true)
+    end
+
+    assert_includes page.css("thead").first["class"].split, "max-sm:hidden"
+  end
+
   private
 
   def three_columns

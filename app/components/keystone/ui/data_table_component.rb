@@ -29,6 +29,7 @@ module Keystone
       HEADER_LOCKED_CLASSES = "ks-table-header-locked sticky left-0"
       CELL_LOCKED_CLASSES = "ks-table-cell-locked sticky left-0"
 
+      PHONE_LIST_HEAD_CLASSES = "max-sm:hidden"
       CELL_LABEL_CLASSES = "ks-caption block sm:hidden"
 
       SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
@@ -93,6 +94,10 @@ module Keystone
         classes = [ (CURRENT_ROW_CLASSES if current_row?(index)), row_colour_class(@items[index]) ].compact
 
         classes.join(" ") unless classes.empty?
+      end
+
+      def head_classes
+        phone_list_classes(HEAD_CLASSES, PHONE_LIST_HEAD_CLASSES)
       end
 
       def actions?
@@ -212,6 +217,10 @@ module Keystone
       end
 
       private
+
+      def phone_list_classes(classes, phone_list_classes)
+        @phone_list ? "#{classes} #{phone_list_classes}" : classes
+      end
 
       def apply_saved_layout
         saved = KeystoneUi.configuration.supplied_preference(helpers, @key)
