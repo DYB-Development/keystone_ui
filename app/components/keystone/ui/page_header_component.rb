@@ -44,7 +44,7 @@ module Keystone
       end
 
       def actions_classes
-        [ ACTIONS_CLASSES, menu? ? MENU_ROW_CLASSES : PHONE_ACTIONS_CLASSES ].join(" ")
+        [ ACTIONS_CLASSES, (menu? ? MENU_ROW_CLASSES : PHONE_ACTIONS_CLASSES if phone?) ].compact.join(" ")
       end
 
       def title_classes
