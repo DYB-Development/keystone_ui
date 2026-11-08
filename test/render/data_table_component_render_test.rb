@@ -626,6 +626,16 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_includes page.css("tbody td").first["class"].split, "max-sm:whitespace-normal"
   end
 
+  def test_given_phone_list_puts_a_row_s_actions_menu_on_its_own_line_below_phone_width
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ], phone_list: true) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/products/1/edit") }
+      end
+    end
+
+    assert_includes page.css("tbody td").last["class"].split, "max-sm:block"
+  end
+
   private
 
   def three_columns

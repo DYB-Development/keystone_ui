@@ -107,6 +107,10 @@ module Keystone
         phone_list_classes(BODY_CLASSES, PHONE_LIST_BLOCK_CLASSES)
       end
 
+      def actions_cell_classes
+        phone_list_classes(ROW_CLASSES_LAST, PHONE_LIST_BLOCK_CLASSES)
+      end
+
       def head_classes
         phone_list_classes(HEAD_CLASSES, PHONE_LIST_HEAD_CLASSES)
       end
