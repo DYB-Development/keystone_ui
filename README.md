@@ -838,7 +838,7 @@ Renders a multi-line `<textarea>` element with consistent styling.
 
 ### `ui_page_header`
 
-Renders a page title area with an optional subtitle and action slot. On small screens the title stacks above actions; on wider screens they sit side-by-side.
+Renders a page title area with an optional subtitle, badges, action slot and action menu. From `sm` screens up the title and its badges sit on the left and the actions and menu on the right. Below `sm` a header given no badges, no action and no menu is hidden. A header given any of them is shown below `sm` with its badges, actions and menu, and its title is hidden there when the page holds `ui_mobile_header`'s title, so the title is not shown twice.
 
 **Required props**
 
@@ -850,10 +850,18 @@ Renders a page title area with an optional subtitle and action slot. On small sc
 - `action_url:` (String) — the address of the screen's main action. It is drawn as a button when no `header.action` block is given, and published for `ui_mobile_action` either way
 - `action_label:` (String, default `"Add new"`) — the name of the main action
 - `action_method:` (Symbol) — the method the main action sends, such as `:post`. With a method other than `:get` the button is a form that sends it to `action_url:`, and the method is published for `ui_mobile_action` as `content_for(:mobile_action_method)`. Without it the button is a link and no method is published
+- `badges:` (Array, default `[]`) — `[{ label:, variant: }, ...]`, each drawn as a `ui_badge` beside the title, where `variant:` is the badge's colour (`:neutral | :success | :danger | :warning | :info`, default `:neutral`)
+- `menu:` (Array, default `[]`) — `[{ label:, href:, method:, confirm: }, ...]`, each hash taking the keywords of `ui_action_menu_item`, drawn in a `ui_action_menu` beside the actions
 - `class:` (String) — extra classes added to the component's outer element for this one use
 
 ```erb
 <%= ui_page_header(title: "Products", action_url: new_product_path, action_label: "New Product") %>
+```
+
+```erb
+<%= ui_page_header(title: "Order 1042", action_url: edit_order_path(order), action_label: "Edit",
+                   badges: [{ label: "Paid", variant: :success }],
+                   menu: [{ label: "Delete", href: order_path(order), method: :delete }]) %>
 ```
 
 **Block API** — register an action slot via `header.action`, which is drawn alone when `action_url:` is also given:
@@ -1571,7 +1579,7 @@ No props. Pass action links as block content.
 
 ### `ui_mobile_action`
 
-Draws the action a screen gives `ui_page_header` through `action_url:` as a plus icon link in the phone top bar, named with `action_label:`. When the screen also gives `action_method:`, the icon is a button in a form that sends that method to the address with the authenticity token. It draws nothing on a screen with no action. It is hidden from `sm` screens up, where the page header shows the action, so the action shows once at every width. It is also hidden when the page is printed and inside a Hotwire Native web view, where the layout writes the `hotwire-native` class on `<html>` and declares that Tailwind variant, so give native users another way to reach the action, such as `ui_mobile_actions`.
+Draws the action a screen gives `ui_page_header` through `action_url:` as a plus icon link in the phone top bar, named with `action_label:`. When the screen also gives `action_method:`, the icon is a button in a form that sends that method to the address with the authenticity token. It draws nothing on a screen with no action. It is hidden from `sm` screens up, where the page header shows the action. A page header is also shown below `sm` when it has an action, so a page that draws both shows the action twice there. It is also hidden when the page is printed and inside a Hotwire Native web view, where the layout writes the `hotwire-native` class on `<html>` and declares that Tailwind variant, so give native users another way to reach the action, such as `ui_mobile_actions`.
 
 No props. Call it from the layout's top bar, which is rendered after the screen.
 
