@@ -62,4 +62,59 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal false, title_set
   end
+
+  def test_given_badges_draws_each_beside_the_title_in_its_colour
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", badges: [ { label: "Paid", variant: :success } ]))
+
+    assert_equal "Paid", page.at_css(".ks-page-header-title + .ks-badge.ks-badge-success")&.text
+  end
+
+  def test_given_menu_items_draws_them_in_an_action_menu_beside_the_actions
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", action_url: "/orders/12/edit", menu: [ { label: "Delete", href: "/orders/12", method: :delete } ]))
+
+    assert_equal "/orders/12", page.at_css(".ks-page-header-actions [data-controller='action-menu'] form")&.[]("action")
+  end
+
+  def test_given_badges_shows_the_header_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", badges: [ { label: "Paid" } ]))
+
+    assert_includes page.at_css(".ks-page-header")["class"].split, "max-sm:flex"
+  end
+
+  def test_given_badges_and_an_action_shows_the_actions_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new", badges: [ { label: "Live" } ]))
+
+    assert_includes page.at_css(".ks-page-header-actions")["class"].split, "max-sm:block"
+  end
+
+  def test_hides_its_title_at_phone_width_when_the_top_bar_shows_one
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", badges: [ { label: "Live" } ]))
+
+    assert_includes page.at_css(".ks-page-header-title")["class"].split, "max-sm:[body:has(.ks-mobile-header-title)_&]:hidden"
+  end
+
+  def test_given_menu_items_shows_the_menu_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", menu: [ { label: "Edit", href: "/orders/12/edit" } ]))
+
+    assert_includes page.at_css(".ks-page-header-actions")["class"].split, "flex"
+  end
+
+  def test_given_no_badges_and_no_menu_draws_the_same_classes_from_phone_width_up
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new", action_label: "Create"))
+    classes = page.css(".ks-page-header, .ks-page-header *").map { |node| node["class"].to_s.split.reject { |name| name.start_with?("max-sm:") }.join(" ") }
+
+    assert_equal [ "ks-page-header", "", "ks-page-header-title", "page-header-actions ks-page-header-actions" ], classes.first(4)
+  end
+
+  def test_given_only_an_action_keeps_the_header_hidden_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new"))
+
+    assert_equal [ "ks-page-header" ], page.at_css(".ks-page-header")["class"].split
+  end
+
+  def test_given_only_an_action_gives_the_actions_no_phone_width_classes
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new"))
+
+    assert_equal "page-header-actions ks-page-header-actions", page.at_css(".ks-page-header-actions")["class"]
+  end
 end

@@ -6,18 +6,34 @@
 <% end %>
 <div class="<%= wrapper_classes %>">
   <div>
-    <h1 class="<%= TITLE_CLASSES %>"><%= @title %></h1>
+    <% if badges? %>
+      <div class="<%= TITLE_ROW_CLASSES %>">
+        <h1 class="<%= title_classes %>"><%= @title %></h1>
+        <% @badges.each do |badge| %>
+          <%= render Keystone::Ui::BadgeComponent.new(**badge) %>
+        <% end %>
+      </div>
+    <% else %>
+      <h1 class="<%= title_classes %>"><%= @title %></h1>
+    <% end %>
     <% if subtitle? %>
       <p class="<%= SUBTITLE_CLASSES %>"><%= subtitle_text %></p>
     <% end %>
   </div>
-  <% if action? %>
-    <div class="<%= ACTIONS_CLASSES %>">
-      <%= @action_block.call %>
-    </div>
-  <% elsif action_url %>
-    <div class="<%= ACTIONS_CLASSES %>">
-      <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url, method: action_method || :get) %>
+  <% if actions? %>
+    <div class="<%= actions_classes %>">
+      <% if action? %>
+        <%= @action_block.call %>
+      <% elsif action_url %>
+        <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url, method: action_method || :get) %>
+      <% end %>
+      <% if menu? %>
+        <%= render Keystone::Ui::ActionMenuComponent.new do %>
+          <% @menu.each do |item| %>
+            <%= render Keystone::Ui::ActionMenuItemComponent.new(**item) %>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   <% end %>
 </div>

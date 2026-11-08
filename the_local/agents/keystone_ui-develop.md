@@ -27,7 +27,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_page` — the outer wrapper of a screen, holding the page's content.
 - `ui_form_page` — marks a screen as a form screen and gives it its title, Back link and breadcrumbs.
 - `ui_show_page` — marks a screen as a detail screen and gives it its Back link and breadcrumbs.
-- `ui_page_header` — the desktop title of a page, with an optional control on its right.
+- `ui_page_header` — the title of a page, with optional badges beside it and a control and action menu on its right.
 - `ui_breadcrumbs` — a line of links to the pages above the current one, shown from `lg:` up.
 - `ui_section` — a titled block of content with an optional link and action menu in its header.
 - `ui_grid` — a responsive grid with a column count per breakpoint.
@@ -168,8 +168,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - Ask the developer whether a screen shows breadcrumbs and which parent
      screens its trail names. Ask which screens a navigation tab opens
      directly, since those pass `trail: []`.
-   - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, class: nil)`
-     takes a block yielding the header and is hidden below `sm:`. Call
+   - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, badges: [], menu: [], class: nil)`
+     takes a block yielding the header. Call
      `header.action { ... }` in the block to place a control on its right.
      `action_url:` declares the screen's main action. It publishes that URL and
      label for `ui_mobile_action` to pick up, and with no `action` block the
@@ -177,6 +177,17 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      are given. `action_method:`, such as `:post`, makes the main action send
      that method: the header's button and `ui_mobile_action`'s icon become
      forms posting to `action_url:`.
+   - `badges:` is `[{ label:, variant: }, ...]`, each drawn as a `ui_badge`
+     beside the title, with `variant:` taking the badge's values. `menu:` is
+     `[{ label:, href:, method: }, ...]`, each hash taking the keywords of
+     `ui_action_menu_item`, drawn in an action menu beside the actions. Put a
+     record's Edit and Delete in `menu:` on its detail screen.
+   - Below `sm:` a header given no badges and no menu is hidden, even with an
+     action. A header given badges or a menu is shown there with its badges,
+     actions and menu, and hides its title when the page holds
+     `ui_mobile_header`'s title. Its action then shows below `sm:` beside
+     `ui_mobile_action`'s plus icon, so ask the developer whether a screen
+     with both keeps both.
    - `ui_breadcrumbs(trail:, current: nil)` renders `trail:` as links separated
      by `›`, then `current:` unlinked and marked as the current page, shown
      only from `lg:` up. On a form or detail screen pass `trail:` to the shell
@@ -405,7 +416,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      become `data-*` attributes on the input and the label.
 
 7. Put the actions on a record, such as Edit and Delete, in an action menu
-   rather than a row of buttons: `menu:` on the `ui_section` showing the record,
+   rather than a row of buttons: `menu:` on the `ui_page_header` or `ui_section` showing the record,
    `table.actions` for a table row, or `ui_action_menu` anywhere else.
 
    - `ui_action_menu` takes no keywords and a block of `ui_action_menu_item`
@@ -709,7 +720,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 - **Containers take blocks, leaves take keywords.** The data table, page header
   and swipe deck render only what is registered through the object they yield,
   so anything else emitted in their block is dropped.
-- **Check both screen sizes.** Page headers, mobile headers, mobile actions,
+- **Check both screen sizes.** Page headers with no badges or menu, mobile headers, mobile actions,
   bottom navigation, breadcrumbs and `ui_navigation`'s bars render on one side
   of `lg:` or `sm:` only, so a screen needs both treatments.
 - Out of scope: installing or upgrading the gem, its configuration, the theme

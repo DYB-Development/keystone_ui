@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_page_header` takes `badges:`, a list of `{ label:, variant: }` hashes, and draws each as a `ui_badge` beside the title, coloured by its variant.
+- `ui_page_header` takes `menu:`, a list of hashes of `ui_action_menu_item`'s keywords, and draws them in a `ui_action_menu` beside its actions.
+
+### Changed
+- A page header given badges or a menu is now shown below `sm` with its badges, actions and menu, where before every page header was hidden there. A page header with only an action stays hidden below `sm`.
+- A page header shown below `sm` hides its title there when the page holds `ui_mobile_header`'s title, so the title is not shown twice.
+- A page header given an action along with badges or a menu shows that action below `sm`, so a page that also draws `ui_mobile_action` shows the action twice there.
+
 ## [0.69.0] - 2026-11-07
 
 ### Added
