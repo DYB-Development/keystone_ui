@@ -65,6 +65,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "post", top_bar_form(page)&.[]("method")
   end
 
+  def test_given_a_published_action_method_sends_the_authenticity_token
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post)
+
+    assert_equal 1, top_bar_form(page)&.css("input[name='authenticity_token']")&.size
+  end
+
   private
 
   def render_after_page_header(**header)
