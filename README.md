@@ -838,7 +838,7 @@ Renders a multi-line `<textarea>` element with consistent styling.
 
 ### `ui_page_header`
 
-Renders a page title area with an optional subtitle, badges, action slot and action menu. From `sm` screens up the title and its badges sit on the left and the actions and menu on the right. Below `sm` a header given no badges, no action and no menu is hidden. A header given any of them is shown below `sm` with its badges, actions and menu, and its title is hidden there when the page holds `ui_mobile_header`'s title, so the title is not shown twice.
+Renders a page title area with an optional subtitle, badges, action slot and action menu. From `sm` screens up the title and its badges sit on the left and the actions and menu on the right. Below `sm` a header given no badges and no menu is hidden, even when it has an action. A header given badges or a menu is shown below `sm` with its badges, actions and menu, and its title is hidden there when the page holds `ui_mobile_header`'s title, so the title is not shown twice.
 
 **Required props**
 
@@ -1579,7 +1579,7 @@ No props. Pass action links as block content.
 
 ### `ui_mobile_action`
 
-Draws the action a screen gives `ui_page_header` through `action_url:` as a plus icon link in the phone top bar, named with `action_label:`. When the screen also gives `action_method:`, the icon is a button in a form that sends that method to the address with the authenticity token. It draws nothing on a screen with no action. It is hidden from `sm` screens up, where the page header shows the action. A page header is also shown below `sm` when it has an action, so a page that draws both shows the action twice there. It is also hidden when the page is printed and inside a Hotwire Native web view, where the layout writes the `hotwire-native` class on `<html>` and declares that Tailwind variant, so give native users another way to reach the action, such as `ui_mobile_actions`.
+Draws the action a screen gives `ui_page_header` through `action_url:` as a plus icon link in the phone top bar, named with `action_label:`. When the screen also gives `action_method:`, the icon is a button in a form that sends that method to the address with the authenticity token. It draws nothing on a screen with no action. It is hidden from `sm` screens up, where the page header shows the action. A page header given badges or a menu is also shown below `sm` with its action, so on such a page the action shows twice there. It is also hidden when the page is printed and inside a Hotwire Native web view, where the layout writes the `hotwire-native` class on `<html>` and declares that Tailwind variant, so give native users another way to reach the action, such as `ui_mobile_actions`.
 
 No props. Call it from the layout's top bar, which is rendered after the screen.
 
