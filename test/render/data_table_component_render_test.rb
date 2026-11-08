@@ -733,6 +733,14 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "/products/1/edit" ], page.css("tbody [data-action-menu-target=menu] a.ks-menu-option").map { |link| link["href"] }
   end
 
+  def test_given_phone_list_keeps_a_cell_s_badge_in_its_list_item
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow", status: ui_badge(label: "Paid", variant: :success) } ], columns: [ { name: "Name" }, { status: "Status" } ], phone_list: true)
+    end
+
+    assert_equal [ "Paid" ], page.css("tbody td .ks-badge").map { |badge| badge.text.strip }
+  end
+
   private
 
   def three_columns
