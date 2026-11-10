@@ -15,6 +15,7 @@ module Keystone
         </svg>
       SVG
 
+      ROW_CLASSES = "ks-page flex items-center ks-grid-gap-sm lg:hidden print:hidden"
       WRAPPER_CLASSES = "flex items-center lg:hidden print:hidden"
       BACK_LINK_CLASSES = "ks-mobile-header-back"
       TITLE_CLASSES = "ks-mobile-header-title flex-[1_1_6rem] min-w-0 self-center lg:hidden truncate"
