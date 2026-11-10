@@ -59,6 +59,14 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-page-header-actions")["class"].split, "flex-wrap"
   end
 
+  def test_keeps_the_actions_no_wider_than_the_header
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events")) do |header|
+      header.action { "Block" }
+    end
+
+    assert_includes page.at_css(".ks-page-header-actions")["class"].split, "max-w-full"
+  end
+
   def test_given_a_title_passes_it_to_the_layout
     title = render_in_view_context do
       ui_page_header(title: "Events")
@@ -125,7 +133,7 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
     page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new", action_label: "Create"))
     classes = page.css(".ks-page-header, .ks-page-header *").map { |node| node["class"].to_s.split.reject { |name| name.start_with?("max-sm:") }.join(" ") }
 
-    assert_equal [ "ks-page-header", "", "ks-page-header-title", "page-header-actions ks-page-header-actions sm:flex sm:items-center flex-wrap ks-grid-gap-sm" ], classes.first(4)
+    assert_equal [ "ks-page-header", "", "ks-page-header-title", "page-header-actions ks-page-header-actions sm:flex sm:items-center flex-wrap max-w-full ks-grid-gap-sm" ], classes.first(4)
   end
 
   def test_given_only_an_action_keeps_the_header_hidden_at_phone_width
@@ -137,6 +145,6 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
   def test_given_only_an_action_gives_the_actions_no_phone_width_classes
     page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new"))
 
-    assert_equal "page-header-actions ks-page-header-actions sm:flex sm:items-center flex-wrap ks-grid-gap-sm", page.at_css(".ks-page-header-actions")["class"]
+    assert_equal "page-header-actions ks-page-header-actions sm:flex sm:items-center flex-wrap max-w-full ks-grid-gap-sm", page.at_css(".ks-page-header-actions")["class"]
   end
 end
