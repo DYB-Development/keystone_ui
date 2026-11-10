@@ -87,6 +87,12 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-page-header-actions")["class"].split, "max-sm:block"
   end
 
+  def test_given_badges_and_an_action_puts_the_actions_on_their_own_full_width_row_at_phone_width
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new", badges: [ { label: "Live" } ]))
+
+    assert_includes page.at_css(".ks-page-header-actions")["class"].split, "max-sm:basis-full"
+  end
+
   def test_hides_its_title_at_phone_width_when_the_top_bar_shows_one
     page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", badges: [ { label: "Live" } ]))
 
