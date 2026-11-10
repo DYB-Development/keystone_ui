@@ -187,7 +187,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      actions and menu, and hides its title when the page holds
      `ui_mobile_header`'s title. Its action then shows below `sm:` beside
      `ui_mobile_action`'s plus icon, so ask the developer whether a screen
-     with both keeps both.
+     with both keeps both. Below `sm:` the actions and menu sit side by side
+     on their own full-width row under the title and badges, and from `sm:` up
+     they sit side by side on the right, with or without a menu. At every
+     width buttons that do not fit wrap onto another line, so the header never
+     makes the page wider than the screen.
    - `ui_breadcrumbs(trail:, current: nil)` renders `trail:` as links separated
      by `›`, then `current:` unlinked and marked as the current page, shown
      only from `lg:` up. On a form or detail screen pass `trail:` to the shell
@@ -274,14 +278,19 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      over the icon. The bar is hidden from `lg:` up and inside a
      Hotwire Native web view.
    - `ui_mobile_header(title:, back_url:, subtitle: nil)` is hidden from `lg:`
-     up and goes in the navbar's `mobile_left` slot. `back_url:` must be
-     passed, and `nil` renders the title with no back arrow. The title and
-     subtitle sit between the arrow and the right-side controls, start at the
-     left, and end in an ellipsis when too long. In `ui_navbar`, controls that
-     leave less than 6rem for the title move to a second row under it. In a
-     hand-written top bar, make the header a direct child of the bar's flex
-     row, and add `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if
-     its controls can fill its width.
+     up and goes in the navbar's `mobile_left` slot or directly in the
+     layout's `<header>`. `back_url:` must be passed, and `nil` renders the
+     title with no back arrow. Outside a top bar it draws the arrow, title and
+     subtitle in one row with `ui_page`'s side margin, ending the text in an
+     ellipsis when too long. Inside an element with the `top-nav` class, such
+     as `ui_navbar`, the arrow and title are laid out by the bar instead: the
+     title and subtitle sit between the arrow and the right-side controls,
+     start at the left, and end in an ellipsis when too long. In `ui_navbar`,
+     controls that leave less than 6rem for the title move to a second row
+     under it. In a hand-written top bar, give the bar the `top-nav` class,
+     make the header a direct child of the bar's flex row, and add
+     `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if its
+     controls can fill its width.
    - `ui_mobile_action` takes no keywords and no block, and goes in the top
      bar's right side, such as the navbar's `mobile_right` slot. It draws a plus
      icon linking to the `action_url:` a screen gives `ui_page_header`, named
