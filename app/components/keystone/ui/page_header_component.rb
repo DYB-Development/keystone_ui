@@ -11,7 +11,7 @@ module Keystone
       PHONE_WRAPPER_CLASSES = "max-sm:flex max-sm:flex-wrap max-sm:items-center max-sm:justify-between"
       PHONE_ACTIONS_CLASSES = "max-sm:flex max-sm:items-center"
       PHONE_ACTIONS_ROW_CLASSES = "max-sm:basis-full"
-      ROW_CLASSES = "sm:flex sm:items-center ks-grid-gap-sm"
+      ROW_CLASSES = "sm:flex sm:items-center flex-wrap ks-grid-gap-sm"
       MENU_ROW_CLASSES = "flex items-center ks-grid-gap-sm"
       TITLE_ROW_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
 
