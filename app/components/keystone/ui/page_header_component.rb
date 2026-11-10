@@ -9,10 +9,8 @@ module Keystone
       ACTIONS_CLASSES = "page-header-actions ks-page-header-actions"
       PHONE_TITLE_CLASSES = "ks-page-header-title max-sm:[body:has(.ks-mobile-header-title)_&]:hidden"
       PHONE_WRAPPER_CLASSES = "max-sm:flex max-sm:flex-wrap max-sm:items-center max-sm:justify-between"
-      PHONE_ACTIONS_CLASSES = "max-sm:flex max-sm:items-center"
-      PHONE_ACTIONS_ROW_CLASSES = "max-sm:basis-full"
+      PHONE_ACTIONS_CLASSES = "max-sm:flex max-sm:items-center max-sm:basis-full"
       ROW_CLASSES = "sm:flex sm:items-center flex-wrap max-w-full ks-grid-gap-sm"
-      MENU_ROW_CLASSES = "flex items-center ks-grid-gap-sm"
       TITLE_ROW_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
 
       attr_reader :title, :action_url, :action_label, :action_method
@@ -46,7 +44,7 @@ module Keystone
       end
 
       def actions_classes
-        [ ACTIONS_CLASSES, ROW_CLASSES, (menu? ? MENU_ROW_CLASSES : PHONE_ACTIONS_CLASSES if phone?), (PHONE_ACTIONS_ROW_CLASSES if phone?) ].compact.join(" ")
+        [ ACTIONS_CLASSES, ROW_CLASSES, (PHONE_ACTIONS_CLASSES if phone?) ].compact.join(" ")
       end
 
       def title_classes

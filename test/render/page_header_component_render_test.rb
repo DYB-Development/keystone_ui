@@ -126,7 +126,7 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
   def test_given_menu_items_shows_the_menu_at_phone_width
     page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Order 12", menu: [ { label: "Edit", href: "/orders/12/edit" } ]))
 
-    assert_includes page.at_css(".ks-page-header-actions")["class"].split, "flex"
+    assert_includes page.at_css(".ks-page-header-actions")["class"].split, "max-sm:flex"
   end
 
   def test_given_no_badges_and_no_menu_draws_the_same_classes_from_phone_width_up
