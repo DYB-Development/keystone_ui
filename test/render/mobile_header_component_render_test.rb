@@ -14,4 +14,10 @@ class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-mobile-header-title").parent["class"].to_s.split, "ks-page"
   end
+
+  def test_inside_the_navbar_leaves_the_arrow_and_title_to_the_navbars_row
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Invoices", back_url: "/"))
+
+    assert_includes page.at_css(".ks-mobile-header-title").parent["class"].split, "max-lg:in-[.top-nav]:contents"
+  end
 end
