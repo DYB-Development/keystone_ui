@@ -9,7 +9,7 @@ module Keystone
       ACTIONS_CLASSES = "page-header-actions ks-page-header-actions"
       PHONE_TITLE_CLASSES = "ks-page-header-title max-sm:[body:has(.ks-mobile-header-title)_&]:hidden"
       PHONE_WRAPPER_CLASSES = "max-sm:flex max-sm:flex-wrap max-sm:items-center max-sm:justify-between"
-      PHONE_ACTIONS_CLASSES = "max-sm:block"
+      PHONE_ACTIONS_CLASSES = "max-sm:flex max-sm:items-center"
       PHONE_ACTIONS_ROW_CLASSES = "max-sm:basis-full"
       ROW_CLASSES = "sm:flex sm:items-center ks-grid-gap-sm"
       MENU_ROW_CLASSES = "flex items-center ks-grid-gap-sm"
