@@ -11,6 +11,7 @@ module Keystone
       PHONE_WRAPPER_CLASSES = "max-sm:flex max-sm:flex-wrap max-sm:items-center max-sm:justify-between"
       PHONE_ACTIONS_CLASSES = "max-sm:block"
       PHONE_ACTIONS_ROW_CLASSES = "max-sm:basis-full"
+      ROW_CLASSES = "sm:flex sm:items-center ks-grid-gap-sm"
       MENU_ROW_CLASSES = "flex items-center ks-grid-gap-sm"
       TITLE_ROW_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
 
@@ -45,7 +46,7 @@ module Keystone
       end
 
       def actions_classes
-        [ ACTIONS_CLASSES, (menu? ? MENU_ROW_CLASSES : PHONE_ACTIONS_CLASSES if phone?), (PHONE_ACTIONS_ROW_CLASSES if phone?) ].compact.join(" ")
+        [ ACTIONS_CLASSES, ROW_CLASSES, (menu? ? MENU_ROW_CLASSES : PHONE_ACTIONS_CLASSES if phone?), (PHONE_ACTIONS_ROW_CLASSES if phone?) ].compact.join(" ")
       end
 
       def title_classes
