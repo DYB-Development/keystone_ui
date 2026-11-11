@@ -58,4 +58,10 @@ class Keystone::Ui::ButtonComponentTest < Minitest::Test
 
     assert_equal [ "back", "1" ], [ options[:name], options[:value] ]
   end
+
+  def test_a_hidden_button_carries_the_hidden_attribute
+    component = Keystone::Ui::ButtonComponent.new(label: "← Previous", variant: :text, type: :button, hidden: true)
+
+    assert_equal true, component.tag_options[:hidden]
+  end
 end
