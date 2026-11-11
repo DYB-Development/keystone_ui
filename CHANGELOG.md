@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - A `ui_data_table` whose `actions` block renders nothing for every row draws no "Actions" column, and lays out its last column as it does with no `actions` block.
+- Below `sm`, every body, subtotal and total cell of a `ui_data_table` given `phone_list: true` starts at the same left edge, so a row's first field is no longer indented further than the fields under it, and a list of labels and values starts each label and value at the same edge. From `sm` up the table looks as it did.
+- keystone_ui requires keystone_ui-styles 0.31.0 or later, which styles the `ks-table-phone-list-cell` class those cells carry.
 - `ui_page_header` lays out its action buttons side by side in one row at every width, so from `sm` up two buttons no longer stack on top of each other when the header has no menu.
 - Below `sm`, a page header given badges or a menu puts its actions and menu on their own full-width row under the title and badges, instead of beside the badges.
 - A page header's actions row is never wider than the header, and buttons that do not fit wrap onto another line, so the header never makes the page wider than the screen.
