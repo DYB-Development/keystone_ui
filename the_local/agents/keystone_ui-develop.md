@@ -70,6 +70,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_heading` — a heading at one of three sizes, with an optional short note on its right.
 - `ui_caption` — small uppercase muted text placed above a title or a figure.
 - `ui_link` — a text link in the link colour.
+- `ui_facts` — a row of facts, each a count in bold beside its label.
 - `ui_paragraph` — a paragraph of running text.
 - `ui_value_list` — rows of a label and its value, such as a ledger or a byline.
 - `ui_alert` — a banner message, optionally dismissible.
@@ -404,7 +405,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      needs the enclosing form to be multipart.
    - `ui_color_picker(name:, value: "#000000", label: nil)` writes the chosen
      hex value into a hidden input named `name`.
-   - `ui_radio_card(name:, value:, label:, hint: nil, info: nil, checked: false, submits: false)`
+   - `ui_radio_card(name:, value:, label:, hint: nil, info: nil, checked: false, submits: false, show_value: false, full_width: false)`
      and `ui_checkbox_row(name:, value:, label:, hint: nil, info: nil, checked: false, disabled: false)`
      share `hint:` and `info:`. `hint:` is a line always shown under the label.
      `info:` adds an info button beside the label, named "About <label>" for
@@ -416,6 +417,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      submit the checked values as a list.
    - `submits: true` on `ui_radio_card` submits its form as soon as the card
      is chosen, so a question answered by one choice needs no Next button.
+   - `show_value: true` on `ui_radio_card` draws the answer's value in a small
+     tag before its label. `full_width: true` makes the card fill its row with
+     the tag and label side by side. Stack quiz answers with
+     `ui_grid(cols: 1, gap: :sm)`.
    - `disabled: true` on `ui_checkbox_row` draws its checkbox disabled, and a
      disabled checkbox submits nothing.
    - `ui_sortable_list(name:, label:, rows:)` is one field inside a `ui_form`,
@@ -596,7 +601,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_accordion(items: [])` — `items:` is `[{ question:, answer: }, ...]`.
    - `ui_heading(text:, size: :md, note: nil)` — `size:` is `:sm` `:md` `:lg`,
      and `note:` puts a short muted note at the right end of the heading's row.
-   - `ui_caption(text:)` shows small uppercase muted text above a title or a figure.
+   - `ui_caption(text:, tone: :muted)` shows small uppercase muted text above
+     a title or a figure. `tone: :link` draws it in the link colour with space
+     under it, as the label above a quiz question.
+   - `ui_facts(facts:)` — each fact is `{ value:, label: }`, drawn as a small
+     box with the count in bold beside its label, in a row that wraps.
    - `ui_paragraph(text:)` shows running text.
    - `ui_value_list(rows:, align: :start)` — each row is `{ label:, value: }`
      with optional `note:`, `total: true`, `right: true` and `fallback:`, shown

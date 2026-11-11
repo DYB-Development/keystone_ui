@@ -1062,8 +1062,13 @@ Shows small, uppercase, muted text for placing above a title or a figure.
 
 - `text:` (String)
 
+**Optional props**
+
+- `tone:` (`:muted | :link`, default `:muted`) — `:link` draws the caption in the link colour with space under it, as the label above a quiz question
+
 ```erb
 <%= ui_caption(text: "Work report") %>
+<%= ui_caption(text: "Geography", tone: :link) %>
 ```
 
 ### `ui_paragraph`
@@ -1089,6 +1094,18 @@ Draws a text link in the link colour.
 
 ```erb
 <%= ui_link(label: "Upload questions", href: upload_questions_path) %>
+```
+
+### `ui_facts`
+
+Draws a wrapping row of facts, each a count in bold beside its label, such as the number of questions on a quiz's intro page.
+
+**Required props**
+
+- `facts:` (Array of Hashes) — each fact is `{ value:, label: }`
+
+```erb
+<%= ui_facts(facts: [ { value: 12, label: "questions" } ]) %>
 ```
 
 ### `ui_value_list`
