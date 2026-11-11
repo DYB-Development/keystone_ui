@@ -7,7 +7,7 @@
 </nav>
 <% end %>
 <% if summary? %>
-<div>
+<div class="<%= LAYOUT_CLASSES %>">
   <div class="<%= SUMMARY_CLASSES %>"><%= summary %></div>
   <%= tab_row %>
   <div class="<%= CONTENT_CLASSES %>"><%= content %></div>

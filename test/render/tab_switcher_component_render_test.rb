@@ -49,6 +49,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[tabs summary panel], drawn_order(render_with_summary, "max-sm")
   end
 
+  def test_a_summary_the_tab_row_and_the_panel_are_stacked_in_a_column_their_order_classes_apply_in
+    wrapper = render_with_summary.children.find(&:element?)
+
+    assert_equal %w[flex flex-col], wrapper["class"].to_s.split & %w[flex flex-col]
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 

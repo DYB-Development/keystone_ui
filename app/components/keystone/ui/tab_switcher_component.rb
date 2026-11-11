@@ -6,6 +6,7 @@ module Keystone
       TAB_BAR_CLASSES = "ks-tab-bar flex flex-wrap justify-center"
       TAB_BASE_CLASSES = "ks-tab text-sm transition"
       PANEL_CLASSES = "hidden"
+      LAYOUT_CLASSES = "flex flex-col"
       SUMMARY_CLASSES = "max-sm:order-1"
       CONTENT_CLASSES = "max-sm:order-1"
 
