@@ -14,6 +14,10 @@ module Keystone
       CENTERED_CLASSES = "flex flex-col items-center text-center"
 
       TITLE_BASE_CLASSES = "ks-hero-title text-4xl tracking-tight sm:text-5xl lg:text-6xl"
+      TITLE_SIZE_CLASSES = {
+        lg: TITLE_BASE_CLASSES,
+        sm: "ks-hero-title text-3xl tracking-tight md:text-4xl"
+      }.freeze
       SUBTITLE_BASE_CLASSES = "ks-hero-subtitle max-w-lg text-lg"
       BADGE_BASE_CLASSES = "ks-hero-badge inline-flex w-fit items-center text-sm"
       ACTIONS_CLASSES = "ks-hero-actions flex flex-wrap"
@@ -22,7 +26,7 @@ module Keystone
 
       attr_reader :title, :subtitle, :badge
 
-      def initialize(title:, subtitle: nil, badge: nil, layout: :split, height: :screen)
+      def initialize(title:, subtitle: nil, badge: nil, layout: :split, height: :screen, title_size: :lg)
         raise ArgumentError, "a hero's height is :screen or :content, got #{height.inspect}" unless %i[screen content].include?(height)
 
         @title = title
@@ -30,6 +34,7 @@ module Keystone
         @badge = badge
         @layout = layout
         @height = height
+        @title_size = title_size
       end
 
       def classes
@@ -53,7 +58,7 @@ module Keystone
       end
 
       def title_classes
-        TITLE_BASE_CLASSES
+        TITLE_SIZE_CLASSES.fetch(@title_size)
       end
 
       def subtitle_classes
