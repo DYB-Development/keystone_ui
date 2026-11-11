@@ -7,7 +7,7 @@
           <p class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></p>
         <% end %>
       </div>
-      <div>
+      <div class="<%= ACTIONS_CLASSES %>">
         <% if @action %>
           <a href="<%= @action[:href] %>" class="<%= action_classes %>">
             <%= @action[:label] %>
