@@ -1,4 +1,9 @@
 <div class="<%= classes %>">
+  <% if detail? %>
+    <div>
+      <%= detail %>
+    </div>
+  <% end %>
   <div>
     <%= content %>
   </div>

@@ -8,4 +8,13 @@ class Keystone::Ui::ListDetailComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "grid-cols-1" ], page.at_css("div.grid")&.[]("class").to_s.split.grep(/grid-cols/)
   end
+
+  def test_the_detail_is_drawn_above_the_list
+    page = render_inline(Keystone::Ui::ListDetailComponent.new) do |layout|
+      layout.with_detail { "Step 2" }
+      "Steps"
+    end
+
+    assert_equal [ "Step 2", "Steps" ], page.css("div.grid > div").map { |column| column.text.strip }
+  end
 end
