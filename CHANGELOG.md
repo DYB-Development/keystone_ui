@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.74.0] - 2026-11-11
+
 ### Added
 - `ui_list_detail` lays out a list and the detail of the item picked from it, filled with `layout.with_detail`. From `lg` up the list takes the first third of the width and the detail the other two thirds beside it, below `lg` the detail is drawn above the list, and with no detail the list takes the full width.
 
