@@ -59,6 +59,10 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_includes summary_wrapper(render_with_summary)["class"].split, "max-sm:[&>:first-child]:mt-0"
   end
 
+  def test_below_sm_the_summary_drops_its_last_part_bottom_margin_so_the_panel_margin_alone_spaces_them
+    assert_includes summary_wrapper(render_with_summary)["class"].split, "max-sm:[&>:last-child]:mb-0"
+  end
+
   def test_with_no_summary_the_tab_row_and_panel_are_drawn_with_no_column_around_them
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS)) { "Value panel" }
 

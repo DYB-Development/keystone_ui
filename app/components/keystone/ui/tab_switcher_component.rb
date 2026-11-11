@@ -7,7 +7,7 @@ module Keystone
       TAB_BASE_CLASSES = "ks-tab text-sm transition max-sm:shrink-0 max-sm:whitespace-nowrap"
       PANEL_CLASSES = "hidden"
       LAYOUT_CLASSES = "max-sm:flex max-sm:flex-col"
-      SUMMARY_CLASSES = "max-sm:order-1 max-sm:[&>:first-child]:mt-0"
+      SUMMARY_CLASSES = "max-sm:order-1 max-sm:[&>:first-child]:mt-0 max-sm:[&>:last-child]:mb-0"
       CONTENT_CLASSES = "max-sm:order-1"
 
       renders_one :summary
