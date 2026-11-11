@@ -5,6 +5,7 @@ module Keystone
     class LinkListComponent < ViewComponent::Base
       ROW_CLASSES = "ks-value-list-row items-center no-underline"
       STACK_CLASSES = "flex flex-col-reverse sm:contents"
+      BADGE_CLASSES = "max-sm:self-start"
       TEXT_CLASSES = "min-w-0 flex-1"
       LABEL_CLASSES = "ks-paragraph ks-settings-link-label block"
       SUBTITLE_CLASSES = "ks-value-list-note"
@@ -17,7 +18,7 @@ module Keystone
       end
 
       def badge(row)
-        BadgeComponent.new(**row[:badge])
+        BadgeComponent.new(**row[:badge], class: BADGE_CLASSES)
       end
     end
   end

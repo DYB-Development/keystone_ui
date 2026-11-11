@@ -44,4 +44,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("a > span")["class"].to_s.split, "sm:contents"
   end
+
+  def test_at_phone_width_keeps_a_row_badge_to_its_own_width
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a .ks-badge")["class"].to_s.split, "max-sm:self-start"
+  end
 end
