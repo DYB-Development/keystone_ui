@@ -49,10 +49,10 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[tabs summary panel], drawn_order(render_with_summary, "max-sm")
   end
 
-  def test_a_summary_the_tab_row_and_the_panel_are_stacked_in_a_column_their_order_classes_apply_in
+  def test_a_summary_the_tab_row_and_the_panel_are_a_column_only_below_sm_so_their_margins_overlap_from_sm_up
     wrapper = render_with_summary.children.find(&:element?)
 
-    assert_equal %w[flex flex-col], wrapper["class"].to_s.split & %w[flex flex-col]
+    assert_equal %w[max-sm:flex max-sm:flex-col], wrapper["class"].to_s.split & %w[flex flex-col max-sm:flex max-sm:flex-col]
   end
 
   def test_with_no_summary_the_tab_row_and_panel_are_drawn_with_no_column_around_them
