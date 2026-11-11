@@ -17,7 +17,10 @@
 <%= content %>
 <% end %>
 <% else %>
-<div data-controller="tab-switcher">
+<div data-controller="tab-switcher"<% if summary? %> class="<%= LAYOUT_CLASSES %>"<% end %>>
+  <% if summary? %>
+  <div class="<%= SUMMARY_CLASSES %>"><%= summary %></div>
+  <% end %>
   <div class="<%= classes %>">
     <% tabs.each_with_index do |tab, index| %>
       <button
@@ -29,6 +32,10 @@
         <%= "data-active" if index == 0 %>><%= tab %></button>
     <% end %>
   </div>
+  <% if summary? %>
+  <div class="<%= CONTENT_CLASSES %>"><%= content %></div>
+  <% else %>
   <%= content %>
+  <% end %>
 </div>
 <% end %>

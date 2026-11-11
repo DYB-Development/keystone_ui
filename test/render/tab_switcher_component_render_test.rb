@@ -74,6 +74,15 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[flex-wrap justify-center], page.at_css("nav.ks-tab-bar")["class"].split.grep_v(/\Amax-sm:/) & %w[flex-wrap justify-center flex-nowrap justify-start]
   end
 
+  def test_below_sm_tabs_given_as_plain_labels_are_also_drawn_above_the_summary_and_the_panel
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ])) do |switcher|
+      switcher.with_summary { "Stat cards" }
+      "Value panel"
+    end
+
+    assert_equal %w[tabs summary panel], drawn_order(page, "max-sm")
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
@@ -102,7 +111,7 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
   end
 
   def part_name(part)
-    return "tabs" if part.name == "nav"
+    return "tabs" if part.name == "nav" || part.at_css("button.ks-tab")
     return "summary" if part.text.include?("Stat cards")
     return "panel" if part.text.include?("Value panel")
 
