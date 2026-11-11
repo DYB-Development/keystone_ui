@@ -658,6 +658,23 @@ Renders a CSS grid with responsive column counts and configurable gap sizes.
 <% end %>
 ```
 
+### `ui_list_detail`
+
+Lays out a list and the detail of the item picked from it. From `lg` up the list takes the first third of the width and the detail the other two thirds beside it. Below `lg` the detail is drawn above the list, so on a phone the picked item shows without scrolling past the list. With no detail, the list takes the full width at every size. The app writes no Tailwind classes to get either order.
+
+Takes no props. The block is the list, and the `detail` slot is the picked item's detail. Leave the slot unset when nothing is picked.
+
+```erb
+<%= ui_list_detail do |layout| %>
+  <% if @step %>
+    <% layout.with_detail do %>
+      <!-- the picked step -->
+    <% end %>
+  <% end %>
+  <!-- the list of steps -->
+<% end %>
+```
+
 ### `ui_panel`
 
 Renders a bordered, rounded container with padding and optional shadow.
@@ -1295,6 +1312,21 @@ Link tabs name the chosen tab in the page address. Each tab is a link, the chose
   { label: "Offer", href: offer_path(@offer, tab: "offer"), current: tab == "offer" },
   { label: "Value", href: offer_path(@offer, tab: "value"), current: tab == "value" }
 ]) do %>
+  <%= render "offers/#{tab}", offer: @offer %>
+<% end %>
+```
+
+Below `sm` the tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line. From `sm` up it wraps and is centred.
+
+**Slots**
+
+- `summary` — content that sits with the tabs, such as stat cards. From `sm` up it is drawn above the tab row. Below `sm` it is drawn between the tab row and the panel, so a phone reaches the tabs first. The summary is drawn once, and the host writes no width-specific classes.
+
+```erb
+<%= ui_tab_switcher(tabs: tabs) do |switcher| %>
+  <% switcher.with_summary do %>
+    <%= render "offers/stats", offer: @offer %>
+  <% end %>
   <%= render "offers/#{tab}", offer: @offer %>
 <% end %>
 ```

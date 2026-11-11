@@ -19,6 +19,22 @@ All notable changes to this project will be documented in this file.
 - keystone_ui requires keystone_ui-styles 0.33.0 or later, which draws the link, text button, link caption, radio card value, full-width radio card and fact classes these use.
 - `ui_hero` takes `title_size: :sm`, which draws its title at `text-3xl`, and `text-4xl` from `md` up, instead of the larger default.
 
+## [0.74.0] - 2026-11-11
+
+### Added
+- `ui_list_detail` lays out a list and the detail of the item picked from it, filled with `layout.with_detail`. From `lg` up the list takes the first third of the width and the detail the other two thirds beside it, below `lg` the detail is drawn above the list, and with no detail the list takes the full width.
+
+### Fixed
+- A `ui_tab_switcher` given a summary no longer adds the tab row's bottom margin to the panel's top margin. From `sm` up its summary, tab row and panel are spaced exactly as the same content is without a summary. Below `sm` the gap under the tab row is the tab row's own gap, and the gap between the summary and the panel is the panel's own top margin.
+
+## [0.73.0] - 2026-11-11
+
+### Added
+- `ui_tab_switcher` takes a `summary` slot, set with `switcher.with_summary`, for content such as stat cards. From `sm` up it is drawn above the tab row, and below `sm` it is drawn between the tab row and the panel, from the same HTML. A tab switcher given no summary draws no wrapper around its tabs and panel.
+
+### Changed
+- Below `sm`, a `ui_tab_switcher` tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line. From `sm` up it wraps and is centred as before.
+
 ## [0.72.0] - 2026-11-10
 
 ### Added
