@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class LinkComponent < ViewComponent::Base
-      CLASSES = "ks-section-action"
+      CLASSES = "ks-link"
 
       def initialize(label:, href:)
         @label = label
