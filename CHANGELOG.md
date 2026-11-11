@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.75.0] - 2026-11-11
+
 ### Added
 - `ui_link(label:, href:)` draws a text link in the link colour, and in the link hover colour under the pointer.
 - `ui_button` takes `variant: :text`, which draws the button as small, underlined, muted text that turns to the text colour under the pointer.
