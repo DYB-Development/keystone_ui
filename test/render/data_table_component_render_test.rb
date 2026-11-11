@@ -800,6 +800,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css("tbody td .ks-caption")
   end
 
+  def test_given_phone_list_and_no_header_labels_no_total_with_its_column_s_heading
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, total: { month: "Total", pipeline: "$10" }, phone_list: true, header: false)
+    end
+
+    assert_empty page.css("tfoot th .ks-caption")
+  end
+
   private
 
   def three_columns

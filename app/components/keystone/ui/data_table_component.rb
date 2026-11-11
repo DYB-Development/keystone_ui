@@ -201,7 +201,7 @@ module Keystone
               value: resolve_value(item, column.key),
               classes: wrapped(aligned(tokens.join(" "), column), column)
             }
-            cell[:label] = column.header_text if @phone_list && @header
+            cell[:label] = column.header_text if phone_labels?
 
             link_block = @link_blocks[column.key]
             cell[:href] = link_block.call(item) if link_block
@@ -248,7 +248,11 @@ module Keystone
       private
 
       def summary_label(index, column)
-        column.header_text if @phone_list && !index.zero?
+        column.header_text if phone_labels? && !index.zero?
+      end
+
+      def phone_labels?
+        @phone_list && @header
       end
 
       def phone_list_classes(classes, phone_list_classes)
