@@ -45,6 +45,10 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[summary tabs panel], drawn_order(render_with_summary, "sm")
   end
 
+  def test_below_sm_the_tab_row_is_drawn_above_the_summary_and_the_panel
+    assert_equal %w[tabs summary panel], drawn_order(render_with_summary, "max-sm")
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 

@@ -8,9 +8,9 @@
 <% end %>
 <% if summary? %>
 <div>
-  <div><%= summary %></div>
+  <div class="<%= SUMMARY_CLASSES %>"><%= summary %></div>
   <%= tab_row %>
-  <div><%= content %></div>
+  <div class="<%= CONTENT_CLASSES %>"><%= content %></div>
 </div>
 <% else %>
 <%= tab_row %>
