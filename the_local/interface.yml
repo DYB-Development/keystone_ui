@@ -24,6 +24,7 @@ develop:
   - ui_page
   - ui_section
   - ui_grid
+  - ui_list_detail
   - ui_panel
   - ui_card_link
   - ui_input
@@ -138,6 +139,8 @@ sources:
   - app/components/keystone/ui/bucket_series_component.rb
   - app/components/keystone/ui/grid_component.rb
   - app/components/keystone/ui/hero_component.rb
+  - app/components/keystone/ui/list_detail_component.rb
+  - app/components/keystone/ui/list_detail_component.html.erb
   - app/components/keystone/ui/input_component.rb
   - app/components/keystone/ui/line_chart_component.rb
   - app/components/keystone/ui/mobile_actions_component.rb

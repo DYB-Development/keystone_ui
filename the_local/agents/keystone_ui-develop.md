@@ -31,6 +31,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_breadcrumbs` — a line of links to the pages above the current one, shown from `lg:` up.
 - `ui_section` — a titled block of content with an optional link and action menu in its header.
 - `ui_grid` — a responsive grid with a column count per breakpoint.
+- `ui_list_detail` — a list beside the detail of the item picked from it, with the detail above the list below `lg:`.
 - `ui_panel` — a bordered card surface holding any content.
 - `ui_card_link` — a panel that is one link as a whole.
 - `ui_card` — a fixed card of title, summary and call-to-action link.
@@ -214,6 +215,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `cols:` maps `:default` `:sm` `:md` `:lg` to a count from 1 to 12, such as
      `{ default: 1, md: 3 }`. `gap:` is `:sm` `:md` `:lg` `:xl`, and passing
      `gap_x:` or `gap_y:` replaces `gap:` entirely.
+   - `ui_list_detail` takes no keywords. The block is the list, and
+     `layout.with_detail { ... }` is the picked item's detail, left unset when
+     nothing is picked. From `lg:` up the list takes the first third of the
+     width and the detail the other two thirds beside it. Below `lg:` the detail
+     is drawn above the list. With no detail the list takes the full width at
+     every size. Write no Tailwind classes of your own to get either order.
    - `ui_panel(padding: :md, radius: :lg, shadow: true)` — `padding:` is `:sm`
      `:md` `:lg` and `radius:` is `:md` `:lg` `:xl`.
    - `ui_card_link(href:, padding: :md, shadow: true)` — `padding:` is `:sm`

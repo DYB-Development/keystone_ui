@@ -651,6 +651,23 @@ Renders a CSS grid with responsive column counts and configurable gap sizes.
 <% end %>
 ```
 
+### `ui_list_detail`
+
+Lays out a list and the detail of the item picked from it. From `lg` up the list takes the first third of the width and the detail the other two thirds beside it. Below `lg` the detail is drawn above the list, so on a phone the picked item shows without scrolling past the list. With no detail, the list takes the full width at every size. The app writes no Tailwind classes to get either order.
+
+Takes no props. The block is the list, and the `detail` slot is the picked item's detail. Leave the slot unset when nothing is picked.
+
+```erb
+<%= ui_list_detail do |layout| %>
+  <% if @step %>
+    <% layout.with_detail do %>
+      <!-- the picked step -->
+    <% end %>
+  <% end %>
+  <!-- the list of steps -->
+<% end %>
+```
+
 ### `ui_panel`
 
 Renders a bordered, rounded container with padding and optional shadow.
