@@ -18,6 +18,8 @@ module Keystone
 
       FULL_WIDTH_CLASSES = "w-full"
 
+      TEXT_CLASSES = "ks-tone-muted cursor-pointer text-sm underline underline-offset-2"
+
       def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil)
         @label = label
         @href = href
@@ -30,6 +32,8 @@ module Keystone
       end
 
       def classes
+        return TEXT_CLASSES if @variant == :text
+
         variant_css = if @variant == :primary
           "ks-button-primary"
         else
