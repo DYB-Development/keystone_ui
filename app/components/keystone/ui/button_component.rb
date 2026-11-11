@@ -20,7 +20,7 @@ module Keystone
 
       TEXT_CLASSES = "ks-tone-muted cursor-pointer text-sm underline underline-offset-2"
 
-      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil)
+      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil)
         @label = label
         @href = href
         @method = method.to_sym
@@ -29,6 +29,8 @@ module Keystone
         @size = size
         @type = type.to_s
         @data = data
+        @name = name
+        @value = value
       end
 
       def classes
@@ -50,6 +52,8 @@ module Keystone
         options = { class: classes }
         if button?
           options[:type] = @type
+          options[:name] = @name if @name
+          options[:value] = @value if @value
         else
           options[:href] = @href
         end
