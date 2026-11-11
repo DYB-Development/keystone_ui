@@ -32,4 +32,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 1, page.css("a.ks-value-list-row svg.ks-settings-link-chevron").size
   end
+
+  def test_at_phone_width_stacks_a_row_badge_above_its_label
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a .ks-badge").parent["class"].to_s.split, "flex-col-reverse"
+  end
 end
