@@ -61,6 +61,13 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal "nav", page.children.find(&:element?).name
   end
 
+  def test_below_sm_no_tab_label_wraps_onto_a_second_line_or_is_squeezed_narrower
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
+
+    assert_equal [ %w[max-sm:shrink-0 max-sm:whitespace-nowrap] ] * 2,
+      page.css("a.ks-tab").map { |link| link["class"].split & %w[max-sm:shrink-0 max-sm:whitespace-nowrap] }
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
