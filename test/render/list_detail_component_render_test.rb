@@ -56,4 +56,13 @@ class Keystone::Ui::ListDetailComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("div.grid > div")["class"].split, "min-w-0"
   end
+
+  def test_the_detail_column_can_shrink_below_the_width_of_what_it_holds
+    page = render_inline(Keystone::Ui::ListDetailComponent.new) do |layout|
+      layout.with_detail { "Step 2" }
+      "Steps"
+    end
+
+    assert_includes page.at_css("div.grid > div")["class"].split, "min-w-0"
+  end
 end
