@@ -18,7 +18,9 @@ module Keystone
 
       FULL_WIDTH_CLASSES = "w-full"
 
-      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil)
+      TEXT_CLASSES = "ks-text-button"
+
+      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false)
         @label = label
         @href = href
         @method = method.to_sym
@@ -27,9 +29,14 @@ module Keystone
         @size = size
         @type = type.to_s
         @data = data
+        @name = name
+        @value = value
+        @hidden = hidden
       end
 
       def classes
+        return TEXT_CLASSES if @variant == :text
+
         variant_css = if @variant == :primary
           "ks-button-primary"
         else
@@ -46,10 +53,13 @@ module Keystone
         options = { class: classes }
         if button?
           options[:type] = @type
+          options[:name] = @name if @name
+          options[:value] = @value if @value
         else
           options[:href] = @href
         end
         options[:data] = @data if @data
+        options[:hidden] = true if @hidden
         options
       end
 

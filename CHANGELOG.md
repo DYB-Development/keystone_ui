@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_link(label:, href:)` draws a text link in the link colour, and in the link hover colour under the pointer.
+- `ui_button` takes `variant: :text`, which draws the button as small, underlined, muted text that turns to the text colour under the pointer.
+- `ui_button` takes `name:` and `value:`, which a button with no `href:` submits with its form when pressed.
+- `ui_button` takes `hidden: true`, which draws the button with the `hidden` attribute.
+- `ui_radio_card` takes `submits: true`, which submits the card's form as soon as the card is chosen.
+- `ui_radio_card` takes `show_value: true`, which draws the answer's value in a small tag before its label.
+- `ui_radio_card` takes `full_width: true`, which makes the card fill its row with its value and label side by side.
+- `ui_caption` takes `tone: :link`, which draws the caption in the link colour with space under it, as the label above a quiz question.
+- `ui_facts(facts:)` draws a wrapping row of facts, each a count in bold beside its label, from a list of `{ value:, label: }` hashes.
+- A `ui_value_list` row takes `right: true`, which draws a green check mark, read out as "Right", after its value.
+- `ui_checkbox_row` takes `disabled: true`, which draws its checkbox disabled.
+- keystone_ui requires keystone_ui-styles 0.33.0 or later, which draws the link, text button, link caption, radio card value, full-width radio card and fact classes these use.
+- `ui_hero` takes `title_size: :sm`, which draws its title at `text-3xl`, and `text-4xl` from `md` up, instead of the larger default.
+
 ## [0.74.0] - 2026-11-11
 
 ### Added

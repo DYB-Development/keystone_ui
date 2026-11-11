@@ -1,0 +1,5 @@
+<div class="<%= facts_classes %>">
+  <% facts.each do |fact| %>
+    <span class="<%= fact_classes %>"><b class="<%= value_classes %>"><%= fact[:value] %></b> <%= fact[:label] %></span>
+  <% end %>
+</div>

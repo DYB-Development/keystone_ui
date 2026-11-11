@@ -70,6 +70,8 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_picture` — an image never taller than half the screen, optionally opening its full-size file.
 - `ui_heading` — a heading at one of three sizes, with an optional short note on its right.
 - `ui_caption` — small uppercase muted text placed above a title or a figure.
+- `ui_link` — a text link in the link colour.
+- `ui_facts` — a row of facts, each a count in bold beside its label.
 - `ui_paragraph` — a paragraph of running text.
 - `ui_value_list` — rows of a label and its value, such as a ledger or a byline.
 - `ui_alert` — a banner message, optionally dismissible.
@@ -410,8 +412,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      needs the enclosing form to be multipart.
    - `ui_color_picker(name:, value: "#000000", label: nil)` writes the chosen
      hex value into a hidden input named `name`.
-   - `ui_radio_card(name:, value:, label:, hint: nil, info: nil, checked: false)`
-     and `ui_checkbox_row(name:, value:, label:, hint: nil, info: nil, checked: false)`
+   - `ui_radio_card(name:, value:, label:, hint: nil, info: nil, checked: false, submits: false, show_value: false, full_width: false)`
+     and `ui_checkbox_row(name:, value:, label:, hint: nil, info: nil, checked: false, disabled: false)`
      share `hint:` and `info:`. `hint:` is a line always shown under the label.
      `info:` adds an info button beside the label, named "About <label>" for
      screen readers, that shows the text in a panel below while hovered and
@@ -420,6 +422,14 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - A checked `ui_checkbox_row` submits `value` under `name`, an unchecked one
      submits nothing, and rows sharing an array name such as `"shown[]"`
      submit the checked values as a list.
+   - `submits: true` on `ui_radio_card` submits its form as soon as the card
+     is chosen, so a question answered by one choice needs no Next button.
+   - `show_value: true` on `ui_radio_card` draws the answer's value in a small
+     tag before its label. `full_width: true` makes the card fill its row with
+     the tag and label side by side. Stack quiz answers with
+     `ui_grid(cols: 1, gap: :sm)`.
+   - `disabled: true` on `ui_checkbox_row` draws its checkbox disabled, and a
+     disabled checkbox submits nothing.
    - `ui_sortable_list(name:, label:, rows:)` is one field inside a `ui_form`,
      for putting a short list in order. `rows:` is an array of
      `{ id:, label: }` hashes, `label:` names the list for screen readers, and
@@ -550,10 +560,16 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 9. Show content and status.
 
-   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil)`
+   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false)`
      renders a link with `href:` and a button without it. `variant:` is
-     `:primary` `:secondary` `:danger`, `size:` is `:sm` `:md` `:lg`, and
-     `type:` applies only to the button.
+     `:primary` `:secondary` `:danger` `:text`, `size:` is `:sm` `:md` `:lg`,
+     and `type:`, `name:` and `value:` apply only to the button.
+   - `variant: :text` draws the button as small, underlined, muted text, such
+     as a Back or Previous control under a form. A button given `name:` and
+     `value:` submits them with its form when pressed. `hidden: true` draws it
+     with the `hidden` attribute, for the app's own script to show.
+   - `ui_link(label:, href:)` draws a text link in the link colour. Use it in
+     place of a hand-written `link_to` with colour classes.
    - With `href:` and `method:` `:post` `:patch` `:put` or `:delete`, it
      renders a button inside its own small form that sends that request to
      `href:` when tapped. Do not write a form around it. It cannot sit inside
@@ -592,11 +608,16 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_accordion(items: [])` — `items:` is `[{ question:, answer: }, ...]`.
    - `ui_heading(text:, size: :md, note: nil)` — `size:` is `:sm` `:md` `:lg`,
      and `note:` puts a short muted note at the right end of the heading's row.
-   - `ui_caption(text:)` shows small uppercase muted text above a title or a figure.
+   - `ui_caption(text:, tone: :muted)` shows small uppercase muted text above
+     a title or a figure. `tone: :link` draws it in the link colour with space
+     under it, as the label above a quiz question.
+   - `ui_facts(facts:)` — each fact is `{ value:, label: }`, drawn as a small
+     box with the count in bold beside its label, in a row that wraps.
    - `ui_paragraph(text:)` shows running text.
    - `ui_value_list(rows:, align: :start)` — each row is `{ label:, value: }`
-     with optional `note:`, `total: true` and `fallback:`, shown when the value
-     is `nil` or empty. `align: :end` pushes values to the right, as in a ledger.
+     with optional `note:`, `total: true`, `right: true` and `fallback:`, shown
+     when the value is `nil` or empty. `right: true` draws a green check mark
+     after the value, read out as "Right", for an answer that was right. `align: :end` pushes values to the right, as in a ledger.
 
 10. Explain figures.
 
@@ -714,12 +735,13 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 13. Build marketing sections.
 
     - `ui_hero(title:, subtitle: nil, badge: nil, layout: :split,
-      height: :screen)` takes a block holding the call-to-action buttons and
+      height: :screen, title_size: :lg)` takes a block holding the call-to-action buttons and
       yields the component, so its `aside` slot can hold an image or panel.
       `layout:` is `:split` or `:centered`. `height: :screen` keeps the hero at
       least the full screen height, and `height: :content` draws it only as
       tall as its content and its padding, for a page with more sections
-      after it.
+      after it. `title_size: :sm` draws the title smaller, as on a quiz's
+      intro page.
     - `ui_cta_banner(title:, subtitle: nil)` takes a block holding the
       buttons.
     - `ui_feature_grid(title:, features:, subtitle: nil)` — `features:` is

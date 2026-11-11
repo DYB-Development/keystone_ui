@@ -74,6 +74,8 @@ develop:
   - ui_picture
   - ui_heading
   - ui_caption
+  - ui_link
+  - ui_facts
   - ui_paragraph
   - ui_value_list
   - ui_breakdown

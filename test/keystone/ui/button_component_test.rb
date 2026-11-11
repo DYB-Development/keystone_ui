@@ -46,4 +46,22 @@ class Keystone::Ui::ButtonComponentTest < Minitest::Test
 
     assert_equal "ks-button ks-button-primary ks-button-md w-full", component.classes
   end
+
+  def test_a_text_button_looks_like_underlined_muted_text
+    component = Keystone::Ui::ButtonComponent.new(label: "← Back", variant: :text)
+
+    assert_equal "ks-text-button", component.classes
+  end
+
+  def test_a_button_given_a_name_and_value_submits_them_when_pressed
+    options = Keystone::Ui::ButtonComponent.new(label: "← Back", variant: :text, name: "back", value: "1").tag_options
+
+    assert_equal [ "back", "1" ], [ options[:name], options[:value] ]
+  end
+
+  def test_a_hidden_button_carries_the_hidden_attribute
+    component = Keystone::Ui::ButtonComponent.new(label: "← Previous", variant: :text, type: :button, hidden: true)
+
+    assert_equal true, component.tag_options[:hidden]
+  end
 end

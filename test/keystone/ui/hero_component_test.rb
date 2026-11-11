@@ -59,6 +59,12 @@ class Keystone::Ui::HeroComponentTest < Minitest::Test
     assert_includes component.title_classes, "tracking-tight"
   end
 
+  def test_a_small_title_is_drawn_at_the_quiz_intro_size
+    component = Keystone::Ui::HeroComponent.new(title: "Capitals", title_size: :sm)
+
+    assert_equal "ks-hero-title text-3xl tracking-tight md:text-4xl", component.title_classes
+  end
+
   def test_supports_centered_layout
     component = Keystone::Ui::HeroComponent.new(title: "X", layout: :centered)
 

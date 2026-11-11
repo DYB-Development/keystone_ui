@@ -277,6 +277,14 @@ module KeystoneUiHelper
     render Keystone::Ui::CaptionComponent.new(**args)
   end
 
+  def ui_link(**args)
+    render Keystone::Ui::LinkComponent.new(**args)
+  end
+
+  def ui_facts(**args)
+    render Keystone::Ui::FactsComponent.new(**args)
+  end
+
   def ui_paragraph(**args)
     render Keystone::Ui::ParagraphComponent.new(**args)
   end

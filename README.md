@@ -373,6 +373,13 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 - `variant:` (`:primary | :secondary | :danger`, default `:primary`)
 - `size:` (`:sm | :md | :lg`, default `:md`)
 - `full_width:` (Boolean, default `false`) — makes the button, and the form of a button sending a request, as wide as its row
+- `variant: :text` — draws the button as small, underlined, muted text instead of a button shape
+- `name:` and `value:` (String) — a button with no `href:` submits them with its form when pressed
+- `hidden:` (Boolean, default `false`) — draws the button with the `hidden` attribute, for a script to show later
+
+```erb
+<%= ui_button(label: "← Back", variant: :text, name: "back", value: "1") %>
+```
 
 ```erb
 <%= ui_button(label: "Start game", href: game_start_path(@game), method: :post, full_width: true) %>
@@ -1072,8 +1079,13 @@ Shows small, uppercase, muted text for placing above a title or a figure.
 
 - `text:` (String)
 
+**Optional props**
+
+- `tone:` (`:muted | :link`, default `:muted`) — `:link` draws the caption in the link colour with space under it, as the label above a quiz question
+
 ```erb
 <%= ui_caption(text: "Work report") %>
+<%= ui_caption(text: "Geography", tone: :link) %>
 ```
 
 ### `ui_paragraph`
@@ -1088,13 +1100,38 @@ Shows a paragraph of running text.
 <%= ui_paragraph(text: "Work from 1 to 30 September.") %>
 ```
 
+### `ui_link`
+
+Draws a text link in the link colour.
+
+**Required props**
+
+- `label:` (String)
+- `href:` (String or URL)
+
+```erb
+<%= ui_link(label: "Upload questions", href: upload_questions_path) %>
+```
+
+### `ui_facts`
+
+Draws a wrapping row of facts, each a count in bold beside its label, such as the number of questions on a quiz's intro page.
+
+**Required props**
+
+- `facts:` (Array of Hashes) — each fact is `{ value:, label: }`
+
+```erb
+<%= ui_facts(facts: [ { value: 12, label: "questions" } ]) %>
+```
+
 ### `ui_value_list`
 
 Shows rows of a label and its value, such as a ledger, a byline beside a title, or a list of terms and what they mean.
 
 **Required props**
 
-- `rows:` (Array of Hashes) — each row is `{ label:, value: }`, with optional `note:` (a short note under the label), `total: true` (draws the row with more weight) and `fallback:` (shown when the value is `nil` or empty)
+- `rows:` (Array of Hashes) — each row is `{ label:, value: }`, with optional `note:` (a short note under the label), `total: true` (draws the row with more weight), `right: true` (draws a green check mark, read out as "Right", after the value) and `fallback:` (shown when the value is `nil` or empty)
 
 **Optional props**
 
@@ -1329,6 +1366,7 @@ Renders a large hero section for landing pages.
 - `badge:` (String) — small badge text above the title
 - `layout:` (`:split | :centered`, default `:split`)
 - `height:` (`:screen | :content`, default `:screen`) — `:screen` keeps the hero at least the full screen height, and `:content` draws it only as tall as its content and its padding
+- `title_size:` (`:lg | :sm`, default `:lg`) — `:sm` draws the title smaller, as on a quiz's intro page
 
 ```erb
 <%= ui_hero(title: "Build faster with Keystone", subtitle: "UI components for Rails", badge: "New") do |hero| %>

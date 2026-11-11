@@ -15,6 +15,8 @@ module Keystone
       Keystone::Ui::CtaBannerComponent,
       Keystone::Ui::FeatureGridComponent,
       Keystone::Ui::CaptionComponent,
+      Keystone::Ui::LinkComponent,
+      Keystone::Ui::FactsComponent,
       Keystone::Ui::FigureComponent,
       Keystone::Ui::HeadingComponent,
       Keystone::Ui::HeroComponent,

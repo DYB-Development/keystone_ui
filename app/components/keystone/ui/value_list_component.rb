@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class ValueListComponent < ViewComponent::Base
       ALIGN_CLASSES = { start: nil, end: "ks-value-list-end" }.freeze
+      RIGHT_MARK_CLASSES = "ks-tone-success inline size-5 align-text-bottom"
 
       attr_reader :rows
 
@@ -18,6 +19,10 @@ module Keystone
 
       def shown_value(row)
         row[:value].to_s.empty? ? row[:fallback] : row[:value]
+      end
+
+      def right_mark_classes
+        RIGHT_MARK_CLASSES
       end
 
       def row_classes(row)
