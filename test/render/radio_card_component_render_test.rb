@@ -40,4 +40,10 @@ class Keystone::Ui::RadioCardComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "this.form.requestSubmit()", page.at_css("input[type=radio]")["onchange"]
   end
+
+  def test_a_card_given_show_value_draws_the_answers_value_before_its_label
+    page = render_inline(Keystone::Ui::RadioCardComponent.new(name: "answers[1]", value: "b", label: "Paris", show_value: true))
+
+    assert_equal [ "b", "Paris" ], [ page.at_css(".ks-radio-card .ks-radio-card-value")&.text, page.at_css(".ks-radio-card-value + span .ks-radio-card-label")&.text ]
+  end
 end
