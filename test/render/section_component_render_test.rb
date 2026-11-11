@@ -9,4 +9,13 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Edit", "Delete" ], page.css(".ks-section-header [data-action-menu-target=menu] .ks-menu-option").map { |item| item.text.strip }
   end
+
+  def test_given_an_action_and_a_menu_puts_the_action_in_the_same_last_element_of_the_header_as_the_menu
+    page = render_inline(Keystone::Ui::SectionComponent.new(title: "Crew", action: { label: "Add", href: "/crew/new" },
+      menu: [ { label: "Edit", href: "/crew/edit" } ])) { "" }
+
+    actions = page.css(".ks-section-header > *").last
+
+    assert_equal [ "Add", "Actions" ], [ actions.at_css(".ks-section-action")&.text&.strip, actions.at_css("[data-action-menu-target=button]")&.[]("aria-label") ]
+  end
 end
