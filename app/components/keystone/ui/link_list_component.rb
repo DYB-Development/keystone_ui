@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class LinkListComponent < ViewComponent::Base
       ROW_CLASSES = "ks-value-list-row items-center no-underline"
-      STACK_CLASSES = "flex min-w-0 flex-1 flex-col-reverse sm:contents"
+      STACK_CLASSES = "flex min-w-0 flex-1 flex-col-reverse gap-2 sm:contents"
       BADGE_CLASSES = "max-sm:self-start"
       TEXT_CLASSES = "min-w-0 flex-1"
       LABEL_CLASSES = "ks-paragraph ks-settings-link-label block"

@@ -62,4 +62,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("a > span")["class"].to_s.split, "min-w-0"
   end
+
+  def test_at_phone_width_spaces_a_row_badge_from_its_label
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a > span")["class"].to_s.split, "gap-2"
+  end
 end
