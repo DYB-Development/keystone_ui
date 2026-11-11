@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_link(label:, href:)` draws a text link in the link colour.
+- `ui_button` takes `variant: :text`, which draws the button as small, underlined, muted text.
+- `ui_button` takes `name:` and `value:`, which a button with no `href:` submits with its form when pressed.
+- `ui_button` takes `hidden: true`, which draws the button with the `hidden` attribute.
+- `ui_radio_card` takes `submits: true`, which submits the card's form as soon as the card is chosen.
+- A `ui_value_list` row takes `right: true`, which draws a green check mark, read out as "Right", after its value.
+- `ui_checkbox_row` takes `disabled: true`, which draws its checkbox disabled.
+- `ui_hero` takes `title_size: :sm`, which draws its title at `text-3xl`, and `text-4xl` from `md` up, instead of the larger default.
+
 ## [0.72.0] - 2026-11-10
 
 ### Added
