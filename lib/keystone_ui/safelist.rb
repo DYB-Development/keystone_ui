@@ -16,6 +16,7 @@ module Keystone
       Keystone::Ui::FeatureGridComponent,
       Keystone::Ui::CaptionComponent,
       Keystone::Ui::LinkComponent,
+      Keystone::Ui::FactsComponent,
       Keystone::Ui::FigureComponent,
       Keystone::Ui::HeadingComponent,
       Keystone::Ui::HeroComponent,
