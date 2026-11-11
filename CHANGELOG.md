@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_tab_switcher` takes a `summary` slot, set with `switcher.with_summary`, for content such as stat cards. From `sm` up it is drawn above the tab row, and below `sm` it is drawn between the tab row and the panel, from the same HTML. A tab switcher given no summary draws no wrapper around its tabs and panel.
+
+### Changed
+- Below `sm`, a `ui_tab_switcher` tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line. From `sm` up it wraps and is centred as before.
+
 ## [0.72.0] - 2026-11-10
 
 ### Added
