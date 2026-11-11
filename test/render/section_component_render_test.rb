@@ -19,6 +19,12 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Add", "Actions" ], [ actions.at_css(".ks-section-action")&.text&.strip, actions.at_css("[data-action-menu-target=button]")&.[]("aria-label") ]
   end
 
+  def test_given_no_action_and_no_menu_draws_no_actions_row
+    page = render_inline(Keystone::Ui::SectionComponent.new(title: "Crew")) { "" }
+
+    assert_equal 1, page.css(".ks-section-header > *").size
+  end
+
   def test_lays_out_its_actions_side_by_side_in_one_row_that_does_not_shrink
     page = render_inline(Keystone::Ui::SectionComponent.new(title: "Crew", action: { label: "Add", href: "/crew/new" },
       menu: [ { label: "Edit", href: "/crew/edit" } ])) { "" }

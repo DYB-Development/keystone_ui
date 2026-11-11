@@ -7,20 +7,22 @@
           <p class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></p>
         <% end %>
       </div>
-      <div class="<%= ACTIONS_CLASSES %>">
-        <% if @action %>
-          <a href="<%= @action[:href] %>" class="<%= action_classes %>">
-            <%= @action[:label] %>
-          </a>
-        <% end %>
-        <% if @menu.any? %>
-          <%= render Keystone::Ui::ActionMenuComponent.new do %>
-            <% @menu.each do |item| %>
-              <%= render Keystone::Ui::ActionMenuItemComponent.new(**item) %>
+      <% if @action || @menu.any? %>
+        <div class="<%= ACTIONS_CLASSES %>">
+          <% if @action %>
+            <a href="<%= @action[:href] %>" class="<%= action_classes %>">
+              <%= @action[:label] %>
+            </a>
+          <% end %>
+          <% if @menu.any? %>
+            <%= render Keystone::Ui::ActionMenuComponent.new do %>
+              <% @menu.each do |item| %>
+                <%= render Keystone::Ui::ActionMenuItemComponent.new(**item) %>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
     </div>
   <% end %>
   <%= content %>
