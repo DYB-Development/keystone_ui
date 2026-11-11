@@ -31,6 +31,14 @@ class KeystoneUi::TextHelperTest < Minitest::Test
     assert_equal "Work report", view.rendered.text
   end
 
+  def test_renders_a_link
+    view = View.new
+
+    view.ui_link(label: "Upload questions", href: "/questions/upload")
+
+    assert_instance_of Keystone::Ui::LinkComponent, view.rendered
+  end
+
   def test_renders_a_paragraph_with_its_text
     view = View.new
 
