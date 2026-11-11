@@ -14,17 +14,22 @@ module Keystone
 
       attr_reader :name, :value, :label, :hint, :info
 
-      def initialize(name:, value:, label:, hint: nil, info: nil, checked: false)
+      def initialize(name:, value:, label:, hint: nil, info: nil, checked: false, submits: false)
         @name = name
         @value = value
         @label = label
         @hint = hint
         @info = info
         @checked = checked
+        @submits = submits
       end
 
       def checked?
         @checked
+      end
+
+      def submits?
+        @submits
       end
 
       def hint?

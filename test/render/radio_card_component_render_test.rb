@@ -34,4 +34,10 @@ class Keystone::Ui::RadioCardComponentRenderTest < ViewComponent::TestCase
 
     assert_nil page.at_css("button.ks-radio-card-info")
   end
+
+  def test_a_card_given_submits_submits_its_form_when_chosen
+    page = render_inline(Keystone::Ui::RadioCardComponent.new(name: "answers[1]", value: "b", label: "Paris", submits: true))
+
+    assert_equal "this.form.requestSubmit()", page.at_css("input[type=radio]")["onchange"]
+  end
 end
