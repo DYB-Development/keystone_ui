@@ -94,6 +94,16 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ 1, 0 ], page.css("tbody tr").map { |row| row.css("[data-controller=action-menu]").size }
   end
 
+  def test_given_actions_that_are_empty_on_every_row_draws_no_actions_column
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow" }, { name: "Edging" } ], columns: [ { name: "Name" } ]) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/products/1/edit") if row[:name] == "Hedging" }
+      end
+    end
+
+    assert_equal [ "Name" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
   def test_given_a_save_address_and_no_saved_value_hides_the_columns_its_own_call_hides
     KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
 
@@ -763,6 +773,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("tbody td .ks-caption").map { |label| label.text.strip }
   end
 
+  def test_given_phone_list_starts_every_body_subtotal_and_total_cell_at_the_same_left_edge_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", quarter: "Q1" } ], columns: columns, group_by: :quarter, group_totals: { "Q1" => { pipeline: "$10" } }, total: { month: "Total", pipeline: "$10" }, phone_list: true)
+    end
+
+    assert_equal [ true ] * 6, page.css("tbody td, tbody th, tfoot th").map { |cell| cell["class"].to_s.split.include?("ks-table-phone-list-cell") }
+  end
+
   def test_given_phone_list_changes_nothing_from_phone_width_up
     columns = month_columns
     items = [ { month: "Jan", pipeline: "$10" } ]
@@ -770,7 +789,7 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     listed = render_in_view_context { ui_data_table(items: items, columns: columns, phone_list: true) }
     added = listed.css("*").reject { |part| part["class"].to_s.split.include?("sm:hidden") }.zip(plain.css("*")).flat_map { |chosen, unchosen| chosen["class"].to_s.split - unchosen["class"].to_s.split }
 
-    assert(added.all? { |token| token.start_with?("max-sm:") })
+    assert(added.all? { |token| token.start_with?("max-sm:") || token == "ks-table-phone-list-cell" })
   end
 
   def test_given_no_phone_list_draws_no_heading_labels_or_phone_width_layout
@@ -780,6 +799,33 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     end
 
     assert_empty page.css(".ks-caption, [class*='max-sm:']")
+  end
+
+  def test_given_no_header_draws_no_heading_row
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, header: false)
+    end
+
+    assert_empty page.css("thead")
+  end
+
+  def test_given_phone_list_and_no_header_labels_no_cell_with_its_column_s_heading
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, phone_list: true, header: false)
+    end
+
+    assert_empty page.css("tbody td .ks-caption")
+  end
+
+  def test_given_phone_list_and_no_header_labels_no_total_with_its_column_s_heading
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, total: { month: "Total", pipeline: "$10" }, phone_list: true, header: false)
+    end
+
+    assert_empty page.css("tfoot th .ks-caption")
   end
 
   private

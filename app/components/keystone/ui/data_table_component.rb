@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext/object/blank"
+
 module Keystone
   module Ui
     class DataTableComponent < ViewComponent::Base
@@ -32,7 +34,7 @@ module Keystone
 
       PHONE_LIST_HEAD_CLASSES = "max-sm:hidden"
       PHONE_LIST_BLOCK_CLASSES = "max-sm:block"
-      PHONE_LIST_CELL_CLASSES = "max-sm:block max-sm:text-left max-sm:whitespace-normal"
+      PHONE_LIST_CELL_CLASSES = "ks-table-phone-list-cell max-sm:block max-sm:text-left max-sm:whitespace-normal"
       CELL_LABEL_CLASSES = "ks-caption block sm:hidden"
 
       SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
@@ -44,7 +46,7 @@ module Keystone
       SORT_DESC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 0 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg>'
       SORT_NEUTRAL_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908 2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z" clip-rule="evenodd" /></svg>'
 
-      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false)
+      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true)
         @items = items.to_a
         @current_index = @items.index(current_row) unless current_row.nil?
         @group_by = group_by
@@ -62,6 +64,7 @@ module Keystone
         @actions_block = nil
         @link_blocks = {}
         @phone_list = phone_list
+        @header = header
       end
 
       def before_render
@@ -123,8 +126,18 @@ module Keystone
         phone_list_classes(HEAD_CLASSES, PHONE_LIST_HEAD_CLASSES)
       end
 
+      def header?
+        @header
+      end
+
       def actions?
-        !!@actions_block
+        row_actions.any?(&:present?)
+      end
+
+      def row_actions
+        return [] unless @actions_block
+
+        @row_actions ||= @items.map { |item| capture(item, &@actions_block) }
       end
 
       def column_picker
@@ -196,7 +209,7 @@ module Keystone
               value: resolve_value(item, column.key),
               classes: wrapped(aligned(tokens.join(" "), column), column)
             }
-            cell[:label] = column.header_text if @phone_list
+            cell[:label] = column.header_text if phone_labels?
 
             link_block = @link_blocks[column.key]
             cell[:href] = link_block.call(item) if link_block
@@ -243,7 +256,11 @@ module Keystone
       private
 
       def summary_label(index, column)
-        column.header_text if @phone_list && !index.zero?
+        column.header_text if phone_labels? && !index.zero?
+      end
+
+      def phone_labels?
+        @phone_list && @header
       end
 
       def phone_list_classes(classes, phone_list_classes)
