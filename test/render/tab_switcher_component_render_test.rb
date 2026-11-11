@@ -55,6 +55,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[flex flex-col], wrapper["class"].to_s.split & %w[flex flex-col]
   end
 
+  def test_with_no_summary_the_tab_row_and_panel_are_drawn_with_no_column_around_them
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS)) { "Value panel" }
+
+    assert_equal "nav", page.children.find(&:element?).name
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
