@@ -8,7 +8,13 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
   def test_returns_base_wrapper_classes
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ])
 
-    assert_equal "ks-tab-bar flex flex-wrap justify-center", component.classes
+    assert_equal "ks-tab-bar flex flex-wrap justify-center max-sm:flex-nowrap max-sm:overflow-x-auto", component.classes
+  end
+
+  def test_below_sm_the_tab_row_stays_on_one_line_and_scrolls_sideways
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ])
+
+    assert_equal %w[max-sm:flex-nowrap max-sm:overflow-x-auto], component.classes.split & %w[max-sm:flex-nowrap max-sm:overflow-x-auto]
   end
 
   def test_stores_tab_labels

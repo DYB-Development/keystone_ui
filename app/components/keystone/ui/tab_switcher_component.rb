@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class TabSwitcherComponent < ViewComponent::Base
-      TAB_BAR_CLASSES = "ks-tab-bar flex flex-wrap justify-center"
+      TAB_BAR_CLASSES = "ks-tab-bar flex flex-wrap justify-center max-sm:flex-nowrap max-sm:overflow-x-auto"
       TAB_BASE_CLASSES = "ks-tab text-sm transition"
       PANEL_CLASSES = "hidden"
       LAYOUT_CLASSES = "flex flex-col"
