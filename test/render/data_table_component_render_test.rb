@@ -773,6 +773,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Month", "Outreach", "Pipeline" ], page.css("tbody td .ks-caption").map { |label| label.text.strip }
   end
 
+  def test_given_phone_list_starts_every_body_subtotal_and_total_cell_at_the_same_left_edge_below_phone_width
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", quarter: "Q1" } ], columns: columns, group_by: :quarter, group_totals: { "Q1" => { pipeline: "$10" } }, total: { month: "Total", pipeline: "$10" }, phone_list: true)
+    end
+
+    assert_equal [ true ] * 6, page.css("tbody td, tbody th, tfoot th").map { |cell| cell["class"].to_s.split.include?("ks-table-phone-list-cell") }
+  end
+
   def test_given_phone_list_changes_nothing_from_phone_width_up
     columns = month_columns
     items = [ { month: "Jan", pipeline: "$10" } ]
@@ -780,7 +789,7 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     listed = render_in_view_context { ui_data_table(items: items, columns: columns, phone_list: true) }
     added = listed.css("*").reject { |part| part["class"].to_s.split.include?("sm:hidden") }.zip(plain.css("*")).flat_map { |chosen, unchosen| chosen["class"].to_s.split - unchosen["class"].to_s.split }
 
-    assert(added.all? { |token| token.start_with?("max-sm:") })
+    assert(added.all? { |token| token.start_with?("max-sm:") || token == "ks-table-phone-list-cell" })
   end
 
   def test_given_no_phone_list_draws_no_heading_labels_or_phone_width_layout

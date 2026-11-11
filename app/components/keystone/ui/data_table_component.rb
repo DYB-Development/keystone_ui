@@ -34,7 +34,7 @@ module Keystone
 
       PHONE_LIST_HEAD_CLASSES = "max-sm:hidden"
       PHONE_LIST_BLOCK_CLASSES = "max-sm:block"
-      PHONE_LIST_CELL_CLASSES = "max-sm:block max-sm:text-left max-sm:whitespace-normal"
+      PHONE_LIST_CELL_CLASSES = "ks-table-phone-list-cell max-sm:block max-sm:text-left max-sm:whitespace-normal"
       CELL_LABEL_CLASSES = "ks-caption block sm:hidden"
 
       SORT_LINK_CLASSES = "ks-table-sort-link group inline-flex items-center"
