@@ -44,4 +44,10 @@ class Keystone::Ui::ListDetailComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.css("div.grid > div").first["class"].to_s.split, "lg:col-span-2"
   end
+
+  def test_the_list_and_the_detail_are_spaced_by_the_grid_layouts_medium_gap
+    page = render_inline(Keystone::Ui::ListDetailComponent.new) { "Steps" }
+
+    assert_includes page.at_css("div.grid")["class"].split, "ks-grid-gap-md"
+  end
 end
