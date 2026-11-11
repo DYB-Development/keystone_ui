@@ -81,6 +81,10 @@ module KeystoneUiHelper
     render Keystone::Ui::GridComponent.new(**args), &block
   end
 
+  def ui_list_detail(**args, &block)
+    render Keystone::Ui::ListDetailComponent.new(**args), &block
+  end
+
   def ui_panel(**args, &block)
     render Keystone::Ui::PanelComponent.new(**args), &block
   end
