@@ -27,4 +27,10 @@ class Keystone::Ui::ValueListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "N/A", "N/A" ], page.css(".ks-value-list-value").map { |value| value.text.strip }
   end
+
+  def test_draws_a_right_answer_mark_after_the_value_of_a_row_marked_right
+    page = render_inline(Keystone::Ui::ValueListComponent.new(rows: [ { label: "Capital of France", value: "Paris", right: true }, { label: "Capital of Peru", value: "Quito" } ]))
+
+    assert_equal [ [ "Right" ], [] ], page.css(".ks-value-list-value").map { |value| value.css("svg.ks-tone-success").map { |mark| mark["aria-label"] } }
+  end
 end
