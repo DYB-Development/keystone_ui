@@ -46,4 +46,10 @@ class Keystone::Ui::RadioCardComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "b", "Paris" ], [ page.at_css(".ks-radio-card .ks-radio-card-value")&.text, page.at_css(".ks-radio-card-value + span .ks-radio-card-label")&.text ]
   end
+
+  def test_a_full_width_card_fills_its_row
+    page = render_inline(Keystone::Ui::RadioCardComponent.new(name: "answers[1]", value: "b", label: "Paris", full_width: true))
+
+    assert_equal "block cursor-pointer relative", page.at_css("label")["class"]
+  end
 end

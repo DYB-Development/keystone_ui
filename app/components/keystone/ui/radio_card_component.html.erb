@@ -1,4 +1,4 @@
-<label class="inline-block cursor-pointer relative"<%= ' data-controller="stat-card-info"'.html_safe if info? %>>
+<label class="<%= wrapper_classes %>"<%= ' data-controller="stat-card-info"'.html_safe if info? %>>
   <input type="radio" name="<%= name %>" value="<%= value %>" <%= "checked" if checked? %> class="peer sr-only"<%= ' onchange="this.form.requestSubmit()"'.html_safe if submits? %>>
   <span class="<%= classes %>">
     <% body = capture do %>

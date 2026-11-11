@@ -4,6 +4,8 @@ module Keystone
   module Ui
     class RadioCardComponent < ViewComponent::Base
       BASE_CLASSES = "ks-radio-card inline-flex flex-col cursor-pointer transition"
+      WRAPPER_CLASSES = "inline-block cursor-pointer relative"
+      FULL_WIDTH_WRAPPER_CLASSES = "block cursor-pointer relative"
       FULL_WIDTH_CLASSES = "ks-radio-card ks-radio-card-block flex items-start cursor-pointer transition"
       HIGHLIGHT_CLASSES = "ks-radio-card-highlight"
       HEADER_CLASSES = "ks-radio-card-header flex items-start justify-between"
@@ -62,6 +64,10 @@ module Keystone
 
       def disclosure_classes
         DISCLOSURE_CLASSES
+      end
+
+      def wrapper_classes
+        @full_width ? FULL_WIDTH_WRAPPER_CLASSES : WRAPPER_CLASSES
       end
 
       def classes
