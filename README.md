@@ -1262,6 +1262,21 @@ Link tabs name the chosen tab in the page address. Each tab is a link, the chose
 <% end %>
 ```
 
+Below `sm` the tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line. From `sm` up it wraps and is centred.
+
+**Slots**
+
+- `summary` — content that sits with the tabs, such as stat cards. From `sm` up it is drawn above the tab row. Below `sm` it is drawn between the tab row and the panel, so a phone reaches the tabs first. The summary is drawn once, and the host writes no width-specific classes.
+
+```erb
+<%= ui_tab_switcher(tabs: tabs) do |switcher| %>
+  <% switcher.with_summary do %>
+    <%= render "offers/stats", offer: @offer %>
+  <% end %>
+  <%= render "offers/#{tab}", offer: @offer %>
+<% end %>
+```
+
 ### `ui_option_card`
 
 Renders a toggleable card option (radio-like selection).
