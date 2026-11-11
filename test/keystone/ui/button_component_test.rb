@@ -50,7 +50,7 @@ class Keystone::Ui::ButtonComponentTest < Minitest::Test
   def test_a_text_button_looks_like_underlined_muted_text
     component = Keystone::Ui::ButtonComponent.new(label: "← Back", variant: :text)
 
-    assert_equal "ks-tone-muted cursor-pointer text-sm underline underline-offset-2", component.classes
+    assert_equal "ks-text-button", component.classes
   end
 
   def test_a_button_given_a_name_and_value_submits_them_when_pressed

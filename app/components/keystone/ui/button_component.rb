@@ -18,7 +18,7 @@ module Keystone
 
       FULL_WIDTH_CLASSES = "w-full"
 
-      TEXT_CLASSES = "ks-tone-muted cursor-pointer text-sm underline underline-offset-2"
+      TEXT_CLASSES = "ks-text-button"
 
       def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false)
         @label = label
