@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class RadioCardComponent < ViewComponent::Base
       BASE_CLASSES = "ks-radio-card inline-flex flex-col cursor-pointer transition"
+      FULL_WIDTH_CLASSES = "ks-radio-card ks-radio-card-block flex items-start cursor-pointer transition"
       HIGHLIGHT_CLASSES = "ks-radio-card-highlight"
       HEADER_CLASSES = "ks-radio-card-header flex items-start justify-between"
       LABEL_CLASSES = "ks-radio-card-label block"
@@ -15,7 +16,7 @@ module Keystone
 
       attr_reader :name, :value, :label, :hint, :info
 
-      def initialize(name:, value:, label:, hint: nil, info: nil, checked: false, submits: false, show_value: false)
+      def initialize(name:, value:, label:, hint: nil, info: nil, checked: false, submits: false, show_value: false, full_width: false)
         @name = name
         @value = value
         @label = label
@@ -24,6 +25,7 @@ module Keystone
         @checked = checked
         @submits = submits
         @show_value = show_value
+        @full_width = full_width
       end
 
       def show_value?
@@ -63,7 +65,7 @@ module Keystone
       end
 
       def classes
-        "#{BASE_CLASSES} #{HIGHLIGHT_CLASSES}"
+        "#{@full_width ? FULL_WIDTH_CLASSES : BASE_CLASSES} #{HIGHLIGHT_CLASSES}"
       end
 
       def header_classes

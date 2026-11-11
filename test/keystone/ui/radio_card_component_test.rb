@@ -97,4 +97,10 @@ class Keystone::Ui::RadioCardComponentTest < Minitest::Test
 
     assert_equal [ true, true ], [ component.info_button_classes.split.include?("peer"), component.disclosure_classes.split.include?("peer-hover:block") ]
   end
+
+  def test_a_full_width_card_lays_its_value_and_label_side_by_side
+    component = Keystone::Ui::RadioCardComponent.new(name: "answers[1]", value: "b", label: "Paris", full_width: true)
+
+    assert_equal "ks-radio-card ks-radio-card-block flex items-start cursor-pointer transition ks-radio-card-highlight", component.classes
+  end
 end
