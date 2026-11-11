@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.72.0] - 2026-11-10
+
 ### Added
 - `ui_data_table` takes `header: false`, which draws no heading row, so a list of labels and their values shows no heading such as "Detail" above it. With `phone_list: true` its cells, subtotals and totals then carry no column heading label below `sm` either, so each row shows only its label and its value.
 
