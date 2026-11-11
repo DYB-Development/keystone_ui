@@ -1,13 +1,15 @@
-<div class="<%= WRAPPER_CLASSES %>">
-  <% if @back_url %>
-    <%= link_to @back_url, class: BACK_LINK_CLASSES, aria: { label: "Back" } do %>
-      <%= BACK_ICON.html_safe %>
+<div class="<%= ROW_CLASSES %>">
+  <div class="<%= WRAPPER_CLASSES %>">
+    <% if @back_url %>
+      <%= link_to @back_url, class: BACK_LINK_CLASSES, aria: { label: "Back" } do %>
+        <%= BACK_ICON.html_safe %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+  <span class="<%= TITLE_CLASSES %>">
+    <%= @title %>
+    <% if @subtitle.present? %>
+      <span class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></span>
+    <% end %>
+  </span>
 </div>
-<span class="<%= TITLE_CLASSES %>">
-  <%= @title %>
-  <% if @subtitle.present? %>
-    <span class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></span>
-  <% end %>
-</span>

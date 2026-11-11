@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- `ui_page_header` lays out its action buttons side by side in one row at every width, so from `sm` up two buttons no longer stack on top of each other when the header has no menu.
+- Below `sm`, a page header given badges or a menu puts its actions and menu on their own full-width row under the title and badges, instead of beside the badges.
+- A page header's actions row is never wider than the header, and buttons that do not fit wrap onto another line, so the header never makes the page wider than the screen.
+- `ui_mobile_header` draws its back link, title and subtitle in one row with `ks-page`'s side margin, so placed directly in a layout's `<header>` it lines up with the page and a long title ends in an ellipsis instead of making the page wider than the screen. Inside a `.top-nav` element, such as `ui_navbar`, that row is `display: contents` and the bar lays the back link and title out as before, so a hand-written top bar needs the `top-nav` class.
+
 ## [0.71.0] - 2026-11-08
 
 ### Added

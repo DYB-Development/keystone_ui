@@ -850,7 +850,7 @@ Renders a multi-line `<textarea>` element with consistent styling.
 
 ### `ui_page_header`
 
-Renders a page title area with an optional subtitle, badges, action slot and action menu. From `sm` screens up the title and its badges sit on the left and the actions and menu on the right. Below `sm` a header given no badges and no menu is hidden, even when it has an action. A header given badges or a menu is shown below `sm` with its badges, actions and menu, and its title is hidden there when the page holds `ui_mobile_header`'s title, so the title is not shown twice.
+Renders a page title area with an optional subtitle, badges, action slot and action menu. From `sm` screens up the title and its badges sit on the left and the actions and menu on the right, side by side in one row whether or not there is a menu. Below `sm` a header given no badges and no menu is hidden, even when it has an action. A header given badges or a menu is shown below `sm` with its badges, actions and menu, and its title is hidden there when the page holds `ui_mobile_header`'s title, so the title is not shown twice. Below `sm` its actions and menu sit side by side on their own full-width row under the title and badges. At every width the actions row is never wider than the header, and buttons that do not fit wrap onto another line, so the header never makes the page wider than the screen.
 
 **Required props**
 
@@ -1539,7 +1539,7 @@ Renders a single bottom nav tab.
 
 Renders a mobile header with back link, title, and optional subtitle. Hidden on `lg:` screens. With a `nil` `back_url:` it shows no back link, as on a nav tab's own page.
 
-The title and subtitle sit between the back link and the bar's right-side controls and start at the left of that space, and text too long for it ends in an ellipsis. In `ui_navbar`'s `mobile_left` slot, controls that leave less than 6rem for the title move to a second row under it. In a hand-written top bar, make the header a direct child of the bar's flex row, and add `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if its controls can fill its width.
+Placed outside a top bar, such as directly in the layout's `<header>`, it draws the back link, title and subtitle in one row with the same side margin as `ui_page`, and text too long for the screen ends in an ellipsis. Inside an element with the `top-nav` class, such as `ui_navbar`, that row gives way, and the back link and title are laid out by the bar: the title and subtitle sit between the back link and the bar's right-side controls and start at the left of that space. In `ui_navbar`'s `mobile_left` slot, controls that leave less than 6rem for the title move to a second row under it. In a hand-written top bar, give the bar the `top-nav` class, make the header a direct child of the bar's flex row, and add `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if its controls can fill its width.
 
 **Required props**
 
