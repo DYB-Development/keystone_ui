@@ -94,6 +94,16 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ 1, 0 ], page.css("tbody tr").map { |row| row.css("[data-controller=action-menu]").size }
   end
 
+  def test_given_actions_that_are_empty_on_every_row_draws_no_actions_column
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow" }, { name: "Edging" } ], columns: [ { name: "Name" } ]) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/products/1/edit") if row[:name] == "Hedging" }
+      end
+    end
+
+    assert_equal [ "Name" ], page.css("thead th").map { |header| header.text.strip }
+  end
+
   def test_given_a_save_address_and_no_saved_value_hides_the_columns_its_own_call_hides
     KeystoneUi.configure { |c| c.preference_supplier = ->(_view, _key) { { value: nil, save_url: "/preferences/months" } } }
 

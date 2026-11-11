@@ -65,10 +65,9 @@
             <% end %>
             <% if actions? %>
               <td class="<%= actions_cell_classes %>">
-                <% row_actions = capture(item, &@actions_block) %>
-                <% if row_actions.present? %>
+                <% if row_actions[idx].present? %>
                   <%= render Keystone::Ui::ActionMenuComponent.new do %>
-                    <%= row_actions %>
+                    <%= row_actions[idx] %>
                   <% end %>
                 <% end %>
               </td>

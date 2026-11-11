@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext/object/blank"
+
 module Keystone
   module Ui
     class DataTableComponent < ViewComponent::Base
@@ -129,7 +131,13 @@ module Keystone
       end
 
       def actions?
-        !!@actions_block
+        row_actions.any?(&:present?)
+      end
+
+      def row_actions
+        return [] unless @actions_block
+
+        @row_actions ||= @items.map { |item| capture(item, &@actions_block) }
       end
 
       def column_picker

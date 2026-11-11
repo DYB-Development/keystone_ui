@@ -49,8 +49,14 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
     ]
   end
 
+  class TableCapturingLikeAView < Keystone::Ui::DataTableComponent
+    def capture(*args, &block)
+      block.call(*args)
+    end
+  end
+
   def klass
-    Keystone::Ui::DataTableComponent
+    TableCapturingLikeAView
   end
 
   # ---- header_cells
