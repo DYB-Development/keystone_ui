@@ -50,4 +50,10 @@ class Keystone::Ui::ListDetailComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("div.grid")["class"].split, "ks-grid-gap-md"
   end
+
+  def test_the_list_column_can_shrink_below_the_width_of_what_it_holds
+    page = render_inline(Keystone::Ui::ListDetailComponent.new) { "Steps" }
+
+    assert_includes page.at_css("div.grid > div")["class"].split, "min-w-0"
+  end
 end

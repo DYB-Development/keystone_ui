@@ -5,7 +5,7 @@ module Keystone
     class ListDetailComponent < ViewComponent::Base
       WRAPPER_CLASSES = "grid grid-cols-1 ks-grid-gap-md"
       SPLIT_CLASSES = "lg:grid-cols-3"
-      LIST_CLASSES = "lg:order-first"
+      LIST_CLASSES = "min-w-0 lg:order-first"
       DETAIL_CLASSES = "lg:col-span-2"
 
       renders_one :detail
