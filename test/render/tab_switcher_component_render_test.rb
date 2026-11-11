@@ -41,9 +41,80 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
       page.css("[data-controller=tab-switcher] button.ks-tab").map { |tab| [ tab.text.strip, tab["data-action"] ] }
   end
 
+  def test_from_sm_up_a_summary_is_drawn_above_the_tab_row_and_the_panel
+    assert_equal %w[summary tabs panel], drawn_order(render_with_summary, "sm")
+  end
+
+  def test_below_sm_the_tab_row_is_drawn_above_the_summary_and_the_panel
+    assert_equal %w[tabs summary panel], drawn_order(render_with_summary, "max-sm")
+  end
+
+  def test_a_summary_the_tab_row_and_the_panel_are_stacked_in_a_column_their_order_classes_apply_in
+    wrapper = render_with_summary.children.find(&:element?)
+
+    assert_equal %w[flex flex-col], wrapper["class"].to_s.split & %w[flex flex-col]
+  end
+
+  def test_with_no_summary_the_tab_row_and_panel_are_drawn_with_no_column_around_them
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS)) { "Value panel" }
+
+    assert_equal "nav", page.children.find(&:element?).name
+  end
+
+  def test_below_sm_no_tab_label_wraps_onto_a_second_line_or_is_squeezed_narrower
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
+
+    assert_equal [ %w[max-sm:shrink-0 max-sm:whitespace-nowrap] ] * 2,
+      page.css("a.ks-tab").map { |link| link["class"].split & %w[max-sm:shrink-0 max-sm:whitespace-nowrap] }
+  end
+
+  def test_from_sm_up_link_tabs_wrap_and_are_centred
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
+
+    assert_equal %w[flex-wrap justify-center], page.at_css("nav.ks-tab-bar")["class"].split.grep_v(/\Amax-sm:/) & %w[flex-wrap justify-center flex-nowrap justify-start]
+  end
+
+  def test_below_sm_tabs_given_as_plain_labels_are_also_drawn_above_the_summary_and_the_panel
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ])) do |switcher|
+      switcher.with_summary { "Stat cards" }
+      "Value panel"
+    end
+
+    assert_equal %w[tabs summary panel], drawn_order(page, "max-sm")
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
     assert_equal [ "replace", "replace" ], page.css("a.ks-tab").map { |link| link["data-turbo-action"] }
+  end
+
+  private
+
+  def render_with_summary
+    render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS)) do |switcher|
+      switcher.with_summary { "Stat cards" }
+      "Value panel"
+    end
+  end
+
+  def drawn_order(page, width)
+    parts = page.children.find(&:element?).element_children
+    parts.each_with_index
+      .sort_by { |part, index| [ order_at(part, width), index ] }
+      .map { |part, _| part_name(part) }
+  end
+
+  def order_at(part, width)
+    order = part["class"].to_s.split.filter_map { |name| name[/\A#{width}:(-?)order-(\d+)\z/] && "#{$1}#{$2}".to_i }.first
+    order || 0
+  end
+
+  def part_name(part)
+    return "tabs" if part.name == "nav" || part.at_css("button.ks-tab")
+    return "summary" if part.text.include?("Stat cards")
+    return "panel" if part.text.include?("Value panel")
+
+    part.name
   end
 end

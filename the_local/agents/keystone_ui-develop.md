@@ -686,6 +686,13 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       following a tab is a Turbo visit that replaces the history entry. The
       app reads the chosen tab from its params and draws only that tab's
       content in the block.
+    - `switcher.with_summary { ... }`, set inside the tab switcher's block,
+      takes content such as stat cards. From `sm` up it is drawn above the
+      tab row, and below `sm` between the tab row and the panel. It is drawn
+      once, so do not draw it twice or add width-specific classes for it.
+    - Below `sm` every tab switcher's tab row stays on one line, starts at
+      the left edge and scrolls sideways, and from `sm` up it wraps and is
+      centred.
     - `ui_swipe_deck(items:, empty_title: "All done!", empty_subtitle: nil)`
       takes a block yielding the deck, where `deck.item { |item| ... }` renders
       one card's face. Accepting sends a bubbling `swipe-deck:complete` event
