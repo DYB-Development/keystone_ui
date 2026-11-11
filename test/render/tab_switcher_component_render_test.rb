@@ -68,6 +68,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
       page.css("a.ks-tab").map { |link| link["class"].split & %w[max-sm:shrink-0 max-sm:whitespace-nowrap] }
   end
 
+  def test_from_sm_up_link_tabs_wrap_and_are_centred
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
+
+    assert_equal %w[flex-wrap justify-center], page.at_css("nav.ks-tab-bar")["class"].split.grep_v(/\Amax-sm:/) & %w[flex-wrap justify-center flex-nowrap justify-start]
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
