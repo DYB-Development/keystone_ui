@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_data_table` takes `header: false`, which draws no heading row, so a list of labels and their values shows no heading such as "Detail" above it. With `phone_list: true` its cells, subtotals and totals then carry no column heading label below `sm` either, so each row shows only its label and its value.
+
 ### Changed
+- A `ui_data_table` whose `actions` block renders nothing for every row draws no "Actions" column, and lays out its last column as it does with no `actions` block.
 - `ui_page_header` lays out its action buttons side by side in one row at every width, so from `sm` up two buttons no longer stack on top of each other when the header has no menu.
 - Below `sm`, a page header given badges or a menu puts its actions and menu on their own full-width row under the title and badges, instead of beside the badges.
 - A page header's actions row is never wider than the header, and buttons that do not fit wrap onto another line, so the header never makes the page wider than the screen.

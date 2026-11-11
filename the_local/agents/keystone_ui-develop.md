@@ -444,7 +444,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 8. Build tables.
 
-   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false)`
+   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true)`
      takes a block yielding the table. `items:` are records or hashes, and a
      cell's value is the column key called on the item, or `item[key]`.
      `group_by:` lists rows under heading rows named by that key's value,
@@ -461,6 +461,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      From `sm:` up the table is unchanged, and a table without it is unchanged
      at every width. It is chosen table by table, so ask the developer which
      tables show as a list on a phone.
+   - `header: false` draws no heading row, for a table of labels and their
+     values such as a record's details. With `phone_list: true` it also drops
+     the column heading label from every cell, subtotal and total below `sm:`,
+     so each row shows only its label and its value.
    - `columns:` takes `{ key: "Label" }` hashes when every column is plain.
      Switch the whole set to `Keystone::Ui::Column` objects once one column
      needs an option.
@@ -476,9 +480,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      table locks its first column.
    - In the block, `table.link(:column_key) { |item| url }` turns a column's
      cells into links, and `table.actions { |item| ... }` adds a right-aligned
-     actions column whose block holds only `ui_action_menu_item` calls. With no
-     actions column, the last column is right-aligned, so put a column of
-     amounts last.
+     actions column whose block holds only `ui_action_menu_item` calls. When
+     the block renders nothing for every row, the table draws no actions
+     column. With no actions column, the last column is right-aligned, so put
+     a column of amounts last.
    - `table.row_colour { |item| ... }` tints a whole row. The block returns
      `:danger`, `:warning`, `:success`, `:info` or `nil` for each item. A named
      colour tints every cell of that row in the same colour as the badge of

@@ -400,6 +400,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 - `total:` (Hash) — column key to value for a total row at the end of the table
 - `current_row:` (item) — the item whose row is the viewer's own, given the `ks-table-row-current` class and `aria-current="true"`; only the first row equal to it is marked
 - `phone_list:` (Boolean, default `false`) — `true` shows the table as a list below the `sm` breakpoint, one item per row with each cell under its column's heading; from `sm` up it is the same table
+- `header:` (Boolean, default `true`) — `false` draws no heading row, and with `phone_list: true` no column heading label on any cell, subtotal or total, for a table of labels and their values
 
 **Column options**
 
@@ -504,7 +505,7 @@ Register links via `table.link(:column_key)` in the block. The block receives th
 
 **Actions column**
 
-Pass a block to add a trailing "Actions" column. The block receives the component instance; call `actions` on it with a sub-block that receives each item.
+Pass a block to add a trailing "Actions" column. The block receives the component instance; call `actions` on it with a sub-block that receives each item. When the sub-block renders nothing for every row, the table draws no "Actions" column.
 
 ```erb
 <%= ui_data_table(
@@ -563,6 +564,14 @@ Pass `phone_list: true` to show a table as a list at phone width. Below `sm` the
   <% table.link(:name) { |quote| quote_path(quote) } %>
   <% table.actions { |quote| ui_action_menu_item(label: "Edit", href: edit_quote_path(quote)) } %>
 <% end %>
+```
+
+**Labels and values**
+
+Pass `header: false` to show a list of labels and their values as a table with no heading row. With `phone_list: true` each row then shows only its label and its value below `sm`, with no column heading label repeated on each line.
+
+```erb
+<%= ui_data_table(items: [ { field: "Product", detail: "Lawn mow" }, { field: "Sold", detail: "Nov 2, 2026" } ], columns: [ { field: "Field" }, { detail: "Detail" } ], header: false, phone_list: true) %>
 ```
 
 Each row's actions show in an action menu, opened by an ellipsis button, so a table never shows buttons. When an actions column is present, position-based styling classes shift automatically — the last data column receives middle styling and the actions column receives last styling.
