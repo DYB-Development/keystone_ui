@@ -17,4 +17,13 @@ class Keystone::Ui::ListDetailComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Step 2", "Steps" ], page.css("div.grid > div").map { |column| column.text.strip }
   end
+
+  def test_with_a_detail_the_layout_splits_into_three_columns_at_lg
+    page = render_inline(Keystone::Ui::ListDetailComponent.new) do |layout|
+      layout.with_detail { "Step 2" }
+      "Steps"
+    end
+
+    assert_includes page.at_css("div.grid")["class"].split, "lg:grid-cols-3"
+  end
 end
