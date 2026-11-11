@@ -8,6 +8,7 @@ module Keystone
       TITLE_CLASSES = "ks-section-title"
       SUBTITLE_CLASSES = "ks-section-subtitle"
       ACTION_CLASSES = "ks-section-action"
+      ACTIONS_CLASSES = "flex items-center shrink-0 ks-grid-gap-sm"
 
       def initialize(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil)
         @title = title

@@ -204,10 +204,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 4. Lay out the body. Each of these takes a block and they nest.
 
    - `ui_section(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil)`
-     — `action:` is `{ label:, href: }` and renders a right-aligned link.
+     — `action:` is `{ label:, href: }` and renders a link.
      `menu:` is `[{ label:, href:, method: }, ...]`, each hash taking the
-     keywords of `ui_action_menu_item`, and renders an action menu at the right
-     of the header. `spacing:` is `:sm` `:md` `:lg`. The header, with its
+     keywords of `ui_action_menu_item`, and renders an action menu. The link
+     and the menu sit side by side at the right edge of the header, the link
+     first, at every width. `spacing:` is `:sm` `:md` `:lg`. The header, with its
      `action:` and `menu:`, renders only when `title:` is given.
    - `ui_grid(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil)` —
      `cols:` maps `:default` `:sm` `:md` `:lg` to a count from 1 to 12, such as
