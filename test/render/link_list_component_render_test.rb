@@ -38,4 +38,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("a .ks-badge").parent["class"].to_s.split, "flex-col-reverse"
   end
+
+  def test_from_phone_width_up_sets_a_row_badge_beside_its_label
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a > span")["class"].to_s.split, "sm:contents"
+  end
 end
