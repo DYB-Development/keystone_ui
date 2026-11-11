@@ -35,4 +35,10 @@ class Keystone::Ui::CheckboxRowComponentRenderTest < ViewComponent::TestCase
 
     assert_nil page.at_css("button.ks-radio-card-info")
   end
+
+  def test_a_row_given_disabled_draws_its_checkbox_disabled
+    page = render_inline(Keystone::Ui::CheckboxRowComponent.new(name: "flow[asks_on_one_page]", value: "1", label: "Ask every question on one page", disabled: true))
+
+    assert page.at_css("input[type=checkbox][disabled]")
+  end
 end
