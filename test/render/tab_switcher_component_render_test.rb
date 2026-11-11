@@ -55,6 +55,10 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[max-sm:flex max-sm:flex-col], wrapper["class"].to_s.split & %w[flex flex-col max-sm:flex max-sm:flex-col]
   end
 
+  def test_below_sm_the_summary_drops_its_first_part_top_margin_so_the_tab_row_margin_alone_spaces_it
+    assert_includes summary_wrapper(render_with_summary)["class"].split, "max-sm:[&>:first-child]:mt-0"
+  end
+
   def test_with_no_summary_the_tab_row_and_panel_are_drawn_with_no_column_around_them
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS)) { "Value panel" }
 
@@ -96,6 +100,10 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
       switcher.with_summary { "Stat cards" }
       "Value panel"
     end
+  end
+
+  def summary_wrapper(page)
+    page.children.find(&:element?).element_children.find { |part| part_name(part) == "summary" }
   end
 
   def drawn_order(page, width)
