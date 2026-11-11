@@ -7,6 +7,8 @@ module Keystone
       TAB_BASE_CLASSES = "ks-tab text-sm transition"
       PANEL_CLASSES = "hidden"
 
+      renders_one :summary
+
       attr_reader :tabs
 
       def initialize(tabs:)

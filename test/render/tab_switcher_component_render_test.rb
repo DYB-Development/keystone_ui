@@ -41,9 +41,42 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
       page.css("[data-controller=tab-switcher] button.ks-tab").map { |tab| [ tab.text.strip, tab["data-action"] ] }
   end
 
+  def test_from_sm_up_a_summary_is_drawn_above_the_tab_row_and_the_panel
+    assert_equal %w[summary tabs panel], drawn_order(render_with_summary, "sm")
+  end
+
   def test_following_a_link_tab_replaces_the_current_history_entry
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS))
 
     assert_equal [ "replace", "replace" ], page.css("a.ks-tab").map { |link| link["data-turbo-action"] }
+  end
+
+  private
+
+  def render_with_summary
+    render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS)) do |switcher|
+      switcher.with_summary { "Stat cards" }
+      "Value panel"
+    end
+  end
+
+  def drawn_order(page, width)
+    parts = page.children.find(&:element?).element_children
+    parts.each_with_index
+      .sort_by { |part, index| [ order_at(part, width), index ] }
+      .map { |part, _| part_name(part) }
+  end
+
+  def order_at(part, width)
+    order = part["class"].to_s.split.filter_map { |name| name[/\A#{width}:(-?)order-(\d+)\z/] && "#{$1}#{$2}".to_i }.first
+    order || 0
+  end
+
+  def part_name(part)
+    return "tabs" if part.name == "nav"
+    return "summary" if part.text.include?("Stat cards")
+    return "panel" if part.text.include?("Value panel")
+
+    part.name
   end
 end

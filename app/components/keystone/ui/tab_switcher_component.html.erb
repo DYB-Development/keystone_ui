@@ -1,10 +1,21 @@
 <% if link_tabs? %>
+<% tab_row = capture do %>
 <nav class="<%= classes %>">
   <% tabs.each do |tab| %>
     <a href="<%= tab[:href] %>" data-turbo-action="replace" class="<%= tab[:current] ? tab_classes : TAB_BASE_CLASSES %>"<% if tab[:current] %> aria-current="page" data-active<% end %>><%= tab[:label] %></a>
   <% end %>
 </nav>
+<% end %>
+<% if summary? %>
+<div>
+  <div><%= summary %></div>
+  <%= tab_row %>
+  <div><%= content %></div>
+</div>
+<% else %>
+<%= tab_row %>
 <%= content %>
+<% end %>
 <% else %>
 <div data-controller="tab-switcher">
   <div class="<%= classes %>">
