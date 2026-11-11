@@ -562,6 +562,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      adds a close button.
    - `ui_link_list(rows:)` — each row is `{ label:, href:, subtitle: nil,
      badge: nil, value: nil }`, and `badge:` takes `ui_badge`'s `{ label:, variant: }`.
+     A row's badge sits above its label below `sm` and beside it from `sm` up.
      Use it for a list of records that each open their own page, in place of a
      hand-written `<ul>` of links.
    - `ui_empty_state(title:, message: nil, action: nil)` — `action:` is

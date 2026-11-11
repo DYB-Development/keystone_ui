@@ -935,7 +935,7 @@ A list of links, one row per item, each row ending in a chevron. Use it where ea
 **Optional keys on a row**
 
 - `subtitle:` (String) — a short note under the label
-- `badge:` (Hash) — `{ label:, variant: }`, drawn with `ui_badge`
+- `badge:` (Hash) — `{ label:, variant: }`, drawn with `ui_badge`, above the label below `sm` and beside it from `sm` up
 - `value:` (String) — a short value after the label, such as a count or a date
 
 ```erb

@@ -32,4 +32,40 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 1, page.css("a.ks-value-list-row svg.ks-settings-link-chevron").size
   end
+
+  def test_at_phone_width_stacks_a_row_badge_above_its_label
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a .ks-badge").parent["class"].to_s.split, "flex-col-reverse"
+  end
+
+  def test_from_phone_width_up_sets_a_row_badge_beside_its_label
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a > span")["class"].to_s.split, "sm:contents"
+  end
+
+  def test_at_phone_width_keeps_a_row_badge_to_its_own_width
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a .ks-badge")["class"].to_s.split, "max-sm:self-start"
+  end
+
+  def test_at_phone_width_gives_a_row_label_the_free_width_of_its_row
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a > span")["class"].to_s.split, "flex-1"
+  end
+
+  def test_at_phone_width_wraps_a_long_row_label_inside_its_row
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a > span")["class"].to_s.split, "min-w-0"
+  end
+
+  def test_at_phone_width_spaces_a_row_badge_from_its_label
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "October invoice", href: "/reports/abc", badge: { label: "Invoice", variant: :info } } ]))
+
+    assert_includes page.at_css("a > span")["class"].to_s.split, "ks-grid-gap-sm"
+  end
 end
