@@ -782,6 +782,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css(".ks-caption, [class*='max-sm:']")
   end
 
+  def test_given_no_header_draws_no_heading_row
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, header: false)
+    end
+
+    assert_empty page.css("thead")
+  end
+
   private
 
   def three_columns

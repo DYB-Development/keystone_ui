@@ -5,26 +5,28 @@
 <% end %>
 <div class="<%= Keystone::Ui::DataTableComponent::WRAPPER_CLASSES %>">
   <table class="<%= table_classes %> divide-y divide-gray-300 dark:divide-white/15">
-    <thead class="<%= head_classes %>">
-      <tr>
-        <% header_cells.each do |cell| %>
-          <th scope="<%= cell[:scope] %>" class="<%= cell[:classes] %>">
-            <% if cell[:sort_href] %>
-              <a href="<%= cell[:sort_href] %>" class="<%= Keystone::Ui::DataTableComponent::SORT_LINK_CLASSES %>" data-turbo-action="replace">
+    <% if header? %>
+      <thead class="<%= head_classes %>">
+        <tr>
+          <% header_cells.each do |cell| %>
+            <th scope="<%= cell[:scope] %>" class="<%= cell[:classes] %>">
+              <% if cell[:sort_href] %>
+                <a href="<%= cell[:sort_href] %>" class="<%= Keystone::Ui::DataTableComponent::SORT_LINK_CLASSES %>" data-turbo-action="replace">
+                  <%= cell[:label] %>
+                  <% if cell[:sort_active] %>
+                    <span class="<%= Keystone::Ui::DataTableComponent::SORT_ICON_CLASSES %> <%= Keystone::Ui::DataTableComponent::SORT_ICON_ACTIVE %>"><%= (cell[:sort_direction] == :asc ? Keystone::Ui::DataTableComponent::SORT_ASC_ICON : Keystone::Ui::DataTableComponent::SORT_DESC_ICON).html_safe %></span>
+                  <% else %>
+                    <span class="<%= Keystone::Ui::DataTableComponent::SORT_ICON_CLASSES %> <%= Keystone::Ui::DataTableComponent::SORT_ICON_INACTIVE %>"><%= Keystone::Ui::DataTableComponent::SORT_NEUTRAL_ICON.html_safe %></span>
+                  <% end %>
+                </a>
+              <% else %>
                 <%= cell[:label] %>
-                <% if cell[:sort_active] %>
-                  <span class="<%= Keystone::Ui::DataTableComponent::SORT_ICON_CLASSES %> <%= Keystone::Ui::DataTableComponent::SORT_ICON_ACTIVE %>"><%= (cell[:sort_direction] == :asc ? Keystone::Ui::DataTableComponent::SORT_ASC_ICON : Keystone::Ui::DataTableComponent::SORT_DESC_ICON).html_safe %></span>
-                <% else %>
-                  <span class="<%= Keystone::Ui::DataTableComponent::SORT_ICON_CLASSES %> <%= Keystone::Ui::DataTableComponent::SORT_ICON_INACTIVE %>"><%= Keystone::Ui::DataTableComponent::SORT_NEUTRAL_ICON.html_safe %></span>
-                <% end %>
-              </a>
-            <% else %>
-              <%= cell[:label] %>
-            <% end %>
-          </th>
-        <% end %>
-      </tr>
-    </thead>
+              <% end %>
+            </th>
+          <% end %>
+        </tr>
+      </thead>
+    <% end %>
     <tbody class="<%= body_classes %>"<% if row_detail? %> data-controller="row-detail" data-action="turbo:before-morph-attribute->row-detail#keep"<% end %>>
       <% if empty? %>
         <% if @empty_message %>
