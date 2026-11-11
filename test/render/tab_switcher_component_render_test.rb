@@ -49,10 +49,18 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[tabs summary panel], drawn_order(render_with_summary, "max-sm")
   end
 
-  def test_a_summary_the_tab_row_and_the_panel_are_stacked_in_a_column_their_order_classes_apply_in
+  def test_a_summary_the_tab_row_and_the_panel_are_a_column_only_below_sm_so_their_margins_overlap_from_sm_up
     wrapper = render_with_summary.children.find(&:element?)
 
-    assert_equal %w[flex flex-col], wrapper["class"].to_s.split & %w[flex flex-col]
+    assert_equal %w[max-sm:flex max-sm:flex-col], wrapper["class"].to_s.split & %w[flex flex-col max-sm:flex max-sm:flex-col]
+  end
+
+  def test_below_sm_the_summary_drops_its_first_part_top_margin_so_the_tab_row_margin_alone_spaces_it
+    assert_includes summary_wrapper(render_with_summary)["class"].split, "max-sm:[&>:first-child]:mt-0"
+  end
+
+  def test_below_sm_the_summary_drops_its_last_part_bottom_margin_so_the_panel_margin_alone_spaces_them
+    assert_includes summary_wrapper(render_with_summary)["class"].split, "max-sm:[&>:last-child]:mb-0"
   end
 
   def test_with_no_summary_the_tab_row_and_panel_are_drawn_with_no_column_around_them
@@ -96,6 +104,10 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
       switcher.with_summary { "Stat cards" }
       "Value panel"
     end
+  end
+
+  def summary_wrapper(page)
+    page.children.find(&:element?).element_children.find { |part| part_name(part) == "summary" }
   end
 
   def drawn_order(page, width)
