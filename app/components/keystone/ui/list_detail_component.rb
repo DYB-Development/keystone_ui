@@ -6,6 +6,7 @@ module Keystone
       WRAPPER_CLASSES = "grid grid-cols-1"
       SPLIT_CLASSES = "lg:grid-cols-3"
       LIST_CLASSES = "lg:order-first"
+      DETAIL_CLASSES = "lg:col-span-2"
 
       renders_one :detail
 
@@ -17,6 +18,10 @@ module Keystone
 
       def list_classes
         LIST_CLASSES
+      end
+
+      def detail_classes
+        DETAIL_CLASSES
       end
     end
   end

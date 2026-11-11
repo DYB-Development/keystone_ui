@@ -35,4 +35,13 @@ class Keystone::Ui::ListDetailComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.css("div.grid > div").last["class"].to_s.split, "lg:order-first"
   end
+
+  def test_the_detail_takes_two_of_the_three_columns_at_lg
+    page = render_inline(Keystone::Ui::ListDetailComponent.new) do |layout|
+      layout.with_detail { "Step 2" }
+      "Steps"
+    end
+
+    assert_includes page.css("div.grid > div").first["class"].to_s.split, "lg:col-span-2"
+  end
 end
