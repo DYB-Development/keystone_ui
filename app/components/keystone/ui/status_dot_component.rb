@@ -11,13 +11,15 @@ module Keystone
         info: "ks-status-dot-info"
       }.freeze
 
+      LABEL_CLASSES = "sr-only"
+
       def initialize(state:, label:)
         @state = state
         @label = label
       end
 
       def call
-        tag.span(class: "ks-status-dot #{STATE_CLASSES[@state]}")
+        tag.span(class: "ks-status-dot #{STATE_CLASSES[@state]}") { tag.span(@label, class: LABEL_CLASSES) }
       end
     end
   end
