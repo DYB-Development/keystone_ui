@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.78.0] - 2026-11-13
+
+### Added
+- `ui_status_dot(state:, label:)` draws a small round dot for one of the neutral, success, danger, warning and info states, in the colour of a badge of that state.
+- A status dot's label is read by screen readers and not shown on screen.
+- A status dot given a state outside the five raises an error naming the state.
+
 ## [0.77.0] - 2026-11-13
 
 ### Added
