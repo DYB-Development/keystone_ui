@@ -13,7 +13,7 @@ nothing and gives no steps.
 keystone_ui is a Rails engine gem that supplies a host app's UI as view helpers
 built on ViewComponent. Screens are built from named pieces — page shells,
 sections, panels, grids, forms and fields, search dropdowns, data tables, navigation, cards, stat
-tiles, charts, funnels, goal buckets, pipelines, breakdowns and info buttons —
+tiles, charts, timelines, funnels, goal buckets, pipelines, breakdowns and info buttons —
 instead of hand-written ERB and Tailwind. Every class the UI renders lives in the
 gem, so two pages built from the same helpers cannot disagree about spacing,
 colour or dark-mode treatment, and a change to a component reaches every page
@@ -57,8 +57,10 @@ One decision: is keystone_ui set up in the app?
 - **Options are symbols.** Appearance is chosen by name, such as `variant:`,
   `size:` or `padding:`, and each component accepts its own set. Most raise on a
   symbol they do not know, so a wrong guess fails at render time.
-- **Numbers and text are different inputs.** Progress bars, funnels and buckets
-  do arithmetic, so they take numbers, and a bucket raises on `"9,000"`. A
+- **Numbers and text are different inputs.** Progress bars, funnels, buckets
+  and timelines do arithmetic, so they take numbers, and a bucket raises on
+  `"9,000"`. A timeline takes each row's start and end as times and works out
+  every duration, bar position and its axis from them. A
   breakdown, a calculation and a toned figure take already-formatted text, show
   it as written and add nothing up.
 - **Going back.** A form or show page shell needs a way back: a back link, a
@@ -117,4 +119,4 @@ One decision: is keystone_ui set up in the app?
   Stimulus controllers, so a host writes no JavaScript. Components that post,
   such as the column picker and the pipeline, post to endpoints the host or
   another gem owns.
-- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.29.0.
+- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.33.0.
