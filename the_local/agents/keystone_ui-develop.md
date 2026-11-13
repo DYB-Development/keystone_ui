@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -606,7 +606,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_status_dot(state:, label:)` — `state:` is `:neutral` `:success`
      `:danger` `:warning` `:info`, and any other value raises `ArgumentError`
      naming it. `label:` is not shown on screen and is read out by screen
-     readers, so pass words that say what the state means.
+     readers, so pass words that say what the state means. The dot takes the
+     colour of a `ui_badge` of the same name. Use it where a badge's words
+     would crowd the row, such as beside a name in a list, and ask the
+     developer which states a record has and what each one means.
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
      — `type:` is `:info` `:success` `:warning` `:error`, and `dismissible: true`
      adds a close button.
@@ -787,7 +790,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     shows nothing, a breakdown in one run of text, a `:success` or `:danger`
     figure in plain colour, a joined funnel with no band, a locked column the
     others show through, a Columns menu with no greyed name for a hidden
-    column, or a table row whose caret does not open its detail — the app's Stimulus controllers or keystone_ui-styles version are
+    column, a table row whose caret does not open its detail, or a status dot
+    that draws nothing — the app's Stimulus controllers or keystone_ui-styles version are
     out of date. Stop and hand that part to `keystone_ui-install`, and add no
     classes to fix it.
 
