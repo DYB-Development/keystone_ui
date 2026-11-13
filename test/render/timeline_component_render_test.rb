@@ -85,4 +85,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ false, true, false ], page.css("[data-timeline-bar]").map { |bar| bar[:class].split.include?("ks-timeline-failed") }
   end
+
+  def test_tells_screen_readers_that_a_failed_entry_failed
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
+
+    assert_equal [ "", "Failed", "" ], page.css("[data-timeline-bar]").map { |bar| bar.at_css(".sr-only")&.text.to_s }
+  end
 end
