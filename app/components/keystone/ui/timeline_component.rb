@@ -13,7 +13,19 @@ module Keystone
         "left: #{percent(entry[:started_at] - axis_start)}%; width: #{percent(entry[:ended_at] - entry[:started_at])}%"
       end
 
+      def duration(entry)
+        written_duration(entry[:ended_at] - entry[:started_at])
+      end
+
       private
+
+      def written_duration(seconds)
+        hours, rest = seconds.round.divmod(3600)
+        minutes, seconds = rest.divmod(60)
+        parts = [ [ hours, "h" ], [ minutes, "m" ], [ seconds, "s" ] ].drop_while { |amount, _| amount.zero? }
+        parts = [ [ 0, "s" ] ] if parts.empty?
+        parts.map { |amount, unit| "#{amount}#{unit}" }.join(" ")
+      end
 
       def axis_start
         @axis_start ||= entries.map { |entry| entry[:started_at] }.min

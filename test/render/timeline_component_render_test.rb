@@ -23,4 +23,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "left: 0%; width: 25%", "left: 25%; width: 75%" ], page.css("[data-timeline-row] [data-timeline-bar]").map { |bar| bar[:style] }
   end
+
+  def test_writes_each_rows_duration_in_minutes_and_seconds
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries))
+
+    assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
+  end
 end
