@@ -29,10 +29,10 @@ module Keystone
             before_index += 1
             after_index += 1
           elsif before_index < @before.size && (after_index == @after.size || shared[before_index + 1][after_index] >= shared[before_index][after_index + 1])
-            rows << [ { text: @before[before_index], mark: "ks-diff-removed" }, nil ]
+            rows << [ { text: @before[before_index], mark: "ks-diff-removed", sign: "-" }, nil ]
             before_index += 1
           else
-            rows << [ nil, { text: @after[after_index], mark: "ks-diff-added" } ]
+            rows << [ nil, { text: @after[after_index], mark: "ks-diff-added", sign: "+" } ]
             after_index += 1
           end
         end

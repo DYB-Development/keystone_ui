@@ -27,10 +27,20 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "d" ], marked(page, "after", "ks-diff-added")
   end
 
+  def test_starts_each_removed_line_with_a_minus_and_each_added_line_with_a_plus
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd"))
+
+    assert_equal [ [ "", "-", "", "" ], [ "", "", "", "+" ] ], [ column(page, "before", "sign"), column(page, "after", "sign") ]
+  end
+
   private
 
   def marked(page, side, mark)
     page.css("[data-diff-side='#{side}'] [data-diff-row].#{mark} [data-diff-text]").map(&:text)
+  end
+
+  def column(page, side, part)
+    page.css("[data-diff-side='#{side}'] [data-diff-row]").map { |row| row.at_css("[data-diff-#{part}]")&.text.to_s }
   end
 
   def texts(page, side)
