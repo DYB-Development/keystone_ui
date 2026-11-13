@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.77.0] - 2026-11-13
+
+### Added
+- `ui_bottom_action` draws the action a page header publishes as a full-width button fixed to the bottom of a phone screen, labelled with the action's label, sending the action's method when one is published.
+- The bottom action is hidden from `sm` up, inside a Hotwire Native web view and in print, and draws nothing on a page with no published action.
+- On a page with the bottom nav, the bottom action sits directly above it, and the page keeps room at its foot for both.
+
+### Changed
+- Keystone UI requires keystone_ui-styles 0.34.0 or later.
+
 ## [0.76.0] - 2026-11-13
 
 ### Added
