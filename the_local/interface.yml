@@ -70,6 +70,7 @@ develop:
   - ui_bucket_series
   - ui_pipeline
   - ui_code
+  - ui_text_diff
   - ui_disclosure
   - ui_calculation
   - ui_info
@@ -114,6 +115,8 @@ sources:
   - app/components/keystone/ui/checkbox_row_component.rb
   - app/components/keystone/ui/checkbox_row_component.html.erb
   - app/components/keystone/ui/code_component.rb
+  - app/components/keystone/ui/text_diff_component.rb
+  - app/components/keystone/ui/text_diff_component.html.erb
   - app/components/keystone/ui/color_picker_component.rb
   - app/components/keystone/ui/column_picker_component.rb
   - app/components/keystone/ui/column.rb
