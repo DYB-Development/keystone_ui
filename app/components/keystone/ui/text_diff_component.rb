@@ -4,7 +4,13 @@ module Keystone
   module Ui
     class TextDiffComponent < ViewComponent::Base
       SIDES = %w[before after].freeze
+      WRAPPER_CLASSES = "ks-code overflow-hidden"
       COLUMNS_CLASSES = "grid grid-cols-1 sm:grid-cols-2"
+      SIDE_CLASSES = "ks-code-block min-w-0 overflow-x-auto font-mono text-sm leading-relaxed"
+      ROW_CLASSES = "flex h-[1lh]"
+      NUMBER_CLASSES = "w-8 shrink-0 select-none text-right"
+      SIGN_CLASSES = "w-6 shrink-0 select-none text-center"
+      TEXT_CLASSES = "whitespace-pre"
 
       def initialize(before:, after:)
         @before = before.to_s.lines(chomp: true)
