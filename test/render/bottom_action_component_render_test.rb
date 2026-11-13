@@ -70,6 +70,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_includes spacer(page)&.[]("class").to_s.split, "invisible"
   end
 
+
+  def test_its_copy_in_the_pages_flow_cannot_be_reached_or_pressed
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert spacer(page)&.has_attribute?("inert")
+  end
+
   private
 
   def render_after_page_header(**header)

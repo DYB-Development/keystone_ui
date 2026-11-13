@@ -18,7 +18,7 @@ module Keystone
       private
 
       def spacer
-        tag.div(class: "#{BAR_CLASSES} #{SPACER_CLASSES}", data: { bottom_action_spacer: true }) { render button }
+        tag.div(class: "#{BAR_CLASSES} #{SPACER_CLASSES}", inert: true, data: { bottom_action_spacer: true }) { render button }
       end
 
       def button
