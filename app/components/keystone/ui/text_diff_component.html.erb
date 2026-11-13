@@ -1,8 +1,8 @@
 <div>
-  <% sides.each do |side, lines| %>
+  <% Keystone::Ui::TextDiffComponent::SIDES.each do |side| %>
     <div data-diff-side="<%= side %>">
-      <% lines.each do |line| %>
-        <div data-diff-row><span data-diff-text><%= line %></span></div>
+      <% cells(side).each do |cell| %>
+        <div data-diff-row><span data-diff-text><%= cell&.dig(:text) %></span></div>
       <% end %>
     </div>
   <% end %>
