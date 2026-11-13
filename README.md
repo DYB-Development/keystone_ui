@@ -1165,6 +1165,21 @@ Draws a bar chart on the server as an SVG, so it shows with no JavaScript and pr
 ]) %>
 ```
 
+### `ui_timeline`
+
+Draws one row per entry, in the order given. Each row shows the entry's label and how long it took, and under them a bar placed by the entry's start and end on one axis shared by every row. The axis runs from the earliest start to the latest end, and shows `0s` at its left and the total duration at its right. Durations are written from the largest unit that is not zero, such as `42s`, `3m 5s` or `1h 0m 5s`. The track and bar are drawn in the progress bar's look, so a look file that restyles the progress bar restyles the timeline too.
+
+**Required props**
+
+- `entries:` (Array of Hashes) — each entry is `{ label:, started_at:, ended_at: }`, with the two times as `Time` values
+
+```erb
+<%= ui_timeline(entries: [
+  { label: "Plan", started_at: run.started_at, ended_at: run.started_at + 60 },
+  { label: "Build", started_at: run.started_at + 60, ended_at: run.started_at + 240 }
+]) %>
+```
+
 ### `ui_stat_card`
 
 Renders a metric card for dashboards.
