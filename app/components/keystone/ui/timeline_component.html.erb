@@ -7,7 +7,7 @@
       </div>
       <div class="<%= TRACK_CLASSES %>">
         <% row[:tries].each do |entry| %>
-          <div class="<%= BAR_CLASSES %>" data-timeline-bar style="<%= bar_style(entry) %>"></div>
+          <div class="<%= bar_classes(entry) %>" data-timeline-bar style="<%= bar_style(entry) %>"></div>
         <% end %>
       </div>
     </div>

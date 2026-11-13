@@ -5,6 +5,7 @@ module Keystone
     class TimelineComponent < ViewComponent::Base
       TRACK_CLASSES = "ks-progress-track relative w-full h-2 overflow-hidden"
       BAR_CLASSES = "ks-progress-bar absolute inset-y-0"
+      FAILED_CLASSES = "ks-timeline-failed"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
 
@@ -20,6 +21,10 @@ module Keystone
 
       def rows
         entries.group_by { |entry| entry[:label] }.map { |label, tries| { label: label, tries: tries } }
+      end
+
+      def bar_classes(entry)
+        [ BAR_CLASSES, (FAILED_CLASSES if entry[:failed]) ].compact.join(" ")
       end
 
       def duration(row)

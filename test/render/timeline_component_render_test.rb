@@ -79,4 +79,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
   end
+
+  def test_draws_a_failed_entrys_bar_in_red
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
+
+    assert_equal [ false, true, false ], page.css("[data-timeline-bar]").map { |bar| bar[:class].split.include?("ks-timeline-failed") }
+  end
 end
