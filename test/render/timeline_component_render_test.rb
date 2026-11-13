@@ -17,4 +17,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[Plan Build], page.css("[data-timeline-row] [data-timeline-label]").map(&:text)
   end
+
+  def test_places_each_bar_by_its_start_and_end_on_one_axis_from_the_earliest_start_to_the_latest_end
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries))
+
+    assert_equal [ "left: 0%; width: 25%", "left: 25%; width: 75%" ], page.css("[data-timeline-row] [data-timeline-bar]").map { |bar| bar[:style] }
+  end
 end

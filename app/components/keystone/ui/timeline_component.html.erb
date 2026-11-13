@@ -2,6 +2,9 @@
   <% entries.each do |entry| %>
     <div data-timeline-row>
       <span data-timeline-label><%= entry[:label] %></span>
+      <div class="relative">
+        <div class="absolute" data-timeline-bar style="<%= bar_style(entry) %>"></div>
+      </div>
     </div>
   <% end %>
 </div>
