@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.76.0] - 2026-11-13
+
+### Added
+- `ui_timeline(entries:)` draws one row per entry, each with its label, its duration and a bar placed by its start and end on one axis that runs from the earliest start to the latest end, with `0s` and the total duration marked under the rows.
+- The timeline's track and bar are drawn in the progress bar's look.
+
 ## [0.75.0] - 2026-11-11
 
 ### Added
