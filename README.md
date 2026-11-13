@@ -1180,30 +1180,18 @@ Draws a bar chart on the server as an SVG, so it shows with no JavaScript and pr
 
 ### `ui_timeline`
 
-Draws one row per entry, in the order given. Each row shows the entry's label and how long it took, and under them a bar placed by the entry's start and end on one axis shared by every row. The axis runs from the earliest start to the latest end, and shows `0s` at its left and the total duration at its right. Durations are written from the largest unit that is not zero, such as `42s`, `3m 5s` or `1h 0m 5s`. The track and bar are drawn in the progress bar's look, so a look file that restyles the progress bar restyles the timeline too.
+Draws one row per label, in the order each label first appears. Entries that share a label, such as the tries of one step, are drawn on the same row, one bar each. Every bar is placed by its entry's start and end on one axis shared by every row. The axis runs from the earliest queued or start time to the latest end, and shows `0s` at its left and the total duration at its right. Each row shows its label and the time from its first entry's start to its last entry's end, written from the largest unit that is not zero, such as `42s`, `3m 5s` or `1h 0m 5s`. An entry given `queued_at:` has the time from then to its start drawn before its bar in the queued colour. An entry given `failed: true` is drawn in the danger colour, and screen readers read it as failed. The track and bars are drawn in the timeline's own colours, set by keystone_ui-styles 0.34.0 or later.
 
 **Required props**
 
-- `entries:` (Array of Hashes) — each entry is `{ label:, started_at:, ended_at: }`, with the two times as `Time` values
+- `entries:` (Array of Hashes) — each entry is `{ label:, started_at:, ended_at: }`, with the times as `Time` values, and may add `queued_at:` and `failed: true`
 
 ```erb
 <%= ui_timeline(entries: [
-  { label: "Plan", started_at: run.started_at, ended_at: run.started_at + 60 },
-  { label: "Build", started_at: run.started_at + 60, ended_at: run.started_at + 240 }
+  { label: "Plan", started_at: plan.started_at, ended_at: plan.ended_at },
+  { label: "Build", queued_at: first_try.queued_at, started_at: first_try.started_at, ended_at: first_try.ended_at, failed: true },
+  { label: "Build", started_at: second_try.started_at, ended_at: second_try.ended_at }
 ]) %>
-```
-
-### `ui_text_diff`
-
-Shows two versions of a text side by side, such as two versions of an agent's prompt, the first on the left and the second on the right. Lines the two share sit on the same row in both columns. A line only the first version has is marked as removed on the left, in red, with a minus sign, and a line the second version adds is marked as added on the right, in green, with a plus sign, with a blank cell opposite each. Each column numbers the lines of its own version. Below `sm` the two versions are stacked, the first above the second. It is drawn in the code block's look, and needs keystone_ui-styles 0.34.0 or later for the removed and added colours.
-
-**Required props**
-
-- `before:` (String) — the first version
-- `after:` (String) — the second version
-
-```erb
-<%= ui_text_diff(before: previous_version.instructions, after: version.instructions) %>
 ```
 
 ### `ui_stat_card`
