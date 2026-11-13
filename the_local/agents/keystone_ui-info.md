@@ -113,8 +113,9 @@ One decision: is keystone_ui set up in the app?
 - **Text diffs.** A text diff compares two texts line by line and shows them
   side by side, stacked on a phone, in the code block's look. Lines the two
   share sit on the same row, a line only the first text has is marked removed
-  with a minus, a line only the second has is marked added with a plus, and each
-  side numbers its own lines. It compares whole lines, so a line with one word
+  with a minus, a line only the second has is marked added with a plus, the
+  other side shows a blank row beside either one, and each side numbers its own
+  lines. On a phone the first text's column sits above the second's. It compares whole lines, so a line with one word
   changed shows as one line removed and one added.
 - **Semantic colour.** The themed hue is `accent-*` and the themed neutrals are
   `surface-*`, CSS custom properties whose defaults (blue and zinc) come from
