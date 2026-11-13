@@ -21,6 +21,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "b" ], marked(page, "before", "ks-diff-removed")
   end
 
+  def test_marks_a_line_the_second_version_adds_as_added_on_the_right
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd"))
+
+    assert_equal [ "d" ], marked(page, "after", "ks-diff-added")
+  end
+
   private
 
   def marked(page, side, mark)

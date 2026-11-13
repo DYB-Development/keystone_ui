@@ -32,7 +32,7 @@ module Keystone
             rows << [ { text: @before[before_index], mark: "ks-diff-removed" }, nil ]
             before_index += 1
           else
-            rows << [ nil, { text: @after[after_index] } ]
+            rows << [ nil, { text: @after[after_index], mark: "ks-diff-added" } ]
             after_index += 1
           end
         end
