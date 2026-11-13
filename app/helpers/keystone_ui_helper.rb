@@ -25,6 +25,10 @@ module KeystoneUiHelper
     render Keystone::Ui::BarChartComponent.new(**args)
   end
 
+  def ui_timeline(**args)
+    render Keystone::Ui::TimelineComponent.new(**args)
+  end
+
   def ui_cta_banner(**args, &block)
     render Keystone::Ui::CtaBannerComponent.new(**args), &block
   end
