@@ -6,9 +6,17 @@ module Keystone
       BAR_CLASSES = "ks-bottom-action"
 
       def call
-        tag.div(class: BAR_CLASSES) do
-          render ButtonComponent.new(label: content_for(:mobile_action_label), href: content_for(:mobile_action_url), full_width: true)
-        end
+        tag.div(class: BAR_CLASSES) { render button }
+      end
+
+      private
+
+      def button
+        ButtonComponent.new(label: content_for(:mobile_action_label), href: content_for(:mobile_action_url), method: action_method, full_width: true)
+      end
+
+      def action_method
+        content_for?(:mobile_action_method) ? content_for(:mobile_action_method).to_sym : :get
       end
     end
   end

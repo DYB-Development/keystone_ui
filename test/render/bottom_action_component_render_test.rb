@@ -21,6 +21,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_includes bottom_bar(page)&.at_css("a")&.[]("class").to_s.split, "w-full"
   end
 
+
+  def test_given_a_published_action_method_sends_that_method_to_the_action_address
+    page = render_after_page_header(title: "Run", action_url: "/runs/1/stop", action_label: "Stop", action_method: :post)
+
+    assert_equal "/runs/1/stop", bottom_bar(page)&.at_css("form[method='post']")&.[]("action")
+  end
+
   private
 
   def render_after_page_header(**header)
