@@ -56,6 +56,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_includes bottom_bar(page)&.[]("class").to_s.split, "print:hidden"
   end
 
+
+  def test_keeps_a_copy_of_the_bar_in_the_pages_flow_so_the_last_content_scrolls_clear_of_it
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert_includes spacer(page)&.[]("class").to_s.split, "!static"
+  end
+
   private
 
   def render_after_page_header(**header)
@@ -66,5 +73,9 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
 
   def bottom_bar(page)
     page.at_css(".ks-bottom-action")
+  end
+
+  def spacer(page)
+    page.at_css("[data-bottom-action-spacer]")
   end
 end

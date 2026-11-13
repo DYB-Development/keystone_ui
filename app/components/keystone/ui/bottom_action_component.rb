@@ -9,11 +9,17 @@ module Keystone
         content_for?(:mobile_action_url)
       end
 
+      SPACER_CLASSES = "!static"
+
       def call
-        tag.div(class: BAR_CLASSES) { render button }
+        safe_join([ tag.div(class: BAR_CLASSES) { render button }, spacer ])
       end
 
       private
+
+      def spacer
+        tag.div(class: "#{BAR_CLASSES} #{SPACER_CLASSES}", data: { bottom_action_spacer: true }) { render button }
+      end
 
       def button
         ButtonComponent.new(label: content_for(:mobile_action_label), href: content_for(:mobile_action_url), method: action_method, full_width: true)
