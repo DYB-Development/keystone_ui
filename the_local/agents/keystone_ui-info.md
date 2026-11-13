@@ -12,8 +12,8 @@ nothing and gives no steps.
 
 keystone_ui is a Rails engine gem that supplies a host app's UI as view helpers
 built on ViewComponent. Screens are built from named pieces — page shells,
-sections, panels, grids, forms and fields, search dropdowns, data tables, navigation, cards, stat
-tiles, charts, timelines, funnels, goal buckets, pipelines, breakdowns and info buttons —
+sections, panels, grids, forms and fields, search dropdowns, data tables, navigation, cards,
+badges, status dots, stat tiles, charts, timelines, funnels, goal buckets, pipelines, breakdowns and info buttons —
 instead of hand-written ERB and Tailwind. Every class the UI renders lives in the
 gem, so two pages built from the same helpers cannot disagree about spacing,
 colour or dark-mode treatment, and a change to a component reaches every page
@@ -104,6 +104,11 @@ One decision: is keystone_ui set up in the app?
 - **Action menus.** Each action is a label, an address and an HTTP method. A
   plain visit is a link, and any other method is a button, so an action that
   changes data is never a bare link. A delete asks for confirmation by default.
+- **Status states.** A badge and a status dot share five states: neutral,
+  success, danger, warning and info. A badge shows its label as text. A status
+  dot shows only its state's colour, for places with no room for text, and its label
+  is read only by screen readers. A status dot raises `ArgumentError` on any
+  other state.
 - **Semantic colour.** The themed hue is `accent-*` and the themed neutrals are
   `surface-*`, CSS custom properties whose defaults (blue and zinc) come from
   the keystone_ui-styles gem. Retheming changes those values, not the

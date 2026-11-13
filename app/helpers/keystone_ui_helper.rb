@@ -205,6 +205,10 @@ module KeystoneUiHelper
     render Keystone::Ui::ProgressComponent.new(**args)
   end
 
+  def ui_status_dot(**args)
+    render Keystone::Ui::StatusDotComponent.new(**args)
+  end
+
   def ui_settings_link(**args)
     render Keystone::Ui::SettingsLinkComponent.new(**args)
   end
