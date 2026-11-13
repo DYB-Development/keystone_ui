@@ -39,6 +39,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "1", "2", "3", "" ], [ "1", "", "2", "3" ] ], [ column(page, "before", "number"), column(page, "after", "number") ]
   end
 
+  def test_stacks_the_two_versions_on_a_phone_and_sets_them_side_by_side_from_640_pixels_wide
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a", after: "b"))
+
+    assert_empty %w[grid grid-cols-1 sm:grid-cols-2] - page.at_css("[data-diff-side]").parent[:class].to_s.split
+  end
+
   private
 
   def marked(page, side, mark)

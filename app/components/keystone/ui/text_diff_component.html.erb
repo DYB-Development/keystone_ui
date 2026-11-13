@@ -1,4 +1,4 @@
-<div>
+<div class="<%= Keystone::Ui::TextDiffComponent::COLUMNS_CLASSES %>">
   <% Keystone::Ui::TextDiffComponent::SIDES.each do |side| %>
     <div data-diff-side="<%= side %>">
       <% cells(side).each do |cell| %>

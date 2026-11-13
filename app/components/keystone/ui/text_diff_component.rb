@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class TextDiffComponent < ViewComponent::Base
       SIDES = %w[before after].freeze
+      COLUMNS_CLASSES = "grid grid-cols-1 sm:grid-cols-2"
 
       def initialize(before:, after:)
         @before = before.to_s.lines(chomp: true)
