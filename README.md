@@ -1019,6 +1019,19 @@ Renders an inline status badge.
 <%= ui_badge(label: "Expired", variant: :danger) %>
 ```
 
+### `ui_status_dot`
+
+Draws a small round dot showing an item's state, in the same colour as a badge of that state, such as in a list of runs or steps. Its label is read by screen readers and not shown on screen. A state outside the five raises an `ArgumentError` naming it, so a host maps its own states, such as queued or running, onto the five itself. It needs keystone_ui-styles 0.34.0 or later.
+
+**Required props**
+
+- `state:` (`:neutral | :success | :danger | :warning | :info`)
+- `label:` (String) — what the state means, for screen readers
+
+```erb
+<%= ui_status_dot(state: :success, label: "Passed") %>
+```
+
 ### `ui_figure`
 
 Shows a figure, such as an amount, in plain text or in the success or danger colour.
