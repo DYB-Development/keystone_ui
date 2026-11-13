@@ -77,6 +77,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert spacer(page)&.has_attribute?("inert")
   end
 
+
+  def test_its_copy_in_the_pages_flow_also_keeps_room_for_the_bottom_tab_bar_when_the_page_has_one
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert_includes spacer(page)&.[]("class").to_s.split, "[body:has(.ks-bottom-nav)_&]:mb-(--ks-bottom-nav-height)"
+  end
+
   private
 
   def render_after_page_header(**header)
