@@ -91,4 +91,13 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "", "Failed", "" ], page.css("[data-timeline-bar]").map { |bar| bar.at_css(".sr-only")&.text.to_s }
   end
+
+  def test_draws_the_time_an_entry_spent_queued_before_its_bar_in_its_own_colour
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START + 60 },
+      { label: "Build", queued_at: START + 60, started_at: START + 120, ended_at: START + 240 }
+    ]))
+
+    assert_equal [ "left: 25%; width: 25%" ], page.css("[data-timeline-queued].ks-timeline-queued").map { |segment| segment[:style] }
+  end
 end

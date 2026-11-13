@@ -6,6 +6,7 @@ module Keystone
       TRACK_CLASSES = "ks-progress-track relative w-full h-2 overflow-hidden"
       BAR_CLASSES = "ks-progress-bar absolute inset-y-0"
       FAILED_CLASSES = "ks-timeline-failed"
+      QUEUED_CLASSES = "ks-timeline-queued absolute inset-y-0"
       SCREEN_READER_CLASSES = "sr-only"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
@@ -22,6 +23,10 @@ module Keystone
 
       def rows
         entries.group_by { |entry| entry[:label] }.map { |label, tries| { label: label, tries: tries } }
+      end
+
+      def queued_style(entry)
+        "left: #{percent(entry[:queued_at] - axis_start)}%; width: #{percent(entry[:started_at] - entry[:queued_at])}%"
       end
 
       def bar_classes(entry)

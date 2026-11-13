@@ -7,6 +7,9 @@
       </div>
       <div class="<%= TRACK_CLASSES %>">
         <% row[:tries].each do |entry| %>
+          <% if entry[:queued_at] %>
+            <div class="<%= QUEUED_CLASSES %>" data-timeline-queued style="<%= queued_style(entry) %>"></div>
+          <% end %>
           <div class="<%= bar_classes(entry) %>" data-timeline-bar style="<%= bar_style(entry) %>"><% if entry[:failed] %><span class="<%= SCREEN_READER_CLASSES %>">Failed</span><% end %></div>
         <% end %>
       </div>
