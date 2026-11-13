@@ -1,0 +1,17 @@
+<div class="flex flex-col gap-3">
+  <% entries.each do |entry| %>
+    <div data-timeline-row>
+      <div class="<%= ROW_TEXT_CLASSES %>">
+        <span data-timeline-label><%= entry[:label] %></span>
+        <span data-timeline-duration><%= duration(entry) %></span>
+      </div>
+      <div class="<%= TRACK_CLASSES %>">
+        <div class="<%= BAR_CLASSES %>" data-timeline-bar style="<%= bar_style(entry) %>"></div>
+      </div>
+    </div>
+  <% end %>
+  <div class="<%= AXIS_CLASSES %>">
+    <span data-timeline-axis-start><%= axis_start_label %></span>
+    <span data-timeline-axis-end><%= total_duration %></span>
+  </div>
+</div>

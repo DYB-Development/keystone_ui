@@ -50,7 +50,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
 ## How to use it
 
 1. Confirm the prerequisites: Ruby >= 3.2 and **tailwindcss-rails v4+** in the
-   host app. The gem brings ViewComponent and keystone_ui-styles 0.29.0 or later with it.
+   host app. The gem brings ViewComponent and keystone_ui-styles 0.33.0 or later with it.
    Tailwind does not have to be initialized first, because the generator creates
    the stylesheet if it is missing.
 
@@ -166,7 +166,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
    these variables. So do the data display components: stat card, chart card,
    card link, CTA banner, feature grid, hero, data table, code, accordion,
    disclosure, calculation, info button, breakdown, figure, tab switcher, progress,
-   funnel, bucket, pipeline and swipe deck.
+   timeline, funnel, bucket, pipeline and swipe deck.
    So do the navigation components: navbar, nav item, nav dropdown, bottom nav,
    mobile header and settings link. The desktop "Back" link and the breadcrumbs
    on form and show pages use the mobile header's back link variables. The

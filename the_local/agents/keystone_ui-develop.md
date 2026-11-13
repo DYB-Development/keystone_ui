@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels and goal buckets, amounts shown in green or red as a gain or loss, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -95,6 +95,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_funnel` — a conversion funnel drawn as bars or one joined shape.
 - `ui_bucket` — an upright container filled toward a goal.
 - `ui_bucket_series` — a wrapping row of buckets.
+- `ui_timeline` — rows of timed steps, each a bar placed by its start and end on one shared time axis.
 - `ui_pipeline` — a staged flow diagram with buttons and breakable links that post to the app.
 - `ui_hero` — a marketing hero with title, call-to-action buttons and an aside.
 - `ui_cta_banner` — a marketing banner holding call-to-action buttons.
@@ -690,6 +691,16 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       the fill turns green with `over: :success` or amber with `over: :warning`.
     - `ui_bucket_series(buckets:)` takes an array of hashes with the keywords
       of `ui_bucket`, such as `[{ goal: 10, actual: 7, label: "Mon" }, ...]`.
+    - `ui_timeline(entries:)` takes no block. `entries:` is
+      `[{ label:, started_at:, ended_at: }, ...]` in the order to list them,
+      with both times as `Time` values. The axis runs from the earliest
+      `started_at` to the latest `ended_at`. Each entry is one row: its label
+      and its duration on one line, then a track with a bar placed at its start
+      and as wide as its share of the axis. Under the rows the axis reads `0s`
+      on the left and the whole span on the right. Durations are written as
+      `1h 0m 5s`, leaving out leading zero units, and a zero duration is `0s`.
+      It needs at least one entry and a span longer than zero, so do not render
+      it for an empty list or for entries that all start and end at one moment.
     - `ui_pipeline(title:, boxes:, links:, subtitle: nil)` — `boxes:` is
       `[{ label:, count:, accent:, action: }, ...]`, with `accent:` one of
       `:amber` `:emerald` `:danger` `:muted`, and `action:` is
