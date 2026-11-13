@@ -73,4 +73,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[Build Plan], page.css("[data-timeline-row] [data-timeline-label]").map(&:text)
   end
+
+  def test_gives_a_row_of_several_entries_the_duration_from_its_first_start_to_its_last_end
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
+
+    assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
+  end
 end
