@@ -9,6 +9,12 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "Create", bottom_bar(page)&.at_css("a")&.text&.strip
   end
 
+  def test_links_its_button_to_the_address_a_page_header_publishes
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert_equal "/events/new", bottom_bar(page)&.at_css("a")&.[]("href")
+  end
+
   private
 
   def render_after_page_header(**header)
