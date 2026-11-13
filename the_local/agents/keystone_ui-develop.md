@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -44,6 +44,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_mobile_header` — a mobile back arrow and a title beside it.
 - `ui_mobile_actions` — an ellipsis menu of actions shown only below `lg:`.
 - `ui_mobile_action` — a plus icon link to the action a screen's page header publishes, for the phone top bar.
+- `ui_bottom_action` — a full-width button for the action a screen's page header publishes, in a bar fixed to the bottom of a phone screen.
 - `ui_action_menu` — an ellipsis menu of actions shown at every screen size.
 - `ui_action_menu_item` — one action in an action menu, as a link or a button sending a method.
 - `ui_settings_link` — a full-width settings row with a chevron.
@@ -310,6 +311,20 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      a Hotwire Native web view, so give native users another way to reach the
      action, such as `ui_mobile_actions`. The layout must also write the
      `hotwire-native` class on `<html>` and declare that Tailwind variant.
+   - `ui_bottom_action` takes no keywords and no block. It draws the
+     `action_url:` a screen gives `ui_page_header` as a full-width `ui_button`
+     labelled with its `action_label:`, in a bar fixed to the bottom of the
+     screen, above `ui_bottom_nav` on a page that has one. With
+     `action_method:` the button sends that method as `ui_button` does, so it
+     cannot sit inside a form. It draws nothing when the screen gives no
+     `action_url:`, so call it after `ui_page_header` has run, such as in the
+     layout after `yield`. It is hidden from `sm:` up, inside a Hotwire Native
+     web view and in print, like `ui_mobile_action`. It also draws an invisible
+     copy of the bar in the page's flow, plus the bottom nav's height when the
+     page has a `ui_bottom_nav`, so the page's last content scrolls clear of
+     both. Add no padding of your own for them. It and `ui_mobile_action`
+     draw the same action, so ask the developer which one a screen shows on a
+     phone.
    - `ui_settings_link(label:, href:)` renders one settings row.
    - `ui_theme_toggle` takes no keywords and no block. Its buttons switch the
      theme at once and store the choice in the `keystone_theme` cookie for a
@@ -793,7 +808,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
   and swipe deck render only what is registered through the object they yield,
   so anything else emitted in their block is dropped.
 - **Check both screen sizes.** Page headers with no badges or menu, mobile headers, mobile actions,
-  bottom navigation, breadcrumbs and `ui_navigation`'s bars render on one side
+  the bottom action, bottom navigation, breadcrumbs and `ui_navigation`'s bars render on one side
   of `lg:` or `sm:` only, so a screen needs both treatments.
 - Out of scope: installing or upgrading the gem, its configuration, the theme
   attributes on the layout, and the palette, which belong to

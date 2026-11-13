@@ -1697,6 +1697,17 @@ No props. Call it from the layout's top bar, which is rendered after the screen.
 <% end %>
 ```
 
+### `ui_bottom_action`
+
+Draws the action a screen gives `ui_page_header` through `action_url:` as a full-width button fixed to the bottom of a phone screen, labelled with `action_label:`. When the screen also gives `action_method:`, the button is a form that sends that method to the address. It draws nothing on a screen with no action. It is hidden from `sm` screens up, inside a Hotwire Native web view and when the page is printed, as `ui_mobile_action` is. On a page that shows the bottom nav it sits directly above the bottom nav. It also draws an invisible, inert copy of itself in the page's flow, plus the bottom nav's height when the page has one, so the page's last content can scroll clear of both.
+
+No props. Call it from the layout after the screen, in place of `ui_mobile_action` when the action should sit at the bottom rather than in the top bar. It needs keystone_ui-styles 0.34.0 or later.
+
+```erb
+<%= yield %>
+<%= ui_bottom_action %>
+```
+
 ### `ui_form_page`
 
 Wraps a form page with title and back navigation. Sets `content_for` signals so the navbar can render mobile header context. On `lg` screens and wider, where the mobile header is hidden, it shows a link back to `back_url` at the top of the page's `ui_page`, so call `ui_page` on the same page.
