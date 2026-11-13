@@ -265,6 +265,10 @@ module KeystoneUiHelper
     render Keystone::Ui::CodeComponent.new(**args), &block
   end
 
+  def ui_text_diff(**args)
+    render Keystone::Ui::TextDiffComponent.new(**args)
+  end
+
   def ui_disclosure(**args, &block)
     render Keystone::Ui::DisclosureComponent.new(**args), &block
   end
