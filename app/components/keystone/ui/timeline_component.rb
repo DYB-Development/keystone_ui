@@ -18,8 +18,12 @@ module Keystone
         "left: #{percent(entry[:started_at] - axis_start)}%; width: #{percent(entry[:ended_at] - entry[:started_at])}%"
       end
 
-      def duration(entry)
-        written_duration(entry[:ended_at] - entry[:started_at])
+      def rows
+        entries.group_by { |entry| entry[:label] }.map { |label, tries| { label: label, tries: tries } }
+      end
+
+      def duration(row)
+        written_duration(row[:tries].last[:ended_at] - row[:tries].first[:started_at])
       end
 
       def total_duration

@@ -53,4 +53,18 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 2, page.css("[data-timeline-bar].ks-progress-bar").size
   end
+
+  def retried
+    [
+      { label: "Plan", started_at: START, ended_at: START + 60 },
+      { label: "Build", started_at: START + 60, ended_at: START + 120, failed: true },
+      { label: "Build", started_at: START + 120, ended_at: START + 240 }
+    ]
+  end
+
+  def test_draws_entries_that_share_a_label_on_one_row_with_one_bar_per_entry
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
+
+    assert_equal [ [ "Plan", 1 ], [ "Build", 2 ] ], page.css("[data-timeline-row]").map { |row| [ row.at_css("[data-timeline-label]").text, row.css("[data-timeline-bar]").size ] }
+  end
 end
