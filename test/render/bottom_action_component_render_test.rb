@@ -15,6 +15,12 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "/events/new", bottom_bar(page)&.at_css("a")&.[]("href")
   end
 
+  def test_draws_its_button_across_the_full_width_of_the_screen
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert_includes bottom_bar(page)&.at_css("a")&.[]("class").to_s.split, "w-full"
+  end
+
   private
 
   def render_after_page_header(**header)

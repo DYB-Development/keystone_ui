@@ -7,7 +7,7 @@ module Keystone
 
       def call
         tag.div(class: BAR_CLASSES) do
-          render ButtonComponent.new(label: content_for(:mobile_action_label), href: content_for(:mobile_action_url))
+          render ButtonComponent.new(label: content_for(:mobile_action_label), href: content_for(:mobile_action_url), full_width: true)
         end
       end
     end
