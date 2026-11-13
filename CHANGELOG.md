@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.79.0] - 2026-11-13
+
+### Added
+- `ui_text_diff(before:, after:)` shows two versions of a text side by side, the first on the left and the second on the right, with the lines they share on the same row.
+- A line only the first version has is marked as removed in red with a minus, and a line the second version adds is marked as added in green with a plus, with a blank cell opposite each.
+- Each column of a text diff numbers the lines of its own version, and the two versions are stacked below `sm`.
+
 ## [0.78.0] - 2026-11-13
 
 ### Added
