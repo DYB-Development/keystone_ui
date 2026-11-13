@@ -17,6 +17,14 @@ module Keystone
         written_duration(entry[:ended_at] - entry[:started_at])
       end
 
+      def total_duration
+        written_duration(axis_end - axis_start)
+      end
+
+      def axis_start_label
+        written_duration(0)
+      end
+
       private
 
       def written_duration(seconds)

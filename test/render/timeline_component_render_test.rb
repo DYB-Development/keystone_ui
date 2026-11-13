@@ -35,4 +35,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "1h 0m 5s", page.at_css("[data-timeline-duration]").text
   end
+
+  def test_marks_the_axis_with_zero_at_its_left_and_the_total_duration_at_its_right
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries))
+
+    assert_equal [ "0s", "4m 0s" ], [ page.at_css("[data-timeline-axis-start]")&.text, page.at_css("[data-timeline-axis-end]")&.text ]
+  end
 end
