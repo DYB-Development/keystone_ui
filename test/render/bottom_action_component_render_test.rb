@@ -49,6 +49,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_includes bottom_bar(page)&.[]("class").to_s.split, "hotwire-native:hidden"
   end
 
+
+  def test_hides_when_the_page_is_printed
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert_includes bottom_bar(page)&.[]("class").to_s.split, "print:hidden"
+  end
+
   private
 
   def render_after_page_header(**header)
