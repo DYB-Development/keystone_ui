@@ -35,6 +35,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_nil bottom_bar(page)
   end
 
+
+  def test_hides_from_640_pixels_wide_as_the_top_bars_action_does
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert_includes bottom_bar(page)&.[]("class").to_s.split, "sm:hidden"
+  end
+
   private
 
   def render_after_page_header(**header)

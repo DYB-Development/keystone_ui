@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class BottomActionComponent < ViewComponent::Base
-      BAR_CLASSES = "ks-bottom-action"
+      BAR_CLASSES = "ks-bottom-action sm:hidden"
 
       def render?
         content_for?(:mobile_action_url)
