@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class TimelineComponent < ViewComponent::Base
       TRACK_CLASSES = "ks-progress-track relative w-full h-2 overflow-hidden"
+      BAR_CLASSES = "ks-progress-bar absolute inset-y-0"
 
       attr_reader :entries
 

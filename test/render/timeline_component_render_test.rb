@@ -47,4 +47,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 2, page.css("[data-timeline-row] .ks-progress-track").size
   end
+
+  def test_draws_each_bar_in_the_progress_bars_look
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries))
+
+    assert_equal 2, page.css("[data-timeline-bar].ks-progress-bar").size
+  end
 end
