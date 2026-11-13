@@ -1,12 +1,17 @@
 <div class="flex flex-col gap-3">
-  <% entries.each do |entry| %>
+  <% rows.each do |row| %>
     <div data-timeline-row>
       <div class="<%= ROW_TEXT_CLASSES %>">
-        <span data-timeline-label><%= entry[:label] %></span>
-        <span data-timeline-duration><%= duration(entry) %></span>
+        <span data-timeline-label><%= row[:label] %></span>
+        <span data-timeline-duration><%= duration(row) %></span>
       </div>
       <div class="<%= TRACK_CLASSES %>">
-        <div class="<%= BAR_CLASSES %>" data-timeline-bar style="<%= bar_style(entry) %>"></div>
+        <% row[:tries].each do |entry| %>
+          <% if entry[:queued_at] %>
+            <div class="<%= QUEUED_CLASSES %>" data-timeline-queued style="<%= queued_style(entry) %>"></div>
+          <% end %>
+          <div class="<%= bar_classes(entry) %>" data-timeline-bar style="<%= bar_style(entry) %>"><% if entry[:failed] %><span class="<%= SCREEN_READER_CLASSES %>">Failed</span><% end %></div>
+        <% end %>
       </div>
     </div>
   <% end %>

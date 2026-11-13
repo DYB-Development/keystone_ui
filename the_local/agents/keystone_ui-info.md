@@ -60,10 +60,18 @@ One decision: is keystone_ui set up in the app?
   symbol they do not know, so a wrong guess fails at render time.
 - **Numbers and text are different inputs.** Progress bars, funnels, buckets
   and timelines do arithmetic, so they take numbers, and a bucket raises on
-  `"9,000"`. A timeline takes each row's start and end as times and works out
-  every duration, bar position and its axis from them. A
+  `"9,000"`. A timeline takes each entry's times and works out every duration,
+  bar position and its axis from them. A
   breakdown, a calculation and a toned figure take already-formatted text, show
   it as written and add nothing up.
+- **Timelines.** A timeline entry is one try at a step: a label, a start time,
+  an end time, and optionally the time it was queued and whether it failed.
+  Entries sharing a label are drawn as several bars on one row, in the order
+  given, and the row's duration runs from its first try's start to its last
+  try's end. Queued time is drawn as its own segment before the bar, and a
+  failed try is marked failed both in colour and for screen readers. The axis
+  runs from the earliest queued or start time of any entry to the latest end
+  time.
 - **Going back.** A form or show page shell needs a way back: a back link, a
   trail of earlier pages shown as breadcrumbs, or a trail the app supplies for
   the request. A nav tab's own page passes an empty trail and shows no back
