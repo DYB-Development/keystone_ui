@@ -5,6 +5,8 @@ module Keystone
     class TimelineComponent < ViewComponent::Base
       TRACK_CLASSES = "ks-progress-track relative w-full h-2 overflow-hidden"
       BAR_CLASSES = "ks-progress-bar absolute inset-y-0"
+      ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
+      AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
 
       attr_reader :entries
 
