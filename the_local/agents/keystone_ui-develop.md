@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -322,7 +322,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      web view and in print, like `ui_mobile_action`. It also draws an invisible
      copy of the bar in the page's flow, plus the bottom nav's height when the
      page has a `ui_bottom_nav`, so the page's last content scrolls clear of
-     both, so add no padding of your own for them. It and `ui_mobile_action`
+     both. Add no padding of your own for them. It and `ui_mobile_action`
      draw the same action, so ask the developer which one a screen shows on a
      phone.
    - `ui_settings_link(label:, href:)` renders one settings row.
