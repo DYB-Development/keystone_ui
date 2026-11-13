@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.80.0] - 2026-11-13
+
+### Added
+- `ui_timeline` draws entries that share a label on one row, one bar per entry, with rows in the order each label first appears and each row's duration running from its first entry's start to its last entry's end.
+- A timeline entry given `queued_at:` has its queued time drawn before its bar in the queued colour, and the axis starts at the earliest queued or start time.
+- A timeline entry given `failed: true` is drawn in the danger colour and read by screen readers as failed.
+
+### Changed
+- A timeline's track and bars are drawn in the timeline's own colours rather than the progress bar's.
+
 ## [0.79.0] - 2026-11-13
 
 ### Added
