@@ -13,7 +13,8 @@ nothing and gives no steps.
 keystone_ui is a Rails engine gem that supplies a host app's UI as view helpers
 built on ViewComponent. Screens are built from named pieces — page shells,
 sections, panels, grids, forms and fields, search dropdowns, data tables, navigation, cards,
-badges, status dots, stat tiles, charts, timelines, funnels, goal buckets, pipelines, breakdowns and info buttons —
+badges, status dots, stat tiles, charts, timelines, funnels, goal buckets, pipelines, breakdowns, code blocks,
+text diffs and info buttons —
 instead of hand-written ERB and Tailwind. Every class the UI renders lives in the
 gem, so two pages built from the same helpers cannot disagree about spacing,
 colour or dark-mode treatment, and a change to a component reaches every page
@@ -109,6 +110,13 @@ One decision: is keystone_ui set up in the app?
   dot shows only its state's colour, for places with no room for text, and its label
   is read only by screen readers. A status dot raises `ArgumentError` on any
   other state.
+- **Text diffs.** A text diff compares two texts line by line and shows them
+  side by side, stacked on a phone, in the code block's look. Lines the two
+  share sit on the same row, a line only the first text has is marked removed
+  with a minus, a line only the second has is marked added with a plus, the
+  other side shows a blank row beside either one, and each side numbers its own
+  lines. On a phone the first text's column sits above the second's. It compares whole lines, so a line with one word
+  changed shows as one line removed and one added.
 - **Semantic colour.** The themed hue is `accent-*` and the themed neutrals are
   `surface-*`, CSS custom properties whose defaults (blue and zinc) come from
   the keystone_ui-styles gem. Retheming changes those values, not the

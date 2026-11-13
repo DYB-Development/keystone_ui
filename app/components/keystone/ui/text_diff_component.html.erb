@@ -1,0 +1,11 @@
+<div class="<%= Keystone::Ui::TextDiffComponent::WRAPPER_CLASSES %>">
+  <div class="<%= Keystone::Ui::TextDiffComponent::COLUMNS_CLASSES %>">
+    <% Keystone::Ui::TextDiffComponent::SIDES.each do |side| %>
+      <div class="<%= Keystone::Ui::TextDiffComponent::SIDE_CLASSES %>" data-diff-side="<%= side %>">
+        <% cells(side).each do |cell| %>
+          <div class="<%= [ Keystone::Ui::TextDiffComponent::ROW_CLASSES, cell&.dig(:mark) ].compact.join(" ") %>" data-diff-row><span class="<%= Keystone::Ui::TextDiffComponent::NUMBER_CLASSES %>" data-diff-number><%= cell&.dig(:number) %></span><span class="<%= Keystone::Ui::TextDiffComponent::SIGN_CLASSES %>" data-diff-sign><%= cell&.dig(:sign) %></span><span class="<%= Keystone::Ui::TextDiffComponent::TEXT_CLASSES %>" data-diff-text><%= cell&.dig(:text) %></span></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

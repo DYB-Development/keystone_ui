@@ -73,6 +73,7 @@ module Keystone
       Keystone::Ui::BucketSeriesComponent,
       Keystone::Ui::PipelineComponent,
       Keystone::Ui::CodeComponent,
+      Keystone::Ui::TextDiffComponent,
       Keystone::Ui::DisclosureComponent,
       Keystone::Ui::ThemeToggleComponent,
       Keystone::Ui::TimelineComponent,

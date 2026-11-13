@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -83,6 +83,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_stat_card` — a single metric tile with optional change, link and info button.
 - `ui_copy_button` — a button that copies text to the clipboard.
 - `ui_code` — a block of code with an optional caption.
+- `ui_text_diff` — two versions of a text side by side, with removed and added lines marked.
 - `ui_disclosure` — a native expandable section with a clickable summary.
 - `ui_calculation` — the steps behind a figure, closed under a summary row.
 - `ui_info` — an inline info button showing a summary, and optional detail, in floating panels.
@@ -627,6 +628,20 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_code(language: nil, caption: nil)` takes a block holding the code.
      `caption:` is a strip above it and `language:` sets the `language-*`
      class for a highlighter.
+   - `ui_text_diff(before:, after:)` takes no block. It splits each text into
+     lines and draws the earlier version in the left column and the later one
+     in the right, stacked with the earlier above below `sm:`. Lines the two
+     share sit on the same row. A line only `before:` has is marked removed with
+     a `-` and a line only `after:` has is marked added with a `+`, each
+     coloured by keystone_ui-styles and each with a
+     blank row opposite, so a changed line shows as a removed row followed by
+     an added row. Each column numbers its own lines, and a long line scrolls
+     sideways inside its column. Lines must match exactly, spaces included, to
+     count as shared. A `nil` text is treated as empty, and both are shown as
+     plain text. The work grows with the line count of one text times the
+     other's, so pass texts a person reads, not whole files of thousands of
+     lines. Ask the developer which two versions a screen compares and which
+     is the earlier one.
    - `ui_disclosure(open: false)` takes a block yielding the component. Fill
      its `summary` slot with the header, and the rest of the block is the body.
    - `ui_accordion(items: [])` — `items:` is `[{ question:, answer: }, ...]`.
@@ -790,7 +805,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     shows nothing, a breakdown in one run of text, a `:success` or `:danger`
     figure in plain colour, a joined funnel with no band, a locked column the
     others show through, a Columns menu with no greyed name for a hidden
-    column, a table row whose caret does not open its detail, or a status dot
+    column, a table row whose caret does not open its detail, a text diff whose
+    removed and added rows look like its shared rows, or a status dot
     that draws nothing — the app's Stimulus controllers or keystone_ui-styles version are
     out of date. Stop and hand that part to `keystone_ui-install`, and add no
     classes to fix it.

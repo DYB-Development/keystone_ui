@@ -164,7 +164,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
    action menu, the action menu, the column picker, multi select, search select, copy button, theme toggle,
    checkbox row, radio card, option card, file upload and colour picker read
    these variables. So do the data display components: stat card, chart card,
-   card link, CTA banner, feature grid, hero, data table, code, accordion,
+   card link, CTA banner, feature grid, hero, data table, code, text diff, accordion,
    disclosure, calculation, info button, breakdown, figure, tab switcher, progress,
    timeline, funnel, bucket, pipeline and swipe deck.
    So do the navigation components: navbar, nav item, nav dropdown, bottom nav,
