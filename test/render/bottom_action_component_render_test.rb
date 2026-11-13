@@ -60,14 +60,14 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
   def test_keeps_a_copy_of_the_bar_in_the_pages_flow_so_the_last_content_scrolls_clear_of_it
     page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
 
-    assert_includes spacer(page)&.[]("class").to_s.split, "!static"
+    assert_includes bar_copy(page)&.[]("class").to_s.split, "!static"
   end
 
 
   def test_cannot_be_seen_as_a_second_bar
     page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
 
-    assert_includes spacer(page)&.[]("class").to_s.split, "invisible"
+    assert_includes bar_copy(page)&.[]("class").to_s.split, "invisible"
   end
 
 
@@ -81,7 +81,7 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
   def test_its_copy_in_the_pages_flow_also_keeps_room_for_the_bottom_tab_bar_when_the_page_has_one
     page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
 
-    assert_includes spacer(page)&.[]("class").to_s.split, "[body:has(.ks-bottom-nav)_&]:mb-(--ks-bottom-nav-height)"
+    assert spacer(page)&.css("div")&.any? { |block| ([ "h-(--ks-bottom-nav-height)", "[body:has(.ks-bottom-nav)_&]:block" ] - block[:class].to_s.split).empty? }
   end
 
   private
@@ -98,5 +98,9 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
 
   def spacer(page)
     page.at_css("[data-bottom-action-spacer]")
+  end
+
+  def bar_copy(page)
+    spacer(page)&.at_css(".ks-bottom-action")
   end
 end
