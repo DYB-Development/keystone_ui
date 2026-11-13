@@ -28,6 +28,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "/runs/1/stop", bottom_bar(page)&.at_css("form[method='post']")&.[]("action")
   end
 
+
+  def test_given_no_published_action_draws_nothing
+    page = render_inline(Keystone::Ui::BottomActionComponent.new)
+
+    assert_nil bottom_bar(page)
+  end
+
   private
 
   def render_after_page_header(**header)

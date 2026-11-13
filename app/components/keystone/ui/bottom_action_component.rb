@@ -5,6 +5,10 @@ module Keystone
     class BottomActionComponent < ViewComponent::Base
       BAR_CLASSES = "ks-bottom-action"
 
+      def render?
+        content_for?(:mobile_action_url)
+      end
+
       def call
         tag.div(class: BAR_CLASSES) { render button }
       end
