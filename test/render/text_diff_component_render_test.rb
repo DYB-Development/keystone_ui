@@ -15,7 +15,17 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "a", "b", "c", "" ], [ "a", "", "c", "d" ] ], [ texts(page, "before"), texts(page, "after") ]
   end
 
+  def test_marks_a_line_only_the_first_version_has_as_removed_on_the_left
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd"))
+
+    assert_equal [ "b" ], marked(page, "before", "ks-diff-removed")
+  end
+
   private
+
+  def marked(page, side, mark)
+    page.css("[data-diff-side='#{side}'] [data-diff-row].#{mark} [data-diff-text]").map(&:text)
+  end
 
   def texts(page, side)
     page.css("[data-diff-side='#{side}'] [data-diff-row] [data-diff-text]").map(&:text)
