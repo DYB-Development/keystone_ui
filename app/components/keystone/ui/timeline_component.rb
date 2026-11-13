@@ -3,6 +3,8 @@
 module Keystone
   module Ui
     class TimelineComponent < ViewComponent::Base
+      TRACK_CLASSES = "ks-progress-track relative w-full h-2 overflow-hidden"
+
       attr_reader :entries
 
       def initialize(entries:)

@@ -41,4 +41,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "0s", "4m 0s" ], [ page.at_css("[data-timeline-axis-start]")&.text, page.at_css("[data-timeline-axis-end]")&.text ]
   end
+
+  def test_draws_each_rows_track_in_the_progress_tracks_look
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries))
+
+    assert_equal 2, page.css("[data-timeline-row] .ks-progress-track").size
+  end
 end

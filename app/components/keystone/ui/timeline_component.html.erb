@@ -3,7 +3,7 @@
     <div data-timeline-row>
       <span data-timeline-label><%= entry[:label] %></span>
       <span data-timeline-duration><%= duration(entry) %></span>
-      <div class="relative">
+      <div class="<%= TRACK_CLASSES %>">
         <div class="absolute" data-timeline-bar style="<%= bar_style(entry) %>"></div>
       </div>
     </div>
