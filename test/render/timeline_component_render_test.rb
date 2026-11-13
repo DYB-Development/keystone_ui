@@ -29,4 +29,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
   end
+
+  def test_writes_a_duration_of_an_hour_or_more_in_hours_minutes_and_seconds
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [ { label: "Run", started_at: START, ended_at: START + 3605 } ]))
+
+    assert_equal "1h 0m 5s", page.at_css("[data-timeline-duration]").text
+  end
 end
