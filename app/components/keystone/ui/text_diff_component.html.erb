@@ -1,0 +1,9 @@
+<div>
+  <% sides.each do |side, lines| %>
+    <div data-diff-side="<%= side %>">
+      <% lines.each do |line| %>
+        <div data-diff-row><span data-diff-text><%= line %></span></div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
