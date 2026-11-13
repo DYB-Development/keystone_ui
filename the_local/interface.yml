@@ -42,6 +42,7 @@ develop:
   - ui_mobile_header
   - ui_mobile_actions
   - ui_mobile_action
+  - ui_bottom_action
   - ui_action_menu
   - ui_action_menu_item
   - ui_navbar
@@ -148,6 +149,7 @@ sources:
   - app/components/keystone/ui/line_chart_component.rb
   - app/components/keystone/ui/mobile_actions_component.rb
   - app/components/keystone/ui/mobile_action_component.rb
+  - app/components/keystone/ui/bottom_action_component.rb
   - app/components/keystone/ui/action_menu_component.rb
   - app/components/keystone/ui/action_menu_item_component.rb
   - app/components/keystone/ui/mobile_header_component.rb

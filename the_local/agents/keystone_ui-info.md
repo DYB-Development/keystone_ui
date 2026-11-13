@@ -93,6 +93,14 @@ One decision: is keystone_ui set up in the app?
   submits an empty id and shows the new record's fields the page placed inside
   the dropdown, and picking a match afterwards hides them again. The arrow keys
   move through the list, Enter picks, and Escape closes it.
+- **A page's main action on a phone.** A page header can name one main action:
+  a label, an address and an optional HTTP method. The header shows it as a
+  button and also publishes it to the layout. Below `sm:` the layout can show it
+  again as a plus icon in the top bar, or as a full-width button in a bar fixed
+  to the bottom of the screen, above the bottom tab bar when the page has one. The page leaves room under
+  its last content so the bar does not cover it. Both forms show nothing when
+  the header names no action, and both are hidden inside a Hotwire Native web
+  view and in print.
 - **Action menus.** Each action is a label, an address and an HTTP method. A
   plain visit is a link, and any other method is a button, so an action that
   changes data is never a bare link. A delete asks for confirmation by default.
@@ -119,4 +127,4 @@ One decision: is keystone_ui set up in the app?
   Stimulus controllers, so a host writes no JavaScript. Components that post,
   such as the column picker and the pipeline, post to endpoints the host or
   another gem owns.
-- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.33.0.
+- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.34.0.
