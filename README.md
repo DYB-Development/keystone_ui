@@ -1194,6 +1194,19 @@ Draws one row per label, in the order each label first appears. Entries that sha
 ]) %>
 ```
 
+### `ui_text_diff`
+
+Shows two versions of a text side by side, such as two versions of an agent's prompt, the first on the left and the second on the right. Lines the two share sit on the same row in both columns. A line only the first version has is marked as removed on the left, in red, with a minus sign, and a line the second version adds is marked as added on the right, in green, with a plus sign, with a blank cell opposite each. Each column numbers the lines of its own version. Below `sm` the two versions are stacked, the first above the second. It is drawn in the code block's look, and needs keystone_ui-styles 0.34.0 or later for the removed and added colours.
+
+**Required props**
+
+- `before:` (String) — the first version
+- `after:` (String) — the second version
+
+```erb
+<%= ui_text_diff(before: previous_version.instructions, after: version.instructions) %>
+```
+
 ### `ui_stat_card`
 
 Renders a metric card for dashboards.
