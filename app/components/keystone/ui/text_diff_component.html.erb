@@ -2,7 +2,7 @@
   <% Keystone::Ui::TextDiffComponent::SIDES.each do |side| %>
     <div data-diff-side="<%= side %>">
       <% cells(side).each do |cell| %>
-        <div class="<%= cell&.dig(:mark) %>" data-diff-row><span data-diff-sign><%= cell&.dig(:sign) %></span><span data-diff-text><%= cell&.dig(:text) %></span></div>
+        <div class="<%= cell&.dig(:mark) %>" data-diff-row><span data-diff-number><%= cell&.dig(:number) %></span><span data-diff-sign><%= cell&.dig(:sign) %></span><span data-diff-text><%= cell&.dig(:text) %></span></div>
       <% end %>
     </div>
   <% end %>

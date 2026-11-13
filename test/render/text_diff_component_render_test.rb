@@ -33,6 +33,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "", "-", "", "" ], [ "", "", "", "+" ] ], [ column(page, "before", "sign"), column(page, "after", "sign") ]
   end
 
+  def test_numbers_each_columns_lines_in_its_own_version
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd"))
+
+    assert_equal [ [ "1", "2", "3", "" ], [ "1", "", "2", "3" ] ], [ column(page, "before", "number"), column(page, "after", "number") ]
+  end
+
   private
 
   def marked(page, side, mark)

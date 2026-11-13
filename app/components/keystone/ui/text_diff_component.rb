@@ -25,14 +25,14 @@ module Keystone
         rows = []
         while before_index < @before.size || after_index < @after.size
           if before_index < @before.size && after_index < @after.size && @before[before_index] == @after[after_index]
-            rows << [ { text: @before[before_index] }, { text: @after[after_index] } ]
+            rows << [ { text: @before[before_index], number: before_index + 1 }, { text: @after[after_index], number: after_index + 1 } ]
             before_index += 1
             after_index += 1
           elsif before_index < @before.size && (after_index == @after.size || shared[before_index + 1][after_index] >= shared[before_index][after_index + 1])
-            rows << [ { text: @before[before_index], mark: "ks-diff-removed", sign: "-" }, nil ]
+            rows << [ { text: @before[before_index], number: before_index + 1, mark: "ks-diff-removed", sign: "-" }, nil ]
             before_index += 1
           else
-            rows << [ nil, { text: @after[after_index], mark: "ks-diff-added", sign: "+" } ]
+            rows << [ nil, { text: @after[after_index], number: after_index + 1, mark: "ks-diff-added", sign: "+" } ]
             after_index += 1
           end
         end
