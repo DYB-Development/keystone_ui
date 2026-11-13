@@ -4,12 +4,11 @@ module Keystone
   module Ui
     class BottomActionComponent < ViewComponent::Base
       BAR_CLASSES = "ks-bottom-action sm:hidden hotwire-native:hidden print:hidden"
+      SPACER_CLASSES = "!static invisible [body:has(.ks-bottom-nav)_&]:mb-(--ks-bottom-nav-height)"
 
       def render?
         content_for?(:mobile_action_url)
       end
-
-      SPACER_CLASSES = "!static invisible [body:has(.ks-bottom-nav)_&]:mb-(--ks-bottom-nav-height)"
 
       def call
         safe_join([ tag.div(class: BAR_CLASSES) { render button }, spacer ])
