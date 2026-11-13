@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps with retries, queued time and failed tries, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -98,7 +98,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_funnel` — a conversion funnel drawn as bars or one joined shape.
 - `ui_bucket` — an upright container filled toward a goal.
 - `ui_bucket_series` — a wrapping row of buckets.
-- `ui_timeline` — rows of timed steps, each a bar placed by its start and end on one shared time axis.
+- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, with optional queued time and failed tries marked.
 - `ui_pipeline` — a staged flow diagram with buttons and breakable links that post to the app.
 - `ui_hero` — a marketing hero with title, call-to-action buttons and an aside.
 - `ui_cta_banner` — a marketing banner holding call-to-action buttons.
@@ -730,14 +730,28 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     - `ui_bucket_series(buckets:)` takes an array of hashes with the keywords
       of `ui_bucket`, such as `[{ goal: 10, actual: 7, label: "Mon" }, ...]`.
     - `ui_timeline(entries:)` takes no block. `entries:` is
-      `[{ label:, started_at:, ended_at: }, ...]` in the order to list them,
-      with both times as `Time` values. The axis runs from the earliest
-      `started_at` to the latest `ended_at`. Each entry is one row: its label
-      and its duration on one line, then a track with a bar placed at its start
-      and as wide as its share of the axis. Under the rows the axis reads `0s`
-      on the left and the whole span on the right. Durations are written as
-      `1h 0m 5s`, leaving out leading zero units, and a zero duration is `0s`.
-      It needs at least one entry and a span longer than zero, so do not render
+      `[{ label:, started_at:, ended_at:, queued_at: nil, failed: false }, ...]`,
+      with every time a `Time` value.
+    - It draws one row per label, in the order each label first appears.
+      Entries that share a label, such as the tries of one step, share that
+      row and each draws its own bar, so pass a step's tries one after another
+      in the order they ran.
+    - Every bar is placed by its entry's `started_at` and `ended_at` on one
+      axis shared by all rows. The axis runs from the earliest `queued_at` or
+      `started_at` of any entry to the latest `ended_at`.
+    - An entry given `queued_at:` also draws the time from `queued_at` to
+      `started_at` before its bar, in the queued colour. Leave it out when the
+      wait is not known.
+    - An entry given `failed: true` draws its bar in the danger colour, and
+      screen readers read it as "Failed". Ask the developer which tries count
+      as failed and whether the queued time is shown.
+    - Each row shows its label and its duration on one line, then its track.
+      The row's duration runs from its first entry's `started_at` to its last
+      entry's `ended_at`, so queued time before the first try is not counted.
+    - Under the rows the axis reads `0s` on the left and the whole span on the
+      right. Durations are written as `1h 0m 5s`, leaving out leading zero
+      units, and a zero duration is `0s`.
+    - It needs at least one entry and a span longer than zero, so do not render
       it for an empty list or for entries that all start and end at one moment.
     - `ui_pipeline(title:, boxes:, links:, subtitle: nil)` — `boxes:` is
       `[{ label:, count:, accent:, action: }, ...]`, with `accent:` one of
@@ -806,7 +820,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     figure in plain colour, a joined funnel with no band, a locked column the
     others show through, a Columns menu with no greyed name for a hidden
     column, a table row whose caret does not open its detail, a text diff whose
-    removed and added rows look like its shared rows, or a status dot
+    removed and added rows look like its shared rows, a timeline whose failed
+    tries or queued time look like its other bars, or a status dot
     that draws nothing — the app's Stimulus controllers or keystone_ui-styles version are
     out of date. Stop and hand that part to `keystone_ui-install`, and add no
     classes to fix it.
