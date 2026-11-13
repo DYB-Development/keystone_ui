@@ -9,7 +9,7 @@ module Keystone
         content_for?(:mobile_action_url)
       end
 
-      SPACER_CLASSES = "!static"
+      SPACER_CLASSES = "!static invisible"
 
       def call
         safe_join([ tag.div(class: BAR_CLASSES) { render button }, spacer ])

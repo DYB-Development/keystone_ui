@@ -63,6 +63,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_includes spacer(page)&.[]("class").to_s.split, "!static"
   end
 
+
+  def test_cannot_be_seen_as_a_second_bar
+    page = render_after_page_header(title: "Events", action_url: "/events/new", action_label: "Create")
+
+    assert_includes spacer(page)&.[]("class").to_s.split, "invisible"
+  end
+
   private
 
   def render_after_page_header(**header)
