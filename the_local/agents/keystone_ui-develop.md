@@ -67,6 +67,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_column_picker` — a Columns menu that saves which columns are hidden and their order to an app endpoint.
 - `ui_button` — a link or a button styled as a button, or a button sending a POST, PATCH or DELETE request.
 - `ui_badge` — a coloured pill holding a short label.
+- `ui_status_dot` — a small dot coloured by state, with its label read only by screen readers.
 - `ui_figure` — one amount as inline text, coloured as a gain or a loss.
 - `ui_picture` — an image never taller than half the screen, optionally opening its full-size file.
 - `ui_heading` — a heading at one of three sizes, with an optional short note on its right.
@@ -602,6 +603,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      the developer which version of an uploaded image each address points at.
    - `ui_badge(label:, variant: :neutral, class: nil)` — `variant:` is
      `:neutral` `:success` `:danger` `:warning` `:info`.
+   - `ui_status_dot(state:, label:)` — `state:` is `:neutral` `:success`
+     `:danger` `:warning` `:info`, and any other value raises `ArgumentError`
+     naming it. `label:` is not shown on screen and is read out by screen
+     readers, so pass words that say what the state means.
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
      — `type:` is `:info` `:success` `:warning` `:error`, and `dismissible: true`
      adds a close button.
