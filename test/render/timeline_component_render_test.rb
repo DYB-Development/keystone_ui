@@ -100,4 +100,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "left: 25%; width: 25%" ], page.css("[data-timeline-queued].ks-timeline-queued").map { |segment| segment[:style] }
   end
+
+  def test_starts_the_axis_at_the_earliest_queued_time
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [ { label: "Build", queued_at: START, started_at: START + 60, ended_at: START + 240 } ]))
+
+    assert_equal "left: 25%; width: 75%", page.at_css("[data-timeline-bar]")[:style]
+  end
 end

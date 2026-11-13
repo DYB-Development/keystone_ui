@@ -56,7 +56,7 @@ module Keystone
       end
 
       def axis_start
-        @axis_start ||= entries.map { |entry| entry[:started_at] }.min
+        @axis_start ||= entries.map { |entry| entry[:queued_at] || entry[:started_at] }.min
       end
 
       def axis_end
