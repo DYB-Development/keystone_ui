@@ -67,4 +67,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ [ "Plan", 1 ], [ "Build", 2 ] ], page.css("[data-timeline-row]").map { |row| [ row.at_css("[data-timeline-label]").text, row.css("[data-timeline-bar]").size ] }
   end
+
+  def test_orders_rows_by_where_their_label_first_appears
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [ retried[1], retried[0], retried[2] ]))
+
+    assert_equal %w[Build Plan], page.css("[data-timeline-row] [data-timeline-label]").map(&:text)
+  end
 end
