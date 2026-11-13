@@ -76,6 +76,7 @@ module Keystone
       Keystone::Ui::DisclosureComponent,
       Keystone::Ui::ThemeToggleComponent,
       Keystone::Ui::TimelineComponent,
+      Keystone::Ui::StatusDotComponent,
       Keystone::Ui::CalculationComponent,
       Keystone::Ui::DesktopBackLinkComponent,
       Keystone::Ui::BreadcrumbsComponent,
