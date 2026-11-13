@@ -14,6 +14,8 @@ module Keystone
       LABEL_CLASSES = "sr-only"
 
       def initialize(state:, label:)
+        raise ArgumentError, "Unknown status dot state #{state.inspect}, expected one of #{STATE_CLASSES.keys.join(', ')}" unless STATE_CLASSES.key?(state)
+
         @state = state
         @label = label
       end
