@@ -25,7 +25,7 @@ module Keystone
       end
 
       def button
-        ButtonComponent.new(label: content_for(:mobile_action_label), href: content_for(:mobile_action_url), method: action_method, full_width: true)
+        ButtonComponent.new(label: content_for(:mobile_action_label), href: content_for(:mobile_action_url), method: action_method, confirm: content_for(:mobile_action_confirm), full_width: true)
       end
 
       def action_method

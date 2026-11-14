@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps with retries, queued time and failed tries, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps with retries, queued time and failed tries, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -27,7 +27,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_page` — the outer wrapper of a screen, holding the page's content.
 - `ui_form_page` — marks a screen as a form screen and gives it its title, Back link and breadcrumbs.
 - `ui_show_page` — marks a screen as a detail screen and gives it its Back link and breadcrumbs.
-- `ui_page_header` — the title of a page, with optional badges beside it and a control and action menu on its right.
+- `ui_page_header` — the title of a page, with optional badges beside it and a control and action menu on its right, and the screen's main action, which can ask a question first and can move to the bottom of a phone screen.
 - `ui_breadcrumbs` — a line of links to the pages above the current one, shown from `lg:` up.
 - `ui_section` — a titled block of content with an optional link and action menu in its header.
 - `ui_grid` — a responsive grid with a column count per breakpoint.
@@ -65,7 +65,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_data_table` — a table of records with links, row actions, sorting, hideable columns and the viewer's own row marked.
 - `Keystone::Ui::Column` — a table column with options a `{ key: "Label" }` hash cannot carry.
 - `ui_column_picker` — a Columns menu that saves which columns are hidden and their order to an app endpoint.
-- `ui_button` — a link or a button styled as a button, or a button sending a POST, PATCH or DELETE request.
+- `ui_button` — a link or a button styled as a button, or a button sending a POST, PATCH or DELETE request, optionally asking a question before it goes ahead.
 - `ui_badge` — a coloured pill holding a short label.
 - `ui_status_dot` — a small dot coloured by state, with its label read only by screen readers.
 - `ui_figure` — one amount as inline text, coloured as a gain or a loss.
@@ -175,15 +175,28 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - Ask the developer whether a screen shows breadcrumbs and which parent
      screens its trail names. Ask which screens a navigation tab opens
      directly, since those pass `trail: []`.
-   - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, badges: [], menu: [], class: nil)`
+   - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, action_confirm: nil, action_at_bottom: false, badges: [], menu: [], class: nil)`
      takes a block yielding the header. Call
      `header.action { ... }` in the block to place a control on its right.
      `action_url:` declares the screen's main action. It publishes that URL and
-     label for `ui_mobile_action` to pick up, and with no `action` block the
-     header draws them as a button. An `action` block is drawn alone when both
-     are given. `action_method:`, such as `:post`, makes the main action send
-     that method: the header's button and `ui_mobile_action`'s icon become
-     forms posting to `action_url:`.
+     label for `ui_mobile_action` and `ui_bottom_action` to pick up, and with
+     no `action` block the header draws them as a button. An `action` block is
+     drawn alone when both are given. `action_method:`, such as `:post`, makes
+     the main action send that method: the header's button and
+     `ui_mobile_action`'s icon become forms posting to `action_url:`.
+   - `action_confirm:` is a question Turbo asks before the main action goes
+     ahead, on the header's button and on `ui_bottom_action`'s button, as
+     `ui_button`'s `confirm:` does. `ui_mobile_action`'s plus icon does not ask
+     it, so a screen whose action needs a question shows `ui_bottom_action` on
+     a phone, not the plus icon. It applies only with `action_url:` and is
+     ignored when an `action` block is given. Ask the developer whether a
+     screen's main action needs a question and how it is worded.
+   - `action_at_bottom: true` hides the header's main action, or its `action`
+     block, below `sm:`, for a screen whose phone layout draws the action with
+     `ui_bottom_action`. From `sm:` up the header shows it as before, and the
+     menu and badges are unaffected. With the default `false` the main action
+     shows at every width. Pass it on every screen whose layout calls
+     `ui_bottom_action`, so the phone does not show the action twice.
    - `badges:` is `[{ label:, variant: }, ...]`, each drawn as a `ui_badge`
      beside the title, with `variant:` taking the badge's values. `menu:` is
      `[{ label:, href:, method: }, ...]`, each hash taking the keywords of
@@ -193,8 +206,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      action. A header given badges or a menu is shown there with its badges,
      actions and menu, and hides its title when the page holds
      `ui_mobile_header`'s title. Its action then shows below `sm:` beside
-     `ui_mobile_action`'s plus icon, so ask the developer whether a screen
-     with both keeps both. Below `sm:` the actions and menu sit side by side
+     `ui_mobile_action`'s plus icon or `ui_bottom_action`'s button unless
+     `action_at_bottom: true` hides it there, so ask the developer whether a
+     screen with both keeps both. Below `sm:` the actions and menu sit side by side
      on their own full-width row under the title and badges, and from `sm:` up
      they sit side by side on the right, with or without a menu. At every
      width buttons that do not fit wrap onto another line, so the header never
@@ -311,14 +325,17 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      with its `action_label:`, and draws nothing when the screen gives none. It
      is hidden from `sm:` up, where the page header shows the action, and inside
      a Hotwire Native web view, so give native users another way to reach the
-     action, such as `ui_mobile_actions`. The layout must also write the
-     `hotwire-native` class on `<html>` and declare that Tailwind variant.
+     action, such as `ui_mobile_actions`. It never asks `action_confirm:`. The
+     layout must also write the `hotwire-native` class on `<html>` and declare
+     that Tailwind variant.
    - `ui_bottom_action` takes no keywords and no block. It draws the
      `action_url:` a screen gives `ui_page_header` as a full-width `ui_button`
      labelled with its `action_label:`, in a bar fixed to the bottom of the
      screen, above `ui_bottom_nav` on a page that has one. With
      `action_method:` the button sends that method as `ui_button` does, so it
-     cannot sit inside a form. It draws nothing when the screen gives no
+     cannot sit inside a form. With `action_confirm:` the button asks that
+     question before it goes ahead. Give those screens' page headers
+     `action_at_bottom: true`. It draws nothing when the screen gives no
      `action_url:`, so call it after `ui_page_header` has run, such as in the
      layout after `yield`. It is hidden from `sm:` up, inside a Hotwire Native
      web view and in print, like `ui_mobile_action`. It also draws an invisible
@@ -578,7 +595,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 9. Show content and status.
 
-   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false)`
+   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil)`
      renders a link with `href:` and a button without it. `variant:` is
      `:primary` `:secondary` `:danger` `:text`, `size:` is `:sm` `:md` `:lg`,
      and `type:`, `name:` and `value:` apply only to the button.
@@ -596,6 +613,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `full_width: true` makes the button as wide as its row at every screen
      width, and for a button sending a request its form too. Use it for large
      choices stacked down a phone screen.
+   - `confirm:` is a question Turbo asks before the button goes ahead. On a
+     button sending a request it is set on the button's own form, and on a
+     link or a plain button it is set on the element, merged into `data:`.
+     With no `confirm:` nothing is asked, whatever the method, unlike
+     `ui_action_menu_item`. Ask the developer which buttons need a question
+     and how it is worded.
    - `ui_picture(src:, alt:, full_size_url: nil)` shows an image centred and
      never taller than half the visible screen, so what follows it stays in
      view. `alt:` is the text read out in place of the image. With

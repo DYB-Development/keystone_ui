@@ -376,6 +376,7 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 - `variant: :text` — draws the button as small, underlined, muted text instead of a button shape
 - `name:` and `value:` (String) — a button with no `href:` submits them with its form when pressed
 - `hidden:` (Boolean, default `false`) — draws the button with the `hidden` attribute, for a script to show later
+- `confirm:` (String) — a question Turbo asks before following the link or sending the request; cancelling it sends nothing
 
 ```erb
 <%= ui_button(label: "← Back", variant: :text, name: "back", value: "1") %>
@@ -895,6 +896,8 @@ Renders a page title area with an optional subtitle, badges, action slot and act
 - `action_url:` (String) — the address of the screen's main action. It is drawn as a button when no `header.action` block is given, and published for `ui_mobile_action` either way
 - `action_label:` (String, default `"Add new"`) — the name of the main action
 - `action_method:` (Symbol) — the method the main action sends, such as `:post`. With a method other than `:get` the button is a form that sends it to `action_url:`, and the method is published for `ui_mobile_action` as `content_for(:mobile_action_method)`. Without it the button is a link and no method is published
+- `action_confirm:` (String) — a question asked before the main action is sent, on the header's button and on `ui_bottom_action`, which reads it from `content_for(:mobile_action_confirm)`
+- `action_at_bottom:` (Boolean, default `false`) — the main action belongs at the bottom of a phone screen, so the header hides its own action below `sm` and shows it as before from `sm` up
 - `badges:` (Array, default `[]`) — `[{ label:, variant: }, ...]`, each drawn as a `ui_badge` beside the title, where `variant:` is the badge's colour (`:neutral | :success | :danger | :warning | :info`, default `:neutral`)
 - `menu:` (Array, default `[]`) — `[{ label:, href:, method:, confirm: }, ...]`, each hash taking the keywords of `ui_action_menu_item`, drawn in a `ui_action_menu` beside the actions
 - `class:` (String) — extra classes added to the component's outer element for this one use

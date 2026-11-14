@@ -21,4 +21,16 @@ class Keystone::Ui::ButtonComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "w-full", page.at_css("form")["class"]
   end
+
+  def test_a_button_sending_a_request_with_a_confirmation_asks_it_before_sending
+    page = render_inline(Keystone::Ui::ButtonComponent.new(label: "Stop", href: "/runs/1/stop", method: :post, confirm: "Stop the run?"))
+
+    assert_equal "Stop the run?", page.at_css("form")&.[]("data-turbo-confirm")
+  end
+
+  def test_a_link_button_with_a_confirmation_asks_it_before_following
+    page = render_inline(Keystone::Ui::ButtonComponent.new(label: "Open", href: "/runs/1", confirm: "Open the run?"))
+
+    assert_equal "Open the run?", page.at_css("a")&.[]("data-turbo-confirm")
+  end
 end
