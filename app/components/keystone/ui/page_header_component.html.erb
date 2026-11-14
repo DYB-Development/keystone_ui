@@ -23,10 +23,17 @@
   </div>
   <% if actions? %>
     <div class="<%= actions_classes %>">
-      <% if action? %>
-        <%= @action_block.call %>
-      <% elsif action_url %>
-        <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url, method: action_method || :get, confirm: action_confirm) %>
+      <% main_action = capture do %>
+        <% if action? %>
+          <%= @action_block.call %>
+        <% elsif action_url %>
+          <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url, method: action_method || :get, confirm: action_confirm) %>
+        <% end %>
+      <% end %>
+      <% if main_action_classes %>
+        <div class="<%= main_action_classes %>"><%= main_action %></div>
+      <% else %>
+        <%= main_action %>
       <% end %>
       <% if menu? %>
         <%= render Keystone::Ui::ActionMenuComponent.new do %>

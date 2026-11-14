@@ -12,16 +12,18 @@ module Keystone
       PHONE_ACTIONS_CLASSES = "max-sm:flex max-sm:items-center max-sm:basis-full"
       ROW_CLASSES = "sm:flex sm:items-center flex-wrap max-w-full ks-grid-gap-sm"
       TITLE_ROW_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
+      MAIN_ACTION_AT_BOTTOM_CLASSES = "contents max-sm:hidden"
 
       attr_reader :title, :action_url, :action_label, :action_method, :action_confirm
 
-      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, action_confirm: nil, badges: [], menu: [], class: nil)
+      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, action_confirm: nil, action_at_bottom: false, badges: [], menu: [], class: nil)
         @title = title
         @subtitle = subtitle
         @action_url = action_url
         @action_label = action_label
         @action_method = action_method
         @action_confirm = action_confirm
+        @action_at_bottom = action_at_bottom
         @badges = badges
         @menu = menu
         @action_block = nil
@@ -42,6 +44,10 @@ module Keystone
 
       def action?
         !!@action_block
+      end
+
+      def main_action_classes
+        MAIN_ACTION_AT_BOTTOM_CLASSES if @action_at_bottom
       end
 
       def actions_classes

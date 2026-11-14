@@ -153,4 +153,10 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Stop the run?", page.at_css(".ks-page-header form")&.[]("data-turbo-confirm")
   end
+
+  def test_hides_its_main_action_below_640_pixels_wide_when_the_action_belongs_at_the_bottom
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Run 1", action_url: "/runs/1/stop", action_label: "Stop", action_method: :post, action_at_bottom: true))
+
+    assert page.at_css(".ks-page-header form").ancestors.any? { |node| node[:class].to_s.split.include?("max-sm:hidden") }
+  end
 end
