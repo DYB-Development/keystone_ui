@@ -84,6 +84,13 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert spacer(page)&.css("div")&.any? { |block| ([ "h-(--ks-bottom-nav-height)", "[body:has(.ks-bottom-nav)_&]:block" ] - block[:class].to_s.split).empty? }
   end
 
+
+  def test_asks_the_confirmation_a_page_header_publishes_before_sending_the_action
+    page = render_after_page_header(title: "Run", action_url: "/runs/1/stop", action_label: "Stop", action_method: :post, action_confirm: "Stop the run?")
+
+    assert_equal "Stop the run?", bottom_bar(page)&.at_css("form")&.[]("data-turbo-confirm")
+  end
+
   private
 
   def render_after_page_header(**header)
