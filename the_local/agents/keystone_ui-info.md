@@ -102,14 +102,21 @@ One decision: is keystone_ui set up in the app?
   submits an empty id and shows the new record's fields the page placed inside
   the dropdown, and picking a match afterwards hides them again. The arrow keys
   move through the list, Enter picks, and Escape closes it.
+- **Confirmation.** A button can carry a confirmation question, and the
+  browser asks it before following the link or sending the form. Nothing is
+  sent when the user cancels.
 - **A page's main action on a phone.** A page header can name one main action:
-  a label, an address and an optional HTTP method. The header shows it as a
-  button and also publishes it to the layout. Below `sm:` the layout can show it
-  again as a plus icon in the top bar, or as a full-width button in a bar fixed
-  to the bottom of the screen, above the bottom tab bar when the page has one. The page leaves room under
-  its last content so the bar does not cover it. Both forms show nothing when
-  the header names no action, and both are hidden inside a Hotwire Native web
-  view and in print.
+  a label, an address, an optional HTTP method and an optional confirmation
+  question. The header shows it as a button and also publishes it to the
+  layout. Below `sm:` the layout can show it again as a plus icon in the top
+  bar, or as a full-width button in a bar fixed to the bottom of the screen,
+  above the bottom tab bar when the page has one. The bottom bar asks the
+  header's confirmation question before sending, and the plus icon does not.
+  The page leaves room under its last content so the bar does not cover it.
+  A header can mark its action as belonging at the bottom, and then hides its
+  own button below `sm:` so the action is not shown twice. Both forms show
+  nothing when the header names no action, and both are hidden inside a
+  Hotwire Native web view and in print.
 - **Action menus.** Each action is a label, an address and an HTTP method. A
   plain visit is a link, and any other method is a button, so an action that
   changes data is never a bare link. A delete asks for confirmation by default.
