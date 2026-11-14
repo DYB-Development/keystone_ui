@@ -20,7 +20,7 @@ module Keystone
 
       TEXT_CLASSES = "ks-text-button"
 
-      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false)
+      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil)
         @label = label
         @href = href
         @method = method.to_sym
@@ -32,6 +32,7 @@ module Keystone
         @name = name
         @value = value
         @hidden = hidden
+        @confirm = confirm
       end
 
       def classes
@@ -68,9 +69,13 @@ module Keystone
       end
 
       def call
-        return button_to(@href, method: @method, class: classes, form_class: form_classes) { @label } if request?
+        return button_to(@href, method: @method, class: classes, form_class: form_classes, form: form_options) { @label } if request?
 
         content_tag(tag_name, @label, **tag_options)
+      end
+
+      def form_options
+        @confirm ? { data: { turbo_confirm: @confirm } } : {}
       end
 
       def form_classes
