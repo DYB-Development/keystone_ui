@@ -147,4 +147,10 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "page-header-actions ks-page-header-actions sm:flex sm:items-center flex-wrap max-w-full ks-grid-gap-sm", page.at_css(".ks-page-header-actions")["class"]
   end
+
+  def test_asks_its_main_actions_confirmation_before_sending_it
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Run 1", action_url: "/runs/1/stop", action_label: "Stop", action_method: :post, action_confirm: "Stop the run?"))
+
+    assert_equal "Stop the run?", page.at_css(".ks-page-header form")&.[]("data-turbo-confirm")
+  end
 end

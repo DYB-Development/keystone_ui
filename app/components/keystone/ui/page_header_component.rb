@@ -13,14 +13,15 @@ module Keystone
       ROW_CLASSES = "sm:flex sm:items-center flex-wrap max-w-full ks-grid-gap-sm"
       TITLE_ROW_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
 
-      attr_reader :title, :action_url, :action_label, :action_method
+      attr_reader :title, :action_url, :action_label, :action_method, :action_confirm
 
-      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, badges: [], menu: [], class: nil)
+      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, action_confirm: nil, badges: [], menu: [], class: nil)
         @title = title
         @subtitle = subtitle
         @action_url = action_url
         @action_label = action_label
         @action_method = action_method
+        @action_confirm = action_confirm
         @badges = badges
         @menu = menu
         @action_block = nil

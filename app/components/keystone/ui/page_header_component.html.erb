@@ -25,7 +25,7 @@
       <% if action? %>
         <%= @action_block.call %>
       <% elsif action_url %>
-        <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url, method: action_method || :get) %>
+        <%= render Keystone::Ui::ButtonComponent.new(label: action_label, href: action_url, method: action_method || :get, confirm: action_confirm) %>
       <% end %>
       <% if menu? %>
         <%= render Keystone::Ui::ActionMenuComponent.new do %>
