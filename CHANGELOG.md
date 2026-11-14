@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.81.0] - 2026-11-13
+
+### Added
+- `ui_button` takes `confirm:`, a question asked before the link is followed or the request is sent.
+- `ui_page_header` takes `action_confirm:`, asked before its main action is sent from the header's button or from `ui_bottom_action`.
+- `ui_page_header` takes `action_at_bottom: true`, which hides the header's main action below `sm` so it shows only in `ui_bottom_action` on a phone.
+
 ## [0.80.0] - 2026-11-13
 
 ### Added
