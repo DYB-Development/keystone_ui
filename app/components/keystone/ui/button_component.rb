@@ -60,6 +60,7 @@ module Keystone
           options[:href] = @href
         end
         options[:data] = @data if @data
+        options[:data] = (@data || {}).merge(turbo_confirm: @confirm) if @confirm
         options[:hidden] = true if @hidden
         options
       end

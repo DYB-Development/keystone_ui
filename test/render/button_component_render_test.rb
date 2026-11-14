@@ -27,4 +27,10 @@ class Keystone::Ui::ButtonComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Stop the run?", page.at_css("form")&.[]("data-turbo-confirm")
   end
+
+  def test_a_link_button_with_a_confirmation_asks_it_before_following
+    page = render_inline(Keystone::Ui::ButtonComponent.new(label: "Open", href: "/runs/1", confirm: "Open the run?"))
+
+    assert_equal "Open the run?", page.at_css("a")&.[]("data-turbo-confirm")
+  end
 end
