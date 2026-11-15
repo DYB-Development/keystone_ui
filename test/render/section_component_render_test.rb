@@ -53,6 +53,10 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_includes render_with_aside.at_css(".ks-section-header")["class"].split, "ks-grid-gap-sm"
   end
 
+  def test_lets_a_header_with_an_aside_wrap_onto_a_second_line_on_a_phone
+    assert_includes render_with_aside.at_css(".ks-section-header")["class"].split, "max-sm:flex-wrap"
+  end
+
   private
 
   def render_with_aside(**args)
