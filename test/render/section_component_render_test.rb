@@ -61,6 +61,10 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_includes aside_classes(render_with_aside), "max-sm:basis-full"
   end
 
+  def test_moves_an_aside_below_the_title_and_actions_on_a_phone
+    assert_includes aside_classes(render_with_aside(action: { label: "Add", href: "/inbox/new" })), "max-sm:order-last"
+  end
+
   private
 
   def render_with_aside(**args)
