@@ -5,6 +5,7 @@ module Keystone
     class SectionComponent < ViewComponent::Base
       SPACING_CLASSES = { sm: "ks-section-sm", md: "ks-section-md", lg: "ks-section-lg" }.freeze
       HEADER_CLASSES = "ks-section-header"
+      HEADER_WITH_ASIDE_CLASSES = "ks-section-header ks-grid-gap-sm"
       TITLE_CLASSES = "ks-section-title"
       SUBTITLE_CLASSES = "ks-section-subtitle"
       ACTION_CLASSES = "ks-section-action"
@@ -32,6 +33,10 @@ module Keystone
 
       def action_classes
         ACTION_CLASSES
+      end
+
+      def header_classes
+        aside? ? HEADER_WITH_ASIDE_CLASSES : HEADER_CLASSES
       end
 
       def header?

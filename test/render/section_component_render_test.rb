@@ -49,6 +49,10 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_includes aside_classes(render_with_aside(action: { label: "Add", href: "/inbox/new" })), "ml-auto"
   end
 
+  def test_spaces_the_parts_of_a_header_with_an_aside_apart
+    assert_includes render_with_aside.at_css(".ks-section-header")["class"].split, "ks-grid-gap-sm"
+  end
+
   private
 
   def render_with_aside(**args)
