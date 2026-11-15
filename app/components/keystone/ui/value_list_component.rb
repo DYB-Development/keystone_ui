@@ -6,7 +6,7 @@ module Keystone
       ALIGN_CLASSES = { start: nil, end: "ks-value-list-end" }.freeze
       RIGHT_MARK_CLASSES = "ks-tone-success inline size-5 align-text-bottom"
       COLUMNS_CLASSES = "grid grid-cols-1 sm:grid-cols-2"
-      PAIR_CLASSES = "flex flex-col"
+      PAIR_CLASSES = "flex flex-col min-w-0"
       PAIR_LABEL_CLASSES = "ks-value-list-label text-xs"
 
       attr_reader :rows

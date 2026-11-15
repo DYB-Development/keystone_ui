@@ -15,4 +15,8 @@ class Keystone::Ui::ValueListComponentTest < Minitest::Test
   def test_in_columns_lays_the_pairs_in_two_columns_on_a_wide_screen
     assert_includes Keystone::Ui::ValueListComponent.new(rows: [], columns: true).classes.split, "sm:grid-cols-2"
   end
+
+  def test_in_columns_lets_a_long_value_shrink_its_pair_to_the_column_width
+    assert_includes Keystone::Ui::ValueListComponent.new(rows: [], columns: true).row_classes({}).split, "min-w-0"
+  end
 end
