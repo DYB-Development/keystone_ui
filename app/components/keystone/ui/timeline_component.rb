@@ -69,7 +69,7 @@ module Keystone
       end
 
       def running?(row)
-        row[:tries].any? { |entry| entry[:ended_at].nil? }
+        !waiting?(row) && row[:tries].any? { |entry| entry[:ended_at].nil? }
       end
 
       def queued_style(entry)

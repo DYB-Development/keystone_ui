@@ -208,6 +208,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "1m 0s", "waiting" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
   end
 
+  def test_draws_no_running_dot_on_a_row_whose_entry_is_waiting
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: waiting))
+
+    assert_empty page.css(".ks-status-dot")
+  end
+
   def test_draws_each_bar_at_a_small_visible_width_when_every_entry_starts_and_ends_at_the_same_moment
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
       { label: "Plan", started_at: START, ended_at: START },
