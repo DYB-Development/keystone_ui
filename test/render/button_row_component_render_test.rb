@@ -22,4 +22,10 @@ class Keystone::Ui::ButtonRowComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("div")["class"].split, "*:flex-1"
   end
+
+  def test_makes_each_button_at_least_44px_tall_on_a_phone
+    page = render_inline(Keystone::Ui::ButtonRowComponent.new) { BUTTONS }
+
+    assert_includes page.at_css("div")["class"].split, "max-sm:*:min-h-11"
+  end
 end
