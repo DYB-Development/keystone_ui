@@ -33,4 +33,10 @@ class Keystone::Ui::ButtonComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Open the run?", page.at_css("a")&.[]("data-turbo-confirm")
   end
+
+  def test_a_disabled_button_cannot_be_pressed
+    page = render_inline(Keystone::Ui::ButtonComponent.new(label: "View prompt", variant: :secondary, disabled: true))
+
+    assert page.at_css("button[disabled]")
+  end
 end
