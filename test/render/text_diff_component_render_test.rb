@@ -72,6 +72,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert page.at_css("[data-diff-notice]")
   end
 
+  def test_shows_a_notice_that_two_identical_texts_are_the_same
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "one\ntwo", after: "one\ntwo"))
+
+    assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
   private
 
   def marked(page, side, mark)

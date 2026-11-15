@@ -1,6 +1,6 @@
 <div class="<%= Keystone::Ui::TextDiffComponent::WRAPPER_CLASSES %>">
-  <% if too_long? %>
-    <div class="<%= Keystone::Ui::TextDiffComponent::NOTICE_CLASSES %>" data-diff-notice>These texts are too long to compare.</div>
+  <% if notice %>
+    <div class="<%= Keystone::Ui::TextDiffComponent::NOTICE_CLASSES %>" data-diff-notice><%= notice %></div>
   <% end %>
   <div class="<%= Keystone::Ui::TextDiffComponent::COLUMNS_CLASSES %>">
     <% Keystone::Ui::TextDiffComponent::SIDES.each do |side| %>

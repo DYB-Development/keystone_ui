@@ -18,6 +18,14 @@ module Keystone
         @after = after.to_s.lines(chomp: true)
       end
 
+      def notice
+        if @before == @after
+          "These texts are the same."
+        elsif too_long?
+          "These texts are too long to compare."
+        end
+      end
+
       def too_long?
         @before.size + @after.size > KeystoneUi.configuration.text_diff_line_limit
       end
