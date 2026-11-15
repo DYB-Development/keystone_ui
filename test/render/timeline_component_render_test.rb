@@ -106,4 +106,18 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "left: 25%; width: 75%", page.at_css("[data-timeline-bar]")[:style]
   end
+
+  def linked
+    [
+      { label: "Plan", started_at: START, ended_at: START + 60, href: "/steps/plan" },
+      { label: "Build", started_at: START + 60, ended_at: START + 120, failed: true, href: "/steps/build-1" },
+      { label: "Build", started_at: START + 120, ended_at: START + 240, href: "/steps/build-2" }
+    ]
+  end
+
+  def test_draws_an_entry_given_an_address_as_a_bar_that_opens_it
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: linked))
+
+    assert_equal [ "/steps/plan", "/steps/build-1", "/steps/build-2" ], page.css("a[data-timeline-bar]").map { |bar| bar[:href] }
+  end
 end

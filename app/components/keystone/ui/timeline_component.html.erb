@@ -10,7 +10,7 @@
           <% if entry[:queued_at] %>
             <div class="<%= QUEUED_CLASSES %>" data-timeline-queued style="<%= queued_style(entry) %>"></div>
           <% end %>
-          <div class="<%= bar_classes(entry) %>" data-timeline-bar style="<%= bar_style(entry) %>"><% if entry[:failed] %><span class="<%= SCREEN_READER_CLASSES %>">Failed</span><% end %></div>
+          <%= content_tag(bar_tag(entry), class: bar_classes(entry), data: { timeline_bar: "" }, style: bar_style(entry), href: entry[:href]) do %><% if entry[:failed] %><span class="<%= SCREEN_READER_CLASSES %>">Failed</span><% end %><% end %>
         <% end %>
       </div>
     </div>

@@ -33,6 +33,10 @@ module Keystone
         [ BAR_CLASSES, (FAILED_CLASSES if entry[:failed]) ].compact.join(" ")
       end
 
+      def bar_tag(entry)
+        entry[:href] ? :a : :div
+      end
+
       def duration(row)
         written_duration(row[:tries].last[:ended_at] - row[:tries].first[:started_at])
       end
