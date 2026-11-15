@@ -7,4 +7,8 @@ class Keystone::Ui::ValueListComponentTest < Minitest::Test
     assert_equal [ "ks-value-list", "ks-value-list ks-value-list-end" ],
       %i[start end].map { |align| Keystone::Ui::ValueListComponent.new(rows: [], align: align).classes }
   end
+
+  def test_in_columns_lays_the_pairs_in_one_column_on_a_phone
+    assert_includes Keystone::Ui::ValueListComponent.new(rows: [], columns: true).classes.split, "grid-cols-1"
+  end
 end

@@ -5,6 +5,7 @@ module Keystone
     class ValueListComponent < ViewComponent::Base
       ALIGN_CLASSES = { start: nil, end: "ks-value-list-end" }.freeze
       RIGHT_MARK_CLASSES = "ks-tone-success inline size-5 align-text-bottom"
+      COLUMNS_CLASSES = "grid grid-cols-1"
       PAIR_CLASSES = "flex flex-col"
       PAIR_LABEL_CLASSES = "ks-value-list-label text-xs"
 
@@ -17,7 +18,7 @@ module Keystone
       end
 
       def classes
-        [ "ks-value-list", ALIGN_CLASSES.fetch(@align) ].compact.join(" ")
+        [ "ks-value-list", ALIGN_CLASSES.fetch(@align), (COLUMNS_CLASSES if @columns) ].compact.join(" ")
       end
 
       def shown_value(row)
