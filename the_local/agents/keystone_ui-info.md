@@ -55,7 +55,7 @@ One decision: is keystone_ui set up in the app?
 - **Containers take blocks, leaves take keywords.** Page shells, sections,
   panels, grids, forms and tables wrap a block. A button, badge, field, stat or
   bucket is set entirely by keyword arguments. The navigation bar takes named
-  slots.
+  slots, and a section takes one named slot for its aside.
 - **Options are symbols.** Appearance is chosen by name, such as `variant:`,
   `size:` or `padding:`, and each component accepts its own set. Most raise on a
   symbol they do not know, so a wrong guess fails at render time.
@@ -104,6 +104,12 @@ One decision: is keystone_ui set up in the app?
   lay its pairs in columns instead: one column on a phone and two from `sm:` up,
   each label in small text directly above its value, a long value wrapping
   inside its own column, and no line between pairs.
+- **Section headers.** A section's header holds its title and optional
+  subtitle, then an optional action link and action menu. A section can also
+  carry an aside, a short piece of text or a badge drawn in the header's note
+  style at the right end of the title line, before the action and the menu.
+  Below `sm:` the aside takes a line of its own under the title and the
+  actions. A section with no title draws no header, so its aside is not shown.
 - **Going back.** A form or show page shell needs a way back: a back link, a
   trail of earlier pages shown as breadcrumbs, or a trail the app supplies for
   the request. A nav tab's own page passes an empty trail and shows no back
