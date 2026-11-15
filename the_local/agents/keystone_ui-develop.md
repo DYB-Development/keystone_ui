@@ -816,7 +816,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       an ellipsis, and every row's track has the same width and lines up with
       the others. Below `sm:` each row shows its label and duration on one
       line with its track on a second line across the full width.
-    - Under a one-line timeline's tracks the axis shows marks at even
+    - Above a one-line timeline's first row, in the track column, the axis
+      shows marks at even
       intervals from `0s`, at the smallest of 1, 2, 5, 10, 15 or 30 seconds,
       1, 2, 5, 10, 15 or 30 minutes, or 1, 2, 3, 6, 12 or 24 hours that covers
       the whole span in six intervals or fewer, and at whole days past six

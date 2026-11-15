@@ -83,7 +83,7 @@ One decision: is keystone_ui set up in the app?
   per row instead: from `sm:` up each row holds its label, its bar and its
   duration side by side, every row's bar has the same width, and a long label is
   cut off with an ellipsis. Below `sm:` the bar moves under the label and
-  duration. In that layout the axis shows marks at the smallest round time step
+  duration. In that layout the axis, drawn above the first row, shows marks at the smallest round time step
   that covers the run in six intervals or fewer, and the axis ends at the last mark rather than at the latest
   time, so bars are placed against that longer axis. An entry can carry an address, and then its bar is a link to it whose
   name screen readers announce is the entry's label, and the row's label links
