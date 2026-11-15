@@ -225,6 +225,15 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[0s 1m 2m 3m 4m], page.css("[data-timeline-mark]").map(&:text)
   end
 
+  def test_places_the_bars_of_a_one_line_timeline_on_an_axis_that_ends_at_its_last_mark
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START + 60 },
+      { label: "Build", started_at: START + 60, ended_at: START + 270 }
+    ], one_line: true))
+
+    assert_equal [ "left: 0%; width: 20%", "left: 20%; width: 70%" ], page.css("[data-timeline-bar]").map { |bar| bar[:style] }
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")

@@ -114,6 +114,10 @@ module Keystone
         [ (span / mark_step).ceil, 1 ].max
       end
 
+      def scale
+        one_line ? mark_intervals * mark_step : span
+      end
+
       def span
         axis_end - axis_start
       end
@@ -139,7 +143,7 @@ module Keystone
       end
 
       def share(seconds)
-        span.zero? ? 0 : (seconds / span * 100).round(2)
+        scale.zero? ? 0 : (seconds / scale * 100).round(2)
       end
     end
   end
