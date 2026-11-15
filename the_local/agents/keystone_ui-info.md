@@ -77,7 +77,15 @@ One decision: is keystone_ui set up in the app?
   as "Running". Every bar is drawn at least a small visible width, so a try
   that took no time still shows. An entry with no start time, or one that ends
   before it starts, raises `ArgumentError` naming its label. A timeline with no
-  entries shows a message saying there are no steps. An entry can carry an address, and then its bar is a link to it whose
+  entries shows a message saying there are no steps. By default each row shows
+  its label and duration on one line with the bar below, and the axis under the
+  rows shows only `0s` and the total duration. A timeline can be drawn one line
+  per row instead: from `sm:` up each row holds its label, its bar and its
+  duration side by side, every row's bar has the same width, and a long label is
+  cut off with an ellipsis. Below `sm:` the bar moves under the label and
+  duration. In that layout the axis, drawn above the first row, shows marks at the smallest round time step
+  that covers the run in six intervals or fewer, and the axis ends at the last mark rather than at the latest
+  time, so bars are placed against that longer axis. An entry can carry an address, and then its bar is a link to it whose
   name screen readers announce is the entry's label, and the row's label links
   to the address of the last entry in that row that has one. An entry can be
   marked selected, and the row holding it is drawn in the same tint as a data

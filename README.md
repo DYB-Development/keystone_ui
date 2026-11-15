@@ -1185,9 +1185,15 @@ Draws a bar chart on the server as an SVG, so it shows with no JavaScript and pr
 
 Draws one row per label, in the order each label first appears. Entries that share a label, such as the tries of one step, are drawn on the same row, one bar each. Every bar is placed by its entry's start and end on one axis shared by every row, and a bar shorter than 2% of the axis is drawn 2% wide so it stays visible. The axis runs from the earliest queued or start time to the latest end or start, and shows `0s` at its left and the total duration at its right. Each row shows its label and the time from its first entry's start to its last entry's end, written from the largest unit that is not zero, such as `42s`, `3m 5s` or `1h 0m 5s`. An entry given `queued_at:` has the time from then to its start drawn before its bar in the queued colour. An entry given `failed: true` is drawn in the danger colour, and screen readers read it as failed. An entry given `href:` draws its bar as a link to that address, which screen readers read by its row's label, and a row's label links to the address of the row's last entry that has one. An entry given `selected: true` draws its row in the current row tint the data table's `current_row:` uses, with `aria-current="true"`, so screen readers announce it as the current item. Entries given neither draw no links and no tint. An entry given `ended_at: nil` is still running: its bar is drawn up to the latest time on the axis, and its row shows an info status dot that screen readers read as running. An entry with no `started_at:`, or whose `ended_at:` is before its `started_at:`, raises `ArgumentError` naming the entry's label. Given no entries, the timeline shows an empty state titled `No steps`. The track and bars are drawn in the timeline's own colours, set by keystone_ui-styles 0.34.0 or later.
 
+Given `one_line: true`, each row shows its label, then its bar, then its duration on one line from `sm` up. The timeline is one grid, so every row's bar sits in one column of the same width, and the label column grows to the longest label up to 40% of the timeline's width, cutting a longer label short. Above the first row, in the bar column, marks along the axis are placed at even intervals from `0s`, at the smallest step from 1 second up to 1 day that covers the run in six intervals or fewer, such as `0s`, `1m`, `2m` up to `6m`. The axis then ends at the last mark rather than at the latest time, and each mark sits at its time on the same axis the bars use. Below `sm` each row falls back to its label and duration above its bar, and the marks run the full width above the bars.
+
 **Required props**
 
 - `entries:` (Array of Hashes) — each entry is `{ label:, started_at:, ended_at: }`, with the times as `Time` values and `ended_at:` `nil` for an entry still running, and may add `queued_at:`, `failed: true`, `href:` and `selected: true`
+
+**Optional props**
+
+- `one_line:` (Boolean) — draws each row's label, bar and duration on one line with marks along the axis, `false` by default
 
 ```erb
 <%= ui_timeline(entries: [
@@ -1195,6 +1201,10 @@ Draws one row per label, in the order each label first appears. Entries that sha
   { label: "Build", queued_at: first_try.queued_at, started_at: first_try.started_at, ended_at: first_try.ended_at, failed: true },
   { label: "Build", started_at: second_try.started_at, ended_at: second_try.ended_at, href: step_path(second_try), selected: true }
 ]) %>
+```
+
+```erb
+<%= ui_timeline(entries: steps, one_line: true) %>
 ```
 
 ### `ui_text_diff`

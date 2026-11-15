@@ -200,4 +200,63 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "No steps", page.at_css(".ks-empty-state")&.text&.strip
   end
+
+  def test_draws_each_row_of_a_one_line_timeline_as_its_label_then_its_bar_then_its_duration
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ [ "label", "track", "duration" ] ] * 2, page.css("[data-timeline-row]").map { |row| row.element_children.map { |part| part_name(part) } }
+  end
+
+  def test_lays_a_one_line_timeline_out_from_sm_up_in_a_label_column_a_bar_column_and_a_duration_column
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_includes page.at_css("[data-timeline]")[:class].to_s.split, "sm:grid-cols-[fit-content(40%)_1fr_auto]"
+  end
+
+  def test_gives_every_row_of_a_one_line_timeline_the_timelines_own_columns_so_their_bars_share_one_width
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ true, true ], page.css("[data-timeline-row]").map { |row| row[:class].to_s.split.include?("sm:grid-cols-subgrid") }
+  end
+
+  def test_marks_the_axis_of_a_one_line_timeline_at_even_intervals_from_zero
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal %w[0s 1m 2m 3m 4m], page.css("[data-timeline-mark]").map(&:text)
+  end
+
+  def test_places_the_bars_of_a_one_line_timeline_on_an_axis_that_ends_at_its_last_mark
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START + 60 },
+      { label: "Build", started_at: START + 60, ended_at: START + 270 }
+    ], one_line: true))
+
+    assert_equal [ "left: 0%; width: 20%", "left: 20%; width: 70%" ], page.css("[data-timeline-bar]").map { |bar| bar[:style] }
+  end
+
+  def test_places_each_axis_mark_of_a_one_line_timeline_at_its_time_on_the_axis_the_bars_share
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ "left: 0%", "left: 25%; transform: translateX(-50%)", "left: 50%; transform: translateX(-50%)", "left: 75%; transform: translateX(-50%)", "right: 0%" ], page.css("[data-timeline-mark]").map { |mark| mark[:style] }
+  end
+
+  def test_draws_the_bar_of_each_row_of_a_one_line_timeline_below_its_label_and_duration_on_a_phone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ true, true ], page.css("[data-timeline-row] .ks-timeline-track").map { |track| track[:class].split.include?("row-start-2") }
+  end
+
+  def test_draws_the_axis_marks_of_a_one_line_timeline_above_its_first_row
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert page.at_css("[data-timeline]").element_children.first.at_css("[data-timeline-mark]")
+  end
+
+  def part_name(part)
+    return "duration" if part.at_css("[data-timeline-duration]")
+    return "label" if part.key?("data-timeline-label")
+    return "track" if part[:class].to_s.split.include?("ks-timeline-track")
+
+    part.name
+  end
 end

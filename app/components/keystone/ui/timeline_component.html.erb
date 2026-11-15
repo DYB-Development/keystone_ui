@@ -1,17 +1,24 @@
 <% if entries.empty? %>
   <%= render Keystone::Ui::EmptyStateComponent.new(title: "No steps") %>
 <% else %>
-  <div class="flex flex-col gap-3">
+  <div class="<%= timeline_classes %>" data-timeline>
+    <% if one_line %>
+      <div class="<%= ONE_LINE_AXIS_CLASSES %>">
+        <% marks.each do |mark| %>
+          <span class="<%= MARK_CLASSES %>" data-timeline-mark style="<%= mark[:style] %>"><%= mark[:label] %></span>
+        <% end %>
+      </div>
+    <% end %>
     <% rows.each do |row| %>
-      <div data-timeline-row<% if selected?(row) %> class="<%= SELECTED_ROW_CLASSES %>" aria-current="true"<% end %>>
-        <div class="<%= ROW_TEXT_CLASSES %>">
-          <%= content_tag(row_href(row) ? :a : :span, row[:label], data: { timeline_label: "" }, href: row_href(row)) %>
-          <span class="<%= ROW_STATUS_CLASSES %>">
-            <% if running?(row) %><%= render Keystone::Ui::StatusDotComponent.new(state: :info, label: "Running") %><% end %>
-            <span data-timeline-duration><%= duration(row) %></span>
-          </span>
-        </div>
-        <div class="<%= TRACK_CLASSES %>">
+      <% label = content_tag(row_href(row) ? :a : :span, row[:label], class: label_classes, data: { timeline_label: "" }, href: row_href(row)) %>
+      <% status = capture do %>
+        <span class="<%= status_classes %>">
+          <% if running?(row) %><%= render Keystone::Ui::StatusDotComponent.new(state: :info, label: "Running") %><% end %>
+          <span data-timeline-duration><%= duration(row) %></span>
+        </span>
+      <% end %>
+      <% track = capture do %>
+        <div class="<%= track_classes %>">
           <% row[:tries].each do |entry| %>
             <% if entry[:queued_at] %>
               <div class="<%= QUEUED_CLASSES %>" data-timeline-queued style="<%= queued_style(entry) %>"></div>
@@ -19,11 +26,21 @@
             <%= content_tag(bar_tag(entry), class: bar_classes(entry), data: { timeline_bar: "" }, style: bar_style(entry), href: entry[:href]) do %><% if entry[:href] %><span class="<%= SCREEN_READER_CLASSES %>"><%= entry[:label] %></span> <% end %><% if entry[:failed] %><span class="<%= SCREEN_READER_CLASSES %>">Failed</span><% end %><% end %>
           <% end %>
         </div>
+      <% end %>
+      <%= tag.div(data: { timeline_row: "" }, class: row_classes(row), aria: { current: ("true" if selected?(row)) }) do %>
+        <% if one_line %>
+          <%= label %><%= track %><%= status %>
+        <% else %>
+          <div class="<%= ROW_TEXT_CLASSES %>"><%= label %><%= status %></div>
+          <%= track %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% unless one_line %>
+      <div class="<%= AXIS_CLASSES %>">
+        <span data-timeline-axis-start><%= axis_start_label %></span>
+        <span data-timeline-axis-end><%= total_duration %></span>
       </div>
     <% end %>
-    <div class="<%= AXIS_CLASSES %>">
-      <span data-timeline-axis-start><%= axis_start_label %></span>
-      <span data-timeline-axis-end><%= total_duration %></span>
-    </div>
   </div>
 <% end %>
