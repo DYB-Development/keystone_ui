@@ -70,7 +70,9 @@ One decision: is keystone_ui set up in the app?
   Entries sharing a label are drawn as several bars on one row, in the order
   given. The row's duration is the time of each try added together, so the
   gaps between tries are not counted, and a row with more than one try adds the
-  number of tries after it, such as `· 3 att.`. Queued time is drawn as its own
+  number of tries after it, such as `· 3 att.`. A duration under ten seconds is
+  written with one decimal, such as `8.2s`, and a longer one in whole hours,
+  minutes and seconds, such as `1m 5s`. Queued time is drawn as its own
   segment before the bar, and a failed try is marked failed both in colour and
   for screen readers. An entry can be marked waiting, for a try that has not
   started running: its bar runs from its start to the end of the axis in the
