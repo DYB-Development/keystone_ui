@@ -377,6 +377,7 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 - `name:` and `value:` (String) — a button with no `href:` submits them with its form when pressed
 - `hidden:` (Boolean, default `false`) — draws the button with the `hidden` attribute, for a script to show later
 - `confirm:` (String) — a question Turbo asks before following the link or sending the request; cancelling it sends nothing
+- `disabled:` (Boolean, default `false`) — draws a button with no `href:` with the `disabled` attribute, so it cannot be pressed
 
 ```erb
 <%= ui_button(label: "← Back", variant: :text, name: "back", value: "1") %>
@@ -384,6 +385,29 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 
 ```erb
 <%= ui_button(label: "Start game", href: game_start_path(@game), method: :post, full_width: true) %>
+```
+
+### `ui_button_row`
+
+Lays out the buttons passed in its block as one row with even gaps between them. When the row runs out of width, its buttons wrap onto a new line. On a phone each button is at least 44px tall. A button that sends a request is stretched across the form it sits in, so it takes its place in the row like any other button.
+
+**Optional props**
+
+- `equal_width:` (Boolean, default `false`) — gives every button an equal share of the row's width and keeps each label on one line, so the row stays on one line until the labels no longer fit
+
+```erb
+<%= ui_button_row do %>
+  <%= ui_button(label: "Add as fixture", variant: :secondary, size: :sm, href: fixtures_path(step: @step), method: :post) %>
+  <%= ui_button(label: "Add label", variant: :secondary, size: :sm, href: new_step_label_path(@step)) %>
+  <%= ui_button(label: "Re-run step", variant: :secondary, size: :sm, href: step_reruns_path(@step), method: :post) %>
+  <%= ui_button(label: "View prompt", variant: :secondary, size: :sm, disabled: true) %>
+<% end %>
+
+<%= ui_button_row(equal_width: true) do %>
+  <%= ui_button(label: "Apply fix", variant: :secondary, size: :sm, href: variant_fix_path(@variant), method: :post) %>
+  <%= ui_button(label: "Edit", variant: :secondary, size: :sm, href: edit_variant_path(@variant)) %>
+  <%= ui_button(label: "Drop", variant: :secondary, size: :sm, href: variant_path(@variant), method: :delete) %>
+<% end %>
 ```
 
 ### `ui_data_table`
