@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -29,7 +29,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_show_page` — marks a screen as a detail screen and gives it its Back link and breadcrumbs.
 - `ui_page_header` — the title of a page, with optional badges beside it and a control and action menu on its right, and the screen's main action, which can ask a question first and can move to the bottom of a phone screen.
 - `ui_breadcrumbs` — a line of links to the pages above the current one, shown from `lg:` up.
-- `ui_section` — a titled block of content with an optional link and action menu in its header.
+- `ui_section` — a titled block of content with an optional link, action menu and short aside such as a badge in its header.
 - `ui_grid` — a responsive grid with a column count per breakpoint.
 - `ui_list_detail` — a list beside the detail of the item picked from it, with the detail above the list below `lg:`.
 - `ui_panel` — a bordered card surface holding any content.
@@ -230,7 +230,20 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      keywords of `ui_action_menu_item`, and renders an action menu. The link
      and the menu sit side by side at the right edge of the header, the link
      first, at every width. `spacing:` is `:sm` `:md` `:lg`. The header, with its
-     `action:` and `menu:`, renders only when `title:` is given.
+     `action:`, `menu:` and aside, renders only when `title:` is given.
+   - The block yields the section, and `section.with_aside { ... }` in it puts
+     short text or a `ui_badge`, such as a sort order or a step's state, in
+     small muted text at the right end of the title line, before the link and
+     the menu. Below `sm:` the aside moves to its own line under the title and
+     the actions. Use it in place of hand-written markup beside a section's
+     title, and ask the developer what the aside shows.
+
+     ```erb
+     <%= ui_section(title: "Inbox") do |section| %>
+       <% section.with_aside { "sorted by expiry" } %>
+       ...
+     <% end %>
+     ```
    - `ui_grid(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil)` —
      `cols:` maps `:default` `:sm` `:md` `:lg` to a count from 1 to 12, such as
      `{ default: 1, md: 3 }`. `gap:` is `:sm` `:md` `:lg` `:xl`, and passing
