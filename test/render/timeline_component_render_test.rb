@@ -154,4 +154,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_empty page.css("a")
   end
+
+  def test_refuses_an_entry_with_no_start_time_naming_its_label
+    error = assert_raises(ArgumentError) { Keystone::Ui::TimelineComponent.new(entries: [ { label: "Build", started_at: nil, ended_at: START } ]) }
+
+    assert_includes error.message, "Build"
+  end
 end

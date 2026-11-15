@@ -15,6 +15,7 @@ module Keystone
       attr_reader :entries
 
       def initialize(entries:)
+        entries.each { |entry| check_times(entry) }
         @entries = entries
       end
 
@@ -59,6 +60,10 @@ module Keystone
       end
 
       private
+
+      def check_times(entry)
+        raise ArgumentError, "Timeline entry #{entry[:label].inspect} has no started_at" unless entry[:started_at]
+      end
 
       def written_duration(seconds)
         hours, rest = seconds.round.divmod(3600)
