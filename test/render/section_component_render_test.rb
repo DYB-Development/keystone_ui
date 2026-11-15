@@ -45,6 +45,10 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_includes aside_classes(render_with_aside), "ks-heading-note"
   end
 
+  def test_pushes_an_aside_to_the_right_end_of_the_header
+    assert_includes aside_classes(render_with_aside(action: { label: "Add", href: "/inbox/new" })), "ml-auto"
+  end
+
   private
 
   def render_with_aside(**args)
