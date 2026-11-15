@@ -5,12 +5,14 @@ module Keystone
     class ValueListComponent < ViewComponent::Base
       ALIGN_CLASSES = { start: nil, end: "ks-value-list-end" }.freeze
       RIGHT_MARK_CLASSES = "ks-tone-success inline size-5 align-text-bottom"
+      PAIR_CLASSES = "flex flex-col"
 
       attr_reader :rows
 
-      def initialize(rows:, align: :start)
+      def initialize(rows:, align: :start, columns: false)
         @rows = rows
         @align = align
+        @columns = columns
       end
 
       def classes
@@ -26,7 +28,7 @@ module Keystone
       end
 
       def row_classes(row)
-        [ "ks-value-list-row", ("ks-value-list-total" if row[:total]) ].compact.join(" ")
+        [ @columns ? PAIR_CLASSES : "ks-value-list-row", ("ks-value-list-total" if row[:total]) ].compact.join(" ")
       end
     end
   end
