@@ -6,6 +6,7 @@ module Keystone
       ALIGN_CLASSES = { start: nil, end: "ks-value-list-end" }.freeze
       RIGHT_MARK_CLASSES = "ks-tone-success inline size-5 align-text-bottom"
       PAIR_CLASSES = "flex flex-col"
+      PAIR_LABEL_CLASSES = "ks-value-list-label text-xs"
 
       attr_reader :rows
 
@@ -25,6 +26,10 @@ module Keystone
 
       def right_mark_classes
         RIGHT_MARK_CLASSES
+      end
+
+      def label_classes
+        @columns ? PAIR_LABEL_CLASSES : "ks-value-list-label"
       end
 
       def row_classes(row)

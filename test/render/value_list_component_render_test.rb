@@ -39,4 +39,10 @@ class Keystone::Ui::ValueListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ true, true ], page.css("dl > div").map { |pair| pair.classes.include?("flex-col") && pair.element_children.map(&:name) == %w[dt dd] }
   end
+
+  def test_in_columns_draws_each_label_in_small_text
+    page = render_inline(Keystone::Ui::ValueListComponent.new(columns: true, rows: [ { label: "Agent", value: "copy_writer v22" } ]))
+
+    assert_equal [ "Agent" ], page.css(".ks-value-list-label.text-xs").map { |label| label.text.strip }
+  end
 end
