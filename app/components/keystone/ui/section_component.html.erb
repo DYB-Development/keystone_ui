@@ -7,6 +7,9 @@
           <p class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></p>
         <% end %>
       </div>
+      <% if aside? %>
+        <div><%= aside %></div>
+      <% end %>
       <% if @action || @menu.any? %>
         <div class="<%= ACTIONS_CLASSES %>">
           <% if @action %>

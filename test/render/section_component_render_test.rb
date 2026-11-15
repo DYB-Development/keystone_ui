@@ -31,4 +31,13 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "flex items-center shrink-0 ks-grid-gap-sm", page.css(".ks-section-header > *").last["class"]
   end
+
+  def test_given_an_aside_shows_it_in_the_header_after_the_title
+    page = render_inline(Keystone::Ui::SectionComponent.new(title: "Inbox")) do |section|
+      section.with_aside { "sorted by expiry" }
+      ""
+    end
+
+    assert_equal "sorted by expiry", page.css(".ks-section-header > *")[1]&.text&.strip
+  end
 end

@@ -10,6 +10,8 @@ module Keystone
       ACTION_CLASSES = "ks-section-action"
       ACTIONS_CLASSES = "flex items-center shrink-0 ks-grid-gap-sm"
 
+      renders_one :aside
+
       def initialize(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil)
         @title = title
         @subtitle = subtitle
