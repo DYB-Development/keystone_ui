@@ -2,7 +2,7 @@
   <% rows.each do |row| %>
     <div data-timeline-row>
       <div class="<%= ROW_TEXT_CLASSES %>">
-        <span data-timeline-label><%= row[:label] %></span>
+        <%= content_tag(row_href(row) ? :a : :span, row[:label], data: { timeline_label: "" }, href: row_href(row)) %>
         <span data-timeline-duration><%= duration(row) %></span>
       </div>
       <div class="<%= TRACK_CLASSES %>">

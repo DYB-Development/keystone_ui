@@ -126,4 +126,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ [ "Plan" ], [ "Build", "Failed" ], [ "Build" ] ], page.css("a[data-timeline-bar]").map { |bar| bar.css(".sr-only").map(&:text) }
   end
+
+  def test_links_a_rows_label_to_the_address_of_its_last_entry_that_has_one
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: linked + [ { label: "Build", started_at: START + 240, ended_at: START + 300 } ]))
+
+    assert_equal [ "/steps/plan", "/steps/build-2" ], page.css("a[data-timeline-label]").map { |label| label[:href] }
+  end
 end

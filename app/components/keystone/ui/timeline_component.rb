@@ -25,6 +25,10 @@ module Keystone
         entries.group_by { |entry| entry[:label] }.map { |label, tries| { label: label, tries: tries } }
       end
 
+      def row_href(row)
+        row[:tries].filter_map { |entry| entry[:href] }.last
+      end
+
       def queued_style(entry)
         "left: #{percent(entry[:queued_at] - axis_start)}%; width: #{percent(entry[:started_at] - entry[:queued_at])}%"
       end
