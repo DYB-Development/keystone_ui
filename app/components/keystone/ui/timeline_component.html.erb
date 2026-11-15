@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-3">
   <% rows.each do |row| %>
-    <div data-timeline-row>
+    <div data-timeline-row<% if selected?(row) %> aria-current="true"<% end %>>
       <div class="<%= ROW_TEXT_CLASSES %>">
         <%= content_tag(row_href(row) ? :a : :span, row[:label], data: { timeline_label: "" }, href: row_href(row)) %>
         <span data-timeline-duration><%= duration(row) %></span>

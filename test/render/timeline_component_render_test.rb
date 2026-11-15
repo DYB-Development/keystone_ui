@@ -132,4 +132,14 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "/steps/plan", "/steps/build-2" ], page.css("a[data-timeline-label]").map { |label| label[:href] }
   end
+
+  def selected
+    [ retried[0], retried[1].merge(selected: true), retried[2] ]
+  end
+
+  def test_tells_screen_readers_the_row_of_the_selected_entry_is_the_current_item
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: selected))
+
+    assert_equal [ nil, "true" ], page.css("[data-timeline-row]").map { |row| row["aria-current"] }
+  end
 end

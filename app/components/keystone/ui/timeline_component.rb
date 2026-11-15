@@ -29,6 +29,10 @@ module Keystone
         row[:tries].filter_map { |entry| entry[:href] }.last
       end
 
+      def selected?(row)
+        row[:tries].any? { |entry| entry[:selected] }
+      end
+
       def queued_style(entry)
         "left: #{percent(entry[:queued_at] - axis_start)}%; width: #{percent(entry[:started_at] - entry[:queued_at])}%"
       end
