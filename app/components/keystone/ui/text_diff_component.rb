@@ -30,7 +30,13 @@ module Keystone
       private
 
       def rows
-        @rows ||= compare
+        @rows ||= too_long? ? side_by_side : compare
+      end
+
+      def side_by_side
+        Array.new([ @before.size, @after.size ].max) do |index|
+          [ @before, @after ].map { |version| { text: version[index], number: index + 1 } if index < version.size }
+        end
       end
 
       def compare

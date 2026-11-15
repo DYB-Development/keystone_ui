@@ -51,6 +51,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal "These texts are too long to compare.", page.at_css("[data-diff-notice]")&.text&.strip
   end
 
+  def test_marks_no_line_when_the_texts_are_too_long_to_compare
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: lines(1001), after: lines(1000)))
+
+    assert_empty page.css(".ks-diff-removed, .ks-diff-added")
+  end
+
   private
 
   def marked(page, side, mark)
