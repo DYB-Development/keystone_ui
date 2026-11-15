@@ -34,4 +34,10 @@ class Keystone::Ui::ButtonRowComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("div")["class"].split, "*:whitespace-nowrap"
   end
+
+  def test_stretches_a_button_that_sends_a_request_from_its_own_form_across_the_form
+    page = render_inline(Keystone::Ui::ButtonRowComponent.new) { BUTTONS }
+
+    assert_empty %w[[&>form]:flex [&>form>*]:flex-1] - page.at_css("div")["class"].split
+  end
 end
