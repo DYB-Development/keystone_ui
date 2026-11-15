@@ -1210,6 +1210,14 @@ Shows two versions of a text side by side, such as two versions of an agent's pr
 <%= ui_text_diff(before: previous_version.instructions, after: version.instructions) %>
 ```
 
+Windows and Unix line endings compare as equal. Two identical texts show a notice above the text saying they are the same. When the two texts together run past 2,000 lines, the diff does not compare them: it shows both versions line by line with no line marked, under a notice saying they are too long to compare. A host changes that limit for the whole app in an initializer:
+
+```ruby
+KeystoneUi.configure do |config|
+  config.text_diff_line_limit = 5000
+end
+```
+
 ### `ui_stat_card`
 
 Renders a metric card for dashboards.
