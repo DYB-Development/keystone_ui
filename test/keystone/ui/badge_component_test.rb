@@ -16,6 +16,10 @@ class Keystone::Ui::BadgeComponentTest < Minitest::Test
     end
   end
 
+  def test_accepts_exactly_the_states_the_status_dot_accepts
+    assert_equal Keystone::Ui::StatusDotComponent::STATE_CLASSES.keys, Keystone::Ui::BadgeComponent::VARIANT_CLASSES.keys
+  end
+
   def test_refuses_a_variant_it_does_not_have
     assert_raises(KeyError) { Keystone::Ui::BadgeComponent.new(label: "X", variant: :sparkly).classes }
   end
