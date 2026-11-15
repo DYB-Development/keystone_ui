@@ -12,6 +12,7 @@ module Keystone
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
       ROW_STATUS_CLASSES = "flex items-center gap-2"
+      MINIMUM_BAR_PERCENT = 2
 
       attr_reader :entries
 
@@ -21,7 +22,7 @@ module Keystone
       end
 
       def bar_style(entry)
-        "left: #{percent(entry[:started_at] - axis_start)}%; width: #{percent(ended_at(entry) - entry[:started_at])}%"
+        "left: #{percent(entry[:started_at] - axis_start)}%; width: #{bar_width(entry)}%"
       end
 
       def rows
@@ -91,8 +92,17 @@ module Keystone
         entry[:ended_at] || axis_end
       end
 
+      def bar_width(entry)
+        format("%g", [ share(ended_at(entry) - entry[:started_at]), MINIMUM_BAR_PERCENT ].max)
+      end
+
       def percent(seconds)
-        format("%g", (seconds / (axis_end - axis_start) * 100).round(2))
+        format("%g", share(seconds))
+      end
+
+      def share(seconds)
+        span = axis_end - axis_start
+        span.zero? ? 0 : (seconds / span * 100).round(2)
       end
     end
   end

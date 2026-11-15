@@ -185,4 +185,13 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ nil, "Running" ], page.css("[data-timeline-row]").map { |row| row.at_css(".ks-status-dot.ks-status-dot-info")&.text }
   end
+
+  def test_draws_each_bar_at_a_small_visible_width_when_every_entry_starts_and_ends_at_the_same_moment
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START },
+      { label: "Build", started_at: START, ended_at: START }
+    ]))
+
+    assert_equal [ "left: 0%; width: 2%", "left: 0%; width: 2%" ], page.css("[data-timeline-bar]").map { |bar| bar[:style] }
+  end
 end
