@@ -3,6 +3,14 @@
 require "render_helper"
 
 class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
+  def setup
+    KeystoneUi.reset_configuration!
+  end
+
+  def teardown
+    KeystoneUi.reset_configuration!
+  end
+
   def test_shows_the_first_version_on_the_left_and_the_second_on_the_right
     page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "one\ntwo", after: "one\ntwo"))
 
@@ -55,6 +63,13 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     page = render_inline(Keystone::Ui::TextDiffComponent.new(before: lines(1001), after: lines(1000)))
 
     assert_empty page.css(".ks-diff-removed, .ks-diff-added")
+  end
+
+  def test_uses_the_line_limit_the_host_configured
+    KeystoneUi.configure { |c| c.text_diff_line_limit = 10 }
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: lines(6), after: lines(5)))
+
+    assert page.at_css("[data-diff-notice]")
   end
 
   private

@@ -12,7 +12,6 @@ module Keystone
       SIGN_CLASSES = "w-6 shrink-0 select-none text-center"
       TEXT_CLASSES = "whitespace-pre"
       NOTICE_CLASSES = "ks-code-caption text-xs"
-      LINE_LIMIT = 2000
 
       def initialize(before:, after:)
         @before = before.to_s.lines(chomp: true)
@@ -20,7 +19,7 @@ module Keystone
       end
 
       def too_long?
-        @before.size + @after.size > LINE_LIMIT
+        @before.size + @after.size > KeystoneUi.configuration.text_diff_line_limit
       end
 
       def cells(side)
