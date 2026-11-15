@@ -11,6 +11,7 @@ module Keystone
       SELECTED_ROW_CLASSES = "ks-table-row-current"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
+      ROW_STATUS_CLASSES = "flex items-center gap-2"
 
       attr_reader :entries
 
@@ -33,6 +34,10 @@ module Keystone
 
       def selected?(row)
         row[:tries].any? { |entry| entry[:selected] }
+      end
+
+      def running?(row)
+        row[:tries].any? { |entry| entry[:ended_at].nil? }
       end
 
       def queued_style(entry)

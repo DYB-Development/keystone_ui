@@ -179,4 +179,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "left: 25%; width: 75%", page.css("[data-timeline-bar]").last[:style]
   end
+
+  def test_marks_the_row_of_an_entry_with_no_end_time_as_running
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: running))
+
+    assert_equal [ nil, "Running" ], page.css("[data-timeline-row]").map { |row| row.at_css(".ks-status-dot.ks-status-dot-info")&.text }
+  end
 end
