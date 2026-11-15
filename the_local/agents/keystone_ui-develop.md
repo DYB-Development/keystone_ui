@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps with retries, queued time, failed tries, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps with retries, queued time, failed tries, steps still running, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -98,7 +98,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_funnel` — a conversion funnel drawn as bars or one joined shape.
 - `ui_bucket` — an upright container filled toward a goal.
 - `ui_bucket_series` — a wrapping row of buckets.
-- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, with optional queued time and failed tries marked, bars and row labels that open an address, and the current row marked.
+- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, with optional queued time, failed tries and tries still running marked, bars and row labels that open an address, the current row marked, and a "No steps" message when there are no entries.
 - `ui_pipeline` — a staged flow diagram with buttons and breakable links that post to the app.
 - `ui_hero` — a marketing hero with title, call-to-action buttons and an aside.
 - `ui_cta_banner` — a marketing banner holding call-to-action buttons.
@@ -753,7 +753,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     - `ui_bucket_series(buckets:)` takes an array of hashes with the keywords
       of `ui_bucket`, such as `[{ goal: 10, actual: 7, label: "Mon" }, ...]`.
     - `ui_timeline(entries:)` takes no block. `entries:` is
-      `[{ label:, started_at:, ended_at:, queued_at: nil, failed: false, href: nil, selected: false }, ...]`,
+      `[{ label:, started_at:, ended_at: nil, queued_at: nil, failed: false, href: nil, selected: false }, ...]`,
       with every time a `Time` value.
     - It draws one row per label, in the order each label first appears.
       Entries that share a label, such as the tries of one step, share that
@@ -761,7 +761,15 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       in the order they ran.
     - Every bar is placed by its entry's `started_at` and `ended_at` on one
       axis shared by all rows. The axis runs from the earliest `queued_at` or
-      `started_at` of any entry to the latest `ended_at`.
+      `started_at` of any entry to the latest `ended_at`, or to the latest
+      `started_at` when that is later.
+    - An entry with no `ended_at:`, or `ended_at: nil`, is a try still
+      running. Its bar runs to the end of the axis, and its row shows an
+      `:info` status dot beside its duration that screen readers read as
+      "Running". Leave `ended_at:` out only for a try that has not finished.
+    - Every bar is drawn at least 2% of the track wide, so a try that took no
+      time still shows. When every entry starts and ends at one moment, every
+      bar is drawn at that width at the left edge of the track.
     - An entry given `queued_at:` also draws the time from `queued_at` to
       `started_at` before its bar, in the queued colour. Leave it out when the
       wait is not known.
@@ -780,12 +788,18 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       and on one entry at most.
     - Each row shows its label and its duration on one line, then its track.
       The row's duration runs from its first entry's `started_at` to its last
-      entry's `ended_at`, so queued time before the first try is not counted.
+      entry's `ended_at`, or to the end of the axis when that last entry is
+      still running, so queued time before the first try is not counted.
     - Under the rows the axis reads `0s` on the left and the whole span on the
       right. Durations are written as `1h 0m 5s`, leaving out leading zero
       units, and a zero duration is `0s`.
-    - It needs at least one entry and a span longer than zero, so do not render
-      it for an empty list or for entries that all start and end at one moment.
+    - An entry with no `started_at:` raises `ArgumentError` naming its label,
+      and so does an entry whose `ended_at:` is before its `started_at:`. Check
+      the times before rendering rather than rescuing the error.
+    - An empty `entries:` draws a centred "No steps" message in place of the
+      timeline, so it can be rendered for a list that may be empty. The
+      wording is fixed, so ask the developer whether it fits, and when it does
+      not, check for no entries and call `ui_empty_state` instead.
     - `ui_pipeline(title:, boxes:, links:, subtitle: nil)` — `boxes:` is
       `[{ label:, count:, accent:, action: }, ...]`, with `accent:` one of
       `:amber` `:emerald` `:danger` `:muted`, and `action:` is

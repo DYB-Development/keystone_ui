@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.83.0] - 2026-11-14
+
+### Added
+- `ui_timeline` entries take `ended_at: nil` for an entry still running, which draws its bar up to the latest time on the axis and marks its row with an info status dot read as running.
+- `ui_timeline` given no entries shows an empty state titled `No steps`.
+
+### Changed
+- `ui_timeline` raises `ArgumentError` naming the entry's label for an entry with no start time or an end time before its start time.
+
+### Fixed
+- `ui_timeline` draws every bar at least 2% wide, so a timeline whose entries all start and end at the same moment no longer divides by zero.
+
 ## [0.82.0] - 2026-11-14
 
 ### Added

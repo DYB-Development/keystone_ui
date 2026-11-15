@@ -71,7 +71,12 @@ One decision: is keystone_ui set up in the app?
   try's end. Queued time is drawn as its own segment before the bar, and a
   failed try is marked failed both in colour and for screen readers. The axis
   runs from the earliest queued or start time of any entry to the latest end
-  time. An entry can carry an address, and then its bar is a link to it whose
+  or start time. An entry with no end time is still running: its bar runs to
+  the end of the axis, and its row shows a status dot that screen readers read
+  as "Running". Every bar is drawn at least a small visible width, so a try
+  that took no time still shows. An entry with no start time, or one that ends
+  before it starts, raises `ArgumentError` naming its label. A timeline with no
+  entries shows a message saying there are no steps. An entry can carry an address, and then its bar is a link to it whose
   name screen readers announce is the entry's label, and the row's label links
   to the address of the last entry in that row that has one. An entry can be
   marked selected, and the row holding it is drawn in the same tint as a data

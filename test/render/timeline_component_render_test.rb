@@ -154,4 +154,50 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_empty page.css("a")
   end
+
+  def test_refuses_an_entry_with_no_start_time_naming_its_label
+    error = assert_raises(ArgumentError) { Keystone::Ui::TimelineComponent.new(entries: [ { label: "Build", started_at: nil, ended_at: START } ]) }
+
+    assert_includes error.message, "Build"
+  end
+
+  def test_refuses_an_entry_that_ends_before_it_starts_naming_its_label
+    error = assert_raises(ArgumentError) { Keystone::Ui::TimelineComponent.new(entries: [ { label: "Deploy", started_at: START + 60, ended_at: START } ]) }
+
+    assert_includes error.message, "Deploy"
+  end
+
+  def running
+    [
+      { label: "Plan", started_at: START, ended_at: START + 240 },
+      { label: "Build", started_at: START + 60, ended_at: nil }
+    ]
+  end
+
+  def test_draws_an_entry_with_no_end_time_up_to_the_latest_time_on_the_axis
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: running))
+
+    assert_equal "left: 25%; width: 75%", page.css("[data-timeline-bar]").last[:style]
+  end
+
+  def test_marks_the_row_of_an_entry_with_no_end_time_as_running
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: running))
+
+    assert_equal [ nil, "Running" ], page.css("[data-timeline-row]").map { |row| row.at_css(".ks-status-dot.ks-status-dot-info")&.text }
+  end
+
+  def test_draws_each_bar_at_a_small_visible_width_when_every_entry_starts_and_ends_at_the_same_moment
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START },
+      { label: "Build", started_at: START, ended_at: START }
+    ]))
+
+    assert_equal [ "left: 0%; width: 2%", "left: 0%; width: 2%" ], page.css("[data-timeline-bar]").map { |bar| bar[:style] }
+  end
+
+  def test_shows_a_message_saying_there_are_no_steps_when_given_no_entries
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: []))
+
+    assert_equal "No steps", page.at_css(".ks-empty-state")&.text&.strip
+  end
 end

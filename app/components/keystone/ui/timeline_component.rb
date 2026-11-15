@@ -11,15 +11,18 @@ module Keystone
       SELECTED_ROW_CLASSES = "ks-table-row-current"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
+      ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
+      MINIMUM_BAR_PERCENT = 2
 
       attr_reader :entries
 
       def initialize(entries:)
+        entries.each { |entry| check_times(entry) }
         @entries = entries
       end
 
       def bar_style(entry)
-        "left: #{percent(entry[:started_at] - axis_start)}%; width: #{percent(entry[:ended_at] - entry[:started_at])}%"
+        "left: #{percent(entry[:started_at] - axis_start)}%; width: #{bar_width(entry)}%"
       end
 
       def rows
@@ -32,6 +35,10 @@ module Keystone
 
       def selected?(row)
         row[:tries].any? { |entry| entry[:selected] }
+      end
+
+      def running?(row)
+        row[:tries].any? { |entry| entry[:ended_at].nil? }
       end
 
       def queued_style(entry)
@@ -47,7 +54,7 @@ module Keystone
       end
 
       def duration(row)
-        written_duration(row[:tries].last[:ended_at] - row[:tries].first[:started_at])
+        written_duration(ended_at(row[:tries].last) - row[:tries].first[:started_at])
       end
 
       def total_duration
@@ -59,6 +66,11 @@ module Keystone
       end
 
       private
+
+      def check_times(entry)
+        raise ArgumentError, "Timeline entry #{entry[:label].inspect} has no started_at" unless entry[:started_at]
+        raise ArgumentError, "Timeline entry #{entry[:label].inspect} ends before it starts" if entry[:ended_at] && entry[:ended_at] < entry[:started_at]
+      end
 
       def written_duration(seconds)
         hours, rest = seconds.round.divmod(3600)
@@ -73,11 +85,24 @@ module Keystone
       end
 
       def axis_end
-        @axis_end ||= entries.map { |entry| entry[:ended_at] }.max
+        @axis_end ||= entries.map { |entry| entry[:ended_at] || entry[:started_at] }.max
+      end
+
+      def ended_at(entry)
+        entry[:ended_at] || axis_end
+      end
+
+      def bar_width(entry)
+        format("%g", [ share(ended_at(entry) - entry[:started_at]), MINIMUM_BAR_PERCENT ].max)
       end
 
       def percent(seconds)
-        format("%g", (seconds / (axis_end - axis_start) * 100).round(2))
+        format("%g", share(seconds))
+      end
+
+      def share(seconds)
+        span = axis_end - axis_start
+        span.zero? ? 0 : (seconds / span * 100).round(2)
       end
     end
   end
