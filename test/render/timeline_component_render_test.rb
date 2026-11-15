@@ -223,6 +223,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal "left: 80%; width: 20%", page.css("[data-timeline-bar]").last[:style]
   end
 
+  def test_draws_the_bar_of_a_waiting_entry_in_the_timelines_queued_colour_in_place_of_its_bar_colour
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: waiting))
+
+    assert_equal [ [ "ks-timeline-bar" ], [ "ks-timeline-queued" ] ], page.css("[data-timeline-bar]").map { |bar| bar[:class].split.grep(/\Aks-timeline-(bar|queued)\z/) }
+  end
+
   def test_draws_each_bar_at_a_small_visible_width_when_every_entry_starts_and_ends_at_the_same_moment
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
       { label: "Plan", started_at: START, ended_at: START },

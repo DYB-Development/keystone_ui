@@ -77,6 +77,8 @@ module Keystone
       end
 
       def bar_classes(entry)
+        return QUEUED_CLASSES if entry[:waiting]
+
         [ BAR_CLASSES, (FAILED_CLASSES if entry[:failed]) ].compact.join(" ")
       end
 
