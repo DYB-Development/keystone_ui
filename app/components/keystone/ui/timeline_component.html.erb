@@ -3,15 +3,15 @@
 <% else %>
   <div class="<%= timeline_classes %>" data-timeline>
     <% rows.each do |row| %>
-      <% label = content_tag(row_href(row) ? :a : :span, row[:label], data: { timeline_label: "" }, href: row_href(row)) %>
+      <% label = content_tag(row_href(row) ? :a : :span, row[:label], class: label_classes, data: { timeline_label: "" }, href: row_href(row)) %>
       <% status = capture do %>
-        <span class="<%= ROW_STATUS_CLASSES %>">
+        <span class="<%= status_classes %>">
           <% if running?(row) %><%= render Keystone::Ui::StatusDotComponent.new(state: :info, label: "Running") %><% end %>
           <span data-timeline-duration><%= duration(row) %></span>
         </span>
       <% end %>
       <% track = capture do %>
-        <div class="<%= TRACK_CLASSES %>">
+        <div class="<%= track_classes %>">
           <% row[:tries].each do |entry| %>
             <% if entry[:queued_at] %>
               <div class="<%= QUEUED_CLASSES %>" data-timeline-queued style="<%= queued_style(entry) %>"></div>

@@ -11,7 +11,10 @@ module Keystone
       SELECTED_ROW_CLASSES = "ks-table-row-current"
       TIMELINE_CLASSES = "flex flex-col gap-3"
       ONE_LINE_TIMELINE_CLASSES = "sm:grid sm:grid-cols-[fit-content(40%)_1fr_auto] sm:gap-x-4"
-      ONE_LINE_ROW_CLASSES = "sm:col-span-3 sm:grid sm:grid-cols-subgrid sm:items-center"
+      ONE_LINE_ROW_CLASSES = "ks-meter-label grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-1 text-sm sm:col-span-3 sm:grid-cols-subgrid"
+      ONE_LINE_LABEL_CLASSES = "min-w-0 truncate"
+      ONE_LINE_TRACK_CLASSES = "col-span-2 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1"
+      ONE_LINE_STATUS_CLASSES = "justify-self-end"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
       ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
@@ -27,6 +30,18 @@ module Keystone
         entries.each { |entry| check_times(entry) }
         @entries = entries
         @one_line = one_line
+      end
+
+      def track_classes
+        [ TRACK_CLASSES, (ONE_LINE_TRACK_CLASSES if one_line) ].compact.join(" ")
+      end
+
+      def label_classes
+        ONE_LINE_LABEL_CLASSES if one_line
+      end
+
+      def status_classes
+        [ ROW_STATUS_CLASSES, (ONE_LINE_STATUS_CLASSES if one_line) ].compact.join(" ")
       end
 
       def bar_style(entry)

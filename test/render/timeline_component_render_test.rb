@@ -240,6 +240,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "left: 0%", "left: 25%; transform: translateX(-50%)", "left: 50%; transform: translateX(-50%)", "left: 75%; transform: translateX(-50%)", "right: 0%" ], page.css("[data-timeline-mark]").map { |mark| mark[:style] }
   end
 
+  def test_draws_the_bar_of_each_row_of_a_one_line_timeline_below_its_label_and_duration_on_a_phone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ true, true ], page.css("[data-timeline-row] .ks-timeline-track").map { |track| track[:class].split.include?("row-start-2") }
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")
