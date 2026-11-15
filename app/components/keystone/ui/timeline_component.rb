@@ -6,6 +6,7 @@ module Keystone
       TRACK_CLASSES = "ks-timeline-track relative w-full h-2 overflow-hidden"
       BAR_CLASSES = "ks-timeline-bar absolute inset-y-0"
       FAILED_CLASSES = "ks-timeline-failed"
+      WAITING_CLASSES = "ks-tone-warning"
       QUEUED_CLASSES = "ks-timeline-queued absolute inset-y-0"
       SCREEN_READER_CLASSES = "sr-only"
       SELECTED_ROW_CLASSES = "ks-table-row-current"
@@ -88,6 +89,10 @@ module Keystone
 
       def waiting?(row)
         row[:tries].any? { |entry| entry[:waiting] }
+      end
+
+      def duration_classes(row)
+        WAITING_CLASSES if waiting?(row)
       end
 
       def duration(row)

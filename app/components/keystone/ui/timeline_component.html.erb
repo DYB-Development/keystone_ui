@@ -14,7 +14,7 @@
       <% status = capture do %>
         <span class="<%= status_classes %>">
           <% if running?(row) %><%= render Keystone::Ui::StatusDotComponent.new(state: :info, label: "Running") %><% end %>
-          <span data-timeline-duration><%= duration(row) %></span>
+          <%= tag.span(duration(row), class: duration_classes(row), data: { timeline_duration: "" }) %>
         </span>
       <% end %>
       <% track = capture do %>

@@ -208,6 +208,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "1m 0s", "waiting" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
   end
 
+  def test_writes_waiting_in_the_warning_tone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: waiting))
+
+    assert_equal [ false, true ], page.css("[data-timeline-duration]").map { |duration| duration[:class].to_s.split.include?("ks-tone-warning") }
+  end
+
   def test_draws_no_running_dot_on_a_row_whose_entry_is_waiting
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: waiting))
 
