@@ -11,7 +11,7 @@ module Keystone
       SELECTED_ROW_CLASSES = "ks-table-row-current"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
-      ROW_STATUS_CLASSES = "flex items-center gap-2"
+      ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
       MINIMUM_BAR_PERCENT = 2
 
       attr_reader :entries
