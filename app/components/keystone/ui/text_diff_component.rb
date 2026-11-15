@@ -11,10 +11,16 @@ module Keystone
       NUMBER_CLASSES = "w-8 shrink-0 select-none text-right"
       SIGN_CLASSES = "w-6 shrink-0 select-none text-center"
       TEXT_CLASSES = "whitespace-pre"
+      NOTICE_CLASSES = "ks-code-caption text-xs"
+      LINE_LIMIT = 2000
 
       def initialize(before:, after:)
         @before = before.to_s.lines(chomp: true)
         @after = after.to_s.lines(chomp: true)
+      end
+
+      def too_long?
+        @before.size + @after.size > LINE_LIMIT
       end
 
       def cells(side)
