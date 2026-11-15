@@ -11,4 +11,8 @@ class Keystone::Ui::ValueListComponentTest < Minitest::Test
   def test_in_columns_lays_the_pairs_in_one_column_on_a_phone
     assert_includes Keystone::Ui::ValueListComponent.new(rows: [], columns: true).classes.split, "grid-cols-1"
   end
+
+  def test_in_columns_lays_the_pairs_in_two_columns_on_a_wide_screen
+    assert_includes Keystone::Ui::ValueListComponent.new(rows: [], columns: true).classes.split, "sm:grid-cols-2"
+  end
 end
