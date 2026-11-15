@@ -160,4 +160,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_includes error.message, "Build"
   end
+
+  def test_refuses_an_entry_that_ends_before_it_starts_naming_its_label
+    error = assert_raises(ArgumentError) { Keystone::Ui::TimelineComponent.new(entries: [ { label: "Deploy", started_at: START + 60, ended_at: START } ]) }
+
+    assert_includes error.message, "Deploy"
+  end
 end
