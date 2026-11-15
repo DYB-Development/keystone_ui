@@ -3,6 +3,14 @@
 require "render_helper"
 
 class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
+  def setup
+    KeystoneUi.reset_configuration!
+  end
+
+  def teardown
+    KeystoneUi.reset_configuration!
+  end
+
   def test_shows_the_first_version_on_the_left_and_the_second_on_the_right
     page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "one\ntwo", after: "one\ntwo"))
 
@@ -45,6 +53,37 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[grid grid-cols-1 sm:grid-cols-2] - page.at_css("[data-diff-side]").parent[:class].to_s.split
   end
 
+  def test_shows_a_notice_that_the_texts_are_too_long_to_compare_when_they_run_past_2000_lines_together
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: lines(1001), after: lines(1000)))
+
+    assert_equal "These texts are too long to compare.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
+  def test_marks_no_line_when_the_texts_are_too_long_to_compare
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: lines(1001), after: lines(1000)))
+
+    assert_empty page.css(".ks-diff-removed, .ks-diff-added")
+  end
+
+  def test_uses_the_line_limit_the_host_configured
+    KeystoneUi.configure { |c| c.text_diff_line_limit = 10 }
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: lines(6), after: lines(5)))
+
+    assert page.at_css("[data-diff-notice]")
+  end
+
+  def test_shows_a_notice_that_two_identical_texts_are_the_same
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "one\ntwo", after: "one\ntwo"))
+
+    assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
+  def test_compares_a_text_with_windows_line_endings_as_equal_to_the_same_text_with_unix_line_endings
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "one\r\ntwo\r\n", after: "one\ntwo\n"))
+
+    assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
   private
 
   def marked(page, side, mark)
@@ -57,5 +96,9 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
 
   def texts(page, side)
     page.css("[data-diff-side='#{side}'] [data-diff-row] [data-diff-text]").map(&:text)
+  end
+
+  def lines(count)
+    (1..count).map { |number| "line #{number}" }.join("\n")
   end
 end

@@ -11,10 +11,23 @@ module Keystone
       NUMBER_CLASSES = "w-8 shrink-0 select-none text-right"
       SIGN_CLASSES = "w-6 shrink-0 select-none text-center"
       TEXT_CLASSES = "whitespace-pre"
+      NOTICE_CLASSES = "ks-code-caption text-xs"
 
       def initialize(before:, after:)
         @before = before.to_s.lines(chomp: true)
         @after = after.to_s.lines(chomp: true)
+      end
+
+      def notice
+        if @before == @after
+          "These texts are the same."
+        elsif too_long?
+          "These texts are too long to compare."
+        end
+      end
+
+      def too_long?
+        @before.size + @after.size > KeystoneUi.configuration.text_diff_line_limit
       end
 
       def cells(side)
@@ -24,7 +37,13 @@ module Keystone
       private
 
       def rows
-        @rows ||= compare
+        @rows ||= too_long? ? side_by_side : compare
+      end
+
+      def side_by_side
+        Array.new([ @before.size, @after.size ].max) do |index|
+          [ @before, @after ].map { |version| { text: version[index], number: index + 1 } if index < version.size }
+        end
       end
 
       def compare

@@ -660,11 +660,22 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      blank row opposite, so a changed line shows as a removed row followed by
      an added row. Each column numbers its own lines, and a long line scrolls
      sideways inside its column. Lines must match exactly, spaces included, to
-     count as shared. A `nil` text is treated as empty, and both are shown as
-     plain text. The work grows with the line count of one text times the
-     other's, so pass texts a person reads, not whole files of thousands of
-     lines. Ask the developer which two versions a screen compares and which
-     is the earlier one.
+     count as shared, apart from their line endings, so a line ending in a
+     Windows line break matches the same line ending in a Unix one. A `nil`
+     text is treated as empty, and both are shown as plain text.
+   - When the two texts hold the same lines, including two empty texts, a
+     notice above the columns reads "These texts are the same." and no row is
+     marked.
+   - When the two texts together hold more lines than the app's line limit,
+     2,000 unless the app's keystone_ui configuration sets another, it does not
+     compare them. It shows "These texts are too long to compare." above the
+     columns and draws line 1 beside line 1, line 2 beside line 2 and so on,
+     with no row marked and no `-` or `+`. The notice wording is fixed. Ask the
+     developer whether a screen can be given texts that long, and hand changing
+     the limit to `keystone_ui-install`, since the comparison's work grows with
+     the line count of one text times the other's.
+   - Ask the developer which two versions a screen compares and which is the
+     earlier one.
    - `ui_disclosure(open: false)` takes a block yielding the component. Fill
      its `summary` slot with the header, and the rest of the block is the body.
    - `ui_accordion(items: [])` — `items:` is `[{ question:, answer: }, ...]`.
