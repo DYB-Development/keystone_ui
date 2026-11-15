@@ -142,4 +142,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ nil, "true" ], page.css("[data-timeline-row]").map { |row| row["aria-current"] }
   end
+
+  def test_draws_the_row_of_the_selected_entry_as_the_current_row
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: selected))
+
+    assert_equal [ false, true ], page.css("[data-timeline-row]").map { |row| row[:class].to_s.split.include?("ks-table-row-current") }
+  end
 end

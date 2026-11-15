@@ -8,6 +8,7 @@ module Keystone
       FAILED_CLASSES = "ks-timeline-failed"
       QUEUED_CLASSES = "ks-timeline-queued absolute inset-y-0"
       SCREEN_READER_CLASSES = "sr-only"
+      SELECTED_ROW_CLASSES = "ks-table-row-current"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
 
