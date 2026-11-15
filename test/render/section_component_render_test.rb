@@ -40,4 +40,21 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "sorted by expiry", page.css(".ks-section-header > *")[1]&.text&.strip
   end
+
+  def test_draws_an_aside_in_the_small_muted_text_of_a_heading_note
+    assert_includes aside_classes(render_with_aside), "ks-heading-note"
+  end
+
+  private
+
+  def render_with_aside(**args)
+    render_inline(Keystone::Ui::SectionComponent.new(title: "Inbox", **args)) do |section|
+      section.with_aside { "sorted by expiry" }
+      ""
+    end
+  end
+
+  def aside_classes(page)
+    page.css(".ks-section-header > *")[1]["class"].to_s.split
+  end
 end

@@ -9,6 +9,7 @@ module Keystone
       SUBTITLE_CLASSES = "ks-section-subtitle"
       ACTION_CLASSES = "ks-section-action"
       ACTIONS_CLASSES = "flex items-center shrink-0 ks-grid-gap-sm"
+      ASIDE_CLASSES = "ks-heading-note"
 
       renders_one :aside
 
