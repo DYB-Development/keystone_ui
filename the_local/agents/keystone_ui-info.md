@@ -130,11 +130,13 @@ One decision: is keystone_ui set up in the app?
 - **Action menus.** Each action is a label, an address and an HTTP method. A
   plain visit is a link, and any other method is a button, so an action that
   changes data is never a bare link. A delete asks for confirmation by default.
-- **Status states.** A badge and a status dot share five states: neutral,
-  success, danger, warning and info. A badge shows its label as text. A status
-  dot shows only its state's colour, for places with no room for text, and its label
-  is read only by screen readers. A status dot raises `ArgumentError` on any
-  other state.
+- **Status states.** A badge and a status dot read one list of five states:
+  neutral, success, danger, warning and info. A state added to that list is
+  accepted by both, so the two never disagree about which states exist. A badge
+  shows its label as text. A status dot shows only its state's colour, for
+  places with no room for text, and its label is read only by screen readers.
+  Neither accepts a state outside the list: a status dot raises `ArgumentError`
+  naming the states it expects, and a badge raises `KeyError` when it renders.
 - **Text diffs.** A text diff compares two texts line by line and shows them
   side by side, stacked on a phone, in the code block's look. Lines the two
   share sit on the same row, a line only the first text has is marked removed
