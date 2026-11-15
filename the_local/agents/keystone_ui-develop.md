@@ -817,14 +817,16 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       is the time from `started_at` to `ended_at` of each of its entries added
       together, so queued time and the gaps between tries are not counted, and
       a try still running counts up to the latest `ended_at` or `started_at` of
-      any entry. Durations are written as `1h 0m 5s`, leaving out leading zero
-      units, and a zero duration is `0s`.
+      any entry. A duration under ten seconds is written with one decimal,
+      such as `8.2s`, and a zero duration is `0.0s`. A longer one is written in
+      whole hours, minutes and seconds, such as `1h 0m 5s` or `41s`, leaving
+      out leading zero units.
     - A row holding more than one entry adds its number of tries after the
       duration, such as `41s · 2 att.`. The wording is fixed.
     - With the default `one_line: false`, each row shows its label and its
       duration on one line with its track below them, at every width. Under
       the rows the axis reads `0s` on the left and the whole span on the right,
-      and the bars fill the track from the start of the axis to its end.
+      written as a row's duration is, and the bars fill the track from the start of the axis to its end.
     - With `one_line: true`, from `sm:` up each row is one line: its label,
       then its track, then its duration. The label column is as wide as the
       longest label up to 40% of the timeline, a longer label is cut off with
