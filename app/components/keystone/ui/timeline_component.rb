@@ -9,7 +9,9 @@ module Keystone
       QUEUED_CLASSES = "ks-timeline-queued absolute inset-y-0"
       SCREEN_READER_CLASSES = "sr-only"
       SELECTED_ROW_CLASSES = "ks-table-row-current"
-      ONE_LINE_ROW_CLASSES = "sm:grid sm:grid-cols-[fit-content(40%)_1fr_auto] sm:items-center sm:gap-x-4"
+      TIMELINE_CLASSES = "flex flex-col gap-3"
+      ONE_LINE_TIMELINE_CLASSES = "sm:grid sm:grid-cols-[fit-content(40%)_1fr_auto] sm:gap-x-4"
+      ONE_LINE_ROW_CLASSES = "sm:col-span-3 sm:grid sm:grid-cols-subgrid sm:items-center"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
       ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
@@ -37,6 +39,10 @@ module Keystone
 
       def selected?(row)
         row[:tries].any? { |entry| entry[:selected] }
+      end
+
+      def timeline_classes
+        [ TIMELINE_CLASSES, (ONE_LINE_TIMELINE_CLASSES if one_line) ].compact.join(" ")
       end
 
       def row_classes(row)

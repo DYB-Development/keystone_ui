@@ -1,7 +1,7 @@
 <% if entries.empty? %>
   <%= render Keystone::Ui::EmptyStateComponent.new(title: "No steps") %>
 <% else %>
-  <div class="flex flex-col gap-3">
+  <div class="<%= timeline_classes %>" data-timeline>
     <% rows.each do |row| %>
       <% label = content_tag(row_href(row) ? :a : :span, row[:label], data: { timeline_label: "" }, href: row_href(row)) %>
       <% status = capture do %>

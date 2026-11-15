@@ -207,10 +207,16 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "label", "track", "duration" ] ] * 2, page.css("[data-timeline-row]").map { |row| row.element_children.map { |part| part_name(part) } }
   end
 
-  def test_lays_each_row_of_a_one_line_timeline_out_from_sm_up_in_a_label_column_a_bar_column_and_a_duration_column
+  def test_lays_a_one_line_timeline_out_from_sm_up_in_a_label_column_a_bar_column_and_a_duration_column
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
 
-    assert_equal [ true, true ], page.css("[data-timeline-row]").map { |row| row[:class].to_s.split.include?("sm:grid-cols-[fit-content(40%)_1fr_auto]") }
+    assert_includes page.at_css("[data-timeline]")[:class].to_s.split, "sm:grid-cols-[fit-content(40%)_1fr_auto]"
+  end
+
+  def test_gives_every_row_of_a_one_line_timeline_the_timelines_own_columns_so_their_bars_share_one_width
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ true, true ], page.css("[data-timeline-row]").map { |row| row[:class].to_s.split.include?("sm:grid-cols-subgrid") }
   end
 
   def part_name(part)
