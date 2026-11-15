@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps with retries, queued time, failed tries, steps still running, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries, queued time, failed tries, steps still running, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -98,7 +98,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_funnel` — a conversion funnel drawn as bars or one joined shape.
 - `ui_bucket` — an upright container filled toward a goal.
 - `ui_bucket_series` — a wrapping row of buckets.
-- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, with optional queued time, failed tries and tries still running marked, bars and row labels that open an address, the current row marked, and a "No steps" message when there are no entries.
+- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, optionally one line per row with a marked axis, with optional queued time, failed tries and tries still running marked, bars and row labels that open an address, the current row marked, and a "No steps" message when there are no entries.
 - `ui_pipeline` — a staged flow diagram with buttons and breakable links that post to the app.
 - `ui_hero` — a marketing hero with title, call-to-action buttons and an aside.
 - `ui_cta_banner` — a marketing banner holding call-to-action buttons.
@@ -765,9 +765,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       the fill turns green with `over: :success` or amber with `over: :warning`.
     - `ui_bucket_series(buckets:)` takes an array of hashes with the keywords
       of `ui_bucket`, such as `[{ goal: 10, actual: 7, label: "Mon" }, ...]`.
-    - `ui_timeline(entries:)` takes no block. `entries:` is
+    - `ui_timeline(entries:, one_line: false)` takes no block. `entries:` is
       `[{ label:, started_at:, ended_at: nil, queued_at: nil, failed: false, href: nil, selected: false }, ...]`,
-      with every time a `Time` value.
+      with every time a `Time` value. `one_line:` picks the layout, described
+      below.
     - It draws one row per label, in the order each label first appears.
       Entries that share a label, such as the tries of one step, share that
       row and each draws its own bar, so pass a step's tries one after another
@@ -777,7 +778,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       `started_at` of any entry to the latest `ended_at`, or to the latest
       `started_at` when that is later.
     - An entry with no `ended_at:`, or `ended_at: nil`, is a try still
-      running. Its bar runs to the end of the axis, and its row shows an
+      running. Its bar runs to the latest `ended_at` or `started_at` of any
+      entry, and its row shows an
       `:info` status dot beside its duration that screen readers read as
       "Running". Leave `ended_at:` out only for a try that has not finished.
     - Every bar is drawn at least 2% of the track wide, so a try that took no
@@ -799,13 +801,30 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       screen readers announce it as the current item. Pass it on the entry the
       page is showing, such as the try whose detail page holds the timeline,
       and on one entry at most.
-    - Each row shows its label and its duration on one line, then its track.
-      The row's duration runs from its first entry's `started_at` to its last
-      entry's `ended_at`, or to the end of the axis when that last entry is
-      still running, so queued time before the first try is not counted.
-    - Under the rows the axis reads `0s` on the left and the whole span on the
-      right. Durations are written as `1h 0m 5s`, leaving out leading zero
-      units, and a zero duration is `0s`.
+    - Each row shows its label, its duration and its track. The row's duration
+      runs from its first entry's `started_at` to its last entry's `ended_at`,
+      or to the end of the axis when that last entry is still running, so
+      queued time before the first try is not counted. Durations are written as
+      `1h 0m 5s`, leaving out leading zero units, and a zero duration is `0s`.
+    - With the default `one_line: false`, each row shows its label and its
+      duration on one line with its track below them, at every width. Under
+      the rows the axis reads `0s` on the left and the whole span on the right,
+      and the bars fill the track from the start of the axis to its end.
+    - With `one_line: true`, from `sm:` up each row is one line: its label,
+      then its track, then its duration. The label column is as wide as the
+      longest label up to 40% of the timeline, a longer label is cut off with
+      an ellipsis, and every row's track has the same width and lines up with
+      the others. Below `sm:` each row shows its label and duration on one
+      line with its track on a second line across the full width.
+    - Under a one-line timeline's tracks the axis shows marks at even
+      intervals from `0s`, at the smallest of 1, 2, 5, 10, 15 or 30 seconds,
+      1, 2, 5, 10, 15 or 30 minutes, or 1, 2, 3, 6, 12 or 24 hours that covers
+      the whole span in six intervals or fewer, and at whole days past six
+      days. The axis ends at the first mark at or after the span, so the
+      longest bar can stop short of the right edge, and every bar and mark is
+      placed on that axis. A mark is written with each non-zero unit, such as
+      `1m 30s` or `1h 5s`.
+    - Ask the developer which layout a screen uses.
     - An entry with no `started_at:` raises `ArgumentError` naming its label,
       and so does an entry whose `ended_at:` is before its `started_at:`. Check
       the times before rendering rather than rescuing the error.
