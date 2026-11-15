@@ -214,6 +214,15 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css(".ks-status-dot")
   end
 
+  def test_draws_the_bar_of_a_waiting_entry_to_the_end_of_the_axis
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START + 70 },
+      { label: "Approve", started_at: START + 60, ended_at: nil, waiting: true }
+    ], one_line: true))
+
+    assert_equal "left: 80%; width: 20%", page.css("[data-timeline-bar]").last[:style]
+  end
+
   def test_draws_each_bar_at_a_small_visible_width_when_every_entry_starts_and_ends_at_the_same_moment
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
       { label: "Plan", started_at: START, ended_at: START },

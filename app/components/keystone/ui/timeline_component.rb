@@ -164,6 +164,8 @@ module Keystone
       end
 
       def ended_at(entry)
+        return axis_start + scale if entry[:waiting]
+
         entry[:ended_at] || axis_end
       end
 
