@@ -234,6 +234,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "left: 0%; width: 20%", "left: 20%; width: 70%" ], page.css("[data-timeline-bar]").map { |bar| bar[:style] }
   end
 
+  def test_places_each_axis_mark_of_a_one_line_timeline_at_its_time_on_the_axis_the_bars_share
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ "left: 0%", "left: 25%; transform: translateX(-50%)", "left: 50%; transform: translateX(-50%)", "left: 75%; transform: translateX(-50%)", "right: 0%" ], page.css("[data-timeline-mark]").map { |mark| mark[:style] }
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")

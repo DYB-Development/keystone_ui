@@ -31,8 +31,8 @@
     <% end %>
     <% if one_line %>
       <div class="<%= ONE_LINE_AXIS_CLASSES %>">
-        <% mark_labels.each do |label| %>
-          <span data-timeline-mark><%= label %></span>
+        <% marks.each do |mark| %>
+          <span class="<%= MARK_CLASSES %>" data-timeline-mark style="<%= mark[:style] %>"><%= mark[:label] %></span>
         <% end %>
       </div>
     <% else %>

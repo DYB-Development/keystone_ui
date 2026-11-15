@@ -15,7 +15,8 @@ module Keystone
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
       ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
-      ONE_LINE_AXIS_CLASSES = "ks-meter-label flex justify-between text-xs sm:col-start-2"
+      ONE_LINE_AXIS_CLASSES = "ks-meter-label relative h-4 text-xs sm:col-start-2"
+      MARK_CLASSES = "absolute top-0 whitespace-nowrap"
       MINIMUM_BAR_PERCENT = 2
       MARK_STEPS = [ 1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10_800, 21_600, 43_200, 86_400 ].freeze
       MAXIMUM_MARK_INTERVALS = 6
@@ -76,8 +77,8 @@ module Keystone
         written_duration(axis_end - axis_start)
       end
 
-      def mark_labels
-        (0..mark_intervals).map { |index| written_mark(index * mark_step) }
+      def marks
+        (0..mark_intervals).map { |index| { label: written_mark(index * mark_step), style: mark_style(index) } }
       end
 
       def axis_start_label
@@ -104,6 +105,13 @@ module Keystone
         minutes, seconds = rest.divmod(60)
         parts = [ [ hours, "h" ], [ minutes, "m" ], [ seconds, "s" ] ].reject { |amount, _| amount.zero? }
         parts.empty? ? "0s" : parts.map { |amount, unit| "#{amount}#{unit}" }.join(" ")
+      end
+
+      def mark_style(index)
+        return "left: 0%" if index.zero?
+        return "right: 0%" if index == mark_intervals
+
+        "left: #{percent(index * mark_step)}%; transform: translateX(-50%)"
       end
 
       def mark_step
@@ -143,7 +151,7 @@ module Keystone
       end
 
       def share(seconds)
-        scale.zero? ? 0 : (seconds / scale * 100).round(2)
+        scale.zero? ? 0 : (seconds.fdiv(scale) * 100).round(2)
       end
     end
   end
