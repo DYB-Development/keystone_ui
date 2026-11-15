@@ -16,4 +16,10 @@ class Keystone::Ui::ButtonRowComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("div")["class"].split, "flex-wrap"
   end
+
+  def test_gives_every_button_an_equal_share_of_its_width_when_asked
+    page = render_inline(Keystone::Ui::ButtonRowComponent.new(equal_width: true)) { BUTTONS }
+
+    assert_includes page.at_css("div")["class"].split, "*:flex-1"
+  end
 end
