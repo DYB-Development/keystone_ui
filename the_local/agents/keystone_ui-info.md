@@ -68,12 +68,17 @@ One decision: is keystone_ui set up in the app?
 - **Timelines.** A timeline entry is one try at a step: a label, a start time,
   an end time, and optionally the time it was queued and whether it failed.
   Entries sharing a label are drawn as several bars on one row, in the order
-  given, and the row's duration runs from its first try's start to its last
-  try's end. Queued time is drawn as its own segment before the bar, and a
-  failed try is marked failed both in colour and for screen readers. The axis
+  given. The row's duration is the time of each try added together, so the
+  gaps between tries are not counted, and a row with more than one try adds the
+  number of tries after it, such as `· 3 att.`. Queued time is drawn as its own
+  segment before the bar, and a failed try is marked failed both in colour and
+  for screen readers. An entry can be marked waiting, for a try that has not
+  started running: its bar runs from its start to the end of the axis in the
+  queued colour, and its row shows the word `waiting` in the warning tone in
+  place of a duration, with no running dot. The axis
   runs from the earliest queued or start time of any entry to the latest end
   or start time. An entry with no end time is still running: its bar runs to
-  the end of the axis, and its row shows a status dot that screen readers read
+  the latest end or start time of any entry, and its row shows a status dot that screen readers read
   as "Running". Every bar is drawn at least a small visible width, so a try
   that took no time still shows. An entry with no start time, or one that ends
   before it starts, raises `ArgumentError` naming its label. A timeline with no
