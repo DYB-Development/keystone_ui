@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.86.0] - 2026-11-15
+
+### Added
+- `ui_timeline` takes `one_line: true`, which draws each row's label, bar and duration on one line from `sm` up, with every bar in one column of the same width.
+- A one-line `ui_timeline` marks its axis at even intervals from `0s`, ends the axis at the last mark, and places each mark at its time on the axis the bars use.
+- Below `sm`, a one-line `ui_timeline` draws each row's label and duration above its bar.
+
 ## [0.85.0] - 2026-11-14
 
 ### Changed
