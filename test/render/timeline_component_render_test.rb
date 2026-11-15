@@ -74,10 +74,13 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[Build Plan], page.css("[data-timeline-row] [data-timeline-label]").map(&:text)
   end
 
-  def test_gives_a_row_of_several_entries_the_duration_from_its_first_start_to_its_last_end
-    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
+  def test_gives_a_row_of_several_entries_the_sum_of_the_time_each_entry_took
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Build", started_at: START, ended_at: START + 60, failed: true },
+      { label: "Build", started_at: START + 120, ended_at: START + 150 }
+    ]))
 
-    assert_equal [ "1m 0s", "3m 0s · 2 att." ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
+    assert_equal "1m 30s · 2 att.", page.at_css("[data-timeline-duration]").text
   end
 
   def test_adds_the_number_of_attempts_to_the_duration_of_a_row_with_several_entries

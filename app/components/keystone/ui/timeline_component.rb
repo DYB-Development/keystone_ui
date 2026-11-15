@@ -85,7 +85,7 @@ module Keystone
       end
 
       def duration(row)
-        [ written_duration(ended_at(row[:tries].last) - row[:tries].first[:started_at]), attempts(row) ].compact.join(" · ")
+        [ written_duration(row[:tries].sum { |entry| ended_at(entry) - entry[:started_at] }), attempts(row) ].compact.join(" · ")
       end
 
       def total_duration
