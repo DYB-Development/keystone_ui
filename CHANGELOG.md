@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - A `ui_timeline` row's duration is the sum of the time each of its entries took, rather than the time from its first entry's start to its last entry's end.
+- A `ui_timeline` duration under ten seconds is written with one decimal, such as `8.2s`, and longer durations stay in whole seconds.
 
 ## [0.86.0] - 2026-11-15
 
