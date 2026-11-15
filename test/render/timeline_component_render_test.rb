@@ -77,7 +77,13 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
   def test_gives_a_row_of_several_entries_the_duration_from_its_first_start_to_its_last_end
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
 
-    assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
+    assert_equal [ "1m 0s", "3m 0s · 2 att." ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
+  end
+
+  def test_adds_the_number_of_attempts_to_the_duration_of_a_row_with_several_entries
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
+
+    assert_equal "3m 0s · 2 att.", page.css("[data-timeline-row] [data-timeline-duration]").last.text
   end
 
   def test_draws_a_failed_entrys_bar_in_red

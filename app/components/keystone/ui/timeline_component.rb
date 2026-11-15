@@ -85,7 +85,7 @@ module Keystone
       end
 
       def duration(row)
-        written_duration(ended_at(row[:tries].last) - row[:tries].first[:started_at])
+        [ written_duration(ended_at(row[:tries].last) - row[:tries].first[:started_at]), attempts(row) ].compact.join(" · ")
       end
 
       def total_duration
@@ -101,6 +101,10 @@ module Keystone
       end
 
       private
+
+      def attempts(row)
+        "#{row[:tries].size} att." if row[:tries].size > 1
+      end
 
       def check_times(entry)
         raise ArgumentError, "Timeline entry #{entry[:label].inspect} has no started_at" unless entry[:started_at]
