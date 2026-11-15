@@ -20,14 +20,14 @@
           <% end %>
         </div>
       <% end %>
-      <div data-timeline-row<% if selected?(row) %> class="<%= SELECTED_ROW_CLASSES %>" aria-current="true"<% end %>>
+      <%= tag.div(data: { timeline_row: "" }, class: row_classes(row), aria: { current: ("true" if selected?(row)) }) do %>
         <% if one_line %>
           <%= label %><%= track %><%= status %>
         <% else %>
           <div class="<%= ROW_TEXT_CLASSES %>"><%= label %><%= status %></div>
           <%= track %>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
     <div class="<%= AXIS_CLASSES %>">
       <span data-timeline-axis-start><%= axis_start_label %></span>
