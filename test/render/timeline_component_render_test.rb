@@ -120,4 +120,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "/steps/plan", "/steps/build-1", "/steps/build-2" ], page.css("a[data-timeline-bar]").map { |bar| bar[:href] }
   end
+
+  def test_names_a_linked_bar_for_screen_readers_by_its_rows_label
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: linked))
+
+    assert_equal [ [ "Plan" ], [ "Build", "Failed" ], [ "Build" ] ], page.css("a[data-timeline-bar]").map { |bar| bar.css(".sr-only").map(&:text) }
+  end
 end
