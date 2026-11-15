@@ -13,7 +13,7 @@ nothing and gives no steps.
 keystone_ui is a Rails engine gem that supplies a host app's UI as view helpers
 built on ViewComponent. Screens are built from named pieces — page shells,
 sections, panels, grids, forms and fields, search dropdowns, data tables, navigation, cards,
-badges, status dots, stat tiles, charts, timelines, funnels, goal buckets, pipelines, breakdowns, code blocks,
+badges, status dots, value lists, stat tiles, charts, timelines, funnels, goal buckets, pipelines, breakdowns, code blocks,
 text diffs and info buttons —
 instead of hand-written ERB and Tailwind. Every class the UI renders lives in the
 gem, so two pages built from the same helpers cannot disagree about spacing,
@@ -97,6 +97,13 @@ One decision: is keystone_ui set up in the app?
   to the address of the last entry in that row that has one. An entry can be
   marked selected, and the row holding it is drawn in the same tint as a data
   table's current row and announced to screen readers as the current item.
+- **Value lists.** A value list shows labelled values, each a label and a value
+  with an optional note, a fallback shown when the value is empty, a total
+  marking and a check mark for a value that is right. By default each pair is a
+  row with its label beside its value and a line between rows. A value list can
+  lay its pairs in columns instead: one column on a phone and two from `sm:` up,
+  each label in small text directly above its value, a long value wrapping
+  inside its own column, and no line between pairs.
 - **Going back.** A form or show page shell needs a way back: a back link, a
   trail of earlier pages shown as breadcrumbs, or a trail the app supplies for
   the request. A nav tab's own page passes an empty trail and shows no back
