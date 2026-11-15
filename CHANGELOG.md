@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.87.0] - 2026-11-15
+
+### Added
+- A `ui_timeline` row of more than one entry writes its number of attempts after its duration, such as `41s · 2 att.`.
+- A `ui_timeline` entry takes `waiting: true`, which draws its bar from its start to the end of the axis in the queued colour and writes `waiting` in the warning tone where its row's duration would be, with no running dot.
+
+### Changed
+- A `ui_timeline` row's duration is the sum of the time each of its entries took, rather than the time from its first entry's start to its last entry's end.
+
 ## [0.86.0] - 2026-11-15
 
 ### Added
