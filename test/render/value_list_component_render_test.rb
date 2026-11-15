@@ -45,4 +45,10 @@ class Keystone::Ui::ValueListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Agent" ], page.css(".ks-value-list-label.text-xs").map { |label| label.text.strip }
   end
+
+  def test_in_columns_keeps_each_label_to_the_height_of_its_text
+    page = render_inline(Keystone::Ui::ValueListComponent.new(columns: true, rows: [ { label: "Agent", value: "copy_writer v22" } ]))
+
+    assert_equal [ "Agent" ], page.css(".ks-value-list-label.basis-auto").map { |label| label.text.strip }
+  end
 end
