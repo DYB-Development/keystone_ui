@@ -1152,6 +1152,7 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
 **Optional props**
 
 - `align:` (`:start | :end`, default `:start`) — `:start` places each value beside its label, `:end` pushes it to the right end of its row
+- `columns:` (Boolean, default `false`) — shows each label in small text with its value directly below it, and lays the pairs in one column on a phone and two columns from `sm` up, with a long value wrapping inside its own column
 
 ```erb
 <%= ui_value_list(align: :end, rows: [
@@ -1159,6 +1160,15 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
   { label: "Billable hours", value: "12.5" },
   { label: "Reviews", value: nil, fallback: "N/A" },
   { label: "Total billed", value: "$1,875.00", total: true }
+]) %>
+```
+
+```erb
+<%= ui_value_list(columns: true, rows: [
+  { label: "Agent", value: "copy_writer v22" },
+  { label: "Model", value: "claude-sonnet" },
+  { label: "Tokens / cost", value: "4,120 in · 310 out · $0.11" },
+  { label: "Format", value: "copy_block v3" }
 ]) %>
 ```
 

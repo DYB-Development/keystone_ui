@@ -1,7 +1,7 @@
 <dl class="<%= classes %>">
   <% rows.each do |row| %>
     <div class="<%= row_classes(row) %>">
-      <dt class="ks-value-list-label">
+      <dt class="<%= label_classes %>">
         <%= row[:label] %>
         <% if row[:note] %><span class="ks-value-list-note"><%= row[:note] %></span><% end %>
       </dt>
