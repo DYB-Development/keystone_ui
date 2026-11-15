@@ -84,7 +84,13 @@ module Keystone
         entry[:href] ? :a : :div
       end
 
+      def waiting?(row)
+        row[:tries].any? { |entry| entry[:waiting] }
+      end
+
       def duration(row)
+        return "waiting" if waiting?(row)
+
         [ written_duration(row[:tries].sum { |entry| ended_at(entry) - entry[:started_at] }), attempts(row) ].compact.join(" · ")
       end
 
