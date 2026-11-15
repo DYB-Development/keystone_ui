@@ -6,6 +6,7 @@ module Keystone
       TRACK_CLASSES = "ks-timeline-track relative w-full h-2 overflow-hidden"
       BAR_CLASSES = "ks-timeline-bar absolute inset-y-0"
       FAILED_CLASSES = "ks-timeline-failed"
+      WAITING_CLASSES = "ks-tone-warning"
       QUEUED_CLASSES = "ks-timeline-queued absolute inset-y-0"
       SCREEN_READER_CLASSES = "sr-only"
       SELECTED_ROW_CLASSES = "ks-table-row-current"
@@ -69,7 +70,7 @@ module Keystone
       end
 
       def running?(row)
-        row[:tries].any? { |entry| entry[:ended_at].nil? }
+        !waiting?(row) && row[:tries].any? { |entry| entry[:ended_at].nil? }
       end
 
       def queued_style(entry)
@@ -77,6 +78,8 @@ module Keystone
       end
 
       def bar_classes(entry)
+        return QUEUED_CLASSES if entry[:waiting]
+
         [ BAR_CLASSES, (FAILED_CLASSES if entry[:failed]) ].compact.join(" ")
       end
 
@@ -84,8 +87,18 @@ module Keystone
         entry[:href] ? :a : :div
       end
 
+      def waiting?(row)
+        row[:tries].any? { |entry| entry[:waiting] }
+      end
+
+      def duration_classes(row)
+        WAITING_CLASSES if waiting?(row)
+      end
+
       def duration(row)
-        written_duration(ended_at(row[:tries].last) - row[:tries].first[:started_at])
+        return "waiting" if waiting?(row)
+
+        [ written_duration(row[:tries].sum { |entry| ended_at(entry) - entry[:started_at] }), attempts(row) ].compact.join(" · ")
       end
 
       def total_duration
@@ -97,10 +110,14 @@ module Keystone
       end
 
       def axis_start_label
-        written_duration(0)
+        written_mark(0)
       end
 
       private
+
+      def attempts(row)
+        "#{row[:tries].size} att." if row[:tries].size > 1
+      end
 
       def check_times(entry)
         raise ArgumentError, "Timeline entry #{entry[:label].inspect} has no started_at" unless entry[:started_at]
@@ -108,10 +125,11 @@ module Keystone
       end
 
       def written_duration(seconds)
+        return format("%.1fs", seconds.round(1)) if seconds.round(1) < 10
+
         hours, rest = seconds.round.divmod(3600)
         minutes, seconds = rest.divmod(60)
         parts = [ [ hours, "h" ], [ minutes, "m" ], [ seconds, "s" ] ].drop_while { |amount, _| amount.zero? }
-        parts = [ [ 0, "s" ] ] if parts.empty?
         parts.map { |amount, unit| "#{amount}#{unit}" }.join(" ")
       end
 
@@ -154,6 +172,8 @@ module Keystone
       end
 
       def ended_at(entry)
+        return axis_start + scale if entry[:waiting]
+
         entry[:ended_at] || axis_end
       end
 

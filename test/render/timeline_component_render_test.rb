@@ -30,6 +30,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
   end
 
+  def test_writes_a_duration_under_ten_seconds_with_one_decimal
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [ { label: "Check", started_at: START, ended_at: START + 8.23 } ]))
+
+    assert_equal "8.2s", page.at_css("[data-timeline-duration]").text
+  end
+
   def test_writes_a_duration_of_an_hour_or_more_in_hours_minutes_and_seconds
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [ { label: "Run", started_at: START, ended_at: START + 3605 } ]))
 
@@ -74,10 +80,19 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[Build Plan], page.css("[data-timeline-row] [data-timeline-label]").map(&:text)
   end
 
-  def test_gives_a_row_of_several_entries_the_duration_from_its_first_start_to_its_last_end
+  def test_gives_a_row_of_several_entries_the_sum_of_the_time_each_entry_took
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Build", started_at: START, ended_at: START + 60, failed: true },
+      { label: "Build", started_at: START + 120, ended_at: START + 150 }
+    ]))
+
+    assert_equal "1m 30s · 2 att.", page.at_css("[data-timeline-duration]").text
+  end
+
+  def test_adds_the_number_of_attempts_to_the_duration_of_a_row_with_several_entries
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
 
-    assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
+    assert_equal "3m 0s · 2 att.", page.css("[data-timeline-row] [data-timeline-duration]").last.text
   end
 
   def test_draws_a_failed_entrys_bar_in_red
@@ -184,6 +199,46 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: running))
 
     assert_equal [ nil, "Running" ], page.css("[data-timeline-row]").map { |row| row.at_css(".ks-status-dot.ks-status-dot-info")&.text }
+  end
+
+  def waiting
+    [
+      { label: "Plan", started_at: START, ended_at: START + 60 },
+      { label: "Approve", started_at: START + 60, ended_at: nil, waiting: true }
+    ]
+  end
+
+  def test_writes_waiting_in_place_of_the_duration_of_a_row_whose_entry_is_waiting
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: waiting))
+
+    assert_equal [ "1m 0s", "waiting" ], page.css("[data-timeline-row] [data-timeline-duration]").map(&:text)
+  end
+
+  def test_writes_waiting_in_the_warning_tone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: waiting))
+
+    assert_equal [ false, true ], page.css("[data-timeline-duration]").map { |duration| duration[:class].to_s.split.include?("ks-tone-warning") }
+  end
+
+  def test_draws_no_running_dot_on_a_row_whose_entry_is_waiting
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: waiting))
+
+    assert_empty page.css(".ks-status-dot")
+  end
+
+  def test_draws_the_bar_of_a_waiting_entry_to_the_end_of_the_axis
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START + 70 },
+      { label: "Approve", started_at: START + 60, ended_at: nil, waiting: true }
+    ], one_line: true))
+
+    assert_equal "left: 80%; width: 20%", page.css("[data-timeline-bar]").last[:style]
+  end
+
+  def test_draws_the_bar_of_a_waiting_entry_in_the_timelines_queued_colour_in_place_of_its_bar_colour
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: waiting))
+
+    assert_equal [ [ "ks-timeline-bar" ], [ "ks-timeline-queued" ] ], page.css("[data-timeline-bar]").map { |bar| bar[:class].split.grep(/\Aks-timeline-(bar|queued)\z/) }
   end
 
   def test_draws_each_bar_at_a_small_visible_width_when_every_entry_starts_and_ends_at_the_same_moment

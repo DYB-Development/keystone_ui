@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries, queued time, failed tries, steps still running, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -98,7 +98,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_funnel` — a conversion funnel drawn as bars or one joined shape.
 - `ui_bucket` — an upright container filled toward a goal.
 - `ui_bucket_series` — a wrapping row of buckets.
-- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, optionally one line per row with a marked axis, with optional queued time, failed tries and tries still running marked, bars and row labels that open an address, the current row marked, and a "No steps" message when there are no entries.
+- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, optionally one line per row with a marked axis, each row's summed try time and number of tries, with optional queued time, failed tries, tries still running and tries waiting marked, bars and row labels that open an address, the current row marked, and a "No steps" message when there are no entries.
 - `ui_pipeline` — a staged flow diagram with buttons and breakable links that post to the app.
 - `ui_hero` — a marketing hero with title, call-to-action buttons and an aside.
 - `ui_cta_banner` — a marketing banner holding call-to-action buttons.
@@ -766,7 +766,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     - `ui_bucket_series(buckets:)` takes an array of hashes with the keywords
       of `ui_bucket`, such as `[{ goal: 10, actual: 7, label: "Mon" }, ...]`.
     - `ui_timeline(entries:, one_line: false)` takes no block. `entries:` is
-      `[{ label:, started_at:, ended_at: nil, queued_at: nil, failed: false, href: nil, selected: false }, ...]`,
+      `[{ label:, started_at:, ended_at: nil, queued_at: nil, failed: false, waiting: false, href: nil, selected: false }, ...]`,
       with every time a `Time` value. `one_line:` picks the layout, described
       below.
     - It draws one row per label, in the order each label first appears.
@@ -781,7 +781,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       running. Its bar runs to the latest `ended_at` or `started_at` of any
       entry, and its row shows an
       `:info` status dot beside its duration that screen readers read as
-      "Running". Leave `ended_at:` out only for a try that has not finished.
+      "Running", unless the row is waiting. Leave `ended_at:` out only for a
+      try that has not finished.
     - Every bar is drawn at least 2% of the track wide, so a try that took no
       time still shows. When every entry starts and ends at one moment, every
       bar is drawn at that width at the left edge of the track.
@@ -791,6 +792,17 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     - An entry given `failed: true` draws its bar in the danger colour, and
       screen readers read it as "Failed". Ask the developer which tries count
       as failed and whether the queued time is shown.
+    - An entry given `waiting: true` is a try paused before it can go on, such
+      as a step waiting for approval. Its bar runs from its `started_at` to the
+      end of the axis, which on a one-line timeline is its last mark, in the
+      queued colour, in place of the danger colour even
+      when it is also `failed: true`. Its row writes `waiting` in the warning
+      tone in place of the duration, and shows no "Running" dot. A row holding
+      any waiting entry is a waiting row.
+    - The timeline reads no clock, so a waiting entry's `ended_at:` only moves
+      the end of the axis. Pass `ended_at: Time.current` on it so the axis, and
+      its bar, reach the present. Ask the developer which states of a step
+      count as waiting.
     - An entry given `href:` draws its bar as a link to that address, read out
       by screen readers as the entry's label. A row's label links to the
       `href:` of the row's last entry that has one, and with none it is plain
@@ -802,14 +814,19 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       page is showing, such as the try whose detail page holds the timeline,
       and on one entry at most.
     - Each row shows its label, its duration and its track. The row's duration
-      runs from its first entry's `started_at` to its last entry's `ended_at`,
-      or to the end of the axis when that last entry is still running, so
-      queued time before the first try is not counted. Durations are written as
-      `1h 0m 5s`, leaving out leading zero units, and a zero duration is `0s`.
+      is the time from `started_at` to `ended_at` of each of its entries added
+      together, so queued time and the gaps between tries are not counted, and
+      a try still running counts up to the latest `ended_at` or `started_at` of
+      any entry. A duration under ten seconds is written with one decimal,
+      such as `8.2s`, and a zero duration is `0.0s`. A longer one is written in
+      whole hours, minutes and seconds, such as `1h 0m 5s` or `41s`, leaving
+      out leading zero units.
+    - A row holding more than one entry adds its number of tries after the
+      duration, such as `41s · 2 att.`. The wording is fixed.
     - With the default `one_line: false`, each row shows its label and its
       duration on one line with its track below them, at every width. Under
       the rows the axis reads `0s` on the left and the whole span on the right,
-      and the bars fill the track from the start of the axis to its end.
+      written as a row's duration is, and the bars fill the track from the start of the axis to its end.
     - With `one_line: true`, from `sm:` up each row is one line: its label,
       then its track, then its duration. The label column is as wide as the
       longest label up to 40% of the timeline, a longer label is cut off with
@@ -901,7 +918,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     others show through, a Columns menu with no greyed name for a hidden
     column, a table row whose caret does not open its detail, a text diff whose
     removed and added rows look like its shared rows, a timeline whose failed
-    tries or queued time look like its other bars, or a status dot
+    tries, queued time or waiting tries look like its other bars, or a status dot
     that draws nothing — the app's Stimulus controllers or keystone_ui-styles version are
     out of date. Stop and hand that part to `keystone_ui-install`, and add no
     classes to fix it.
