@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.82.0] - 2026-11-14
+
+### Added
+- `ui_timeline` entries take `href:`, which draws the entry's bar as a link to that address and links the row's label to the row's last entry that has one.
+- `ui_timeline` entries take `selected: true`, which draws the entry's row in the current row tint with `aria-current="true"`.
+
 ## [0.81.0] - 2026-11-13
 
 ### Added
