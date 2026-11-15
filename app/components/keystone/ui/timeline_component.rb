@@ -14,11 +14,12 @@ module Keystone
       ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
       MINIMUM_BAR_PERCENT = 2
 
-      attr_reader :entries
+      attr_reader :entries, :one_line
 
-      def initialize(entries:)
+      def initialize(entries:, one_line: false)
         entries.each { |entry| check_times(entry) }
         @entries = entries
+        @one_line = one_line
       end
 
       def bar_style(entry)

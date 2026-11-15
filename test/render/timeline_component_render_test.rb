@@ -200,4 +200,18 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "No steps", page.at_css(".ks-empty-state")&.text&.strip
   end
+
+  def test_draws_each_row_of_a_one_line_timeline_as_its_label_then_its_bar_then_its_duration
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ [ "label", "track", "duration" ] ] * 2, page.css("[data-timeline-row]").map { |row| row.element_children.map { |part| part_name(part) } }
+  end
+
+  def part_name(part)
+    return "duration" if part.at_css("[data-timeline-duration]")
+    return "label" if part.key?("data-timeline-label")
+    return "track" if part[:class].to_s.split.include?("ks-timeline-track")
+
+    part.name
+  end
 end
