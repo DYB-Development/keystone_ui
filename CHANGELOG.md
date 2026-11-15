@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.84.0] - 2026-11-14
+
+### Added
+- `ui_text_diff` shows a notice above the text saying two identical texts are the same.
+- `ui_text_diff` shows both versions line by line with no line marked, under a notice saying they are too long to compare, when the two texts together run past 2,000 lines.
+- `KeystoneUi.configuration.text_diff_line_limit` sets the number of lines past which `ui_text_diff` stops comparing, 2,000 by default.
+
 ## [0.83.0] - 2026-11-14
 
 ### Added
