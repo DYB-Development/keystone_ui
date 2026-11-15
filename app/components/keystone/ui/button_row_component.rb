@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class ButtonRowComponent < ViewComponent::Base
       ROW_CLASSES = "flex flex-wrap ks-grid-gap-sm max-sm:*:min-h-11"
-      EQUAL_WIDTH_CLASSES = "*:flex-1"
+      EQUAL_WIDTH_CLASSES = "*:flex-1 *:whitespace-nowrap"
 
       def initialize(equal_width: false)
         @equal_width = equal_width

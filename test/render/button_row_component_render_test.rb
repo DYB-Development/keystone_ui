@@ -28,4 +28,10 @@ class Keystone::Ui::ButtonRowComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("div")["class"].split, "max-sm:*:min-h-11"
   end
+
+  def test_keeps_each_label_on_one_line_in_an_equal_width_row_so_it_wraps_only_when_the_labels_no_longer_fit
+    page = render_inline(Keystone::Ui::ButtonRowComponent.new(equal_width: true)) { BUTTONS }
+
+    assert_includes page.at_css("div")["class"].split, "*:whitespace-nowrap"
+  end
 end
