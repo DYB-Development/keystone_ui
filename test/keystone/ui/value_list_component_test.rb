@@ -19,4 +19,8 @@ class Keystone::Ui::ValueListComponentTest < Minitest::Test
   def test_in_columns_lets_a_long_value_shrink_its_pair_to_the_column_width
     assert_includes Keystone::Ui::ValueListComponent.new(rows: [], columns: true).row_classes({}).split, "min-w-0"
   end
+
+  def test_in_columns_spaces_the_pairs_apart_by_the_small_grid_gap
+    assert_includes Keystone::Ui::ValueListComponent.new(rows: [], columns: true).classes.split, "ks-grid-gap-sm"
+  end
 end
