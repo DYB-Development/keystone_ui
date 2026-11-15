@@ -8,6 +8,7 @@ module Keystone
       FAILED_CLASSES = "ks-timeline-failed"
       QUEUED_CLASSES = "ks-timeline-queued absolute inset-y-0"
       SCREEN_READER_CLASSES = "sr-only"
+      SELECTED_ROW_CLASSES = "ks-table-row-current"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
 
@@ -25,12 +26,24 @@ module Keystone
         entries.group_by { |entry| entry[:label] }.map { |label, tries| { label: label, tries: tries } }
       end
 
+      def row_href(row)
+        row[:tries].filter_map { |entry| entry[:href] }.last
+      end
+
+      def selected?(row)
+        row[:tries].any? { |entry| entry[:selected] }
+      end
+
       def queued_style(entry)
         "left: #{percent(entry[:queued_at] - axis_start)}%; width: #{percent(entry[:started_at] - entry[:queued_at])}%"
       end
 
       def bar_classes(entry)
         [ BAR_CLASSES, (FAILED_CLASSES if entry[:failed]) ].compact.join(" ")
+      end
+
+      def bar_tag(entry)
+        entry[:href] ? :a : :div
       end
 
       def duration(row)

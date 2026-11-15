@@ -71,7 +71,11 @@ One decision: is keystone_ui set up in the app?
   try's end. Queued time is drawn as its own segment before the bar, and a
   failed try is marked failed both in colour and for screen readers. The axis
   runs from the earliest queued or start time of any entry to the latest end
-  time.
+  time. An entry can carry an address, and then its bar is a link to it whose
+  name screen readers announce is the entry's label, and the row's label links
+  to the address of the last entry in that row that has one. An entry can be
+  marked selected, and the row holding it is drawn in the same tint as a data
+  table's current row and announced to screen readers as the current item.
 - **Going back.** A form or show page shell needs a way back: a back link, a
   trail of earlier pages shown as breadcrumbs, or a trail the app supplies for
   the request. A nav tab's own page passes an empty trail and shows no back

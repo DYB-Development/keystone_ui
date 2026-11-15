@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps with retries, queued time and failed tries, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps with retries, queued time, failed tries, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -98,7 +98,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_funnel` — a conversion funnel drawn as bars or one joined shape.
 - `ui_bucket` — an upright container filled toward a goal.
 - `ui_bucket_series` — a wrapping row of buckets.
-- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, with optional queued time and failed tries marked.
+- `ui_timeline` — rows of timed steps on one shared time axis, each try of a step a bar on its row, with optional queued time and failed tries marked, bars and row labels that open an address, and the current row marked.
 - `ui_pipeline` — a staged flow diagram with buttons and breakable links that post to the app.
 - `ui_hero` — a marketing hero with title, call-to-action buttons and an aside.
 - `ui_cta_banner` — a marketing banner holding call-to-action buttons.
@@ -753,7 +753,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     - `ui_bucket_series(buckets:)` takes an array of hashes with the keywords
       of `ui_bucket`, such as `[{ goal: 10, actual: 7, label: "Mon" }, ...]`.
     - `ui_timeline(entries:)` takes no block. `entries:` is
-      `[{ label:, started_at:, ended_at:, queued_at: nil, failed: false }, ...]`,
+      `[{ label:, started_at:, ended_at:, queued_at: nil, failed: false, href: nil, selected: false }, ...]`,
       with every time a `Time` value.
     - It draws one row per label, in the order each label first appears.
       Entries that share a label, such as the tries of one step, share that
@@ -768,6 +768,16 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     - An entry given `failed: true` draws its bar in the danger colour, and
       screen readers read it as "Failed". Ask the developer which tries count
       as failed and whether the queued time is shown.
+    - An entry given `href:` draws its bar as a link to that address, read out
+      by screen readers as the entry's label. A row's label links to the
+      `href:` of the row's last entry that has one, and with none it is plain
+      text. Ask the developer which page each try opens, such as that try's
+      own detail page.
+    - An entry given `selected: true` marks its row as the current one: the
+      row is drawn in the same tint as `ui_data_table`'s `current_row:` and
+      screen readers announce it as the current item. Pass it on the entry the
+      page is showing, such as the try whose detail page holds the timeline,
+      and on one entry at most.
     - Each row shows its label and its duration on one line, then its track.
       The row's duration runs from its first entry's `started_at` to its last
       entry's `ended_at`, so queued time before the first try is not counted.

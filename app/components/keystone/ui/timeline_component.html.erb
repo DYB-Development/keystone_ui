@@ -1,8 +1,8 @@
 <div class="flex flex-col gap-3">
   <% rows.each do |row| %>
-    <div data-timeline-row>
+    <div data-timeline-row<% if selected?(row) %> class="<%= SELECTED_ROW_CLASSES %>" aria-current="true"<% end %>>
       <div class="<%= ROW_TEXT_CLASSES %>">
-        <span data-timeline-label><%= row[:label] %></span>
+        <%= content_tag(row_href(row) ? :a : :span, row[:label], data: { timeline_label: "" }, href: row_href(row)) %>
         <span data-timeline-duration><%= duration(row) %></span>
       </div>
       <div class="<%= TRACK_CLASSES %>">
@@ -10,7 +10,7 @@
           <% if entry[:queued_at] %>
             <div class="<%= QUEUED_CLASSES %>" data-timeline-queued style="<%= queued_style(entry) %>"></div>
           <% end %>
-          <div class="<%= bar_classes(entry) %>" data-timeline-bar style="<%= bar_style(entry) %>"><% if entry[:failed] %><span class="<%= SCREEN_READER_CLASSES %>">Failed</span><% end %></div>
+          <%= content_tag(bar_tag(entry), class: bar_classes(entry), data: { timeline_bar: "" }, style: bar_style(entry), href: entry[:href]) do %><% if entry[:href] %><span class="<%= SCREEN_READER_CLASSES %>"><%= entry[:label] %></span> <% end %><% if entry[:failed] %><span class="<%= SCREEN_READER_CLASSES %>">Failed</span><% end %><% end %>
         <% end %>
       </div>
     </div>

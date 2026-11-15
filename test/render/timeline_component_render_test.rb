@@ -106,4 +106,52 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "left: 25%; width: 75%", page.at_css("[data-timeline-bar]")[:style]
   end
+
+  def linked
+    [
+      { label: "Plan", started_at: START, ended_at: START + 60, href: "/steps/plan" },
+      { label: "Build", started_at: START + 60, ended_at: START + 120, failed: true, href: "/steps/build-1" },
+      { label: "Build", started_at: START + 120, ended_at: START + 240, href: "/steps/build-2" }
+    ]
+  end
+
+  def test_draws_an_entry_given_an_address_as_a_bar_that_opens_it
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: linked))
+
+    assert_equal [ "/steps/plan", "/steps/build-1", "/steps/build-2" ], page.css("a[data-timeline-bar]").map { |bar| bar[:href] }
+  end
+
+  def test_names_a_linked_bar_for_screen_readers_by_its_rows_label
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: linked))
+
+    assert_equal [ [ "Plan" ], [ "Build", "Failed" ], [ "Build" ] ], page.css("a[data-timeline-bar]").map { |bar| bar.css(".sr-only").map(&:text) }
+  end
+
+  def test_links_a_rows_label_to_the_address_of_its_last_entry_that_has_one
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: linked + [ { label: "Build", started_at: START + 240, ended_at: START + 300 } ]))
+
+    assert_equal [ "/steps/plan", "/steps/build-2" ], page.css("a[data-timeline-label]").map { |label| label[:href] }
+  end
+
+  def selected
+    [ retried[0], retried[1].merge(selected: true), retried[2] ]
+  end
+
+  def test_tells_screen_readers_the_row_of_the_selected_entry_is_the_current_item
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: selected))
+
+    assert_equal [ nil, "true" ], page.css("[data-timeline-row]").map { |row| row["aria-current"] }
+  end
+
+  def test_draws_the_row_of_the_selected_entry_as_the_current_row
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: selected))
+
+    assert_equal [ false, true ], page.css("[data-timeline-row]").map { |row| row[:class].to_s.split.include?("ks-table-row-current") }
+  end
+
+  def test_draws_no_links_for_entries_given_no_address
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
+
+    assert_empty page.css("a")
+  end
 end
