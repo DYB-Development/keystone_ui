@@ -110,7 +110,7 @@ module Keystone
       end
 
       def axis_start_label
-        written_duration(0)
+        written_mark(0)
       end
 
       private
@@ -125,10 +125,11 @@ module Keystone
       end
 
       def written_duration(seconds)
+        return format("%.1fs", seconds.round(1)) if seconds.round(1) < 10
+
         hours, rest = seconds.round.divmod(3600)
         minutes, seconds = rest.divmod(60)
         parts = [ [ hours, "h" ], [ minutes, "m" ], [ seconds, "s" ] ].drop_while { |amount, _| amount.zero? }
-        parts = [ [ 0, "s" ] ] if parts.empty?
         parts.map { |amount, unit| "#{amount}#{unit}" }.join(" ")
       end
 
