@@ -636,8 +636,22 @@ Groups related content with an optional header (title, subtitle, action) and ver
 - `spacing:` (`:sm | :md | :lg`, default `:md`) — top margin between sections
 - `class:` (String) — extra classes added to the component's outer element for this one use
 
+**Slots**
+
+- `aside` — short text, a badge or other markup, such as a legend, shown at the right end of the title line in small muted text, before the action and the menu. On a phone it moves to its own line below the title and the actions.
+
 ```erb
 <%= ui_section(title: "Products", subtitle: "All active items", spacing: :lg) do %>
+  <!-- section content -->
+<% end %>
+
+<%= ui_section(title: "Inbox") do |section| %>
+  <% section.with_aside { "sorted by expiry" } %>
+  <!-- section content -->
+<% end %>
+
+<%= ui_section(title: "write_variant") do |section| %>
+  <% section.with_aside { ui_badge(label: "succeeded", variant: :success) } %>
   <!-- section content -->
 <% end %>
 ```

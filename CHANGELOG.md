@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.89.0] - 2026-11-15
+
+### Added
+- `ui_section` takes an `aside` slot for short text, a badge or a legend, shown in small muted text at the right end of the title line before the action and the menu, and on its own line below the title and the actions on a phone.
+
 ## [0.88.0] - 2026-11-15
 
 ### Added

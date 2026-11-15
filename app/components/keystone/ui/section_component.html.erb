@@ -1,12 +1,15 @@
 <div class="<%= classes %>">
   <% if header? %>
-    <div class="<%= HEADER_CLASSES %>">
+    <div class="<%= header_classes %>">
       <div>
         <h2 class="<%= TITLE_CLASSES %>"><%= @title %></h2>
         <% if @subtitle %>
           <p class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></p>
         <% end %>
       </div>
+      <% if aside? %>
+        <div class="<%= ASIDE_CLASSES %>"><%= aside %></div>
+      <% end %>
       <% if @action || @menu.any? %>
         <div class="<%= ACTIONS_CLASSES %>">
           <% if @action %>

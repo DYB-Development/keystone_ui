@@ -31,4 +31,50 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "flex items-center shrink-0 ks-grid-gap-sm", page.css(".ks-section-header > *").last["class"]
   end
+
+  def test_given_an_aside_shows_it_in_the_header_after_the_title
+    page = render_inline(Keystone::Ui::SectionComponent.new(title: "Inbox")) do |section|
+      section.with_aside { "sorted by expiry" }
+      ""
+    end
+
+    assert_equal "sorted by expiry", page.css(".ks-section-header > *")[1]&.text&.strip
+  end
+
+  def test_draws_an_aside_in_the_small_muted_text_of_a_heading_note
+    assert_includes aside_classes(render_with_aside), "ks-heading-note"
+  end
+
+  def test_pushes_an_aside_to_the_right_end_of_the_header
+    assert_includes aside_classes(render_with_aside(action: { label: "Add", href: "/inbox/new" })), "ml-auto"
+  end
+
+  def test_spaces_the_parts_of_a_header_with_an_aside_apart
+    assert_includes render_with_aside.at_css(".ks-section-header")["class"].split, "ks-grid-gap-sm"
+  end
+
+  def test_lets_a_header_with_an_aside_wrap_onto_a_second_line_on_a_phone
+    assert_includes render_with_aside.at_css(".ks-section-header")["class"].split, "max-sm:flex-wrap"
+  end
+
+  def test_gives_an_aside_the_full_width_of_the_header_on_a_phone
+    assert_includes aside_classes(render_with_aside), "max-sm:basis-full"
+  end
+
+  def test_moves_an_aside_below_the_title_and_actions_on_a_phone
+    assert_includes aside_classes(render_with_aside(action: { label: "Add", href: "/inbox/new" })), "max-sm:order-last"
+  end
+
+  private
+
+  def render_with_aside(**args)
+    render_inline(Keystone::Ui::SectionComponent.new(title: "Inbox", **args)) do |section|
+      section.with_aside { "sorted by expiry" }
+      ""
+    end
+  end
+
+  def aside_classes(page)
+    page.css(".ks-section-header > *")[1]["class"].to_s.split
+  end
 end
