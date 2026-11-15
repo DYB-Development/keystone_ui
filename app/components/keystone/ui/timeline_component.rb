@@ -15,7 +15,10 @@ module Keystone
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
       ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
+      ONE_LINE_AXIS_CLASSES = "ks-meter-label flex justify-between text-xs sm:col-start-2"
       MINIMUM_BAR_PERCENT = 2
+      MARK_STEPS = [ 1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10_800, 21_600, 43_200, 86_400 ].freeze
+      MAXIMUM_MARK_INTERVALS = 6
 
       attr_reader :entries, :one_line
 
@@ -73,6 +76,10 @@ module Keystone
         written_duration(axis_end - axis_start)
       end
 
+      def mark_labels
+        (0..mark_intervals).map { |index| written_mark(index * mark_step) }
+      end
+
       def axis_start_label
         written_duration(0)
       end
@@ -90,6 +97,25 @@ module Keystone
         parts = [ [ hours, "h" ], [ minutes, "m" ], [ seconds, "s" ] ].drop_while { |amount, _| amount.zero? }
         parts = [ [ 0, "s" ] ] if parts.empty?
         parts.map { |amount, unit| "#{amount}#{unit}" }.join(" ")
+      end
+
+      def written_mark(seconds)
+        hours, rest = seconds.divmod(3600)
+        minutes, seconds = rest.divmod(60)
+        parts = [ [ hours, "h" ], [ minutes, "m" ], [ seconds, "s" ] ].reject { |amount, _| amount.zero? }
+        parts.empty? ? "0s" : parts.map { |amount, unit| "#{amount}#{unit}" }.join(" ")
+      end
+
+      def mark_step
+        @mark_step ||= MARK_STEPS.find { |step| span <= step * MAXIMUM_MARK_INTERVALS } || (span / (MARK_STEPS.last * MAXIMUM_MARK_INTERVALS)).ceil * MARK_STEPS.last
+      end
+
+      def mark_intervals
+        [ (span / mark_step).ceil, 1 ].max
+      end
+
+      def span
+        axis_end - axis_start
       end
 
       def axis_start
@@ -113,7 +139,6 @@ module Keystone
       end
 
       def share(seconds)
-        span = axis_end - axis_start
         span.zero? ? 0 : (seconds / span * 100).round(2)
       end
     end

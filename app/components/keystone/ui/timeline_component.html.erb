@@ -29,9 +29,17 @@
         <% end %>
       <% end %>
     <% end %>
-    <div class="<%= AXIS_CLASSES %>">
-      <span data-timeline-axis-start><%= axis_start_label %></span>
-      <span data-timeline-axis-end><%= total_duration %></span>
-    </div>
+    <% if one_line %>
+      <div class="<%= ONE_LINE_AXIS_CLASSES %>">
+        <% mark_labels.each do |label| %>
+          <span data-timeline-mark><%= label %></span>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="<%= AXIS_CLASSES %>">
+        <span data-timeline-axis-start><%= axis_start_label %></span>
+        <span data-timeline-axis-end><%= total_duration %></span>
+      </div>
+    <% end %>
   </div>
 <% end %>
