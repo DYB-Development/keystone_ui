@@ -1006,7 +1006,7 @@ Renders a styled `<select>` dropdown.
 
 ### `ui_badge`
 
-Renders an inline status badge.
+Renders an inline status badge. Its five variants are the five states `ui_status_dot` accepts, read from one list, `Keystone::Ui::States::NAMES`, so a state either has both or has neither.
 
 **Required props**
 
@@ -1024,7 +1024,7 @@ Renders an inline status badge.
 
 ### `ui_status_dot`
 
-Draws a small round dot showing an item's state, in the same colour as a badge of that state, such as in a list of runs or steps. Its label is read by screen readers and not shown on screen. A state outside the five raises an `ArgumentError` naming it, so a host maps its own states, such as queued or running, onto the five itself. It needs keystone_ui-styles 0.34.0 or later.
+Draws a small round dot showing an item's state, in the same colour as a badge of that state, such as in a list of runs or steps. Its label is read by screen readers and not shown on screen. A state outside the five raises an `ArgumentError` naming it, so a host maps its own states, such as queued or running, onto the five itself. The five are read from `Keystone::Ui::States::NAMES`, the same list the badge's variants are read from. It needs keystone_ui-styles 0.34.0 or later.
 
 **Required props**
 
