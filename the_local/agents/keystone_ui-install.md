@@ -162,7 +162,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
    @import "./look.css";
    ```
 
-   Buttons, panels, cards, alerts, badges, form fields, the modal, the mobile
+   Buttons, panels, cards, alerts, badges, status dots, form fields, the modal, the mobile
    action menu, the action menu, the column picker, multi select, search select, copy button, theme toggle,
    checkbox row, radio card, option card, file upload and colour picker read
    these variables. So do the data display components: stat card, chart card,

@@ -625,13 +625,15 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `full_size_url:`, tapping the picture opens that address in a new tab, so
      pass `src:` a smaller version and `full_size_url:` the original file. Ask
      the developer which version of an uploaded image each address points at.
-   - `ui_badge(label:, variant: :neutral, class: nil)` — `variant:` is
-     `:neutral` `:success` `:danger` `:warning` `:info`.
-   - `ui_status_dot(state:, label:)` — `state:` is `:neutral` `:success`
-     `:danger` `:warning` `:info`, and any other value raises `ArgumentError`
+   - `ui_badge(label:, variant: :neutral, class: nil)` — `variant:` is one of
+     the five states `:neutral` `:success` `:danger` `:warning` `:info`, and
+     any other value raises `KeyError` naming it when the badge is drawn.
+   - `ui_status_dot(state:, label:)` — `state:` is one of the same five states
+     a badge's `variant:` takes, and any other value raises `ArgumentError`
      naming it. `label:` is not shown on screen and is read out by screen
      readers, so pass words that say what the state means. The dot takes the
-     colour of a `ui_badge` of the same name. Use it where a badge's words
+     colour of a `ui_badge` of the same state, so a record's state can be
+     passed to either one unchanged. Use it where a badge's words
      would crowd the row, such as beside a name in a list, and ask the
      developer which states a record has and what each one means.
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.85.0] - 2026-11-14
+
+### Changed
+- `ui_badge` and `ui_status_dot` read their five states from one list, `Keystone::Ui::States::NAMES`, so a state either has both or has neither.
+
 ## [0.84.0] - 2026-11-14
 
 ### Added

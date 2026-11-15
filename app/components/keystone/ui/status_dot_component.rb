@@ -3,13 +3,7 @@
 module Keystone
   module Ui
     class StatusDotComponent < ViewComponent::Base
-      STATE_CLASSES = {
-        neutral: "ks-status-dot-neutral",
-        success: "ks-status-dot-success",
-        danger: "ks-status-dot-danger",
-        warning: "ks-status-dot-warning",
-        info: "ks-status-dot-info"
-      }.freeze
+      STATE_CLASSES = States::NAMES.to_h { |state| [ state, "ks-status-dot-#{state}" ] }.freeze
 
       LABEL_CLASSES = "sr-only"
 

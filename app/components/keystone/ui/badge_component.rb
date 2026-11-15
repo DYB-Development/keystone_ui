@@ -3,13 +3,7 @@
 module Keystone
   module Ui
     class BadgeComponent < ViewComponent::Base
-      VARIANT_CLASSES = {
-        neutral: "ks-badge-neutral",
-        success: "ks-badge-success",
-        danger: "ks-badge-danger",
-        warning: "ks-badge-warning",
-        info: "ks-badge-info"
-      }.freeze
+      VARIANT_CLASSES = States::NAMES.to_h { |state| [ state, "ks-badge-#{state}" ] }.freeze
 
       attr_reader :label
 
