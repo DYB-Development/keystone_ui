@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.88.0] - 2026-11-15
+
+### Added
+- `ui_value_list` takes `columns: true`, which shows each label in small text with its value directly below it, lays the pairs in one column on a phone and two columns from `sm` up, and wraps a long value inside its own column.
+
 ## [0.87.0] - 2026-11-15
 
 ### Added
