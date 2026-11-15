@@ -22,6 +22,10 @@ class Keystone::Ui::StatusDotComponentRenderTest < ViewComponent::TestCase
     assert_equal "Passed", page.at_css(".ks-status-dot .sr-only")&.text
   end
 
+  def test_accepts_exactly_the_states_the_badge_and_the_status_dot_share
+    assert_equal Keystone::Ui::States::NAMES, Keystone::Ui::StatusDotComponent::STATE_CLASSES.keys
+  end
+
   def test_refuses_a_state_outside_the_five_naming_it
     error = assert_raises(ArgumentError) { Keystone::Ui::StatusDotComponent.new(state: :queued, label: "Queued") }
 
