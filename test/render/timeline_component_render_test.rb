@@ -194,4 +194,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "left: 0%; width: 2%", "left: 0%; width: 2%" ], page.css("[data-timeline-bar]").map { |bar| bar[:style] }
   end
+
+  def test_shows_a_message_saying_there_are_no_steps_when_given_no_entries
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: []))
+
+    assert_equal "No steps", page.at_css(".ks-empty-state")&.text&.strip
+  end
 end
