@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-install
-description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks, the breadcrumb trail supplier, the saved table layout supplier, the navigation groups and current tab supplier, and extra Tailwind imports and sources.
+description: Use to hook Keystone UI into a project — adding the gem, running the install generator to wire Tailwind, the Stimulus controllers and the layout's theme attributes, and configuring the palette, the theme mode supplier, registered looks, the breadcrumb trail supplier, the saved table layout supplier, the navigation groups and current tab supplier, the text diff's line limit, and extra Tailwind imports and sources.
 tools: Bash, Read, Edit
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -36,6 +36,8 @@ built on ViewComponent; hook it in before building any screen with those helpers
   `current_tab_supplier` (a callable that supplies the key of the declared tab
   the current page belongs to, so the navigation marks it and its group
   active),
+  `text_diff_line_limit` (the most lines a text diff's two texts may hold
+  together before it stops comparing them, 2,000 unless set),
   and the `tailwind_imports` and `tailwind_sources` lists (extra CSS files and
   scan paths added to the Tailwind build).
 - `keystone_theme_attributes` — a layout helper placed inside the `<html>` tag.
@@ -196,6 +198,7 @@ built on ViewComponent; hook it in before building any screen with those helpers
        group.tab :quotes, label: "Quotes", href: ->(view) { view.quotes_path }, permitted: ->(view) { view.policy(Quote).index? }
      end
      config.current_tab_supplier = ->(view) { view.controller.try(:navigation_tab) }
+     config.text_diff_line_limit = 5000
      config.tailwind_imports << "/absolute/path/to/extra.css"
      config.tailwind_sources << "/absolute/path/to/components/**/*.{erb,rb}"
    end
@@ -347,6 +350,14 @@ built on ViewComponent; hook it in before building any screen with those helpers
      callable must answer for every page the layout draws, so a page with no
      tab returns `nil` rather than raising. Ask the developer how a page names
      its tab, such as a method on each controller, before writing the callable.
+   - `text_diff_line_limit` — an integer, 2,000 unless set. When the two texts
+     given to a text diff hold more lines together than this, the diff does not
+     compare them. It shows the lines side by side, paired by position, with no
+     added or removed marks, under the notice
+     `These texts are too long to compare.` The time and memory a comparison
+     takes grow with the line count of one text times the line count of the
+     other, so a higher limit makes each long diff slower to render. Leave it
+     unset unless the developer asks for a different limit.
    - `tailwind_imports` and `tailwind_sources` — lists to append to, never
      assign. Each import becomes an `@import` line and each source becomes an
      `@source` line in `keystone_source.css` on the next boot. They are for
