@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -75,7 +75,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_link` — a text link in the link colour.
 - `ui_facts` — a row of facts, each a count in bold beside its label.
 - `ui_paragraph` — a paragraph of running text.
-- `ui_value_list` — rows of a label and its value, such as a ledger or a byline.
+- `ui_value_list` — labelled values, as rows of a label beside its value, such as a ledger or a byline, or as columns of a label above its value.
 - `ui_alert` — a banner message, optionally dismissible.
 - `ui_link_list` — a list of links, each row with a label, an optional subtitle, badge and value, and a chevron.
 - `ui_empty_state` — what a list or section shows when it has nothing in it, with an optional message and action.
@@ -689,10 +689,19 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_facts(facts:)` — each fact is `{ value:, label: }`, drawn as a small
      box with the count in bold beside its label, in a row that wraps.
    - `ui_paragraph(text:)` shows running text.
-   - `ui_value_list(rows:, align: :start)` — each row is `{ label:, value: }`
-     with optional `note:`, `total: true`, `right: true` and `fallback:`, shown
-     when the value is `nil` or empty. `right: true` draws a green check mark
-     after the value, read out as "Right", for an answer that was right. `align: :end` pushes values to the right, as in a ledger.
+   - `ui_value_list(rows:, align: :start, columns: false)` — each row is
+     `{ label:, value: }` with optional `note:`, `total: true`, `right: true`
+     and `fallback:`, shown when the value is `nil` or empty. `right: true`
+     draws a green check mark after the value, read out as "Right", for an
+     answer that was right. `align: :end` pushes values to the right, as in a
+     ledger.
+   - With the default `columns: false`, each pair is one row with its label
+     beside its value and a line between rows. `columns: true` draws each pair
+     as its label in small text directly above its value, with no line between
+     pairs, one pair per line below `sm:` and two side by side from `sm:` up. A
+     long value wraps inside its own column. Use it for a record's details,
+     such as its contact and address fields, and ask the developer which
+     layout a screen uses.
 
 10. Explain figures.
 
