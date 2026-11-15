@@ -78,6 +78,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
   end
 
+  def test_compares_a_text_with_windows_line_endings_as_equal_to_the_same_text_with_unix_line_endings
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "one\r\ntwo\r\n", after: "one\ntwo\n"))
+
+    assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
   private
 
   def marked(page, side, mark)
