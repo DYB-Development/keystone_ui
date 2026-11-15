@@ -166,4 +166,17 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_includes error.message, "Deploy"
   end
+
+  def running
+    [
+      { label: "Plan", started_at: START, ended_at: START + 240 },
+      { label: "Build", started_at: START + 60, ended_at: nil }
+    ]
+  end
+
+  def test_draws_an_entry_with_no_end_time_up_to_the_latest_time_on_the_axis
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: running))
+
+    assert_equal "left: 25%; width: 75%", page.css("[data-timeline-bar]").last[:style]
+  end
 end

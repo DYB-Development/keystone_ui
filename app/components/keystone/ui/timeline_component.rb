@@ -20,7 +20,7 @@ module Keystone
       end
 
       def bar_style(entry)
-        "left: #{percent(entry[:started_at] - axis_start)}%; width: #{percent(entry[:ended_at] - entry[:started_at])}%"
+        "left: #{percent(entry[:started_at] - axis_start)}%; width: #{percent(ended_at(entry) - entry[:started_at])}%"
       end
 
       def rows
@@ -48,7 +48,7 @@ module Keystone
       end
 
       def duration(row)
-        written_duration(row[:tries].last[:ended_at] - row[:tries].first[:started_at])
+        written_duration(ended_at(row[:tries].last) - row[:tries].first[:started_at])
       end
 
       def total_duration
@@ -79,7 +79,11 @@ module Keystone
       end
 
       def axis_end
-        @axis_end ||= entries.map { |entry| entry[:ended_at] }.max
+        @axis_end ||= entries.map { |entry| entry[:ended_at] || entry[:started_at] }.max
+      end
+
+      def ended_at(entry)
+        entry[:ended_at] || axis_end
       end
 
       def percent(seconds)
