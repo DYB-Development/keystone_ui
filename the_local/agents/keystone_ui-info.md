@@ -31,7 +31,8 @@ This local declares no commands. The working surfaces belong to the other two:
 
 - **Getting the gem into a host app** — the install generator, the
   configuration block, the theme and look attributes on the layout, the palette,
-  registered looks, the navigation groups, and the suppliers for trails, themes,
+  registered looks, the navigation groups, the text diff's line limit, and the
+  suppliers for trails, themes,
   looks, the current tab and saved preferences → **`keystone_ui-install`**.
 - **Building screens with it** — which helper renders what, the keywords each
   takes, and how they nest → **`keystone_ui-develop`**.
@@ -139,8 +140,13 @@ One decision: is keystone_ui set up in the app?
   share sit on the same row, a line only the first text has is marked removed
   with a minus, a line only the second has is marked added with a plus, the
   other side shows a blank row beside either one, and each side numbers its own
-  lines. On a phone the first text's column sits above the second's. It compares whole lines, so a line with one word
-  changed shows as one line removed and one added.
+  lines. On a phone the first text's column sits above the second's. It
+  compares whole lines, so a line with one word changed shows as one line
+  removed and one added. Windows and Unix line endings compare as equal. Two
+  identical texts show a notice saying they are the same above the columns.
+  When the two texts together hold more lines than the host's line limit, 2,000
+  by default, it does not compare them: it lines them up by position with no
+  marks or signs, and the notice says they are too long to compare.
 - **Semantic colour.** The themed hue is `accent-*` and the themed neutrals are
   `surface-*`, CSS custom properties whose defaults (blue and zinc) come from
   the keystone_ui-styles gem. Retheming changes those values, not the
