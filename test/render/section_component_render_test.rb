@@ -57,6 +57,10 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_includes render_with_aside.at_css(".ks-section-header")["class"].split, "max-sm:flex-wrap"
   end
 
+  def test_gives_an_aside_the_full_width_of_the_header_on_a_phone
+    assert_includes aside_classes(render_with_aside), "max-sm:basis-full"
+  end
+
   private
 
   def render_with_aside(**args)
