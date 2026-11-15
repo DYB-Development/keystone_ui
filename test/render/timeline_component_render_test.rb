@@ -246,6 +246,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true, true ], page.css("[data-timeline-row] .ks-timeline-track").map { |track| track[:class].split.include?("row-start-2") }
   end
 
+  def test_draws_the_axis_marks_of_a_one_line_timeline_above_its_first_row
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert page.at_css("[data-timeline]").element_children.first.at_css("[data-timeline-mark]")
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")

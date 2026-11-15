@@ -2,6 +2,13 @@
   <%= render Keystone::Ui::EmptyStateComponent.new(title: "No steps") %>
 <% else %>
   <div class="<%= timeline_classes %>" data-timeline>
+    <% if one_line %>
+      <div class="<%= ONE_LINE_AXIS_CLASSES %>">
+        <% marks.each do |mark| %>
+          <span class="<%= MARK_CLASSES %>" data-timeline-mark style="<%= mark[:style] %>"><%= mark[:label] %></span>
+        <% end %>
+      </div>
+    <% end %>
     <% rows.each do |row| %>
       <% label = content_tag(row_href(row) ? :a : :span, row[:label], class: label_classes, data: { timeline_label: "" }, href: row_href(row)) %>
       <% status = capture do %>
@@ -29,13 +36,7 @@
         <% end %>
       <% end %>
     <% end %>
-    <% if one_line %>
-      <div class="<%= ONE_LINE_AXIS_CLASSES %>">
-        <% marks.each do |mark| %>
-          <span class="<%= MARK_CLASSES %>" data-timeline-mark style="<%= mark[:style] %>"><%= mark[:label] %></span>
-        <% end %>
-      </div>
-    <% else %>
+    <% unless one_line %>
       <div class="<%= AXIS_CLASSES %>">
         <span data-timeline-axis-start><%= axis_start_label %></span>
         <span data-timeline-axis-end><%= total_duration %></span>
