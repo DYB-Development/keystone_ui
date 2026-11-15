@@ -148,4 +148,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ false, true ], page.css("[data-timeline-row]").map { |row| row[:class].to_s.split.include?("ks-table-row-current") }
   end
+
+  def test_draws_no_links_for_entries_given_no_address
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: retried))
+
+    assert_empty page.css("a")
+  end
 end
