@@ -24,7 +24,7 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
   def test_draws_the_primary_action_after_the_secondary_actions
     page = render_bar
 
-    assert_equal [ "Reject", "Send back with findings", "Approve all 3" ], page.css("button").map { |button| button.text.strip }
+    assert_equal [ "Reject", "Send back with findings", "Approve all 3" ], page.css("form button").map { |button| button.text.strip }
   end
 
   def test_lays_its_field_and_buttons_on_one_line_that_wraps_when_it_runs_out_of_width

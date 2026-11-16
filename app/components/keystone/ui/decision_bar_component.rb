@@ -17,6 +17,22 @@ module Keystone
         @hint = hint
         @method = method
       end
+
+      def buttons
+        safe_join([ secondary_row, primary_button ])
+      end
+
+      private
+
+      def secondary_row
+        render(ButtonRowComponent.new(equal_width: :phone)) do
+          safe_join(@actions.map { |action| render ButtonComponent.new(variant: :secondary, **action) })
+        end
+      end
+
+      def primary_button
+        tag.div(class: PRIMARY_CLASSES) { render ButtonComponent.new(**@primary) }
+      end
     end
   end
 end
