@@ -33,7 +33,7 @@ module Keystone
           height = bar[:value].to_f / axis_max * (FULL - HEADROOM)
           { x: (index * band) + (band * (1 - BAR_SHARE) / 2), y: FULL - height, width: band * BAR_SHARE, height: height,
             center: (index * band) + (band / 2), label: bar[:label], value: bar[:value],
-            classes: [ "ks-bar-chart-bar", ("ks-bar-chart-bar-shaded" if bar[:shaded]) ].compact.join(" ") }
+            classes: [ "ks-bar-chart-bar", ("ks-bar-chart-bar-shaded" if bar[:shaded]), group_class(bar) ].compact.join(" ") }
         end
       end
 
@@ -45,6 +45,10 @@ module Keystone
       end
 
       private
+
+      def group_class(bar)
+        "ks-bar-chart-bar-group-5" if bar.key?(:group)
+      end
 
       def axis_max
         step * (largest / step).ceil

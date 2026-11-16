@@ -75,4 +75,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "none", page.css("svg:has(rect.ks-bar-chart-bar)").first[:preserveAspectRatio]
   end
+
+  def test_draws_every_bar_of_one_group_in_the_same_tone
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "v22", value: 2, group: "v22" }, { label: "", value: 3, group: "v22" } ]))
+
+    assert_equal [ true, true ], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.include?("ks-bar-chart-bar-group-5") }
+  end
 end
