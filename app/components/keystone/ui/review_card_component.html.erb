@@ -18,4 +18,7 @@
   <% if @finding %>
     <p class="<%= FINDING_CLASSES %>"><%= @finding %></p>
   <% end %>
+  <% if @actions.any? %>
+    <%= action_row %>
+  <% end %>
 </article>

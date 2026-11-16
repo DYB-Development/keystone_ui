@@ -15,7 +15,7 @@ module Keystone
       FINDING_CLASSES = "ks-alert ks-alert-warning px-2 py-1.5 text-xs"
       TONE_CLASSES = { muted: "ks-tone-muted", neutral: "ks-tone-neutral", success: "ks-tone-success", warning: "ks-tone-warning", danger: "ks-tone-danger", info: "ks-tone-info" }.freeze
 
-      def initialize(id:, title:, score: nil, score_tone: :muted, body: nil, cta: nil, meta: nil, finding: nil)
+      def initialize(id:, title:, score: nil, score_tone: :muted, body: nil, cta: nil, meta: nil, finding: nil, actions: [])
         @id = id
         @title = title
         @score = score
@@ -24,6 +24,13 @@ module Keystone
         @cta = cta
         @meta = meta
         @finding = finding
+        @actions = actions
+      end
+
+      def action_row
+        render(ButtonRowComponent.new(equal_width: true)) do
+          safe_join(@actions.map { |action| render ButtonComponent.new(variant: :secondary, size: :sm, **action) })
+        end
       end
 
       def card_classes

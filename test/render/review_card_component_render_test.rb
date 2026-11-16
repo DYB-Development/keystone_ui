@@ -57,6 +57,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("article")["class"].split, "ks-card-warning"
   end
 
+  def test_shows_its_actions_as_buttons_in_a_row_where_each_takes_an_equal_share
+    page = render_card(actions: [ { label: "Edit", href: "/variants/a/edit" }, { label: "Drop", href: "/variants/a", method: :delete } ])
+
+    assert_equal [ "Edit", "Drop" ], page.css(".ks-card > div[class~='*:flex-1'] .ks-button").map { |button| button.text.strip }
+  end
+
   private
 
   def render_card(**options)
