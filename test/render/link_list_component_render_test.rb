@@ -98,4 +98,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-settings-link-label").previous_element.at_css(".ks-badge").next_element["class"].to_s.split, "truncate"
   end
+
+  def test_marks_a_current_row_with_the_current_row_class
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Pick target segment", href: "/items/abc", current: true } ]))
+
+    assert_includes page.at_css("a.ks-value-list-row")["class"].to_s.split, "ks-value-list-row-current"
+  end
 end

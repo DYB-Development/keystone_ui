@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class LinkListComponent < ViewComponent::Base
       ROW_CLASSES = "ks-value-list-row items-center no-underline"
+      CURRENT_ROW_CLASSES = "ks-value-list-row-current"
       STACK_CLASSES = "flex min-w-0 flex-1 flex-col-reverse ks-grid-gap-sm sm:contents"
       BADGE_CLASSES = "max-sm:self-start"
       TEXT_CLASSES = "min-w-0 flex-1"
@@ -20,7 +21,7 @@ module Keystone
       end
 
       def row_options(row)
-        { class: ROW_CLASSES, aria: { current: ("true" if row[:current]) } }
+        { class: [ ROW_CLASSES, (CURRENT_ROW_CLASSES if row[:current]) ].compact.join(" "), aria: { current: ("true" if row[:current]) } }
       end
 
       def badge(row)
