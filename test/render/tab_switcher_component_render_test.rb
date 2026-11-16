@@ -109,6 +109,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_nil page.at_css("a.ks-tab .ks-badge")
   end
 
+  def test_in_a_tab_row_aligned_to_the_start_the_chosen_link_tab_is_still_marked_as_the_current_tab
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS, align: :start))
+
+    assert_equal [ "Value" ], page.css("a.ks-tab.ks-tab-active[data-active][aria-current=page]").map { |link| link.text.strip }
+  end
+
   private
 
   def render_with_summary
