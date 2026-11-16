@@ -116,4 +116,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 0, page.css("[data-axis-tick]").size
   end
+
+  def test_draws_only_a_baseline_and_no_grid_lines_as_a_strip
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ], strip: true))
+
+    assert_equal [ "100.0" ], page.css("line.ks-bar-chart-grid").map { |line| line[:y1] }
+  end
 end

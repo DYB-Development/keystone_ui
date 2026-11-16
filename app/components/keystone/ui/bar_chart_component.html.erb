@@ -9,7 +9,7 @@
     <% end %>
     <div class="<%= Keystone::Ui::BarChartComponent::PLOT_CLASSES %>">
       <svg class="<%= Keystone::Ui::BarChartComponent::LAYER_CLASSES %>" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <% ticks.each do |tick| %>
+        <% grid_lines.each do |tick| %>
           <line class="ks-bar-chart-grid" x1="0" x2="100" y1="<%= tick[:y].round(2) %>" y2="<%= tick[:y].round(2) %>" vector-effect="non-scaling-stroke"></line>
         <% end %>
         <% drawn_bars.each do |bar| %>

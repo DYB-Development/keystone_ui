@@ -49,6 +49,10 @@ module Keystone
         drawn_bars.select.with_index { |_bar, index| starts_group?(index) }
       end
 
+      def grid_lines
+        strip? ? [ { y: FULL } ] : ticks
+      end
+
       def ticks
         (0..(axis_max / step).round).map do |position|
           value = (step * position).round(6)
