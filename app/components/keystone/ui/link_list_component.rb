@@ -14,10 +14,11 @@ module Keystone
       SUBTITLE_CLASSES = "ks-value-list-note"
       VALUE_CLASSES = "ks-value-list-value shrink-0"
 
-      attr_reader :rows
+      attr_reader :rows, :chevron
 
-      def initialize(rows:)
+      def initialize(rows:, chevron: true)
         @rows = rows
+        @chevron = chevron
       end
 
       def row_options(row)

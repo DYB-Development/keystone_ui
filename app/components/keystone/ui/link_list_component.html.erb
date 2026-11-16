@@ -21,7 +21,9 @@
       <% if row[:value] %>
         <span class="<%= VALUE_CLASSES %>"><%= row[:value] %></span>
       <% end %>
-      <%= Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON.html_safe %>
+      <% if chevron %>
+        <%= Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON.html_safe %>
+      <% end %>
     <% end %>
   <% end %>
 </div>

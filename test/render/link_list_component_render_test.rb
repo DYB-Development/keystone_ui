@@ -104,4 +104,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("a.ks-value-list-row")["class"].to_s.split, "ks-value-list-row-current"
   end
+
+  def test_leaves_off_each_row_chevron_when_asked
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Monthly report", href: "/reports/abc" } ], chevron: false))
+
+    assert_equal 0, page.css("a.ks-value-list-row svg.ks-settings-link-chevron").size
+  end
 end
