@@ -153,6 +153,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("label:has(input[name='note']) > .ks-label")&.[]("class").to_s.split, "shrink-0"
   end
 
+  def test_shows_an_action_marked_phone_only_on_a_phone_only
+    page = render_bar(actions: [ { label: "Next ›", href: "/inbox/8", phone_only: true } ])
+
+    assert_includes page.at_css("form div:has(> a[href='/inbox/8'])")&.[]("class").to_s.split, "sm:hidden"
+  end
+
   private
 
   def render_bar(**overrides)
