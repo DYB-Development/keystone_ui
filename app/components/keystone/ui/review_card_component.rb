@@ -7,6 +7,7 @@ module Keystone
       HEADER_CLASSES = "flex justify-between items-baseline gap-2 text-xs"
       ID_CLASSES = "font-mono ks-tone-muted"
       SCORE_CLASSES = "font-medium"
+      TITLE_CLASSES = "ks-card-title text-base leading-snug"
       TONE_CLASSES = { muted: "ks-tone-muted", neutral: "ks-tone-neutral", success: "ks-tone-success", warning: "ks-tone-warning", danger: "ks-tone-danger", info: "ks-tone-info" }.freeze
 
       def initialize(id:, title:, score: nil, score_tone: :muted)

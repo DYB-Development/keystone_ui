@@ -21,6 +21,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-card > div:first-child > :last-child")["class"].split, "ks-tone-warning"
   end
 
+  def test_shows_its_title_under_its_header_line
+    page = render_card
+
+    assert_equal "Fall catalog is here. 40 new pieces.", page.at_css(".ks-card > div:first-child + .ks-card-title")&.text&.strip
+  end
+
   private
 
   def render_card(**options)
