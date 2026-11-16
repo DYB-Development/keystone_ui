@@ -1279,6 +1279,7 @@ Draws a bar chart on the server as an SVG, so it shows with no JavaScript and pr
 **Optional props**
 
 - `show_values:` (Boolean, default `false`) — write each bar's value on it
+- `strip:` (Boolean, default `false`) — draw the chart as a short strip 114px tall, with no value axis and no grid lines, only a baseline under the bars, and the bars nearly touching
 
 ```erb
 <%= ui_bar_chart(show_values: true, bars: [
@@ -1287,10 +1288,10 @@ Draws a bar chart on the server as an SVG, so it shows with no JavaScript and pr
 ]) %>
 ```
 
-Bars given `group:` are grouped by its value, with the groups taken as oldest to newest in the order they first appear. Every bar in a group is drawn in the same tone, and the tones run from grey for the oldest group to the accent for the newest, with no two groups sharing a tone. With more than five groups the newest four keep their own tones and every older group is drawn in grey. Only the first bar of each group has its label written under the axis, starting at that bar's left edge, so give the other bars of a group an empty label. The group tones come from keystone_ui-styles 0.38.0 or later.
+Bars given `group:` are grouped by its value, with the groups taken as oldest to newest in the order they first appear. Every bar in a group is drawn in the same tone, and the tones run from grey for the oldest group to the accent for the newest, with no two groups sharing a tone. With more than five groups the newest four keep their own tones and every older group is drawn in grey. Only the first bar of each group has its label written under the axis, starting at that bar's left edge, so give the other bars of a group an empty label. The newest group's label ends at the chart's right edge instead, so a phone never cuts it off. The group tones come from keystone_ui-styles 0.38.0 or later.
 
 ```erb
-<%= ui_bar_chart(bars: [
+<%= ui_bar_chart(strip: true, bars: [
   { label: "v19 → 0.77", value: 0.58, group: "v19" },
   { label: "", value: 0.63, group: "v19" },
   { label: "v21 → 0.80", value: 0.66, group: "v21" },
