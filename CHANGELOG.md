@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - `ui_decision_bar(url:, primary:, actions:, note:, hint:)` draws one form holding a note field, secondary buttons and a primary button, on one wrapping line with a hint under it from `sm` up, and below `sm` as a bar fixed to the bottom of the screen, above the bottom nav, with the primary button at full width above an equal-width row of the secondary buttons.
+- Each action given to `ui_decision_bar` takes `phone_label:`, a shorter label shown below `sm`, `phone_only: true`, which shows it below `sm` only, and `phone_order:`, its place in the phone row.
 - `ui_button_row` takes `equal_width: :phone`, which gives each button an equal share of the row below `sm` only.
 
 ## [0.92.0] - 2026-11-15
