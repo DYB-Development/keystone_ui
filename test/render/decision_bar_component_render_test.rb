@@ -147,6 +147,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("form .ks-bottom-action")["class"].split, "hotwire-native:bottom-0"
   end
 
+  def test_keeps_its_note_fields_label_at_its_full_width_beside_the_field
+    page = render_bar
+
+    assert_includes page.at_css("label:has(input[name='note']) > .ks-label")&.[]("class").to_s.split, "shrink-0"
+  end
+
   private
 
   def render_bar(**overrides)
