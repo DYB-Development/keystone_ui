@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class DecisionBarComponent < ViewComponent::Base
       FORM_CLASSES = "flex flex-wrap items-center ks-grid-gap-sm"
+      HINT_CLASSES = "ks-hint basis-full"
       NOTE_CLASSES = "flex flex-1 basis-60 items-center ks-grid-gap-sm"
 
       def initialize(url:, primary:, actions: [], note: nil, hint: nil, method: :post)

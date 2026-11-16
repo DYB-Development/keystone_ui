@@ -39,6 +39,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[flex-1 basis-60] - page.at_css("label:has(input[name='note'])")["class"].to_s.split
   end
 
+  def test_given_a_hint_shows_it_on_a_line_of_its_own_under_the_buttons
+    page = render_bar(hint: "Keyboard: A approve")
+
+    assert_equal "Keyboard: A approve", page.at_css("form > .ks-hint.basis-full")&.text&.strip
+  end
+
   private
 
   def render_bar(**overrides)

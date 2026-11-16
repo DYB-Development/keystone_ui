@@ -8,4 +8,7 @@
     <% end %>
   <% end %>
   <div><%= render Keystone::Ui::ButtonComponent.new(**@primary) %></div>
+  <% if @hint %>
+    <p class="<%= HINT_CLASSES %>"><%= @hint %></p>
+  <% end %>
 <% end %>
