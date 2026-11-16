@@ -84,6 +84,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
   end
 
+  def test_with_one_column_shows_each_removed_and_added_line_in_one_column_at_its_place_in_its_own_text
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd", one_column: true))
+
+    assert_equal %w[a b c d], page.css("[data-diff-column] [data-diff-row] [data-diff-text]").map(&:text)
+  end
+
   private
 
   def marked(page, side, mark)

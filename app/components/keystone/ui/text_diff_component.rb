@@ -13,9 +13,14 @@ module Keystone
       TEXT_CLASSES = "whitespace-pre"
       NOTICE_CLASSES = "ks-code-caption text-xs"
 
-      def initialize(before:, after:)
+      def initialize(before:, after:, one_column: false)
         @before = before.to_s.lines(chomp: true)
         @after = after.to_s.lines(chomp: true)
+        @one_column = one_column
+      end
+
+      def one_column?
+        @one_column
       end
 
       def notice
@@ -32,6 +37,10 @@ module Keystone
 
       def cells(side)
         rows.map { |row| row[SIDES.index(side)] }
+      end
+
+      def lines
+        rows.map { |row| row.compact.first }
       end
 
       private
