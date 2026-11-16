@@ -87,6 +87,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-bottom-action > div:has(> button.ks-button-primary)")&.[]("class").to_s.split, "max-sm:*:w-full"
   end
 
+  def test_on_a_phone_makes_the_primary_button_48px_tall
+    page = render_bar
+
+    assert_includes page.at_css(".ks-bottom-action > div:has(> button.ks-button-primary)")&.[]("class").to_s.split, "max-sm:*:min-h-12"
+  end
+
   private
 
   def render_bar(**overrides)
