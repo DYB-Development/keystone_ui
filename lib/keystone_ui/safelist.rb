@@ -17,6 +17,7 @@ module Keystone
       Keystone::Ui::CaptionComponent,
       Keystone::Ui::LinkComponent,
       Keystone::Ui::FactsComponent,
+      Keystone::Ui::ButtonRowComponent,
       Keystone::Ui::FigureComponent,
       Keystone::Ui::HeadingComponent,
       Keystone::Ui::HeroComponent,

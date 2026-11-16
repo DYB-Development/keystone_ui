@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.90.0] - 2026-11-15
+
+### Added
+- `ui_button_row` lays out the buttons in its block as one row with even gaps that wraps when it runs out of width, makes each button at least 44px tall on a phone, and with `equal_width: true` gives every button an equal share of the row and keeps each label on one line.
+- `ui_button` takes `disabled: true`, which draws a button that cannot be pressed.
+
 ## [0.89.0] - 2026-11-15
 
 ### Added

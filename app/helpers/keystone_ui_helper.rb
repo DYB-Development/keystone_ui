@@ -69,6 +69,10 @@ module KeystoneUiHelper
     render Keystone::Ui::ButtonComponent.new(**args)
   end
 
+  def ui_button_row(**args, &block)
+    render Keystone::Ui::ButtonRowComponent.new(**args), &block
+  end
+
   def ui_data_table(**args, &block)
     render Keystone::Ui::DataTableComponent.new(**args), &block
   end

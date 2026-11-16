@@ -66,6 +66,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `Keystone::Ui::Column` — a table column with options a `{ key: "Label" }` hash cannot carry.
 - `ui_column_picker` — a Columns menu that saves which columns are hidden and their order to an app endpoint.
 - `ui_button` — a link or a button styled as a button, or a button sending a POST, PATCH or DELETE request, optionally asking a question before it goes ahead.
+- `ui_button_row` — a row of buttons that wraps onto further lines, optionally giving each button an equal share of its width.
 - `ui_badge` — a coloured pill holding a short label.
 - `ui_status_dot` — a small dot coloured by state, with its label read only by screen readers.
 - `ui_figure` — one amount as inline text, coloured as a gain or a loss.
@@ -608,7 +609,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 9. Show content and status.
 
-   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil)`
+   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil, disabled: false)`
      renders a link with `href:` and a button without it. `variant:` is
      `:primary` `:secondary` `:danger` `:text`, `size:` is `:sm` `:md` `:lg`,
      and `type:`, `name:` and `value:` apply only to the button.
@@ -616,6 +617,21 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      as a Back or Previous control under a form. A button given `name:` and
      `value:` submits them with its form when pressed. `hidden: true` draws it
      with the `hidden` attribute, for the app's own script to show.
+   - `disabled: true` draws a button without `href:` with the `disabled`
+     attribute, so it cannot be pressed and does not submit its form. It is
+     for a button without `href:`: a link ignores the attribute and stays
+     followable, and a button sending a request does not take it, so to stop
+     either one, do not render it.
+   - `ui_button_row(equal_width: false) { ... }` draws whatever its block
+     renders, usually `ui_button` calls, in one row with a small gap between
+     them, wrapping onto a further line when they do not fit. Below `sm` each
+     item in the row is at least 44 pixels tall, so a button is tall enough to
+     tap on a phone. A `ui_button` sending a request, whose own small form is
+     what sits in the row, fills that form, so it takes the same share and
+     height as a link or plain button beside it. `equal_width: true` gives each
+     item an equal share of the row's width and keeps each label on one line,
+     so the row wraps only when a label no longer fits in its share. Use it in
+     place of a hand-written flex `div` around a set of buttons.
    - `ui_link(label:, href:)` draws a text link in the link colour. Use it in
      place of a hand-written `link_to` with colour classes.
    - With `href:` and `method:` `:post` `:patch` `:put` or `:delete`, it

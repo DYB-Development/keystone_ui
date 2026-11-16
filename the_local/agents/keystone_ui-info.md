@@ -12,7 +12,7 @@ nothing and gives no steps.
 
 keystone_ui is a Rails engine gem that supplies a host app's UI as view helpers
 built on ViewComponent. Screens are built from named pieces — page shells,
-sections, panels, grids, forms and fields, search dropdowns, data tables, navigation, cards,
+sections, panels, grids, forms and fields, buttons and rows of buttons, search dropdowns, data tables, navigation, cards,
 badges, status dots, value lists, stat tiles, charts, timelines, funnels, goal buckets, pipelines, breakdowns, code blocks,
 text diffs and info buttons —
 instead of hand-written ERB and Tailwind. Every class the UI renders lives in the
@@ -116,7 +116,11 @@ One decision: is keystone_ui set up in the app?
   link. A page with none of these raises `KeystoneUi::MissingBackLink`, and a
   trail link missing a label or an address raises `KeystoneUi::IncompleteTrail`.
 - **Navigation.** The app declares navigation groups, each a label and its tabs,
-  and each tab a key, label, address and permission check. Tabs the user may
+  and each tab a key, label, address and permission check. A tab can also be
+  declared on its own, outside any group, and is then drawn as a single link
+  with no menu or group label. A tab can carry a count, and a count above zero
+  is shown as a badge after its label, as a bottom tab bar item's count is
+  shown over its icon. Tabs the user may
   not see are left out, and a group left with no tabs is left out. A saved
   preference can place the navigation as a top bar or a left or right sidebar
   and set the order of groups and tabs. A supplier names the current tab, which
@@ -140,6 +144,16 @@ One decision: is keystone_ui set up in the app?
   submits an empty id and shows the new record's fields the page placed inside
   the dropdown, and picking a match afterwards hides them again. The arrow keys
   move through the list, Enter picks, and Escape closes it.
+- **Buttons.** A button with an address is a link, or a small form when its
+  HTTP method is anything other than a plain visit. A button with no address
+  is a form button, which can carry a name and value, start hidden, or be
+  disabled so it cannot be pressed.
+- **Button rows.** A button row lays out buttons side by side and wraps them
+  onto further lines when they run out of room. Below `sm:` each button in it
+  is at least a phone's tap height, and a button that sends a request fills its
+  share of the row like a link does. A row can give each button an equal share
+  of its width, keeping each label on one line, so the row wraps only when a
+  label no longer fits.
 - **Confirmation.** A button can carry a confirmation question, and the
   browser asks it before following the link or sending the form. Nothing is
   sent when the user cancels.
