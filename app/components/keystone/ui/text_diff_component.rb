@@ -42,6 +42,8 @@ module Keystone
       end
 
       def lines
+        return (@before + @after).map { |text| { text: text } } if too_long?
+
         rows.map { |row| row.compact.first }
       end
 

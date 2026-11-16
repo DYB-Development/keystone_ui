@@ -114,6 +114,13 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("[data-diff-column] [data-diff-row]")[:class].to_s.split, "whitespace-pre"
   end
 
+  def test_with_one_column_shows_the_first_text_then_the_second_when_they_are_too_long_to_compare
+    KeystoneUi.configure { |c| c.text_diff_line_limit = 3 }
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb", after: "a\nc", one_column: true))
+
+    assert_equal %w[a b a c], page.css("[data-diff-column] [data-diff-row] [data-diff-text]").map(&:text)
+  end
+
   private
 
   def marked(page, side, mark)
