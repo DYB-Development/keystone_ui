@@ -23,6 +23,12 @@ class Keystone::Ui::ButtonRowComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("div")["class"].split, "*:flex-1"
   end
 
+  def test_gives_every_button_an_equal_share_of_its_width_on_a_phone_only_when_asked
+    page = render_inline(Keystone::Ui::ButtonRowComponent.new(equal_width: :phone)) { BUTTONS }
+
+    assert_empty %w[max-sm:*:flex-1 max-sm:*:whitespace-nowrap] - page.at_css("div")["class"].split
+  end
+
   def test_makes_each_button_at_least_44px_tall_on_a_phone
     page = render_inline(Keystone::Ui::ButtonRowComponent.new) { BUTTONS }
 
