@@ -86,4 +86,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "true", page.at_css("a.ks-value-list-row")["aria-current"]
   end
+
+  def test_keeps_a_row_top_line_on_one_line
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { badge: { label: "approval", variant: :warning }, text: "expires 46h" } } ]))
+
+    assert_includes page.at_css(".ks-settings-link-label").previous_element["class"].to_s.split, "whitespace-nowrap"
+  end
 end
