@@ -39,6 +39,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal "Shop the catalog →", page.at_css(".ks-card-summary + .ks-card-link")&.text&.strip
   end
 
+  def test_shows_its_meta_line_with_a_divider_between_it_and_the_text_above
+    page = render_card(meta: "37 chars · tone direct · claims 2/2 sourced")
+
+    assert_equal "37 chars · tone direct · claims 2/2 sourced", page.at_css(".ks-card > .ks-card-meta")&.text&.strip
+  end
+
   private
 
   def render_card(**options)
