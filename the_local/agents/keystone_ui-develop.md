@@ -93,7 +93,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_info` — an inline info button showing a summary, and optional detail, in floating panels.
 - `ui_breakdown` — a list of amounts ending in their total.
 - `ui_accordion` — a stack of question-and-answer rows that expand independently.
-- `ui_tab_switcher` — a row of tabs that reports which one was selected.
+- `ui_tab_switcher` — a row of tabs that reports which one was selected, or a row of link tabs with optional counts, drawn centred or from the start, as plain tabs, pills or underlined tabs.
 - `ui_modal` — a hidden dialog the app's own code opens.
 - `ui_swipe_deck` — a stack of cards accepted or rejected by button or swipe.
 - `ui_chart_card` — a titled card holding a chart.
@@ -998,9 +998,18 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       takes content such as stat cards. From `sm` up it is drawn above the
       tab row, and below `sm` between the tab row and the panel. It is drawn
       once, so do not draw it twice or add width-specific classes for it.
+    - A link tab takes `count:`, drawn after its label when it is above zero
+      in an info badge, as a navigation item draws its count.
+    - `align: :start` starts the tab row at the left edge on every width
+      instead of centring it from `sm` up.
+    - `shape: :pills` draws each tab as an outlined pill, such as a row of
+      filters, and `shape: :underline` draws the tabs on a line with the
+      chosen tab underlined. In either shape a count is drawn as plain muted
+      text after the label, and the shape sets the tabs' text size, so do not
+      add a text size class.
     - Below `sm` every tab switcher's tab row stays on one line, starts at
       the left edge and scrolls sideways, and from `sm` up it wraps and is
-      centred.
+      centred unless `align: :start` is given.
     - `ui_swipe_deck(items:, empty_title: "All done!", empty_subtitle: nil)`
       takes a block yielding the deck, where `deck.item { |item| ... }` renders
       one card's face. Accepting sends a bubbling `swipe-deck:complete` event

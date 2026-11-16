@@ -118,6 +118,12 @@ class KeystoneUi::PackagingTest < Minitest::Test
     refute requirement.satisfied_by?(Gem::Version.new("0.37.0"))
   end
 
+  def test_requires_a_keystone_ui_styles_with_the_pill_and_underlined_tab_row_classes
+    requirement = gemspec.dependencies.find { |d| d.name == "keystone_ui-styles" }.requirement
+
+    refute requirement.satisfied_by?(Gem::Version.new("0.38.0"))
+  end
+
   private
 
   def gemspec

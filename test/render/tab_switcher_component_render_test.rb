@@ -97,6 +97,37 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "replace", "replace" ], page.css("a.ks-tab").map { |link| link["data-turbo-action"] }
   end
 
+  def test_a_link_tab_given_a_count_draws_it_in_an_info_badge_after_its_label
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ { label: "Approvals", href: "/inbox?filter=approvals", count: 4 } ]))
+
+    assert_equal "4", page.at_css("a.ks-tab .ks-badge.ks-badge-info")&.text&.strip
+  end
+
+  def test_a_link_tab_with_a_count_of_zero_draws_no_badge_as_a_navigation_item_does
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ { label: "Input", href: "/inbox?filter=input", count: 0 } ]))
+
+    assert_nil page.at_css("a.ks-tab .ks-badge")
+  end
+
+  def test_in_a_tab_row_aligned_to_the_start_the_chosen_link_tab_is_still_marked_as_the_current_tab
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS, align: :start))
+
+    assert_equal [ "Value" ], page.css("a.ks-tab.ks-tab-active[data-active][aria-current=page]").map { |link| link.text.strip }
+  end
+
+  def test_in_a_shaped_tab_row_no_tab_carries_its_own_text_size_so_the_shape_sets_it
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS, shape: :pills))
+
+    assert_equal [ false, false ], page.css("a.ks-tab").map { |link| link["class"].split.include?("text-sm") }
+  end
+
+  def test_in_a_shaped_tab_row_a_count_is_drawn_as_plain_text_after_the_label_and_not_as_a_badge
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ { label: "Approvals", href: "/inbox?filter=approvals", count: 4 } ], shape: :pills))
+
+    assert_equal [ "Approvals 4", [ "4" ], 0 ],
+      [ page.at_css("a.ks-tab").text.strip, page.css("a.ks-tab span.ks-tab-count").map(&:text), page.css("a.ks-tab .ks-badge").size ]
+  end
+
   private
 
   def render_with_summary

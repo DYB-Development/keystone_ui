@@ -23,6 +23,30 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
     assert_includes component.classes.split, "max-sm:justify-start"
   end
 
+  def test_aligned_to_the_start_the_tab_row_starts_at_the_left_edge_on_every_width
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], align: :start)
+
+    assert_equal %w[justify-start], component.classes.split.grep_v(/\Amax-sm:/) & %w[justify-start justify-center]
+  end
+
+  def test_aligned_to_the_start_the_tab_row_still_stays_on_one_line_and_scrolls_sideways_below_sm
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], align: :start)
+
+    assert_equal %w[max-sm:flex-nowrap max-sm:overflow-x-auto], component.classes.split & %w[max-sm:flex-nowrap max-sm:overflow-x-auto]
+  end
+
+  def test_shaped_as_pills_the_tab_row_carries_the_pill_row_class
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], shape: :pills)
+
+    assert_includes component.classes.split, "ks-tab-bar-pills"
+  end
+
+  def test_shaped_as_underlined_tabs_the_tab_row_carries_the_underlined_row_class
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], shape: :underline)
+
+    assert_includes component.classes.split, "ks-tab-bar-underline"
+  end
+
   def test_stores_tab_labels
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "Alpha", "Beta", "Gamma" ])
 
