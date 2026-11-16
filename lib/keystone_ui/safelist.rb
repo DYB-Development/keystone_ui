@@ -58,6 +58,8 @@ module Keystone
       Keystone::Ui::ShowPageComponent,
       Keystone::Ui::OptionCardComponent,
       Keystone::Ui::RadioCardComponent,
+      Keystone::Ui::ReviewCardComponent,
+      Keystone::Ui::ReviewCardGridComponent,
       Keystone::Ui::SearchSelectComponent,
       Keystone::Ui::CheckboxRowComponent,
       Keystone::Ui::ProgressComponent,

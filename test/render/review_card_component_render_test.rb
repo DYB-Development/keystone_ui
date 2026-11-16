@@ -81,10 +81,10 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_nil page.at_css(".ks-card-link")
   end
 
-  def test_narrows_its_buttons_from_640_pixels_wide_so_three_labels_fit_side_by_side_in_a_third_of_the_page
+  def test_lets_its_buttons_narrow_from_640_pixels_wide_so_three_take_equal_shares_in_a_third_of_the_page
     page = render_card(actions: [ { label: "Apply fix" }, { label: "Edit" }, { label: "Drop" } ])
 
-    assert_empty %w[sm:[&_.ks-button]:px-1.5 sm:[&_.ks-button]:text-xs] - page.at_css("article")["class"].split
+    assert_empty %w[sm:[&_.ks-button]:min-w-0 sm:[&_.ks-button]:text-xs] - page.at_css("article")["class"].split
   end
 
   private
