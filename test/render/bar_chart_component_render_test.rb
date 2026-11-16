@@ -81,4 +81,11 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ true, true ], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.include?("ks-bar-chart-bar-group-5") }
   end
+
+  def test_draws_each_group_in_a_tone_no_other_group_uses_from_the_oldest_to_the_newest
+    bars = %w[v19 v21 v22].map { |version| { label: version, value: 2, group: version } }
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+
+    assert_equal %w[ks-bar-chart-bar-group-1 ks-bar-chart-bar-group-3 ks-bar-chart-bar-group-5], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.last }
+  end
 end

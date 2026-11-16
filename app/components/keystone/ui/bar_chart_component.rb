@@ -16,6 +16,7 @@ module Keystone
       BAR_SHARE = 0.7
       TICK_COUNT = 4
       ROUND_STEPS = [ 1, 2, 2.5, 5, 10 ].freeze
+      GROUP_TONES = 5
 
       attr_reader :bars
 
@@ -47,7 +48,19 @@ module Keystone
       private
 
       def group_class(bar)
-        "ks-bar-chart-bar-group-5" if bar.key?(:group)
+        return unless bar.key?(:group)
+
+        "ks-bar-chart-bar-group-#{group_tone(groups.index(bar[:group]))}"
+      end
+
+      def group_tone(position)
+        return GROUP_TONES if groups.size == 1
+
+        1 + (position * (GROUP_TONES - 1).to_f / (groups.size - 1)).round
+      end
+
+      def groups
+        @groups ||= bars.map { |bar| bar[:group] }.uniq
       end
 
       def axis_max
