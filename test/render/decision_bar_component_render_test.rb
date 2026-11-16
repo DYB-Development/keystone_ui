@@ -105,6 +105,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("label:has(input[name='note'])")["class"].split, "max-sm:hidden"
   end
 
+  def test_on_a_phone_leaves_its_hint_out
+    page = render_bar(hint: "Keyboard: A approve")
+
+    assert_includes page.at_css(".ks-hint")["class"].split, "max-sm:hidden"
+  end
+
   private
 
   def render_bar(**overrides)
