@@ -9,6 +9,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal "variant A", page.at_css(".ks-card > div:first-child > :first-child")&.text&.strip
   end
 
+  def test_shows_its_score_at_the_right_of_its_header_line
+    page = render_card(score: "reviewer 0.91")
+
+    assert_equal "reviewer 0.91", page.at_css(".ks-card > div:first-child > :last-child")&.text&.strip
+  end
+
   private
 
   def render_card(**options)
