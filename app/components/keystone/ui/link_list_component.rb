@@ -8,7 +8,7 @@ module Keystone
       BADGE_CLASSES = "max-sm:self-start"
       TEXT_CLASSES = "min-w-0 flex-1"
       TOP_LINE_CLASSES = "flex items-center justify-between ks-grid-gap-sm whitespace-nowrap"
-      TOP_LINE_TEXT_CLASSES = "ks-value-list-note"
+      TOP_LINE_TEXT_CLASSES = "ks-value-list-note min-w-0 truncate"
       LABEL_CLASSES = "ks-paragraph ks-settings-link-label block"
       SUBTITLE_CLASSES = "ks-value-list-note"
       VALUE_CLASSES = "ks-value-list-value shrink-0"

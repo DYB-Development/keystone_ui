@@ -92,4 +92,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-settings-link-label").previous_element["class"].to_s.split, "whitespace-nowrap"
   end
+
+  def test_cuts_off_a_long_row_top_line_text_inside_its_row
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { badge: { label: "approval", variant: :warning }, text: "expires 46h" } } ]))
+
+    assert_includes page.at_css(".ks-settings-link-label").previous_element.at_css(".ks-badge").next_element["class"].to_s.split, "truncate"
+  end
 end
