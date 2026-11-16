@@ -74,4 +74,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "approval", page.at_css(".ks-settings-link-label").previous_element.css(".ks-badge.ks-badge-warning").text.strip
   end
+
+  def test_shows_a_row_top_line_text_after_its_top_line_badge
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { badge: { label: "approval", variant: :warning }, text: "expires 46h" } } ]))
+
+    assert_equal "expires 46h", page.at_css(".ks-settings-link-label").previous_element.at_css(".ks-badge").next_element.text.strip
+  end
 end

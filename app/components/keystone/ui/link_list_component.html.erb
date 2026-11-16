@@ -6,6 +6,7 @@
           <% if row[:top_line] %>
             <span class="<%= TOP_LINE_CLASSES %>">
               <%= render top_line_badge(row) %>
+              <span class="<%= TOP_LINE_TEXT_CLASSES %>"><%= row[:top_line][:text] %></span>
             </span>
           <% end %>
           <span class="<%= LABEL_CLASSES %>"><%= row.fetch(:label) %></span>
