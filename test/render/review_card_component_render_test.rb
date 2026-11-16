@@ -33,6 +33,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal "Layered knits, wool coats, and the boots you asked for.", page.at_css(".ks-card-title + .ks-card-summary")&.text&.strip
   end
 
+  def test_shows_a_call_to_action_line_under_its_body_text
+    page = render_card(body: "Layered knits, wool coats, and the boots you asked for.", cta: "Shop the catalog →")
+
+    assert_equal "Shop the catalog →", page.at_css(".ks-card-summary + .ks-card-link")&.text&.strip
+  end
+
   private
 
   def render_card(**options)
