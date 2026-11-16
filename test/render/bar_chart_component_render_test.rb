@@ -122,4 +122,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "100.0" ], page.css("line.ks-bar-chart-grid").map { |line| line[:y1] }
   end
+
+  def test_keeps_a_short_fixed_height_as_a_strip
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ], strip: true))
+
+    assert_equal %w[h-[114px]], page.css(".ks-bar-chart").first[:class].split & %w[h-[114px] aspect-[5/2] max-h-80]
+  end
 end

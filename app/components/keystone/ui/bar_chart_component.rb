@@ -4,6 +4,7 @@ module Keystone
   module Ui
     class BarChartComponent < ViewComponent::Base
       FRAME_CLASSES = "ks-bar-chart flex aspect-[5/2] max-h-80 w-full flex-col"
+      STRIP_FRAME_CLASSES = "ks-bar-chart flex h-[114px] w-full flex-col"
       PLOT_ROW_CLASSES = "flex min-h-0 flex-1"
       AXIS_CLASSES = "h-full w-10 shrink-0 overflow-visible"
       PLOT_CLASSES = "relative min-w-0 flex-1"
@@ -28,6 +29,10 @@ module Keystone
 
       def strip?
         @strip
+      end
+
+      def frame_classes
+        strip? ? STRIP_FRAME_CLASSES : FRAME_CLASSES
       end
 
       def show_values?
