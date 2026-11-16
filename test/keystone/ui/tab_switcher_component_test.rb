@@ -41,6 +41,12 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
     assert_includes component.classes.split, "ks-tab-bar-pills"
   end
 
+  def test_shaped_as_underlined_tabs_the_tab_row_carries_the_underlined_row_class
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], shape: :underline)
+
+    assert_includes component.classes.split, "ks-tab-bar-underline"
+  end
+
   def test_stores_tab_labels
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "Alpha", "Beta", "Gamma" ])
 
