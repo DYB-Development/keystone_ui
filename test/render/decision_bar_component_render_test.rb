@@ -141,6 +141,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert page.css("[data-decision-bar-spacer] > div").any? { |block| ([ "hidden", "h-(--ks-bottom-nav-height)", "[body:has(.ks-bottom-nav)_&]:block" ] - block[:class].to_s.split).empty? }
   end
 
+  def test_inside_a_hotwire_native_web_view_sits_at_the_bottom_of_the_web_view_since_the_bottom_tab_bar_is_hidden_there
+    page = render_bar
+
+    assert_includes page.at_css("form .ks-bottom-action")["class"].split, "hotwire-native:bottom-0"
+  end
+
   private
 
   def render_bar(**overrides)

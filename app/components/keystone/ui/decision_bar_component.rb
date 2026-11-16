@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class DecisionBarComponent < ViewComponent::Base
       FORM_CLASSES = "ks-panel ks-panel-radius-md ks-panel-padding-sm flex flex-wrap items-center ks-grid-gap-sm max-sm:contents"
-      BAR_CLASSES = "ks-bottom-action max-sm:flex-col ks-grid-gap-sm sm:contents"
+      BAR_CLASSES = "ks-bottom-action max-sm:flex-col ks-grid-gap-sm sm:contents hotwire-native:bottom-0"
       PRIMARY_CLASSES = "max-sm:order-first max-sm:*:w-full max-sm:*:min-h-12"
       HINT_CLASSES = "ks-hint basis-full max-sm:hidden"
       BAR_COPY_CLASSES = "!static invisible"
