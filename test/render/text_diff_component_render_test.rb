@@ -133,6 +133,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
   end
 
+  def test_with_one_column_draws_the_same_layout_at_every_screen_width
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb", after: "a\nc", one_column: true))
+
+    assert_empty page.css("*").flat_map { |element| element[:class].to_s.split }.grep(/\A(sm|md|lg|xl|2xl):/)
+  end
+
   private
 
   def marked(page, side, mark)
