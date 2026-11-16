@@ -1728,9 +1728,11 @@ Renders a single bottom nav tab.
 
 ### `ui_mobile_header`
 
-Renders a mobile header with back link, title, and optional subtitle. Hidden on `lg:` screens. With a `nil` `back_url:` it shows no back link, as on a nav tab's own page.
+Renders a mobile header with back link, title, and optional subtitle, overline and badge. Hidden on `lg:` screens. With a `nil` `back_url:` it shows no back link, as on a nav tab's own page.
 
 Placed outside a top bar, such as directly in the layout's `<header>`, it draws the back link, title and subtitle in one row with the same side margin as `ui_page`, and text too long for the screen ends in an ellipsis. Inside an element with the `top-nav` class, such as `ui_navbar`, that row gives way, and the back link and title are laid out by the bar: the title and subtitle sit between the back link and the bar's right-side controls and start at the left of that space. In `ui_navbar`'s `mobile_left` slot, controls that leave less than 6rem for the title move to a second row under it. In a hand-written top bar, give the bar the `top-nav` class, make the header a direct child of the bar's flex row, and add `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if its controls can fill its width.
+
+An overline is a short line of small muted text shown above the title, such as the list the page belongs to. It ends in an ellipsis when too long, as the title does. A badge is drawn with `ui_badge`'s look at the right end of the header, after the title and before a top bar's own right-side controls. It keeps its full width and its own height, so a long title is cut short with an ellipsis and never pushes the badge off the screen.
 
 **Required props**
 
@@ -1739,10 +1741,14 @@ Placed outside a top bar, such as directly in the layout's `<header>`, it draws 
 
 **Optional props**
 
-- `subtitle:` (String)
+- `subtitle:` (String) — shown under the title
+- `overline:` (String) — shown above the title
+- `badge:` (Hash) — `label:` and an optional `variant:` (`:neutral`, `:success`, `:danger`, `:warning` or `:info`), the keywords `ui_badge` takes
 
 ```erb
 <%= ui_mobile_header(title: "Edit Product", back_url: products_path) %>
+
+<%= ui_mobile_header(title: "Approve variants", back_url: nil, overline: "Inbox · 7 items", badge: { label: "46h left", variant: :warning }) %>
 ```
 
 ### `ui_action_menu`
