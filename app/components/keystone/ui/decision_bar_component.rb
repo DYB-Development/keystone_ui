@@ -9,7 +9,7 @@ module Keystone
       HINT_CLASSES = "ks-hint basis-full max-sm:hidden"
       BAR_COPY_CLASSES = "!static invisible"
       SPACER_CLASSES = "sm:hidden"
-      TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [body:has(.ks-bottom-nav)_&]:block"
+      TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block"
       NOTE_CLASSES = "flex flex-1 basis-60 items-center ks-grid-gap-sm max-sm:hidden"
 
       def initialize(url:, primary:, actions: [], note: nil, hint: nil, method: :post)

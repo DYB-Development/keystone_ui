@@ -135,10 +135,10 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("[data-decision-bar-spacer]")&.[]("class").to_s.split, "sm:hidden"
   end
 
-  def test_its_room_also_holds_the_bottom_tab_bar_when_the_page_has_one
+  def test_its_room_also_holds_the_bottom_tab_bar_when_the_page_has_one_outside_a_hotwire_native_web_view
     page = render_bar
 
-    assert page.css("[data-decision-bar-spacer] > div").any? { |block| ([ "hidden", "h-(--ks-bottom-nav-height)", "[body:has(.ks-bottom-nav)_&]:block" ] - block[:class].to_s.split).empty? }
+    assert page.css("[data-decision-bar-spacer] > div").any? { |block| ([ "hidden", "h-(--ks-bottom-nav-height)", "[html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block" ] - block[:class].to_s.split).empty? }
   end
 
   def test_inside_a_hotwire_native_web_view_sits_at_the_bottom_of_the_web_view_since_the_bottom_tab_bar_is_hidden_there
