@@ -98,7 +98,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_swipe_deck` — a stack of cards accepted or rejected by button or swipe.
 - `ui_chart_card` — a titled card holding a chart.
 - `ui_line_chart` — a line chart with one line per series, over labels or dates.
-- `ui_bar_chart` — a bar chart drawn on the server, which needs no JavaScript and prints.
+- `ui_bar_chart` — a bar chart drawn on the server, which needs no JavaScript and prints, with bars optionally grouped into tones from oldest to newest and one label per group, and optionally drawn as a short strip with no value axis.
 - `ui_funnel` — a conversion funnel drawn as bars or one joined shape.
 - `ui_bucket` — an upright container filled toward a goal.
 - `ui_bucket_series` — a wrapping row of buckets.
@@ -843,10 +843,22 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
     - `ui_chart_card(title:, height: :md)` takes a block holding a chart, with
       `height:` `:sm` `:md` `:lg`.
-    - `ui_bar_chart(bars:, show_values: false)` — `bars:` is
-      `[{ label:, value:, shaded: }, ...]`, where `shaded: true` draws a bar
-      faded. It is drawn on the server as an SVG, so use it, not
+    - `ui_bar_chart(bars:, show_values: false, strip: false)` — `bars:` is
+      `[{ label:, value:, shaded:, group: }, ...]`, where `shaded: true` draws
+      a bar faded. It is drawn on the server as an SVG, so use it, not
       `ui_line_chart`, for a chart that must print or show without JavaScript.
+    - Give bars `group:`, such as the version that produced each one, to show
+      groups of bars. Groups count from oldest to newest in the order their
+      values first appear, and run in tones from grey to the accent, with no
+      two of five or fewer groups sharing a tone. With more than five, every
+      group older than the newest four is grey. Only a group's first bar
+      writes its label, starting at its left edge, so pass `""` for the rest,
+      such as `{ label: "v21 → 0.80", value: 0.66, group: "v21" }` followed by
+      `{ label: "", value: 0.68, group: "v21" }`. The newest group's label
+      ends at the chart's right edge. Never colour bars by hand.
+    - Pass `strip: true` for a short strip of bars 114px tall with no value
+      axis and no grid lines, only a baseline, and the bars nearly touching,
+      such as a trend under a page's main content.
     - `ui_line_chart(series:, labels: nil, dates: nil, height: :md)` —
       `series:` is `[{ name:, data:, color:, dashed: }, ...]`, where `color:`
       is a CSS colour and `dashed: true` is optional. Pass exactly one of

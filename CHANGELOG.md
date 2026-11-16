@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.97.0] - 2026-11-16
+
+### Added
+- `ui_bar_chart` takes `group:` on each bar and draws every bar of one group in the same tone, from grey for the oldest group to the accent for the newest.
+- No two of five or fewer bar chart groups share a tone, and past five every group older than the newest four is drawn in grey.
+- A grouped bar chart writes a label under only the first bar of each group, starting at that bar's left edge, apart from the newest group's label, which ends at the chart's right edge.
+- `ui_bar_chart` takes `strip: true`, which draws a short strip 114px tall with no value axis and no grid lines, only a baseline, and its bars nearly touching.
+
+### Changed
+- The gem requires keystone_ui-styles 0.38.0 or later, the first version with the bar chart group classes.
+
 ## [0.96.0] - 2026-11-16
 
 ### Added

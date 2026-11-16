@@ -75,4 +75,71 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "none", page.css("svg:has(rect.ks-bar-chart-bar)").first[:preserveAspectRatio]
   end
+
+  def test_draws_every_bar_of_one_group_in_the_same_tone
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "v22", value: 2, group: "v22" }, { label: "", value: 3, group: "v22" } ]))
+
+    assert_equal [ true, true ], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.include?("ks-bar-chart-bar-group-5") }
+  end
+
+  def test_draws_each_group_in_a_tone_no_other_group_uses_from_the_oldest_to_the_newest
+    bars = %w[v19 v21 v22].map { |version| { label: version, value: 2, group: version } }
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+
+    assert_equal %w[ks-bar-chart-bar-group-1 ks-bar-chart-bar-group-3 ks-bar-chart-bar-group-5], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.last }
+  end
+
+  def test_draws_every_group_older_than_the_newest_four_in_the_oldest_tone
+    bars = (1..7).map { |version| { label: "v#{version}", value: 2, group: version } }
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+
+    assert_equal %w[1 1 1 2 3 4 5], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.last.delete_prefix("ks-bar-chart-bar-group-") }
+  end
+
+  def test_writes_a_label_under_only_the_first_bar_of_each_group
+    bars = [ { label: "v19", value: 2, group: "v19" }, { label: "Tue", value: 3, group: "v19" }, { label: "v21", value: 4, group: "v21" } ]
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+
+    assert_equal %w[v19 v21], page.css("text.ks-bar-chart-text[data-bar-label]").map(&:text)
+  end
+
+  def test_starts_a_groups_label_at_the_left_edge_of_its_first_bar
+    bars = %w[v19 v21 v22].map { |version| { label: version, value: 2, group: version } }
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+    label = page.css("text[data-bar-label]")[1]
+
+    assert_equal [ page.css("rect.ks-bar-chart-bar")[1][:x] + "%", "start" ], [ label[:x], label[:"text-anchor"] ]
+  end
+
+  def test_draws_no_value_axis_as_a_strip
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ], strip: true))
+
+    assert_equal 0, page.css("[data-axis-tick]").size
+  end
+
+  def test_draws_only_a_baseline_and_no_grid_lines_as_a_strip
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ], strip: true))
+
+    assert_equal [ "100.0" ], page.css("line.ks-bar-chart-grid").map { |line| line[:y1] }
+  end
+
+  def test_keeps_a_short_fixed_height_as_a_strip
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ], strip: true))
+
+    assert_equal %w[h-[114px]], page.css(".ks-bar-chart").first[:class].split & %w[h-[114px] aspect-[5/2] max-h-80]
+  end
+
+  def test_draws_its_bars_nearly_touching_as_a_strip
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" }, { label: "Tue", value: "3" } ], strip: true))
+
+    assert_equal %w[46.0 46.0], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:width] }
+  end
+
+  def test_ends_the_newest_groups_label_at_the_right_edge_of_the_chart
+    bars = [ { label: "v19", value: 2, group: "v19" }, { label: "v21", value: 4, group: "v21" } ]
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+    label = page.css("text[data-bar-label]").last
+
+    assert_equal [ "100.0%", "end" ], [ label[:x], label[:"text-anchor"] ]
+  end
 end
