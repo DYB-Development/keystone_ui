@@ -1,0 +1,24 @@
+<article class="<%= card_classes %>">
+  <div class="<%= HEADER_CLASSES %>">
+    <span class="<%= ID_CLASSES %>"><%= @id %></span>
+    <% if @score %>
+      <span class="<%= score_classes %>"><%= @score %></span>
+    <% end %>
+  </div>
+  <h3 class="<%= TITLE_CLASSES %>"><%= @title %></h3>
+  <% if @body %>
+    <p class="<%= body_classes %>"><%= @body %></p>
+  <% end %>
+  <% if @cta && !@compact %>
+    <p class="<%= CTA_CLASSES %>"><%= @cta %></p>
+  <% end %>
+  <% if @meta && !@compact %>
+    <p class="<%= META_CLASSES %>"><%= @meta %></p>
+  <% end %>
+  <% if @finding %>
+    <p class="<%= FINDING_CLASSES %>"><%= @finding %></p>
+  <% end %>
+  <% if @actions.any? %>
+    <%= action_row %>
+  <% end %>
+</article>

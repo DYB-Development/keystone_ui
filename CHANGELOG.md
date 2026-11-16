@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.96.0] - 2026-11-16
+
+### Added
+- `ui_review_card` draws a card for one reviewed item, with an id and score on its header line, a title, body text, a call-to-action line, a meta line with a divider above it, a finding note in the warning style and a row of equal-width buttons.
+- A `ui_review_card` with a finding note draws its edge in the warning style.
+- `ui_review_card` takes `compact: true`, which cuts the body text to one line with an ellipsis and leaves out the call-to-action line and the meta line.
+- `ui_review_card_grid` sets review cards three across from `lg` up and one per row below it.
+
+### Changed
+- The gem requires keystone_ui-styles 0.37.0 or later, the first version with the review card's warning edge and meta line classes.
+
 ## [0.95.0] - 2026-11-15
 
 ### Added

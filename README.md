@@ -357,6 +357,49 @@ Renders a card layout with a title, summary, and a single call-to-action link.
 - `edge_to_edge:` (Boolean, default `false`) — when `true`, removes horizontal border-radius and side borders on mobile, restoring them at the `sm` breakpoint. Useful for cards that span the full viewport width on small screens.
 - `class:` (String) — extra classes added to the component's outer element for this one use
 
+### `ui_review_card`
+
+Renders a card for one item someone reviews, such as one of several variants compared side by side. A header line shows a short id at the left and a score or status at the right, then come the title, the body text, an optional call-to-action line, an optional meta line of short details with a divider above it, an optional finding note in the warning style, and an optional row of buttons that each take an equal share of the row. When the card has a finding note, its edge is drawn in the warning style. From `sm` up its buttons are narrowed so three labels fit side by side in a third of the page, and below `sm` each button is at least 44px tall.
+
+**Required props**
+
+- `id:` (String) — the short id at the left of the header line, such as `"variant A"`
+- `title:` (String)
+
+**Optional props**
+
+- `score:` (String) — a score or status at the right of the header line
+- `score_tone:` (`:muted | :neutral | :success | :warning | :danger | :info`, default `:muted`) — the colour of the score
+- `body:` (String) — the body text under the title
+- `cta:` (String) — a call-to-action line under the body text, drawn in the link colour as text, not as a link
+- `meta:` (String) — a line of short details, in a monospaced font, with a divider above it
+- `finding:` (String) — a note drawn in the warning style, which also draws the card's edge in the warning style
+- `actions:` (Array of Hashes) — `ui_button` keywords for each button, drawn as small secondary buttons
+- `compact:` (Boolean, default `false`) — cuts the body text to one line with an ellipsis and leaves out the call-to-action line and the meta line, for a phone list
+
+```erb
+<%= ui_review_card_grid do %>
+  <%= ui_review_card(
+    id: "variant C",
+    score: "reviewer 0.76 · 1 finding",
+    score_tone: :warning,
+    title: "Your fall wardrobe, finished.",
+    body: "The pieces that pull the rest together. New this season, in the catalog now.",
+    cta: "Open the catalog →",
+    finding: %(Finding: "finished" implies completeness not in the brief (severity: low).),
+    actions: [
+      { label: "Apply fix", href: apply_fix_variant_path(@variant), method: :post },
+      { label: "Edit", href: edit_variant_path(@variant) },
+      { label: "Drop", href: variant_path(@variant), method: :delete }
+    ]
+  ) %>
+<% end %>
+```
+
+### `ui_review_card_grid`
+
+Sets the review cards passed in its block three across from `lg` up and one per row below it, with even gaps between them. It takes no props.
+
 ### `ui_button`
 
 Renders a deterministic button or link. If `href` is present, an `<a>` tag is rendered.

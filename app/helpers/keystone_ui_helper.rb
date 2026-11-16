@@ -65,6 +65,14 @@ module KeystoneUiHelper
     render Keystone::Ui::CardComponent.new(**args)
   end
 
+  def ui_review_card(**args)
+    render Keystone::Ui::ReviewCardComponent.new(**args)
+  end
+
+  def ui_review_card_grid(&block)
+    render Keystone::Ui::ReviewCardGridComponent.new, &block
+  end
+
   def ui_button(**args)
     render Keystone::Ui::ButtonComponent.new(**args)
   end
