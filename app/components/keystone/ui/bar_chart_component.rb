@@ -55,6 +55,7 @@ module Keystone
 
       def group_tone(position)
         return GROUP_TONES if groups.size == 1
+        return [ 1, position - groups.size + 1 + GROUP_TONES ].max if groups.size > GROUP_TONES
 
         1 + (position * (GROUP_TONES - 1).to_f / (groups.size - 1)).round
       end

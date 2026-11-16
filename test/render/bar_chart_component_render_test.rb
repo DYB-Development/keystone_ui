@@ -88,4 +88,11 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[ks-bar-chart-bar-group-1 ks-bar-chart-bar-group-3 ks-bar-chart-bar-group-5], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.last }
   end
+
+  def test_draws_every_group_older_than_the_newest_four_in_the_oldest_tone
+    bars = (1..7).map { |version| { label: "v#{version}", value: 2, group: version } }
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+
+    assert_equal %w[1 1 1 2 3 4 5], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.last.delete_prefix("ks-bar-chart-bar-group-") }
+  end
 end
