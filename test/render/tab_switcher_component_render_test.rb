@@ -97,6 +97,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "replace", "replace" ], page.css("a.ks-tab").map { |link| link["data-turbo-action"] }
   end
 
+  def test_a_link_tab_given_a_count_draws_it_in_an_info_badge_after_its_label
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ { label: "Approvals", href: "/inbox?filter=approvals", count: 4 } ]))
+
+    assert_equal "4", page.at_css("a.ks-tab .ks-badge.ks-badge-info")&.text&.strip
+  end
+
   private
 
   def render_with_summary
