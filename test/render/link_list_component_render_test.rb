@@ -80,4 +80,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "expires 46h", page.at_css(".ks-settings-link-label").previous_element.at_css(".ks-badge").next_element.text.strip
   end
+
+  def test_marks_a_current_row_with_aria_current
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Pick target segment", href: "/items/abc", current: true } ]))
+
+    assert_equal "true", page.at_css("a.ks-value-list-row")["aria-current"]
+  end
 end

@@ -19,6 +19,10 @@ module Keystone
         @rows = rows
       end
 
+      def row_options(row)
+        { class: ROW_CLASSES, aria: { current: ("true" if row[:current]) } }
+      end
+
       def badge(row)
         BadgeComponent.new(**row[:badge], class: BADGE_CLASSES)
       end

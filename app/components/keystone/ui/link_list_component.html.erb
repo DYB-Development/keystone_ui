@@ -1,6 +1,6 @@
 <div class="ks-value-list">
   <% rows.each do |row| %>
-    <%= link_to row.fetch(:href), class: ROW_CLASSES do %>
+    <%= link_to row.fetch(:href), **row_options(row) do %>
       <span class="<%= STACK_CLASSES %>">
         <span class="<%= TEXT_CLASSES %>">
           <% if row[:top_line] %>
