@@ -75,6 +75,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[max-sm:flex-col ks-grid-gap-sm] - page.at_css(".ks-bottom-action")["class"].split
   end
 
+  def test_on_a_phone_puts_the_primary_button_above_the_secondary_buttons
+    page = render_bar
+
+    assert_includes page.at_css(".ks-bottom-action > div:has(> button.ks-button-primary)")&.[]("class").to_s.split, "max-sm:order-first"
+  end
+
   private
 
   def render_bar(**overrides)
