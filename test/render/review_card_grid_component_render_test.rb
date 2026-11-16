@@ -8,4 +8,10 @@ class Keystone::Ui::ReviewCardGridComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("div.grid")["class"].split, "lg:grid-cols-3"
   end
+
+  def test_sets_its_cards_one_per_row_on_a_phone
+    page = render_inline(Keystone::Ui::ReviewCardGridComponent.new) { "<article class=\"ks-card\">A</article>".html_safe }
+
+    assert_includes page.at_css("div.grid")["class"].split, "grid-cols-1"
+  end
 end
