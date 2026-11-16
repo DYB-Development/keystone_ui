@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -45,6 +45,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_mobile_actions` — an ellipsis menu of actions shown only below `lg:`.
 - `ui_mobile_action` — a plus icon link to the action a screen's page header publishes, for the phone top bar.
 - `ui_bottom_action` — a full-width button for the action a screen's page header publishes, in a bar fixed to the bottom of a phone screen.
+- `ui_decision_bar` — one form of a note field, secondary buttons and a primary button on one wrapping line, fixed to the bottom of a phone screen with the primary button above the others.
 - `ui_action_menu` — an ellipsis menu of actions shown at every screen size.
 - `ui_action_menu_item` — one action in an action menu, as a link or a button sending a method.
 - `ui_settings_link` — a full-width settings row with a chevron.
@@ -66,7 +67,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `Keystone::Ui::Column` — a table column with options a `{ key: "Label" }` hash cannot carry.
 - `ui_column_picker` — a Columns menu that saves which columns are hidden and their order to an app endpoint.
 - `ui_button` — a link or a button styled as a button, or a button sending a POST, PATCH or DELETE request, optionally asking a question before it goes ahead.
-- `ui_button_row` — a row of buttons that wraps onto further lines, optionally giving each button an equal share of its width.
+- `ui_button_row` — a row of buttons that wraps onto further lines, optionally giving each button an equal share of its width at every width or on a phone only.
 - `ui_badge` — a coloured pill holding a short label.
 - `ui_status_dot` — a small dot coloured by state, with its label read only by screen readers.
 - `ui_figure` — one amount as inline text, coloured as a gain or a loss.
@@ -364,6 +365,28 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      both. Add no padding of your own for them. It and `ui_mobile_action`
      draw the same action, so ask the developer which one a screen shows on a
      phone.
+   - `ui_decision_bar(url:, primary:, actions: [], note: nil, hint: nil, method: :post)`
+     draws one form sending to `url:` with `method:`. `primary:` and each hash
+     in `actions:` are `ui_button` keywords, usually `label:`, `name:` and
+     `value:`, so the button pressed tells the controller which decision was
+     made. An action with `href:` is a link, such as a `Next ›` to the next
+     item. Do not give an action `href:` with a `method:` other than `:get`,
+     since that draws a form inside the bar's form. `note:` takes `name:`,
+     `label:` and `placeholder:` and draws a text field inside its label, sent
+     with the form. `hint:` is a short line of muted text, such as keyboard
+     keys. From `sm:` up it draws a panel holding the note field, the
+     `actions:` as secondary buttons and the `primary:` button on one line
+     that wraps, with the hint on its own line under them. Below `sm:` it is a
+     bar fixed to the bottom of the screen, above `ui_bottom_nav` on a page
+     that has one, with the primary button at full width and 48 pixels tall
+     above a row of the secondary buttons, each an equal share of the row and
+     44 pixels tall. The note field and hint are not shown below `sm:`. Give
+     it three secondary actions at most so the phone row fits. It stays shown
+     inside a Hotwire Native web view, at the bottom of the web view. It draws
+     an invisible copy of its phone bar in the page's flow, plus the bottom
+     nav's height when the page has a `ui_bottom_nav`, so the page's last
+     content scrolls clear of both. Add no padding of your own for them, and
+     do not show `ui_bottom_action` on the same screen.
    - `ui_settings_link(label:, href:)` renders one settings row.
    - `ui_theme_toggle` takes no keywords and no block. Its buttons switch the
      theme at once and store the choice in the `keystone_theme` cookie for a
@@ -636,8 +659,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      what sits in the row, fills that form, so it takes the same share and
      height as a link or plain button beside it. `equal_width: true` gives each
      item an equal share of the row's width and keeps each label on one line,
-     so the row wraps only when a label no longer fits in its share. Use it in
-     place of a hand-written flex `div` around a set of buttons.
+     so the row wraps only when a label no longer fits in its share.
+     `equal_width: :phone` does that below `sm:` only, and from `sm:` up each
+     button keeps the width of its label. Use it in place of a hand-written
+     flex `div` around a set of buttons.
    - `ui_link(label:, href:)` draws a text link in the link colour. Use it in
      place of a hand-written `link_to` with colour classes.
    - With `href:` and `method:` `:post` `:patch` `:put` or `:delete`, it

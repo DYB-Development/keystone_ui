@@ -153,7 +153,8 @@ One decision: is keystone_ui set up in the app?
   is at least a phone's tap height, and a button that sends a request fills its
   share of the row like a link does. A row can give each button an equal share
   of its width, keeping each label on one line, so the row wraps only when a
-  label no longer fits.
+  label no longer fits. It can do that on a phone only, leaving each button
+  the width of its label on a wider screen.
 - **Confirmation.** A button can carry a confirmation question, and the
   browser asks it before following the link or sending the form. Nothing is
   sent when the user cancels.
@@ -169,6 +170,16 @@ One decision: is keystone_ui set up in the app?
   own button below `sm:` so the action is not shown twice. Both forms show
   nothing when the header names no action, and both are hidden inside a
   Hotwire Native web view and in print.
+- **A decision bar.** A decision bar is one form holding an optional note
+  field, several secondary buttons and one primary button, and the button
+  pressed tells the app which decision was made. On a wider screen it is a
+  panel with all of them on one line that wraps, and an optional hint line
+  under them. On a phone it is a bar fixed to the bottom of the screen, above
+  the bottom tab bar when the page has one, with the primary button at full
+  width above a row of the secondary buttons in equal shares, and with no note
+  field or hint. The page leaves room under its last content so the bar does
+  not cover it. Unlike the main action's bottom bar, it stays shown inside a
+  Hotwire Native web view.
 - **Action menus.** Each action is a label, an address and an HTTP method. A
   plain visit is a link, and any other method is a button, so an action that
   changes data is never a bare link. A delete asks for confirmation by default.
