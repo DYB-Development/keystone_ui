@@ -33,6 +33,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[flex flex-wrap items-center] - page.at_css("form")["class"].to_s.split
   end
 
+  def test_its_note_field_grows_into_the_width_the_buttons_leave
+    page = render_bar
+
+    assert_empty %w[flex-1 basis-60] - page.at_css("label:has(input[name='note'])")["class"].to_s.split
+  end
+
   private
 
   def render_bar(**overrides)
