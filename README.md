@@ -1274,7 +1274,7 @@ Draws a bar chart on the server as an SVG, so it shows with no JavaScript and pr
 
 **Required props**
 
-- `bars:` (Array of Hashes) — each bar is `{ label:, value: }`, with optional `shaded: true` to draw it faded, such as a weekend day
+- `bars:` (Array of Hashes) — each bar is `{ label:, value: }`, with optional `shaded: true` to draw it faded, such as a weekend day, and optional `group:` to put it in a group, such as the version that produced it
 
 **Optional props**
 
@@ -1284,6 +1284,19 @@ Draws a bar chart on the server as an SVG, so it shows with no JavaScript and pr
 <%= ui_bar_chart(show_values: true, bars: [
   { label: "Fri", value: "2.5" },
   { label: "Sat", value: "0.5", shaded: true }
+]) %>
+```
+
+Bars given `group:` are grouped by its value, with the groups taken as oldest to newest in the order they first appear. Every bar in a group is drawn in the same tone, and the tones run from grey for the oldest group to the accent for the newest, with no two groups sharing a tone. With more than five groups the newest four keep their own tones and every older group is drawn in grey. Only the first bar of each group has its label written under the axis, starting at that bar's left edge, so give the other bars of a group an empty label. The group tones come from keystone_ui-styles 0.38.0 or later.
+
+```erb
+<%= ui_bar_chart(bars: [
+  { label: "v19 → 0.77", value: 0.58, group: "v19" },
+  { label: "", value: 0.63, group: "v19" },
+  { label: "v21 → 0.80", value: 0.66, group: "v21" },
+  { label: "", value: 0.72, group: "v21" },
+  { label: "v22 → 0.84", value: 0.76, group: "v22" },
+  { label: "", value: 0.84, group: "v22" }
 ]) %>
 ```
 
