@@ -21,6 +21,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[reject send_back], page.css("button.ks-button-secondary[name='decision']").map { |button| button["value"] }
   end
 
+  def test_draws_the_primary_action_after_the_secondary_actions
+    page = render_bar
+
+    assert_equal [ "Reject", "Send back with findings", "Approve all 3" ], page.css("button").map { |button| button.text.strip }
+  end
+
   private
 
   def render_bar(**overrides)
