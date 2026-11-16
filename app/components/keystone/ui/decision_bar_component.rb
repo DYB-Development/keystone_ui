@@ -9,6 +9,7 @@ module Keystone
       ACTION_CLASSES = "flex *:flex-1"
       PHONE_ONLY_CLASSES = "sm:hidden"
       PHONE_ORDER_CLASSES = { 1 => "max-sm:order-1", 2 => "max-sm:order-2", 3 => "max-sm:order-3" }.freeze
+      PHONE_LABEL_CLASSES = "sm:hidden"
       HINT_CLASSES = "ks-hint basis-full max-sm:hidden"
       BAR_COPY_CLASSES = "!static invisible"
       SPACER_CLASSES = "sm:hidden"
@@ -39,8 +40,14 @@ module Keystone
 
       def secondary_button(action)
         tag.div(class: [ ACTION_CLASSES, (PHONE_ONLY_CLASSES if action[:phone_only]), PHONE_ORDER_CLASSES[action[:phone_order]] ].compact.join(" ")) do
-          render ButtonComponent.new(variant: :secondary, **action.except(:phone_only, :phone_order))
+          render ButtonComponent.new(variant: :secondary, **action.except(:phone_only, :phone_order, :phone_label), label: action_label(action))
         end
+      end
+
+      def action_label(action)
+        return action[:label] unless action[:phone_label]
+
+        safe_join([ tag.span(action[:label]), tag.span(action[:phone_label], class: PHONE_LABEL_CLASSES) ])
       end
 
       def primary_button

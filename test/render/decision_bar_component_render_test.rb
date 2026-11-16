@@ -165,6 +165,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("form div:has(> button[value='reject'])")&.[]("class").to_s.split, "max-sm:order-2"
   end
 
+  def test_shows_an_actions_phone_label_on_a_phone
+    page = render_bar(actions: [ { label: "Send back with findings", phone_label: "Send back", name: "decision", value: "send_back" } ])
+
+    assert_equal "Send back", page.at_css("form button[value='send_back'] span.sm\\:hidden")&.text
+  end
+
   private
 
   def render_bar(**overrides)
