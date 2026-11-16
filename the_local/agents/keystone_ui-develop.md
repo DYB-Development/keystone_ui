@@ -370,7 +370,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      in `actions:` are `ui_button` keywords, usually `label:`, `name:` and
      `value:`, so the button pressed tells the controller which decision was
      made. An action with `href:` is a link, such as a `Next ›` to the next
-     item. Do not give an action `href:` with a `method:` other than `:get`,
+     item. Each action also takes `phone_label:`, a shorter label shown below
+     `sm:` in its place, `phone_only: true`, which shows the action below
+     `sm:` only, and `phone_order:` 1, 2 or 3, its place in the phone row, so
+     one call can give a desktop row and a phone row that differ in labels,
+     buttons and order. Do not give an action `href:` with a `method:` other than `:get`,
      since that draws a form inside the bar's form. `note:` takes `name:`,
      `label:` and `placeholder:` and draws a text field inside its label, sent
      with the form. `hint:` is a short line of muted text, such as keyboard
@@ -381,7 +385,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      that has one, with the primary button at full width and 48 pixels tall
      above a row of the secondary buttons, each an equal share of the row and
      44 pixels tall. The note field and hint are not shown below `sm:`. Give
-     it three secondary actions at most so the phone row fits. It stays shown
+     it three secondary actions at most on a phone so the phone row fits. It stays shown
      inside a Hotwire Native web view, at the bottom of the web view. It draws
      an invisible copy of its phone bar in the page's flow, plus the bottom
      nav's height when the page has a `ui_bottom_nav`, so the page's last

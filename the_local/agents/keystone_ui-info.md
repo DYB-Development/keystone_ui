@@ -177,7 +177,8 @@ One decision: is keystone_ui set up in the app?
   under them. On a phone it is a bar fixed to the bottom of the screen, above
   the bottom tab bar when the page has one, with the primary button at full
   width above a row of the secondary buttons in equal shares, and with no note
-  field or hint. The page leaves room under its last content so the bar does
+  field or hint. Each secondary button can have a shorter label on a phone, be
+  shown on a phone only, and take another place in the phone row. The page leaves room under its last content so the bar does
   not cover it. Unlike the main action's bottom bar, it stays shown inside a
   Hotwire Native web view.
 - **Action menus.** Each action is a label, an address and an HTTP method. A
