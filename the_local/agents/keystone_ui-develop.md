@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side or in one column, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -85,7 +85,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_stat_card` — a single metric tile with optional change, link and info button.
 - `ui_copy_button` — a button that copies text to the clipboard.
 - `ui_code` — a block of code with an optional caption.
-- `ui_text_diff` — two versions of a text side by side, with removed and added lines marked.
+- `ui_text_diff` — two versions of a text side by side, or in one column, with removed and added lines marked.
 - `ui_disclosure` — a native expandable section with a clickable summary.
 - `ui_calculation` — the steps behind a figure, closed under a summary row.
 - `ui_info` — an inline info button showing a summary, and optional detail, in floating panels.
@@ -740,6 +740,15 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      developer whether a screen can be given texts that long, and hand changing
      the limit to `keystone_ui-install`, since the comparison's work grows with
      the line count of one text times the other's.
+   - `one_column: true` shows both texts in one column in place of side by
+     side, the same at every screen width. A shared line appears once with no
+     sign, a removed line appears at its place in `before:` with a `-`, and an
+     added line appears at its place in `after:` with a `+`, so a changed line
+     shows as the removed line followed by the added one. The removed and added
+     colour covers the sign and text of the line, the column numbers no lines,
+     and a long line scrolls sideways inside the column. Both notices still
+     show. When the texts are too long to compare, the column lists every line
+     of `before:` and then every line of `after:`, with none marked.
    - Ask the developer which two versions a screen compares and which is the
      earlier one.
    - `ui_disclosure(open: false)` takes a block yielding the component. Fill

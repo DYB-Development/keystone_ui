@@ -1265,8 +1265,16 @@ Shows two versions of a text side by side, such as two versions of an agent's pr
 - `before:` (String) — the first version
 - `after:` (String) — the second version
 
+**Optional props**
+
+- `one_column:` (Boolean, default `false`) — shows both versions in one column, the same at every screen width, in place of side by side. Lines the two share appear once with no sign. A removed line appears at its place in the first version, coloured as removed and starting with a minus, and an added line appears at its place in the second, coloured as added and starting with a plus. The colour covers the sign and the text of the line. The column numbers no lines, and a long line scrolls sideways inside the column rather than widening the page. When the texts are too long to compare, the column shows every line of the first version and then every line of the second, with no line marked.
+
 ```erb
 <%= ui_text_diff(before: previous_version.instructions, after: version.instructions) %>
+```
+
+```erb
+<%= ui_text_diff(before: previous_version.instructions, after: version.instructions, one_column: true) %>
 ```
 
 Windows and Unix line endings compare as equal. Two identical texts show a notice above the text saying they are the same. When the two texts together run past 2,000 lines, the diff does not compare them: it shows both versions line by line with no line marked, under a notice saying they are too long to compare. A host changes that limit for the whole app in an initializer:

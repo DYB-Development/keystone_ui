@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.94.0] - 2026-11-15
+
+### Added
+- `ui_text_diff` takes `one_column: true`, which shows both versions in one column at every screen width, each removed line at its place in the first version with a minus and each added line at its place in the second with a plus.
+- With `one_column: true`, `ui_text_diff` shows every line of the first version and then every line of the second, with no line marked, when the texts are too long to compare.
+
 ## [0.93.0] - 2026-11-15
 
 ### Added

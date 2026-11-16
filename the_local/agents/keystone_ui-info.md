@@ -203,6 +203,11 @@ One decision: is keystone_ui set up in the app?
   When the two texts together hold more lines than the host's line limit, 2,000
   by default, it does not compare them: it lines them up by position with no
   marks or signs, and the notice says they are too long to compare.
+  With its one-column option it shows both texts in one column instead, the
+  same at every screen width: a shared line once, a removed line at its place
+  in the first text and an added line at its place in the second, each marked
+  and signed, with no line numbers. Too long to compare, that column lists the
+  first text and then the second, unmarked.
 - **Semantic colour.** The themed hue is `accent-*` and the themed neutrals are
   `surface-*`, CSS custom properties whose defaults (blue and zinc) come from
   the keystone_ui-styles gem. Retheming changes those values, not the

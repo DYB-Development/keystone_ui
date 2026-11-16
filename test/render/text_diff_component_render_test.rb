@@ -84,6 +84,61 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
   end
 
+  def test_with_one_column_shows_each_removed_and_added_line_in_one_column_at_its_place_in_its_own_text
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd", one_column: true))
+
+    assert_equal %w[a b c d], page.css("[data-diff-column] [data-diff-row] [data-diff-text]").map(&:text)
+  end
+
+  def test_with_one_column_starts_a_removed_line_with_a_minus_an_added_line_with_a_plus_and_a_shared_line_with_neither
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd", one_column: true))
+
+    assert_equal [ "", "-", "", "+" ], page.css("[data-diff-column] [data-diff-row]").map { |row| row.at_css("[data-diff-sign]")&.text.to_s }
+  end
+
+  def test_with_one_column_colours_a_removed_line_as_removed
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd", one_column: true))
+
+    assert_equal [ "b" ], page.css("[data-diff-column] .ks-diff-removed [data-diff-text]").map(&:text)
+  end
+
+  def test_with_one_column_colours_an_added_line_as_added
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd", one_column: true))
+
+    assert_equal [ "d" ], page.css("[data-diff-column] .ks-diff-added [data-diff-text]").map(&:text)
+  end
+
+  def test_with_one_column_keeps_a_long_line_on_one_line_for_the_column_to_scroll_sideways
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a", after: "b", one_column: true))
+
+    assert_includes page.at_css("[data-diff-column] [data-diff-row]")[:class].to_s.split, "whitespace-pre"
+  end
+
+  def test_with_one_column_shows_the_first_text_then_the_second_when_they_are_too_long_to_compare
+    KeystoneUi.configure { |c| c.text_diff_line_limit = 3 }
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb", after: "a\nc", one_column: true))
+
+    assert_equal %w[a b a c], page.css("[data-diff-column] [data-diff-row] [data-diff-text]").map(&:text)
+  end
+
+  def test_with_one_column_shows_the_notice_that_the_texts_are_too_long_to_compare
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: lines(1001), after: lines(1000), one_column: true))
+
+    assert_equal "These texts are too long to compare.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
+  def test_with_one_column_shows_the_notice_that_two_identical_texts_are_the_same
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "one\ntwo", after: "one\ntwo", one_column: true))
+
+    assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
+  def test_with_one_column_draws_the_same_layout_at_every_screen_width
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb", after: "a\nc", one_column: true))
+
+    assert_empty page.css("*").flat_map { |element| element[:class].to_s.split }.grep(/\A(sm|md|lg|xl|2xl):/)
+  end
+
   private
 
   def marked(page, side, mark)

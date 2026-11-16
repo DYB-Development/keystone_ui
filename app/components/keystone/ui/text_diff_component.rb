@@ -11,11 +11,18 @@ module Keystone
       NUMBER_CLASSES = "w-8 shrink-0 select-none text-right"
       SIGN_CLASSES = "w-6 shrink-0 select-none text-center"
       TEXT_CLASSES = "whitespace-pre"
+      LINE_CLASSES = "h-[1lh] whitespace-pre"
+      LINE_SIGN_CLASSES = "inline-block w-[2ch] select-none"
       NOTICE_CLASSES = "ks-code-caption text-xs"
 
-      def initialize(before:, after:)
+      def initialize(before:, after:, one_column: false)
         @before = before.to_s.lines(chomp: true)
         @after = after.to_s.lines(chomp: true)
+        @one_column = one_column
+      end
+
+      def one_column?
+        @one_column
       end
 
       def notice
@@ -32,6 +39,12 @@ module Keystone
 
       def cells(side)
         rows.map { |row| row[SIDES.index(side)] }
+      end
+
+      def lines
+        return (@before + @after).map { |text| { text: text } } if too_long?
+
+        rows.map { |row| row.compact.first }
       end
 
       private
