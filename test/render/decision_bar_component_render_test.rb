@@ -96,7 +96,7 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
   def test_on_a_phone_gives_each_secondary_button_an_equal_share_of_the_row_under_the_primary_button
     page = render_bar
 
-    assert_includes page.at_css("div:has(> button.ks-button-secondary)")&.[]("class").to_s.split, "max-sm:*:flex-1"
+    assert_includes page.at_css("div:has(> div > button.ks-button-secondary)")&.[]("class").to_s.split, "max-sm:*:flex-1"
   end
 
   def test_on_a_phone_leaves_its_note_field_out_of_the_fixed_bar

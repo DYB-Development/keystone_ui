@@ -6,6 +6,7 @@ module Keystone
       FORM_CLASSES = "ks-panel ks-panel-radius-md ks-panel-padding-sm flex flex-wrap items-center ks-grid-gap-sm max-sm:contents"
       BAR_CLASSES = "ks-bottom-action max-sm:flex-col ks-grid-gap-sm sm:contents hotwire-native:bottom-0"
       PRIMARY_CLASSES = "max-sm:order-first max-sm:*:w-full max-sm:*:min-h-12"
+      ACTION_CLASSES = "flex *:flex-1"
       HINT_CLASSES = "ks-hint basis-full max-sm:hidden"
       BAR_COPY_CLASSES = "!static invisible"
       SPACER_CLASSES = "sm:hidden"
@@ -30,8 +31,12 @@ module Keystone
 
       def secondary_row
         render(ButtonRowComponent.new(equal_width: :phone)) do
-          safe_join(@actions.map { |action| render ButtonComponent.new(variant: :secondary, **action) })
+          safe_join(@actions.map { |action| secondary_button(action) })
         end
+      end
+
+      def secondary_button(action)
+        tag.div(class: ACTION_CLASSES) { render ButtonComponent.new(variant: :secondary, **action) }
       end
 
       def primary_button
