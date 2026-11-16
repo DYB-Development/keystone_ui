@@ -9,7 +9,7 @@
   <% if @body && !@compact %>
     <p class="<%= BODY_CLASSES %>"><%= @body %></p>
   <% end %>
-  <% if @cta %>
+  <% if @cta && !@compact %>
     <p class="<%= CTA_CLASSES %>"><%= @cta %></p>
   <% end %>
   <% if @meta && !@compact %>

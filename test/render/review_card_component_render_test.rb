@@ -75,6 +75,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_nil page.at_css(".ks-card-meta")
   end
 
+  def test_leaves_out_its_call_to_action_line_in_its_compact_form
+    page = render_card(cta: "Shop the catalog →", compact: true)
+
+    assert_nil page.at_css(".ks-card-link")
+  end
+
   private
 
   def render_card(**options)
