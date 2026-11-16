@@ -1488,7 +1488,12 @@ Renders a tab bar with active state indicator. Uses Stimulus `tab-switcher` cont
 **Required props**
 
 - `tabs:` (Array of Strings) — tab labels, switched in the browser by the `tab-switcher` controller
-- `tabs:` (Array of Hashes) — link tabs, each `{ label:, href:, current: }`, where `current: true` marks the chosen tab
+- `tabs:` (Array of Hashes) — link tabs, each `{ label:, href:, current:, count: }`, where `current: true` marks the chosen tab and `count:` is drawn after the label when it is above zero
+
+**Optional props**
+
+- `align:` (Symbol, default `:center`) — `:start` starts the tab row at the left edge on every width instead of centring it from `sm` up
+- `shape:` (Symbol, default `nil`) — `:pills` draws each tab as an outlined pill and `:underline` draws the tabs on a line with the chosen tab underlined, and with no shape the tabs are drawn as before
 
 ```erb
 <%= ui_tab_switcher(tabs: ["Overview", "Details", "History"]) do %>
@@ -1508,7 +1513,18 @@ Link tabs name the chosen tab in the page address. Each tab is a link, the chose
 <% end %>
 ```
 
-Below `sm` the tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line. From `sm` up it wraps and is centred.
+A link tab's count is drawn in an info badge, as a navigation item draws its count. In a tab row with a `shape:` the count is drawn as plain muted text after the label, and the shape sets the tabs' text size.
+
+```erb
+<%= ui_tab_switcher(align: :start, shape: :pills, tabs: [
+  { label: "All", href: inbox_path, count: 7, current: filter.nil? },
+  { label: "Approvals", href: inbox_path(filter: "approvals"), count: 4, current: filter == "approvals" }
+]) do %>
+  <%= render "inbox/items", items: @items %>
+<% end %>
+```
+
+Below `sm` the tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line. From `sm` up it wraps and is centred, or starts at the left edge with `align: :start`.
 
 **Slots**
 
