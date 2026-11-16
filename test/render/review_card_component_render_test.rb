@@ -15,6 +15,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal "reviewer 0.91", page.at_css(".ks-card > div:first-child > :last-child")&.text&.strip
   end
 
+  def test_draws_its_score_in_the_tone_it_is_given
+    page = render_card(score: "reviewer 0.76 · 1 finding", score_tone: :warning)
+
+    assert_includes page.at_css(".ks-card > div:first-child > :last-child")["class"].split, "ks-tone-warning"
+  end
+
   private
 
   def render_card(**options)
