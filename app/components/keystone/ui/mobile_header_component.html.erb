@@ -13,6 +13,6 @@
     <% end %>
   </span>
   <% if @badge %>
-    <%= render Keystone::Ui::BadgeComponent.new(**@badge) %>
+    <%= render Keystone::Ui::BadgeComponent.new(**@badge, class: BADGE_CLASSES) %>
   <% end %>
 </div>

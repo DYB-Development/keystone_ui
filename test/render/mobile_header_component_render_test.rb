@@ -26,4 +26,10 @@ class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "46h left", page.at_css(".ks-badge-warning").text
   end
+
+  def test_pushes_the_badge_to_the_right_end_of_the_header
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, badge: { label: "46h left" }))
+
+    assert_includes page.at_css(".ks-badge")["class"].split, "ml-auto"
+  end
 end
