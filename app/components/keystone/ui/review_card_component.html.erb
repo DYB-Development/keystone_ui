@@ -6,8 +6,8 @@
     <% end %>
   </div>
   <h3 class="<%= TITLE_CLASSES %>"><%= @title %></h3>
-  <% if @body && !@compact %>
-    <p class="<%= BODY_CLASSES %>"><%= @body %></p>
+  <% if @body %>
+    <p class="<%= body_classes %>"><%= @body %></p>
   <% end %>
   <% if @cta && !@compact %>
     <p class="<%= CTA_CLASSES %>"><%= @cta %></p>

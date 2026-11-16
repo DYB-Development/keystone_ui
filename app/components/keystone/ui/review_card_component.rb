@@ -9,6 +9,7 @@ module Keystone
       ID_CLASSES = "font-mono ks-tone-muted"
       TITLE_CLASSES = "ks-card-title text-base leading-snug"
       BODY_CLASSES = "ks-card-summary mt-0 text-xs leading-normal"
+      COMPACT_BODY_CLASSES = "truncate"
       CTA_CLASSES = "ks-card-link text-xs"
       META_CLASSES = "ks-card-meta font-mono text-xs ks-tone-muted"
       FINDING_CLASSES = "ks-alert ks-alert-warning text-xs"
@@ -35,6 +36,10 @@ module Keystone
 
       def card_classes
         [ CARD_CLASSES, (WARNING_CLASSES if @finding) ].compact.join(" ")
+      end
+
+      def body_classes
+        [ BODY_CLASSES, (COMPACT_BODY_CLASSES if @compact) ].compact.join(" ")
       end
 
       def score_classes

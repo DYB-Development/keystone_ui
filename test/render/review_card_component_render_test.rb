@@ -63,10 +63,10 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Edit", "Drop" ], page.css(".ks-card > div[class~='*:flex-1'] .ks-button").map { |button| button.text.strip }
   end
 
-  def test_leaves_out_its_body_text_in_its_compact_form
+  def test_cuts_its_body_text_to_one_line_with_an_ellipsis_in_its_compact_form
     page = render_card(body: "Layered knits, wool coats, and the boots you asked for.", compact: true)
 
-    assert_nil page.at_css(".ks-card-summary")
+    assert_includes page.at_css(".ks-card-summary")&.[]("class").to_s.split, "truncate"
   end
 
   def test_leaves_out_its_meta_line_in_its_compact_form
