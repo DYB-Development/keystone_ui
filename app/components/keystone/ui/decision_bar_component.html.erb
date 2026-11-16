@@ -3,7 +3,7 @@
     <% if @note %>
       <label class="<%= NOTE_CLASSES %>"><span class="ks-label"><%= @note[:label] %></span><%= render Keystone::Ui::InputComponent.new(name: @note[:name], placeholder: @note[:placeholder]) %></label>
     <% end %>
-    <%= render Keystone::Ui::ButtonRowComponent.new do %>
+    <%= render Keystone::Ui::ButtonRowComponent.new(equal_width: :phone) do %>
       <% @actions.each do |action| %>
         <%= render Keystone::Ui::ButtonComponent.new(variant: :secondary, **action) %>
       <% end %>
