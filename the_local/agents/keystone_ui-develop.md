@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, a queue of links with a type and time above each title and the open one marked, two versions of a text compared line by line side by side or in one column, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, review cards of an id, score, title, text, finding note and equal-width buttons set three across on a desktop, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, a queue of links with a type and time above each title and the open one marked, two versions of a text compared line by line side by side or in one column, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -35,6 +35,8 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_panel` — a bordered card surface holding any content.
 - `ui_card_link` — a panel that is one link as a whole.
 - `ui_card` — a fixed card of title, summary and call-to-action link.
+- `ui_review_card` — a card for one reviewed item: id and score, title, text, call-to-action line, meta line, finding note and equal-width buttons.
+- `ui_review_card_grid` — review cards three across from `lg:` up and one per row below it.
 - `ui_navbar` — a navigation bar with named slots for desktop and mobile.
 - `ui_navigation` — draws the app's declared navigation groups as a top bar or a sidebar around the page content.
 - `ui_nav_item` — one desktop navigation link.
@@ -263,6 +265,22 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_card(title:, summary:, link:, cta: "Read more", edge_to_edge: false, class: nil)`
      takes no block. `edge_to_edge: true` drops the side border and corner
      rounding below `sm:` so the card spans the full width on mobile.
+   - `ui_review_card(id:, title:, score: nil, score_tone: :muted, body: nil, cta: nil, meta: nil, finding: nil, actions: [], compact: false)`
+     takes no block. Its header line shows `id:` at the left in a monospaced
+     font and `score:` at the right in `score_tone:`, one of `:muted`
+     `:neutral` `:success` `:warning` `:danger` `:info`. Then come `title:`,
+     `body:`, `cta:` as a line of text in the link colour (not a link),
+     `meta:` in a monospaced font with a divider above it, `finding:` as a
+     note in the warning style, and `actions:`, each a hash of `ui_button`
+     keywords drawn as a small secondary button taking an equal share of one
+     row. A `finding:` also draws the card's edge in the warning style.
+     `compact: true` leaves out the body, the call-to-action line and the meta
+     line, for a phone list. Below `sm:` each button is at least 44 pixels
+     tall, and from `sm:` up the buttons are narrowed so three labels fit in a
+     third of the page. Use it in place of a hand-written card of these parts.
+   - `ui_review_card_grid` takes no keywords and a block of `ui_review_card`
+     calls, and sets them three across from `lg:` up and one per row below
+     it. Use it in place of `ui_grid` column counts for review cards.
 
 5. Wire navigation in the layout.
 

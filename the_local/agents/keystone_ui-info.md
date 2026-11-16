@@ -155,6 +155,17 @@ One decision: is keystone_ui set up in the app?
   of its width, keeping each label on one line, so the row wraps only when a
   label no longer fits. It can do that on a phone only, leaving each button
   the width of its label on a wider screen.
+- **Review cards.** A review card shows one item someone reviews, such as
+  one of several variants compared side by side. A header line holds a short
+  id at the left and a score or status at the right, coloured by tone, above
+  a title, body text, an optional call-to-action line and an optional line of
+  short details with a divider above it. An optional finding note is drawn
+  in the warning style, and the card's edge is then drawn in the warning
+  style too. An optional row of buttons gives each button an equal share.
+  A compact form leaves out the body text, the call-to-action line and the
+  details line, for a phone. A review card grid sets the cards three across
+  on a desktop and one per row on a phone, where each button is at least a
+  phone's tap height.
 - **Confirmation.** A button can carry a confirmation question, and the
   browser asks it before following the link or sending the form. Nothing is
   sent when the user cancels.
