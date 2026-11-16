@@ -29,6 +29,12 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
     assert_equal %w[justify-start], component.classes.split.grep_v(/\Amax-sm:/) & %w[justify-start justify-center]
   end
 
+  def test_aligned_to_the_start_the_tab_row_still_stays_on_one_line_and_scrolls_sideways_below_sm
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], align: :start)
+
+    assert_equal %w[max-sm:flex-nowrap max-sm:overflow-x-auto], component.classes.split & %w[max-sm:flex-nowrap max-sm:overflow-x-auto]
+  end
+
   def test_stores_tab_labels
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "Alpha", "Beta", "Gamma" ])
 
