@@ -1,10 +1,12 @@
 <div class="<%= Keystone::Ui::BarChartComponent::FRAME_CLASSES %>" role="img">
   <div class="<%= Keystone::Ui::BarChartComponent::PLOT_ROW_CLASSES %>">
-    <svg class="<%= Keystone::Ui::BarChartComponent::AXIS_CLASSES %>">
-      <% ticks.each do |tick| %>
-        <text class="ks-bar-chart-text" data-axis-tick x="100%" dx="-6" y="<%= tick[:y].round(2) %>%" dominant-baseline="middle" text-anchor="end"><%= tick[:label] %></text>
-      <% end %>
-    </svg>
+    <% unless strip? %>
+      <svg class="<%= Keystone::Ui::BarChartComponent::AXIS_CLASSES %>">
+        <% ticks.each do |tick| %>
+          <text class="ks-bar-chart-text" data-axis-tick x="100%" dx="-6" y="<%= tick[:y].round(2) %>%" dominant-baseline="middle" text-anchor="end"><%= tick[:label] %></text>
+        <% end %>
+      </svg>
+    <% end %>
     <div class="<%= Keystone::Ui::BarChartComponent::PLOT_CLASSES %>">
       <svg class="<%= Keystone::Ui::BarChartComponent::LAYER_CLASSES %>" viewBox="0 0 100 100" preserveAspectRatio="none">
         <% ticks.each do |tick| %>
@@ -24,7 +26,9 @@
     </div>
   </div>
   <div class="<%= Keystone::Ui::BarChartComponent::LABEL_ROW_CLASSES %>">
-    <span class="<%= Keystone::Ui::BarChartComponent::LABEL_SPACER_CLASSES %>"></span>
+    <% unless strip? %>
+      <span class="<%= Keystone::Ui::BarChartComponent::LABEL_SPACER_CLASSES %>"></span>
+    <% end %>
     <svg class="<%= Keystone::Ui::BarChartComponent::LABELS_CLASSES %>">
       <% labelled_bars.each do |bar| %>
         <text class="ks-bar-chart-text" data-bar-label x="<%= bar[:label_x].round(2) %>%" y="100%" dy="-6" text-anchor="<%= bar[:label_anchor] %>"><%= bar[:label] %></text>

@@ -20,9 +20,14 @@ module Keystone
 
       attr_reader :bars
 
-      def initialize(bars:, show_values: false)
+      def initialize(bars:, show_values: false, strip: false)
         @bars = bars
         @show_values = show_values
+        @strip = strip
+      end
+
+      def strip?
+        @strip
       end
 
       def show_values?

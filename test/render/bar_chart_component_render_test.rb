@@ -110,4 +110,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ page.css("rect.ks-bar-chart-bar").last[:x] + "%", "start" ], [ label[:x], label[:"text-anchor"] ]
   end
+
+  def test_draws_no_value_axis_as_a_strip
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" } ], strip: true))
+
+    assert_equal 0, page.css("[data-axis-tick]").size
+  end
 end
