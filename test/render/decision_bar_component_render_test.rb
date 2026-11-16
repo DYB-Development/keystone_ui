@@ -129,6 +129,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert page.at_css("[data-decision-bar-spacer]")&.has_attribute?("inert")
   end
 
+  def test_keeps_room_for_its_phone_bar_on_a_phone_only
+    page = render_bar
+
+    assert_includes page.at_css("[data-decision-bar-spacer]")&.[]("class").to_s.split, "sm:hidden"
+  end
+
   private
 
   def render_bar(**overrides)
