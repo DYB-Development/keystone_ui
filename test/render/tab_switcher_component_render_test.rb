@@ -115,6 +115,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Value" ], page.css("a.ks-tab.ks-tab-active[data-active][aria-current=page]").map { |link| link.text.strip }
   end
 
+  def test_in_a_shaped_tab_row_no_tab_carries_its_own_text_size_so_the_shape_sets_it
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS, shape: :pills))
+
+    assert_equal [ false, false ], page.css("a.ks-tab").map { |link| link["class"].split.include?("text-sm") }
+  end
+
   private
 
   def render_with_summary

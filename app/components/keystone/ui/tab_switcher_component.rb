@@ -8,6 +8,7 @@ module Keystone
       TAB_BAR_CLASSES_BY_ALIGN = { center: TAB_BAR_CLASSES, start: START_TAB_BAR_CLASSES }.freeze
       SHAPE_CLASSES = { pills: "ks-tab-bar-pills", underline: "ks-tab-bar-underline" }.freeze
       TAB_BASE_CLASSES = "ks-tab text-sm transition max-sm:shrink-0 max-sm:whitespace-nowrap"
+      SHAPED_TAB_BASE_CLASSES = "ks-tab transition max-sm:shrink-0 max-sm:whitespace-nowrap"
       PANEL_CLASSES = "hidden"
       LAYOUT_CLASSES = "max-sm:flex max-sm:flex-col"
       SUMMARY_CLASSES = "max-sm:order-1 max-sm:[&>:first-child]:mt-0 max-sm:[&>:last-child]:mb-0"
@@ -31,8 +32,12 @@ module Keystone
         [ TAB_BAR_CLASSES_BY_ALIGN.fetch(@align), SHAPE_CLASSES[@shape] ].compact.join(" ")
       end
 
+      def base_tab_classes
+        @shape ? SHAPED_TAB_BASE_CLASSES : TAB_BASE_CLASSES
+      end
+
       def tab_classes
-        "#{TAB_BASE_CLASSES} ks-tab-active"
+        "#{base_tab_classes} ks-tab-active"
       end
 
       def panel_classes

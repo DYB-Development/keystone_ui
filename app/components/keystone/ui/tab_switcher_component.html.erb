@@ -2,7 +2,7 @@
 <% tab_row = capture do %>
 <nav class="<%= classes %>">
   <% tabs.each do |tab| %>
-    <a href="<%= tab[:href] %>" data-turbo-action="replace" class="<%= tab[:current] ? tab_classes : TAB_BASE_CLASSES %>"<% if tab[:current] %> aria-current="page" data-active<% end %>><%= tab[:label] %><% if tab[:count].to_i.positive? %> <%= render Keystone::Ui::BadgeComponent.new(label: tab[:count].to_s, variant: :info) %><% end %></a>
+    <a href="<%= tab[:href] %>" data-turbo-action="replace" class="<%= tab[:current] ? tab_classes : base_tab_classes %>"<% if tab[:current] %> aria-current="page" data-active<% end %>><%= tab[:label] %><% if tab[:count].to_i.positive? %> <%= render Keystone::Ui::BadgeComponent.new(label: tab[:count].to_s, variant: :info) %><% end %></a>
   <% end %>
 </nav>
 <% end %>
