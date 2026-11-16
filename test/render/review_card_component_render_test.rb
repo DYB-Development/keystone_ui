@@ -45,6 +45,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal "37 chars · tone direct · claims 2/2 sourced", page.at_css(".ks-card > .ks-card-meta")&.text&.strip
   end
 
+  def test_shows_a_finding_note_in_the_warning_style
+    page = render_card(finding: "Finding: \"finished\" implies completeness not in the brief (severity: low).")
+
+    assert_equal "Finding: \"finished\" implies completeness not in the brief (severity: low).", page.at_css(".ks-card > .ks-alert.ks-alert-warning")&.text&.strip
+  end
+
   private
 
   def render_card(**options)

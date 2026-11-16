@@ -11,9 +11,10 @@ module Keystone
       BODY_CLASSES = "ks-card-summary mt-0 text-xs leading-normal"
       CTA_CLASSES = "ks-card-link text-xs"
       META_CLASSES = "ks-card-meta font-mono text-xs ks-tone-muted"
+      FINDING_CLASSES = "ks-alert ks-alert-warning px-2 py-1.5 text-xs"
       TONE_CLASSES = { muted: "ks-tone-muted", neutral: "ks-tone-neutral", success: "ks-tone-success", warning: "ks-tone-warning", danger: "ks-tone-danger", info: "ks-tone-info" }.freeze
 
-      def initialize(id:, title:, score: nil, score_tone: :muted, body: nil, cta: nil, meta: nil)
+      def initialize(id:, title:, score: nil, score_tone: :muted, body: nil, cta: nil, meta: nil, finding: nil)
         @id = id
         @title = title
         @score = score
@@ -21,6 +22,7 @@ module Keystone
         @body = body
         @cta = cta
         @meta = meta
+        @finding = finding
       end
 
       def score_classes
