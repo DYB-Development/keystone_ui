@@ -6,4 +6,7 @@
     <% end %>
   </div>
   <h3 class="<%= TITLE_CLASSES %>"><%= @title %></h3>
+  <% if @body %>
+    <p class="<%= BODY_CLASSES %>"><%= @body %></p>
+  <% end %>
 </article>

@@ -27,6 +27,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal "Fall catalog is here. 40 new pieces.", page.at_css(".ks-card > div:first-child + .ks-card-title")&.text&.strip
   end
 
+  def test_shows_its_body_text_under_its_title
+    page = render_card(body: "Layered knits, wool coats, and the boots you asked for.")
+
+    assert_equal "Layered knits, wool coats, and the boots you asked for.", page.at_css(".ks-card-title + .ks-card-summary")&.text&.strip
+  end
+
   private
 
   def render_card(**options)
