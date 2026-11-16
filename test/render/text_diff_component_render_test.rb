@@ -127,6 +127,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal "These texts are too long to compare.", page.at_css("[data-diff-notice]")&.text&.strip
   end
 
+  def test_with_one_column_shows_the_notice_that_two_identical_texts_are_the_same
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "one\ntwo", after: "one\ntwo", one_column: true))
+
+    assert_equal "These texts are the same.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
   private
 
   def marked(page, side, mark)
