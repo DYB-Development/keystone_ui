@@ -68,4 +68,46 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("a > span")["class"].to_s.split, "ks-grid-gap-sm"
   end
+
+  def test_shows_a_row_top_line_badge_apart_from_the_row_badge
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { badge: { label: "approval", variant: :warning }, text: "expires 46h" } } ]))
+
+    assert_equal "approval", page.at_css(".ks-settings-link-label").previous_element.css(".ks-badge.ks-badge-warning").text.strip
+  end
+
+  def test_shows_a_row_top_line_text_after_its_top_line_badge
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { badge: { label: "approval", variant: :warning }, text: "expires 46h" } } ]))
+
+    assert_equal "expires 46h", page.at_css(".ks-settings-link-label").previous_element.at_css(".ks-badge").next_element.text.strip
+  end
+
+  def test_marks_a_current_row_with_aria_current
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Pick target segment", href: "/items/abc", current: true } ]))
+
+    assert_equal "true", page.at_css("a.ks-value-list-row")["aria-current"]
+  end
+
+  def test_keeps_a_row_top_line_on_one_line
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { badge: { label: "approval", variant: :warning }, text: "expires 46h" } } ]))
+
+    assert_includes page.at_css(".ks-settings-link-label").previous_element["class"].to_s.split, "whitespace-nowrap"
+  end
+
+  def test_cuts_off_a_long_row_top_line_text_inside_its_row
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { badge: { label: "approval", variant: :warning }, text: "expires 46h" } } ]))
+
+    assert_includes page.at_css(".ks-settings-link-label").previous_element.at_css(".ks-badge").next_element["class"].to_s.split, "truncate"
+  end
+
+  def test_marks_a_current_row_with_the_current_row_class
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Pick target segment", href: "/items/abc", current: true } ]))
+
+    assert_includes page.at_css("a.ks-value-list-row")["class"].to_s.split, "ks-value-list-row-current"
+  end
+
+  def test_leaves_off_each_row_chevron_when_asked
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Monthly report", href: "/reports/abc" } ], chevron: false))
+
+    assert_equal 0, page.css("a.ks-value-list-row svg.ks-settings-link-chevron").size
+  end
 end

@@ -1011,11 +1011,26 @@ A list of links, one row per item, each row ending in a chevron. Use it where ea
 - `subtitle:` (String) — a short note under the label
 - `badge:` (Hash) — `{ label:, variant: }`, drawn with `ui_badge`, above the label below `sm` and beside it from `sm` up
 - `value:` (String) — a short value after the label, such as a count or a date
+- `top_line:` (Hash) — `{ badge:, text: }`, a line above the label with `badge:` (`{ label:, variant: }`, drawn with `ui_badge`, apart from the row's `badge:`) at the left and `text:` at the right. It stays on one line, and a long `text:` is cut off with an ellipsis
+- `current:` (Boolean) — marks the row as the current one with `aria-current="true"` and keystone_ui-styles' `ks-value-list-row-current` class, which tints the row and draws an accent bar at its left
+
+**Optional props**
+
+- `chevron:` (Boolean, default `true`) — `false` leaves off every row's chevron
 
 ```erb
 <%= ui_link_list(rows: @reports.map { |report|
       { label: report.kind, subtitle: report.period, href: report_path(report),
         badge: (report.invoice? ? { label: "Invoice", variant: :info } : nil) } }) %>
+```
+
+A queue of items, each with its type and time left above its title, the open one marked:
+
+```erb
+<%= ui_link_list(chevron: false, rows: @items.map { |item|
+      { label: item.title, subtitle: item.details, href: item_path(item),
+        top_line: { badge: { label: item.item_type, variant: :warning }, text: "expires #{item.time_left}" },
+        current: item == @item } }) %>
 ```
 
 ### `ui_select`

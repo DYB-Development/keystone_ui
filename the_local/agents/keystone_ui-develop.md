@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side or in one column, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, a queue of links with a type and time above each title and the open one marked, two versions of a text compared line by line side by side or in one column, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -79,7 +79,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_paragraph` — a paragraph of running text.
 - `ui_value_list` — labelled values, as rows of a label beside its value, such as a ledger or a byline, or as columns of a label above its value.
 - `ui_alert` — a banner message, optionally dismissible.
-- `ui_link_list` — a list of links, each row with a label, an optional subtitle, badge and value, and a chevron.
+- `ui_link_list` — a list of links, each row with a label, an optional subtitle, badge, value and top line, an optional current-row mark, and a chevron that can be left off.
 - `ui_empty_state` — what a list or section shows when it has nothing in it, with an optional message and action.
 - `ui_progress` — a labelled progress bar.
 - `ui_stat_card` — a single metric tile with optional change, link and info button.
@@ -703,9 +703,17 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
      — `type:` is `:info` `:success` `:warning` `:error`, and `dismissible: true`
      adds a close button.
-   - `ui_link_list(rows:)` — each row is `{ label:, href:, subtitle: nil,
-     badge: nil, value: nil }`, and `badge:` takes `ui_badge`'s `{ label:, variant: }`.
+   - `ui_link_list(rows:, chevron: true)` — each row is `{ label:, href:,
+     subtitle: nil, badge: nil, value: nil, top_line: nil, current: false }`,
+     and `badge:` takes `ui_badge`'s `{ label:, variant: }`.
      A row's badge sits above its label below `sm` and beside it from `sm` up.
+     `top_line:` is `{ badge:, text: }`, a line above the label with its own
+     badge at the left, apart from the row's `badge:`, and short text at the
+     right, such as a type and the time left. It stays on one line and cuts off
+     long text, while the label and subtitle wrap. `current: true` marks the
+     row the person has open with `aria-current` and a tint and accent bar.
+     `chevron: false` leaves off every row's chevron, as in a queue beside the
+     open item. Ask the developer which row is current on each page.
      Use it for a list of records that each open their own page, in place of a
      hand-written `<ul>` of links.
    - `ui_empty_state(title:, message: nil, action: nil)` — `action:` is

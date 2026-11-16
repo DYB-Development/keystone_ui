@@ -1,8 +1,14 @@
 <div class="ks-value-list">
   <% rows.each do |row| %>
-    <%= link_to row.fetch(:href), class: ROW_CLASSES do %>
+    <%= link_to row.fetch(:href), **row_options(row) do %>
       <span class="<%= STACK_CLASSES %>">
         <span class="<%= TEXT_CLASSES %>">
+          <% if row[:top_line] %>
+            <span class="<%= TOP_LINE_CLASSES %>">
+              <%= render top_line_badge(row) %>
+              <span class="<%= TOP_LINE_TEXT_CLASSES %>"><%= row[:top_line][:text] %></span>
+            </span>
+          <% end %>
           <span class="<%= LABEL_CLASSES %>"><%= row.fetch(:label) %></span>
           <% if row[:subtitle] %>
             <span class="<%= SUBTITLE_CLASSES %>"><%= row[:subtitle] %></span>
@@ -15,7 +21,9 @@
       <% if row[:value] %>
         <span class="<%= VALUE_CLASSES %>"><%= row[:value] %></span>
       <% end %>
-      <%= Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON.html_safe %>
+      <% if chevron %>
+        <%= Keystone::Ui::SettingsLinkComponent::CHEVRON_ICON.html_safe %>
+      <% end %>
     <% end %>
   <% end %>
 </div>
