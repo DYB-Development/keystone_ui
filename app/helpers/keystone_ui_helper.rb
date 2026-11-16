@@ -169,6 +169,10 @@ module KeystoneUiHelper
     render Keystone::Ui::BottomActionComponent.new
   end
 
+  def ui_decision_bar(**args)
+    render Keystone::Ui::DecisionBarComponent.new(**args)
+  end
+
   def ui_navbar(**args, &block)
     render Keystone::Ui::NavbarComponent.new(**args), &block
   end
