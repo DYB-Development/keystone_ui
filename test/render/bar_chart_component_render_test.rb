@@ -104,11 +104,11 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
   end
 
   def test_starts_a_groups_label_at_the_left_edge_of_its_first_bar
-    bars = [ { label: "v19", value: 2, group: "v19" }, { label: "v21", value: 4, group: "v21" } ]
+    bars = %w[v19 v21 v22].map { |version| { label: version, value: 2, group: version } }
     page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
-    label = page.css("text[data-bar-label]").last
+    label = page.css("text[data-bar-label]")[1]
 
-    assert_equal [ page.css("rect.ks-bar-chart-bar").last[:x] + "%", "start" ], [ label[:x], label[:"text-anchor"] ]
+    assert_equal [ page.css("rect.ks-bar-chart-bar")[1][:x] + "%", "start" ], [ label[:x], label[:"text-anchor"] ]
   end
 
   def test_draws_no_value_axis_as_a_strip
@@ -133,5 +133,13 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
     page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" }, { label: "Tue", value: "3" } ], strip: true))
 
     assert_equal %w[46.0 46.0], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:width] }
+  end
+
+  def test_ends_the_newest_groups_label_at_the_right_edge_of_the_chart
+    bars = [ { label: "v19", value: 2, group: "v19" }, { label: "v21", value: 4, group: "v21" } ]
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+    label = page.css("text[data-bar-label]").last
+
+    assert_equal [ "100.0%", "end" ], [ label[:x], label[:"text-anchor"] ]
   end
 end

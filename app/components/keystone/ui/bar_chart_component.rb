@@ -52,7 +52,11 @@ module Keystone
       end
 
       def labelled_bars
-        drawn_bars.select.with_index { |_bar, index| starts_group?(index) }
+        drawn_bars.each_with_index.filter_map do |bar, index|
+          next unless starts_group?(index)
+
+          newest_group_start?(index) ? bar.merge(label_x: FULL, label_anchor: "end") : bar
+        end
       end
 
       def grid_lines
@@ -70,6 +74,10 @@ module Keystone
 
       def bar_share
         strip? ? STRIP_BAR_SHARE : BAR_SHARE
+      end
+
+      def newest_group_start?(index)
+        groups.size > 1 && bars[index].key?(:group) && bars[index][:group] == groups.last
       end
 
       def starts_group?(index)
