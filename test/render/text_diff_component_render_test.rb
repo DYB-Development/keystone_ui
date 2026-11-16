@@ -121,6 +121,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal %w[a b a c], page.css("[data-diff-column] [data-diff-row] [data-diff-text]").map(&:text)
   end
 
+  def test_with_one_column_shows_the_notice_that_the_texts_are_too_long_to_compare
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: lines(1001), after: lines(1000), one_column: true))
+
+    assert_equal "These texts are too long to compare.", page.at_css("[data-diff-notice]")&.text&.strip
+  end
+
   private
 
   def marked(page, side, mark)
