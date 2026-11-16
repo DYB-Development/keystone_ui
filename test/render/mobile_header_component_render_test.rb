@@ -20,4 +20,10 @@ class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-mobile-header-title").parent["class"].split, "max-lg:in-[.top-nav]:contents"
   end
+
+  def test_draws_the_badge_it_is_given
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, badge: { label: "46h left", variant: :warning }))
+
+    assert_equal "46h left", page.at_css(".ks-badge-warning").text
+  end
 end

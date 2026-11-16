@@ -12,4 +12,7 @@
       <span class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></span>
     <% end %>
   </span>
+  <% if @badge %>
+    <%= render Keystone::Ui::BadgeComponent.new(**@badge) %>
+  <% end %>
 </div>
