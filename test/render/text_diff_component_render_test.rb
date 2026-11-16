@@ -96,6 +96,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "", "-", "", "+" ], page.css("[data-diff-column] [data-diff-row]").map { |row| row.at_css("[data-diff-sign]")&.text.to_s }
   end
 
+  def test_with_one_column_colours_a_removed_line_as_removed
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a\nb\nc", after: "a\nc\nd", one_column: true))
+
+    assert_equal [ "b" ], page.css("[data-diff-column] .ks-diff-removed [data-diff-text]").map(&:text)
+  end
+
   private
 
   def marked(page, side, mark)
