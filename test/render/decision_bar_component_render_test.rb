@@ -135,6 +135,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("[data-decision-bar-spacer]")&.[]("class").to_s.split, "sm:hidden"
   end
 
+  def test_its_room_also_holds_the_bottom_tab_bar_when_the_page_has_one
+    page = render_bar
+
+    assert page.css("[data-decision-bar-spacer] > div").any? { |block| ([ "hidden", "h-(--ks-bottom-nav-height)", "[body:has(.ks-bottom-nav)_&]:block" ] - block[:class].to_s.split).empty? }
+  end
+
   private
 
   def render_bar(**overrides)
