@@ -162,8 +162,8 @@ One decision: is keystone_ui set up in the app?
   short details with a divider above it. An optional finding note is drawn
   in the warning style, and the card's edge is then drawn in the warning
   style too. An optional row of buttons gives each button an equal share.
-  A compact form leaves out the body text, the call-to-action line and the
-  details line, for a phone. A review card grid sets the cards three across
+  A compact form cuts the body text to one line with an ellipsis and leaves
+  out the call-to-action line and the details line, for a phone. A review card grid sets the cards three across
   on a desktop and one per row on a phone, where each button is at least a
   phone's tap height.
 - **Confirmation.** A button can carry a confirmation question, and the

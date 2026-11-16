@@ -274,8 +274,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      note in the warning style, and `actions:`, each a hash of `ui_button`
      keywords drawn as a small secondary button taking an equal share of one
      row. A `finding:` also draws the card's edge in the warning style.
-     `compact: true` leaves out the body, the call-to-action line and the meta
-     line, for a phone list. Below `sm:` each button is at least 44 pixels
+     `compact: true` cuts the body to one line with an ellipsis and leaves out
+     the call-to-action line and the meta line, for a phone list. Below `sm:` each button is at least 44 pixels
      tall, and from `sm:` up the buttons are narrowed so three labels fit in a
      third of the page. Use it in place of a hand-written card of these parts.
    - `ui_review_card_grid` takes no keywords and a block of `ui_review_card`
