@@ -27,6 +27,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Reject", "Send back with findings", "Approve all 3" ], page.css("button").map { |button| button.text.strip }
   end
 
+  def test_lays_its_field_and_buttons_on_one_line_that_wraps_when_it_runs_out_of_width
+    page = render_bar
+
+    assert_empty %w[flex flex-wrap items-center] - page.at_css("form")["class"].to_s.split
+  end
+
   private
 
   def render_bar(**overrides)
