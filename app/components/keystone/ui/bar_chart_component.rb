@@ -15,6 +15,7 @@ module Keystone
       FULL = 100.0
       HEADROOM = 8.0
       BAR_SHARE = 0.7
+      STRIP_BAR_SHARE = 0.92
       TICK_COUNT = 4
       ROUND_STEPS = [ 1, 2, 2.5, 5, 10 ].freeze
       GROUP_TONES = 5
@@ -42,9 +43,9 @@ module Keystone
       def drawn_bars
         bars.each_with_index.map do |bar, index|
           height = bar[:value].to_f / axis_max * (FULL - HEADROOM)
-          x = (index * band) + (band * (1 - BAR_SHARE) / 2)
+          x = (index * band) + (band * (1 - bar_share) / 2)
           center = (index * band) + (band / 2)
-          { x: x, y: FULL - height, width: band * BAR_SHARE, height: height, center: center,
+          { x: x, y: FULL - height, width: band * bar_share, height: height, center: center,
             label: bar[:label], label_x: bar.key?(:group) ? x : center, label_anchor: bar.key?(:group) ? "start" : "middle", value: bar[:value],
             classes: [ "ks-bar-chart-bar", ("ks-bar-chart-bar-shaded" if bar[:shaded]), group_class(bar) ].compact.join(" ") }
         end
@@ -66,6 +67,10 @@ module Keystone
       end
 
       private
+
+      def bar_share
+        strip? ? STRIP_BAR_SHARE : BAR_SHARE
+      end
 
       def starts_group?(index)
         index.zero? || !bars[index].key?(:group) || bars[index][:group] != bars[index - 1][:group]

@@ -128,4 +128,10 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[h-[114px]], page.css(".ks-bar-chart").first[:class].split & %w[h-[114px] aspect-[5/2] max-h-80]
   end
+
+  def test_draws_its_bars_nearly_touching_as_a_strip
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: [ { label: "Mon", value: "5" }, { label: "Tue", value: "3" } ], strip: true))
+
+    assert_equal %w[46.0 46.0], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:width] }
+  end
 end
