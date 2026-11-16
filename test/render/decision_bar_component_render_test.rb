@@ -45,6 +45,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal "Keyboard: A approve", page.at_css("form > .ks-hint.basis-full")&.text&.strip
   end
 
+  def test_on_a_phone_draws_its_buttons_in_the_bottom_action_bar_fixed_above_the_bottom_navigation
+    page = render_bar
+
+    assert_equal 3, page.css("form .ks-bottom-action button").size
+  end
+
   private
 
   def render_bar(**overrides)

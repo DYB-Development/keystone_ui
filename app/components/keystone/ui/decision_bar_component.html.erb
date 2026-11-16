@@ -1,13 +1,15 @@
 <%= form_with url: @url, method: @method, class: FORM_CLASSES do %>
-  <% if @note %>
-    <label class="<%= NOTE_CLASSES %>"><span class="ks-label"><%= @note[:label] %></span><%= render Keystone::Ui::InputComponent.new(name: @note[:name], placeholder: @note[:placeholder]) %></label>
-  <% end %>
-  <%= render Keystone::Ui::ButtonRowComponent.new do %>
-    <% @actions.each do |action| %>
-      <%= render Keystone::Ui::ButtonComponent.new(variant: :secondary, **action) %>
+  <div class="<%= BAR_CLASSES %>">
+    <% if @note %>
+      <label class="<%= NOTE_CLASSES %>"><span class="ks-label"><%= @note[:label] %></span><%= render Keystone::Ui::InputComponent.new(name: @note[:name], placeholder: @note[:placeholder]) %></label>
     <% end %>
-  <% end %>
-  <div><%= render Keystone::Ui::ButtonComponent.new(**@primary) %></div>
+    <%= render Keystone::Ui::ButtonRowComponent.new do %>
+      <% @actions.each do |action| %>
+        <%= render Keystone::Ui::ButtonComponent.new(variant: :secondary, **action) %>
+      <% end %>
+    <% end %>
+    <div><%= render Keystone::Ui::ButtonComponent.new(**@primary) %></div>
+  </div>
   <% if @hint %>
     <p class="<%= HINT_CLASSES %>"><%= @hint %></p>
   <% end %>
