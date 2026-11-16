@@ -1826,7 +1826,10 @@ Below `sm` it is a bar fixed to the bottom of the screen, above the bottom nav o
 
 **Optional props**
 
-- `actions:` (Array of Hashes) — `ui_button` keywords for each secondary button, three at most so the phone row fits; one with `href:` is a link, such as a link to the next item
+- `actions:` (Array of Hashes) — `ui_button` keywords for each secondary button, three at most on a phone so the phone row fits; one with `href:` is a link, such as a link to the next item. Each also takes:
+  - `phone_label:` (String) — a shorter label shown below `sm` in place of `label:`
+  - `phone_only:` (Boolean) — shows the action below `sm` only
+  - `phone_order:` (1, 2 or 3) — the action's place in the phone row, so the phone row can list the actions in another order than the desktop row
 - `note:` (Hash) — `name:`, `label:` and `placeholder:` of a text field sent with the form
 - `hint:` (String) — a short line under the buttons, such as the keyboard keys the page answers to
 - `method:` (Symbol, default `:post`)
@@ -1838,8 +1841,9 @@ Do not show `ui_bottom_action` on the same screen.
   url: approval_decision_path(@approval),
   note: { name: "note", label: "Note", placeholder: "Optional. Saved as a label on this execution." },
   actions: [
-    { label: "Reject", name: "decision", value: "reject" },
-    { label: "Send back with findings", name: "decision", value: "send_back" }
+    { label: "Reject", name: "decision", value: "reject", phone_order: 2 },
+    { label: "Send back with findings", phone_label: "Send back", name: "decision", value: "send_back", phone_order: 1 },
+    { label: "Next ›", href: next_approval_path(@approval), phone_only: true, phone_order: 3 }
   ],
   primary: { label: "Approve all 3", name: "decision", value: "approve" },
   hint: "Keyboard: J/K next/prev · A approve · R reject"
