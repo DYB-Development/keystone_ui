@@ -95,4 +95,11 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[1 1 1 2 3 4 5], page.css("rect.ks-bar-chart-bar").map { |bar| bar[:class].split.last.delete_prefix("ks-bar-chart-bar-group-") }
   end
+
+  def test_writes_a_label_under_only_the_first_bar_of_each_group
+    bars = [ { label: "v19", value: 2, group: "v19" }, { label: "Tue", value: 3, group: "v19" }, { label: "v21", value: 4, group: "v21" } ]
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+
+    assert_equal %w[v19 v21], page.css("text.ks-bar-chart-text[data-bar-label]").map(&:text)
+  end
 end

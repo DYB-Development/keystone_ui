@@ -38,6 +38,10 @@ module Keystone
         end
       end
 
+      def labelled_bars
+        drawn_bars.select.with_index { |_bar, index| starts_group?(index) }
+      end
+
       def ticks
         (0..(axis_max / step).round).map do |position|
           value = (step * position).round(6)
@@ -46,6 +50,10 @@ module Keystone
       end
 
       private
+
+      def starts_group?(index)
+        index.zero? || !bars[index].key?(:group) || bars[index][:group] != bars[index - 1][:group]
+      end
 
       def group_class(bar)
         return unless bar.key?(:group)
