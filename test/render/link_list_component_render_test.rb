@@ -68,4 +68,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("a > span")["class"].to_s.split, "ks-grid-gap-sm"
   end
+
+  def test_shows_a_row_top_line_badge_apart_from_the_row_badge
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { badge: { label: "approval", variant: :warning }, text: "expires 46h" } } ]))
+
+    assert_equal "approval", page.at_css(".ks-settings-link-label").previous_element.css(".ks-badge.ks-badge-warning").text.strip
+  end
 end

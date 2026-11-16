@@ -3,6 +3,11 @@
     <%= link_to row.fetch(:href), class: ROW_CLASSES do %>
       <span class="<%= STACK_CLASSES %>">
         <span class="<%= TEXT_CLASSES %>">
+          <% if row[:top_line] %>
+            <span class="<%= TOP_LINE_CLASSES %>">
+              <%= render top_line_badge(row) %>
+            </span>
+          <% end %>
           <span class="<%= LABEL_CLASSES %>"><%= row.fetch(:label) %></span>
           <% if row[:subtitle] %>
             <span class="<%= SUBTITLE_CLASSES %>"><%= row[:subtitle] %></span>
