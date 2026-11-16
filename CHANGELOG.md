@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.95.0] - 2026-11-15
+
+### Added
+- A `ui_link_list` row takes `top_line: { badge:, text: }`, a line above its label with its own badge at the left and short text at the right, kept on one line.
+- A `ui_link_list` row takes `current: true`, which gives it `aria-current="true"` and keystone_ui-styles' `ks-value-list-row-current` class.
+- `ui_link_list` takes `chevron: false`, which leaves off every row's chevron.
+
+### Changed
+- The gem requires keystone_ui-styles 0.36.0 or later, the first version with the current value list row class.
+
 ## [0.94.0] - 2026-11-15
 
 ### Added
