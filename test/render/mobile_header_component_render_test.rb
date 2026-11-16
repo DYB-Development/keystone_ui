@@ -32,4 +32,10 @@ class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-badge")["class"].split, "ml-auto"
   end
+
+  def test_keeps_the_badge_at_its_full_width_beside_a_long_title
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, badge: { label: "46h left" }))
+
+    assert_includes page.at_css(".ks-badge")["class"].split, "shrink-0"
+  end
 end
