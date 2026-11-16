@@ -123,6 +123,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("[data-decision-bar-spacer] .ks-bottom-action")&.[]("class").to_s.split, "invisible"
   end
 
+  def test_its_copy_in_the_pages_flow_cannot_be_reached_or_pressed
+    page = render_bar
+
+    assert page.at_css("[data-decision-bar-spacer]")&.has_attribute?("inert")
+  end
+
   private
 
   def render_bar(**overrides)
