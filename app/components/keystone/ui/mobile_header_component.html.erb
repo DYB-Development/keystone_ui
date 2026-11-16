@@ -7,6 +7,9 @@
     <% end %>
   </div>
   <span class="<%= TITLE_CLASSES %>">
+    <% if @overline.present? %>
+      <span class="<%= OVERLINE_CLASSES %>"><%= @overline %></span>
+    <% end %>
     <%= @title %>
     <% if @subtitle.present? %>
       <span class="<%= SUBTITLE_CLASSES %>"><%= @subtitle %></span>

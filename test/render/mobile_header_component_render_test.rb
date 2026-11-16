@@ -38,4 +38,10 @@ class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-badge")["class"].split, "shrink-0"
   end
+
+  def test_shows_the_overline_above_the_title
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, overline: "Inbox · 7 items"))
+
+    assert_equal "Inbox · 7 items", page.at_css(".ks-mobile-header-title").first_element_child.text
+  end
 end
