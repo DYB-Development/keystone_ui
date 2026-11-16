@@ -57,6 +57,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-bottom-action")["class"].split, "sm:contents"
   end
 
+  def test_on_a_phone_its_form_draws_no_box_of_its_own_around_the_fixed_bar
+    page = render_bar
+
+    assert_includes page.at_css("form")["class"].split, "max-sm:contents"
+  end
+
   private
 
   def render_bar(**overrides)
