@@ -35,6 +35,12 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
     assert_equal %w[max-sm:flex-nowrap max-sm:overflow-x-auto], component.classes.split & %w[max-sm:flex-nowrap max-sm:overflow-x-auto]
   end
 
+  def test_shaped_as_pills_the_tab_row_carries_the_pill_row_class
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], shape: :pills)
+
+    assert_includes component.classes.split, "ks-tab-bar-pills"
+  end
+
   def test_stores_tab_labels
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "Alpha", "Beta", "Gamma" ])
 
