@@ -97,6 +97,13 @@ One decision: is keystone_ui set up in the app?
   to the address of the last entry in that row that has one. An entry can be
   marked selected, and the row holding it is drawn in the same tint as a data
   table's current row and announced to screen readers as the current item.
+- **Bar chart groups.** A bar chart's bars can be put in groups, such as one
+  group per version of what produced them. Groups count from oldest to newest
+  in the order they first appear. Every bar of a group shares one tone, and
+  the tones run from grey for the oldest to the accent for the newest, with
+  no two of five or fewer groups sharing one. Past five, every group older
+  than the newest four is grey. Only the first bar of each group carries a
+  label under the axis, starting at that bar's left edge.
 - **Value lists.** A value list shows labelled values, each a label and a value
   with an optional note, a fallback shown when the value is empty, a total
   marking and a check mark for a value that is right. By default each pair is a
