@@ -69,6 +69,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[ks-panel ks-panel-radius-md ks-panel-padding-sm] - page.at_css("form")["class"].split
   end
 
+  def test_on_a_phone_stacks_its_buttons_in_a_column_with_even_gaps
+    page = render_bar
+
+    assert_empty %w[max-sm:flex-col ks-grid-gap-sm] - page.at_css(".ks-bottom-action")["class"].split
+  end
+
   private
 
   def render_bar(**overrides)
