@@ -69,6 +69,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_nil page.at_css(".ks-card-summary")
   end
 
+  def test_leaves_out_its_meta_line_in_its_compact_form
+    page = render_card(meta: "37 chars · tone direct · claims 2/2 sourced", compact: true)
+
+    assert_nil page.at_css(".ks-card-meta")
+  end
+
   private
 
   def render_card(**options)
