@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, two versions of a text compared line by line side by side, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -41,7 +41,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_nav_dropdown` — a navbar dropdown menu.
 - `ui_bottom_nav` — the mobile bottom tab bar.
 - `ui_bottom_nav_item` — one tab in the bottom tab bar.
-- `ui_mobile_header` — a mobile back arrow and a title beside it.
+- `ui_mobile_header` — a mobile back arrow and a title beside it, with an optional line above the title and a badge at the right end.
 - `ui_mobile_actions` — an ellipsis menu of actions shown only below `lg:`.
 - `ui_mobile_action` — a plus icon link to the action a screen's page header publishes, for the phone top bar.
 - `ui_bottom_action` — a full-width button for the action a screen's page header publishes, in a bar fixed to the bottom of a phone screen.
@@ -319,7 +319,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      where `icon:` is a raw SVG string and `count:` above zero shows in a badge
      over the icon. The bar is hidden from `lg:` up and inside a
      Hotwire Native web view.
-   - `ui_mobile_header(title:, back_url:, subtitle: nil)` is hidden from `lg:`
+   - `ui_mobile_header(title:, back_url:, subtitle: nil, overline: nil, badge: nil)` is hidden from `lg:`
      up and goes in the navbar's `mobile_left` slot or directly in the
      layout's `<header>`. `back_url:` must be passed, and `nil` renders the
      title with no back arrow. Outside a top bar it draws the arrow, title and
@@ -332,7 +332,13 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      under it. In a hand-written top bar, give the bar the `top-nav` class,
      make the header a direct child of the bar's flex row, and add
      `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if its
-     controls can fill its width.
+     controls can fill its width. `overline:` is a short muted line shown
+     above the title, such as `"Inbox · 7 items"`. `badge:` takes the
+     `label:` and `variant:` keywords of `ui_badge`, such as
+     `{ label: "46h left", variant: :warning }`, and draws the badge at the
+     right end of the header, before the bar's right-side controls, at its
+     full width, so a long title ends in an ellipsis instead of pushing the
+     badge off the screen.
    - `ui_mobile_action` takes no keywords and no block, and goes in the top
      bar's right side, such as the navbar's `mobile_right` slot. It draws a plus
      icon linking to the `action_url:` a screen gives `ui_page_header`, named

@@ -20,6 +20,8 @@ module Keystone
       BACK_LINK_CLASSES = "ks-mobile-header-back"
       TITLE_CLASSES = "ks-mobile-header-title flex-[1_1_6rem] min-w-0 self-center lg:hidden truncate"
       SUBTITLE_CLASSES = "ks-mobile-header-subtitle block text-xs truncate"
+      OVERLINE_CLASSES = "ks-mobile-header-subtitle block text-xs truncate"
+      BADGE_CLASSES = "ml-auto shrink-0 self-center"
       DROPDOWN_CLASSES = "ks-action-menu hidden absolute right-0 z-50 w-48 origin-top-right"
 
       # Renders the left-side and title of the mobile header.
@@ -29,10 +31,12 @@ module Keystone
       #   <% if content_for?(:form_page) %>
       #     <%= ui_mobile_header_left %>
       #   <% end %>
-      def initialize(title:, back_url:, subtitle: nil)
+      def initialize(title:, back_url:, subtitle: nil, overline: nil, badge: nil)
         @title = title
         @back_url = back_url
         @subtitle = subtitle
+        @overline = overline
+        @badge = badge
       end
     end
   end

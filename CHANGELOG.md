@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.92.0] - 2026-11-15
+
+### Added
+- `ui_mobile_header` takes `overline:`, a short line of small muted text shown above the title.
+- `ui_mobile_header` takes `badge:`, the `label:` and `variant:` of `ui_badge`, and draws that badge at the right end of the header at its full width, so a long title ends in an ellipsis instead of pushing it off the screen.
+
 ## [0.91.0] - 2026-11-15
 
 ### Changed

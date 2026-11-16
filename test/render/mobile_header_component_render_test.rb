@@ -20,4 +20,34 @@ class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css(".ks-mobile-header-title").parent["class"].split, "max-lg:in-[.top-nav]:contents"
   end
+
+  def test_draws_the_badge_it_is_given
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, badge: { label: "46h left", variant: :warning }))
+
+    assert_equal "46h left", page.at_css(".ks-badge-warning").text
+  end
+
+  def test_pushes_the_badge_to_the_right_end_of_the_header
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, badge: { label: "46h left" }))
+
+    assert_includes page.at_css(".ks-badge")["class"].split, "ml-auto"
+  end
+
+  def test_keeps_the_badge_at_its_full_width_beside_a_long_title
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, badge: { label: "46h left" }))
+
+    assert_includes page.at_css(".ks-badge")["class"].split, "shrink-0"
+  end
+
+  def test_shows_the_overline_above_the_title
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, overline: "Inbox · 7 items"))
+
+    assert_equal "Inbox · 7 items", page.at_css(".ks-mobile-header-title").first_element_child.text
+  end
+
+  def test_keeps_the_badge_at_its_own_height_inside_a_taller_bar
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, badge: { label: "46h left" }))
+
+    assert_includes page.at_css(".ks-badge")["class"].split, "self-center"
+  end
 end
