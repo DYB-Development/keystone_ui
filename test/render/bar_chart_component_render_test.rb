@@ -102,4 +102,12 @@ class Keystone::Ui::BarChartComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[v19 v21], page.css("text.ks-bar-chart-text[data-bar-label]").map(&:text)
   end
+
+  def test_starts_a_groups_label_at_the_left_edge_of_its_first_bar
+    bars = [ { label: "v19", value: 2, group: "v19" }, { label: "v21", value: 4, group: "v21" } ]
+    page = render_inline(Keystone::Ui::BarChartComponent.new(bars: bars))
+    label = page.css("text[data-bar-label]").last
+
+    assert_equal [ page.css("rect.ks-bar-chart-bar").last[:x] + "%", "start" ], [ label[:x], label[:"text-anchor"] ]
+  end
 end

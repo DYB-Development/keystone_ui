@@ -32,8 +32,10 @@ module Keystone
       def drawn_bars
         bars.each_with_index.map do |bar, index|
           height = bar[:value].to_f / axis_max * (FULL - HEADROOM)
-          { x: (index * band) + (band * (1 - BAR_SHARE) / 2), y: FULL - height, width: band * BAR_SHARE, height: height,
-            center: (index * band) + (band / 2), label: bar[:label], value: bar[:value],
+          x = (index * band) + (band * (1 - BAR_SHARE) / 2)
+          center = (index * band) + (band / 2)
+          { x: x, y: FULL - height, width: band * BAR_SHARE, height: height, center: center,
+            label: bar[:label], label_x: bar.key?(:group) ? x : center, label_anchor: bar.key?(:group) ? "start" : "middle", value: bar[:value],
             classes: [ "ks-bar-chart-bar", ("ks-bar-chart-bar-shaded" if bar[:shaded]), group_class(bar) ].compact.join(" ") }
         end
       end
