@@ -97,6 +97,13 @@ One decision: is keystone_ui set up in the app?
   to the address of the last entry in that row that has one. An entry can be
   marked selected, and the row holding it is drawn in the same tint as a data
   table's current row and announced to screen readers as the current item.
+- **Tab rows.** A tab switcher's tabs are either labels switched in the
+  browser or links to addresses, with the chosen link drawn as the current
+  tab. A link tab can carry a count shown after its label. The row is centred
+  on wider screens, or starts at the left edge when asked. It can be drawn as
+  plain tabs, as outlined pills such as a row of filters, or as tabs on a line
+  with the chosen one underlined. On a phone every row stays on one line and
+  scrolls sideways.
 - **Bar chart groups.** A bar chart's bars can be put in groups, such as one
   group per version of what produced them. Groups count from oldest to newest
   in the order they first appear. Every bar of a group shares one tone, and
