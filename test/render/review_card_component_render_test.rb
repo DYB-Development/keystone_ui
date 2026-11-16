@@ -51,6 +51,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal "Finding: \"finished\" implies completeness not in the brief (severity: low).", page.at_css(".ks-card > .ks-alert.ks-alert-warning")&.text&.strip
   end
 
+  def test_draws_its_edge_in_the_warning_style_when_it_has_a_finding_note
+    page = render_card(finding: "Finding: \"finished\" implies completeness not in the brief (severity: low).")
+
+    assert_includes page.at_css("article")["class"].split, "ks-card-warning"
+  end
+
   private
 
   def render_card(**options)
