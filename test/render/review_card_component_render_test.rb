@@ -63,6 +63,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Edit", "Drop" ], page.css(".ks-card > div[class~='*:flex-1'] .ks-button").map { |button| button.text.strip }
   end
 
+  def test_leaves_out_its_body_text_in_its_compact_form
+    page = render_card(body: "Layered knits, wool coats, and the boots you asked for.", compact: true)
+
+    assert_nil page.at_css(".ks-card-summary")
+  end
+
   private
 
   def render_card(**options)
