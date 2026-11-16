@@ -5,7 +5,7 @@
   <% if one_column? %>
     <div class="<%= Keystone::Ui::TextDiffComponent::SIDE_CLASSES %>" data-diff-column>
       <% lines.each do |line| %>
-        <div data-diff-row><span class="<%= line[:mark] %>"><span class="<%= Keystone::Ui::TextDiffComponent::LINE_SIGN_CLASSES %>" data-diff-sign><%= line[:sign] %></span><span data-diff-text><%= line[:text] %></span></span></div>
+        <div class="<%= Keystone::Ui::TextDiffComponent::LINE_CLASSES %>" data-diff-row><span class="<%= line[:mark] %>"><span class="<%= Keystone::Ui::TextDiffComponent::LINE_SIGN_CLASSES %>" data-diff-sign><%= line[:sign] %></span><span data-diff-text><%= line[:text] %></span></span></div>
       <% end %>
     </div>
   <% else %>

@@ -108,6 +108,12 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "d" ], page.css("[data-diff-column] .ks-diff-added [data-diff-text]").map(&:text)
   end
 
+  def test_with_one_column_keeps_a_long_line_on_one_line_for_the_column_to_scroll_sideways
+    page = render_inline(Keystone::Ui::TextDiffComponent.new(before: "a", after: "b", one_column: true))
+
+    assert_includes page.at_css("[data-diff-column] [data-diff-row]")[:class].to_s.split, "whitespace-pre"
+  end
+
   private
 
   def marked(page, side, mark)

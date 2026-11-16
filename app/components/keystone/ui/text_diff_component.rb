@@ -11,6 +11,7 @@ module Keystone
       NUMBER_CLASSES = "w-8 shrink-0 select-none text-right"
       SIGN_CLASSES = "w-6 shrink-0 select-none text-center"
       TEXT_CLASSES = "whitespace-pre"
+      LINE_CLASSES = "h-[1lh] whitespace-pre"
       LINE_SIGN_CLASSES = "inline-block w-[2ch] select-none"
       NOTICE_CLASSES = "ks-code-caption text-xs"
 
