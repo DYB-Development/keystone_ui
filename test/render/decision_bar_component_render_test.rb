@@ -51,6 +51,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal 3, page.css("form .ks-bottom-action button").size
   end
 
+  def test_from_640_pixels_wide_lays_the_fixed_bars_field_and_buttons_into_its_own_row
+    page = render_bar
+
+    assert_includes page.at_css(".ks-bottom-action")["class"].split, "sm:contents"
+  end
+
   private
 
   def render_bar(**overrides)
