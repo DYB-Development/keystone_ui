@@ -1,2 +1,5 @@
 <%= form_with url: @url, method: @method do %>
+  <% if @note %>
+    <label><span class="ks-label"><%= @note[:label] %></span><%= render Keystone::Ui::InputComponent.new(name: @note[:name], placeholder: @note[:placeholder]) %></label>
+  <% end %>
 <% end %>

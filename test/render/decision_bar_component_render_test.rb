@@ -9,6 +9,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal "/approvals/7/decision", page.at_css("form[method='post']")&.[]("action")
   end
 
+  def test_labels_its_note_field_with_the_label_it_is_given
+    page = render_bar
+
+    assert_equal "Note", page.at_css("label:has(input[name='note'])")&.text&.strip
+  end
+
   private
 
   def render_bar(**overrides)
