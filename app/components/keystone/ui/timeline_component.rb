@@ -8,6 +8,7 @@ module Keystone
       FAILED_CLASSES = "ks-timeline-failed"
       WAITING_CLASSES = "ks-tone-warning"
       QUEUED_CLASSES = "ks-timeline-queued absolute inset-y-0"
+      WAITING_BAR_CLASSES = "ks-timeline-waiting absolute inset-y-0"
       SCREEN_READER_CLASSES = "sr-only"
       SELECTED_ROW_CLASSES = "ks-table-row-current"
       TIMELINE_CLASSES = "flex flex-col ks-grid-gap-sm"
@@ -78,7 +79,7 @@ module Keystone
       end
 
       def bar_classes(entry)
-        return QUEUED_CLASSES if entry[:waiting]
+        return WAITING_BAR_CLASSES if entry[:waiting]
 
         [ BAR_CLASSES, (FAILED_CLASSES if entry[:failed]) ].compact.join(" ")
       end
