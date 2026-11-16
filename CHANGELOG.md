@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.98.0] - 2026-11-16
+
+### Added
+- `ui_tab_switcher` link tabs take `count:` and draw a count above zero after the label in an info badge, as a navigation item does.
+- `ui_tab_switcher` takes `align: :start` to start the tab row at the left edge on every width.
+- `ui_tab_switcher` takes `shape: :pills` or `shape: :underline` to draw outlined pill tabs or underlined tabs, with each count drawn as plain text after the label.
+
+### Changed
+- The gem requires keystone_ui-styles 0.39.0 or later, the first version with the pill and underlined tab row classes.
+
 ## [0.97.0] - 2026-11-16
 
 ### Added
