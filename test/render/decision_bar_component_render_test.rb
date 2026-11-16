@@ -81,6 +81,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-bottom-action > div:has(> button.ks-button-primary)")&.[]("class").to_s.split, "max-sm:order-first"
   end
 
+  def test_on_a_phone_stretches_the_primary_button_across_the_full_width
+    page = render_bar
+
+    assert_includes page.at_css(".ks-bottom-action > div:has(> button.ks-button-primary)")&.[]("class").to_s.split, "max-sm:*:w-full"
+  end
+
   private
 
   def render_bar(**overrides)
