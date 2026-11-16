@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.91.0] - 2026-11-15
+
+### Changed
+- A `ui_timeline` entry given `waiting: true` draws its bar in the timeline's waiting colour rather than the queued colour, which still draws queued time.
+- The gem requires keystone_ui-styles 0.35.0 or later, the first version with the timeline's waiting colour.
+
 ## [0.90.0] - 2026-11-15
 
 ### Added

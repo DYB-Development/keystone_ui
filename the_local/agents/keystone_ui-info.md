@@ -76,7 +76,7 @@ One decision: is keystone_ui set up in the app?
   segment before the bar, and a failed try is marked failed both in colour and
   for screen readers. An entry can be marked waiting, for a try that has not
   started running: its bar runs from its start to the end of the axis in the
-  queued colour, and its row shows the word `waiting` in the warning tone in
+  waiting colour, and its row shows the word `waiting` in the warning tone in
   place of a duration, with no running dot. The axis
   runs from the earliest queued or start time of any entry to the latest end
   or start time. An entry with no end time is still running: its bar runs to

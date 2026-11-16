@@ -94,6 +94,12 @@ class KeystoneUi::PackagingTest < Minitest::Test
     refute requirement.satisfied_by?(Gem::Version.new("0.24.0"))
   end
 
+  def test_requires_a_keystone_ui_styles_with_the_timeline_waiting_class
+    requirement = gemspec.dependencies.find { |d| d.name == "keystone_ui-styles" }.requirement
+
+    refute requirement.satisfied_by?(Gem::Version.new("0.34.0"))
+  end
+
   private
 
   def gemspec

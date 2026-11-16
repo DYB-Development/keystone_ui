@@ -833,7 +833,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
     - An entry given `waiting: true` is a try paused before it can go on, such
       as a step waiting for approval. Its bar runs from its `started_at` to the
       end of the axis, which on a one-line timeline is its last mark, in the
-      queued colour, in place of the danger colour even
+      waiting colour, in place of the danger colour even
       when it is also `failed: true`. Its row writes `waiting` in the warning
       tone in place of the duration, and shows no "Running" dot. A row holding
       any waiting entry is a waiting row.
