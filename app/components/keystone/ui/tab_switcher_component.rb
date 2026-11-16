@@ -40,6 +40,12 @@ module Keystone
         "#{base_tab_classes} ks-tab-active"
       end
 
+      def count_mark(count)
+        return render(BadgeComponent.new(label: count.to_s, variant: :info)) unless @shape
+
+        content_tag(:span, count, class: "ks-tab-count")
+      end
+
       def panel_classes
         PANEL_CLASSES
       end

@@ -121,6 +121,13 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ false, false ], page.css("a.ks-tab").map { |link| link["class"].split.include?("text-sm") }
   end
 
+  def test_in_a_shaped_tab_row_a_count_is_drawn_as_plain_text_after_the_label_and_not_as_a_badge
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ { label: "Approvals", href: "/inbox?filter=approvals", count: 4 } ], shape: :pills))
+
+    assert_equal [ "Approvals 4", [ "4" ], 0 ],
+      [ page.at_css("a.ks-tab").text.strip, page.css("a.ks-tab span.ks-tab-count").map(&:text), page.css("a.ks-tab .ks-badge").size ]
+  end
+
   private
 
   def render_with_summary
