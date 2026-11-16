@@ -375,7 +375,7 @@ Renders a card for one item someone reviews, such as one of several variants com
 - `meta:` (String) — a line of short details, in a monospaced font, with a divider above it
 - `finding:` (String) — a note drawn in the warning style, which also draws the card's edge in the warning style
 - `actions:` (Array of Hashes) — `ui_button` keywords for each button, drawn as small secondary buttons
-- `compact:` (Boolean, default `false`) — leaves out the body text, the call-to-action line and the meta line, for a phone list
+- `compact:` (Boolean, default `false`) — cuts the body text to one line with an ellipsis and leaves out the call-to-action line and the meta line, for a phone list
 
 ```erb
 <%= ui_review_card_grid do %>
