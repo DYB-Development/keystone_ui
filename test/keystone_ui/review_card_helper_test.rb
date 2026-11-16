@@ -22,4 +22,12 @@ class KeystoneUi::ReviewCardHelperTest < Minitest::Test
 
     assert_instance_of Keystone::Ui::ReviewCardComponent, view.rendered
   end
+
+  def test_renders_a_review_card_grid
+    view = View.new
+
+    view.ui_review_card_grid { "" }
+
+    assert_instance_of Keystone::Ui::ReviewCardGridComponent, view.rendered
+  end
 end
