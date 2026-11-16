@@ -18,7 +18,7 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
   def test_draws_each_secondary_action_as_a_button_sending_its_name_and_value
     page = render_bar
 
-    assert_equal %w[reject send_back], page.css("button.ks-button-secondary[name='decision']").map { |button| button["value"] }
+    assert_equal %w[reject send_back], page.css("form button.ks-button-secondary[name='decision']").map { |button| button["value"] }
   end
 
   def test_draws_the_primary_action_after_the_secondary_actions
@@ -109,6 +109,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     page = render_bar(hint: "Keyboard: A approve")
 
     assert_includes page.at_css(".ks-hint")["class"].split, "max-sm:hidden"
+  end
+
+  def test_keeps_a_copy_of_its_phone_bar_in_the_pages_flow_so_the_last_content_scrolls_clear_of_it
+    page = render_bar
+
+    assert_includes page.at_css("[data-decision-bar-spacer] .ks-bottom-action")&.[]("class").to_s.split, "!static"
   end
 
   private
