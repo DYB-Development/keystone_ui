@@ -23,6 +23,12 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
     assert_includes component.classes.split, "max-sm:justify-start"
   end
 
+  def test_aligned_to_the_start_the_tab_row_starts_at_the_left_edge_on_every_width
+    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], align: :start)
+
+    assert_equal %w[justify-start], component.classes.split.grep_v(/\Amax-sm:/) & %w[justify-start justify-center]
+  end
+
   def test_stores_tab_labels
     component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "Alpha", "Beta", "Gamma" ])
 
