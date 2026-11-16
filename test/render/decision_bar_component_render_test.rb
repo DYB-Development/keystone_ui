@@ -63,6 +63,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("form")["class"].split, "max-sm:contents"
   end
 
+  def test_from_640_pixels_wide_draws_its_row_in_a_panel
+    page = render_bar
+
+    assert_empty %w[ks-panel ks-panel-radius-md ks-panel-padding-sm] - page.at_css("form")["class"].split
+  end
+
   private
 
   def render_bar(**overrides)
