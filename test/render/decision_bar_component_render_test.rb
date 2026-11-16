@@ -159,6 +159,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("form div:has(> a[href='/inbox/8'])")&.[]("class").to_s.split, "sm:hidden"
   end
 
+  def test_puts_an_action_given_a_phone_order_in_that_place_in_the_phone_row
+    page = render_bar(actions: [ { label: "Reject", name: "decision", value: "reject", phone_order: 2 } ])
+
+    assert_includes page.at_css("form div:has(> button[value='reject'])")&.[]("class").to_s.split, "max-sm:order-2"
+  end
+
   private
 
   def render_bar(**overrides)
