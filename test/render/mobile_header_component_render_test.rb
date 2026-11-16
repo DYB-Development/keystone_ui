@@ -44,4 +44,10 @@ class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Inbox · 7 items", page.at_css(".ks-mobile-header-title").first_element_child.text
   end
+
+  def test_keeps_the_badge_at_its_own_height_inside_a_taller_bar
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Approve variants", back_url: nil, badge: { label: "46h left" }))
+
+    assert_includes page.at_css(".ks-badge")["class"].split, "self-center"
+  end
 end
