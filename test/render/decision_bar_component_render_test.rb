@@ -15,6 +15,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal "Note", page.at_css("label:has(input[name='note'])")&.text&.strip
   end
 
+  def test_draws_each_secondary_action_as_a_button_sending_its_name_and_value
+    page = render_bar
+
+    assert_equal %w[reject send_back], page.css("button.ks-button-secondary[name='decision']").map { |button| button["value"] }
+  end
+
   private
 
   def render_bar(**overrides)
