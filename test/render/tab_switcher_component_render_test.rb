@@ -103,6 +103,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal "4", page.at_css("a.ks-tab .ks-badge.ks-badge-info")&.text&.strip
   end
 
+  def test_a_link_tab_with_a_count_of_zero_draws_no_badge_as_a_navigation_item_does
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ { label: "Input", href: "/inbox?filter=input", count: 0 } ]))
+
+    assert_nil page.at_css("a.ks-tab .ks-badge")
+  end
+
   private
 
   def render_with_summary
