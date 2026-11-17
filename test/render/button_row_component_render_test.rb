@@ -11,6 +11,12 @@ class Keystone::Ui::ButtonRowComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Add label", "Re-run step" ], page.css("div.flex.ks-grid-gap-sm > .ks-button").map(&:text)
   end
 
+  def test_adds_the_classes_it_is_given_to_its_row
+    page = render_inline(Keystone::Ui::ButtonRowComponent.new(class: "max-lg:*:flex-1")) { BUTTONS }
+
+    assert_includes page.at_css("div")["class"].split, "max-lg:*:flex-1"
+  end
+
   def test_wraps_its_buttons_onto_a_new_line_when_it_runs_out_of_width
     page = render_inline(Keystone::Ui::ButtonRowComponent.new) { BUTTONS }
 
