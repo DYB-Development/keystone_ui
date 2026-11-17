@@ -13,7 +13,7 @@ module Keystone
       CTA_CLASSES = "ks-card-link text-xs"
       META_CLASSES = "ks-card-meta font-mono text-xs ks-tone-muted"
       FINDING_CLASSES = "ks-alert ks-alert-warning text-xs"
-      TONE_CLASSES = { muted: "ks-tone-muted", neutral: "ks-tone-neutral", success: "ks-tone-success", warning: "ks-tone-warning", danger: "ks-tone-danger", info: "ks-tone-info" }.freeze
+      TONE_CLASSES = [ :muted, *States::NAMES ].to_h { |tone| [ tone, "ks-tone-#{tone}" ] }.freeze
 
       def initialize(id:, title:, score: nil, score_tone: :muted, body: nil, cta: nil, meta: nil, finding: nil, actions: [], compact: false)
         @id = id
