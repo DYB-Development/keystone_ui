@@ -60,38 +60,57 @@ module Keystone
       end
 
       def compare
-        before_index = after_index = 0
-        rows = []
-        while before_index < @before.size || after_index < @after.size
-          if before_index < @before.size && after_index < @after.size && @before[before_index] == @after[after_index]
-            rows << [ { text: @before[before_index], number: before_index + 1 }, { text: @after[after_index], number: after_index + 1 } ]
-            before_index += 1
-            after_index += 1
-          elsif before_index < @before.size && (after_index == @after.size || shared[before_index + 1][after_index] >= shared[before_index][after_index + 1])
-            rows << [ { text: @before[before_index], number: before_index + 1, mark: "ks-diff-removed", sign: "-" }, nil ]
-            before_index += 1
-          else
-            rows << [ nil, { text: @after[after_index], number: after_index + 1, mark: "ks-diff-added", sign: "+" } ]
-            after_index += 1
+        edits.map do |step, before_index, after_index|
+          case step
+          when :same then [ { text: @before[before_index], number: before_index + 1 }, { text: @after[after_index], number: after_index + 1 } ]
+          when :remove then [ { text: @before[before_index], number: before_index + 1, mark: "ks-diff-removed", sign: "-" }, nil ]
+          else [ nil, { text: @after[after_index], number: after_index + 1, mark: "ks-diff-added", sign: "+" } ]
           end
         end
-        rows
       end
 
-      def shared
-        @shared ||= begin
-          table = Array.new(@before.size + 1) { Array.new(@after.size + 1, 0) }
-          (@before.size - 1).downto(0) do |before_index|
-            (@after.size - 1).downto(0) do |after_index|
-              table[before_index][after_index] = if @before[before_index] == @after[after_index]
-                table[before_index + 1][after_index + 1] + 1
-              else
-                [ table[before_index + 1][after_index], table[before_index][after_index + 1] ].max
-              end
-            end
+      def edits
+        before_index = @before.size
+        after_index = @after.size
+        steps = []
+        furthest_reaches.each_with_index.reverse_each do |reach, changes|
+          diagonal = before_index - after_index
+          previous_diagonal = added_on?(reach, diagonal, changes) ? diagonal + 1 : diagonal - 1
+          previous_before = reach[previous_diagonal]
+          previous_after = previous_before - previous_diagonal
+          while before_index > previous_before && after_index > previous_after
+            before_index -= 1
+            after_index -= 1
+            steps << [ :same, before_index, after_index ]
           end
-          table
+          next if changes.zero?
+
+          steps << (before_index == previous_before ? [ :add, nil, after_index - 1 ] : [ :remove, before_index - 1, nil ])
+          before_index = previous_before
+          after_index = previous_after
         end
+        steps.reverse
+      end
+
+      def furthest_reaches
+        reach = { 1 => 0 }
+        (0..(@before.size + @after.size)).each_with_object([]) do |changes, reaches|
+          reaches << reach.dup
+          (-changes).step(changes, 2) do |diagonal|
+            before_index = added_on?(reach, diagonal, changes) ? reach[diagonal + 1] : reach[diagonal - 1] + 1
+            after_index = before_index - diagonal
+            while before_index < @before.size && after_index < @after.size && @before[before_index] == @after[after_index]
+              before_index += 1
+              after_index += 1
+            end
+            reach[diagonal] = before_index
+            return reaches if before_index >= @before.size && after_index >= @after.size
+          end
+        end
+      end
+
+      def added_on?(reach, diagonal, changes)
+        diagonal == -changes || (diagonal != changes && reach[diagonal - 1] < reach[diagonal + 1])
       end
     end
   end
