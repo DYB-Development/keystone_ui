@@ -325,6 +325,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("[data-timeline-mark]").parent[:class].split, "max-sm:hidden"
   end
 
+  def test_shows_the_start_and_total_of_a_one_line_timeline_under_its_rows_only_on_a_phone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_includes page.at_css("[data-timeline-axis-end]")&.parent&.[](:class).to_s.split, "sm:hidden"
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")

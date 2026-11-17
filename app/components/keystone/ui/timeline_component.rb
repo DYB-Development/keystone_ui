@@ -20,6 +20,7 @@ module Keystone
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
       ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
+      PHONE_AXIS_CLASSES = "ks-meter-label flex justify-between text-xs sm:col-span-3 sm:hidden"
       ONE_LINE_AXIS_CLASSES = "ks-meter-label relative h-4 text-xs sm:col-start-2 max-sm:hidden"
       MARK_CLASSES = "absolute top-0 whitespace-nowrap"
       MINIMUM_BAR_PERCENT = 2
@@ -36,6 +37,10 @@ module Keystone
 
       def track_classes
         [ TRACK_CLASSES, (ONE_LINE_TRACK_CLASSES if one_line) ].compact.join(" ")
+      end
+
+      def axis_classes
+        one_line ? PHONE_AXIS_CLASSES : AXIS_CLASSES
       end
 
       def label_classes
