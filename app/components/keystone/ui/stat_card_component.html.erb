@@ -12,8 +12,8 @@
     <% end %>
   </div>
   <p class="<%= value_classes %>">
-    <% if missing? %><span class="<%= Keystone::Ui::StatCardComponent::FALLBACK_CLASSES %>"><%= fallback %></span><% elsif link? %><a href="<%= href %>" class="<%= value_link_classes %>"><%= value %></a><% else %><%= value %><% end %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %><% if compact? && change? %><span class="<%= compact_change_classes %>"><%= change_label %></span><% end %>
+    <% if missing? %><span class="<%= Keystone::Ui::StatCardComponent::FALLBACK_CLASSES %>"><%= fallback %></span><% elsif link? %><a href="<%= href %>" class="<%= value_link_classes %>"><%= value %></a><% else %><%= value %><% end %><% if suffix? %><span class="<%= suffix_classes %>"> <%= suffix %></span><% end %><% if compact? && change? %><span class="<%= compact_change_classes %>"><%= change_label %></span><% end %><% if compact? && note %><span class="<%= Keystone::Ui::StatCardComponent::COMPACT_NOTE_CLASSES %>"><%= note %></span><% end %>
   </p>
-  <% if note %><p class="<%= Keystone::Ui::StatCardComponent::NOTE_CLASSES %>"><%= note %></p><% end %>
+  <% if note && !compact? %><p class="<%= Keystone::Ui::StatCardComponent::NOTE_CLASSES %>"><%= note %></p><% end %>
   <% unless compact? %><p class="<%= change_row_classes %>"><%= change_label %></p><% end %>
 </div>

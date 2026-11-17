@@ -19,6 +19,7 @@ module Keystone
       VALUE_LINK_CLASSES = "hover:underline focus:outline-none focus-visible:underline"
       INFO_BUTTON_CLASSES = "ks-stat-card-info peer shrink-0 transition"
       NOTE_CLASSES = "ks-stat-card-note text-sm"
+      COMPACT_NOTE_CLASSES = "ks-stat-card-note text-xs"
       FALLBACK_CLASSES = "ks-stat-card-fallback"
 
       INFO_ICON = <<~SVG.freeze

@@ -15,6 +15,12 @@ class Keystone::Ui::StatCardReportRenderTest < ViewComponent::TestCase
     assert_equal "▼ 4.0%", page.css(".ks-stat-card-value .ks-stat-card-change").text.strip
   end
 
+  def test_a_compact_card_shows_its_note_beside_its_value
+    page = render_inline(Keystone::Ui::StatCardComponent.new(label: "Avg tokens out", value: "302", note: "vs v22", compact: true))
+
+    assert_equal "vs v22", page.css(".ks-stat-card-value .ks-stat-card-note").text.strip
+  end
+
   def test_draws_a_plain_figure_without_the_card_border_when_asked
     page = render_inline(Keystone::Ui::StatCardComponent.new(label: "Commits", value: "553", plain: true))
 
