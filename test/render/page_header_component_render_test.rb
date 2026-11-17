@@ -3,6 +3,12 @@
 require "render_helper"
 
 class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
+  def test_draws_its_subtitle_in_a_fixed_width_font_when_asked
+    page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Spring email", subtitle: "run_8f3a21 · started 14:02:11", subtitle_mono: true))
+
+    assert_equal "ks-page-header-subtitle font-mono", page.at_css(".ks-page-header-subtitle")["class"]
+  end
+
   def test_given_only_an_action_address_draws_it_as_a_button
     page = render_inline(Keystone::Ui::PageHeaderComponent.new(title: "Events", action_url: "/events/new", action_label: "Create"))
 
