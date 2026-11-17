@@ -30,7 +30,11 @@ module Keystone
         md: "md:hidden",
         lg: "lg:hidden"
       }.freeze
-      FULL_LABEL_CLASSES = "max-sm:hidden"
+      FULL_LABEL_CLASSES = {
+        sm: "max-sm:hidden",
+        md: "max-md:hidden",
+        lg: "max-lg:hidden"
+      }.freeze
       HINT_CLASSES = {
         sm: "ks-hint basis-full max-sm:hidden",
         md: "ks-hint basis-full max-md:hidden",
@@ -101,7 +105,7 @@ module Keystone
       def action_label(action)
         return action[:label] unless action[:phone_label]
 
-        safe_join([ tag.span(action[:label], class: FULL_LABEL_CLASSES), tag.span(action[:phone_label], class: PHONE_LABEL_CLASSES.fetch(@breakpoint)) ])
+        safe_join([ tag.span(action[:label], class: FULL_LABEL_CLASSES.fetch(@breakpoint)), tag.span(action[:phone_label], class: PHONE_LABEL_CLASSES.fetch(@breakpoint)) ])
       end
 
       def primary_button
