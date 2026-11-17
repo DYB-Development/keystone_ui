@@ -15,6 +15,7 @@ module Keystone
       SUFFIX_CLASSES = "ks-stat-card-suffix text-lg"
       DISCLOSURE_CLASSES = "ks-stat-card-disclosure hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 text-sm"
       CHANGE_ROW_CLASSES = "ks-stat-card-change h-5 text-sm"
+      COMPACT_CHANGE_CLASSES = "ks-stat-card-change text-xs"
       VALUE_LINK_CLASSES = "hover:underline focus:outline-none focus-visible:underline"
       INFO_BUTTON_CLASSES = "ks-stat-card-info peer shrink-0 transition"
       NOTE_CLASSES = "ks-stat-card-note text-sm"
@@ -106,6 +107,14 @@ module Keystone
 
       def change_row_classes
         "#{CHANGE_ROW_CLASSES} #{change_classes}"
+      end
+
+      def compact?
+        @compact
+      end
+
+      def compact_change_classes
+        "#{COMPACT_CHANGE_CLASSES} #{change_classes}"
       end
 
       def change_classes
