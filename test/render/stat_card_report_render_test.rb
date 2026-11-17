@@ -7,6 +7,13 @@ class Keystone::Ui::StatCardReportRenderTest < ViewComponent::TestCase
     assert_equal Keystone::Ui::States::NAMES, Keystone::Ui::StatCardComponent::VARIANT_CLASSES.keys
   end
 
+  def test_puts_each_tones_own_class_on_its_value
+    tones = { neutral: "ks-tone-neutral", success: "ks-tone-success", danger: "ks-tone-danger", warning: "ks-tone-warning", info: "ks-tone-info" }
+    drawn = tones.keys.to_h { |tone| [ tone, render_inline(Keystone::Ui::StatCardComponent.new(label: "Commits", value: "553", variant: tone)).at_css(".ks-stat-card-value")["class"].split.grep(/\Aks-tone-/).join(" ") ] }
+
+    assert_equal tones, drawn
+  end
+
   def test_shows_a_note_under_its_value
     page = render_inline(Keystone::Ui::StatCardComponent.new(label: "Commits", value: "553", note: "excluding merge commits"))
 
