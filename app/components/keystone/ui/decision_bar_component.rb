@@ -25,7 +25,11 @@ module Keystone
         lg: "ks-hint basis-full max-lg:hidden"
       }.freeze
       BAR_COPY_CLASSES = "!static invisible"
-      SPACER_CLASSES = "sm:hidden"
+      SPACER_CLASSES = {
+        sm: "sm:hidden",
+        md: "md:hidden",
+        lg: "lg:hidden"
+      }.freeze
       TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block"
       NOTE_LABEL_CLASSES = "ks-label shrink-0"
       NOTE_CLASSES = {
@@ -58,6 +62,10 @@ module Keystone
 
       def hint_classes
         HINT_CLASSES.fetch(@breakpoint)
+      end
+
+      def spacer_classes
+        SPACER_CLASSES.fetch(@breakpoint)
       end
 
       def buttons

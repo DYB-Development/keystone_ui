@@ -201,6 +201,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-hint")["class"].split, "max-lg:hidden"
   end
 
+  def test_given_the_large_breakpoint_keeps_room_for_its_fixed_bar_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_includes page.at_css("[data-decision-bar-spacer]")["class"].split, "lg:hidden"
+  end
+
   private
 
   def render_bar(**overrides)
