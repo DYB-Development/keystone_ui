@@ -11,6 +11,7 @@ module Keystone
       LABEL_CLASSES = "ks-stat-card-label text-sm"
       COMPACT_LABEL_CLASSES = "ks-stat-card-label text-xs"
       VALUE_BASE_CLASSES = "ks-stat-card-value text-3xl"
+      COMPACT_VALUE_CLASSES = "ks-stat-card-value ks-stat-card-value-compact flex flex-wrap items-baseline text-lg leading-6"
       SUFFIX_CLASSES = "ks-stat-card-suffix text-lg"
       DISCLOSURE_CLASSES = "ks-stat-card-disclosure hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 text-sm"
       CHANGE_ROW_CLASSES = "ks-stat-card-change h-5 text-sm"
@@ -67,7 +68,7 @@ module Keystone
       end
 
       def value_classes
-        "#{VALUE_BASE_CLASSES} #{VARIANT_CLASSES.fetch(@variant)}"
+        "#{@compact ? COMPACT_VALUE_CLASSES : VALUE_BASE_CLASSES} #{VARIANT_CLASSES.fetch(@variant)}"
       end
 
       def suffix_classes
