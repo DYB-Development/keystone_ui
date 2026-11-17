@@ -5,12 +5,6 @@ require "test_helper"
 class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
   VISUAL_UTILITY = %r{(?:^|\s)(?:[\w\-\[\]&]+:)*(?:bg-|text-(?!xs\b|sm\b|base\b|lg\b|xl\b|\dxl\b|left\b|center\b|right\b)|border|rounded|shadow|ring|font-(?!mono\b)|p[xytblr]?-|m[xytblr]?-(?!auto\b)|gap-|space-[xy]-|divide-)}
 
-  def test_exposes_back_url
-    component = Keystone::Ui::MobileHeaderComponent.new(title: "Invoice #42", back_url: "/invoices")
-
-    assert_equal "/invoices", component.instance_variable_get(:@back_url)
-  end
-
   def test_stores_subtitle_when_provided
     component = Keystone::Ui::MobileHeaderComponent.new(title: "Invoice #42", back_url: "/invoices", subtitle: "Draft")
 

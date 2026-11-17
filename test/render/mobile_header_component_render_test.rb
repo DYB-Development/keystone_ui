@@ -9,6 +9,12 @@ class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
     assert_equal "Invoice #42", page.at_css(".ks-mobile-header-title")&.text&.strip
   end
 
+  def test_links_its_back_arrow_to_the_back_address_it_is_given
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Invoice #42", back_url: "/invoices"))
+
+    assert_equal "/invoices", page.at_css("a.ks-mobile-header-back")&.[]("href")
+  end
+
   def test_given_no_back_url_leaves_no_space_for_one_before_the_title
     page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Inbox", back_url: nil))
 
