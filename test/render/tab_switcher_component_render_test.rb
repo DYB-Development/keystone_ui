@@ -140,6 +140,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ false, true ], page.css("[data-tab-switcher-target=panel]").map { |panel| panel.key?("hidden") }
   end
 
+  def test_with_a_panel_per_tab_the_fields_of_each_hidden_panel_are_disabled_so_they_neither_block_nor_join_the_form
+    page = render_with_panels
+
+    assert_equal [ false, true ], page.css("fieldset[data-tab-switcher-target=panel]").map { |panel| panel.key?("disabled") }
+  end
+
   private
 
   def render_with_summary
