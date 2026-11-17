@@ -908,7 +908,7 @@ Wraps a label, input, hint, and error message in a consistent layout. Infers lab
 
 - `label:` (String) — explicit label text (inferred from `attribute:` if omitted)
 - `type:` (`:text | :number | :email | :password | :date | :datetime | :textarea`, default `:text`) — `:datetime` renders a `datetime-local` input, and a `Time` or `DateTime` given as `value:` is written as `YYYY-MM-DDTHH:MM`
-- `required:` (Boolean, default `false`) — shows a red asterisk after the label, and on an input sets the `required` attribute so the form will not send while it is empty
+- `required:` (Boolean, default `false`) — shows a red asterisk after the label, on an input sets the `required` attribute so the form will not send while it is empty, and on a `:checkbox` sets it so the form will not send while the box is unticked
 - `hint:` (String) — help text below the input
 - `placeholder:` (String)
 - `min:` / `max:` (for number inputs)
@@ -1068,6 +1068,7 @@ A list of links, one row per item, each row ending in a chevron. Use it where ea
 **Optional props**
 
 - `chevron:` (Boolean, default `true`) — `false` leaves off every row's chevron
+- `new_tab:` (Boolean, default `false`) — `true` opens every row's link in a new browser tab with `target="_blank"` and `rel="noopener"`, so the page it was followed from stays open
 
 ```erb
 <%= ui_link_list(rows: @reports.map { |report|
@@ -1082,6 +1083,15 @@ A queue of items, each with its type and time left above its title, the open one
       { label: item.title, subtitle: item.details, href: item_path(item),
         top_line: { badge: { label: item.item_type, variant: :warning }, text: "expires #{item.time_left}" },
         current: item == @item } }) %>
+```
+
+Documents linked beside a form, opened in a new tab so the form keeps what was typed:
+
+```erb
+<%= ui_link_list(new_tab: true, rows: [
+      { label: "Terms of Service", href: terms_path },
+      { label: "Privacy Policy", href: privacy_path }
+    ]) %>
 ```
 
 ### `ui_select`
@@ -1544,6 +1554,21 @@ A link tab's count is drawn in an info badge, as a navigation item draws its cou
 Below `sm` the tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line. From `sm` up it wraps and is centred, or starts at the left edge with `align: :start`.
 
 **Slots**
+
+- `panels` — one panel per label tab, in the order of `tabs:`. The first panel shows when the page opens, and choosing a tab shows its panel and hides the others on the same page, so values typed into fields on any panel are kept. The fields of a hidden panel are disabled, so a required field on a hidden tab does not stop the form being sent and is not submitted
+
+```erb
+<%= form_with url: sign_up_path do %>
+  <%= ui_tab_switcher(tabs: ["Password", "Emailed code"]) do |switcher| %>
+    <% switcher.with_panel do %>
+      <%= ui_form_field(attribute: :password, type: :password, required: true) %>
+    <% end %>
+    <% switcher.with_panel do %>
+      <%= ui_form_field(attribute: :email, type: :email, required: true) %>
+    <% end %>
+  <% end %>
+<% end %>
+```
 
 - `summary` — content that sits with the tabs, such as stat cards. From `sm` up it is drawn above the tab row. Below `sm` it is drawn between the tab row and the panel, so a phone reaches the tabs first. The summary is drawn once, and the host writes no width-specific classes.
 
