@@ -9,12 +9,6 @@ module Keystone
         </svg>
       SVG
 
-      ELLIPSIS_ICON = <<~SVG.freeze
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-        </svg>
-      SVG
-
       ROW_CLASSES = "ks-page flex items-center ks-grid-gap-sm lg:hidden print:hidden max-lg:in-[.top-nav]:contents"
       WRAPPER_CLASSES = "flex items-center lg:hidden print:hidden"
       BACK_LINK_CLASSES = "ks-mobile-header-back"
@@ -22,15 +16,7 @@ module Keystone
       SUBTITLE_CLASSES = "ks-mobile-header-subtitle block text-xs truncate"
       OVERLINE_CLASSES = "ks-mobile-header-subtitle block text-xs truncate"
       BADGE_CLASSES = "ml-auto shrink-0 self-center"
-      DROPDOWN_CLASSES = "ks-action-menu hidden absolute right-0 z-50 w-48 origin-top-right"
 
-      # Renders the left-side and title of the mobile header.
-      # Call from the left side of your navbar.
-      #
-      # Usage in navbar:
-      #   <% if content_for?(:form_page) %>
-      #     <%= ui_mobile_header_left %>
-      #   <% end %>
       def initialize(title:, back_url:, subtitle: nil, overline: nil, badge: nil)
         @title = title
         @back_url = back_url

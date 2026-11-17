@@ -65,17 +65,9 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
     assert_includes Keystone::Ui::MobileHeaderComponent::TITLE_CLASSES, "lg:hidden"
   end
 
-  def test_has_dropdown_classes_with_hidden_and_positioning
-    assert_includes Keystone::Ui::MobileHeaderComponent::DROPDOWN_CLASSES, "hidden"
-    assert_includes Keystone::Ui::MobileHeaderComponent::DROPDOWN_CLASSES, "absolute"
-    assert_includes Keystone::Ui::MobileHeaderComponent::DROPDOWN_CLASSES, "z-50"
-  end
-
-  def test_has_frozen_svg_icons
+  def test_has_a_frozen_svg_back_icon
     assert Keystone::Ui::MobileHeaderComponent::BACK_ICON.frozen?
     assert_includes Keystone::Ui::MobileHeaderComponent::BACK_ICON, "<svg"
-    assert Keystone::Ui::MobileHeaderComponent::ELLIPSIS_ICON.frozen?
-    assert_includes Keystone::Ui::MobileHeaderComponent::ELLIPSIS_ICON, "<svg"
   end
 
   def test_back_link_classes_render_the_ks_mobile_header_back_class
@@ -100,13 +92,5 @@ class Keystone::Ui::MobileHeaderComponentTest < Minitest::Test
 
   def test_subtitle_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::MobileHeaderComponent::SUBTITLE_CLASSES
-  end
-
-  def test_dropdown_classes_render_the_ks_action_menu_class
-    assert_includes Keystone::Ui::MobileHeaderComponent::DROPDOWN_CLASSES, "ks-action-menu"
-  end
-
-  def test_dropdown_classes_hold_no_visual_utility
-    refute_match VISUAL_UTILITY, Keystone::Ui::MobileHeaderComponent::DROPDOWN_CLASSES
   end
 end
