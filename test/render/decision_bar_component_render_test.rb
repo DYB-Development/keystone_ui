@@ -213,6 +213,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[max-lg:order-first max-lg:*:w-full max-lg:*:min-h-12] - page.at_css(".ks-bottom-action > div:has(> button.ks-button-primary)")["class"].split
   end
 
+  def test_given_the_large_breakpoint_shows_an_action_marked_phone_only_below_1024_pixels_wide_only
+    page = render_bar(breakpoint: :lg, actions: [ { label: "Next ›", href: "/inbox/8", phone_only: true } ])
+
+    assert_includes page.at_css("form div:has(> a[href='/inbox/8'])")["class"].split, "lg:hidden"
+  end
+
   private
 
   def render_bar(**overrides)
