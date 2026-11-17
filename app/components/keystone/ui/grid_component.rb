@@ -15,7 +15,8 @@ module Keystone
       }.freeze
 
       WIDE_COL_CLASSES = {
-        first: { default: "grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", sm: "sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", md: "md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", lg: "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", xl: "xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]" }.freeze
+        first: { default: "grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", sm: "sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", md: "md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", lg: "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", xl: "xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]" }.freeze,
+        second: { default: "grid-cols-[minmax(0,2fr)_minmax(0,3fr)]", sm: "sm:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]", md: "md:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]", lg: "lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]", xl: "xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]" }.freeze
       }.freeze
 
       def initialize(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil, wide: nil)
