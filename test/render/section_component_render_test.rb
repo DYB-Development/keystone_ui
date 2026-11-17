@@ -41,6 +41,17 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_equal "sorted by expiry", page.css(".ks-section-header > *")[1]&.text&.strip
   end
 
+  def test_refuses_an_aside_given_with_no_title
+    error = assert_raises(ArgumentError) do
+      render_inline(Keystone::Ui::SectionComponent.new) do |section|
+        section.with_aside { "sorted by expiry" }
+        ""
+      end
+    end
+
+    assert_includes error.message, "aside needs a title"
+  end
+
   def test_never_breaks_an_aside_in_the_middle_of_a_word
     assert_includes aside_classes(render_with_aside), "wrap-normal"
   end
