@@ -100,7 +100,14 @@ One decision: is keystone_ui set up in the app?
   table's current row and announced to screen readers as the current item.
 - **Tab rows.** A tab switcher's tabs are either labels switched in the
   browser or links to addresses, with the chosen link drawn as the current
-  tab. A link tab can carry a count shown after its label. The row is centred
+  tab. Label tabs can each hold a panel on the same page, and choosing a tab
+  shows its panel and hides the others, so values typed into fields are kept,
+  and the fields of a hidden panel are disabled, so a required field on a
+  hidden panel does not stop the form being sent. A panel can be narrower than
+  its content, so a wide panel does not widen the page on a phone. A link tab
+  can carry a count shown after its label, and a count of zero is shown only
+  when the tab asks for it. A tab switcher can hold a summary, drawn above the
+  tabs on a wider screen and below them on a phone. The row is centred
   on wider screens, or starts at the left edge when asked. It can be drawn as
   plain tabs, as outlined pills such as a row of filters, or as tabs on a line
   with the chosen one underlined. On a phone every row stays on one line and
@@ -271,4 +278,4 @@ One decision: is keystone_ui set up in the app?
   Stimulus controllers, so a host writes no JavaScript. Components that post,
   such as the column picker and the pipeline, post to endpoints the host or
   another gem owns.
-- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.34.0.
+- Ruby >= 3.2, ViewComponent >= 2.0 and < 5, keystone_ui-styles >= 0.42.0.
