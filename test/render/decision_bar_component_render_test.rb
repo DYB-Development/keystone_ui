@@ -255,6 +255,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("div:has(> button.ks-button-secondary)")["class"].split, "*:wrap-break-word"
   end
 
+  def test_sends_a_delete_to_the_own_link_of_an_action_given_a_link_and_a_delete_method
+    page = render_bar(actions: [ { label: "Delete", href: "/approvals/7", method: :delete } ])
+
+    assert_equal [ "/approvals/7", "_method", "delete" ], %w[formaction name value].map { |attribute| page.at_css("form button.ks-button-secondary")&.[](attribute) }
+  end
+
   private
 
   def render_bar(**overrides)
