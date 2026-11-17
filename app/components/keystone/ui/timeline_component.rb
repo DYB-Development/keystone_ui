@@ -14,7 +14,7 @@ module Keystone
       TIMELINE_CLASSES = "flex flex-col ks-grid-gap-sm"
       ONE_LINE_TIMELINE_CLASSES = "sm:grid sm:grid-cols-[fit-content(40%)_1fr_auto]"
       ONE_LINE_ROW_CLASSES = "grid grid-cols-[1fr_auto] items-center ks-grid-gap-x-sm text-sm sm:col-span-3 sm:grid-cols-subgrid"
-      ONE_LINE_LABEL_CLASSES = "ks-meter-label min-w-0 sm:truncate sm:mb-0"
+      ONE_LINE_LABEL_CLASSES = "ks-meter-label min-w-0 wrap-break-word sm:truncate sm:mb-0"
       ONE_LINE_TRACK_CLASSES = "col-span-2 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1"
       ONE_LINE_STATUS_CLASSES = "ks-meter-label justify-self-end sm:mb-0"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
