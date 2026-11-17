@@ -23,6 +23,7 @@ module Keystone
       attr_reader :bars
 
       def initialize(bars:, show_values: false, strip: false)
+        bars.each { |bar| check_value(bar) }
         @bars = bars
         @show_values = show_values
         @strip = strip
@@ -71,6 +72,10 @@ module Keystone
       end
 
       private
+
+      def check_value(bar)
+        raise ArgumentError, "Bar chart bar #{bar[:label].inspect} has the negative value #{bar[:value]}, and a bar chart draws no bar below zero" if bar[:value].to_f.negative?
+      end
 
       def bar_share
         strip? ? STRIP_BAR_SHARE : BAR_SHARE
