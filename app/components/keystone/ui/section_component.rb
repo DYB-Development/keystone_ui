@@ -10,7 +10,7 @@ module Keystone
       SUBTITLE_CLASSES = "ks-section-subtitle"
       ACTION_CLASSES = "ks-section-action"
       ACTIONS_CLASSES = "flex items-center shrink-0 ks-grid-gap-sm"
-      ASIDE_CLASSES = "ks-heading-note ml-auto max-sm:basis-full max-sm:order-last"
+      ASIDE_CLASSES = "ks-heading-note ml-auto wrap-normal max-sm:basis-full max-sm:order-last"
 
       renders_one :aside
 
