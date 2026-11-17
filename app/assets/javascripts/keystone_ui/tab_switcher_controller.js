@@ -16,6 +16,7 @@ export default class extends Controller {
 
     this.panelTargets.forEach((panel, panelIndex) => {
       panel.hidden = panelIndex !== index
+      panel.disabled = panelIndex !== index
     })
 
     this.dispatch("change", { detail: { index } })

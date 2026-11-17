@@ -19,3 +19,11 @@ test("choosing the second tab shows its panel and hides the first", () => {
 
   assert.deepEqual(panels.map((panel) => panel.hidden), [true, false])
 })
+
+test("choosing the second tab disables the fields of the first panel and enables its own", () => {
+  const { controller, tabs, panels } = switcherWithPanels()
+
+  controller.select({ currentTarget: tabs[1] })
+
+  assert.deepEqual(panels.map((panel) => panel.disabled), [true, false])
+})
