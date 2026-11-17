@@ -195,6 +195,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("label:has(input[name='note'])")["class"].split, "max-lg:hidden"
   end
 
+  def test_given_the_large_breakpoint_leaves_its_hint_out_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg, hint: "Keyboard: A approve")
+
+    assert_includes page.at_css(".ks-hint")["class"].split, "max-lg:hidden"
+  end
+
   private
 
   def render_bar(**overrides)

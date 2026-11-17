@@ -19,7 +19,11 @@ module Keystone
       PHONE_ORDER_CLASSES = { 1 => "max-sm:order-1", 2 => "max-sm:order-2", 3 => "max-sm:order-3" }.freeze
       PHONE_LABEL_CLASSES = "sm:hidden"
       FULL_LABEL_CLASSES = "max-sm:hidden"
-      HINT_CLASSES = "ks-hint basis-full max-sm:hidden"
+      HINT_CLASSES = {
+        sm: "ks-hint basis-full max-sm:hidden",
+        md: "ks-hint basis-full max-md:hidden",
+        lg: "ks-hint basis-full max-lg:hidden"
+      }.freeze
       BAR_COPY_CLASSES = "!static invisible"
       SPACER_CLASSES = "sm:hidden"
       TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block"
@@ -50,6 +54,10 @@ module Keystone
 
       def note_classes
         NOTE_CLASSES.fetch(@breakpoint)
+      end
+
+      def hint_classes
+        HINT_CLASSES.fetch(@breakpoint)
       end
 
       def buttons
