@@ -115,6 +115,10 @@ module Keystone
         (0..mark_intervals).map { |index| { label: written_mark(index * mark_step), style: mark_style(index) } }
       end
 
+      def axis_end_label
+        one_line ? written_mark(scale) : total_duration
+      end
+
       def axis_start_label
         written_mark(0)
       end

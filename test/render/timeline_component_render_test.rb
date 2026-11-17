@@ -331,6 +331,15 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("[data-timeline-axis-end]")&.parent&.[](:class).to_s.split, "sm:hidden"
   end
 
+  def test_ends_the_phone_axis_of_a_one_line_timeline_at_the_time_its_bars_are_drawn_against
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START + 60 },
+      { label: "Build", started_at: START + 60, ended_at: START + 270 }
+    ], one_line: true))
+
+    assert_equal "5m", page.at_css("[data-timeline-axis-end]").text
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")
