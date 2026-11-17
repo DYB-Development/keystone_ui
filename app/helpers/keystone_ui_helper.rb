@@ -305,8 +305,8 @@ module KeystoneUiHelper
     render Keystone::Ui::HeadingComponent.new(**args)
   end
 
-  def ui_caption(**args)
-    render Keystone::Ui::CaptionComponent.new(**args)
+  def ui_caption(**args, &block)
+    render Keystone::Ui::CaptionComponent.new(**args), &block
   end
 
   def ui_link(**args)
