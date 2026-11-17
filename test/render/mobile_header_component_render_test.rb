@@ -3,6 +3,12 @@
 require "render_helper"
 
 class Keystone::Ui::MobileHeaderComponentRenderTest < ViewComponent::TestCase
+  def test_given_no_back_url_leaves_no_space_for_one_before_the_title
+    page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Inbox", back_url: nil))
+
+    assert page.at_css(".ks-mobile-header-title").parent.element_children.first["class"].split.include?("ks-mobile-header-title")
+  end
+
   def test_given_no_back_url_shows_no_back_link
     page = render_inline(Keystone::Ui::MobileHeaderComponent.new(title: "Invoices", back_url: nil))
 

@@ -1,11 +1,11 @@
 <div class="<%= ROW_CLASSES %>">
-  <div class="<%= WRAPPER_CLASSES %>">
-    <% if @back_url %>
+  <% if @back_url %>
+    <div class="<%= WRAPPER_CLASSES %>">
       <%= link_to @back_url, class: BACK_LINK_CLASSES, aria: { label: "Back" } do %>
         <%= BACK_ICON.html_safe %>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
   <span class="<%= TITLE_CLASSES %>">
     <% if @overline.present? %>
       <span class="<%= OVERLINE_CLASSES %>"><%= @overline %></span>
