@@ -10,8 +10,13 @@ class KeystoneUi::TextHelperTest < Minitest::Test
 
     attr_reader :rendered
 
-    def render(component)
+    def render(component, &block)
       @rendered = component
+      @block = block
+    end
+
+    def content
+      @block&.call
     end
   end
 
@@ -21,6 +26,14 @@ class KeystoneUi::TextHelperTest < Minitest::Test
     view.ui_heading(text: "Work", note: "12.5 billable hours")
 
     assert_equal [ "Work", "12.5 billable hours" ], [ view.rendered.text, view.rendered.note ]
+  end
+
+  def test_passes_a_captions_content_to_it
+    view = View.new
+
+    view.ui_caption(normal_case: true) { "REQ-2041 · copy_generation" }
+
+    assert_equal "REQ-2041 · copy_generation", view.content
   end
 
   def test_renders_a_caption_with_its_text

@@ -36,11 +36,9 @@
         <% end %>
       <% end %>
     <% end %>
-    <% unless one_line %>
-      <div class="<%= AXIS_CLASSES %>">
-        <span data-timeline-axis-start><%= axis_start_label %></span>
-        <span data-timeline-axis-end><%= total_duration %></span>
-      </div>
-    <% end %>
+    <div class="<%= axis_classes %>">
+      <span data-timeline-axis-start><%= axis_start_label %></span>
+      <span data-timeline-axis-end><%= axis_end_label %></span>
+    </div>
   </div>
 <% end %>

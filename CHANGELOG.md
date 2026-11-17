@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.99.0] - 2026-11-17
+
+### Added
+- `ui_stat_card` takes `compact: true` to draw a small tile with an extra small label, a smaller value and its change or note beside the value (#507).
+- `ui_grid` takes an `xl:` breakpoint in `cols:`, and `wide: :first` or `wide: :second` to make one of two columns wider, three parts to two (#510).
+- `ui_tab_switcher` link tabs take `show_zero: true` to draw a count of zero (#511).
+- `ui_caption` takes `normal_case: true` for a small muted line in the case it was written, and a block in place of `text:` so the line can hold links (#512).
+- `ui_page_header` takes `subtitle_mono: true` to draw its subtitle in a fixed-width font (#512).
+- `ui_decision_bar` takes `breakpoint: :sm`, `:md` or `:lg` to set the width at which it switches between its phone bar and its panel, `:sm` by default (#513).
+- `ui_button_row` takes `class:` to add classes to its row.
+
+### Changed
+- A section's aside never breaks in the middle of a word, and from `sm` up keeps its full width while a long title wraps beside it (#508).
+- A one-line timeline falls back to the default layout on a phone, with full row names, no axis marks and `0s` and the last mark under the rows (#509).
+- A phone header with no back link leaves no space for one (#511).
+- The phone top bar's title, drawn by `ui_nav_dropdown`, ends in an ellipsis instead of widening the page (#511).
+- A long badge on a link list row's top line wraps, and the text beside it keeps its full width (#511).
+- In the decision bar's phone row each secondary button keeps an equal share, and a long label wraps inside its button (#513).
+- A review card's buttons are separated by a space in its text, so each label reads as its own word (#513).
+- The gem requires keystone_ui-styles 0.42.0 or later, the first version with the compact stat card and normal-case caption classes.
+
 ## [0.98.0] - 2026-11-16
 
 ### Added

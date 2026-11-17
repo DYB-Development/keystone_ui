@@ -6,6 +6,7 @@ module Keystone
       WRAPPER_CLASSES = "ks-nav-dropdown"
       MENU_CLASSES = "ks-nav-dropdown-menu hidden"
       TRIGGER_BASE = "ks-nav-dropdown-trigger"
+      TITLE_CLASSES = "min-w-0 truncate"
       ACTIVE_CLASS = "active"
       CARET_ICON = <<~SVG.freeze
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="ks-nav-dropdown-caret">

@@ -30,7 +30,7 @@ module Keystone
 
       def action_row
         render(ButtonRowComponent.new(equal_width: true)) do
-          safe_join(@actions.map { |action| render ButtonComponent.new(variant: :secondary, size: :sm, **action) })
+          safe_join(@actions.map { |action| render ButtonComponent.new(variant: :secondary, size: :sm, **action) }, " ")
         end
       end
 

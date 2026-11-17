@@ -307,6 +307,39 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert page.at_css("[data-timeline]").element_children.first.at_css("[data-timeline-mark]")
   end
 
+  def test_cuts_a_row_name_of_a_one_line_timeline_short_only_from_sm_up
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ [ false, true ] ] * 2, page.css("[data-timeline-label]").map { |label| [ label[:class].split.include?("truncate"), label[:class].split.include?("sm:truncate") ] }
+  end
+
+  def test_wraps_a_long_row_name_of_a_one_line_timeline_inside_the_row_on_a_phone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ true, true ], page.css("[data-timeline-label]").map { |label| label[:class].split.include?("wrap-break-word") }
+  end
+
+  def test_hides_the_axis_marks_of_a_one_line_timeline_on_a_phone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_includes page.at_css("[data-timeline-mark]").parent[:class].split, "max-sm:hidden"
+  end
+
+  def test_shows_the_start_and_total_of_a_one_line_timeline_under_its_rows_only_on_a_phone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_includes page.at_css("[data-timeline-axis-end]")&.parent&.[](:class).to_s.split, "sm:hidden"
+  end
+
+  def test_ends_the_phone_axis_of_a_one_line_timeline_at_the_time_its_bars_are_drawn_against
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [
+      { label: "Plan", started_at: START, ended_at: START + 60 },
+      { label: "Build", started_at: START + 60, ended_at: START + 270 }
+    ], one_line: true))
+
+    assert_equal "5m", page.at_css("[data-timeline-axis-end]").text
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")

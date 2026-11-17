@@ -2,7 +2,7 @@
   <button type="button"
           data-action="click->dropdown#toggle click@window->dropdown#hide"
           class="<%= trigger_classes %>">
-    <%= @title %>
+    <span class="<%= TITLE_CLASSES %>"><%= @title %></span>
     <%= CARET_ICON.html_safe %>
   </button>
   <nav data-dropdown-target="menu" class="<%= MENU_CLASSES %>">

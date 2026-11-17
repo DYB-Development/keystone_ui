@@ -63,6 +63,12 @@ class Keystone::Ui::ReviewCardComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Edit", "Drop" ], page.css(".ks-card > div[class~='*:flex-1'] .ks-button").map { |button| button.text.strip }
   end
 
+  def test_keeps_each_button_label_a_separate_word_in_its_text
+    page = render_card(actions: [ { label: "Edit", href: "/variants/a/edit" }, { label: "Drop", href: "/variants/a/drop" } ])
+
+    assert_equal "Edit Drop", page.at_css("a.ks-button").parent.text.strip
+  end
+
   def test_cuts_its_body_text_to_one_line_with_an_ellipsis_in_its_compact_form
     page = render_card(body: "Layered knits, wool coats, and the boots you asked for.", compact: true)
 

@@ -17,6 +17,24 @@ class Keystone::Ui::GridComponentTest < Minitest::Test
     assert_includes component.classes, "lg:grid-cols-4"
   end
 
+  def test_sets_columns_side_by_side_from_extra_large_screens
+    component = Keystone::Ui::GridComponent.new(cols: { default: 1, xl: 2 })
+
+    assert_equal "grid ks-grid-gap-md grid-cols-1 xl:grid-cols-2", component.classes
+  end
+
+  def test_makes_the_first_of_two_columns_wider_when_asked
+    component = Keystone::Ui::GridComponent.new(cols: { default: 1, lg: 2 }, wide: :first)
+
+    assert_equal "grid ks-grid-gap-md grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", component.classes
+  end
+
+  def test_makes_the_second_of_two_columns_wider_when_asked
+    component = Keystone::Ui::GridComponent.new(cols: { default: 1, xl: 2 }, wide: :second)
+
+    assert_equal "grid ks-grid-gap-md grid-cols-1 xl:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]", component.classes
+  end
+
   def test_maps_each_gap_size_correctly
     assert_includes Keystone::Ui::GridComponent.new(gap: :sm).classes, "ks-grid-gap-sm"
     assert_includes Keystone::Ui::GridComponent.new(gap: :md).classes, "ks-grid-gap-md"

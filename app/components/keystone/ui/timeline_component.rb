@@ -14,13 +14,14 @@ module Keystone
       TIMELINE_CLASSES = "flex flex-col ks-grid-gap-sm"
       ONE_LINE_TIMELINE_CLASSES = "sm:grid sm:grid-cols-[fit-content(40%)_1fr_auto]"
       ONE_LINE_ROW_CLASSES = "grid grid-cols-[1fr_auto] items-center ks-grid-gap-x-sm text-sm sm:col-span-3 sm:grid-cols-subgrid"
-      ONE_LINE_LABEL_CLASSES = "ks-meter-label min-w-0 truncate sm:mb-0"
+      ONE_LINE_LABEL_CLASSES = "ks-meter-label min-w-0 wrap-break-word sm:truncate sm:mb-0"
       ONE_LINE_TRACK_CLASSES = "col-span-2 row-start-2 sm:col-span-1 sm:col-start-2 sm:row-start-1"
       ONE_LINE_STATUS_CLASSES = "ks-meter-label justify-self-end sm:mb-0"
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
       ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
-      ONE_LINE_AXIS_CLASSES = "ks-meter-label relative h-4 text-xs sm:col-start-2"
+      PHONE_AXIS_CLASSES = "ks-meter-label flex justify-between text-xs sm:col-span-3 sm:hidden"
+      ONE_LINE_AXIS_CLASSES = "ks-meter-label relative h-4 text-xs sm:col-start-2 max-sm:hidden"
       MARK_CLASSES = "absolute top-0 whitespace-nowrap"
       MINIMUM_BAR_PERCENT = 2
       MARK_STEPS = [ 1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10_800, 21_600, 43_200, 86_400 ].freeze
@@ -36,6 +37,10 @@ module Keystone
 
       def track_classes
         [ TRACK_CLASSES, (ONE_LINE_TRACK_CLASSES if one_line) ].compact.join(" ")
+      end
+
+      def axis_classes
+        one_line ? PHONE_AXIS_CLASSES : AXIS_CLASSES
       end
 
       def label_classes
@@ -108,6 +113,10 @@ module Keystone
 
       def marks
         (0..mark_intervals).map { |index| { label: written_mark(index * mark_step), style: mark_style(index) } }
+      end
+
+      def axis_end_label
+        one_line ? written_mark(scale) : total_duration
       end
 
       def axis_start_label

@@ -7,12 +7,13 @@ module Keystone
       EQUAL_WIDTH_CLASSES = "*:flex-1 *:whitespace-nowrap"
       PHONE_EQUAL_WIDTH_CLASSES = "max-sm:*:flex-1 max-sm:*:whitespace-nowrap"
 
-      def initialize(equal_width: false)
+      def initialize(equal_width: false, class: nil)
         @equal_width = equal_width
+        @extra_classes = binding.local_variable_get(:class)
       end
 
       def row_classes
-        [ ROW_CLASSES, equal_width_classes ].compact.join(" ")
+        [ ROW_CLASSES, equal_width_classes, @extra_classes ].compact.join(" ")
       end
 
       private

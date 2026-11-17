@@ -177,6 +177,84 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal "Send back with findings", page.at_css("form button[value='send_back'] span.max-sm\\:hidden")&.text
   end
 
+  def test_given_the_large_breakpoint_lays_the_fixed_bar_into_its_own_row_from_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_empty %w[lg:contents max-lg:flex-col] - page.at_css("form .ks-bottom-action")["class"].split
+  end
+
+  def test_given_the_large_breakpoint_draws_no_box_around_the_fixed_bar_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_includes page.at_css("form")["class"].split, "max-lg:contents"
+  end
+
+  def test_given_the_large_breakpoint_leaves_its_note_field_out_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_includes page.at_css("label:has(input[name='note'])")["class"].split, "max-lg:hidden"
+  end
+
+  def test_given_the_large_breakpoint_leaves_its_hint_out_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg, hint: "Keyboard: A approve")
+
+    assert_includes page.at_css(".ks-hint")["class"].split, "max-lg:hidden"
+  end
+
+  def test_given_the_large_breakpoint_keeps_room_for_its_fixed_bar_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_includes page.at_css("[data-decision-bar-spacer]")["class"].split, "lg:hidden"
+  end
+
+  def test_given_the_large_breakpoint_puts_the_primary_button_first_and_full_width_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_empty %w[max-lg:order-first max-lg:*:w-full max-lg:*:min-h-12] - page.at_css(".ks-bottom-action > div:has(> button.ks-button-primary)")["class"].split
+  end
+
+  def test_given_the_large_breakpoint_shows_an_action_marked_phone_only_below_1024_pixels_wide_only
+    page = render_bar(breakpoint: :lg, actions: [ { label: "Next ›", href: "/inbox/8", phone_only: true } ])
+
+    assert_includes page.at_css("form div:has(> a[href='/inbox/8'])")["class"].split, "lg:hidden"
+  end
+
+  def test_given_the_large_breakpoint_shows_an_actions_phone_label_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg, actions: [ { label: "Send back with findings", phone_label: "Send back", name: "decision", value: "send_back" } ])
+
+    assert_equal "Send back", page.at_css("form button[value='send_back'] span.lg\\:hidden")&.text
+  end
+
+  def test_given_the_large_breakpoint_shows_an_actions_full_label_from_1024_pixels_wide
+    page = render_bar(breakpoint: :lg, actions: [ { label: "Send back with findings", phone_label: "Send back", name: "decision", value: "send_back" } ])
+
+    assert_equal "Send back with findings", page.at_css("form button[value='send_back'] span.max-lg\\:hidden")&.text
+  end
+
+  def test_given_the_large_breakpoint_puts_an_action_given_a_phone_order_in_that_place_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg, actions: [ { label: "Reject", name: "decision", value: "reject", phone_order: 2 } ])
+
+    assert_includes page.at_css("form div:has(> button[value='reject'])")["class"].split, "max-lg:order-2"
+  end
+
+  def test_given_the_large_breakpoint_gives_each_secondary_button_an_equal_share_of_the_row_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_includes page.at_css("div:has(> div > button.ks-button-secondary)")["class"].split, "max-lg:*:flex-1"
+  end
+
+  def test_on_a_phone_keeps_each_secondary_buttons_share_of_the_row_equal_however_long_its_label
+    page = render_bar
+
+    assert_equal [ true, true ], [ page.at_css("div:has(> div > button.ks-button-secondary)")["class"].split.include?("max-sm:*:min-w-0"), page.at_css("div:has(> button.ks-button-secondary)")["class"].split.include?("*:min-w-0") ]
+  end
+
+  def test_wraps_a_label_too_long_for_its_secondary_button_inside_the_button
+    page = render_bar
+
+    assert_includes page.at_css("div:has(> button.ks-button-secondary)")["class"].split, "*:wrap-break-word"
+  end
+
   private
 
   def render_bar(**overrides)

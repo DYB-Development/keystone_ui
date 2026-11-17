@@ -6,6 +6,7 @@ module Keystone
       WRAPPER_CLASSES = "ks-page-header"
       TITLE_CLASSES = "ks-page-header-title"
       SUBTITLE_CLASSES = "ks-page-header-subtitle"
+      MONO_SUBTITLE_CLASSES = "ks-page-header-subtitle font-mono"
       ACTIONS_CLASSES = "page-header-actions ks-page-header-actions"
       PHONE_TITLE_CLASSES = "ks-page-header-title max-sm:[body:has(.ks-mobile-header-title)_&]:hidden"
       PHONE_WRAPPER_CLASSES = "max-sm:flex max-sm:flex-wrap max-sm:items-center max-sm:justify-between"
@@ -16,7 +17,8 @@ module Keystone
 
       attr_reader :title, :action_url, :action_label, :action_method, :action_confirm
 
-      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, action_confirm: nil, action_at_bottom: false, badges: [], menu: [], class: nil)
+      def initialize(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, action_confirm: nil, action_at_bottom: false, badges: [], menu: [], subtitle_mono: false, class: nil)
+        @subtitle_mono = subtitle_mono
         @title = title
         @subtitle = subtitle
         @action_url = action_url
@@ -76,6 +78,10 @@ module Keystone
 
       def subtitle?
         !@subtitle.nil?
+      end
+
+      def subtitle_classes
+        @subtitle_mono ? MONO_SUBTITLE_CLASSES : SUBTITLE_CLASSES
       end
 
       def subtitle_text

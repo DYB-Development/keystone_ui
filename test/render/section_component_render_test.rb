@@ -41,6 +41,18 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_equal "sorted by expiry", page.css(".ks-section-header > *")[1]&.text&.strip
   end
 
+  def test_never_breaks_an_aside_in_the_middle_of_a_word
+    assert_includes aside_classes(render_with_aside), "wrap-normal"
+  end
+
+  def test_keeps_an_aside_at_its_full_width_beside_a_long_title
+    assert_includes aside_classes(render_with_aside), "sm:shrink-0"
+  end
+
+  def test_lets_a_long_title_wrap_beside_an_aside
+    assert_equal "min-w-0", render_with_aside.css(".ks-section-header > *")[0]["class"]
+  end
+
   def test_draws_an_aside_in_the_small_muted_text_of_a_heading_note
     assert_includes aside_classes(render_with_aside), "ks-heading-note"
   end
