@@ -24,7 +24,11 @@ module Keystone
       SPACER_CLASSES = "sm:hidden"
       TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block"
       NOTE_LABEL_CLASSES = "ks-label shrink-0"
-      NOTE_CLASSES = "flex flex-1 basis-60 items-center ks-grid-gap-sm max-sm:hidden"
+      NOTE_CLASSES = {
+        sm: "flex flex-1 basis-60 items-center ks-grid-gap-sm max-sm:hidden",
+        md: "flex flex-1 basis-60 items-center ks-grid-gap-sm max-md:hidden",
+        lg: "flex flex-1 basis-60 items-center ks-grid-gap-sm max-lg:hidden"
+      }.freeze
 
       def initialize(url:, primary:, actions: [], note: nil, hint: nil, method: :post, breakpoint: :sm)
         @breakpoint = breakpoint
@@ -42,6 +46,10 @@ module Keystone
 
       def form_classes
         FORM_CLASSES.fetch(@breakpoint)
+      end
+
+      def note_classes
+        NOTE_CLASSES.fetch(@breakpoint)
       end
 
       def buttons

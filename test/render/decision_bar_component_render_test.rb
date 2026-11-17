@@ -189,6 +189,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("form")["class"].split, "max-lg:contents"
   end
 
+  def test_given_the_large_breakpoint_leaves_its_note_field_out_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_includes page.at_css("label:has(input[name='note'])")["class"].split, "max-lg:hidden"
+  end
+
   private
 
   def render_bar(**overrides)
