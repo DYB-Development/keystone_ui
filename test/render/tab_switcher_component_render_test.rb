@@ -134,6 +134,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
       [ page.at_css("a.ks-tab").text.strip, page.css("a.ks-tab span.ks-tab-count").map(&:text), page.css("a.ks-tab .ks-badge").size ]
   end
 
+  def test_with_a_panel_per_tab_only_the_first_panel_is_shown_when_the_page_loads
+    page = render_with_panels
+
+    assert_equal [ false, true ], page.css("[data-tab-switcher-target=panel]").map { |panel| panel.key?("hidden") }
+  end
+
   private
 
   def render_with_summary
@@ -165,5 +171,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     return "panel" if part.text.include?("Value panel")
 
     part.name
+  end
+
+  def render_with_panels
+    render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ "Password", "Emailed code" ])) do |switcher|
+      switcher.with_panel { '<input name="password" required>'.html_safe }
+      switcher.with_panel { '<input name="code" required>'.html_safe }
+    end
   end
 end

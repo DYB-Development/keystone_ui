@@ -17,6 +17,11 @@
 <%= content %>
 <% end %>
 <% else %>
+<% tab_panels = capture do %>
+  <% panels.each_with_index do |panel, index| %>
+    <fieldset data-tab-switcher-target="panel"<%= " hidden" unless index.zero? %>><%= panel %></fieldset>
+  <% end %>
+<% end %>
 <div data-controller="tab-switcher"<% if summary? %> class="<%= LAYOUT_CLASSES %>"<% end %>>
   <% if summary? %>
   <div class="<%= SUMMARY_CLASSES %>"><%= summary %></div>
@@ -33,9 +38,9 @@
     <% end %>
   </div>
   <% if summary? %>
-  <div class="<%= CONTENT_CLASSES %>"><%= content %></div>
+  <div class="<%= CONTENT_CLASSES %>"><%= content %><%= tab_panels %></div>
   <% else %>
-  <%= content %>
+  <%= content %><%= tab_panels %>
   <% end %>
 </div>
 <% end %>
