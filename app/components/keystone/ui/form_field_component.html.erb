@@ -8,7 +8,7 @@
   <% if checkbox? %>
     <div class="<%= CHECKBOX_WRAPPER_CLASSES %>">
       <input type="hidden" name="<%= @attribute %>" value="0">
-      <input type="checkbox" name="<%= @attribute %>" id="<%= field_id %>" value="1" class="<%= CHECKBOX_CLASSES %>"<%= " checked" if @value.to_s == "1" %>>
+      <input type="checkbox" name="<%= @attribute %>" id="<%= field_id %>" value="1" class="<%= CHECKBOX_CLASSES %>"<%= " checked" if @value.to_s == "1" %><%= " required" if required? %>>
       <label for="<%= field_id %>" class="text-sm text-gray-700 dark:text-gray-300"><%= label_text %></label>
     </div>
   <% elsif textarea? %>
