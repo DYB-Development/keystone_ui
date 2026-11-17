@@ -68,6 +68,7 @@ module Keystone
         @url = url
         @primary = primary
         @actions = actions
+        actions.each { |action| check_action(action) }
         @note = note
         @hint = hint
         @method = method
@@ -116,6 +117,12 @@ module Keystone
         return options unless sends_request?(action)
 
         options.except(:href, :method).merge(formaction: action[:href], name: "_method", value: action[:method].to_s)
+      end
+
+      def check_action(action)
+        return unless sends_request?(action) && (action.key?(:name) || action.key?(:value))
+
+        raise ArgumentError, "Decision bar action #{action[:label].inspect} sends a #{action[:method]} to its own link, so it cannot send a name or value of its own"
       end
 
       def sends_request?(action)

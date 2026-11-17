@@ -267,6 +267,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css("form input[name='_method']")
   end
 
+  def test_refuses_an_action_given_a_link_a_delete_method_and_a_name_of_its_own
+    error = assert_raises(ArgumentError) { render_bar(actions: [ { label: "Delete", href: "/approvals/7", method: :delete, name: "decision" } ]) }
+
+    assert_includes error.message, "Delete"
+  end
+
   private
 
   def render_bar(**overrides)
