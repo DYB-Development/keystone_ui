@@ -9,6 +9,12 @@ class Keystone::Ui::CaptionComponentRenderTest < ViewComponent::TestCase
     assert_equal "Work report", page.css("p.ks-caption").text.strip
   end
 
+  def test_a_normal_case_caption_is_drawn_in_the_case_it_was_written
+    page = render_inline(Keystone::Ui::CaptionComponent.new(text: "Grey segment = queue time.", normal_case: true))
+
+    assert_equal "ks-caption ks-caption-normal-case", page.at_css("p")["class"]
+  end
+
   def test_a_link_toned_caption_is_drawn_in_the_link_colour
     page = render_inline(Keystone::Ui::CaptionComponent.new(text: "Geography", tone: :link))
 
