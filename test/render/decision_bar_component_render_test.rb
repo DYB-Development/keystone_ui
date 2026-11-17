@@ -273,6 +273,10 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes error.message, "Delete"
   end
 
+  def test_refuses_a_phone_order_other_than_1_2_or_3
+    assert_raises(KeyError) { render_bar(actions: [ { label: "Reject", name: "decision", value: "reject", phone_order: 4 } ]) }
+  end
+
   private
 
   def render_bar(**overrides)

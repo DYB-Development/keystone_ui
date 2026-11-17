@@ -107,9 +107,13 @@ module Keystone
       end
 
       def secondary_button(action)
-        tag.div(class: [ ACTION_CLASSES, (PHONE_ONLY_CLASSES.fetch(@breakpoint) if action[:phone_only]), PHONE_ORDER_CLASSES.fetch(@breakpoint)[action[:phone_order]] ].compact.join(" ")) do
+        tag.div(class: [ ACTION_CLASSES, (PHONE_ONLY_CLASSES.fetch(@breakpoint) if action[:phone_only]), phone_order_classes(action) ].compact.join(" ")) do
           render ButtonComponent.new(variant: :secondary, **button_options(action), label: action_label(action))
         end
+      end
+
+      def phone_order_classes(action)
+        PHONE_ORDER_CLASSES.fetch(@breakpoint).fetch(action[:phone_order]) if action.key?(:phone_order)
       end
 
       def button_options(action)
