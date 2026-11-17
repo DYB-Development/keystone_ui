@@ -7,6 +7,7 @@ module Keystone
       HEADER_CLASSES = "ks-section-header"
       HEADER_WITH_ASIDE_CLASSES = "ks-section-header ks-grid-gap-sm max-sm:flex-wrap"
       TITLE_CLASSES = "ks-section-title"
+      TITLE_WRAPPER_CLASSES = "min-w-0"
       SUBTITLE_CLASSES = "ks-section-subtitle"
       ACTION_CLASSES = "ks-section-action"
       ACTIONS_CLASSES = "flex items-center shrink-0 ks-grid-gap-sm"
