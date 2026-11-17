@@ -19,7 +19,7 @@
 <% else %>
 <% tab_panels = capture do %>
   <% panels.each_with_index do |panel, index| %>
-    <fieldset data-tab-switcher-target="panel"<%= " hidden disabled" unless index.zero? %>><%= panel %></fieldset>
+    <fieldset class="min-w-0" data-tab-switcher-target="panel"<%= " hidden disabled" unless index.zero? %>><%= panel %></fieldset>
   <% end %>
 <% end %>
 <div data-controller="tab-switcher"<% if summary? %> class="<%= LAYOUT_CLASSES %>"<% end %>>

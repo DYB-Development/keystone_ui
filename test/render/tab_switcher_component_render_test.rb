@@ -146,6 +146,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ false, true ], page.css("fieldset[data-tab-switcher-target=panel]").map { |panel| panel.key?("disabled") }
   end
 
+  def test_with_a_panel_per_tab_each_panel_may_shrink_below_the_width_of_its_content_on_a_phone
+    page = render_with_panels
+
+    assert_equal [ true, true ], page.css("fieldset[data-tab-switcher-target=panel]").map { |panel| panel["class"].to_s.split.include?("min-w-0") }
+  end
+
   private
 
   def render_with_summary
