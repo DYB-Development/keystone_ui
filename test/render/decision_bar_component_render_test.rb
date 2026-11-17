@@ -261,6 +261,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "/approvals/7", "_method", "delete" ], %w[formaction name value].map { |attribute| page.at_css("form button.ks-button-secondary")&.[](attribute) }
   end
 
+  def test_keeps_the_delete_of_an_action_given_a_link_and_a_delete_method_off_its_other_buttons
+    page = render_bar(actions: [ { label: "Reject", name: "decision", value: "reject" }, { label: "Delete", href: "/approvals/7", method: :delete } ])
+
+    assert_empty page.css("form input[name='_method']")
+  end
+
   private
 
   def render_bar(**overrides)
