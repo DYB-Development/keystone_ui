@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - `ui_button` takes `formaction:` to send its form to another address when pressed (#518).
+- `Keystone::Ui::TextDiffComponent#comparisons` gives the number of times the diff compared a line of one text with a line of the other (#518).
 
 ### Fixed
 - A `ui_decision_bar` action given `href:` and a method such as `:delete` sends that method to its own link, and the bar's other buttons still send their usual request to the bar's address (#518).
