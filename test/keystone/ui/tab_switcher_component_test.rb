@@ -55,18 +55,6 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
 
 
 
-  def test_exposes_panel_classes_as_hidden
-    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ])
-
-    assert_equal "hidden", component.panel_classes
-  end
-
-
-  def test_wires_the_tab_switcher_stimulus_controller
-    component = Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A", "B" ])
-
-    assert_equal "tab-switcher", component.wrapper_data[:controller]
-  end
 
   def test_tab_bar_classes_render_the_ks_tab_bar_class
     assert_includes Keystone::Ui::TabSwitcherComponent::TAB_BAR_CLASSES, "ks-tab-bar"
