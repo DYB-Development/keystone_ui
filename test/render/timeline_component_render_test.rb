@@ -182,6 +182,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_includes error.message, "Deploy"
   end
 
+  def test_refuses_an_entry_queued_later_than_it_starts_naming_its_label
+    error = assert_raises(ArgumentError) { Keystone::Ui::TimelineComponent.new(entries: [ { label: "Review", queued_at: START + 60, started_at: START, ended_at: START + 120 } ]) }
+
+    assert_includes error.message, "Review"
+  end
+
   def running
     [
       { label: "Plan", started_at: START, ended_at: START + 240 },

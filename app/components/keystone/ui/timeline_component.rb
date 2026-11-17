@@ -132,6 +132,7 @@ module Keystone
       def check_times(entry)
         raise ArgumentError, "Timeline entry #{entry[:label].inspect} has no started_at" unless entry[:started_at]
         raise ArgumentError, "Timeline entry #{entry[:label].inspect} ends before it starts" if entry[:ended_at] && entry[:ended_at] < entry[:started_at]
+        raise ArgumentError, "Timeline entry #{entry[:label].inspect} is queued after it starts" if entry[:queued_at] && entry[:queued_at] > entry[:started_at]
       end
 
       def written_duration(seconds)
