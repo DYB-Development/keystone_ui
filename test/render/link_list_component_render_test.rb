@@ -122,4 +122,16 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 0, page.css("a.ks-value-list-row svg.ks-settings-link-chevron").size
   end
+
+  def test_a_list_set_to_open_in_a_new_tab_opens_every_row_link_in_a_new_browser_tab
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Terms", href: "/terms" }, { label: "Privacy", href: "/privacy" } ], new_tab: true))
+
+    assert_equal %w[_blank _blank], page.css("a.ks-value-list-row").map { |link| link["target"] }
+  end
+
+  def test_a_list_set_to_open_in_a_new_tab_gives_the_new_tab_no_hold_on_the_page_that_opened_it
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Terms", href: "/terms" } ], new_tab: true))
+
+    assert_equal "noopener", page.at_css("a.ks-value-list-row")["rel"]
+  end
 end

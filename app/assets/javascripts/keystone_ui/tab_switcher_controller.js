@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["tab"]
+  static targets = ["tab", "panel"]
 
   select(event) {
     const index = parseInt(event.currentTarget.dataset.index)
@@ -12,6 +12,11 @@ export default class extends Controller {
       } else {
         tab.removeAttribute("data-active")
       }
+    })
+
+    this.panelTargets.forEach((panel, panelIndex) => {
+      panel.hidden = panelIndex !== index
+      panel.disabled = panelIndex !== index
     })
 
     this.dispatch("change", { detail: { index } })

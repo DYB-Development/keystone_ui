@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_link_list` takes `new_tab: true` to open every row's link in a new browser tab with `rel="noopener"` (#515).
+- `ui_tab_switcher` label tabs take one `with_panel` per tab, shown and hidden on the same page so typed values are kept, with the fields of a hidden panel disabled (#515).
+
+### Fixed
+- A `ui_form_field` checkbox given `required: true` is marked required, so the browser will not submit its form while it is unticked (#515).
+
 ## [0.99.0] - 2026-11-17
 
 ### Added

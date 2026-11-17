@@ -17,13 +17,18 @@ module Keystone
 
       attr_reader :rows, :chevron
 
-      def initialize(rows:, chevron: true)
+      def initialize(rows:, chevron: true, new_tab: false)
         @rows = rows
         @chevron = chevron
+        @new_tab = new_tab
       end
 
       def row_options(row)
-        { class: [ ROW_CLASSES, (CURRENT_ROW_CLASSES if row[:current]) ].compact.join(" "), aria: { current: ("true" if row[:current]) } }
+        { class: [ ROW_CLASSES, (CURRENT_ROW_CLASSES if row[:current]) ].compact.join(" "), aria: { current: ("true" if row[:current]) } }.merge(new_tab_options)
+      end
+
+      def new_tab_options
+        @new_tab ? { target: "_blank", rel: "noopener" } : {}
       end
 
       def badge(row)

@@ -40,4 +40,10 @@ class Keystone::Ui::FormFieldComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "I accept the terms", page.at_css("label[for='#{checkbox_id}']")&.text
   end
+
+  def test_a_required_checkbox_field_marks_its_checkbox_required_so_the_browser_will_not_submit_it_unticked
+    page = render_inline(Keystone::Ui::FormFieldComponent.new(attribute: "player[accepted_terms]", label: "I accept the terms", type: :checkbox, required: true))
+
+    assert page.at_css("input[type=checkbox]").key?("required")
+  end
 end

@@ -81,7 +81,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_paragraph` — a paragraph of running text.
 - `ui_value_list` — labelled values, as rows of a label beside its value, such as a ledger or a byline, or as columns of a label above its value.
 - `ui_alert` — a banner message, optionally dismissible.
-- `ui_link_list` — a list of links, each row with a label, an optional subtitle, badge, value and top line, an optional current-row mark, and a chevron that can be left off.
+- `ui_link_list` — a list of links, each row with a label, an optional subtitle, badge, value and top line, an optional current-row mark, and a chevron that can be left off, with every link opening in a new tab when asked.
 - `ui_empty_state` — what a list or section shows when it has nothing in it, with an optional message and action.
 - `ui_progress` — a labelled progress bar.
 - `ui_stat_card` — a single metric tile with optional change, link and info button, or a compact tile for a small grid of figures inside a panel.
@@ -93,7 +93,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_info` — an inline info button showing a summary, and optional detail, in floating panels.
 - `ui_breakdown` — a list of amounts ending in their total.
 - `ui_accordion` — a stack of question-and-answer rows that expand independently.
-- `ui_tab_switcher` — a row of tabs that reports which one was selected, or a row of link tabs with optional counts, drawn centred or from the start, as plain tabs, pills or underlined tabs.
+- `ui_tab_switcher` — a row of tabs that reports which one was selected and can show one panel per tab on the same page, or a row of link tabs with optional counts, drawn centred or from the start, as plain tabs, pills or underlined tabs.
 - `ui_modal` — a hidden dialog the app's own code opens.
 - `ui_swipe_deck` — a stack of cards accepted or rejected by button or swipe.
 - `ui_chart_card` — a titled card holding a chart.
@@ -459,7 +459,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      empty option, worded by `include_blank:` or left blank without it, so
      never add an empty choice to `options:` as well.
    - A `:checkbox` renders its label beside the box, submits `"0"` unchecked
-     and `"1"` checked, and is checked when `value:` is `"1"`.
+     and `"1"` checked, and is checked when `value:` is `"1"`. With
+     `required: true` the browser will not submit the form while it is
+     unticked, as for a terms of service box.
    - `suggestions:` is an array of strings the browser offers while typing, and
      the user can still type any value. It applies to `:text` `:number`
      `:email` `:password` `:date` `:datetime` and is ignored by the other types. Its list
@@ -738,7 +740,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
      — `type:` is `:info` `:success` `:warning` `:error`, and `dismissible: true`
      adds a close button.
-   - `ui_link_list(rows:, chevron: true)` — each row is `{ label:, href:,
+   - `ui_link_list(rows:, chevron: true, new_tab: false)` — each row is `{ label:, href:,
      subtitle: nil, badge: nil, value: nil, top_line: nil, current: false }`,
      and `badge:` takes `ui_badge`'s `{ label:, variant: }`.
      A row's badge sits above its label below `sm` and beside it from `sm` up.
@@ -749,7 +751,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      the label and subtitle wrap. `current: true` marks the
      row the person has open with `aria-current` and a tint and accent bar.
      `chevron: false` leaves off every row's chevron, as in a queue beside the
-     open item. Ask the developer which row is current on each page.
+     open item. `new_tab: true` opens every row's link in a new browser tab
+     with `rel="noopener"`, so a person reading the terms beside a form keeps
+     the form open. Ask the developer which row is current on each page.
      Use it for a list of records that each open their own page, in place of a
      hand-written `<ul>` of links.
    - `ui_empty_state(title:, message: nil, action: nil)` — `action:` is
@@ -1015,8 +1019,17 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       opens it, so the app's code removes `hidden`.
     - `ui_tab_switcher(tabs:)` takes an array of label strings and a block
       rendered below the tabs. The first tab is active on load, and a click
-      sends a `tab-switcher:change` event with the clicked index. Showing and
-      hiding the panels is the app's code.
+      sends a `tab-switcher:change` event with the clicked index. Without
+      panels, showing and hiding what each tab holds is the app's code.
+    - `switcher.with_panel { ... }`, called once per label tab inside the
+      tab switcher's block in the order of `tabs:`, draws that tab's panel.
+      The first panel shows on load, and choosing a tab shows its panel and
+      hides the others on the same page, so values typed into fields on any
+      panel are kept. A hidden panel's fields are disabled, so a required
+      field on a hidden tab does not block the form and is not submitted.
+      Use panels for tabs that hold form fields, such as a sign-up form
+      choosing between a password and an emailed code, rather than link tabs,
+      which load a new page and lose what was typed.
     - `ui_tab_switcher(tabs:)` also takes link tabs, an array of hashes
       `{ label:, href:, current: }`. Each is drawn as a link to its `href`, the
       one with `current: true` is drawn active with `aria-current="page"`, and

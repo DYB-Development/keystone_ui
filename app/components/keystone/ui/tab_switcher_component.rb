@@ -15,6 +15,7 @@ module Keystone
       CONTENT_CLASSES = "max-sm:order-1"
 
       renders_one :summary
+      renders_many :panels
 
       attr_reader :tabs
 
