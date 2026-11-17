@@ -319,6 +319,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true, true ], page.css("[data-timeline-label]").map { |label| label[:class].split.include?("wrap-break-word") }
   end
 
+  def test_hides_the_axis_marks_of_a_one_line_timeline_on_a_phone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_includes page.at_css("[data-timeline-mark]").parent[:class].split, "max-sm:hidden"
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")

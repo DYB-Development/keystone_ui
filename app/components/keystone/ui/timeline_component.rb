@@ -20,7 +20,7 @@ module Keystone
       ROW_TEXT_CLASSES = "ks-meter-label flex justify-between text-sm"
       AXIS_CLASSES = "ks-meter-label flex justify-between text-xs"
       ROW_STATUS_CLASSES = "flex items-center ks-grid-gap-sm"
-      ONE_LINE_AXIS_CLASSES = "ks-meter-label relative h-4 text-xs sm:col-start-2"
+      ONE_LINE_AXIS_CLASSES = "ks-meter-label relative h-4 text-xs sm:col-start-2 max-sm:hidden"
       MARK_CLASSES = "absolute top-0 whitespace-nowrap"
       MINIMUM_BAR_PERCENT = 2
       MARK_STEPS = [ 1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10_800, 21_600, 43_200, 86_400 ].freeze
