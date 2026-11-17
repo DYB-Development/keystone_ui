@@ -9,6 +9,7 @@ module Keystone
       PLAIN_CLASSES = "ks-metric-plain relative"
       COMPACT_CLASSES = "ks-metric-card ks-metric-card-compact relative"
       LABEL_CLASSES = "ks-stat-card-label text-sm"
+      COMPACT_LABEL_CLASSES = "ks-stat-card-label text-xs"
       VALUE_BASE_CLASSES = "ks-stat-card-value text-3xl"
       SUFFIX_CLASSES = "ks-stat-card-suffix text-lg"
       DISCLOSURE_CLASSES = "ks-stat-card-disclosure hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 text-sm"
@@ -62,7 +63,7 @@ module Keystone
       end
 
       def label_classes
-        LABEL_CLASSES
+        @compact ? COMPACT_LABEL_CLASSES : LABEL_CLASSES
       end
 
       def value_classes
