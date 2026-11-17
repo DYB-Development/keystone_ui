@@ -1,4 +1,4 @@
-<%= form_with url: @url, method: @method, class: FORM_CLASSES do %>
+<%= form_with url: @url, method: @method, class: form_classes do %>
   <div class="<%= bar_classes %>">
     <% if @note %>
       <label class="<%= NOTE_CLASSES %>"><span class="<%= NOTE_LABEL_CLASSES %>"><%= @note[:label] %></span><%= render Keystone::Ui::InputComponent.new(name: @note[:name], placeholder: @note[:placeholder]) %></label>

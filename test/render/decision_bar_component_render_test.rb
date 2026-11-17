@@ -183,6 +183,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_empty %w[lg:contents max-lg:flex-col] - page.at_css("form .ks-bottom-action")["class"].split
   end
 
+  def test_given_the_large_breakpoint_draws_no_box_around_the_fixed_bar_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_includes page.at_css("form")["class"].split, "max-lg:contents"
+  end
+
   private
 
   def render_bar(**overrides)

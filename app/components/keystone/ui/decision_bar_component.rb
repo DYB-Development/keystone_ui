@@ -3,7 +3,11 @@
 module Keystone
   module Ui
     class DecisionBarComponent < ViewComponent::Base
-      FORM_CLASSES = "ks-panel ks-panel-radius-md ks-panel-padding-sm flex flex-wrap items-center ks-grid-gap-sm max-sm:contents"
+      FORM_CLASSES = {
+        sm: "ks-panel ks-panel-radius-md ks-panel-padding-sm flex flex-wrap items-center ks-grid-gap-sm max-sm:contents",
+        md: "ks-panel ks-panel-radius-md ks-panel-padding-sm flex flex-wrap items-center ks-grid-gap-sm max-md:contents",
+        lg: "ks-panel ks-panel-radius-md ks-panel-padding-sm flex flex-wrap items-center ks-grid-gap-sm max-lg:contents"
+      }.freeze
       BAR_CLASSES = {
         sm: "ks-bottom-action max-sm:flex-col ks-grid-gap-sm sm:contents hotwire-native:bottom-0",
         md: "ks-bottom-action max-md:flex-col ks-grid-gap-sm md:contents hotwire-native:bottom-0",
@@ -34,6 +38,10 @@ module Keystone
 
       def bar_classes
         BAR_CLASSES.fetch(@breakpoint)
+      end
+
+      def form_classes
+        FORM_CLASSES.fetch(@breakpoint)
       end
 
       def buttons
