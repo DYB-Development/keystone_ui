@@ -237,6 +237,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("form div:has(> button[value='reject'])")["class"].split, "max-lg:order-2"
   end
 
+  def test_given_the_large_breakpoint_gives_each_secondary_button_an_equal_share_of_the_row_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_includes page.at_css("div:has(> div > button.ks-button-secondary)")["class"].split, "max-lg:*:flex-1"
+  end
+
   private
 
   def render_bar(**overrides)

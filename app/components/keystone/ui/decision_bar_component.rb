@@ -19,6 +19,11 @@ module Keystone
         lg: "max-lg:order-first max-lg:*:w-full max-lg:*:min-h-12"
       }.freeze
       ACTION_CLASSES = "flex *:flex-1"
+      SECONDARY_ROW_CLASSES = {
+        sm: "max-sm:*:flex-1 max-sm:*:whitespace-nowrap",
+        md: "max-md:*:flex-1 max-md:*:whitespace-nowrap",
+        lg: "max-lg:*:flex-1 max-lg:*:whitespace-nowrap"
+      }.freeze
       PHONE_ONLY_CLASSES = {
         sm: "sm:hidden",
         md: "md:hidden",
@@ -95,7 +100,7 @@ module Keystone
       private
 
       def secondary_row
-        render(ButtonRowComponent.new(equal_width: :phone)) do
+        render(ButtonRowComponent.new(class: SECONDARY_ROW_CLASSES.fetch(@breakpoint))) do
           safe_join(@actions.map { |action| secondary_button(action) })
         end
       end
