@@ -219,6 +219,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("form div:has(> a[href='/inbox/8'])")["class"].split, "lg:hidden"
   end
 
+  def test_given_the_large_breakpoint_shows_an_actions_phone_label_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg, actions: [ { label: "Send back with findings", phone_label: "Send back", name: "decision", value: "send_back" } ])
+
+    assert_equal "Send back", page.at_css("form button[value='send_back'] span.lg\\:hidden")&.text
+  end
+
   private
 
   def render_bar(**overrides)
