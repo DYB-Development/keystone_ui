@@ -18,7 +18,7 @@ module Keystone
         md: "max-md:order-first max-md:*:w-full max-md:*:min-h-12",
         lg: "max-lg:order-first max-lg:*:w-full max-lg:*:min-h-12"
       }.freeze
-      ACTION_CLASSES = "flex *:flex-1 *:min-w-0"
+      ACTION_CLASSES = "flex *:flex-1 *:min-w-0 *:wrap-break-word *:text-center"
       SECONDARY_ROW_CLASSES = {
         sm: "max-sm:*:flex-1 max-sm:*:min-w-0",
         md: "max-md:*:flex-1 max-md:*:min-w-0",

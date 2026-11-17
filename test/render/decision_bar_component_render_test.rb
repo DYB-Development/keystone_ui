@@ -249,6 +249,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true, true ], [ page.at_css("div:has(> div > button.ks-button-secondary)")["class"].split.include?("max-sm:*:min-w-0"), page.at_css("div:has(> button.ks-button-secondary)")["class"].split.include?("*:min-w-0") ]
   end
 
+  def test_wraps_a_label_too_long_for_its_secondary_button_inside_the_button
+    page = render_bar
+
+    assert_includes page.at_css("div:has(> button.ks-button-secondary)")["class"].split, "*:wrap-break-word"
+  end
+
   private
 
   def render_bar(**overrides)
