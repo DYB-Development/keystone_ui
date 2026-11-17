@@ -10,7 +10,7 @@ module Keystone
       TOP_LINE_BADGE_CLASSES = "min-w-0 whitespace-normal"
       TEXT_CLASSES = "min-w-0 flex-1"
       TOP_LINE_CLASSES = "flex items-center justify-between ks-grid-gap-sm whitespace-nowrap"
-      TOP_LINE_TEXT_CLASSES = "ks-value-list-note min-w-0 truncate"
+      TOP_LINE_TEXT_CLASSES = "ks-value-list-note shrink-0 max-w-full truncate"
       LABEL_CLASSES = "ks-paragraph ks-settings-link-label block"
       SUBTITLE_CLASSES = "ks-value-list-note"
       VALUE_CLASSES = "ks-value-list-value shrink-0"
