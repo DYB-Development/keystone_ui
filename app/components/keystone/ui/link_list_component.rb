@@ -24,7 +24,11 @@ module Keystone
       end
 
       def row_options(row)
-        { class: [ ROW_CLASSES, (CURRENT_ROW_CLASSES if row[:current]) ].compact.join(" "), aria: { current: ("true" if row[:current]) }, target: ("_blank" if @new_tab) }
+        { class: [ ROW_CLASSES, (CURRENT_ROW_CLASSES if row[:current]) ].compact.join(" "), aria: { current: ("true" if row[:current]) } }.merge(new_tab_options)
+      end
+
+      def new_tab_options
+        @new_tab ? { target: "_blank", rel: "noopener" } : {}
       end
 
       def badge(row)
