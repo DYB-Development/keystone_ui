@@ -24,7 +24,11 @@ module Keystone
         md: "md:hidden",
         lg: "lg:hidden"
       }.freeze
-      PHONE_ORDER_CLASSES = { 1 => "max-sm:order-1", 2 => "max-sm:order-2", 3 => "max-sm:order-3" }.freeze
+      PHONE_ORDER_CLASSES = {
+        sm: { 1 => "max-sm:order-1", 2 => "max-sm:order-2", 3 => "max-sm:order-3" }.freeze,
+        md: { 1 => "max-md:order-1", 2 => "max-md:order-2", 3 => "max-md:order-3" }.freeze,
+        lg: { 1 => "max-lg:order-1", 2 => "max-lg:order-2", 3 => "max-lg:order-3" }.freeze
+      }.freeze
       PHONE_LABEL_CLASSES = {
         sm: "sm:hidden",
         md: "md:hidden",
@@ -97,7 +101,7 @@ module Keystone
       end
 
       def secondary_button(action)
-        tag.div(class: [ ACTION_CLASSES, (PHONE_ONLY_CLASSES.fetch(@breakpoint) if action[:phone_only]), PHONE_ORDER_CLASSES[action[:phone_order]] ].compact.join(" ")) do
+        tag.div(class: [ ACTION_CLASSES, (PHONE_ONLY_CLASSES.fetch(@breakpoint) if action[:phone_only]), PHONE_ORDER_CLASSES.fetch(@breakpoint)[action[:phone_order]] ].compact.join(" ")) do
           render ButtonComponent.new(variant: :secondary, **action.except(:phone_only, :phone_order, :phone_label), label: action_label(action))
         end
       end
