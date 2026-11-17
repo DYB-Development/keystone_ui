@@ -109,6 +109,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_nil page.at_css("a.ks-tab .ks-badge")
   end
 
+  def test_a_link_tab_set_to_show_a_zero_count_draws_it_after_its_label
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ { label: "Input", href: "/inbox?filter=input", count: 0, show_zero: true } ], shape: :pills))
+
+    assert_equal "0", page.at_css("a.ks-tab .ks-tab-count")&.text
+  end
+
   def test_in_a_tab_row_aligned_to_the_start_the_chosen_link_tab_is_still_marked_as_the_current_tab
     page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS, align: :start))
 

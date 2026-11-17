@@ -40,6 +40,10 @@ module Keystone
         "#{base_tab_classes} ks-tab-active"
       end
 
+      def count?(tab)
+        tab[:count].to_i.positive? || (tab[:show_zero] && !tab[:count].nil?)
+      end
+
       def count_mark(count)
         return render(BadgeComponent.new(label: count.to_s, variant: :info)) unless @shape
 
