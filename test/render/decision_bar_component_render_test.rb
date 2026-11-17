@@ -177,6 +177,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_equal "Send back with findings", page.at_css("form button[value='send_back'] span.max-sm\\:hidden")&.text
   end
 
+  def test_given_the_large_breakpoint_lays_the_fixed_bar_into_its_own_row_from_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_empty %w[lg:contents max-lg:flex-col] - page.at_css("form .ks-bottom-action")["class"].split
+  end
+
   private
 
   def render_bar(**overrides)

@@ -4,7 +4,11 @@ module Keystone
   module Ui
     class DecisionBarComponent < ViewComponent::Base
       FORM_CLASSES = "ks-panel ks-panel-radius-md ks-panel-padding-sm flex flex-wrap items-center ks-grid-gap-sm max-sm:contents"
-      BAR_CLASSES = "ks-bottom-action max-sm:flex-col ks-grid-gap-sm sm:contents hotwire-native:bottom-0"
+      BAR_CLASSES = {
+        sm: "ks-bottom-action max-sm:flex-col ks-grid-gap-sm sm:contents hotwire-native:bottom-0",
+        md: "ks-bottom-action max-md:flex-col ks-grid-gap-sm md:contents hotwire-native:bottom-0",
+        lg: "ks-bottom-action max-lg:flex-col ks-grid-gap-sm lg:contents hotwire-native:bottom-0"
+      }.freeze
       PRIMARY_CLASSES = "max-sm:order-first max-sm:*:w-full max-sm:*:min-h-12"
       ACTION_CLASSES = "flex *:flex-1"
       PHONE_ONLY_CLASSES = "sm:hidden"
@@ -18,13 +22,18 @@ module Keystone
       NOTE_LABEL_CLASSES = "ks-label shrink-0"
       NOTE_CLASSES = "flex flex-1 basis-60 items-center ks-grid-gap-sm max-sm:hidden"
 
-      def initialize(url:, primary:, actions: [], note: nil, hint: nil, method: :post)
+      def initialize(url:, primary:, actions: [], note: nil, hint: nil, method: :post, breakpoint: :sm)
+        @breakpoint = breakpoint
         @url = url
         @primary = primary
         @actions = actions
         @note = note
         @hint = hint
         @method = method
+      end
+
+      def bar_classes
+        BAR_CLASSES.fetch(@breakpoint)
       end
 
       def buttons
