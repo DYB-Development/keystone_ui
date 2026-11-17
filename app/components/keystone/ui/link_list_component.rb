@@ -7,6 +7,7 @@ module Keystone
       CURRENT_ROW_CLASSES = "ks-value-list-row-current"
       STACK_CLASSES = "flex min-w-0 flex-1 flex-col-reverse ks-grid-gap-sm sm:contents"
       BADGE_CLASSES = "max-sm:self-start"
+      TOP_LINE_BADGE_CLASSES = "min-w-0 whitespace-normal"
       TEXT_CLASSES = "min-w-0 flex-1"
       TOP_LINE_CLASSES = "flex items-center justify-between ks-grid-gap-sm whitespace-nowrap"
       TOP_LINE_TEXT_CLASSES = "ks-value-list-note min-w-0 truncate"
@@ -30,7 +31,7 @@ module Keystone
       end
 
       def top_line_badge(row)
-        BadgeComponent.new(**row[:top_line][:badge])
+        BadgeComponent.new(**row[:top_line][:badge], class: TOP_LINE_BADGE_CLASSES)
       end
     end
   end

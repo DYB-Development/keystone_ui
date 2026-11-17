@@ -99,6 +99,12 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css(".ks-settings-link-label").previous_element.at_css(".ks-badge").next_element["class"].to_s.split, "truncate"
   end
 
+  def test_wraps_a_long_top_line_badge_instead_of_squeezing_the_text_beside_it
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Spring email", href: "/runs/abc", top_line: { badge: { label: "Paused · waiting on Approve the copy?", variant: :warning }, text: "Started 2m ago" } } ]))
+
+    assert_equal [ true, true ], [ "min-w-0", "whitespace-normal" ].map { |name| page.at_css(".ks-badge")["class"].split.include?(name) }
+  end
+
   def test_marks_a_current_row_with_the_current_row_class
     page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "Pick target segment", href: "/items/abc", current: true } ]))
 
