@@ -18,11 +18,11 @@ module Keystone
         md: "max-md:order-first max-md:*:w-full max-md:*:min-h-12",
         lg: "max-lg:order-first max-lg:*:w-full max-lg:*:min-h-12"
       }.freeze
-      ACTION_CLASSES = "flex *:flex-1"
+      ACTION_CLASSES = "flex *:flex-1 *:min-w-0"
       SECONDARY_ROW_CLASSES = {
-        sm: "max-sm:*:flex-1 max-sm:*:whitespace-nowrap",
-        md: "max-md:*:flex-1 max-md:*:whitespace-nowrap",
-        lg: "max-lg:*:flex-1 max-lg:*:whitespace-nowrap"
+        sm: "max-sm:*:flex-1 max-sm:*:min-w-0",
+        md: "max-md:*:flex-1 max-md:*:min-w-0",
+        lg: "max-lg:*:flex-1 max-lg:*:min-w-0"
       }.freeze
       PHONE_ONLY_CLASSES = {
         sm: "sm:hidden",

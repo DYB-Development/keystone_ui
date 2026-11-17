@@ -243,6 +243,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("div:has(> div > button.ks-button-secondary)")["class"].split, "max-lg:*:flex-1"
   end
 
+  def test_on_a_phone_keeps_each_secondary_buttons_share_of_the_row_equal_however_long_its_label
+    page = render_bar
+
+    assert_equal [ true, true ], [ page.at_css("div:has(> div > button.ks-button-secondary)")["class"].split.include?("max-sm:*:min-w-0"), page.at_css("div:has(> button.ks-button-secondary)")["class"].split.include?("*:min-w-0") ]
+  end
+
   private
 
   def render_bar(**overrides)
