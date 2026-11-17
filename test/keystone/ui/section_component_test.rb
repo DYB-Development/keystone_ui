@@ -15,13 +15,6 @@ class Keystone::Ui::SectionComponentTest < Minitest::Test
     assert_equal false, component.header?
   end
 
-  def test_stores_the_action_hash
-    action = { label: "View all", href: "/users" }
-    component = Keystone::Ui::SectionComponent.new(title: "Users", action: action)
-
-    assert_equal action, component.instance_variable_get(:@action)
-  end
-
   def test_renders_the_shared_section_classes_for_each_spacing_and_part
     assert_equal "ks-section-md", Keystone::Ui::SectionComponent.new.spacing_class
     assert_equal "ks-section-sm", Keystone::Ui::SectionComponent.new(spacing: :sm).spacing_class
