@@ -307,6 +307,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert page.at_css("[data-timeline]").element_children.first.at_css("[data-timeline-mark]")
   end
 
+  def test_cuts_a_row_name_of_a_one_line_timeline_short_only_from_sm_up
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
+
+    assert_equal [ [ false, true ] ] * 2, page.css("[data-timeline-label]").map { |label| [ label[:class].split.include?("truncate"), label[:class].split.include?("sm:truncate") ] }
+  end
+
   def part_name(part)
     return "duration" if part.at_css("[data-timeline-duration]")
     return "label" if part.key?("data-timeline-label")
