@@ -135,7 +135,7 @@ One decision: is keystone_ui set up in the app?
   style at the right end of the title line, before the action and the menu.
   The aside never breaks in the middle of a word, and on wider screens a long
   title wraps beside it while it keeps its full width. Below `sm:` the aside
-  takes a line of its own under the title and the actions. A section with no title draws no header, so its aside is not shown.
+  takes a line of its own under the title and the actions. A section given an aside and no title raises an error, since the header that shows the aside needs a title.
 - **Going back.** A form or show page shell needs a way back: a back link, a
   trail of earlier pages shown as breadcrumbs, or a trail the app supplies for
   the request. A nav tab's own page passes an empty trail and shows no back
@@ -201,7 +201,8 @@ One decision: is keystone_ui set up in the app?
   layout. Below `sm:` the layout can show it again as a plus icon in the top
   bar, or as a full-width button in a bar fixed to the bottom of the screen,
   above the bottom tab bar when the page has one. The bottom bar asks the
-  header's confirmation question before sending, and the plus icon does not.
+  header's confirmation question before sending, and so does the plus icon
+  when the action sends a method other than a plain visit.
   The page leaves room under its last content so the bar does not cover it.
   A header can mark its action as belonging at the bottom, and then hides its
   own button below `sm:` so the action is not shown twice. Both forms show
@@ -225,7 +226,10 @@ One decision: is keystone_ui set up in the app?
   width above a row of the secondary buttons in equal shares, a long label
   wrapping inside its button, and with no note field or hint. The width at
   which it switches between the two can be moved from `sm:` to `md:` or `lg:`. Each secondary button can have a shorter label on a phone, be
-  shown on a phone only, and take another place in the phone row. The page leaves room under its last content so the bar does
+  shown on a phone only, and take another place in the phone row. A
+  secondary button can also send its own request, such as a delete, to its
+  own address, while the other buttons still send the bar's form to the
+  bar's address. The page leaves room under its last content so the bar does
   not cover it. Unlike the main action's bottom bar, it stays shown inside a
   Hotwire Native web view.
 - **Action menus.** Each action is a label, an address and an HTTP method. A
@@ -233,7 +237,9 @@ One decision: is keystone_ui set up in the app?
   changes data is never a bare link. A delete asks for confirmation by default.
 - **Status states.** A badge and a status dot read one list of five states:
   neutral, success, danger, warning and info. A state added to that list is
-  accepted by both, so the two never disagree about which states exist. A badge
+  accepted by both, so the two never disagree about which states exist. A stat
+  card's tones and a review card's score tones, which add a muted tone, read
+  the same list. A badge
   shows its label as text. A status dot shows only its state's colour, for
   places with no room for text, and its label is read only by screen readers.
   Neither accepts a state outside the list: a status dot raises `ArgumentError`

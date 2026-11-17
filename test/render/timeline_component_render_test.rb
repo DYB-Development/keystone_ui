@@ -182,6 +182,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     assert_includes error.message, "Deploy"
   end
 
+  def test_refuses_an_entry_queued_later_than_it_starts_naming_its_label
+    error = assert_raises(ArgumentError) { Keystone::Ui::TimelineComponent.new(entries: [ { label: "Review", queued_at: START + 60, started_at: START, ended_at: START + 120 } ]) }
+
+    assert_includes error.message, "Review"
+  end
+
   def running
     [
       { label: "Plan", started_at: START, ended_at: START + 240 },
@@ -278,6 +284,12 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
     page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, one_line: true))
 
     assert_equal %w[0s 1m 2m 3m 4m], page.css("[data-timeline-mark]").map(&:text)
+  end
+
+  def test_marks_the_axis_of_a_one_line_timeline_spanning_eight_days_every_48_hours
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: [ { label: "Soak", started_at: START, ended_at: START + (8 * 86_400) } ], one_line: true))
+
+    assert_equal %w[0s 48h 96h 144h 192h], page.css("[data-timeline-mark]").map(&:text)
   end
 
   def test_places_the_bars_of_a_one_line_timeline_on_an_axis_that_ends_at_its_last_mark

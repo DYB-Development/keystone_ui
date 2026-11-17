@@ -24,6 +24,10 @@ module Keystone
         @extra_classes = binding.local_variable_get(:class)
       end
 
+      def before_render
+        raise ArgumentError, "A section's aside needs a title" if aside? && !header?
+      end
+
       def spacing_class
         SPACING_CLASSES.fetch(@spacing)
       end

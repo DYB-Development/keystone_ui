@@ -18,13 +18,17 @@ module Keystone
       def call
         return link_to(PLUS_ICON.html_safe, url, **options) unless content_for?(:mobile_action_method)
 
-        button_to(url, method: content_for(:mobile_action_method), **options) { PLUS_ICON.html_safe }
+        button_to(url, method: content_for(:mobile_action_method), form: form_options, **options) { PLUS_ICON.html_safe }
       end
 
       private
 
       def url
         content_for(:mobile_action_url)
+      end
+
+      def form_options
+        content_for?(:mobile_action_confirm) ? { data: { turbo_confirm: content_for(:mobile_action_confirm) } } : {}
       end
 
       def options

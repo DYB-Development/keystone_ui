@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.101.0] - 2026-11-17
+
+### Added
+- `ui_button` takes `formaction:` to send its form to another address when pressed (#518).
+- `Keystone::Ui::TextDiffComponent#comparisons` gives the number of times the diff compared a line of one text with a line of the other (#518).
+
+### Fixed
+- A `ui_decision_bar` action given `href:` and a method such as `:delete` sends that method to its own link, and the bar's other buttons still send their usual request to the bar's address (#518).
+- A `ui_decision_bar` action given such a method and its own `name:` or `value:` raises `ArgumentError`, and a `phone_order:` other than 1, 2 or 3 raises `KeyError` (#518).
+- A `ui_section` given an aside and no title raises `ArgumentError` in place of leaving the aside out (#518).
+- A `ui_timeline` entry queued later than it started raises `ArgumentError` naming its label (#518).
+- A `ui_bar_chart` given a negative value raises `ArgumentError` naming it in place of drawing nothing (#518).
+- `ui_text_diff` compares two long texts in time and memory that grow with the lines that differ (#518).
+- `ui_mobile_action` asks the page header's `action_confirm:` before sending an action that has a method (#518).
+- `ui_review_card` and `ui_stat_card` take their tones from the list the badge and status dot use, so a tone added there is offered by both (#518).
+
+### Removed
+- The mobile header's unused menu icon and menu classes, and the tab switcher's unused `panel_classes` and `wrapper_data` (#518).
+
 ## [0.100.0] - 2026-11-17
 
 ### Added

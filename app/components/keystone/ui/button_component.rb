@@ -20,7 +20,7 @@ module Keystone
 
       TEXT_CLASSES = "ks-text-button"
 
-      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil, disabled: false)
+      def initialize(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil, disabled: false, formaction: nil)
         @label = label
         @href = href
         @method = method.to_sym
@@ -34,6 +34,7 @@ module Keystone
         @hidden = hidden
         @confirm = confirm
         @disabled = disabled
+        @formaction = formaction
       end
 
       def classes
@@ -57,6 +58,7 @@ module Keystone
           options[:type] = @type
           options[:name] = @name if @name
           options[:value] = @value if @value
+          options[:formaction] = @formaction if @formaction
         else
           options[:href] = @href
         end

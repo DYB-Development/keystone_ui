@@ -255,6 +255,28 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("div:has(> button.ks-button-secondary)")["class"].split, "*:wrap-break-word"
   end
 
+  def test_sends_a_delete_to_the_own_link_of_an_action_given_a_link_and_a_delete_method
+    page = render_bar(actions: [ { label: "Delete", href: "/approvals/7", method: :delete } ])
+
+    assert_equal [ "/approvals/7", "_method", "delete" ], %w[formaction name value].map { |attribute| page.at_css("form button.ks-button-secondary")&.[](attribute) }
+  end
+
+  def test_keeps_the_delete_of_an_action_given_a_link_and_a_delete_method_off_its_other_buttons
+    page = render_bar(actions: [ { label: "Reject", name: "decision", value: "reject" }, { label: "Delete", href: "/approvals/7", method: :delete } ])
+
+    assert_empty page.css("form input[name='_method']")
+  end
+
+  def test_refuses_an_action_given_a_link_a_delete_method_and_a_name_of_its_own
+    error = assert_raises(ArgumentError) { render_bar(actions: [ { label: "Delete", href: "/approvals/7", method: :delete, name: "decision" } ]) }
+
+    assert_includes error.message, "Delete"
+  end
+
+  def test_refuses_a_phone_order_other_than_1_2_or_3
+    assert_raises(KeyError) { render_bar(actions: [ { label: "Reject", name: "decision", value: "reject", phone_order: 4 } ]) }
+  end
+
   private
 
   def render_bar(**overrides)

@@ -30,6 +30,15 @@ class Keystone::Ui::PageHeaderComponentRenderTest < ViewComponent::TestCase
     assert_equal "post", method.text.strip
   end
 
+  def test_given_an_action_confirmation_passes_it_to_the_layout
+    confirm = render_in_view_context do
+      ui_page_header(title: "Run 1", action_url: "/runs/1/stop", action_method: :post, action_confirm: "Stop the run?")
+      content_for(:mobile_action_confirm)
+    end
+
+    assert_equal "Stop the run?", confirm.text.strip
+  end
+
   def test_given_no_action_method_passes_none_to_the_layout
     method_set = nil
     render_in_view_context do

@@ -89,6 +89,12 @@ class Keystone::Ui::MobileActionComponentRenderTest < ViewComponent::TestCase
     assert_equal 1, top_bar_form(page)&.css("button svg")&.size
   end
 
+  def test_asks_the_confirmation_a_page_header_publishes_before_sending_the_action
+    page = render_after_page_header(title: "Events", action_url: "/events", action_method: :post, action_confirm: "Copy every event?")
+
+    assert_equal "Copy every event?", top_bar_form(page)&.[]("data-turbo-confirm")
+  end
+
   private
 
   def render_after_page_header(**header)

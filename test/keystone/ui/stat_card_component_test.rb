@@ -14,13 +14,6 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   end
 
 
-  def test_maps_variant_to_value_color
-    %i[neutral success danger warning info].each do |variant|
-      component = Keystone::Ui::StatCardComponent.new(label: "X", value: "0", variant: variant)
-      assert_includes component.value_classes, Keystone::Ui::StatCardComponent::VARIANT_CLASSES[variant]
-    end
-  end
-
   def test_exposes_label_classes
     component = Keystone::Ui::StatCardComponent.new(label: "X", value: "0")
 

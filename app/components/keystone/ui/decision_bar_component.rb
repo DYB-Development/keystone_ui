@@ -68,6 +68,7 @@ module Keystone
         @url = url
         @primary = primary
         @actions = actions
+        actions.each { |action| check_action(action) }
         @note = note
         @hint = hint
         @method = method
@@ -106,9 +107,30 @@ module Keystone
       end
 
       def secondary_button(action)
-        tag.div(class: [ ACTION_CLASSES, (PHONE_ONLY_CLASSES.fetch(@breakpoint) if action[:phone_only]), PHONE_ORDER_CLASSES.fetch(@breakpoint)[action[:phone_order]] ].compact.join(" ")) do
-          render ButtonComponent.new(variant: :secondary, **action.except(:phone_only, :phone_order, :phone_label), label: action_label(action))
+        tag.div(class: [ ACTION_CLASSES, (PHONE_ONLY_CLASSES.fetch(@breakpoint) if action[:phone_only]), phone_order_classes(action) ].compact.join(" ")) do
+          render ButtonComponent.new(variant: :secondary, **button_options(action), label: action_label(action))
         end
+      end
+
+      def phone_order_classes(action)
+        PHONE_ORDER_CLASSES.fetch(@breakpoint).fetch(action[:phone_order]) if action.key?(:phone_order)
+      end
+
+      def button_options(action)
+        options = action.except(:phone_only, :phone_order, :phone_label)
+        return options unless sends_request?(action)
+
+        options.except(:href, :method).merge(formaction: action[:href], name: "_method", value: action[:method].to_s)
+      end
+
+      def check_action(action)
+        return unless sends_request?(action) && (action.key?(:name) || action.key?(:value))
+
+        raise ArgumentError, "Decision bar action #{action[:label].inspect} sends a #{action[:method]} to its own link, so it cannot send a name or value of its own"
+      end
+
+      def sends_request?(action)
+        action[:href] && action.fetch(:method, :get).to_sym != :get
       end
 
       def action_label(action)

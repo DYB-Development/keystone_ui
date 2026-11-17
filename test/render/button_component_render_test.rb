@@ -39,4 +39,10 @@ class Keystone::Ui::ButtonComponentRenderTest < ViewComponent::TestCase
 
     assert page.at_css("button[disabled]")
   end
+
+  def test_a_button_given_a_form_action_sends_its_form_to_that_address
+    page = render_inline(Keystone::Ui::ButtonComponent.new(label: "Delete", formaction: "/approvals/7"))
+
+    assert_equal "/approvals/7", page.at_css("button")&.[]("formaction")
+  end
 end

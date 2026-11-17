@@ -9,7 +9,6 @@ module Keystone
       SHAPE_CLASSES = { pills: "ks-tab-bar-pills", underline: "ks-tab-bar-underline" }.freeze
       TAB_BASE_CLASSES = "ks-tab text-sm transition max-sm:shrink-0 max-sm:whitespace-nowrap"
       SHAPED_TAB_BASE_CLASSES = "ks-tab transition max-sm:shrink-0 max-sm:whitespace-nowrap"
-      PANEL_CLASSES = "hidden"
       LAYOUT_CLASSES = "max-sm:flex max-sm:flex-col"
       SUMMARY_CLASSES = "max-sm:order-1 max-sm:[&>:first-child]:mt-0 max-sm:[&>:last-child]:mb-0"
       CONTENT_CLASSES = "max-sm:order-1"
@@ -49,14 +48,6 @@ module Keystone
         return render(BadgeComponent.new(label: count.to_s, variant: :info)) unless @shape
 
         content_tag(:span, count, class: "ks-tab-count")
-      end
-
-      def panel_classes
-        PANEL_CLASSES
-      end
-
-      def wrapper_data
-        { controller: "tab-switcher" }
       end
     end
   end
