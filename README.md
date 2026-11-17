@@ -359,7 +359,7 @@ Renders a card layout with a title, summary, and a single call-to-action link.
 
 ### `ui_review_card`
 
-Renders a card for one item someone reviews, such as one of several variants compared side by side. A header line shows a short id at the left and a score or status at the right, then come the title, the body text, an optional call-to-action line, an optional meta line of short details with a divider above it, an optional finding note in the warning style, and an optional row of buttons that each take an equal share of the row. When the card has a finding note, its edge is drawn in the warning style. From `sm` up its buttons are narrowed so three labels fit side by side in a third of the page, and below `sm` each button is at least 44px tall.
+Renders a card for one item someone reviews, such as one of several variants compared side by side. A header line shows a short id at the left and a score or status at the right, then come the title, the body text, an optional call-to-action line, an optional meta line of short details with a divider above it, an optional finding note in the warning style, and an optional row of buttons that each take an equal share of the row. When the card has a finding note, its edge is drawn in the warning style. From `sm` up its buttons are narrowed so three labels fit side by side in a third of the page, and below `sm` each button is at least 44px tall. The buttons are separated by a space in the card's text, so copied text and screen readers read each label as its own word.
 
 **Required props**
 
@@ -437,6 +437,7 @@ Lays out the buttons passed in its block as one row with even gaps between them.
 **Optional props**
 
 - `equal_width:` (Boolean or `:phone`, default `false`) — `true` gives every button an equal share of the row's width and keeps each label on one line, so the row stays on one line until the labels no longer fit, and `:phone` does that below `sm` only, leaving each button the width of its label from `sm` up
+- `class:` (String) — extra classes added to the row for this one use
 
 ```erb
 <%= ui_button_row do %>
@@ -705,7 +706,7 @@ Groups related content with an optional header (title, subtitle, action) and ver
 
 **Slots**
 
-- `aside` — short text, a badge or other markup, such as a legend, shown at the right end of the title line in small muted text, before the action and the menu. On a phone it moves to its own line below the title and the actions.
+- `aside` — short text, a badge or other markup, such as a legend, shown at the right end of the title line in small muted text, before the action and the menu. It never breaks in the middle of a word. From `sm` up it keeps its full width, and a title too long to fit beside it wraps onto more lines. On a phone it moves to its own line below the title and the actions.
 
 ```erb
 <%= ui_section(title: "Products", subtitle: "All active items", spacing: :lg) do %>
@@ -729,7 +730,8 @@ Renders a CSS grid with responsive column counts and configurable gap sizes.
 
 **Optional props**
 
-- `cols:` (Hash, default `{ default: 1 }`) — maps breakpoints to column counts (1-12). Keys: `:default`, `:sm`, `:md`, `:lg`.
+- `cols:` (Hash, default `{ default: 1 }`) — maps breakpoints to column counts (1-12). Keys: `:default`, `:sm`, `:md`, `:lg`, `:xl`. Below the smallest breakpoint given, the columns stack into one.
+- `wide:` (`:first | :second`) — at each breakpoint where `cols:` gives two columns, makes that column wider, taking three parts of the width to the other column's two
 - `gap:` (`:sm | :md | :lg | :xl`, default `:md`) — uniform gap size
 - `gap_x:` (Symbol) — horizontal gap (overrides `gap:`)
 - `gap_y:` (Symbol) — vertical gap (overrides `gap:`)
@@ -737,6 +739,10 @@ Renders a CSS grid with responsive column counts and configurable gap sizes.
 ```erb
 <%= ui_grid(cols: { default: 1, sm: 2, lg: 4 }, gap: :lg) do %>
   <!-- grid items -->
+<% end %>
+
+<%= ui_grid(cols: { default: 1, xl: 2 }, wide: :first) do %>
+  <!-- the wider panel, then the narrower one -->
 <% end %>
 ```
 
@@ -974,6 +980,7 @@ Renders a page title area with an optional subtitle, badges, action slot and act
 **Optional props**
 
 - `subtitle:` (String) — secondary text below the title
+- `subtitle_mono:` (Boolean, default `false`) — draws the subtitle in a fixed-width font, such as a run's id and start time
 - `action_url:` (String) — the address of the screen's main action. It is drawn as a button when no `header.action` block is given, and published for `ui_mobile_action` either way
 - `action_label:` (String, default `"Add new"`) — the name of the main action
 - `action_method:` (Symbol) — the method the main action sends, such as `:post`. With a method other than `:get` the button is a form that sends it to `action_url:`, and the method is published for `ui_mobile_action` as `content_for(:mobile_action_method)`. Without it the button is a link and no method is published
@@ -985,6 +992,7 @@ Renders a page title area with an optional subtitle, badges, action slot and act
 
 ```erb
 <%= ui_page_header(title: "Products", action_url: new_product_path, action_label: "New Product") %>
+<%= ui_page_header(title: run.flow_name, subtitle: "#{run.code} · started #{run.started_at.strftime("%H:%M:%S")}", subtitle_mono: true) %>
 ```
 
 ```erb
@@ -1054,7 +1062,7 @@ A list of links, one row per item, each row ending in a chevron. Use it where ea
 - `subtitle:` (String) — a short note under the label
 - `badge:` (Hash) — `{ label:, variant: }`, drawn with `ui_badge`, above the label below `sm` and beside it from `sm` up
 - `value:` (String) — a short value after the label, such as a count or a date
-- `top_line:` (Hash) — `{ badge:, text: }`, a line above the label with `badge:` (`{ label:, variant: }`, drawn with `ui_badge`, apart from the row's `badge:`) at the left and `text:` at the right. It stays on one line, and a long `text:` is cut off with an ellipsis
+- `top_line:` (Hash) — `{ badge:, text: }`, a line above the label with `badge:` (`{ label:, variant: }`, drawn with `ui_badge`, apart from the row's `badge:`) at the left and `text:` at the right. It stays on one line, and a long `text:` is cut off with an ellipsis. A long badge wraps onto more lines, and `text:` keeps its full width beside it
 - `current:` (Boolean) — marks the row as the current one with `aria-current="true"` and keystone_ui-styles' `ks-value-list-row-current` class, which tints the row and draws an accent bar at its left
 
 **Optional props**
@@ -1187,17 +1195,20 @@ Shows a heading at one of three sizes, with an optional short note at the right 
 
 Shows small, uppercase, muted text for placing above a title or a figure.
 
-**Required props**
-
-- `text:` (String)
-
 **Optional props**
 
+- `text:` (String) — the caption's text, left out when the caption is given a block
 - `tone:` (`:muted | :link`, default `:muted`) — `:link` draws the caption in the link colour with space under it, as the label above a quiz question
+- `normal_case:` (Boolean, default `false`) — draws a small muted line in the case it was written, in the normal weight, with any links in it in the link colour, such as a note under a step's details
+
+A block given to the caption is shown in place of `text:`, so the line can hold links.
 
 ```erb
 <%= ui_caption(text: "Work report") %>
 <%= ui_caption(text: "Geography", tone: :link) %>
+<%= ui_caption(normal_case: true) do %>
+  <%= link_to request.code, request_path(request) %> · <%= link_to run.code, run_path(run) %>
+<% end %>
 ```
 
 ### `ui_paragraph`
@@ -1305,7 +1316,7 @@ Bars given `group:` are grouped by its value, with the groups taken as oldest to
 
 Draws one row per label, in the order each label first appears. Entries that share a label, such as the tries of one step, are drawn on the same row, one bar each. Every bar is placed by its entry's start and end on one axis shared by every row, and a bar shorter than 2% of the axis is drawn 2% wide so it stays visible. The axis runs from the earliest queued or start time to the latest end or start, and shows `0s` at its left and the total duration at its right. Each row shows its label and the sum of the time each of its entries took, leaving out the gaps between them, written with one decimal under ten seconds, such as `0.3s` or `8.2s`, and otherwise from the largest unit that is not zero, such as `42s`, `3m 5s` or `1h 0m 5s`. A row of more than one entry adds its number of attempts after that time, such as `41s · 2 att.`. An entry given `queued_at:` has the time from then to its start drawn before its bar in the queued colour. An entry given `failed: true` is drawn in the danger colour, and screen readers read it as failed. An entry given `href:` draws its bar as a link to that address, which screen readers read by its row's label, and a row's label links to the address of the row's last entry that has one. An entry given `selected: true` draws its row in the current row tint the data table's `current_row:` uses, with `aria-current="true"`, so screen readers announce it as the current item. Entries given neither draw no links and no tint. An entry given `ended_at: nil` is still running: its bar is drawn up to the latest time on the axis, and its row shows an info status dot that screen readers read as running. An entry given `waiting: true` is paused, such as a step waiting for approval: its bar is drawn from its start to the end of the axis in the waiting colour, and its row shows `waiting` in the warning tone where its time would be, with no running dot. To draw the axis up to the present, give a waiting entry `ended_at: Time.current`. An entry with no `started_at:`, or whose `ended_at:` is before its `started_at:`, raises `ArgumentError` naming the entry's label. Given no entries, the timeline shows an empty state titled `No steps`. The track and bars are drawn in the timeline's own colours, set by keystone_ui-styles 0.35.0 or later.
 
-Given `one_line: true`, each row shows its label, then its bar, then its duration on one line from `sm` up. The timeline is one grid, so every row's bar sits in one column of the same width, and the label column grows to the longest label up to 40% of the timeline's width, cutting a longer label short. Above the first row, in the bar column, marks along the axis are placed at even intervals from `0s`, at the smallest step from 1 second up to 1 day that covers the run in six intervals or fewer, such as `0s`, `1m`, `2m` up to `6m`. The axis then ends at the last mark rather than at the latest time, and each mark sits at its time on the same axis the bars use. Below `sm` each row falls back to its label and duration above its bar, and the marks run the full width above the bars.
+Given `one_line: true`, each row shows its label, then its bar, then its duration on one line from `sm` up. The timeline is one grid, so every row's bar sits in one column of the same width, and the label column grows to the longest label up to 40% of the timeline's width, cutting a longer label short. Above the first row, in the bar column, marks along the axis are placed at even intervals from `0s`, at the smallest step from 1 second up to 1 day that covers the run in six intervals or fewer, such as `0s`, `1m`, `2m` up to `6m`. The axis then ends at the last mark rather than at the latest time, and each mark sits at its time on the same axis the bars use. Below `sm` it falls back to the default layout: each row shows its full label, wrapped onto more lines when long, and its duration above its bar, and the marks give way to `0s` at the left and the axis's last mark at the right under the rows.
 
 **Required props**
 
@@ -1377,12 +1388,18 @@ Renders a metric card for dashboards.
 - `note:` (String) — a short note shown under the value
 - `plain:` (Boolean, default `false`) — draws a plain figure with no card border or background, for a row of figures
 - `fallback:` (String) — shown in a muted colour when the value is missing, such as `"N/A"`
+- `compact:` (Boolean, default `false`) — a small tile with an extra small label and a smaller value, with its change or note beside the value, about 58px tall against a default card's 134px. Placed in `ui_grid(cols: { default: 1, sm: 2 }, gap: :sm)` inside a panel, compact cards sit two across and stack one across on a phone
 
 When `definition:` or `calculation:` is given, an info button appears. Hovering or focusing it shows the details in a panel floating below the card, and tapping it toggles the panel on touch screens. The card never changes size.
 
 ```erb
 <%= ui_stat_card(label: "Revenue", value: "$42,300", variant: :success, suffix: "/mo") %>
 <%= ui_stat_card(label: "Merged", value: 12, href: "/pull_requests?state=merged", definition: "Pull requests merged in the range.") %>
+
+<%= ui_grid(cols: { default: 1, sm: 2 }, gap: :sm) do %>
+  <%= ui_stat_card(label: "Flipped to pass", value: 14, variant: :success, compact: true) %>
+  <%= ui_stat_card(label: "Avg tokens out", value: 302, change: -4.0, compact: true) %>
+<% end %>
 ```
 
 ### `ui_calculation`
@@ -1488,7 +1505,7 @@ Renders a tab bar with active state indicator. Uses Stimulus `tab-switcher` cont
 **Required props**
 
 - `tabs:` (Array of Strings) — tab labels, switched in the browser by the `tab-switcher` controller
-- `tabs:` (Array of Hashes) — link tabs, each `{ label:, href:, current:, count: }`, where `current: true` marks the chosen tab and `count:` is drawn after the label when it is above zero
+- `tabs:` (Array of Hashes) — link tabs, each `{ label:, href:, current:, count: }`, where `current: true` marks the chosen tab and `count:` is drawn after the label when it is above zero. A tab given `show_zero: true` also draws a count of zero
 
 **Optional props**
 
@@ -1772,7 +1789,7 @@ Renders a single nav link within the navbar.
 
 ### `ui_nav_dropdown`
 
-Renders a dropdown menu within the navbar. Uses Stimulus `dropdown` controller.
+Renders a dropdown menu within the navbar. Uses Stimulus `dropdown` controller. A title too long for the trigger is cut short with an ellipsis, so the phone top bar never makes the page wider than the screen.
 
 **Required props**
 
@@ -1824,7 +1841,7 @@ Renders a single bottom nav tab.
 
 ### `ui_mobile_header`
 
-Renders a mobile header with back link, title, and optional subtitle, overline and badge. Hidden on `lg:` screens. With a `nil` `back_url:` it shows no back link, as on a nav tab's own page.
+Renders a mobile header with back link, title, and optional subtitle, overline and badge. Hidden on `lg:` screens. With a `nil` `back_url:` it shows no back link and leaves no space for one, so the title starts at the header's left edge, as on a nav tab's own page.
 
 Placed outside a top bar, such as directly in the layout's `<header>`, it draws the back link, title and subtitle in one row with the same side margin as `ui_page`, and text too long for the screen ends in an ellipsis. Inside an element with the `top-nav` class, such as `ui_navbar`, that row gives way, and the back link and title are laid out by the bar: the title and subtitle sit between the back link and the bar's right-side controls and start at the left of that space. In `ui_navbar`'s `mobile_left` slot, controls that leave less than 6rem for the title move to a second row under it. In a hand-written top bar, give the bar the `top-nav` class, make the header a direct child of the bar's flex row, and add `max-lg:has-[.ks-mobile-header-title]:flex-wrap` to the bar if its controls can fill its width.
 
@@ -1913,7 +1930,7 @@ Draws one form holding a note field, secondary buttons and a primary button, whi
 
 From `sm` screens up it is a panel showing the note field with its label, then the secondary buttons, then the primary button, on one line that wraps when it runs out of width, with the hint on its own line under them.
 
-Below `sm` it is a bar fixed to the bottom of the screen, above the bottom nav on a page that has one. The primary button spans the full width and is 48px tall, and the secondary buttons sit in a row under it, each taking an equal share of the width and 44px tall. The note field and hint are not shown there. The bar stays shown inside a Hotwire Native web view, at the bottom of the web view. It draws an invisible, inert copy of itself in the page's flow, plus the bottom nav's height when the page has one, so the page's last content can scroll clear of both.
+Below `sm` it is a bar fixed to the bottom of the screen, above the bottom nav on a page that has one. The primary button spans the full width and is 48px tall, and the secondary buttons sit in a row under it, each taking an equal share of the width and 44px tall. A label too long for its share wraps inside its button. The note field and hint are not shown there. The bar stays shown inside a Hotwire Native web view, at the bottom of the web view. It draws an invisible, inert copy of itself in the page's flow, plus the bottom nav's height when the page has one, so the page's last content can scroll clear of both.
 
 **Required props**
 
@@ -1929,6 +1946,7 @@ Below `sm` it is a bar fixed to the bottom of the screen, above the bottom nav o
 - `note:` (Hash) — `name:`, `label:` and `placeholder:` of a text field sent with the form
 - `hint:` (String) — a short line under the buttons, such as the keyboard keys the page answers to
 - `method:` (Symbol, default `:post`)
+- `breakpoint:` (`:sm | :md | :lg`, default `:sm`) — the screen width at which the bar switches from its phone form to its panel, 640px, 768px or 1024px, so it can match a page that changes its own layout at another width
 
 Do not show `ui_bottom_action` on the same screen.
 

@@ -89,8 +89,9 @@ One decision: is keystone_ui set up in the app?
   rows shows only `0s` and the total duration. A timeline can be drawn one line
   per row instead: from `sm:` up each row holds its label, its bar and its
   duration side by side, every row's bar has the same width, and a long label is
-  cut off with an ellipsis. Below `sm:` the bar moves under the label and
-  duration. In that layout the axis, drawn above the first row, shows marks at the smallest round time step
+  cut off with an ellipsis. Below `sm:` it falls back to the default layout:
+  each row shows its full label, wrapped when long, and its duration above its
+  bar, and the axis under the rows shows `0s` and the last mark. In that layout the axis, drawn above the first row, shows marks at the smallest round time step
   that covers the run in six intervals or fewer, and the axis ends at the last mark rather than at the latest
   time, so bars are placed against that longer axis. An entry can carry an address, and then its bar is a link to it whose
   name screen readers announce is the entry's label, and the row's label links
@@ -125,8 +126,9 @@ One decision: is keystone_ui set up in the app?
   subtitle, then an optional action link and action menu. A section can also
   carry an aside, a short piece of text or a badge drawn in the header's note
   style at the right end of the title line, before the action and the menu.
-  Below `sm:` the aside takes a line of its own under the title and the
-  actions. A section with no title draws no header, so its aside is not shown.
+  The aside never breaks in the middle of a word, and on wider screens a long
+  title wraps beside it while it keeps its full width. Below `sm:` the aside
+  takes a line of its own under the title and the actions. A section with no title draws no header, so its aside is not shown.
 - **Going back.** A form or show page shell needs a way back: a back link, a
   trail of earlier pages shown as breadcrumbs, or a trail the app supplies for
   the request. A nav tab's own page passes an empty trail and shows no back
@@ -198,14 +200,24 @@ One decision: is keystone_ui set up in the app?
   own button below `sm:` so the action is not shown twice. Both forms show
   nothing when the header names no action, and both are hidden inside a
   Hotwire Native web view and in print.
+- **Compact stat cards.** A stat card can be drawn compact, a small tile with
+  an extra small label and a smaller value, its change or note beside the
+  value, for a small grid of figures inside a panel.
+- **Unequal grid columns.** A grid goes up to the `xl:` breakpoint, and a
+  two-column grid can make its first or its second column wider, three parts
+  to two.
+- **Normal-case notes.** A caption can be a small muted line in the case it
+  was written, holding links, and a page header's subtitle can use a
+  fixed-width font.
 - **A decision bar.** A decision bar is one form holding an optional note
   field, several secondary buttons and one primary button, and the button
   pressed tells the app which decision was made. On a wider screen it is a
   panel with all of them on one line that wraps, and an optional hint line
   under them. On a phone it is a bar fixed to the bottom of the screen, above
   the bottom tab bar when the page has one, with the primary button at full
-  width above a row of the secondary buttons in equal shares, and with no note
-  field or hint. Each secondary button can have a shorter label on a phone, be
+  width above a row of the secondary buttons in equal shares, a long label
+  wrapping inside its button, and with no note field or hint. The width at
+  which it switches between the two can be moved from `sm:` to `md:` or `lg:`. Each secondary button can have a shorter label on a phone, be
   shown on a phone only, and take another place in the phone row. The page leaves room under its last content so the bar does
   not cover it. Unlike the main action's bottom bar, it stays shown inside a
   Hotwire Native web view.

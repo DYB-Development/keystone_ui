@@ -30,7 +30,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_page_header` — the title of a page, with optional badges beside it and a control and action menu on its right, and the screen's main action, which can ask a question first and can move to the bottom of a phone screen.
 - `ui_breadcrumbs` — a line of links to the pages above the current one, shown from `lg:` up.
 - `ui_section` — a titled block of content with an optional link, action menu and short aside such as a badge in its header.
-- `ui_grid` — a responsive grid with a column count per breakpoint.
+- `ui_grid` — a responsive grid with a column count per breakpoint up to `xl`, and two columns of unequal width when asked.
 - `ui_list_detail` — a list beside the detail of the item picked from it, with the detail above the list below `lg:`.
 - `ui_panel` — a bordered card surface holding any content.
 - `ui_card_link` — a panel that is one link as a whole.
@@ -75,7 +75,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_figure` — one amount as inline text, coloured as a gain or a loss.
 - `ui_picture` — an image never taller than half the screen, optionally opening its full-size file.
 - `ui_heading` — a heading at one of three sizes, with an optional short note on its right.
-- `ui_caption` — small uppercase muted text placed above a title or a figure.
+- `ui_caption` — small uppercase muted text placed above a title or a figure, or a small muted line in normal case that can hold links.
 - `ui_link` — a text link in the link colour.
 - `ui_facts` — a row of facts, each a count in bold beside its label.
 - `ui_paragraph` — a paragraph of running text.
@@ -84,7 +84,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_link_list` — a list of links, each row with a label, an optional subtitle, badge, value and top line, an optional current-row mark, and a chevron that can be left off.
 - `ui_empty_state` — what a list or section shows when it has nothing in it, with an optional message and action.
 - `ui_progress` — a labelled progress bar.
-- `ui_stat_card` — a single metric tile with optional change, link and info button.
+- `ui_stat_card` — a single metric tile with optional change, link and info button, or a compact tile for a small grid of figures inside a panel.
 - `ui_copy_button` — a button that copies text to the clipboard.
 - `ui_code` — a block of code with an optional caption.
 - `ui_text_diff` — two versions of a text side by side, or in one column, with removed and added lines marked.
@@ -179,7 +179,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - Ask the developer whether a screen shows breadcrumbs and which parent
      screens its trail names. Ask which screens a navigation tab opens
      directly, since those pass `trail: []`.
-   - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, action_confirm: nil, action_at_bottom: false, badges: [], menu: [], class: nil)`
+   - `ui_page_header(title:, subtitle: nil, action_url: nil, action_label: "Add new", action_method: nil, action_confirm: nil, action_at_bottom: false, badges: [], menu: [], subtitle_mono: false, class: nil)`
      takes a block yielding the header. Call
      `header.action { ... }` in the block to place a control on its right.
      `action_url:` declares the screen's main action. It publishes that URL and
@@ -195,6 +195,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      a phone, not the plus icon. It applies only with `action_url:` and is
      ignored when an `action` block is given. Ask the developer whether a
      screen's main action needs a question and how it is worded.
+   - `subtitle_mono: true` draws the subtitle in a fixed-width font, such as
+     a run's id and start time. Use it in place of a monospace class.
    - `action_at_bottom: true` hides the header's main action, or its `action`
      block, below `sm:`, for a screen whose phone layout draws the action with
      `ui_bottom_action`. From `sm:` up the header shows it as before, and the
@@ -238,8 +240,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - The block yields the section, and `section.with_aside { ... }` in it puts
      short text or a `ui_badge`, such as a sort order or a step's state, in
      small muted text at the right end of the title line, before the link and
-     the menu. Below `sm:` the aside moves to its own line under the title and
-     the actions. Use it in place of hand-written markup beside a section's
+     the menu. The aside never breaks in the middle of a word, and from `sm:`
+     up it keeps its full width while a long title wraps beside it. Below
+     `sm:` the aside moves to its own line under the title and the actions. Use it in place of hand-written markup beside a section's
      title, and ask the developer what the aside shows.
 
      ```erb
@@ -248,10 +251,15 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
        ...
      <% end %>
      ```
-   - `ui_grid(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil)` —
-     `cols:` maps `:default` `:sm` `:md` `:lg` to a count from 1 to 12, such as
-     `{ default: 1, md: 3 }`. `gap:` is `:sm` `:md` `:lg` `:xl`, and passing
-     `gap_x:` or `gap_y:` replaces `gap:` entirely.
+   - `ui_grid(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil, wide: nil)` —
+     `cols:` maps `:default` `:sm` `:md` `:lg` `:xl` to a count from 1 to 12,
+     such as `{ default: 1, md: 3 }`, and below the smallest breakpoint given
+     the columns stack. `gap:` is `:sm` `:md` `:lg` `:xl`, and passing
+     `gap_x:` or `gap_y:` replaces `gap:` entirely. `wide: :first` or
+     `wide: :second` makes that column wider, three parts to two, wherever
+     `cols:` gives two columns, such as a wide table beside a narrow panel:
+     `ui_grid(cols: { default: 1, xl: 2 }, wide: :first)`. Use it in place of
+     hand-written column widths.
    - `ui_list_detail` takes no keywords. The block is the list, and
      `layout.with_detail { ... }` is the picked item's detail, left unset when
      nothing is picked. From `lg:` up the list takes the first third of the
@@ -275,7 +283,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      keywords drawn as a small secondary button taking an equal share of one
      row. A `finding:` also draws the card's edge in the warning style.
      `compact: true` cuts the body to one line with an ellipsis and leaves out
-     the call-to-action line and the meta line, for a phone list. Below `sm:` each button is at least 44 pixels
+     the call-to-action line and the meta line, for a phone list. The buttons
+     are separated by a space in the card's text, so copied text and screen
+     readers read each label as its own word. Below `sm:` each button is at least 44 pixels
      tall, and from `sm:` up the buttons are narrowed so three labels fit in a
      third of the page. Use it in place of a hand-written card of these parts.
    - `ui_review_card_grid` takes no keywords and a block of `ui_review_card`
@@ -332,7 +342,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_nav_item(label:, href:, active: false, count: nil)` is one desktop
      link, with `count:` shown in a badge after the label when above zero.
      `ui_nav_dropdown(title:, area:, active: false)` takes a block holding the
-     menu links.
+     menu links. A title too long for the trigger ends in an ellipsis, so a
+     long page title in a phone top bar never widens the page.
    - `ui_bottom_nav` takes no keywords and a block of
      `ui_bottom_nav_item(label:, href:, icon:, active: false, count: nil)` calls,
      where `icon:` is a raw SVG string and `count:` above zero shows in a badge
@@ -341,7 +352,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_mobile_header(title:, back_url:, subtitle: nil, overline: nil, badge: nil)` is hidden from `lg:`
      up and goes in the navbar's `mobile_left` slot or directly in the
      layout's `<header>`. `back_url:` must be passed, and `nil` renders the
-     title with no back arrow. Outside a top bar it draws the arrow, title and
+     title with no back arrow and no space left for one. Outside a top bar it draws the arrow, title and
      subtitle in one row with `ui_page`'s side margin, ending the text in an
      ellipsis when too long. Inside an element with the `top-nav` class, such
      as `ui_navbar`, the arrow and title are laid out by the bar instead: the
@@ -383,7 +394,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      both. Add no padding of your own for them. It and `ui_mobile_action`
      draw the same action, so ask the developer which one a screen shows on a
      phone.
-   - `ui_decision_bar(url:, primary:, actions: [], note: nil, hint: nil, method: :post)`
+   - `ui_decision_bar(url:, primary:, actions: [], note: nil, hint: nil, method: :post, breakpoint: :sm)`
      draws one form sending to `url:` with `method:`. `primary:` and each hash
      in `actions:` are `ui_button` keywords, usually `label:`, `name:` and
      `value:`, so the button pressed tells the controller which decision was
@@ -402,7 +413,13 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      bar fixed to the bottom of the screen, above `ui_bottom_nav` on a page
      that has one, with the primary button at full width and 48 pixels tall
      above a row of the secondary buttons, each an equal share of the row and
-     44 pixels tall. The note field and hint are not shown below `sm:`. Give
+     44 pixels tall. A label too long for its share wraps inside its
+     button, so do not shrink the buttons to keep the row even. The note
+     field and hint are not shown below `sm:`. `breakpoint: :md` or
+     `breakpoint: :lg` moves the switch between the phone bar and the panel
+     from `sm:` (640 pixels) to 768 or 1024 pixels, so it matches a page that
+     changes its own layout there. Ask the developer at which width the page
+     around the bar changes its layout. Give
      it three secondary actions at most on a phone so the phone row fits. It stays shown
      inside a Hotwire Native web view, at the bottom of the web view. It draws
      an invisible copy of its phone bar in the page's flow, plus the bottom
@@ -673,7 +690,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      for a button without `href:`: a link ignores the attribute and stays
      followable, and a button sending a request does not take it, so to stop
      either one, do not render it.
-   - `ui_button_row(equal_width: false) { ... }` draws whatever its block
+   - `ui_button_row(equal_width: false, class: nil) { ... }` draws whatever its block
      renders, usually `ui_button` calls, in one row with a small gap between
      them, wrapping onto a further line when they do not fit. Below `sm` each
      item in the row is at least 44 pixels tall, so a button is tall enough to
@@ -728,7 +745,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `top_line:` is `{ badge:, text: }`, a line above the label with its own
      badge at the left, apart from the row's `badge:`, and short text at the
      right, such as a type and the time left. It stays on one line and cuts off
-     long text, while the label and subtitle wrap. `current: true` marks the
+     long text, a long badge wraps without squeezing the text beside it, and
+     the label and subtitle wrap. `current: true` marks the
      row the person has open with `aria-current` and a tint and accent bar.
      `chevron: false` leaves off every row's chevron, as in a queue beside the
      open item. Ask the developer which row is current on each page.
@@ -782,9 +800,14 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_accordion(items: [])` — `items:` is `[{ question:, answer: }, ...]`.
    - `ui_heading(text:, size: :md, note: nil)` — `size:` is `:sm` `:md` `:lg`,
      and `note:` puts a short muted note at the right end of the heading's row.
-   - `ui_caption(text:, tone: :muted)` shows small uppercase muted text above
-     a title or a figure. `tone: :link` draws it in the link colour with space
-     under it, as the label above a quiz question.
+   - `ui_caption(text: nil, tone: :muted, normal_case: false)` shows small
+     uppercase muted text above a title or a figure. `tone: :link` draws it in
+     the link colour with space under it, as the label above a quiz question.
+     `normal_case: true` draws a small muted line in the case it was written,
+     such as a note under a step's details or a key under a chart. A block
+     given to it is drawn in place of `text:`, so the line can hold links, and
+     links in a normal-case caption are drawn in the link colour. Use it in
+     place of hand-written small grey text.
    - `ui_facts(facts:)` — each fact is `{ value:, label: }`, drawn as a small
      box with the count in bold beside its label, in a row that wraps.
    - `ui_paragraph(text:)` shows running text.
@@ -804,13 +827,17 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 10. Explain figures.
 
-    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil)`
+    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false)`
       — `variant:` is `:neutral` `:success` `:danger` `:warning` `:info` and
       colours the value. `change:` is a signed number shown as `▲ 4.2%` in
       green, `▼` in red, or plain at zero. `href:` links the value only, so
       never wrap a stat card in `ui_card_link`. `definition:` and
       `calculation:` add an info button whose panel shows while hovered or
-      focused and toggles when tapped.
+      focused and toggles when tapped. `compact: true` draws a small tile, an
+      extra small label over a smaller value with its change or note beside
+      the value, under half a default card's height. Put compact cards in
+      `ui_grid(cols: { default: 1, sm: 2 }, gap: :sm)` inside a panel so they
+      sit two across and stack on a phone.
     - `ui_figure(text:, tone: :neutral)` prints one amount inline. `tone:`
       `:neutral` uses the surrounding text colour, `:success` green and
       `:danger` red, and any other symbol raises `KeyError`. Its output can go
@@ -951,8 +978,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       then its track, then its duration. The label column is as wide as the
       longest label up to 40% of the timeline, a longer label is cut off with
       an ellipsis, and every row's track has the same width and lines up with
-      the others. Below `sm:` each row shows its label and duration on one
-      line with its track on a second line across the full width.
+      the others. Below `sm:` it falls back to the default layout: each row
+      shows its full label, wrapped when long, and its duration above its
+      track, the marks are hidden, and the axis under the rows reads `0s` and
+      the axis's last mark.
     - Above a one-line timeline's first row, in the track column, the axis
       shows marks at even
       intervals from `0s`, at the smallest of 1, 2, 5, 10, 15 or 30 seconds,
@@ -999,7 +1028,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       tab row, and below `sm` between the tab row and the panel. It is drawn
       once, so do not draw it twice or add width-specific classes for it.
     - A link tab takes `count:`, drawn after its label when it is above zero
-      in an info badge, as a navigation item draws its count.
+      in an info badge, as a navigation item draws its count. `show_zero: true`
+      on a tab draws its count of zero too, such as a filter pill reading
+      `Input 0`.
     - `align: :start` starts the tab row at the left edge on every width
       instead of centring it from `sm` up.
     - `shape: :pills` draws each tab as an outlined pill, such as a row of
