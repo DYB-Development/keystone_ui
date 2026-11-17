@@ -8,7 +8,7 @@ module Keystone
 
       attr_reader :text
 
-      def initialize(text:, tone: :muted, normal_case: false)
+      def initialize(text: nil, tone: :muted, normal_case: false)
         @normal_case = normal_case
         @text = text
         @tone = tone
