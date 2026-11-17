@@ -248,6 +248,12 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
     assert_includes component.change_classes, "ks-tone-danger"
   end
 
+  def test_a_compact_card_uses_the_compact_card_look
+    component = Keystone::Ui::StatCardComponent.new(label: "Flipped to pass", value: "14", compact: true)
+
+    assert_includes component.classes, "ks-metric-card-compact"
+  end
+
   def test_zero_change_is_neutral
     component = Keystone::Ui::StatCardComponent.new(label: "Revenue", value: "$1k", change: 0)
 
