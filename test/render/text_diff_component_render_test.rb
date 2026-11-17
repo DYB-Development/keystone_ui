@@ -47,14 +47,14 @@ class Keystone::Ui::TextDiffComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "1", "2", "3", "" ], [ "1", "", "2", "3" ] ], [ column(page, "before", "number"), column(page, "after", "number") ]
   end
 
-  def test_compares_two_long_texts_that_differ_in_two_lines_in_under_two_seconds
+  def test_compares_two_long_texts_that_differ_in_two_lines_in_fewer_comparisons_than_ten_per_line
     KeystoneUi.configure { |c| c.text_diff_line_limit = 20_000 }
     before = Array.new(5000) { |index| "line #{index}" }
     after = before.dup.tap { |lines| lines[1000] = "changed"; lines[4000] = "changed too" }
-    started = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-    render_inline(Keystone::Ui::TextDiffComponent.new(before: before.join("\n"), after: after.join("\n")))
+    diff = Keystone::Ui::TextDiffComponent.new(before: before.join("\n"), after: after.join("\n"))
+    render_inline(diff)
 
-    assert_operator Process.clock_gettime(Process::CLOCK_MONOTONIC) - started, :<, 2
+    assert_operator diff.comparisons, :<, 10 * 10_000
   end
 
   def test_stacks_the_two_versions_on_a_phone_and_sets_them_side_by_side_from_640_pixels_wide

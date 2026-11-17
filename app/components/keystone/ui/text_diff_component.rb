@@ -19,7 +19,10 @@ module Keystone
         @before = before.to_s.lines(chomp: true)
         @after = after.to_s.lines(chomp: true)
         @one_column = one_column
+        @comparisons = 0
       end
+
+      attr_reader :comparisons
 
       def one_column?
         @one_column
@@ -99,7 +102,7 @@ module Keystone
           (-changes).step(changes, 2) do |diagonal|
             before_index = added_on?(reach, diagonal, changes) ? reach[diagonal + 1] : reach[diagonal - 1] + 1
             after_index = before_index - diagonal
-            while before_index < @before.size && after_index < @after.size && @before[before_index] == @after[after_index]
+            while before_index < @before.size && after_index < @after.size && same_line?(before_index, after_index)
               before_index += 1
               after_index += 1
             end
@@ -107,6 +110,11 @@ module Keystone
             return reaches if before_index >= @before.size && after_index >= @after.size
           end
         end
+      end
+
+      def same_line?(before_index, after_index)
+        @comparisons += 1
+        @before[before_index] == @after[after_index]
       end
 
       def added_on?(reach, diagonal, changes)
