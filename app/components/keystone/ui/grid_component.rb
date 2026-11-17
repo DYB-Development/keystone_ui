@@ -14,7 +14,12 @@ module Keystone
         xl: { 1 => "xl:grid-cols-1", 2 => "xl:grid-cols-2", 3 => "xl:grid-cols-3", 4 => "xl:grid-cols-4", 5 => "xl:grid-cols-5", 6 => "xl:grid-cols-6", 7 => "xl:grid-cols-7", 8 => "xl:grid-cols-8", 9 => "xl:grid-cols-9", 10 => "xl:grid-cols-10", 11 => "xl:grid-cols-11", 12 => "xl:grid-cols-12" }.freeze
       }.freeze
 
-      def initialize(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil)
+      WIDE_COL_CLASSES = {
+        first: { default: "grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", sm: "sm:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", md: "md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", lg: "lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]", xl: "xl:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]" }.freeze
+      }.freeze
+
+      def initialize(cols: { default: 1 }, gap: :md, gap_x: nil, gap_y: nil, wide: nil)
+        @wide = wide
         @cols = cols
         @gap = gap
         @gap_x = gap_x
@@ -30,9 +35,17 @@ module Keystone
           tokens << GAP_CLASSES.fetch(@gap)
         end
         @cols.each do |breakpoint, count|
-          tokens << COL_CLASSES.fetch(breakpoint).fetch(count)
+          tokens << col_class(breakpoint, count)
         end
         tokens.join(" ")
+      end
+
+      private
+
+      def col_class(breakpoint, count)
+        return WIDE_COL_CLASSES.fetch(@wide).fetch(breakpoint) if @wide && count == 2
+
+        COL_CLASSES.fetch(breakpoint).fetch(count)
       end
     end
   end
