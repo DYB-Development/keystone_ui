@@ -207,6 +207,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_includes page.at_css("[data-decision-bar-spacer]")["class"].split, "lg:hidden"
   end
 
+  def test_given_the_large_breakpoint_puts_the_primary_button_first_and_full_width_below_1024_pixels_wide
+    page = render_bar(breakpoint: :lg)
+
+    assert_empty %w[max-lg:order-first max-lg:*:w-full max-lg:*:min-h-12] - page.at_css(".ks-bottom-action > div:has(> button.ks-button-primary)")["class"].split
+  end
+
   private
 
   def render_bar(**overrides)

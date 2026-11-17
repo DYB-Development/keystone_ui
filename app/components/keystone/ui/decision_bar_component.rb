@@ -13,7 +13,11 @@ module Keystone
         md: "ks-bottom-action max-md:flex-col ks-grid-gap-sm md:contents hotwire-native:bottom-0",
         lg: "ks-bottom-action max-lg:flex-col ks-grid-gap-sm lg:contents hotwire-native:bottom-0"
       }.freeze
-      PRIMARY_CLASSES = "max-sm:order-first max-sm:*:w-full max-sm:*:min-h-12"
+      PRIMARY_CLASSES = {
+        sm: "max-sm:order-first max-sm:*:w-full max-sm:*:min-h-12",
+        md: "max-md:order-first max-md:*:w-full max-md:*:min-h-12",
+        lg: "max-lg:order-first max-lg:*:w-full max-lg:*:min-h-12"
+      }.freeze
       ACTION_CLASSES = "flex *:flex-1"
       PHONE_ONLY_CLASSES = "sm:hidden"
       PHONE_ORDER_CLASSES = { 1 => "max-sm:order-1", 2 => "max-sm:order-2", 3 => "max-sm:order-3" }.freeze
@@ -93,7 +97,7 @@ module Keystone
       end
 
       def primary_button
-        tag.div(class: PRIMARY_CLASSES) { render ButtonComponent.new(**@primary) }
+        tag.div(class: PRIMARY_CLASSES.fetch(@breakpoint)) { render ButtonComponent.new(**@primary) }
       end
     end
   end
