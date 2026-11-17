@@ -369,7 +369,7 @@ Renders a card for one item someone reviews, such as one of several variants com
 **Optional props**
 
 - `score:` (String) — a score or status at the right of the header line
-- `score_tone:` (`:muted | :neutral | :success | :warning | :danger | :info`, default `:muted`) — the colour of the score
+- `score_tone:` (`:muted`, or any `variant:` a badge takes: `:neutral | :success | :danger | :warning | :info`, default `:muted`) — the colour of the score
 - `body:` (String) — the body text under the title
 - `cta:` (String) — a call-to-action line under the body text, drawn in the link colour as text, not as a link
 - `meta:` (String) — a line of short details, in a monospaced font, with a divider above it
@@ -421,6 +421,7 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 - `hidden:` (Boolean, default `false`) — draws the button with the `hidden` attribute, for a script to show later
 - `confirm:` (String) — a question Turbo asks before following the link or sending the request; cancelling it sends nothing
 - `disabled:` (Boolean, default `false`) — draws a button with no `href:` with the `disabled` attribute, so it cannot be pressed
+- `formaction:` (String) — a button with no `href:` sends its form to this address in place of the form's own when pressed
 
 ```erb
 <%= ui_button(label: "← Back", variant: :text, name: "back", value: "1") %>
@@ -706,7 +707,7 @@ Groups related content with an optional header (title, subtitle, action) and ver
 
 **Slots**
 
-- `aside` — short text, a badge or other markup, such as a legend, shown at the right end of the title line in small muted text, before the action and the menu. It never breaks in the middle of a word. From `sm` up it keeps its full width, and a title too long to fit beside it wraps onto more lines. On a phone it moves to its own line below the title and the actions.
+- `aside` — short text, a badge or other markup, such as a legend, shown at the right end of the title line in small muted text, before the action and the menu. It needs a `title:`, and a section given an aside with no title raises `ArgumentError`. It never breaks in the middle of a word. From `sm` up it keeps its full width, and a title too long to fit beside it wraps onto more lines. On a phone it moves to its own line below the title and the actions.
 
 ```erb
 <%= ui_section(title: "Products", subtitle: "All active items", spacing: :lg) do %>
@@ -984,7 +985,7 @@ Renders a page title area with an optional subtitle, badges, action slot and act
 - `action_url:` (String) — the address of the screen's main action. It is drawn as a button when no `header.action` block is given, and published for `ui_mobile_action` either way
 - `action_label:` (String, default `"Add new"`) — the name of the main action
 - `action_method:` (Symbol) — the method the main action sends, such as `:post`. With a method other than `:get` the button is a form that sends it to `action_url:`, and the method is published for `ui_mobile_action` as `content_for(:mobile_action_method)`. Without it the button is a link and no method is published
-- `action_confirm:` (String) — a question asked before the main action is sent, on the header's button and on `ui_bottom_action`, which reads it from `content_for(:mobile_action_confirm)`
+- `action_confirm:` (String) — a question asked before the main action is sent, on the header's button, on `ui_bottom_action` and on `ui_mobile_action`'s icon when `action_method:` is given, which both read it from `content_for(:mobile_action_confirm)`
 - `action_at_bottom:` (Boolean, default `false`) — the main action belongs at the bottom of a phone screen, so the header hides its own action below `sm` and shows it as before from `sm` up
 - `badges:` (Array, default `[]`) — `[{ label:, variant: }, ...]`, each drawn as a `ui_badge` beside the title, where `variant:` is the badge's colour (`:neutral | :success | :danger | :warning | :info`, default `:neutral`)
 - `menu:` (Array, default `[]`) — `[{ label:, href:, method:, confirm: }, ...]`, each hash taking the keywords of `ui_action_menu_item`, drawn in a `ui_action_menu` beside the actions
@@ -1295,7 +1296,7 @@ Draws a bar chart on the server as an SVG, so it shows with no JavaScript and pr
 
 **Required props**
 
-- `bars:` (Array of Hashes) — each bar is `{ label:, value: }`, with optional `shaded: true` to draw it faded, such as a weekend day, and optional `group:` to put it in a group, such as the version that produced it
+- `bars:` (Array of Hashes) — each bar is `{ label:, value: }`, where a negative `value:` raises `ArgumentError` naming it, with optional `shaded: true` to draw it faded, such as a weekend day, and optional `group:` to put it in a group, such as the version that produced it
 
 **Optional props**
 
@@ -1324,7 +1325,7 @@ Bars given `group:` are grouped by its value, with the groups taken as oldest to
 
 ### `ui_timeline`
 
-Draws one row per label, in the order each label first appears. Entries that share a label, such as the tries of one step, are drawn on the same row, one bar each. Every bar is placed by its entry's start and end on one axis shared by every row, and a bar shorter than 2% of the axis is drawn 2% wide so it stays visible. The axis runs from the earliest queued or start time to the latest end or start, and shows `0s` at its left and the total duration at its right. Each row shows its label and the sum of the time each of its entries took, leaving out the gaps between them, written with one decimal under ten seconds, such as `0.3s` or `8.2s`, and otherwise from the largest unit that is not zero, such as `42s`, `3m 5s` or `1h 0m 5s`. A row of more than one entry adds its number of attempts after that time, such as `41s · 2 att.`. An entry given `queued_at:` has the time from then to its start drawn before its bar in the queued colour. An entry given `failed: true` is drawn in the danger colour, and screen readers read it as failed. An entry given `href:` draws its bar as a link to that address, which screen readers read by its row's label, and a row's label links to the address of the row's last entry that has one. An entry given `selected: true` draws its row in the current row tint the data table's `current_row:` uses, with `aria-current="true"`, so screen readers announce it as the current item. Entries given neither draw no links and no tint. An entry given `ended_at: nil` is still running: its bar is drawn up to the latest time on the axis, and its row shows an info status dot that screen readers read as running. An entry given `waiting: true` is paused, such as a step waiting for approval: its bar is drawn from its start to the end of the axis in the waiting colour, and its row shows `waiting` in the warning tone where its time would be, with no running dot. To draw the axis up to the present, give a waiting entry `ended_at: Time.current`. An entry with no `started_at:`, or whose `ended_at:` is before its `started_at:`, raises `ArgumentError` naming the entry's label. Given no entries, the timeline shows an empty state titled `No steps`. The track and bars are drawn in the timeline's own colours, set by keystone_ui-styles 0.35.0 or later.
+Draws one row per label, in the order each label first appears. Entries that share a label, such as the tries of one step, are drawn on the same row, one bar each. Every bar is placed by its entry's start and end on one axis shared by every row, and a bar shorter than 2% of the axis is drawn 2% wide so it stays visible. The axis runs from the earliest queued or start time to the latest end or start, and shows `0s` at its left and the total duration at its right. Each row shows its label and the sum of the time each of its entries took, leaving out the gaps between them, written with one decimal under ten seconds, such as `0.3s` or `8.2s`, and otherwise from the largest unit that is not zero, such as `42s`, `3m 5s` or `1h 0m 5s`. A row of more than one entry adds its number of attempts after that time, such as `41s · 2 att.`. An entry given `queued_at:` has the time from then to its start drawn before its bar in the queued colour. An entry given `failed: true` is drawn in the danger colour, and screen readers read it as failed. An entry given `href:` draws its bar as a link to that address, which screen readers read by its row's label, and a row's label links to the address of the row's last entry that has one. An entry given `selected: true` draws its row in the current row tint the data table's `current_row:` uses, with `aria-current="true"`, so screen readers announce it as the current item. Entries given neither draw no links and no tint. An entry given `ended_at: nil` is still running: its bar is drawn up to the latest time on the axis, and its row shows an info status dot that screen readers read as running. An entry given `waiting: true` is paused, such as a step waiting for approval: its bar is drawn from its start to the end of the axis in the waiting colour, and its row shows `waiting` in the warning tone where its time would be, with no running dot. To draw the axis up to the present, give a waiting entry `ended_at: Time.current`. An entry with no `started_at:`, whose `ended_at:` is before its `started_at:`, or whose `queued_at:` is after its `started_at:`, raises `ArgumentError` naming the entry's label. Given no entries, the timeline shows an empty state titled `No steps`. The track and bars are drawn in the timeline's own colours, set by keystone_ui-styles 0.35.0 or later.
 
 Given `one_line: true`, each row shows its label, then its bar, then its duration on one line from `sm` up. The timeline is one grid, so every row's bar sits in one column of the same width, and the label column grows to the longest label up to 40% of the timeline's width, cutting a longer label short. Above the first row, in the bar column, marks along the axis are placed at even intervals from `0s`, at the smallest step from 1 second up to 1 day that covers the run in six intervals or fewer, such as `0s`, `1m`, `2m` up to `6m`. The axis then ends at the last mark rather than at the latest time, and each mark sits at its time on the same axis the bars use. Below `sm` it falls back to the default layout: each row shows its full label, wrapped onto more lines when long, and its duration above its bar, and the marks give way to `0s` at the left and the axis's last mark at the right under the rows.
 
@@ -1967,7 +1968,8 @@ Below `sm` it is a bar fixed to the bottom of the screen, above the bottom nav o
 - `actions:` (Array of Hashes) — `ui_button` keywords for each secondary button, three at most on a phone so the phone row fits; one with `href:` is a link, such as a link to the next item. Each also takes:
   - `phone_label:` (String) — a shorter label shown below `sm` in place of `label:`
   - `phone_only:` (Boolean) — shows the action below `sm` only
-  - `phone_order:` (1, 2 or 3) — the action's place in the phone row, so the phone row can list the actions in another order than the desktop row
+  - `phone_order:` (1, 2 or 3) — the action's place in the phone row, so the phone row can list the actions in another order than the desktop row. Any other value raises `KeyError`
+  - `href:` with `method:` such as `:delete` — the button sends the bar's form to its own `href:` with that method, and the other buttons still send it to `url:` with `method:`. Such an action given its own `name:` or `value:` raises `ArgumentError`, since the button sends its method in their place
 - `note:` (Hash) — `name:`, `label:` and `placeholder:` of a text field sent with the form
 - `hint:` (String) — a short line under the buttons, such as the keyboard keys the page answers to
 - `method:` (Symbol, default `:post`)

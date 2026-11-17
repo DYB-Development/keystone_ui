@@ -189,10 +189,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      the main action send that method: the header's button and
      `ui_mobile_action`'s icon become forms posting to `action_url:`.
    - `action_confirm:` is a question Turbo asks before the main action goes
-     ahead, on the header's button and on `ui_bottom_action`'s button, as
-     `ui_button`'s `confirm:` does. `ui_mobile_action`'s plus icon does not ask
-     it, so a screen whose action needs a question shows `ui_bottom_action` on
-     a phone, not the plus icon. It applies only with `action_url:` and is
+     ahead, on the header's button, on `ui_bottom_action`'s button and on
+     `ui_mobile_action`'s plus icon when `action_method:` is given, as
+     `ui_button`'s `confirm:` does. The plus icon of an action with no
+     `action_method:` is a link and does not ask it. It applies only with `action_url:` and is
      ignored when an `action` block is given. Ask the developer whether a
      screen's main action needs a question and how it is worded.
    - `subtitle_mono: true` draws the subtitle in a fixed-width font, such as
@@ -236,7 +236,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      keywords of `ui_action_menu_item`, and renders an action menu. The link
      and the menu sit side by side at the right edge of the header, the link
      first, at every width. `spacing:` is `:sm` `:md` `:lg`. The header, with its
-     `action:`, `menu:` and aside, renders only when `title:` is given.
+     `action:`, `menu:` and aside, renders only when `title:` is given, and an
+     aside given with no `title:` raises `ArgumentError`.
    - The block yields the section, and `section.with_aside { ... }` in it puts
      short text or a `ui_badge`, such as a sort order or a step's state, in
      small muted text at the right end of the title line, before the link and
@@ -403,8 +404,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `sm:` in its place, `phone_only: true`, which shows the action below
      `sm:` only, and `phone_order:` 1, 2 or 3, its place in the phone row, so
      one call can give a desktop row and a phone row that differ in labels,
-     buttons and order. Do not give an action `href:` with a `method:` other than `:get`,
-     since that draws a form inside the bar's form. `note:` takes `name:`,
+     buttons and order. Any other `phone_order:` raises `KeyError`. An action
+     with `href:` and a `method:` such as `:delete` sends the bar's form, note
+     included, to its own `href:` with that method, while every other button
+     still sends it to `url:` with the bar's `method:`. Such an action cannot
+     also take `name:` or `value:`, and giving either raises `ArgumentError`. `note:` takes `name:`,
      `label:` and `placeholder:` and draws a text field inside its label, sent
      with the form. `hint:` is a short line of muted text, such as keyboard
      keys. From `sm:` up it draws a panel holding the note field, the
@@ -679,7 +683,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 9. Show content and status.
 
-   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil, disabled: false)`
+   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil, disabled: false, formaction: nil)`
      renders a link with `href:` and a button without it. `variant:` is
      `:primary` `:secondary` `:danger` `:text`, `size:` is `:sm` `:md` `:lg`,
      and `type:`, `name:` and `value:` apply only to the button.
@@ -687,6 +691,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      as a Back or Previous control under a form. A button given `name:` and
      `value:` submits them with its form when pressed. `hidden: true` draws it
      with the `hidden` attribute, for the app's own script to show.
+     `formaction:` makes a button without `href:` send its form to that
+     address in place of the form's own when pressed.
    - `disabled: true` draws a button without `href:` with the `disabled`
      attribute, so it cannot be pressed and does not submit its form. It is
      for a button without `href:`: a link ignores the attribute and stays
@@ -876,7 +882,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       `height:` `:sm` `:md` `:lg`.
     - `ui_bar_chart(bars:, show_values: false, strip: false)` — `bars:` is
       `[{ label:, value:, shaded:, group: }, ...]`, where `shaded: true` draws
-      a bar faded. It is drawn on the server as an SVG, so use it, not
+      a bar faded. A negative `value:` raises `ArgumentError` naming it. It
+      is drawn on the server as an SVG, so use it, not
       `ui_line_chart`, for a chart that must print or show without JavaScript.
     - Give bars `group:`, such as the version that produced each one, to show
       groups of bars. Groups count from oldest to newest in the order their
@@ -997,7 +1004,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       `1m 30s` or `1h 5s`.
     - Ask the developer which layout a screen uses.
     - An entry with no `started_at:` raises `ArgumentError` naming its label,
-      and so does an entry whose `ended_at:` is before its `started_at:`. Check
+      and so does an entry whose `ended_at:` is before its `started_at:` or
+      whose `queued_at:` is after it. Check
       the times before rendering rather than rescuing the error.
     - An empty `entries:` draws a centred "No steps" message in place of the
       timeline, so it can be rendered for a list that may be empty. The
