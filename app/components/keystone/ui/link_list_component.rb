@@ -8,6 +8,8 @@ module Keystone
       STACK_CLASSES = "flex min-w-0 flex-1 flex-col-reverse ks-grid-gap-sm sm:contents"
       BADGE_CLASSES = "max-sm:self-start"
       TOP_LINE_BADGE_CLASSES = "min-w-0 whitespace-normal"
+      TOP_LINE_TYPE_CLASSES = "ks-label-caps min-w-0 whitespace-normal"
+      TYPE_TONE_CLASSES = States::NAMES.to_h { |state| [ state, "ks-tone-#{state}" ] }.freeze
       TEXT_CLASSES = "min-w-0 flex-1"
       TOP_LINE_CLASSES = "flex items-center justify-between ks-grid-gap-sm whitespace-nowrap"
       TOP_LINE_TEXT_CLASSES = "ks-value-list-note shrink-0 max-w-full truncate"
@@ -33,6 +35,10 @@ module Keystone
 
       def badge(row)
         BadgeComponent.new(**row[:badge], class: BADGE_CLASSES)
+      end
+
+      def type_tone_classes(row)
+        TYPE_TONE_CLASSES.fetch(row[:top_line][:type][:tone])
       end
 
       def top_line_badge(row)

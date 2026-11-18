@@ -134,4 +134,10 @@ class Keystone::Ui::LinkListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "noopener", page.at_css("a.ks-value-list-row")["rel"]
   end
+
+  def test_shows_a_row_top_line_type_as_small_capital_text_in_its_tone
+    page = render_inline(Keystone::Ui::LinkListComponent.new(rows: [ { label: "3 subject-line variants", href: "/items/abc", top_line: { type: { label: "approval", tone: :warning }, text: "expires 46h" } } ]))
+
+    assert_equal "approval", page.css(".ks-label-caps > .ks-tone-warning").text
+  end
 end
