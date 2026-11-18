@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.103.0] - 2026-11-18
+
+### Added
+- `ui_data_table` takes `density: :compact`, drawing every heading and cell in extra small text with smaller padding so a nine-column table fits an 805px panel with every value on one line, and it works with `heading_caps: true` (#522).
+
+### Changed
+- keystone_ui requires keystone_ui-styles 0.45.0 or later, for the compact table cell class (#522).
+
 ## [0.102.0] - 2026-11-18
 
 ### Added

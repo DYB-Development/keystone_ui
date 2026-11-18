@@ -23,6 +23,7 @@ module Keystone
       HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
       HEADER_CLASSES_LAST = "ks-table-header ks-table-header-last text-right text-sm"
       HEADING_CAPS_CLASSES = "ks-label-caps"
+      COMPACT_CLASSES = "ks-table-compact"
 
       ROW_CLASSES_FIRST = "ks-table-cell-first text-sm whitespace-nowrap"
       ROW_CLASSES_MIDDLE = "ks-table-cell-middle text-sm whitespace-nowrap"
@@ -47,7 +48,7 @@ module Keystone
       SORT_DESC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 0 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg>'
       SORT_NEUTRAL_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908 2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z" clip-rule="evenodd" /></svg>'
 
-      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false)
+      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false, density: nil)
         @items = items.to_a
         @current_index = @items.index(current_row) unless current_row.nil?
         @group_by = group_by
@@ -67,6 +68,7 @@ module Keystone
         @phone_list = phone_list
         @header = header
         @heading_caps = heading_caps
+        @density = density
       end
 
       def before_render
@@ -120,8 +122,12 @@ module Keystone
         PHONE_LIST_BLOCK_CLASSES if @phone_list
       end
 
+      def empty_cell_classes
+        densified(EMPTY_CELL_CLASSES)
+      end
+
       def actions_cell_classes
-        phone_list_classes(ROW_CLASSES_LAST, PHONE_LIST_BLOCK_CLASSES)
+        densified(phone_list_classes(ROW_CLASSES_LAST, PHONE_LIST_BLOCK_CLASSES))
       end
 
       def head_classes
@@ -164,7 +170,7 @@ module Keystone
 
           cell = {
             label: column.header_text,
-            classes: heading_classes(aligned(tokens.join(" "), column)),
+            classes: densified(heading_classes(aligned(tokens.join(" "), column))),
             scope: "col"
           }
 
@@ -191,7 +197,7 @@ module Keystone
         if actions?
           cells << {
             label: "Actions",
-            classes: heading_classes(HEADER_CLASSES_LAST),
+            classes: densified(heading_classes(HEADER_CLASSES_LAST)),
             scope: "col"
           }
         end
@@ -209,7 +215,7 @@ module Keystone
 
             cell = {
               value: resolve_value(item, column.key),
-              classes: wrapped(aligned(tokens.join(" "), column), column)
+              classes: densified(wrapped(aligned(tokens.join(" "), column), column))
             }
             cell[:label] = column.header_text if phone_labels?
 
@@ -244,14 +250,14 @@ module Keystone
         return [] unless @total
 
         @columns.map.with_index do |column, index|
-          { value: @total[column.key.to_s], classes: phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES), label: summary_label(index, column) }
+          { value: @total[column.key.to_s], classes: densified(phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES)), label: summary_label(index, column) }
         end
       end
 
       def group_cells(name)
         subtotals = @group_totals.fetch(name.to_s, {}).to_h.transform_keys(&:to_s)
         @columns.map.with_index do |column, index|
-          { value: index.zero? ? name : subtotals[column.key.to_s], classes: phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES), label: summary_label(index, column) }
+          { value: index.zero? ? name : subtotals[column.key.to_s], classes: densified(phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES)), label: summary_label(index, column) }
         end
       end
 
@@ -295,6 +301,12 @@ module Keystone
         return classes unless @heading_caps
 
         [ *classes.split.grep_v("text-sm"), HEADING_CAPS_CLASSES ].join(" ")
+      end
+
+      def densified(classes)
+        return classes unless @density == :compact
+
+        [ *classes.split.map { |token| token == "text-sm" ? "text-xs" : token }, COMPACT_CLASSES ].join(" ")
       end
 
       def aligned(classes, column)

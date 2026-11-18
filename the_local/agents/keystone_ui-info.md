@@ -216,6 +216,9 @@ One decision: is keystone_ui set up in the app?
   drawn in small capitals, and a value list's values, a timeline's step names
   and durations and a summary chip's value in a fixed-width font. Each is an
   option on its component, off by default.
+- **Compact data tables.** A data table can be drawn compact, with extra
+  small text and smaller padding in every heading and cell, so a wide table
+  fits a narrow panel with every value on one line.
 - **Summary chips.** A row of summary chips shows a few labelled values, each
   in a tone's colour on a tinted background, three across on a phone.
 - **Unequal grid columns.** A grid goes up to the `xl:` breakpoint, and a

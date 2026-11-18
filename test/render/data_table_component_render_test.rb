@@ -828,6 +828,42 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css("tfoot th .ks-caption")
   end
 
+  def test_given_compact_density_draws_each_cell_of_its_total_row_in_extra_small_text_with_compact_padding
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, total: { month: "Total", pipeline: "$10" }, density: :compact)
+    end
+
+    assert_equal [ [ "text-xs", "ks-table-compact" ] ] * 2, page.css("tfoot th").map { |cell| cell["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ] }
+  end
+
+  def test_given_compact_density_draws_each_cell_of_its_group_row_in_extra_small_text_with_compact_padding
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10", quarter: "Q1" } ], columns: columns, group_by: :quarter, group_totals: { "Q1" => { pipeline: "$10" } }, density: :compact)
+    end
+
+    assert_equal [ [ "text-xs", "ks-table-compact" ] ] * 2, page.css("tr[data-table-group] th").map { |cell| cell["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ] }
+  end
+
+  def test_given_compact_density_draws_each_row_s_actions_cell_in_extra_small_text_with_compact_padding
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ], density: :compact) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/products/1/edit") }
+      end
+    end
+
+    assert_equal [ "text-xs", "ks-table-compact" ], page.css("tbody td").last["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ]
+  end
+
+  def test_given_compact_density_draws_its_empty_message_cell_in_extra_small_text_with_compact_padding
+    page = render_in_view_context do
+      ui_data_table(items: [], columns: [ { name: "Name" } ], empty_message: "No products", density: :compact)
+    end
+
+    assert_equal [ "text-xs", "ks-table-compact" ], page.css("tbody td").first["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ]
+  end
+
   private
 
   def three_columns

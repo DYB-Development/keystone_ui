@@ -479,6 +479,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 - `phone_list:` (Boolean, default `false`) — `true` shows the table as a list below the `sm` breakpoint, one item per row with each cell under its column's heading; from `sm` up it is the same table
 - `header:` (Boolean, default `true`) — `false` draws no heading row, and with `phone_list: true` no column heading label on any cell, subtotal or total, for a table of labels and their values
 - `heading_caps:` (Boolean, default `false`) — draws each column heading in small capitals
+- `density:` (Symbol, default `nil`) — `:compact` draws every heading and cell in extra small text with keystone_ui-styles' `ks-table-compact` padding of 10px on each side and 8px above and below, so a wide table such as a nine-column versions table fits an 805px panel with every value on one line
 
 **Column options**
 
