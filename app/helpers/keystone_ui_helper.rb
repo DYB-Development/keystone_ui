@@ -301,6 +301,10 @@ module KeystoneUiHelper
     render Keystone::Ui::PictureComponent.new(**args)
   end
 
+  def ui_chip_row(**args)
+    render Keystone::Ui::ChipRowComponent.new(**args)
+  end
+
   def ui_heading(**args)
     render Keystone::Ui::HeadingComponent.new(**args)
   end

@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.102.0] - 2026-11-18
+
+### Added
+- `ui_chip_row(chips:)` shows a row of summary chips, each a label and value in its tone's colour on a tinted background, three across on a phone, with `mono: true` drawing a chip's value in a fixed-width font (#520).
+- `ui_stat_card` takes `label_caps:`, `ui_data_table` takes `heading_caps:` and `ui_value_list` takes `label_caps:`, each drawing those labels in small capitals (#520).
+- `ui_value_list` takes `value_mono:` and `ui_timeline` takes `text_mono:`, drawing values, step names and durations in a fixed-width font, with a long step name wrapping inside its row (#520).
+- `ui_figure` takes the `:warning` and `:info` tones (#520).
+- A `ui_link_list` row's `top_line:` takes `type: { label:, tone: }` in place of `badge:`, showing the row's type as small-capital text in the tone's colour (#520).
+- `ui_link` takes `centred: true` to put the link on its own line with its label in the middle (#520).
+
+### Changed
+- `ui_decision_bar` draws its secondary buttons' labels in small text below its breakpoint, so "Send back" stays on one line on a 390px-wide screen (#520).
+- keystone_ui requires keystone_ui-styles 0.44.0 or later, for the small-capital label and summary chip classes (#520).
+
 ## [0.101.0] - 2026-11-17
 
 ### Added

@@ -478,6 +478,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 - `current_row:` (item) — the item whose row is the viewer's own, given the `ks-table-row-current` class and `aria-current="true"`; only the first row equal to it is marked
 - `phone_list:` (Boolean, default `false`) — `true` shows the table as a list below the `sm` breakpoint, one item per row with each cell under its column's heading; from `sm` up it is the same table
 - `header:` (Boolean, default `true`) — `false` draws no heading row, and with `phone_list: true` no column heading label on any cell, subtotal or total, for a table of labels and their values
+- `heading_caps:` (Boolean, default `false`) — draws each column heading in small capitals
 
 **Column options**
 
@@ -1063,7 +1064,7 @@ A list of links, one row per item, each row ending in a chevron. Use it where ea
 - `subtitle:` (String) — a short note under the label
 - `badge:` (Hash) — `{ label:, variant: }`, drawn with `ui_badge`, above the label below `sm` and beside it from `sm` up
 - `value:` (String) — a short value after the label, such as a count or a date
-- `top_line:` (Hash) — `{ badge:, text: }`, a line above the label with `badge:` (`{ label:, variant: }`, drawn with `ui_badge`, apart from the row's `badge:`) at the left and `text:` at the right. It stays on one line, and a long `text:` is cut off with an ellipsis. A long badge wraps onto more lines, and `text:` keeps its full width beside it
+- `top_line:` (Hash) — `{ badge:, text: }`, a line above the label with `badge:` (`{ label:, variant: }`, drawn with `ui_badge`, apart from the row's `badge:`) at the left and `text:` at the right. In place of `badge:` it takes `type:` (`{ label:, tone: }`), which shows the row's type as small-capital text in the tone's colour, such as `{ label: "Approval", tone: :warning }`. It stays on one line, and a long `text:` is cut off with an ellipsis. A long badge wraps onto more lines, and `text:` keeps its full width beside it
 - `current:` (Boolean) — marks the row as the current one with `aria-current="true"` and keystone_ui-styles' `ks-value-list-row-current` class, which tints the row and draws an accent bar at its left
 
 **Optional props**
@@ -1152,7 +1153,7 @@ Draws a small round dot showing an item's state, in the same colour as a badge o
 
 ### `ui_figure`
 
-Shows a figure, such as an amount, in plain text or in the success or danger colour.
+Shows a figure, such as an amount or a step's result, in plain text or in the success, danger, warning or info colour.
 
 **Required props**
 
@@ -1160,11 +1161,28 @@ Shows a figure, such as an amount, in plain text or in the success or danger col
 
 **Optional props**
 
-- `tone:` (`:neutral | :success | :danger`, default `:neutral`)
+- `tone:` (`:neutral | :success | :danger | :warning | :info`, default `:neutral`)
 
 ```erb
 <%= ui_figure(text: "$4,700.00", tone: :success) %>
 <%= ui_figure(text: "-$300.00", tone: :danger) %>
+<%= ui_figure(text: "Waiting", tone: :warning) %>
+```
+
+### `ui_chip_row`
+
+Shows a row of summary chips. Each chip draws its label and value in its tone's colour on a tinted background. The chips share the row's width equally, and on a phone they sit three across, with a fourth starting a new line.
+
+**Required props**
+
+- `chips:` (Array of Hashes) — each chip is `{ label:, value:, tone: }`, where `tone:` is `:neutral`, `:success`, `:danger`, `:warning` or `:info`, with optional `mono: true` to draw the value in a fixed-width font
+
+```erb
+<%= ui_chip_row(chips: [
+  { label: "Checks", value: "4/4", tone: :success },
+  { label: "Reviewer", value: "0.88", tone: :success },
+  { label: "p", value: "0.84", tone: :neutral, mono: true }
+]) %>
 ```
 
 ### `ui_picture`
@@ -1243,8 +1261,13 @@ Draws a text link in the link colour.
 - `label:` (String)
 - `href:` (String or URL)
 
+**Optional props**
+
+- `centred:` (Boolean, default `false`) — draws the link on its own line with its label in the middle
+
 ```erb
 <%= ui_link(label: "Upload questions", href: upload_questions_path) %>
+<%= ui_link(label: "Finish on desktop", href: run_path(run), centred: true) %>
 ```
 
 ### `ui_facts`
@@ -1271,6 +1294,8 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
 
 - `align:` (`:start | :end`, default `:start`) — `:start` places each value beside its label, `:end` pushes it to the right end of its row
 - `columns:` (Boolean, default `false`) — shows each label in small text with its value directly below it, and lays the pairs in one column on a phone and two columns from `sm` up, with a long value wrapping inside its own column
+- `label_caps:` (Boolean, default `false`) — draws each label in small capitals
+- `value_mono:` (Boolean, default `false`) — draws each value in a fixed-width font
 
 ```erb
 <%= ui_value_list(align: :end, rows: [
@@ -1336,6 +1361,7 @@ Given `one_line: true`, each row shows its label, then its bar, then its duratio
 **Optional props**
 
 - `one_line:` (Boolean) — draws each row's label, bar and duration on one line with marks along the axis, `false` by default
+- `text_mono:` (Boolean) — draws each step name and duration in a fixed-width font, and wraps a long step name inside its row so a phone page does not scroll sideways, `false` by default
 
 ```erb
 <%= ui_timeline(entries: [
@@ -1400,6 +1426,7 @@ Renders a metric card for dashboards.
 - `plain:` (Boolean, default `false`) — draws a plain figure with no card border or background, for a row of figures
 - `fallback:` (String) — shown in a muted colour when the value is missing, such as `"N/A"`
 - `compact:` (Boolean, default `false`) — a small tile with an extra small label and a smaller value, with its change or note beside the value, about 58px tall against a default card's 134px. Placed in `ui_grid(cols: { default: 1, sm: 2 }, gap: :sm)` inside a panel, compact cards sit two across and stack one across on a phone
+- `label_caps:` (Boolean, default `false`) — draws the label in small capitals
 
 When `definition:` or `calculation:` is given, an info button appears. Hovering or focusing it shows the details in a panel floating below the card, and tapping it toggles the panel on touch screens. The card never changes size.
 
@@ -1965,7 +1992,7 @@ Below `sm` it is a bar fixed to the bottom of the screen, above the bottom nav o
 
 **Optional props**
 
-- `actions:` (Array of Hashes) — `ui_button` keywords for each secondary button, three at most on a phone so the phone row fits; one with `href:` is a link, such as a link to the next item. Each also takes:
+- `actions:` (Array of Hashes) — `ui_button` keywords for each secondary button, three at most on a phone so the phone row fits. Below the bar's breakpoint each label is drawn in small text, so a label such as "Send back" stays on one line three across on a 390px-wide screen. One with `href:` is a link, such as a link to the next item. Each also takes:
   - `phone_label:` (String) — a shorter label shown below `sm` in place of `label:`
   - `phone_only:` (Boolean) — shows the action below `sm` only
   - `phone_order:` (1, 2 or 3) — the action's place in the phone row, so the phone row can list the actions in another order than the desktop row. Any other value raises `KeyError`

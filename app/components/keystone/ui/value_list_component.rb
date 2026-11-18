@@ -8,11 +8,16 @@ module Keystone
       COLUMNS_CLASSES = "grid grid-cols-1 sm:grid-cols-2 ks-grid-gap-sm"
       PAIR_CLASSES = "flex flex-col min-w-0"
       PAIR_LABEL_CLASSES = "ks-value-list-label basis-auto text-xs"
+      CAPS_LABEL_CLASSES = "ks-label-caps"
+      VALUE_CLASSES = "ks-value-list-value"
+      MONO_VALUE_CLASSES = "ks-value-list-value font-mono"
 
       attr_reader :rows
 
-      def initialize(rows:, align: :start, columns: false)
+      def initialize(rows:, align: :start, columns: false, label_caps: false, value_mono: false)
         @rows = rows
+        @value_mono = value_mono
+        @label_caps = label_caps
         @align = align
         @columns = columns
       end
@@ -30,7 +35,11 @@ module Keystone
       end
 
       def label_classes
-        @columns ? PAIR_LABEL_CLASSES : "ks-value-list-label"
+        [ @columns ? PAIR_LABEL_CLASSES : "ks-value-list-label", (CAPS_LABEL_CLASSES if @label_caps) ].compact.join(" ")
+      end
+
+      def value_classes
+        @value_mono ? MONO_VALUE_CLASSES : VALUE_CLASSES
       end
 
       def row_classes(row)

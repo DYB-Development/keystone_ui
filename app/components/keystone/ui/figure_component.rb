@@ -6,7 +6,9 @@ module Keystone
       TONES = {
         neutral: nil,
         success: "ks-tone-success",
-        danger: "ks-tone-danger"
+        danger: "ks-tone-danger",
+        warning: "ks-tone-warning",
+        info: "ks-tone-info"
       }.freeze
 
       def initialize(text:, tone: :neutral)

@@ -1,0 +1,5 @@
+<div class="<%= ROW_CLASSES %>">
+  <% chips.each do |chip| %>
+    <span class="<%= chip_classes(chip) %>"><span><%= chip.fetch(:label) %></span> <%= tag.span(chip.fetch(:value), class: value_classes(chip)) %></span>
+  <% end %>
+</div>

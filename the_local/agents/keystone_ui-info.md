@@ -211,6 +211,13 @@ One decision: is keystone_ui set up in the app?
 - **Compact stat cards.** A stat card can be drawn compact, a small tile with
   an extra small label and a smaller value, its change or note beside the
   value, for a small grid of figures inside a panel.
+- **Small capitals and fixed width.** A stat card's label, a data table's
+  column headings, a value list's labels and a link list row's type can be
+  drawn in small capitals, and a value list's values, a timeline's step names
+  and durations and a summary chip's value in a fixed-width font. Each is an
+  option on its component, off by default.
+- **Summary chips.** A row of summary chips shows a few labelled values, each
+  in a tone's colour on a tinted background, three across on a phone.
 - **Unequal grid columns.** A grid goes up to the `xl:` breakpoint, and a
   two-column grid can make its first or its second column wider, three parts
   to two.

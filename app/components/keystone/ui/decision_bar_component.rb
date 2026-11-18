@@ -19,6 +19,11 @@ module Keystone
         lg: "max-lg:order-first max-lg:*:w-full max-lg:*:min-h-12"
       }.freeze
       ACTION_CLASSES = "flex *:flex-1 *:min-w-0 *:wrap-break-word *:text-center"
+      PHONE_ACTION_TEXT_CLASSES = {
+        sm: "max-sm:*:text-sm",
+        md: "max-md:*:text-sm",
+        lg: "max-lg:*:text-sm"
+      }.freeze
       SECONDARY_ROW_CLASSES = {
         sm: "max-sm:*:flex-1 max-sm:*:min-w-0",
         md: "max-md:*:flex-1 max-md:*:min-w-0",
@@ -107,7 +112,7 @@ module Keystone
       end
 
       def secondary_button(action)
-        tag.div(class: [ ACTION_CLASSES, (PHONE_ONLY_CLASSES.fetch(@breakpoint) if action[:phone_only]), phone_order_classes(action) ].compact.join(" ")) do
+        tag.div(class: [ ACTION_CLASSES, PHONE_ACTION_TEXT_CLASSES.fetch(@breakpoint), (PHONE_ONLY_CLASSES.fetch(@breakpoint) if action[:phone_only]), phone_order_classes(action) ].compact.join(" ")) do
           render ButtonComponent.new(variant: :secondary, **button_options(action), label: action_label(action))
         end
       end

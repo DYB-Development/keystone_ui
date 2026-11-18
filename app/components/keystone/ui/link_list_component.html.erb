@@ -5,7 +5,11 @@
         <span class="<%= TEXT_CLASSES %>">
           <% if row[:top_line] %>
             <span class="<%= TOP_LINE_CLASSES %>">
-              <%= render top_line_badge(row) %>
+              <% if row[:top_line][:type] %>
+                <span class="<%= TOP_LINE_TYPE_CLASSES %>"><span class="<%= type_tone_classes(row) %>"><%= row[:top_line][:type][:label] %></span></span>
+              <% else %>
+                <%= render top_line_badge(row) %>
+              <% end %>
               <span class="<%= TOP_LINE_TEXT_CLASSES %>"><%= row[:top_line][:text] %></span>
             </span>
           <% end %>

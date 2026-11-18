@@ -7,4 +7,9 @@ class Keystone::Ui::FigureComponentTest < Minitest::Test
     assert_equal [ "ks-figure", "ks-figure ks-tone-success", "ks-figure ks-tone-danger" ],
       %i[neutral success danger].map { |tone| Keystone::Ui::FigureComponent.new(text: "$1.00", tone: tone).classes }
   end
+
+  def test_shows_a_figure_in_the_warning_or_info_tone
+    assert_equal [ "ks-figure ks-tone-warning", "ks-figure ks-tone-info" ],
+      %i[warning info].map { |tone| Keystone::Ui::FigureComponent.new(text: "Waiting", tone: tone).classes }
+  end
 end

@@ -1,6 +1,6 @@
 ---
 name: keystone_ui-develop
-description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, review cards of an id, score, title, text, finding note and equal-width buttons set three across on a desktop, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, a queue of links with a type and time above each title and the open one marked, two versions of a text compared line by line side by side or in one column, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
+description: Use PROACTIVELY for building or editing screens in a Rails app that has keystone_ui — page shells with Back links and breadcrumbs, forms and fields, a search field that picks a record or enters a new one, data tables with saved columns, desktop navigation, sidebars and bottom tabs, a phone header with a line above its title and a badge at its right end, a page's main action as a phone top-bar icon or a button fixed to the bottom of the screen, a decision bar of a note field and several buttons sent as one form and fixed to the bottom of a phone screen, review cards of an id, score, title, text, finding note and equal-width buttons set three across on a desktop, a question asked before a button or main action goes ahead, action menus for a record's Edit and Delete, dashboards with stat cards, charts, funnels, goal buckets and timelines of timed steps, drawn one line per step with a marked time axis if wanted, with retries and their count, queued time, failed tries, steps still running, steps waiting on approval, links to each try and the current step marked, amounts shown in green or red as a gain or loss, status dots coloured by state, summary chips coloured by tone, pictures held to half the screen, a short note or badge at the right of a section's title, a record's details as labelled values in rows or in two columns, a queue of links with a type and time above each title and the open one marked, two versions of a text compared line by line side by side or in one column, info buttons and breakdowns, marketing sections, a light/dark theme switch — MUST BE USED instead of hand-writing ERB and Tailwind for UI.
 tools: Bash, Read, Write, Edit, Grep
 scope: UI — pages, forms, tables, navigation, dashboards
 ---
@@ -72,7 +72,8 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_button_row` — a row of buttons that wraps onto further lines, optionally giving each button an equal share of its width at every width or on a phone only.
 - `ui_badge` — a coloured pill holding a short label.
 - `ui_status_dot` — a small dot coloured by state, with its label read only by screen readers.
-- `ui_figure` — one amount as inline text, coloured as a gain or a loss.
+- `ui_figure` — one amount or short result as inline text, coloured as a gain, a loss, a warning or information.
+- `ui_chip_row` — a row of summary chips, each a label and value in a tone's colour on a tinted background, three across on a phone.
 - `ui_picture` — an image never taller than half the screen, optionally opening its full-size file.
 - `ui_heading` — a heading at one of three sizes, with an optional short note on its right.
 - `ui_caption` — small uppercase muted text placed above a title or a figure, or a small muted line in normal case that can hold links.
@@ -417,7 +418,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      bar fixed to the bottom of the screen, above `ui_bottom_nav` on a page
      that has one, with the primary button at full width and 48 pixels tall
      above a row of the secondary buttons, each an equal share of the row and
-     44 pixels tall. A label too long for its share wraps inside its
+     44 pixels tall. Their labels are drawn in small text there, so a label
+     such as "Send back" stays on one line three across on a 390px-wide
+     screen. A label too long for its share wraps inside its
      button, so do not shrink the buttons to keep the row even. The note
      field and hint are not shown below `sm:`. `breakpoint: :md` or
      `breakpoint: :lg` moves the switch between the phone bar and the panel
@@ -585,8 +588,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 8. Build tables.
 
-   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true)`
-     takes a block yielding the table. `items:` are records or hashes, and a
+   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false)`
+     takes a block yielding the table. `heading_caps: true` draws the column
+     headings in small capitals. `items:` are records or hashes, and a
      cell's value is the column key called on the item, or `item[key]`.
      `group_by:` lists rows under heading rows named by that key's value,
      `group_totals:` (`{ "Group name" => { column_key => value } }`) puts
@@ -710,8 +714,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `equal_width: :phone` does that below `sm:` only, and from `sm:` up each
      button keeps the width of its label. Use it in place of a hand-written
      flex `div` around a set of buttons.
-   - `ui_link(label:, href:)` draws a text link in the link colour. Use it in
-     place of a hand-written `link_to` with colour classes.
+   - `ui_link(label:, href:, centred: false)` draws a text link in the link
+     colour. `centred: true` puts it on its own line with its label in the
+     middle, such as a "Finish on desktop" link under a phone page's cards.
+     Use it in place of a hand-written `link_to` with colour classes.
    - With `href:` and `method:` `:post` `:patch` `:put` or `:delete`, it
      renders a button inside its own small form that sends that request to
      `href:` when tapped. Do not write a form around it. It cannot sit inside
@@ -754,7 +760,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      badge at the left, apart from the row's `badge:`, and short text at the
      right, such as a type and the time left. It stays on one line and cuts off
      long text, a long badge wraps without squeezing the text beside it, and
-     the label and subtitle wrap. `current: true` marks the
+     the label and subtitle wrap. In place of `badge:`, `top_line:` takes
+     `type: { label:, tone: }`, which shows the row's type as small-capital
+     text in the tone's colour, such as `{ label: "Approval", tone: :warning }`
+     or `{ label: "Failure", tone: :danger }`. `current: true` marks the
      row the person has open with `aria-current` and a tint and accent bar.
      `chevron: false` leaves off every row's chevron, as in a queue beside the
      open item. `new_tab: true` opens every row's link in a new browser tab
@@ -821,12 +830,14 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_facts(facts:)` — each fact is `{ value:, label: }`, drawn as a small
      box with the count in bold beside its label, in a row that wraps.
    - `ui_paragraph(text:)` shows running text.
-   - `ui_value_list(rows:, align: :start, columns: false)` — each row is
+   - `ui_value_list(rows:, align: :start, columns: false, label_caps: false, value_mono: false)` — each row is
      `{ label:, value: }` with optional `note:`, `total: true`, `right: true`
      and `fallback:`, shown when the value is `nil` or empty. `right: true`
      draws a green check mark after the value, read out as "Right", for an
      answer that was right. `align: :end` pushes values to the right, as in a
-     ledger.
+     ledger. `label_caps: true` draws the labels in small capitals and
+     `value_mono: true` draws the values in a fixed-width font, as for ids,
+     model names and run numbers.
    - With the default `columns: false`, each pair is one row with its label
      beside its value and a line between rows. `columns: true` draws each pair
      as its label in small text directly above its value, with no line between
@@ -837,7 +848,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 10. Explain figures.
 
-    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false)`
+    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false)`
       — `variant:` is `:neutral` `:success` `:danger` `:warning` `:info` and
       colours the value. `change:` is a signed number shown as `▲ 4.2%` in
       green, `▼` in red, or plain at zero. `href:` links the value only, so
@@ -847,13 +858,24 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       extra small label over a smaller value with its change or note beside
       the value, under half a default card's height. Put compact cards in
       `ui_grid(cols: { default: 1, sm: 2 }, gap: :sm)` inside a panel so they
-      sit two across and stack on a phone.
-    - `ui_figure(text:, tone: :neutral)` prints one amount inline. `tone:`
-      `:neutral` uses the surrounding text colour, `:success` green and
-      `:danger` red, and any other symbol raises `KeyError`. Its output can go
+      sit two across and stack on a phone. `label_caps: true` draws the label
+      in small capitals.
+    - `ui_figure(text:, tone: :neutral)` prints one amount or short result
+      inline. `tone:` `:neutral` uses the surrounding text colour, `:success`
+      green, `:danger` red, `:warning` amber and `:info` blue, such as
+      "Waiting" or "Running" for a step's result, and any other symbol raises
+      `KeyError`. Its output can go
       anywhere a string is shown, such as a table cell. Use it, not a badge or
       a colour class, for a gain or a loss, and ask the developer which amounts
       are coloured and what counts as a gain.
+    - `ui_chip_row(chips:)` shows a row of summary chips. Each chip is
+      `{ label:, value:, tone:, mono: false }`, `tone:` one of `:neutral`
+      `:success` `:danger` `:warning` `:info`, and draws its label and value
+      in that tone's colour on a tinted background. `mono: true` draws the
+      value in a fixed-width font. The chips share the row's width equally,
+      and on a phone they sit three across with a fourth starting a new line.
+      Use it for a few counts or scores above the record they summarise, in
+      place of badges or hand-written tinted spans.
     - `ui_calculation(groups:, summary: "How this is worked out")` shows the
       steps behind a figure, closed under a row reading `summary:`. `groups:`
       is `[{ title:, lines: [{ label:, working:, result: }, ...] }, ...]`.
@@ -923,10 +945,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       the fill turns green with `over: :success` or amber with `over: :warning`.
     - `ui_bucket_series(buckets:)` takes an array of hashes with the keywords
       of `ui_bucket`, such as `[{ goal: 10, actual: 7, label: "Mon" }, ...]`.
-    - `ui_timeline(entries:, one_line: false)` takes no block. `entries:` is
+    - `ui_timeline(entries:, one_line: false, text_mono: false)` takes no block. `entries:` is
       `[{ label:, started_at:, ended_at: nil, queued_at: nil, failed: false, waiting: false, href: nil, selected: false }, ...]`,
       with every time a `Time` value. `one_line:` picks the layout, described
-      below.
+      below. `text_mono: true` draws the step names and durations in a
+      fixed-width font and wraps a long step name inside its row, so a phone
+      page does not scroll sideways.
     - It draws one row per label, in the order each label first appears.
       Entries that share a label, such as the tries of one step, share that
       row and each draws its own bar, so pass a step's tries one after another
