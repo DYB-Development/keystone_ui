@@ -588,9 +588,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 8. Build tables.
 
-   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false)`
+   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false, density: nil)`
      takes a block yielding the table. `heading_caps: true` draws the column
-     headings in small capitals. `items:` are records or hashes, and a
+     headings in small capitals. `density: :compact` draws every heading and
+     cell in extra small text with smaller padding, for a wide table in a
+     narrow panel, and works with `heading_caps: true`. `items:` are records or hashes, and a
      cell's value is the column key called on the item, or `item[key]`.
      `group_by:` lists rows under heading rows named by that key's value,
      `group_totals:` (`{ "Group name" => { column_key => value } }`) puts
