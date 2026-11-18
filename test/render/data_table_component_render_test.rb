@@ -856,6 +856,14 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "text-xs", "ks-table-compact" ], page.css("tbody td").last["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ]
   end
 
+  def test_given_compact_density_draws_its_empty_message_cell_in_extra_small_text_with_compact_padding
+    page = render_in_view_context do
+      ui_data_table(items: [], columns: [ { name: "Name" } ], empty_message: "No products", density: :compact)
+    end
+
+    assert_equal [ "text-xs", "ks-table-compact" ], page.css("tbody td").first["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ]
+  end
+
   private
 
   def three_columns

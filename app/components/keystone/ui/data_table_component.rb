@@ -122,6 +122,10 @@ module Keystone
         PHONE_LIST_BLOCK_CLASSES if @phone_list
       end
 
+      def empty_cell_classes
+        densified(EMPTY_CELL_CLASSES)
+      end
+
       def actions_cell_classes
         densified(phone_list_classes(ROW_CLASSES_LAST, PHONE_LIST_BLOCK_CLASSES))
       end
