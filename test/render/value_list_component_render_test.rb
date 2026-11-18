@@ -51,4 +51,10 @@ class Keystone::Ui::ValueListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Agent" ], page.css(".ks-value-list-label.basis-auto").map { |label| label.text.strip }
   end
+
+  def test_with_value_mono_draws_each_value_in_a_fixed_width_font
+    page = render_inline(Keystone::Ui::ValueListComponent.new(value_mono: true, rows: [ { label: "Run", value: "run_8f3a21" }, { label: "Model", value: "claude-sonnet" } ]))
+
+    assert_equal [ "run_8f3a21", "claude-sonnet" ], page.css(".ks-value-list-value.font-mono").map { |value| value.text.strip }
+  end
 end
