@@ -371,4 +371,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-duration].font-mono").map(&:text)
   end
+
+  def test_with_text_mono_wraps_a_long_step_name_inside_the_row_on_a_phone
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, text_mono: true))
+
+    assert_equal [ "min-w-0 wrap-break-word font-mono" ] * 2, page.css("[data-timeline-label]").map { |label| label["class"] }
+  end
 end
