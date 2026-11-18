@@ -631,4 +631,14 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
       "ks-table-header ks-table-header-last text-right text-xs ks-table-compact"
     ], component.header_cells.map { |cell| cell[:classes] }
   end
+
+  def test_with_compact_density_and_heading_caps_draws_each_column_heading_in_the_small_capital_style_with_compact_padding
+    component = klass.new(items: hash_items, columns: columns, density: :compact, heading_caps: true)
+
+    assert_equal [
+      "ks-table-header ks-table-header-first text-left ks-label-caps ks-table-compact",
+      "ks-table-header ks-table-header-middle text-left ks-label-caps ks-table-compact",
+      "ks-table-header ks-table-header-last text-right ks-label-caps ks-table-compact"
+    ], component.header_cells.map { |cell| cell[:classes] }
+  end
 end
