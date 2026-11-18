@@ -277,6 +277,12 @@ class Keystone::Ui::DecisionBarComponentRenderTest < ViewComponent::TestCase
     assert_raises(KeyError) { render_bar(actions: [ { label: "Reject", name: "decision", value: "reject", phone_order: 4 } ]) }
   end
 
+  def test_on_a_phone_draws_each_secondary_buttons_label_in_small_text
+    page = render_bar
+
+    assert_equal [ true, true ], %w[reject send_back].map { |value| page.at_css("form div:has(> button[value='#{value}'])")["class"].split.include?("max-sm:*:text-sm") }
+  end
+
   private
 
   def render_bar(**overrides)
