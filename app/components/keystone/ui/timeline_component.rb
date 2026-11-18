@@ -100,7 +100,7 @@ module Keystone
       end
 
       def duration_classes(row)
-        WAITING_CLASSES if waiting?(row)
+        [ (WAITING_CLASSES if waiting?(row)), (MONO_CLASSES if @text_mono) ].compact.join(" ").presence
       end
 
       def duration(row)

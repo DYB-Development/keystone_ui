@@ -365,4 +365,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[Plan Build], page.css("[data-timeline-label].font-mono").map(&:text)
   end
+
+  def test_with_text_mono_writes_each_duration_in_a_fixed_width_font
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, text_mono: true))
+
+    assert_equal [ "1m 0s", "3m 0s" ], page.css("[data-timeline-duration].font-mono").map(&:text)
+  end
 end
