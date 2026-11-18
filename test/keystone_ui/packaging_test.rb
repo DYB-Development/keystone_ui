@@ -28,6 +28,12 @@ class KeystoneUi::PackagingTest < Minitest::Test
     assert gemspec.dependencies.any? { |d| d.name == "keystone_ui-styles" && d.type == :runtime }
   end
 
+  def test_requires_a_keystone_ui_styles_with_the_compact_table_cell
+    requirement = gemspec.dependencies.find { |d| d.name == "keystone_ui-styles" }.requirement
+
+    refute requirement.satisfied_by?(Gem::Version.new("0.44.0"))
+  end
+
   def test_requires_a_keystone_ui_styles_with_the_compact_stat_card_and_the_normal_case_caption
     requirement = gemspec.dependencies.find { |d| d.name == "keystone_ui-styles" }.requirement
 
