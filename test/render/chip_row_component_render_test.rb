@@ -23,4 +23,10 @@ class Keystone::Ui::ChipRowComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "0.84" ], page.css(".ks-chip .font-mono").map(&:text)
   end
+
+  def test_on_a_phone_lays_the_chips_three_across_in_equal_columns
+    page = render_inline(Keystone::Ui::ChipRowComponent.new(chips: chips))
+
+    assert_equal "ks-chip-row max-sm:grid max-sm:grid-cols-3", page.at_css(".ks-chip-row")["class"]
+  end
 end

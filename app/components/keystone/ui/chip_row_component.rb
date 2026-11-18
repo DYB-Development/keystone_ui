@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class ChipRowComponent < ViewComponent::Base
-      ROW_CLASSES = "ks-chip-row"
+      ROW_CLASSES = "ks-chip-row max-sm:grid max-sm:grid-cols-3"
       MONO_VALUE_CLASSES = "font-mono"
       TONE_CLASSES = States::NAMES.to_h { |state| [ state, "ks-chip ks-chip-#{state}" ] }.freeze
 
