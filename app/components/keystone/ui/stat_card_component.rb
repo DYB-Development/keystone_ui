@@ -10,6 +10,7 @@ module Keystone
       COMPACT_CLASSES = "ks-metric-card ks-metric-card-compact relative"
       LABEL_CLASSES = "ks-stat-card-label text-sm"
       COMPACT_LABEL_CLASSES = "ks-stat-card-label text-xs"
+      CAPS_LABEL_CLASSES = "ks-stat-card-label ks-label-caps"
       VALUE_BASE_CLASSES = "ks-stat-card-value text-3xl"
       COMPACT_VALUE_CLASSES = "ks-stat-card-value ks-stat-card-value-compact flex flex-wrap items-baseline text-lg leading-6"
       SUFFIX_CLASSES = "ks-stat-card-suffix text-lg"
@@ -30,8 +31,9 @@ module Keystone
 
       attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href, :note
 
-      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false)
+      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false)
         @compact = compact
+        @label_caps = label_caps
         @label = label
         @fallback = fallback
         @note = note
@@ -60,6 +62,8 @@ module Keystone
       end
 
       def label_classes
+        return CAPS_LABEL_CLASSES if @label_caps
+
         @compact ? COMPACT_LABEL_CLASSES : LABEL_CLASSES
       end
 

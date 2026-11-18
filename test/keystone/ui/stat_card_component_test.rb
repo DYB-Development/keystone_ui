@@ -264,4 +264,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
 
     assert_includes component.change_classes, "ks-tone-muted"
   end
+
+  def test_with_label_caps_draws_its_label_in_the_small_capital_style_at_that_styles_size
+    assert_equal "ks-stat-card-label ks-label-caps", Keystone::Ui::StatCardComponent.new(label: "Runs", value: "12", label_caps: true).label_classes
+  end
 end
