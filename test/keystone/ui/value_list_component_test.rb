@@ -23,4 +23,8 @@ class Keystone::Ui::ValueListComponentTest < Minitest::Test
   def test_in_columns_spaces_the_pairs_apart_by_the_small_grid_gap
     assert_includes Keystone::Ui::ValueListComponent.new(rows: [], columns: true).classes.split, "ks-grid-gap-sm"
   end
+
+  def test_with_label_caps_draws_each_label_in_the_small_capital_style
+    assert_equal "ks-value-list-label ks-label-caps", Keystone::Ui::ValueListComponent.new(rows: [], label_caps: true).label_classes
+  end
 end
