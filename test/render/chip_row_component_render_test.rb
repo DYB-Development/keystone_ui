@@ -17,4 +17,10 @@ class Keystone::Ui::ChipRowComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "ks-chip ks-chip-success", "Checks 4/4" ], [ "ks-chip ks-chip-warning", "Findings 1" ], [ "ks-chip ks-chip-neutral", "p 0.84" ] ],
       page.css(".ks-chip-row > .ks-chip").map { |chip| [ chip["class"], chip.text.squish ] }
   end
+
+  def test_draws_the_value_of_a_chip_marked_mono_in_a_fixed_width_font
+    page = render_inline(Keystone::Ui::ChipRowComponent.new(chips: [ { label: "Checks", value: "4/4", tone: :success }, { label: "p", value: "0.84", tone: :neutral, mono: true } ]))
+
+    assert_equal [ "0.84" ], page.css(".ks-chip .font-mono").map(&:text)
+  end
 end
