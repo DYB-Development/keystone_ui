@@ -621,4 +621,14 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
       "ks-table-cell-last text-right text-xs whitespace-nowrap ks-table-compact"
     ], component.row_cells.first.map { |cell| cell[:classes] }
   end
+
+  def test_with_compact_density_draws_each_column_heading_in_extra_small_text_with_compact_padding
+    component = klass.new(items: hash_items, columns: columns, density: :compact)
+
+    assert_equal [
+      "ks-table-header ks-table-header-first text-left text-xs ks-table-compact",
+      "ks-table-header ks-table-header-middle text-left text-xs ks-table-compact",
+      "ks-table-header ks-table-header-last text-right text-xs ks-table-compact"
+    ], component.header_cells.map { |cell| cell[:classes] }
+  end
 end

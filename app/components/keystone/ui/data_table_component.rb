@@ -166,7 +166,7 @@ module Keystone
 
           cell = {
             label: column.header_text,
-            classes: heading_classes(aligned(tokens.join(" "), column)),
+            classes: densified(heading_classes(aligned(tokens.join(" "), column))),
             scope: "col"
           }
 
@@ -193,7 +193,7 @@ module Keystone
         if actions?
           cells << {
             label: "Actions",
-            classes: heading_classes(HEADER_CLASSES_LAST),
+            classes: densified(heading_classes(HEADER_CLASSES_LAST)),
             scope: "col"
           }
         end
