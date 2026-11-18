@@ -846,6 +846,16 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_equal [ [ "text-xs", "ks-table-compact" ] ] * 2, page.css("tr[data-table-group] th").map { |cell| cell["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ] }
   end
 
+  def test_given_compact_density_draws_each_row_s_actions_cell_in_extra_small_text_with_compact_padding
+    page = render_in_view_context do
+      ui_data_table(items: [ { name: "Lawn mow" } ], columns: [ { name: "Name" } ], density: :compact) do |table|
+        table.actions { |row| ui_action_menu_item(label: "Edit", href: "/products/1/edit") }
+      end
+    end
+
+    assert_equal [ "text-xs", "ks-table-compact" ], page.css("tbody td").last["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ]
+  end
+
   private
 
   def three_columns

@@ -123,7 +123,7 @@ module Keystone
       end
 
       def actions_cell_classes
-        phone_list_classes(ROW_CLASSES_LAST, PHONE_LIST_BLOCK_CLASSES)
+        densified(phone_list_classes(ROW_CLASSES_LAST, PHONE_LIST_BLOCK_CLASSES))
       end
 
       def head_classes
