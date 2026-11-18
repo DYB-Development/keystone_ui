@@ -359,4 +359,10 @@ class Keystone::Ui::TimelineComponentRenderTest < ViewComponent::TestCase
 
     part.name
   end
+
+  def test_with_text_mono_draws_each_step_name_in_a_fixed_width_font
+    page = render_inline(Keystone::Ui::TimelineComponent.new(entries: entries, text_mono: true))
+
+    assert_equal %w[Plan Build], page.css("[data-timeline-label].font-mono").map(&:text)
+  end
 end

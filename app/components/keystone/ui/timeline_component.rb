@@ -23,16 +23,18 @@ module Keystone
       PHONE_AXIS_CLASSES = "ks-meter-label flex justify-between text-xs sm:col-span-3 sm:hidden"
       ONE_LINE_AXIS_CLASSES = "ks-meter-label relative h-4 text-xs sm:col-start-2 max-sm:hidden"
       MARK_CLASSES = "absolute top-0 whitespace-nowrap"
+      MONO_CLASSES = "font-mono"
       MINIMUM_BAR_PERCENT = 2
       MARK_STEPS = [ 1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 900, 1800, 3600, 7200, 10_800, 21_600, 43_200, 86_400 ].freeze
       MAXIMUM_MARK_INTERVALS = 6
 
       attr_reader :entries, :one_line
 
-      def initialize(entries:, one_line: false)
+      def initialize(entries:, one_line: false, text_mono: false)
         entries.each { |entry| check_times(entry) }
         @entries = entries
         @one_line = one_line
+        @text_mono = text_mono
       end
 
       def track_classes
@@ -44,7 +46,7 @@ module Keystone
       end
 
       def label_classes
-        ONE_LINE_LABEL_CLASSES if one_line
+        [ (ONE_LINE_LABEL_CLASSES if one_line), (MONO_CLASSES if @text_mono) ].compact.join(" ").presence
       end
 
       def status_classes
