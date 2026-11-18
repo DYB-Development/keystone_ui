@@ -246,7 +246,7 @@ module Keystone
         return [] unless @total
 
         @columns.map.with_index do |column, index|
-          { value: @total[column.key.to_s], classes: phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES), label: summary_label(index, column) }
+          { value: @total[column.key.to_s], classes: densified(phone_list_classes(aligned(header_classes_for(index), column), PHONE_LIST_CELL_CLASSES)), label: summary_label(index, column) }
         end
       end
 

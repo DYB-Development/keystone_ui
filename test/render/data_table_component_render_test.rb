@@ -828,6 +828,15 @@ class Keystone::Ui::DataTableComponentRenderTest < ViewComponent::TestCase
     assert_empty page.css("tfoot th .ks-caption")
   end
 
+  def test_given_compact_density_draws_each_cell_of_its_total_row_in_extra_small_text_with_compact_padding
+    columns = month_columns
+    page = render_in_view_context do
+      ui_data_table(items: [ { month: "Jan", pipeline: "$10" } ], columns: columns, total: { month: "Total", pipeline: "$10" }, density: :compact)
+    end
+
+    assert_equal [ [ "text-xs", "ks-table-compact" ] ] * 2, page.css("tfoot th").map { |cell| cell["class"].split & [ "text-sm", "text-xs", "ks-table-compact" ] }
+  end
+
   private
 
   def three_columns
