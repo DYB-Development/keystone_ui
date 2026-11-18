@@ -601,4 +601,14 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_current_row_classes_render_the_ks_table_row_current_class
     assert_equal "ks-table-row-current", Keystone::Ui::DataTableComponent::CURRENT_ROW_CLASSES
   end
+
+  def test_with_heading_caps_draws_each_column_heading_in_the_small_capital_style_at_that_styles_size
+    component = klass.new(items: hash_items, columns: columns, heading_caps: true)
+
+    assert_equal [
+      "ks-table-header ks-table-header-first text-left ks-label-caps",
+      "ks-table-header ks-table-header-middle text-left ks-label-caps",
+      "ks-table-header ks-table-header-last text-right ks-label-caps"
+    ], component.header_cells.map { |cell| cell[:classes] }
+  end
 end
