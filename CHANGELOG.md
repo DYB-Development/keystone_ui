@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.104.0] - 2026-11-19
+
+### Added
+- `config.hidden_group_supplier` takes a lambda given the view and a navigation group's label, and every menu drawn from the person's list of groups leaves out a group it returns true for, including a tab declared outside any group (#458).
+
 ## [0.103.0] - 2026-11-18
 
 ### Added
