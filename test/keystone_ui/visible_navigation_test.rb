@@ -25,6 +25,16 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ "Sales" ], groups.map(&:label)
   end
 
+  def test_leaves_out_a_page_declared_on_its_own_that_the_supplied_check_hides
+    inbox = KeystoneUi::NavigationGroup.new("Inbox", standalone: true)
+    inbox.tab(:inbox, label: "Inbox", href: "/inbox", permitted: ->(_view) { true })
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+
+    groups = visible(inbox, sales, view: View.new(:rep), hidden_group: ->(_view, label) { label == "Inbox" })
+
+    assert_equal [ "Sales" ], groups.map(&:label)
+  end
+
   def test_lists_the_groups_and_their_tabs_in_the_saved_order
     sales = group("Sales", [ :quotes, ->(_view) { true } ], [ :orders, ->(_view) { true } ])
     admin = group("Admin", [ :users, ->(_view) { true } ])
