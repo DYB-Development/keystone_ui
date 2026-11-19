@@ -16,6 +16,15 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ [ "Sales", [ "quotes" ] ] ], groups.map { |entry| [ entry.label, entry.tabs.map(&:label) ] }
   end
 
+  def test_leaves_out_a_group_the_supplied_check_hides_from_the_view
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+    admin = group("Admin", [ :users, ->(_view) { true } ])
+
+    groups = visible(sales, admin, view: View.new(:rep), hidden_group: ->(view, label) { view.role == :rep && label == "Admin" })
+
+    assert_equal [ "Sales" ], groups.map(&:label)
+  end
+
   def test_lists_the_groups_and_their_tabs_in_the_saved_order
     sales = group("Sales", [ :quotes, ->(_view) { true } ], [ :orders, ->(_view) { true } ])
     admin = group("Admin", [ :users, ->(_view) { true } ])
@@ -74,8 +83,8 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
 
   private
 
-  def visible(*groups, view:, saved_order: [], current_tab: nil)
-    KeystoneUi::VisibleNavigation.new(groups, view: view, saved_order: saved_order, current_tab: current_tab).groups
+  def visible(*groups, view:, saved_order: [], current_tab: nil, hidden_group: nil)
+    KeystoneUi::VisibleNavigation.new(groups, view: view, saved_order: saved_order, current_tab: current_tab, hidden_group: hidden_group).groups
   end
 
   def group(label, *tabs)
