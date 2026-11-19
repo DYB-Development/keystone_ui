@@ -4,7 +4,7 @@ require "keystone_ui/navigation_group"
 
 module KeystoneUi
   class Configuration
-    attr_accessor :accent, :surface, :theme_mode_supplier, :look_supplier, :trail_supplier, :preference_supplier, :current_tab_supplier, :text_diff_line_limit
+    attr_accessor :accent, :surface, :theme_mode_supplier, :look_supplier, :trail_supplier, :preference_supplier, :current_tab_supplier, :hidden_group_supplier, :text_diff_line_limit
     attr_reader :tailwind_imports, :tailwind_sources, :looks, :default_look, :navigation_groups
 
     def initialize

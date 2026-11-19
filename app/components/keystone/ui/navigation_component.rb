@@ -32,7 +32,8 @@ module Keystone
           KeystoneUi.configuration.navigation_groups,
           view: helpers,
           saved_order: saved_navigation["order"] || [],
-          current_tab: KeystoneUi.configuration.supplied_current_tab(helpers)
+          current_tab: KeystoneUi.configuration.supplied_current_tab(helpers),
+          hidden_group: KeystoneUi.configuration.hidden_group_supplier
         ).groups
       end
 
