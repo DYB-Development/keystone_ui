@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "keystone_ui/configuration"
 require "keystone_ui/navigation_order"
 
 module KeystoneUi
@@ -7,8 +8,9 @@ module KeystoneUi
     Group = Struct.new(:label, :tabs, :active, :standalone, keyword_init: true)
     Tab = Struct.new(:label, :href, :active, :count, keyword_init: true)
 
-    def initialize(declared_groups, view:, saved_order:, current_tab:)
+    def initialize(declared_groups, view:, saved_order:, current_tab:, hidden_group: KeystoneUi.configuration.hidden_group_supplier)
       @declared_groups = declared_groups
+      @hidden_group = hidden_group
       @view = view
       @saved_order = saved_order
       @current_tab = current_tab
@@ -22,8 +24,13 @@ module KeystoneUi
 
     def permitted
       @declared_groups
+        .reject { |group| hidden?(group) }
         .map { |group| [ group, group.tabs_permitted_for(@view) ] }
         .reject { |_group, tabs| tabs.empty? }
+    end
+
+    def hidden?(group)
+      @hidden_group&.call(@view, group.label)
     end
 
     def visible_group(group, tabs)

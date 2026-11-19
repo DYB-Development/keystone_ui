@@ -1823,6 +1823,14 @@ class QuotesController < ApplicationController
 end
 ```
 
+To hide a whole group from a person, set `config.hidden_group_supplier` to a lambda that receives the view and a group's label and returns true to hide that group. A tab declared outside any group is hidden the same way, by its label. A hidden group is left out of the top bar, the sidebar and every other menu drawn from keystone_ui's list of the person's groups. Setting no supplier hides nothing. In this example a gem hides the groups the account has turned off:
+
+```ruby
+KeystoneUi.configure do |config|
+  config.hidden_group_supplier = ->(view, label) { view.turned_off_groups.include?(label) }
+end
+```
+
 ### `ui_nav_item`
 
 Renders a single nav link within the navbar.

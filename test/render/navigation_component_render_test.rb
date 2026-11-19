@@ -68,6 +68,16 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "Sales" ], page.css(".ks-nav-dropdown button").map { |menu| menu.text.strip }
   end
 
+  def test_leaves_out_of_the_top_bar_a_group_the_supplied_check_hides
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_group("Admin", [ :users, "Users", "/users" ])
+    KeystoneUi.configure { |c| c.hidden_group_supplier = ->(_view, label) { label == "Admin" } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Sales" ], page.css(".ks-nav-dropdown button").map { |menu| menu.text.strip }
+  end
+
   def test_hides_the_top_bar_below_the_desktop_width
     declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
 
@@ -142,6 +152,17 @@ class Keystone::Ui::NavigationComponentRenderTest < ViewComponent::TestCase
     page = render_navigation { "<p>Page</p>".html_safe }
 
     assert_equal "Page", page.at_xpath(".//*[contains(concat(' ', @class, ' '), ' ks-sidebar ')]/following-sibling::*[1]/p")&.text
+  end
+
+  def test_leaves_out_of_the_sidebar_a_group_the_supplied_check_hides
+    declare_group("Sales", [ :quotes, "Quotes", "/quotes" ])
+    declare_group("Admin", [ :users, "Users", "/users" ])
+    save_placement("left")
+    KeystoneUi.configure { |c| c.hidden_group_supplier = ->(_view, label) { label == "Admin" } }
+
+    page = render_navigation { "<p>Page</p>".html_safe }
+
+    assert_equal [ "Quotes" ], page.css(".ks-sidebar a").map { |link| link.text.strip }.reject(&:empty?)
   end
 
   def test_shows_a_tab_count_in_the_sidebar

@@ -16,6 +16,47 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ [ "Sales", [ "quotes" ] ] ], groups.map { |entry| [ entry.label, entry.tabs.map(&:label) ] }
   end
 
+  def test_leaves_out_a_group_the_supplied_check_hides_from_the_view
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+    admin = group("Admin", [ :users, ->(_view) { true } ])
+
+    groups = visible(sales, admin, view: View.new(:rep), hidden_group: ->(view, label) { view.role == :rep && label == "Admin" })
+
+    assert_equal [ "Sales" ], groups.map(&:label)
+  end
+
+  def test_leaves_out_a_page_declared_on_its_own_that_the_supplied_check_hides
+    inbox = KeystoneUi::NavigationGroup.new("Inbox", standalone: true)
+    inbox.tab(:inbox, label: "Inbox", href: "/inbox", permitted: ->(_view) { true })
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+
+    groups = visible(inbox, sales, view: View.new(:rep), hidden_group: ->(_view, label) { label == "Inbox" })
+
+    assert_equal [ "Sales" ], groups.map(&:label)
+  end
+
+  def test_leaves_out_a_group_hidden_by_the_configured_check_when_none_is_passed
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+    admin = group("Admin", [ :users, ->(_view) { true } ])
+    KeystoneUi.configure { |c| c.hidden_group_supplier = ->(_view, label) { label == "Admin" } }
+
+    groups = KeystoneUi::VisibleNavigation.new([ sales, admin ], view: View.new(:rep), saved_order: [], current_tab: nil).groups
+
+    assert_equal [ "Sales" ], groups.map(&:label)
+  ensure
+    KeystoneUi.reset_configuration!
+  end
+
+  def test_lists_every_permitted_group_when_no_check_is_configured
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+    admin = group("Admin", [ :users, ->(_view) { true } ])
+    KeystoneUi.reset_configuration!
+
+    groups = KeystoneUi::VisibleNavigation.new([ sales, admin ], view: View.new(:rep), saved_order: [], current_tab: nil).groups
+
+    assert_equal [ "Sales", "Admin" ], groups.map(&:label)
+  end
+
   def test_lists_the_groups_and_their_tabs_in_the_saved_order
     sales = group("Sales", [ :quotes, ->(_view) { true } ], [ :orders, ->(_view) { true } ])
     admin = group("Admin", [ :users, ->(_view) { true } ])
@@ -74,8 +115,8 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
 
   private
 
-  def visible(*groups, view:, saved_order: [], current_tab: nil)
-    KeystoneUi::VisibleNavigation.new(groups, view: view, saved_order: saved_order, current_tab: current_tab).groups
+  def visible(*groups, view:, saved_order: [], current_tab: nil, hidden_group: nil)
+    KeystoneUi::VisibleNavigation.new(groups, view: view, saved_order: saved_order, current_tab: current_tab, hidden_group: hidden_group).groups
   end
 
   def group(label, *tabs)
