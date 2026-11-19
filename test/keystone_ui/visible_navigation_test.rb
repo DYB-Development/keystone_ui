@@ -47,6 +47,16 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     KeystoneUi.reset_configuration!
   end
 
+  def test_lists_every_permitted_group_when_no_check_is_configured
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+    admin = group("Admin", [ :users, ->(_view) { true } ])
+    KeystoneUi.reset_configuration!
+
+    groups = KeystoneUi::VisibleNavigation.new([ sales, admin ], view: View.new(:rep), saved_order: [], current_tab: nil).groups
+
+    assert_equal [ "Sales", "Admin" ], groups.map(&:label)
+  end
+
   def test_lists_the_groups_and_their_tabs_in_the_saved_order
     sales = group("Sales", [ :quotes, ->(_view) { true } ], [ :orders, ->(_view) { true } ])
     admin = group("Admin", [ :users, ->(_view) { true } ])
