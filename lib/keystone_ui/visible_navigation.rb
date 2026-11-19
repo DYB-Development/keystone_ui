@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "keystone_ui/configuration"
 require "keystone_ui/navigation_order"
 
 module KeystoneUi
@@ -7,7 +8,7 @@ module KeystoneUi
     Group = Struct.new(:label, :tabs, :active, :standalone, keyword_init: true)
     Tab = Struct.new(:label, :href, :active, :count, keyword_init: true)
 
-    def initialize(declared_groups, view:, saved_order:, current_tab:, hidden_group: nil)
+    def initialize(declared_groups, view:, saved_order:, current_tab:, hidden_group: KeystoneUi.configuration.hidden_group_supplier)
       @declared_groups = declared_groups
       @hidden_group = hidden_group
       @view = view

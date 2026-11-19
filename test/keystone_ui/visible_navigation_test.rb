@@ -35,6 +35,18 @@ class KeystoneUi::VisibleNavigationTest < Minitest::Test
     assert_equal [ "Sales" ], groups.map(&:label)
   end
 
+  def test_leaves_out_a_group_hidden_by_the_configured_check_when_none_is_passed
+    sales = group("Sales", [ :quotes, ->(_view) { true } ])
+    admin = group("Admin", [ :users, ->(_view) { true } ])
+    KeystoneUi.configure { |c| c.hidden_group_supplier = ->(_view, label) { label == "Admin" } }
+
+    groups = KeystoneUi::VisibleNavigation.new([ sales, admin ], view: View.new(:rep), saved_order: [], current_tab: nil).groups
+
+    assert_equal [ "Sales" ], groups.map(&:label)
+  ensure
+    KeystoneUi.reset_configuration!
+  end
+
   def test_lists_the_groups_and_their_tabs_in_the_saved_order
     sales = group("Sales", [ :quotes, ->(_view) { true } ], [ :orders, ->(_view) { true } ])
     admin = group("Admin", [ :users, ->(_view) { true } ])
