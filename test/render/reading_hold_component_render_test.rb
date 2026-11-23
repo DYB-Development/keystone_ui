@@ -30,7 +30,7 @@ class Keystone::Ui::ReadingHoldComponentRenderTest < ViewComponent::TestCase
   def test_the_end_report_fields_are_named_for_the_form
     page = render_hold
 
-    assert_equal ["reading[end_reached]", "reading[end_in_view_on_load]"], page.css("input[type=hidden]").map { |field| field["name"] }
+    assert_equal [ "reading[end_reached]", "reading[end_in_view_on_load]" ], page.css("input[type=hidden]").map { |field| field["name"] }
   end
 
   def test_without_javascript_the_page_button_is_available

@@ -33,7 +33,7 @@ module Keystone
       end
 
       def button_options
-        {data: {reading_hold_target: "button"}, aria: {describedby: status_id}}
+        { data: { reading_hold_target: "button" }, aria: { describedby: status_id } }
       end
 
       def wrapper_data
