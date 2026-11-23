@@ -119,3 +119,14 @@ test("a hold that requires both the end and a time stays unavailable until the t
   assert.equal(button.getAttribute("aria-disabled"), "true")
   controller.disconnect()
 })
+
+test("content whose end is in view when the page loads counts as reached at once", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, button } = holdWith({ requireEnd: true })
+
+  controller.connect()
+  showEnd(true)
+
+  assert.equal(button.getAttribute("aria-disabled"), null)
+  controller.disconnect()
+})
