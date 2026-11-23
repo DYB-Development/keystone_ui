@@ -55,6 +55,10 @@ export default class extends Controller {
     this.update()
   }
 
+  holdForCache() {
+    this.buttonTarget.setAttribute("aria-disabled", "true")
+  }
+
   guard(event) {
     if (this.held) event.preventDefault()
   }
