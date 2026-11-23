@@ -45,6 +45,7 @@ function holdWith({ seconds = 0, elapsed = 0, requireEnd = false } = {}) {
   Object.defineProperty(controller, "inViewOnLoadTarget", { value: inViewOnLoad })
   Object.defineProperty(controller, "announcerTarget", { value: announcer })
   Object.defineProperty(controller, "waitingValue", { value: "Available in {seconds} seconds" })
+  Object.defineProperty(controller, "endWaitingValue", { value: "Read to the end to continue" })
   Object.defineProperty(controller, "readyValue", { value: "The button is now available" })
   Object.defineProperty(controller, "secondsValue", { value: seconds })
   Object.defineProperty(controller, "elapsedValue", { value: elapsed })
@@ -191,5 +192,15 @@ test("a screen reader is not told about each passing second", (t) => {
   t.mock.timers.tick(3000)
 
   assert.equal(announcer.textContent, "")
+  controller.disconnect()
+})
+
+test("a hold waiting only on the end says the end has to be reached", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, status } = holdWith({ requireEnd: true })
+
+  controller.connect()
+
+  assert.equal(status.textContent, "Read to the end to continue")
   controller.disconnect()
 })
