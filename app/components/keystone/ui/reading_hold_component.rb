@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "securerandom"
+
 module Keystone
   module Ui
     class ReadingHoldComponent < ViewComponent::Base
@@ -10,6 +12,14 @@ module Keystone
         @waiting = waiting
         @end_waiting = end_waiting
         @ready = ready
+      end
+
+      def status_id
+        @status_id ||= "reading-hold-status-#{SecureRandom.hex(4)}"
+      end
+
+      def button_options
+        {data: {reading_hold_target: "button"}, aria: {describedby: status_id}}
       end
 
       def wrapper_data

@@ -15,4 +15,10 @@ class Keystone::Ui::ReadingHoldComponentTest < Minitest::Test
 
     assert_equal ["Wait {seconds}s", "Scroll to the end", "Ready"], data.values_at(:reading_hold_waiting_value, :reading_hold_end_waiting_value, :reading_hold_ready_value)
   end
+
+  def test_gives_the_page_button_options_that_describe_the_button_by_the_hold_status
+    hold = Keystone::Ui::ReadingHoldComponent.new(seconds: 30)
+
+    assert_equal({data: {reading_hold_target: "button"}, aria: {describedby: hold.status_id}}, hold.button_options)
+  end
 end
