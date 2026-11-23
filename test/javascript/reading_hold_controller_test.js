@@ -182,3 +182,14 @@ test("a screen reader is told once that the button is now available", (t) => {
   assert.equal(announcer.textContent, "The button is now available")
   controller.disconnect()
 })
+
+test("a screen reader is not told about each passing second", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, announcer } = holdWith({ seconds: 30 })
+
+  controller.connect()
+  t.mock.timers.tick(3000)
+
+  assert.equal(announcer.textContent, "")
+  controller.disconnect()
+})
