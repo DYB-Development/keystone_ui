@@ -34,6 +34,7 @@ module Keystone
       def wrapper_data
         {
           controller: "reading-hold",
+          action: "turbo:before-cache@document->reading-hold#holdForCache pageshow@window->reading-hold#restore",
           reading_hold_seconds_value: @seconds,
           reading_hold_elapsed_value: @elapsed,
           reading_hold_require_end_value: @require_end,

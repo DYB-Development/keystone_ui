@@ -22,6 +22,12 @@ class Keystone::Ui::ReadingHoldComponentTest < Minitest::Test
     assert_equal({data: {reading_hold_target: "button"}, aria: {describedby: hold.status_id}}, hold.button_options)
   end
 
+  def test_listens_for_turbo_caching_the_page_and_for_the_browser_restoring_it
+    data = Keystone::Ui::ReadingHoldComponent.new.wrapper_data
+
+    assert_equal "turbo:before-cache@document->reading-hold#holdForCache pageshow@window->reading-hold#restore", data[:action]
+  end
+
   def test_names_the_fields_its_form_sends_under_the_page_prefix
     hold = Keystone::Ui::ReadingHoldComponent.new(field_prefix: "acceptance")
 
