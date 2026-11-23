@@ -34,7 +34,7 @@ function holdWith({ seconds = 0, elapsed = 0, requireEnd = false } = {}) {
   const button = Object.assign(fakeElement(), { form })
   const reached = { value: "" }
   const inViewOnLoad = { value: "" }
-  const status = fakeElement()
+  const status = Object.assign(fakeElement(), { id: "reading-hold-status-1" })
   const announcer = fakeElement()
   observers = []
   const controller = new ReadingHoldController({ scope: { element: {} } })
@@ -251,5 +251,15 @@ test("a page the browser restores from its back-forward cache starts the hold ag
   controller.restore({ persisted: true })
 
   assert.equal(button.getAttribute("aria-disabled"), "true")
+  controller.disconnect()
+})
+
+test("the button is described by the hold's status, so a screen reader reads why it is unavailable", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, button } = holdWith({ seconds: 30 })
+
+  controller.connect()
+
+  assert.equal(button.getAttribute("aria-describedby"), "reading-hold-status-1")
   controller.disconnect()
 })

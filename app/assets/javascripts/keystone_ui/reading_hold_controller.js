@@ -7,6 +7,7 @@ export default class extends Controller {
   connect() {
     this.secondsLeft = Math.max(this.secondsValue - this.elapsedValue, 0)
     this.endReached = !this.requireEndValue
+    this.buttonTarget.setAttribute("aria-describedby", this.statusTarget.id)
     if (this.secondsLeft > 0) this.timer = setInterval(() => this.tick(), 1000)
     this.attachEndReport()
     if (this.requireEndValue) this.watchEnd()

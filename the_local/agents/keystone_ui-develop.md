@@ -821,7 +821,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      its `summary` slot with the header, and the rest of the block is the body.
    - `ui_reading_hold(seconds: 0, elapsed: 0, require_end: false, waiting:, end_waiting:, ready:, field_prefix: "reading")`
      takes a block yielding the component. Fill its `action` slot with the
-     button, given `**hold.button_options`, and the rest of the block is the
+     button, given `**hold.button_options` or, for a `ui_button`,
+     `data: { reading_hold_target: "button" }`, and the rest of the block is the
      content. The button's form sends `<field_prefix>[end_reached]` and
      `<field_prefix>[end_in_view_on_load]`, and the app checks the time and the
      end again on its server.
