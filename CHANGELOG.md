@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.105.0] - 2026-11-23
+
+### Added
+- `ui_reading_hold` wraps content and a button, holding the button unavailable until a number of seconds has passed, the end of the content has been in view, or both, and its form sends whether the end was reached and whether it was in view on load (#528).
+
 ## [0.104.0] - 2026-11-19
 
 ### Added
