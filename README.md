@@ -921,7 +921,7 @@ Not tested in iPhone Safari or a Hotwire Native web view.
 - `ready:` (String) — what a screen reader is told when the button becomes available
 - `field_prefix:` (String) — the prefix of the two fields the form sends, default `"reading"`
 
-Give the button `hold.button_options` so the hold can find it and describe it.
+Give the button `hold.button_options` so the hold can find it and describe it. A `ui_button` can take `data: { reading_hold_target: "button" }` instead, and the hold describes it by its status when it starts.
 
 ```erb
 <%= ui_reading_hold(seconds: 30, elapsed: seconds_since_shown, require_end: true) do |hold| %>
