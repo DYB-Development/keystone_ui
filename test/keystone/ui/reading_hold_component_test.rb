@@ -21,4 +21,10 @@ class Keystone::Ui::ReadingHoldComponentTest < Minitest::Test
 
     assert_equal({data: {reading_hold_target: "button"}, aria: {describedby: hold.status_id}}, hold.button_options)
   end
+
+  def test_names_the_fields_its_form_sends_under_the_page_prefix
+    hold = Keystone::Ui::ReadingHoldComponent.new(field_prefix: "acceptance")
+
+    assert_equal ["acceptance[end_reached]", "acceptance[end_in_view_on_load]"], [hold.end_reached_field, hold.in_view_on_load_field]
+  end
 end

@@ -5,13 +5,22 @@ require "securerandom"
 module Keystone
   module Ui
     class ReadingHoldComponent < ViewComponent::Base
-      def initialize(seconds: 0, elapsed: 0, require_end: false, waiting: "Available in {seconds} seconds", end_waiting: "Read to the end to continue", ready: "Now available")
+      def initialize(seconds: 0, elapsed: 0, require_end: false, waiting: "Available in {seconds} seconds", end_waiting: "Read to the end to continue", ready: "Now available", field_prefix: "reading")
         @seconds = seconds
         @elapsed = elapsed
         @require_end = require_end
         @waiting = waiting
         @end_waiting = end_waiting
         @ready = ready
+        @field_prefix = field_prefix
+      end
+
+      def end_reached_field
+        "#{@field_prefix}[end_reached]"
+      end
+
+      def in_view_on_load_field
+        "#{@field_prefix}[end_in_view_on_load]"
       end
 
       def status_id
