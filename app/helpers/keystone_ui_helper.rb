@@ -289,6 +289,10 @@ module KeystoneUiHelper
     render Keystone::Ui::DisclosureComponent.new(**args), &block
   end
 
+  def ui_reading_hold(**args, &block)
+    render Keystone::Ui::ReadingHoldComponent.new(**args), &block
+  end
+
   def ui_calculation(**args)
     render Keystone::Ui::CalculationComponent.new(**args)
   end

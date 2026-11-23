@@ -39,6 +39,12 @@ class Keystone::Ui::ReadingHoldComponentRenderTest < ViewComponent::TestCase
     assert_nil page.at_css("button")["aria-disabled"]
   end
 
+  def test_a_view_draws_a_reading_hold_with_the_ui_reading_hold_helper
+    page = render_in_view_context { ui_reading_hold(seconds: 30) { "Terms" } }
+
+    assert_equal "30", page.at_css("[data-controller=reading-hold]")["data-reading-hold-seconds-value"]
+  end
+
   private
 
   def render_hold
