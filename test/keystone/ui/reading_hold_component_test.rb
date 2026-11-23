@@ -28,6 +28,10 @@ class Keystone::Ui::ReadingHoldComponentTest < Minitest::Test
     assert_equal "turbo:before-cache@document->reading-hold#holdForCache pageshow@window->reading-hold#restore", data[:action]
   end
 
+  def test_the_announcement_is_read_out_but_not_shown
+    assert_equal "sr-only", Keystone::Ui::ReadingHoldComponent::ANNOUNCER_CLASSES
+  end
+
   def test_names_the_fields_its_form_sends_under_the_page_prefix
     hold = Keystone::Ui::ReadingHoldComponent.new(field_prefix: "acceptance")
 

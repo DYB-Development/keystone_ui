@@ -5,6 +5,11 @@ require "securerandom"
 module Keystone
   module Ui
     class ReadingHoldComponent < ViewComponent::Base
+      STATUS_CLASSES = "ks-reading-hold-status text-sm"
+      ANNOUNCER_CLASSES = "sr-only"
+
+      renders_one :action
+
       def initialize(seconds: 0, elapsed: 0, require_end: false, waiting: "Available in {seconds} seconds", end_waiting: "Read to the end to continue", ready: "Now available", field_prefix: "reading")
         @seconds = seconds
         @elapsed = elapsed

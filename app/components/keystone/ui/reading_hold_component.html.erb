@@ -1,3 +1,11 @@
 <%= tag.div(data: wrapper_data) do %>
-  <%= content %>
+  <div>
+    <%= content %>
+    <span data-reading-hold-target="end"></span>
+  </div>
+  <%= tag.input(type: "hidden", name: end_reached_field, data: {reading_hold_target: "reached"}) %>
+  <%= tag.input(type: "hidden", name: in_view_on_load_field, data: {reading_hold_target: "inViewOnLoad"}) %>
+  <div data-action="click->reading-hold#guard"><%= action %></div>
+  <p id="<%= status_id %>" class="<%= STATUS_CLASSES %>" data-reading-hold-target="status"></p>
+  <p class="<%= ANNOUNCER_CLASSES %>" aria-live="polite" data-reading-hold-target="announcer"></p>
 <% end %>
