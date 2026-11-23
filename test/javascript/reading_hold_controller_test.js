@@ -43,3 +43,14 @@ test("the button becomes available once the seconds have passed", (t) => {
   assert.equal(button.getAttribute("aria-disabled"), null)
   controller.disconnect()
 })
+
+test("seconds the page says were already spent count toward the hold", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, button } = holdWith({ seconds: 30, elapsed: 25 })
+
+  controller.connect()
+  t.mock.timers.tick(5000)
+
+  assert.equal(button.getAttribute("aria-disabled"), null)
+  controller.disconnect()
+})
