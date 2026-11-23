@@ -241,3 +241,15 @@ test("the page Turbo keeps for going back shows the button held again", (t) => {
   assert.equal(button.getAttribute("aria-disabled"), "true")
   controller.disconnect()
 })
+
+test("a page the browser restores from its back-forward cache starts the hold again", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, button } = holdWith({ seconds: 1 })
+
+  controller.connect()
+  t.mock.timers.tick(1000)
+  controller.restore({ persisted: true })
+
+  assert.equal(button.getAttribute("aria-disabled"), "true")
+  controller.disconnect()
+})
