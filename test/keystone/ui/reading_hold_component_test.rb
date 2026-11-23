@@ -9,4 +9,10 @@ class Keystone::Ui::ReadingHoldComponentTest < Minitest::Test
     assert_equal({controller: "reading-hold", reading_hold_seconds_value: 30, reading_hold_elapsed_value: 5, reading_hold_require_end_value: true},
       data.slice(:controller, :reading_hold_seconds_value, :reading_hold_elapsed_value, :reading_hold_require_end_value))
   end
+
+  def test_passes_the_page_wording_for_waiting_and_for_becoming_available_to_its_controller
+    data = Keystone::Ui::ReadingHoldComponent.new(waiting: "Wait {seconds}s", end_waiting: "Scroll to the end", ready: "Ready").wrapper_data
+
+    assert_equal ["Wait {seconds}s", "Scroll to the end", "Ready"], data.values_at(:reading_hold_waiting_value, :reading_hold_end_waiting_value, :reading_hold_ready_value)
+  end
 end
