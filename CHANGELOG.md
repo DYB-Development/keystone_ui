@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.106.0] - 2026-11-23
+
+### Changed
+- `ui_reading_hold` describes its button by its status when it starts, so a `ui_button` marked as the hold's button with a data attribute tells a screen reader why it is unavailable (#531).
+
 ## [0.105.0] - 2026-11-23
 
 ### Added
