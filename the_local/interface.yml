@@ -76,6 +76,7 @@ develop:
   - ui_code
   - ui_text_diff
   - ui_disclosure
+  - ui_reading_hold
   - ui_calculation
   - ui_info
   - ui_figure
