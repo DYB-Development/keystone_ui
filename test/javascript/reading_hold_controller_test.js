@@ -216,3 +216,16 @@ test("pressing the button while it is unavailable does nothing", (t) => {
   assert.equal(prevented, true)
   controller.disconnect()
 })
+
+test("pressing the button once it is available goes ahead", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller } = holdWith({ seconds: 1 })
+  let prevented = false
+
+  controller.connect()
+  t.mock.timers.tick(1000)
+  controller.guard({ preventDefault: () => { prevented = true } })
+
+  assert.equal(prevented, false)
+  controller.disconnect()
+})
