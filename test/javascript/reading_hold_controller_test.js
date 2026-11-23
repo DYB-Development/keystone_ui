@@ -35,6 +35,7 @@ function holdWith({ seconds = 0, elapsed = 0, requireEnd = false } = {}) {
   const reached = { value: "" }
   const inViewOnLoad = { value: "" }
   const status = fakeElement()
+  const announcer = fakeElement()
   observers = []
   const controller = new ReadingHoldController({ scope: { element: {} } })
   Object.defineProperty(controller, "buttonTarget", { value: button })
@@ -42,11 +43,13 @@ function holdWith({ seconds = 0, elapsed = 0, requireEnd = false } = {}) {
   Object.defineProperty(controller, "endTarget", { value: fakeElement() })
   Object.defineProperty(controller, "reachedTarget", { value: reached })
   Object.defineProperty(controller, "inViewOnLoadTarget", { value: inViewOnLoad })
+  Object.defineProperty(controller, "announcerTarget", { value: announcer })
   Object.defineProperty(controller, "waitingValue", { value: "Available in {seconds} seconds" })
+  Object.defineProperty(controller, "readyValue", { value: "The button is now available" })
   Object.defineProperty(controller, "secondsValue", { value: seconds })
   Object.defineProperty(controller, "elapsedValue", { value: elapsed })
   Object.defineProperty(controller, "requireEndValue", { value: requireEnd })
-  return { controller, button, status, form, reached, inViewOnLoad }
+  return { controller, button, status, announcer, form, reached, inViewOnLoad }
 }
 
 test("a hold with seconds left keeps the button unavailable", (t) => {
@@ -166,5 +169,16 @@ test("the end report says the end was in view on load", (t) => {
   showEnd(true)
 
   assert.deepEqual([reached.value, inViewOnLoad.value], ["true", "true"])
+  controller.disconnect()
+})
+
+test("a screen reader is told once that the button is now available", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, announcer } = holdWith({ seconds: 2 })
+
+  controller.connect()
+  t.mock.timers.tick(2000)
+
+  assert.equal(announcer.textContent, "The button is now available")
   controller.disconnect()
 })

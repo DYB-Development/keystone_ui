@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["button", "status", "end", "reached", "inViewOnLoad"]
-  static values = { seconds: Number, elapsed: Number, requireEnd: Boolean, waiting: String }
+  static targets = ["button", "status", "announcer", "end", "reached", "inViewOnLoad"]
+  static values = { seconds: Number, elapsed: Number, requireEnd: Boolean, waiting: String, ready: String }
 
   connect() {
     this.secondsLeft = Math.max(this.secondsValue - this.elapsedValue, 0)
@@ -60,12 +60,14 @@ export default class extends Controller {
   }
 
   update() {
+    const wasHeld = this.buttonTarget.getAttribute("aria-disabled") === "true"
     if (this.held) {
       this.buttonTarget.setAttribute("aria-disabled", "true")
       this.statusTarget.textContent = this.waitingValue.replace("{seconds}", this.secondsLeft)
     } else {
       this.buttonTarget.removeAttribute("aria-disabled")
       this.statusTarget.textContent = ""
+      if (wasHeld) this.announcerTarget.textContent = this.readyValue
     }
   }
 }
