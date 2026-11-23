@@ -6,10 +6,19 @@ export default class extends Controller {
 
   connect() {
     this.secondsLeft = Math.max(this.secondsValue - this.elapsedValue, 0)
+    if (this.secondsLeft > 0) this.timer = setInterval(() => this.tick(), 1000)
     this.update()
   }
 
-  disconnect() {}
+  disconnect() {
+    clearInterval(this.timer)
+  }
+
+  tick() {
+    this.secondsLeft -= 1
+    if (this.secondsLeft <= 0) clearInterval(this.timer)
+    this.update()
+  }
 
   update() {
     if (this.secondsLeft > 0) {
