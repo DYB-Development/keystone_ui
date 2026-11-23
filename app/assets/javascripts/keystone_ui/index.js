@@ -8,6 +8,7 @@ import FileUploadController from "keystone_ui/file_upload_controller"
 import DropdownController from "keystone_ui/dropdown_controller"
 import ActionMenuController from "keystone_ui/action_menu_controller"
 import DismissController from "keystone_ui/dismiss_controller"
+import ReadingHoldController from "keystone_ui/reading_hold_controller"
 import ModalController from "keystone_ui/modal_controller"
 import ClipboardController from "keystone_ui/clipboard_controller"
 import TabSwitcherController from "keystone_ui/tab_switcher_controller"
@@ -31,6 +32,7 @@ export function registerControllers(application) {
   application.register("dropdown", DropdownController)
   application.register("action-menu", ActionMenuController)
   application.register("dismiss", DismissController)
+  application.register("reading-hold", ReadingHoldController)
   application.register("modal", ModalController)
   application.register("clipboard", ClipboardController)
   application.register("tab-switcher", TabSwitcherController)
@@ -44,4 +46,4 @@ export function registerControllers(application) {
   keepPageThemeInStep()
 }
 
-export { ColorPickerController, MultiSelectController, SwipeDeckController, SortableListController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ModalController, ClipboardController, TabSwitcherController, AccordionController, StatCardInfoController, InfoController, AutoSubmitController, LineChartController }
+export { ColorPickerController, MultiSelectController, SwipeDeckController, SortableListController, ColumnPickerController, FileUploadController, DropdownController, DismissController, ReadingHoldController, ModalController, ClipboardController, TabSwitcherController, AccordionController, StatCardInfoController, InfoController, AutoSubmitController, LineChartController }
