@@ -13,12 +13,30 @@ function fakeElement() {
   }
 }
 
+let observers = []
+
+globalThis.IntersectionObserver = class {
+  constructor(callback) {
+    this.callback = callback
+    observers.push(this)
+  }
+
+  observe() {}
+  disconnect() {}
+}
+
+function showEnd(isIntersecting = true) {
+  observers.at(-1).callback([{ isIntersecting }])
+}
+
 function holdWith({ seconds = 0, elapsed = 0, requireEnd = false } = {}) {
   const button = fakeElement()
   const status = fakeElement()
+  observers = []
   const controller = new ReadingHoldController({ scope: { element: {} } })
   Object.defineProperty(controller, "buttonTarget", { value: button })
   Object.defineProperty(controller, "statusTarget", { value: status })
+  Object.defineProperty(controller, "endTarget", { value: fakeElement() })
   Object.defineProperty(controller, "waitingValue", { value: "Available in {seconds} seconds" })
   Object.defineProperty(controller, "secondsValue", { value: seconds })
   Object.defineProperty(controller, "elapsedValue", { value: elapsed })
@@ -66,5 +84,15 @@ test("the seconds left are shown while the button is unavailable", (t) => {
   t.mock.timers.tick(1000)
 
   assert.equal(status.textContent, "Available in 29 seconds")
+  controller.disconnect()
+})
+
+test("a hold that requires the end keeps the button unavailable until the end is in view", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, button } = holdWith({ requireEnd: true })
+
+  controller.connect()
+
+  assert.equal(button.getAttribute("aria-disabled"), "true")
   controller.disconnect()
 })
