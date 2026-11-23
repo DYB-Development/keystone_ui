@@ -145,3 +145,26 @@ test("the fields reporting the end are sent with the form holding the button", (
   assert.deepEqual(form.appended, [reached, inViewOnLoad])
   controller.disconnect()
 })
+
+test("the end report says the end was reached after scrolling and was not in view on load", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, reached, inViewOnLoad } = holdWith({ requireEnd: true })
+
+  controller.connect()
+  showEnd(false)
+  showEnd(true)
+
+  assert.deepEqual([reached.value, inViewOnLoad.value], ["true", "false"])
+  controller.disconnect()
+})
+
+test("the end report says the end was in view on load", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, reached, inViewOnLoad } = holdWith({ requireEnd: true })
+
+  controller.connect()
+  showEnd(true)
+
+  assert.deepEqual([reached.value, inViewOnLoad.value], ["true", "true"])
+  controller.disconnect()
+})

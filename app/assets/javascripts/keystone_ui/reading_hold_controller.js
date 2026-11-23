@@ -8,8 +8,8 @@ export default class extends Controller {
     this.secondsLeft = Math.max(this.secondsValue - this.elapsedValue, 0)
     this.endReached = !this.requireEndValue
     if (this.secondsLeft > 0) this.timer = setInterval(() => this.tick(), 1000)
+    this.attachEndReport()
     if (this.requireEndValue) this.watchEnd()
-    this.reportEnd()
     this.update()
   }
 
@@ -18,15 +18,26 @@ export default class extends Controller {
     this.observer?.disconnect()
   }
 
-  reportEnd() {
-    this.reachedField ||= this.reachedTarget
-    this.inViewOnLoadField ||= this.inViewOnLoadTarget
+  attachEndReport() {
+    this.reachedField = this.reachedTarget
+    this.inViewOnLoadField = this.inViewOnLoadTarget
+    this.reportEnd()
     this.buttonTarget.form?.append(this.reachedField, this.inViewOnLoadField)
   }
 
+  reportEnd() {
+    this.reachedField.value = String(this.endReached)
+    this.inViewOnLoadField.value = String(Boolean(this.endInViewOnLoad))
+  }
+
   watchEnd() {
+    let first = true
     this.observer = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) this.reachEnd()
+      if (entries.some((entry) => entry.isIntersecting)) {
+        this.endInViewOnLoad = first
+        this.reachEnd()
+      }
+      first = false
     })
     this.observer.observe(this.endTarget)
   }
@@ -34,6 +45,7 @@ export default class extends Controller {
   reachEnd() {
     this.endReached = true
     this.observer.disconnect()
+    this.reportEnd()
     this.update()
   }
 
