@@ -204,3 +204,15 @@ test("a hold waiting only on the end says the end has to be reached", (t) => {
   assert.equal(status.textContent, "Read to the end to continue")
   controller.disconnect()
 })
+
+test("pressing the button while it is unavailable does nothing", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller } = holdWith({ seconds: 30 })
+  let prevented = false
+
+  controller.connect()
+  controller.guard({ preventDefault: () => { prevented = true } })
+
+  assert.equal(prevented, true)
+  controller.disconnect()
+})

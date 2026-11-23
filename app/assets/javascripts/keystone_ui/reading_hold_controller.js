@@ -55,6 +55,10 @@ export default class extends Controller {
     this.update()
   }
 
+  guard(event) {
+    if (this.held) event.preventDefault()
+  }
+
   get held() {
     return this.secondsLeft > 0 || !this.endReached
   }
