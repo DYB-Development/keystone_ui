@@ -30,18 +30,23 @@ function showEnd(isIntersecting = true) {
 }
 
 function holdWith({ seconds = 0, elapsed = 0, requireEnd = false } = {}) {
-  const button = fakeElement()
+  const form = { appended: [], append(...fields) { this.appended.push(...fields) } }
+  const button = Object.assign(fakeElement(), { form })
+  const reached = { value: "" }
+  const inViewOnLoad = { value: "" }
   const status = fakeElement()
   observers = []
   const controller = new ReadingHoldController({ scope: { element: {} } })
   Object.defineProperty(controller, "buttonTarget", { value: button })
   Object.defineProperty(controller, "statusTarget", { value: status })
   Object.defineProperty(controller, "endTarget", { value: fakeElement() })
+  Object.defineProperty(controller, "reachedTarget", { value: reached })
+  Object.defineProperty(controller, "inViewOnLoadTarget", { value: inViewOnLoad })
   Object.defineProperty(controller, "waitingValue", { value: "Available in {seconds} seconds" })
   Object.defineProperty(controller, "secondsValue", { value: seconds })
   Object.defineProperty(controller, "elapsedValue", { value: elapsed })
   Object.defineProperty(controller, "requireEndValue", { value: requireEnd })
-  return { controller, button, status }
+  return { controller, button, status, form, reached, inViewOnLoad }
 }
 
 test("a hold with seconds left keeps the button unavailable", (t) => {
@@ -128,5 +133,15 @@ test("content whose end is in view when the page loads counts as reached at once
   showEnd(true)
 
   assert.equal(button.getAttribute("aria-disabled"), null)
+  controller.disconnect()
+})
+
+test("the fields reporting the end are sent with the form holding the button", (t) => {
+  t.mock.timers.enable({ apis: ["setInterval"] })
+  const { controller, form, reached, inViewOnLoad } = holdWith({ requireEnd: true })
+
+  controller.connect()
+
+  assert.deepEqual(form.appended, [reached, inViewOnLoad])
   controller.disconnect()
 })

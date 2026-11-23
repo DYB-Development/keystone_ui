@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["button", "status", "end"]
+  static targets = ["button", "status", "end", "reached", "inViewOnLoad"]
   static values = { seconds: Number, elapsed: Number, requireEnd: Boolean, waiting: String }
 
   connect() {
@@ -9,12 +9,19 @@ export default class extends Controller {
     this.endReached = !this.requireEndValue
     if (this.secondsLeft > 0) this.timer = setInterval(() => this.tick(), 1000)
     if (this.requireEndValue) this.watchEnd()
+    this.reportEnd()
     this.update()
   }
 
   disconnect() {
     clearInterval(this.timer)
     this.observer?.disconnect()
+  }
+
+  reportEnd() {
+    this.reachedField ||= this.reachedTarget
+    this.inViewOnLoadField ||= this.inViewOnLoadTarget
+    this.buttonTarget.form?.append(this.reachedField, this.inViewOnLoadField)
   }
 
   watchEnd() {
