@@ -899,6 +899,39 @@ Not tested in iPhone Safari or a Hotwire Native web view, only in Chrome with a 
 <% end %>
 ```
 
+### `ui_reading_hold`
+
+Content with a button below it that stays unavailable until a set number of seconds has passed, until the end of the content has been in view, or both. Uses the `reading-hold` Stimulus controller. The hold is a courtesy in the browser, so the app using it checks the time and the end again on its server.
+
+While the button is held it shows how long is left, or that the end has to be reached, and a press does nothing. The button stays reachable by keyboard and is described by that status for screen readers. A screen reader is told once when the button becomes available, not every second. Content whose end is already in view when the page loads counts as reached at once.
+
+The form holding the button sends two fields, `<field_prefix>[end_reached]` and `<field_prefix>[end_in_view_on_load]`, each `"true"` or `"false"`. Going back to the page, through Turbo or the browser's back-forward cache, holds the button again.
+
+Without JavaScript running, the button is available and the two fields are not sent.
+
+Not tested in iPhone Safari or a Hotwire Native web view.
+
+**Props**
+
+- `seconds:` (Integer) — the seconds the button is held, default `0`
+- `elapsed:` (Integer) — seconds already spent, such as since the server first showed the page, default `0`
+- `require_end:` (Boolean) — hold the button until the end of the content has been in view, default `false`
+- `waiting:` (String) — the status while seconds are left, with `{seconds}` replaced by the count
+- `end_waiting:` (String) — the status once only the end is left
+- `ready:` (String) — what a screen reader is told when the button becomes available
+- `field_prefix:` (String) — the prefix of the two fields the form sends, default `"reading"`
+
+Give the button `hold.button_options` so the hold can find it and describe it.
+
+```erb
+<%= ui_reading_hold(seconds: 30, elapsed: seconds_since_shown, require_end: true) do |hold| %>
+  <% hold.with_action do %>
+    <%= button_to "I Accept", accept_path, method: :patch, **hold.button_options %>
+  <% end %>
+  <%= render @document %>
+<% end %>
+```
+
 ### `ui_form_field`
 
 Wraps a label, input, hint, and error message in a consistent layout. Infers label text from the attribute name when not explicitly provided.

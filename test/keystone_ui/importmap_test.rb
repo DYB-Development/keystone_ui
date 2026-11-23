@@ -44,4 +44,10 @@ class KeystoneUi::ImportmapTest < Minitest::Test
 
     assert_includes index, 'application.register("row-detail", RowDetailController)'
   end
+
+  def test_the_reading_hold_controller_is_registered
+    index = File.read(File.join(ROOT, "app/assets/javascripts/keystone_ui/index.js"))
+
+    assert_includes index, 'application.register("reading-hold", ReadingHoldController)'
+  end
 end

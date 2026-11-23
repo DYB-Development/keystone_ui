@@ -90,6 +90,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_code` — a block of code with an optional caption.
 - `ui_text_diff` — two versions of a text side by side, or in one column, with removed and added lines marked.
 - `ui_disclosure` — a native expandable section with a clickable summary.
+- `ui_reading_hold` — content with a button below it held unavailable until a time has passed, the end of the content has been in view, or both.
 - `ui_calculation` — the steps behind a figure, closed under a summary row.
 - `ui_info` — an inline info button showing a summary, and optional detail, in floating panels.
 - `ui_breakdown` — a list of amounts ending in their total.
@@ -818,6 +819,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      earlier one.
    - `ui_disclosure(open: false)` takes a block yielding the component. Fill
      its `summary` slot with the header, and the rest of the block is the body.
+   - `ui_reading_hold(seconds: 0, elapsed: 0, require_end: false, waiting:, end_waiting:, ready:, field_prefix: "reading")`
+     takes a block yielding the component. Fill its `action` slot with the
+     button, given `**hold.button_options`, and the rest of the block is the
+     content. The button's form sends `<field_prefix>[end_reached]` and
+     `<field_prefix>[end_in_view_on_load]`, and the app checks the time and the
+     end again on its server.
    - `ui_accordion(items: [])` — `items:` is `[{ question:, answer: }, ...]`.
    - `ui_heading(text:, size: :md, note: nil)` — `size:` is `:sm` `:md` `:lg`,
      and `note:` puts a short muted note at the right end of the heading's row.

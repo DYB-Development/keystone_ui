@@ -88,7 +88,8 @@ module Keystone
       Keystone::Ui::BreadcrumbsComponent,
       Keystone::Ui::InfoComponent,
       Keystone::Ui::BreakdownComponent,
-      Keystone::Ui::PictureComponent
+      Keystone::Ui::PictureComponent,
+      Keystone::Ui::ReadingHoldComponent
     ].freeze
 
     # Constants that hold non-CSS values (e.g. HTML input type maps)

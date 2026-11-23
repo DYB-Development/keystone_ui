@@ -9,6 +9,7 @@ pin "keystone_ui/file_upload_controller", to: "keystone_ui/file_upload_controlle
 pin "keystone_ui/dropdown_controller", to: "keystone_ui/dropdown_controller.js"
 pin "keystone_ui/action_menu_controller", to: "keystone_ui/action_menu_controller.js"
 pin "keystone_ui/dismiss_controller", to: "keystone_ui/dismiss_controller.js"
+pin "keystone_ui/reading_hold_controller", to: "keystone_ui/reading_hold_controller.js"
 pin "keystone_ui/modal_controller", to: "keystone_ui/modal_controller.js"
 pin "keystone_ui/clipboard_controller", to: "keystone_ui/clipboard_controller.js"
 pin "keystone_ui/tab_switcher_controller", to: "keystone_ui/tab_switcher_controller.js"
