@@ -9,6 +9,9 @@ module Keystone
       attr_reader :segments
 
       def initialize(segments:)
+        unknown = segments.map { |segment| segment[:tone] }.reject { |tone| SEGMENT_CLASSES.key?(tone) }
+        raise ArgumentError, "Unknown stacked bar tone #{unknown.first.inspect}, expected one of #{SEGMENT_CLASSES.keys.join(', ')}" if unknown.any?
+
         @segments = segments
       end
 

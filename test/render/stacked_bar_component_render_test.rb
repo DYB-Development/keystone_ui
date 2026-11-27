@@ -33,4 +33,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[ks-fill-teal ks-fill-orange ks-fill-blue ks-fill-amber], page.css(".ks-stacked-bar-segment").map { |segment| segment["class"].split.grep(/\Aks-fill-/).first }
   end
+
+  def test_refuses_a_tone_it_does_not_know_naming_it
+    error = assert_raises(ArgumentError) { Keystone::Ui::StackedBarComponent.new(segments: [ { label: "COGS", amount: 600, tone: :purple } ]) }
+
+    assert_match(/purple/, error.message)
+  end
 end
