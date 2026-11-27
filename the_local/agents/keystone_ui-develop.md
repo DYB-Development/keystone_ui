@@ -56,7 +56,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_form_field` — a labelled input, textarea, checkbox or select with hint and error text, and short text such as `$` or `hours` inside a text or number input's border.
 - `ui_input` — a bare styled input with no label, optionally with short text inside its border before or after it.
 - `ui_textarea` — a bare styled textarea with no label.
-- `ui_select` — a bare styled select with no label.
+- `ui_select` — a bare styled select with no label, any of whose choices can be greyed out so it cannot be chosen.
 - `ui_multi_select` — a dropdown of checkboxes posting every checked value.
 - `ui_search_select` — a form field that searches the app as a person types and submits the id of the record they pick.
 - `ui_file_upload` — a file drop zone with selected-file feedback.
@@ -72,7 +72,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_button_row` — a row of buttons that wraps onto further lines, optionally giving each button an equal share of its width at every width or on a phone only.
 - `ui_badge` — a coloured pill holding a short label.
 - `ui_status_dot` — a small dot coloured by state, with its label read only by screen readers.
-- `ui_status_line` — a sentence after a round green check for a pass or red cross for a fail, the icon labelled for screen readers.
+- `ui_status_line` — a sentence after a round green check for a pass or red cross for a fail, the icon labelled for screen readers, or the sentence alone as a line of information.
 - `ui_figure` — one amount or short result as inline text, coloured as a gain, a loss, a warning or information.
 - `ui_chip_row` — a row of summary chips, each a label and value in a tone's colour on a tinted background, three across on a phone.
 - `ui_picture` — an image never taller than half the screen, optionally opening its full-size file.
@@ -490,7 +490,13 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - A `:select` takes `options:` as `[[label, value], ...]`, and `value:`
      picks the selected option. A select that is not required gets a leading
      empty option, worded by `include_blank:` or left blank without it, so
-     never add an empty choice to `options:` as well.
+     never add an empty choice to `options:` as well. `include_blank: false`
+     leaves the empty option out without making the field required or
+     showing the asterisk, for a select that always holds one of its choices.
+   - A choice given as `[label, value, { disabled: true }]` is drawn greyed
+     out and cannot be chosen, on `ui_form_field` and on `ui_select`. Use it
+     for a choice that is shown but not available, and ask the developer what
+     makes a choice unavailable.
    - A `:checkbox` renders its label beside the box, submits `"0"` unchecked
      and `"1"` checked, and is checked when `value:` is `"1"`. With
      `required: true` the browser will not submit the form while it is
@@ -788,7 +794,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      green check labelled "Pass" for screen readers when `passed:` is true and
      a red cross labelled "Fail" when it is false. Use it for a check a page
      works out, such as whether a price is within its ceiling, and write the
-     sentence so it says the result with its numbers.
+     sentence so it says the result with its numbers. `passed: nil` draws
+     the sentence alone, with no icon and no space left for one, for a line of
+     information, such as a margin, shown among pass and fail lines.
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
      — `type:` is `:info` `:success` `:warning` `:error`, and `dismissible: true`
      adds a close button.

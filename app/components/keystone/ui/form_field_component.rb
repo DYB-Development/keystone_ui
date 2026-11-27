@@ -26,7 +26,7 @@ module Keystone
         @value = value
         @options = options
         @errors = Array(errors)
-        @include_blank = include_blank.to_s
+        @include_blank = include_blank
         @disabled = disabled
         @suggestions = Array(suggestions)
         @autofocus = autofocus
@@ -83,8 +83,12 @@ module Keystone
         @options
       end
 
+      def blank_option?
+        !required? && @include_blank != false
+      end
+
       def blank_option_text
-        @include_blank
+        @include_blank.to_s
       end
 
       def input_options

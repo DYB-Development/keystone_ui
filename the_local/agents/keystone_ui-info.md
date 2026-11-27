@@ -268,7 +268,12 @@ One decision: is keystone_ui set up in the app?
 - **Pass and fail.** A status line is a sentence after a round icon, a green
   check for a pass and a red cross for a fail, and the icon is labelled
   "Pass" or "Fail" for screen readers, so the result is never told by colour
-  alone.
+  alone. A status line with no result is the sentence alone, with no icon, for
+  a line of information shown among pass and fail lines.
+- **Select choices.** A select field that is not required starts with an
+  empty choice unless it is told to leave it out, which does not make it
+  required or mark it with an asterisk. Any choice of a select can be greyed
+  out so it is shown but cannot be chosen.
 - **Result boxes and options in use.** A panel can be shaded as a result box
   under a form, and a value list row can be marked as a key line drawn larger
   than the others without being a total. A panel can be outlined as the

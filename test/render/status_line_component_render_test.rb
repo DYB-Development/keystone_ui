@@ -28,4 +28,10 @@ class Keystone::Ui::StatusLineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Gross margin 40%", page.at_css(".ks-status-line .ks-status-icon + span")&.text
   end
+
+  def test_a_line_given_no_result_draws_no_icon
+    page = render_inline(Keystone::Ui::StatusLineComponent.new(passed: nil, text: "Theoretical ceiling $9,000"))
+
+    assert_nil page.at_css(".ks-status-line .ks-status-icon")
+  end
 end

@@ -986,6 +986,8 @@ Wraps a label, input, hint, and error message in a consistent layout. Infers lab
 - `autofocus:` (Boolean, default `false`) — puts the cursor in the input when the page opens
 - `autocomplete:` / `autocapitalize:` / `inputmode:` (String) — written onto the input as given, such as `"email"`, `"none"` and `"numeric"`
 - `prefix:` / `suffix:` (String) — for a text or number input, short text such as `"$"`, `"hours"` or `"%"` drawn inside the field's border before or after the input
+- `options:` (Array, default `[]`) — for `type: :select`, the choices as `[label, value]` pairs, and a choice given as `[label, value, { disabled: true }]` is drawn greyed out and cannot be chosen
+- `include_blank:` (String or `false`) — for `type: :select`, the words of the empty first choice a select that is not required starts with, blank by default, and `false` leaves the empty choice out without making the field required or showing the asterisk
 
 The label is tied to its input, textarea, select or checkbox through an `id` built from `attribute:`, so `"player[email]"` gets the id `player-email`.
 
@@ -1192,9 +1194,9 @@ Renders a styled `<select>` dropdown.
 
 **Optional props**
 
-- `options:` (Array of `[label, value]` pairs, default `[]`)
+- `options:` (Array of `[label, value]` pairs, default `[]`) — a choice given as `[label, value, { disabled: true }]` is drawn greyed out and cannot be chosen
 - `selected:` (String) — pre-selected value
-- `include_blank:` (String) — blank option label
+- `include_blank:` (String) — blank option label, and with none given the select has no empty choice
 - `disabled:` (Boolean, default `false`)
 
 ```erb
@@ -1203,6 +1205,13 @@ Renders a styled `<select>` dropdown.
   options: [["Active", "active"], ["Inactive", "inactive"]],
   selected: "active",
   include_blank: "Select status..."
+) %>
+
+<%= ui_form_field(
+  attribute: "offer[plan]",
+  type: :select,
+  include_blank: false,
+  options: [["Monthly", "monthly"], ["Yearly", "yearly", { disabled: true }]]
 ) %>
 ```
 
@@ -1239,14 +1248,15 @@ Draws a small round dot showing an item's state, in the same colour as a badge o
 
 ### `ui_status_line`
 
-Draws a sentence after a small round icon: a green check for a pass and a red cross for a fail. The icon is labelled "Pass" or "Fail" for screen readers, so the result is never told by colour alone.
+Draws a sentence after a small round icon: a green check for a pass and a red cross for a fail. The icon is labelled "Pass" or "Fail" for screen readers, so the result is never told by colour alone. Given `passed: nil` it draws the sentence alone, with no icon and no space left for one, for a line of information shown among pass and fail lines.
 
 **Required props**
 
-- `passed:` (Boolean)
+- `passed:` (`true | false | nil`) — `nil` draws no icon
 - `text:` (String) — the sentence
 
 ```erb
+<%= ui_status_line(passed: nil, text: "Gross margin 62%") %>
 <%= ui_status_line(passed: @offer.scale_check_passed?, text: "Lifetime gross profit is 2.4× CAC and lifetime COGS, target 2×") %>
 ```
 
