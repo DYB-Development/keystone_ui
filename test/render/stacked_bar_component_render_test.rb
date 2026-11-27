@@ -88,4 +88,11 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ %w[left-0], %w[left-1/2 -translate-x-1/2], %w[right-0] ], page.css(".ks-stacked-bar-tip").map { |tip| tip["class"].split & %w[left-0 left-1/2 -translate-x-1/2 right-0] }
   end
+
+  def test_a_screen_reader_hears_each_segments_name_amount_and_share_once
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Our gross profit", amount: 1800, value: "$1,800", tone: :orange }, { label: "COGS", amount: 600, value: "$600", tone: :blue } ]))
+    segment = page.at_css(".ks-stacked-bar-segment")
+
+    assert_equal [ "img", "Our gross profit $1,800, 75% of the total", "true", "true" ], [ segment["role"], segment["aria-label"], segment.at_css(".ks-stacked-bar-amount")["aria-hidden"], segment.at_css(".ks-stacked-bar-tip")["aria-hidden"] ]
+  end
 end

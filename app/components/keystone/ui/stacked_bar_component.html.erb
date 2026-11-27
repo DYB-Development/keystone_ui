@@ -1,8 +1,8 @@
 <div class="<%= BAR_CLASSES %>">
   <% drawn_segments.each do |segment| %>
-    <div class="<%= segment_classes(segment) %>" style="flex: <%= size(segment) %> 1 0%" tabindex="0">
-      <span class="<%= amount_classes(segment) %>"><%= shown_amount(segment) %></span>
-      <span class="<%= tip_classes(segment) %>"><span class="<%= TIP_NAME_CLASSES %>"><%= segment[:label] %></span><span class="<%= TIP_VALUE_CLASSES %>"><%= shown_amount(segment) %></span><span class="<%= TIP_NAME_CLASSES %>"><%= share(segment) %></span></span>
+    <div class="<%= segment_classes(segment) %>" style="flex: <%= size(segment) %> 1 0%" tabindex="0" role="img" aria-label="<%= spoken(segment) %>">
+      <span class="<%= amount_classes(segment) %>" aria-hidden="true"><%= shown_amount(segment) %></span>
+      <span class="<%= tip_classes(segment) %>" aria-hidden="true"><span class="<%= TIP_NAME_CLASSES %>"><%= segment[:label] %></span><span class="<%= TIP_VALUE_CLASSES %>"><%= shown_amount(segment) %></span><span class="<%= TIP_NAME_CLASSES %>"><%= share(segment) %></span></span>
     </div>
   <% end %>
 </div>

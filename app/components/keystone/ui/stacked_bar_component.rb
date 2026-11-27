@@ -67,6 +67,10 @@ module Keystone
         TIP_CLASSES.fetch(tip_alignment(segment))
       end
 
+      def spoken(segment)
+        "#{segment[:label]} #{shown_amount(segment)}, #{share(segment)}"
+      end
+
       def share(segment)
         return "– of #{@total_label}" if total.zero?
 
