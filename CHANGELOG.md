@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.107.0] - 2026-11-27
+
 ### Added
 - `ui_stacked_bar(segments:, total:, total_label:)` draws one bar 28 pixels tall split into segments sized by amount, with each amount printed inside its segment when it fits, a tooltip of the segment's name, amount and share of the total on hover, tap or keyboard focus, a legend of every segment under it, and no segment drawn for an amount of zero or less.
 - Segments are coloured by the fill tones `:teal`, `:orange`, `:blue` and `:amber`, each with a light and a dark colour.
