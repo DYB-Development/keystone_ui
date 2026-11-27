@@ -31,6 +31,16 @@ export default class extends Controller {
     if (event.target === document.activeElement && event.detail.attributeName === "value") event.preventDefault()
   }
 
+  remember() {
+    this.focusedId = document.activeElement?.id
+  }
+
+  restore() {
+    if (!this.focusedId) return
+
+    document.getElementById(this.focusedId)?.focus()
+  }
+
   submitNow() {
     clearTimeout(this.timer)
     this.timer = null

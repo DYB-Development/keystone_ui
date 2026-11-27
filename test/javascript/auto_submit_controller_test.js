@@ -3,7 +3,7 @@ import assert from "node:assert/strict"
 import AutoSubmitController from "../../app/assets/javascripts/keystone_ui/auto_submit_controller.js"
 
 function formWith() {
-  const form = { submitted: 0, requestSubmit() { this.submitted += 1 } }
+  const form = { submitted: 0, requestSubmit() { this.submitted += 1 }, contains(node) { return node?.inForm === true } }
   const controller = new AutoSubmitController({ scope: { element: form } })
   Object.defineProperty(controller, "delayValue", { value: 500 })
   return { controller, form }
@@ -137,4 +137,27 @@ test("a refresh still updates attributes other than the value of the field the p
   controller.keep(event)
 
   assert.equal(event.cancelled, false)
+})
+
+function replacedWhileTyping({ inForm = true } = {}) {
+  const typing = { id: "price-market", type: "text", inForm, selectionStart: 2, selectionEnd: 2 }
+  const replacement = {
+    id: "price-market",
+    focused: false,
+    focus() { this.focused = true },
+    setSelectionRange(start, end) { this.selection = [start, end] }
+  }
+  globalThis.document = { activeElement: typing, body: {}, getElementById: (id) => (id === "price-market" ? replacement : null) }
+  return { replacement, replace: () => { globalThis.document.activeElement = globalThis.document.body } }
+}
+
+test("a refresh that replaces the field the person is in puts their focus back on it", () => {
+  const { controller } = formWith()
+  const { replacement, replace } = replacedWhileTyping()
+
+  controller.remember()
+  replace()
+  controller.restore()
+
+  assert.equal(replacement.focused, true)
 })
