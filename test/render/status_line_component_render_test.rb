@@ -14,4 +14,12 @@ class Keystone::Ui::StatusLineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Fail", page.at_css(".ks-status-line .ks-status-icon.ks-status-icon-fail[role=img]")&.[]("aria-label")
   end
+
+  def test_a_passing_and_a_failing_icon_draw_different_marks
+    marks = [ true, false ].map do |passed|
+      render_inline(Keystone::Ui::StatusLineComponent.new(passed: passed, text: "Gross margin 40%")).at_css(".ks-status-icon svg[aria-hidden=true] path")&.[]("d")
+    end
+
+    assert_equal 2, marks.compact.uniq.size
+  end
 end
