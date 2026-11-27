@@ -2,7 +2,7 @@
   <% if include_blank %>
     <option value=""><%= include_blank %></option>
   <% end %>
-  <% options.each do |label, value| %>
-    <option value="<%= value %>" <%= "selected" if selected.to_s == value.to_s %>><%= label %></option>
+  <% options.each do |label, value, attributes| %>
+    <option value="<%= value %>" <%= "selected" if selected.to_s == value.to_s %><%= " disabled" if attributes&.dig(:disabled) %>><%= label %></option>
   <% end %>
 <% end %>
