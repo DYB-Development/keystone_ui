@@ -6,6 +6,7 @@ module Keystone
       ROW_CLASSES = "ks-value-list-row"
       TEXT_CLASSES = "min-w-0"
       BUTTON_CLASSES = "shrink-0"
+      BUTTON_DEFAULTS = { size: :sm, variant: :secondary }.freeze
 
       attr_reader :rows
 
@@ -14,7 +15,7 @@ module Keystone
       end
 
       def button(row)
-        Keystone::Ui::ButtonComponent.new(**row[:button])
+        Keystone::Ui::ButtonComponent.new(**BUTTON_DEFAULTS, **row[:button])
       end
     end
   end

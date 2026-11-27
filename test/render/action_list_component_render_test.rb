@@ -14,4 +14,10 @@ class Keystone::Ui::ActionListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "/offers/1/price", "Use" ], [ page.at_css("li > span + div form")&.[]("action"), page.at_css("li > span + div form button")&.text&.strip ]
   end
+
+  def test_a_rows_button_is_small_and_secondary_unless_it_says_otherwise
+    page = render_inline(Keystone::Ui::ActionListComponent.new(rows: [ { text: "Lower the price to $2,400.", button: { label: "Use", name: "price", value: "2400" } } ]))
+
+    assert_equal %w[ks-button ks-button-secondary ks-button-sm], page.at_css("li button")&.[]("class")&.split
+  end
 end
