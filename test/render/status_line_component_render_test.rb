@@ -8,4 +8,10 @@ class Keystone::Ui::StatusLineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Pass", page.at_css(".ks-status-line .ks-status-icon.ks-status-icon-pass[role=img]")&.[]("aria-label")
   end
+
+  def test_a_failing_line_starts_with_a_round_icon_labelled_fail
+    page = render_inline(Keystone::Ui::StatusLineComponent.new(passed: false, text: "The scale check is short by $1,200"))
+
+    assert_equal "Fail", page.at_css(".ks-status-line .ks-status-icon.ks-status-icon-fail[role=img]")&.[]("aria-label")
+  end
 end
