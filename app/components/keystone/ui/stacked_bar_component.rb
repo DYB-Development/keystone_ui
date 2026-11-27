@@ -26,7 +26,12 @@ module Keystone
         19 => "ks-stacked-bar-amount whitespace-nowrap overflow-hidden @max-[21ch]:hidden",
         20 => "ks-stacked-bar-amount whitespace-nowrap overflow-hidden @max-[22ch]:hidden"
       }.freeze
-      TIP_CLASSES = "ks-stacked-bar-tip absolute bottom-full z-10 whitespace-nowrap pointer-events-none hidden group-hover:block group-focus:block"
+      TIP_CLASSES = {
+        start: "ks-stacked-bar-tip absolute bottom-full z-10 whitespace-nowrap pointer-events-none hidden group-hover:block group-focus:block left-0",
+        center: "ks-stacked-bar-tip absolute bottom-full z-10 whitespace-nowrap pointer-events-none hidden group-hover:block group-focus:block left-1/2 -translate-x-1/2",
+        end: "ks-stacked-bar-tip absolute bottom-full z-10 whitespace-nowrap pointer-events-none hidden group-hover:block group-focus:block right-0"
+      }.freeze
+      EDGE_SHARE = 0.2
       TIP_NAME_CLASSES = "ks-stacked-bar-tip-name block"
       TIP_VALUE_CLASSES = "ks-stacked-bar-tip-value block"
       SEGMENT_CLASSES = Fills::CLASSES.transform_values { |fill| "ks-stacked-bar-segment group @container relative flex items-center min-w-0 #{fill}" }.freeze
@@ -58,6 +63,10 @@ module Keystone
         segment.fetch(:value, segment[:amount]).to_s
       end
 
+      def tip_classes(segment)
+        TIP_CLASSES.fetch(tip_alignment(segment))
+      end
+
       def share(segment)
         return "– of #{@total_label}" if total.zero?
 
@@ -66,6 +75,19 @@ module Keystone
 
       def total
         @total || drawn_segments.sum { |segment| segment[:amount] }
+      end
+
+      def tip_alignment(segment)
+        middle = middle_of(segment)
+        return :start if middle < EDGE_SHARE
+        return :end if middle > 1 - EDGE_SHARE
+
+        :center
+      end
+
+      def middle_of(segment)
+        before = drawn_segments.take_while { |other| !other.equal?(segment) }.sum { |other| size(other) }
+        (before + size(segment) / 2.0) / drawn_segments.sum { |other| size(other) }
       end
 
       def size(segment)

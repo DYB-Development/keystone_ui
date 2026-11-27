@@ -82,4 +82,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ true, %w[hidden group-hover:block group-focus:block] ], [ segment["class"].split.include?("group"), segment.at_css(".ks-stacked-bar-tip")["class"].split & %w[hidden group-hover:block group-focus:block] ]
   end
+
+  def test_a_tooltip_near_either_end_of_the_bar_stays_inside_the_bar
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Customer net value", amount: 100, tone: :teal }, { label: "Our gross profit", amount: 800, tone: :orange }, { label: "COGS", amount: 100, tone: :blue } ]))
+
+    assert_equal [ %w[left-0], %w[left-1/2 -translate-x-1/2], %w[right-0] ], page.css(".ks-stacked-bar-tip").map { |tip| tip["class"].split & %w[left-0 left-1/2 -translate-x-1/2 right-0] }
+  end
 end
