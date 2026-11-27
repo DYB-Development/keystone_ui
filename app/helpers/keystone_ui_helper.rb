@@ -141,6 +141,10 @@ module KeystoneUiHelper
     render Keystone::Ui::LinkListComponent.new(**args)
   end
 
+  def ui_action_list(**args)
+    render Keystone::Ui::ActionListComponent.new(**args)
+  end
+
   def ui_form_page(**args)
     render Keystone::Ui::FormPageComponent.new(**args)
   end
