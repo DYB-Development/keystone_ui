@@ -117,3 +117,13 @@ test("a refresh keeps what the person is typing in the field they are in", () =>
 
   assert.equal(event.cancelled, true)
 })
+
+test("a refresh still updates a field the person is not in", () => {
+  const { controller } = formWith()
+  globalThis.document = { activeElement: field("number") }
+  const event = morphOf(field("text"))
+
+  controller.keep(event)
+
+  assert.equal(event.cancelled, false)
+})

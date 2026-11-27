@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   keep(event) {
-    event.preventDefault()
+    if (event.target === document.activeElement) event.preventDefault()
   }
 
   submitNow() {
