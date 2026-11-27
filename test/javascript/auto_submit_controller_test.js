@@ -16,3 +16,15 @@ test("submitting sends the form through Turbo's own submit", () => {
 
   assert.equal(form.submitted, 1)
 })
+
+function field(type, tagName = "INPUT") {
+  return { type, tagName }
+}
+
+test("choosing an option in a select submits the form at once", () => {
+  const { controller, form } = formWith()
+
+  controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(form.submitted, 1)
+})
