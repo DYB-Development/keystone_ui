@@ -12,11 +12,15 @@ module Keystone
       MARK_CLASSES = "size-3"
 
       def initialize(passed:, text:)
-        @passed = passed ? true : false
+        @passed = passed && true
         @text = text
       end
 
       attr_reader :text
+
+      def result?
+        !@passed.nil?
+      end
 
       def icon_classes
         ICON_CLASSES.fetch(@passed)
