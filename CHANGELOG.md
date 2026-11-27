@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_form_field` with `type: :select` takes `include_blank: false` to leave out the empty first choice without making the field required or showing the asterisk.
+- `ui_select` and `ui_form_field` take a choice as `[label, value, { disabled: true }]` to draw it greyed out so it cannot be chosen.
+- `ui_status_line` takes `passed: nil` to draw a line of information with no pass or fail icon.
+
 ## [0.107.0] - 2026-11-27
 
 ### Added
