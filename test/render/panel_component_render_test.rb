@@ -14,4 +14,10 @@ class Keystone::Ui::PanelComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Same value per dollar (in use)", page.at_css(".ks-panel h3")&.text&.squish
   end
+
+  def test_a_panel_that_is_not_selected_leaves_its_selected_marker_out
+    page = render_inline(Keystone::Ui::PanelComponent.new(title: "Same value per dollar", selected_marker: "(in use)")) { "The working" }
+
+    assert_equal "Same value per dollar", page.at_css(".ks-panel h3")&.text&.squish
+  end
 end
