@@ -16,8 +16,8 @@
   <% elsif select? %>
     <select name="<%= @attribute %>" id="<%= field_id %>" class="<%= Keystone::Ui::SelectComponent::BASE_CLASSES %>">
       <% if blank_option? %><option value=""><%= blank_option_text %></option><% end %>
-      <% select_options.each do |label, value| %>
-        <option value="<%= value %>" <%= "selected" if @value.to_s == value.to_s %>><%= label %></option>
+      <% select_options.each do |label, value, attributes| %>
+        <option value="<%= value %>" <%= "selected" if @value.to_s == value.to_s %><%= " disabled" if attributes&.dig(:disabled) %>><%= label %></option>
       <% end %>
     </select>
   <% else %>

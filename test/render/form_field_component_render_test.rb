@@ -40,6 +40,12 @@ class Keystone::Ui::FormFieldComponentRenderTest < ViewComponent::TestCase
     assert_equal [ "monthly", "yearly" ], page.css("select option").map { |option| option["value"] }
   end
 
+  def test_a_select_field_draws_a_choice_given_disabled_as_not_choosable
+    page = render_inline(Keystone::Ui::FormFieldComponent.new(attribute: "offer[plan]", type: :select, options: [ [ "Monthly", "monthly" ], [ "Yearly", "yearly", { disabled: true } ] ]))
+
+    assert_equal [ "yearly" ], page.css("select option[disabled]").map { |option| option["value"] }
+  end
+
   def test_a_checkbox_fields_words_are_the_label_of_its_checkbox
     page = render_inline(Keystone::Ui::FormFieldComponent.new(attribute: "player[accepted_terms]", label: "I accept the terms", type: :checkbox))
     checkbox_id = page.at_css("input[type=checkbox]")["id"]
