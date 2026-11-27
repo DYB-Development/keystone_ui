@@ -254,6 +254,35 @@ One decision: is keystone_ui set up in the app?
   places with no room for text, and its label is read only by screen readers.
   Neither accepts a state outside the list: a status dot raises `ArgumentError`
   naming the states it expects, and a badge raises `KeyError` when it renders.
+- **Stacked bars and fill tones.** A stacked bar is one bar 28 pixels tall
+  split into segments, each as wide as its share, with a small gap between
+  them and a legend of every segment's colour, name and amount under it. A
+  segment shows its amount inside it when the segment is wide enough to hold
+  it, worked out in CSS with no JavaScript, and its name, amount and share of
+  the total in a tooltip on hover, tap or keyboard focus, which a screen
+  reader hears too. A segment whose amount is zero or negative is not drawn
+  and is still in the legend. Segments are coloured by fill tone: teal,
+  orange, blue and amber, each with a light and a dark colour. Any other tone
+  raises `ArgumentError` naming it. A thin progress meter takes the same
+  tones, so a share meter under a row matches the segment it stands for.
+- **Pass and fail.** A status line is a sentence after a round icon, a green
+  check for a pass and a red cross for a fail, and the icon is labelled
+  "Pass" or "Fail" for screen readers, so the result is never told by colour
+  alone.
+- **Result boxes and options in use.** A panel can be shaded as a result box
+  under a form, and a value list row can be marked as a key line drawn larger
+  than the others without being a total. A panel can be outlined as the
+  option in use, with a title, a short note at the right of the title such as
+  an amount, and a marker such as "(in use)" written after the title while it
+  is the one in use.
+- **Rows with an action.** An action list shows sentences, each with an
+  optional small button at its right, under it on a phone, that sends its own
+  request with its own parameters or submits the form the list sits in.
+- **Fields with units and forms that send themselves.** A text or number field
+  can show short text such as `$`, `hours` or `%` inside its border before or
+  after the input. A form can send itself when a choice changes or the person
+  stops typing, and when Turbo morphs the page after it, the field the person
+  is in keeps what they typed and its focus and caret.
 - **Text diffs.** A text diff compares two texts line by line and shows them
   side by side, stacked on a phone, in the code block's look. Lines the two
   share sit on the same row, a line only the first text has is marked removed
@@ -290,7 +319,7 @@ One decision: is keystone_ui set up in the app?
   width, use an inline style. The host needs tailwindcss-rails v4+.
 - **Interactivity is Stimulus.** Dropdowns, search dropdowns, modals, tab
   switchers, the column picker, table row detail, info buttons, charts, copy
-  buttons and the theme toggle ship as
+  buttons, forms that send themselves and the theme toggle ship as
   Stimulus controllers, so a host writes no JavaScript. Components that post,
   such as the column picker and the pipeline, post to endpoints the host or
   another gem owns.

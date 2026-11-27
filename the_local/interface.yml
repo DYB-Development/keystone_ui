@@ -11,6 +11,7 @@ develop:
   - ui_stat_card
   - ui_chart_card
   - ui_line_chart
+  - ui_stacked_bar
   - ui_bar_chart
   - ui_timeline
   - ui_cta_banner
@@ -19,6 +20,7 @@ develop:
   - ui_modal
   - ui_badge
   - ui_status_dot
+  - ui_status_line
   - ui_copy_button
   - ui_card
   - ui_review_card
@@ -40,6 +42,7 @@ develop:
   - ui_alert
   - ui_empty_state
   - ui_link_list
+  - ui_action_list
   - ui_form_page
   - ui_show_page
   - ui_breadcrumbs
@@ -112,6 +115,14 @@ sources:
   - app/components/keystone/ui/link_list_component.html.erb
   - app/components/keystone/ui/badge_component.rb
   - app/components/keystone/ui/status_dot_component.rb
+  - app/components/keystone/ui/status_line_component.rb
+  - app/components/keystone/ui/status_line_component.html.erb
+  - app/components/keystone/ui/stacked_bar_component.rb
+  - app/components/keystone/ui/stacked_bar_component.html.erb
+  - app/components/keystone/ui/fills.rb
+  - app/components/keystone/ui/action_list_component.rb
+  - app/components/keystone/ui/action_list_component.html.erb
+  - app/assets/javascripts/keystone_ui/auto_submit_controller.js
   - app/components/keystone/ui/bottom_nav_component.rb
   - app/components/keystone/ui/bottom_nav_item_component.rb
   - app/components/keystone/ui/button_component.rb
