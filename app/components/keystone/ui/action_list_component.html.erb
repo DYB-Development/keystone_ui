@@ -1,0 +1,7 @@
+<ul>
+  <% rows.each do |row| %>
+    <li class="<%= ROW_CLASSES %>">
+      <span class="<%= TEXT_CLASSES %>"><%= row[:text] %></span>
+    </li>
+  <% end %>
+</ul>
