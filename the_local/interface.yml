@@ -158,6 +158,7 @@ sources:
   - app/components/keystone/ui/file_upload_component.rb
   - app/components/keystone/ui/form_component.rb
   - app/components/keystone/ui/form_field_component.rb
+  - app/components/keystone/ui/form_field_component.html.erb
   - app/components/keystone/ui/form_page_component.rb
   - app/components/keystone/ui/form_page_component.html.erb
   - app/components/keystone/ui/desktop_back_link_component.rb
@@ -206,6 +207,7 @@ sources:
   - app/components/keystone/ui/section_component.rb
   - app/components/keystone/ui/section_component.html.erb
   - app/components/keystone/ui/select_component.rb
+  - app/components/keystone/ui/select_component.html.erb
   - app/components/keystone/ui/settings_link_component.rb
   - app/components/keystone/ui/show_page_component.rb
   - app/components/keystone/ui/show_page_component.html.erb
