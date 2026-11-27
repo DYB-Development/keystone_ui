@@ -422,6 +422,7 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 - `confirm:` (String) — a question Turbo asks before following the link or sending the request; cancelling it sends nothing
 - `disabled:` (Boolean, default `false`) — draws a button with no `href:` with the `disabled` attribute, so it cannot be pressed
 - `formaction:` (String) — a button with no `href:` sends its form to this address in place of the form's own when pressed
+- `params:` (Hash) — with `href:` and a method other than `:get`, each entry is sent with the request as a hidden field
 
 ```erb
 <%= ui_button(label: "← Back", variant: :text, name: "back", value: "1") %>
@@ -429,6 +430,10 @@ Otherwise, a `<button>` tag is rendered with `type="button"`.
 
 ```erb
 <%= ui_button(label: "Start game", href: game_start_path(@game), method: :post, full_width: true) %>
+```
+
+```erb
+<%= ui_button(label: "Use", href: offer_price_path(@offer), method: :patch, params: { "price[mode]" => "custom", "price[price]" => 2400 }) %>
 ```
 
 ### `ui_button_row`
@@ -775,10 +780,30 @@ Renders a bordered, rounded container with padding and optional shadow.
 - `padding:` (`:sm | :md | :lg`, default `:md`)
 - `radius:` (`:md | :lg | :xl`, default `:lg`)
 - `shadow:` (Boolean, default `true`)
+- `shaded:` (Boolean, default `false`) — fills the panel with a shaded background and leaves out its shadow, for a result box under a form
+- `selected:` (Boolean, default `false`) — outlines the panel as the option in use
+- `title:` (String) — a heading above the content
+- `selected_marker:` (String) — written after the title, such as `"(in use)"`, only while the panel is `selected:`
+- `aside:` (String) — a short note, such as an amount, at the right end of the title line
 
 ```erb
 <%= ui_panel(padding: :lg) do %>
   <!-- panel content -->
+<% end %>
+```
+
+```erb
+<%= ui_panel(title: "Same value per dollar", aside: "$2,400", selected: @price_mode == "same", selected_marker: "(in use)") do %>
+  <%= ui_caption(text: "The customer gets back the same multiple of price from us as from the market offer.", normal_case: true) %>
+<% end %>
+
+<%= ui_panel(shaded: true, shadow: false, padding: :sm) do %>
+  <%= ui_value_list(align: :end, rows: [
+    { label: "Value lines they know about", value: "$9,600", key: true },
+    { label: "− Effort they expect", value: "$800" },
+    { label: "Perceived value", value: "$8,800", key: true }
+  ]) %>
+  <%= ui_status_line(passed: true, text: "On what they believe, the customer gets back 2.9× the price, target 2×") %>
 <% end %>
 ```
 
@@ -815,6 +840,15 @@ Wraps content in a `<form>` tag with proper method handling. For non-GET/POST me
 - `method:` (`:get | :post | :patch | :put | :delete`, default `:post`) — HTTP method. Non-native methods use a hidden `_method` field.
 - `multipart:` (Boolean, default `false`) — sets `enctype="multipart/form-data"` for file uploads
 - `data:` (Hash) — data attributes for the form element
+- `auto_submit:` (Boolean, default `false`) — sends the form, through `requestSubmit` so Turbo handles it, when a select, checkbox or radio button changes, and half a second after the person stops typing in a text or number field, or at once when they leave it. When Turbo morphs the page after the submit, the field the person is in keeps what they typed, and if the morph replaced that field, focus and the caret go back to it by its `id`. A `controller` or `action` already in `data:` is kept alongside it.
+
+```erb
+<%= ui_form(action: offer_path(@offer), method: :patch, auto_submit: true) do %>
+  <%= ui_form_field(attribute: "price[market]", label: "What the market charges", type: :number, value: @offer.market_price, prefix: "$") %>
+<% end %>
+```
+
+A form built with Rails' own form helpers gets the same behaviour from `data: { controller: "auto-submit", action: "change->auto-submit#changed input->auto-submit#typed turbo:before-morph-attribute->auto-submit#keep turbo:before-render@document->auto-submit#remember turbo:render@document->auto-submit#restore" }`, and `data-auto-submit-delay-value` sets the wait after typing in milliseconds.
 
 ```erb
 <%= ui_form(action: items_path, method: :post) do %>
@@ -951,6 +985,7 @@ Wraps a label, input, hint, and error message in a consistent layout. Infers lab
 - `disabled:` (Boolean, default `false`) — shows the value in an input that cannot be typed into and is not submitted
 - `autofocus:` (Boolean, default `false`) — puts the cursor in the input when the page opens
 - `autocomplete:` / `autocapitalize:` / `inputmode:` (String) — written onto the input as given, such as `"email"`, `"none"` and `"numeric"`
+- `prefix:` / `suffix:` (String) — for a text or number input, short text such as `"$"`, `"hours"` or `"%"` drawn inside the field's border before or after the input
 
 The label is tied to its input, textarea, select or checkbox through an `id` built from `attribute:`, so `"player[email]"` gets the id `player-email`.
 
@@ -980,10 +1015,12 @@ Renders a standalone `<input>` element with consistent styling.
 - `min:` / `max:` / `step:` (for number type)
 - `autofocus:` / `required:` (Boolean, default `false`)
 - `autocomplete:` / `autocapitalize:` / `inputmode:` (String) — written onto the input as given
+- `prefix:` / `suffix:` (String) — short text drawn inside the input's border before or after it
 
 ```erb
 <%= ui_input(name: "search", placeholder: "Search...") %>
 <%= ui_input(name: "quantity", type: :number, value: 1, min: 1) %>
+<%= ui_input(name: "price[market]", type: :number, value: 3000, prefix: "$") %>
 ```
 
 ### `ui_textarea`
@@ -1130,6 +1167,21 @@ Documents linked beside a form, opened in a new tab so the form keeps what was t
     ]) %>
 ```
 
+### `ui_action_list`
+
+Shows rows that are each a sentence, with an optional small button at the right of the sentence. On a phone the button sits under its sentence.
+
+**Required props**
+
+- `rows:` (Array of Hashes) — each is `{ text: }`, with optional `button:`, the keywords of a `ui_button`. The button is small and secondary unless `button:` says otherwise. With `href:` and a method such as `:post` it sends its own request, with `params:` as hidden fields, and with `name:` and `value:` and no `href:` it submits the form around the list.
+
+```erb
+<%= ui_action_list(rows: [
+  { text: "Lower the price from $3,000 to $2,400.", button: { label: "Use", href: offer_price_path(@offer), method: :patch, params: { "price[price]" => 2400 } } },
+  { text: "Or raise actual value by $1,200 at the current price." }
+]) %>
+```
+
 ### `ui_select`
 
 Renders a styled `<select>` dropdown.
@@ -1183,6 +1235,19 @@ Draws a small round dot showing an item's state, in the same colour as a badge o
 
 ```erb
 <%= ui_status_dot(state: :success, label: "Passed") %>
+```
+
+### `ui_status_line`
+
+Draws a sentence after a small round icon: a green check for a pass and a red cross for a fail. The icon is labelled "Pass" or "Fail" for screen readers, so the result is never told by colour alone.
+
+**Required props**
+
+- `passed:` (Boolean)
+- `text:` (String) — the sentence
+
+```erb
+<%= ui_status_line(passed: @offer.scale_check_passed?, text: "Lifetime gross profit is 2.4× CAC and lifetime COGS, target 2×") %>
 ```
 
 ### `ui_figure`
@@ -1322,7 +1387,7 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
 
 **Required props**
 
-- `rows:` (Array of Hashes) — each row is `{ label:, value: }`, with optional `note:` (a short note under the label), `total: true` (draws the row with more weight), `right: true` (draws a green check mark, read out as "Right", after the value) and `fallback:` (shown when the value is `nil` or empty)
+- `rows:` (Array of Hashes) — each row is `{ label:, value: }`, with optional `note:` (a short note under the label), `total: true` (draws the row with more weight), `key: true` (draws the row larger than the others, for a key figure that is not a total), `right: true` (draws a green check mark, read out as "Right", after the value) and `fallback:` (shown when the value is `nil` or empty)
 
 **Optional props**
 
@@ -1347,6 +1412,47 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
   { label: "Tokens / cost", value: "4,120 in · 310 out · $0.11" },
   { label: "Format", value: "copy_block v3" }
 ]) %>
+```
+
+### `ui_stacked_bar`
+
+Draws one horizontal bar 28 pixels tall split into segments, each as wide as its share of the bar, with a 2 pixel gap between them, and a legend under it of every segment's colour, name and amount. Each segment prints its amount inside it when the segment is wide enough to hold it. Hovering over a segment, tapping it or reaching it with the keyboard shows a tooltip of its name, its amount and its share of the total, and a screen reader hears the same three. A segment whose amount is zero or negative is not drawn and is still listed in the legend.
+
+**Required props**
+
+- `segments:` (Array of Hashes) — each is `{ label:, amount:, tone: }`, with optional `value:` (the amount as it is shown, such as `"$1,800"`, the amount itself when left out) and `size:` (the width to draw the segment at in place of its amount). `tone:` is one of the fill tones below, and any other raises `ArgumentError` naming it.
+
+**Optional props**
+
+- `total:` (Number) — the total each share is worked out against, the sum of the drawn amounts when left out. A total of zero shows no share.
+- `total_label:` (String, default `"the total"`) — what the total is called, as in "40% of actual value"
+
+The fill tones, each with a light and a dark colour, are `:teal` (#00b894 / #00a888), `:orange` (#f47230 / #e76624), `:blue` (#257de0 / #338ced) and `:amber` (#f2a600 / #d28e05), listed in `Keystone::Ui::Fills::CLASSES`.
+
+```erb
+<%= ui_stacked_bar(total: @offer.actual_value, total_label: "actual value", segments: [
+  { label: "Customer net value", amount: @offer.net_value, value: number_to_currency(@offer.net_value, precision: 0), size: @offer.net_value_drawn, tone: :teal },
+  { label: "Our gross profit", amount: @offer.gross_profit, value: number_to_currency(@offer.gross_profit, precision: 0), tone: :orange },
+  { label: "COGS", amount: @offer.cogs, value: number_to_currency(@offer.cogs, precision: 0), tone: :blue }
+]) %>
+```
+
+### `ui_progress`
+
+Draws a bar filled to `value` out of `max`, never past full, with an optional caption above it.
+
+**Required props**
+
+- `value:` / `max:` (Number)
+
+**Optional props**
+
+- `label:` (String) — a caption above the bar
+- `thin:` (Boolean, default `false`) — draws the bar 4 pixels tall, as a share meter under a row
+- `tone:` (one of the `ui_stacked_bar` fill tones) — fills the bar with that tone's colour
+
+```erb
+<%= ui_progress(value: line.amount, max: @offer.ceiling, thin: true, tone: :teal) %>
 ```
 
 ### `ui_bar_chart`
