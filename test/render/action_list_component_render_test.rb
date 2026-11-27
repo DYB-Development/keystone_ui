@@ -20,4 +20,10 @@ class Keystone::Ui::ActionListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[ks-button ks-button-secondary ks-button-sm], page.at_css("li button")&.[]("class")&.split
   end
+
+  def test_a_row_stacks_its_button_under_its_sentence_on_a_phone
+    page = render_inline(Keystone::Ui::ActionListComponent.new(rows: [ { text: "Lower the price to $2,400." } ]))
+
+    assert_includes page.at_css("li")&.[]("class")&.split, "max-sm:flex-col"
+  end
 end
