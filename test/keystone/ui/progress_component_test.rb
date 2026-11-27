@@ -62,4 +62,10 @@ class Keystone::Ui::ProgressComponentTest < Minitest::Test
 
     assert_equal %w[ks-progress-track w-full h-1 overflow-hidden], component.track_classes.split
   end
+
+  def test_a_meter_given_a_tone_fills_its_bar_with_that_tones_colour
+    component = Keystone::Ui::ProgressComponent.new(value: 1, max: 4, tone: :blue)
+
+    assert_equal %w[ks-progress-bar h-full transition-all ks-fill-blue], component.bar_classes.split
+  end
 end

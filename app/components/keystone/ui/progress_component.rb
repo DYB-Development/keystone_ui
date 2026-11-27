@@ -10,11 +10,12 @@ module Keystone
 
       attr_reader :value, :max, :label
 
-      def initialize(value:, max:, label: nil, thin: false)
+      def initialize(value:, max:, label: nil, thin: false, tone: nil)
         @value = value
         @max = max
         @label = label
         @thin = thin
+        @tone = tone
       end
 
       def percent
@@ -26,7 +27,9 @@ module Keystone
       end
 
       def bar_classes
-        BAR_CLASSES
+        return BAR_CLASSES unless @tone
+
+        "#{BAR_CLASSES} #{Fills::CLASSES.fetch(@tone)}"
       end
 
       def label_classes
