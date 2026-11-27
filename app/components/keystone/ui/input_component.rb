@@ -7,6 +7,10 @@ module Keystone
 
       DISABLED_CLASSES = "ks-input-disabled"
 
+      GROUP_CLASSES = "ks-input-group flex items-center"
+      GROUPED_CLASSES = "ks-input ks-input-grouped min-w-0 flex-1"
+      ADDON_CLASSES = "ks-input-addon shrink-0 whitespace-nowrap"
+
       TYPE_MAP = {
         text: "text",
         number: "number",
