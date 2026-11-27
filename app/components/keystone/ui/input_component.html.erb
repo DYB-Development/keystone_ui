@@ -1,1 +1,8 @@
-<%= tag.input(**tag_options) %>
+<% if grouped? %>
+  <div class="<%= GROUP_CLASSES %>">
+    <% if prefix %><span class="<%= ADDON_CLASSES %>"><%= prefix %></span><% end %>
+    <%= tag.input(**tag_options) %>
+  </div>
+<% else %>
+  <%= tag.input(**tag_options) %>
+<% end %>

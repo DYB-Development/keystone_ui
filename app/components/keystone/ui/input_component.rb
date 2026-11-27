@@ -28,7 +28,7 @@ module Keystone
         value.strftime(DATETIME_FORMAT)
       end
 
-      def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, required: false)
+      def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, required: false, prefix: nil)
         @name = name
         @type = type
         @value = value
@@ -42,10 +42,17 @@ module Keystone
         @autocapitalize = autocapitalize
         @inputmode = inputmode
         @required = required
+        @prefix = prefix
+      end
+
+      attr_reader :prefix
+
+      def grouped?
+        !@prefix.nil?
       end
 
       def classes
-        tokens = [ BASE_CLASSES ]
+        tokens = [ grouped? ? GROUPED_CLASSES : BASE_CLASSES ]
         tokens << DISABLED_CLASSES if @disabled
         tokens.join(" ")
       end
