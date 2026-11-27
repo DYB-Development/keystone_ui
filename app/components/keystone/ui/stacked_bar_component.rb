@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class StackedBarComponent < ViewComponent::Base
       BAR_CLASSES = "ks-stacked-bar flex h-7"
-      SEGMENT_CLASSES = "ks-stacked-bar-segment"
+      SEGMENT_CLASSES = Fills::CLASSES.transform_values { |fill| "ks-stacked-bar-segment #{fill}" }.freeze
 
       attr_reader :segments
 
@@ -14,6 +14,10 @@ module Keystone
 
       def drawn_segments
         segments.select { |segment| size(segment).positive? }
+      end
+
+      def segment_classes(segment)
+        SEGMENT_CLASSES.fetch(segment[:tone])
       end
 
       def size(segment)

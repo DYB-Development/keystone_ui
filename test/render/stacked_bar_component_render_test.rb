@@ -26,4 +26,11 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "flex: 900 1 0%", page.at_css(".ks-stacked-bar-segment")&.[]("style")
   end
+
+  def test_fills_each_segment_with_the_colour_of_its_tone
+    tones = %i[teal orange blue amber]
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: tones.map { |tone| { label: tone.to_s, amount: 100, tone: tone } }))
+
+    assert_equal %w[ks-fill-teal ks-fill-orange ks-fill-blue ks-fill-amber], page.css(".ks-stacked-bar-segment").map { |segment| segment["class"].split.grep(/\Aks-fill-/).first }
+  end
 end
