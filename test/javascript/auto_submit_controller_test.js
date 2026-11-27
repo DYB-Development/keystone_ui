@@ -183,3 +183,15 @@ test("a refresh leaves alone the focus of a field outside the auto-submit form",
 
   assert.equal(replacement.focused, false)
 })
+
+test("a refresh that kept the person's field in place leaves their caret alone", () => {
+  const { controller } = formWith()
+  const { replacement } = replacedWhileTyping()
+  Object.assign(replacement, { inForm: true, selectionStart: 2, selectionEnd: 2 })
+  globalThis.document.activeElement = replacement
+
+  controller.remember()
+  controller.restore()
+
+  assert.equal(replacement.selection, undefined)
+})

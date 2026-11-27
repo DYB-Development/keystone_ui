@@ -38,7 +38,7 @@ export default class extends Controller {
   }
 
   restore() {
-    if (!this.focusedId) return
+    if (!this.focusedId || document.activeElement?.id === this.focusedId) return
 
     const field = document.getElementById(this.focusedId)
     field?.focus()
