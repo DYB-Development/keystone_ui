@@ -101,3 +101,19 @@ test("a form taken off the page does not send typing that was still waiting", (t
 
   assert.equal(form.submitted, 0)
 })
+
+function morphOf(target, attributeName = "value") {
+  const event = { target, detail: { attributeName, mutationType: "update" }, cancelled: false, preventDefault: () => { event.cancelled = true } }
+  return event
+}
+
+test("a refresh keeps what the person is typing in the field they are in", () => {
+  const { controller } = formWith()
+  const typing = field("number")
+  globalThis.document = { activeElement: typing }
+  const event = morphOf(typing)
+
+  controller.keep(event)
+
+  assert.equal(event.cancelled, true)
+})

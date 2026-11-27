@@ -27,6 +27,10 @@ export default class extends Controller {
     this.timer = setTimeout(() => this.submitNow(), this.delayValue)
   }
 
+  keep(event) {
+    event.preventDefault()
+  }
+
   submitNow() {
     clearTimeout(this.timer)
     this.timer = null
