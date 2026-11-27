@@ -22,4 +22,10 @@ class Keystone::Ui::StatusLineComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 2, marks.compact.uniq.size
   end
+
+  def test_shows_its_sentence_after_the_icon
+    page = render_inline(Keystone::Ui::StatusLineComponent.new(passed: true, text: "Gross margin 40%"))
+
+    assert_equal "Gross margin 40%", page.at_css(".ks-status-line .ks-status-icon + span")&.text
+  end
 end
