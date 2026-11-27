@@ -69,4 +69,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "– of actual value", page.css(".ks-stacked-bar-tip > span").last&.text
   end
+
+  def test_a_segment_can_be_reached_with_the_keyboard
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "COGS", amount: 600, tone: :blue } ]))
+
+    assert_equal "0", page.at_css(".ks-stacked-bar-segment")&.[]("tabindex")
+  end
 end
