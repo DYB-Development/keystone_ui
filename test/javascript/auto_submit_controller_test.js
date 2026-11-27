@@ -78,3 +78,15 @@ test("an input event from a select or checkbox leaves submitting to its change, 
 
   assert.equal(form.submitted, 0)
 })
+
+test("leaving a text field while its typing waits sends it at once and only once", (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] })
+  const { controller, form } = formWith()
+
+  controller.typed({ target: field("text") })
+  controller.changed({ target: field("text") })
+  const sentOnLeaving = form.submitted
+  t.mock.timers.tick(500)
+
+  assert.deepEqual([sentOnLeaving, form.submitted], [1, 1])
+})

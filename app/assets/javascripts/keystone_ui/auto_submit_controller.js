@@ -10,15 +10,21 @@ export default class extends Controller {
   }
 
   changed(event) {
-    if (TYPED_FIELDS.includes(event.target.type)) return
+    if (TYPED_FIELDS.includes(event.target.type) && !this.timer) return
 
-    this.submit()
+    this.submitNow()
   }
 
   typed(event) {
     if (!TYPED_FIELDS.includes(event.target.type)) return
 
     clearTimeout(this.timer)
-    this.timer = setTimeout(() => this.submit(), this.delayValue)
+    this.timer = setTimeout(() => this.submitNow(), this.delayValue)
+  }
+
+  submitNow() {
+    clearTimeout(this.timer)
+    this.timer = null
+    this.submit()
   }
 }
