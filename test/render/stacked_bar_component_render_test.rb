@@ -39,4 +39,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_match(/purple/, error.message)
   end
+
+  def test_prints_each_segments_formatted_amount_inside_it
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Our gross profit", amount: 1800, value: "$1,800", tone: :orange } ]))
+
+    assert_equal "$1,800", page.at_css(".ks-stacked-bar-segment > .ks-stacked-bar-amount")&.text
+  end
 end
