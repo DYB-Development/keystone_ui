@@ -37,6 +37,7 @@ module Keystone
       EDGE_SHARE = 0.2
       TIP_NAME_CLASSES = "ks-stacked-bar-tip-name block"
       TIP_VALUE_CLASSES = "ks-stacked-bar-tip-value block"
+      SWATCH_CLASSES = Fills::CLASSES.transform_values { |fill| "ks-stacked-bar-swatch size-2.5 shrink-0 #{fill}" }.freeze
       SEGMENT_CLASSES = Fills::CLASSES.transform_values { |fill| "ks-stacked-bar-segment group @container relative flex items-center min-w-0 #{fill}" }.freeze
 
       attr_reader :segments
@@ -52,6 +53,10 @@ module Keystone
 
       def drawn_segments
         segments.select { |segment| size(segment).positive? }
+      end
+
+      def swatch_classes(segment)
+        SWATCH_CLASSES.fetch(segment[:tone])
       end
 
       def segment_classes(segment)

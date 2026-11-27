@@ -9,7 +9,7 @@
   </div>
   <ul class="<%= LEGEND_CLASSES %>">
     <% segments.each do |segment| %>
-      <li class="<%= LEGEND_ITEM_CLASSES %>"><span><%= segment[:label] %></span><span class="<%= LEGEND_VALUE_CLASSES %>"><%= shown_amount(segment) %></span></li>
+      <li class="<%= LEGEND_ITEM_CLASSES %>"><span class="<%= swatch_classes(segment) %>" aria-hidden="true"></span><span><%= segment[:label] %></span><span class="<%= LEGEND_VALUE_CLASSES %>"><%= shown_amount(segment) %></span></li>
     <% end %>
   </ul>
 </div>

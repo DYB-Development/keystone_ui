@@ -101,4 +101,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ [ "Customer net value", "-$300" ], [ "COGS", "$600" ] ], page.css(".ks-stacked-bar + .ks-stacked-bar-legend > li").map { |item| item.css("span:not(.ks-stacked-bar-swatch)").map(&:text) }
   end
+
+  def test_starts_each_legend_entry_with_a_swatch_in_its_segments_colour
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Our gross profit", amount: 1800, tone: :orange }, { label: "CAC", amount: 400, tone: :amber } ]))
+
+    assert_equal %w[ks-fill-orange ks-fill-amber], page.css(".ks-stacked-bar-legend > li > .ks-stacked-bar-swatch:first-child").map { |swatch| swatch["class"].split.grep(/\Aks-fill-/).first }
+  end
 end
