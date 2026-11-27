@@ -26,10 +26,10 @@ module Keystone
         19 => "ks-stacked-bar-amount whitespace-nowrap overflow-hidden @max-[21ch]:hidden",
         20 => "ks-stacked-bar-amount whitespace-nowrap overflow-hidden @max-[22ch]:hidden"
       }.freeze
-      TIP_CLASSES = "ks-stacked-bar-tip absolute bottom-full"
+      TIP_CLASSES = "ks-stacked-bar-tip absolute bottom-full z-10 whitespace-nowrap pointer-events-none hidden group-hover:block group-focus:block"
       TIP_NAME_CLASSES = "ks-stacked-bar-tip-name block"
       TIP_VALUE_CLASSES = "ks-stacked-bar-tip-value block"
-      SEGMENT_CLASSES = Fills::CLASSES.transform_values { |fill| "ks-stacked-bar-segment @container relative flex items-center min-w-0 #{fill}" }.freeze
+      SEGMENT_CLASSES = Fills::CLASSES.transform_values { |fill| "ks-stacked-bar-segment group @container relative flex items-center min-w-0 #{fill}" }.freeze
 
       attr_reader :segments
 

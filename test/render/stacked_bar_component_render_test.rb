@@ -75,4 +75,11 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "0", page.at_css(".ks-stacked-bar-segment")&.[]("tabindex")
   end
+
+  def test_a_segments_tooltip_shows_only_while_the_segment_is_hovered_or_focused
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "COGS", amount: 600, tone: :blue } ]))
+    segment = page.at_css(".ks-stacked-bar-segment")
+
+    assert_equal [ true, %w[hidden group-hover:block group-focus:block] ], [ segment["class"].split.include?("group"), segment.at_css(".ks-stacked-bar-tip")["class"].split & %w[hidden group-hover:block group-focus:block] ]
+  end
 end
