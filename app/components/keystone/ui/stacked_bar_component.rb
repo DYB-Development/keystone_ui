@@ -26,7 +26,10 @@ module Keystone
         19 => "ks-stacked-bar-amount whitespace-nowrap overflow-hidden @max-[21ch]:hidden",
         20 => "ks-stacked-bar-amount whitespace-nowrap overflow-hidden @max-[22ch]:hidden"
       }.freeze
-      SEGMENT_CLASSES = Fills::CLASSES.transform_values { |fill| "ks-stacked-bar-segment @container flex items-center min-w-0 #{fill}" }.freeze
+      TIP_CLASSES = "ks-stacked-bar-tip absolute bottom-full"
+      TIP_NAME_CLASSES = "ks-stacked-bar-tip-name block"
+      TIP_VALUE_CLASSES = "ks-stacked-bar-tip-value block"
+      SEGMENT_CLASSES = Fills::CLASSES.transform_values { |fill| "ks-stacked-bar-segment @container relative flex items-center min-w-0 #{fill}" }.freeze
 
       attr_reader :segments
 
@@ -51,6 +54,14 @@ module Keystone
 
       def shown_amount(segment)
         segment.fetch(:value, segment[:amount]).to_s
+      end
+
+      def share(segment)
+        "#{(segment[:amount].to_f / total * 100).round}% of the total"
+      end
+
+      def total
+        drawn_segments.sum { |segment| segment[:amount] }
       end
 
       def size(segment)

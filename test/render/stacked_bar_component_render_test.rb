@@ -51,4 +51,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ true, true ], [ page.at_css(".ks-stacked-bar-segment")["class"].split.include?("@container"), page.at_css(".ks-stacked-bar-amount")["class"].split.include?("@max-[8ch]:hidden") ]
   end
+
+  def test_a_segments_tooltip_shows_its_name_amount_and_share_of_the_bar
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Our gross profit", amount: 1800, value: "$1,800", tone: :orange }, { label: "COGS", amount: 600, value: "$600", tone: :blue } ]))
+
+    assert_equal [ "Our gross profit", "$1,800", "75% of the total" ], page.css(".ks-stacked-bar-segment").first.css(".ks-stacked-bar-tip > span").map(&:text)
+  end
 end
