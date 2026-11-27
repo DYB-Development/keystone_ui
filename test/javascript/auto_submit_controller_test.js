@@ -45,3 +45,13 @@ test("leaving a text field with nothing new typed sends nothing", () => {
 
   assert.equal(form.submitted, 0)
 })
+
+test("typing in a number field submits the form once the typing pauses", (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] })
+  const { controller, form } = formWith()
+
+  controller.typed({ target: field("number") })
+  t.mock.timers.tick(500)
+
+  assert.equal(form.submitted, 1)
+})

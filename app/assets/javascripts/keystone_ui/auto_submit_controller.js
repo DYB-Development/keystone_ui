@@ -3,6 +3,8 @@ import { Controller } from "@hotwired/stimulus"
 const TYPED_FIELDS = ["text", "number", "search", "email", "tel", "url"]
 
 export default class extends Controller {
+  static values = { delay: { type: Number, default: 500 } }
+
   submit() {
     this.element.requestSubmit()
   }
@@ -11,5 +13,9 @@ export default class extends Controller {
     if (TYPED_FIELDS.includes(event.target.type)) return
 
     this.submit()
+  }
+
+  typed() {
+    this.timer = setTimeout(() => this.submit(), this.delayValue)
   }
 }
