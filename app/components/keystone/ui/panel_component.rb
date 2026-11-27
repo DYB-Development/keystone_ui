@@ -19,7 +19,7 @@ module Keystone
 
       def classes
         tokens = [ RADIUS_CLASSES.fetch(@radius), BASE_CLASSES, PADDING_CLASSES.fetch(@padding) ]
-        tokens << SHADOW_CLASS if @shadow
+        tokens << SHADOW_CLASS if @shadow && !@shaded
         tokens << SHADED_CLASS if @shaded
         tokens.join(" ")
       end

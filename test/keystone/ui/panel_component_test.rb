@@ -36,4 +36,10 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
 
     assert_includes component.classes.split, "ks-panel-shaded"
   end
+
+  def test_a_shaded_panel_carries_no_shadow
+    component = Keystone::Ui::PanelComponent.new(shaded: true)
+
+    refute_includes component.classes.split, "ks-panel-shadow"
+  end
 end
