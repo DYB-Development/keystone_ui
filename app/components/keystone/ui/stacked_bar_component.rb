@@ -33,11 +33,13 @@ module Keystone
 
       attr_reader :segments
 
-      def initialize(segments:)
+      def initialize(segments:, total: nil, total_label: "the total")
         unknown = segments.map { |segment| segment[:tone] }.reject { |tone| SEGMENT_CLASSES.key?(tone) }
         raise ArgumentError, "Unknown stacked bar tone #{unknown.first.inspect}, expected one of #{SEGMENT_CLASSES.keys.join(', ')}" if unknown.any?
 
         @segments = segments
+        @total = total
+        @total_label = total_label
       end
 
       def drawn_segments
@@ -57,11 +59,11 @@ module Keystone
       end
 
       def share(segment)
-        "#{(segment[:amount].to_f / total * 100).round}% of the total"
+        "#{(segment[:amount].to_f / total * 100).round}% of #{@total_label}"
       end
 
       def total
-        drawn_segments.sum { |segment| segment[:amount] }
+        @total || drawn_segments.sum { |segment| segment[:amount] }
       end
 
       def size(segment)

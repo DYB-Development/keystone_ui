@@ -57,4 +57,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "Our gross profit", "$1,800", "75% of the total" ], page.css(".ks-stacked-bar-segment").first.css(".ks-stacked-bar-tip > span").map(&:text)
   end
+
+  def test_a_bar_given_a_total_and_its_name_gives_each_share_of_that_total
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Our gross profit", amount: 1800, value: "$1,800", tone: :orange } ], total: 3000, total_label: "actual value"))
+
+    assert_equal "60% of actual value", page.css(".ks-stacked-bar-tip > span").last&.text
+  end
 end
