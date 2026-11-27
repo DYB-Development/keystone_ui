@@ -107,4 +107,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[ks-fill-orange ks-fill-amber], page.css(".ks-stacked-bar-legend > li > .ks-stacked-bar-swatch:first-child").map { |swatch| swatch["class"].split.grep(/\Aks-fill-/).first }
   end
+
+  def test_draws_the_bar_twenty_eight_pixels_tall
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "COGS", amount: 600, tone: :blue } ]))
+
+    assert_includes page.at_css(".ks-stacked-bar")["class"].split, "h-7"
+  end
 end
