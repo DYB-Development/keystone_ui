@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   keep(event) {
-    if (event.target === document.activeElement) event.preventDefault()
+    if (event.target === document.activeElement && event.detail.attributeName === "value") event.preventDefault()
   }
 
   submitNow() {

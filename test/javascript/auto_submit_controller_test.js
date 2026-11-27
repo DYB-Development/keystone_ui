@@ -127,3 +127,14 @@ test("a refresh still updates a field the person is not in", () => {
 
   assert.equal(event.cancelled, false)
 })
+
+test("a refresh still updates attributes other than the value of the field the person is in", () => {
+  const { controller } = formWith()
+  const typing = field("number")
+  globalThis.document = { activeElement: typing }
+  const event = morphOf(typing, "class")
+
+  controller.keep(event)
+
+  assert.equal(event.cancelled, false)
+})
