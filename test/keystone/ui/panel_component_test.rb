@@ -42,4 +42,10 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
 
     refute_includes component.classes.split, "ks-panel-shadow"
   end
+
+  def test_a_selected_panel_is_outlined_as_the_option_in_use
+    component = Keystone::Ui::PanelComponent.new(selected: true)
+
+    assert_includes component.classes.split, "ks-panel-selected"
+  end
 end
