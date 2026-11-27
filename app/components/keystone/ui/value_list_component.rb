@@ -11,6 +11,7 @@ module Keystone
       CAPS_LABEL_CLASSES = "ks-label-caps"
       VALUE_CLASSES = "ks-value-list-value"
       MONO_VALUE_CLASSES = "ks-value-list-value font-mono"
+      KEY_ROW_CLASSES = "ks-value-list-key"
 
       attr_reader :rows
 
@@ -43,7 +44,7 @@ module Keystone
       end
 
       def row_classes(row)
-        [ @columns ? PAIR_CLASSES : "ks-value-list-row", ("ks-value-list-total" if row[:total]) ].compact.join(" ")
+        [ @columns ? PAIR_CLASSES : "ks-value-list-row", ("ks-value-list-total" if row[:total]), (KEY_ROW_CLASSES if row[:key]) ].compact.join(" ")
       end
     end
   end
