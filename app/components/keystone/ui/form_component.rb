@@ -21,11 +21,19 @@ module Keystone
           multipart: @multipart
         }
         options[:data] = @data if @data
-        options[:data] = (@data || {}).merge(controller: "auto-submit", action: auto_submit_actions) if @auto_submit
+        options[:data] = auto_submit_data if @auto_submit
         options
       end
 
       private
+
+      def auto_submit_data
+        data = @data || {}
+        data.merge(
+          controller: [ data[:controller], "auto-submit" ].compact.join(" "),
+          action: [ data[:action], auto_submit_actions ].compact.join(" ")
+        )
+      end
 
       def auto_submit_actions
         [

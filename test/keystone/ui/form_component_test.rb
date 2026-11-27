@@ -64,4 +64,11 @@ class Keystone::Ui::FormComponentTest < Minitest::Test
       turbo:render@document->auto-submit#restore
     ], component.form_options[:data][:action].split
   end
+
+  def test_an_auto_submit_form_keeps_the_controller_and_actions_it_is_given
+    component = Keystone::Ui::FormComponent.new(action: "/offers/1", data: { controller: "avatar-picker", action: "click->avatar-picker#open" }, auto_submit: true)
+    data = component.form_options[:data]
+
+    assert_equal [ "avatar-picker auto-submit", "click->avatar-picker#open" ], [ data[:controller], data[:action].split.first ]
+  end
 end
