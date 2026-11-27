@@ -46,4 +46,10 @@ class Keystone::Ui::FormComponentTest < Minitest::Test
   def test_form_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FormComponent::FORM_CLASSES
   end
+
+  def test_an_auto_submit_form_runs_the_auto_submit_controller
+    component = Keystone::Ui::FormComponent.new(action: "/offers/1", method: :patch, auto_submit: true)
+
+    assert_equal "auto-submit", component.form_options[:data][:controller]
+  end
 end
