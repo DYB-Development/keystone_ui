@@ -161,3 +161,14 @@ test("a refresh that replaces the field the person is in puts their focus back o
 
   assert.equal(replacement.focused, true)
 })
+
+test("a refresh that replaces the field the person is in puts their caret back where it was", () => {
+  const { controller } = formWith()
+  const { replacement, replace } = replacedWhileTyping()
+
+  controller.remember()
+  replace()
+  controller.restore()
+
+  assert.deepEqual(replacement.selection, [2, 2])
+})

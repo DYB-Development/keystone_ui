@@ -32,13 +32,17 @@ export default class extends Controller {
   }
 
   remember() {
-    this.focusedId = document.activeElement?.id
+    const active = document.activeElement
+    this.focusedId = active?.id
+    this.selection = [active?.selectionStart, active?.selectionEnd]
   }
 
   restore() {
     if (!this.focusedId) return
 
-    document.getElementById(this.focusedId)?.focus()
+    const field = document.getElementById(this.focusedId)
+    field?.focus()
+    if (Number.isInteger(this.selection[0])) field?.setSelectionRange(...this.selection)
   }
 
   submitNow() {
