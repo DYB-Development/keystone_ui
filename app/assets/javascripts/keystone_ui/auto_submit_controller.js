@@ -5,6 +5,11 @@ const TYPED_FIELDS = ["text", "number", "search", "email", "tel", "url"]
 export default class extends Controller {
   static values = { delay: { type: Number, default: 500 } }
 
+  disconnect() {
+    clearTimeout(this.timer)
+    this.timer = null
+  }
+
   submit() {
     this.element.requestSubmit()
   }

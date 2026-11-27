@@ -90,3 +90,14 @@ test("leaving a text field while its typing waits sends it at once and only once
 
   assert.deepEqual([sentOnLeaving, form.submitted], [1, 1])
 })
+
+test("a form taken off the page does not send typing that was still waiting", (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] })
+  const { controller, form } = formWith()
+
+  controller.typed({ target: field("text") })
+  controller.disconnect()
+  t.mock.timers.tick(500)
+
+  assert.equal(form.submitted, 0)
+})
