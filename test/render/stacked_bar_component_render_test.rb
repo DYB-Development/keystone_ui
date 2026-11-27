@@ -45,4 +45,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "$1,800", page.at_css(".ks-stacked-bar-segment > .ks-stacked-bar-amount")&.text
   end
+
+  def test_hides_a_segments_amount_when_the_segment_is_too_narrow_to_hold_it
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Our gross profit", amount: 1800, value: "$1,800", tone: :orange } ]))
+
+    assert_equal [ true, true ], [ page.at_css(".ks-stacked-bar-segment")["class"].split.include?("@container"), page.at_css(".ks-stacked-bar-amount")["class"].split.include?("@max-[8ch]:hidden") ]
+  end
 end
