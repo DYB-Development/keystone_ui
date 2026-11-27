@@ -25,6 +25,10 @@ module KeystoneUiHelper
     render Keystone::Ui::BarChartComponent.new(**args)
   end
 
+  def ui_stacked_bar(**args)
+    render Keystone::Ui::StackedBarComponent.new(**args)
+  end
+
   def ui_timeline(**args)
     render Keystone::Ui::TimelineComponent.new(**args)
   end
