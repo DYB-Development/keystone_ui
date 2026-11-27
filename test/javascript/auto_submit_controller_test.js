@@ -28,3 +28,12 @@ test("choosing an option in a select submits the form at once", () => {
 
   assert.equal(form.submitted, 1)
 })
+
+test("ticking a checkbox or choosing a radio button submits the form at once", () => {
+  const { controller, form } = formWith()
+
+  controller.changed({ target: field("checkbox") })
+  controller.changed({ target: field("radio") })
+
+  assert.equal(form.submitted, 2)
+})
