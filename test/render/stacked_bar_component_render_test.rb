@@ -95,4 +95,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "img", "Our gross profit $1,800, 75% of the total", "true", "true" ], [ segment["role"], segment["aria-label"], segment.at_css(".ks-stacked-bar-amount")["aria-hidden"], segment.at_css(".ks-stacked-bar-tip")["aria-hidden"] ]
   end
+
+  def test_lists_every_segment_under_the_bar_by_name_and_amount_including_one_not_drawn
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Customer net value", amount: -300, value: "-$300", tone: :teal }, { label: "COGS", amount: 600, value: "$600", tone: :blue } ]))
+
+    assert_equal [ [ "Customer net value", "-$300" ], [ "COGS", "$600" ] ], page.css(".ks-stacked-bar + .ks-stacked-bar-legend > li").map { |item| item.css("span:not(.ks-stacked-bar-swatch)").map(&:text) }
+  end
 end

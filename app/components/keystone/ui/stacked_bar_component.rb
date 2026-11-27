@@ -4,6 +4,9 @@ module Keystone
   module Ui
     class StackedBarComponent < ViewComponent::Base
       BAR_CLASSES = "ks-stacked-bar flex h-7"
+      LEGEND_CLASSES = "ks-stacked-bar-legend flex flex-wrap"
+      LEGEND_ITEM_CLASSES = "ks-stacked-bar-legend-item flex items-center"
+      LEGEND_VALUE_CLASSES = "ks-stacked-bar-legend-value"
       AMOUNT_CLASSES = {
         1 => "ks-stacked-bar-amount whitespace-nowrap overflow-hidden @max-[3ch]:hidden",
         2 => "ks-stacked-bar-amount whitespace-nowrap overflow-hidden @max-[4ch]:hidden",
