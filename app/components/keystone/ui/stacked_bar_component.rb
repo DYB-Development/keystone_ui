@@ -59,6 +59,8 @@ module Keystone
       end
 
       def share(segment)
+        return "– of #{@total_label}" if total.zero?
+
         "#{(segment[:amount].to_f / total * 100).round}% of #{@total_label}"
       end
 
