@@ -8,4 +8,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal 2, page.css(".ks-stacked-bar > .ks-stacked-bar-segment").size
   end
+
+  def test_leaves_out_a_segment_whose_amount_is_zero_or_negative
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Customer net value", amount: -300, tone: :teal }, { label: "Our gross profit", amount: 0, tone: :orange }, { label: "COGS", amount: 600, tone: :blue } ]))
+
+    assert_equal 1, page.css(".ks-stacked-bar > .ks-stacked-bar-segment").size
+  end
 end

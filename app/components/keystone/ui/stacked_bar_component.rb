@@ -11,6 +11,10 @@ module Keystone
       def initialize(segments:)
         @segments = segments
       end
+
+      def drawn_segments
+        segments.select { |segment| segment[:amount].positive? }
+      end
     end
   end
 end
