@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_stacked_bar(segments:, total:, total_label:)` draws one bar 28 pixels tall split into segments sized by amount, with each amount printed inside its segment when it fits, a tooltip of the segment's name, amount and share of the total on hover, tap or keyboard focus, a legend of every segment under it, and no segment drawn for an amount of zero or less.
+- Segments are coloured by the fill tones `:teal`, `:orange`, `:blue` and `:amber`, each with a light and a dark colour.
+- `ui_status_line(passed:, text:)` draws a sentence after a round green check or red cross that screen readers hear as "Pass" or "Fail".
+- `ui_action_list(rows:)` shows sentences each with an optional small button at its right, under it on a phone, that sends its own request or submits the form around the list.
+- `ui_form` takes `auto_submit: true` to send itself when a select, checkbox or radio button changes and once the person stops typing, keeping the field they are in, what they typed, and their caret through Turbo's morph of the page.
+- `ui_form_field` and `ui_input` take `prefix:` and `suffix:` to show short text such as `$` or `hours` inside the field's border.
+- `ui_panel` takes `shaded: true` for a filled result box, `selected: true` to outline the option in use, and `title:`, `aside:` and `selected_marker:` for a heading line that says which option is in use.
+- A `ui_value_list` row takes `key: true` to be drawn larger than the others without being a total.
+- `ui_progress` takes `thin: true` for a share meter 4 pixels tall and `tone:` to fill it with a fill tone's colour.
+- `ui_button` takes `params:` to send with a request it makes.
+
 ## [0.106.0] - 2026-11-23
 
 ### Changed
