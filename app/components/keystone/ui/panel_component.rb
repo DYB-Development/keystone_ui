@@ -6,13 +6,14 @@ module Keystone
       PADDING_CLASSES = { sm: "ks-panel-padding-sm", md: "ks-panel-padding-md", lg: "ks-panel-padding-lg" }.freeze
       RADIUS_CLASSES = { md: "ks-panel-radius-md", lg: "ks-panel-radius-lg", xl: "ks-panel-radius-xl" }.freeze
 
-      def initialize(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil)
+      def initialize(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil, selected_marker: nil)
         @padding = padding
         @radius = radius
         @shadow = shadow
         @shaded = shaded
         @selected = selected
         @title = title
+        @selected_marker = selected_marker
       end
 
       BASE_CLASSES = "ks-panel"
@@ -22,6 +23,10 @@ module Keystone
       TITLE_CLASSES = "ks-card-title"
 
       attr_reader :title
+
+      def marker
+        @selected_marker if @selected
+      end
 
       def classes
         tokens = [ RADIUS_CLASSES.fetch(@radius), BASE_CLASSES, PADDING_CLASSES.fetch(@padding) ]
