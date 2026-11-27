@@ -25,6 +25,7 @@
       <div class="<%= Keystone::Ui::InputComponent::GROUP_CLASSES %>">
         <% if prefix %><span class="<%= Keystone::Ui::InputComponent::ADDON_CLASSES %>"><%= prefix %></span><% end %>
         <%= tag.input(**input_options) %>
+        <% if suffix %><span class="<%= Keystone::Ui::InputComponent::ADDON_CLASSES %>"><%= suffix %></span><% end %>
       </div>
     <% else %>
       <%= tag.input(**input_options) %>
