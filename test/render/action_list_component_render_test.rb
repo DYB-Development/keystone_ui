@@ -26,4 +26,10 @@ class Keystone::Ui::ActionListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("li")&.[]("class")&.split, "max-sm:flex-col"
   end
+
+  def test_a_rows_button_given_a_name_and_value_submits_the_form_around_the_list_with_them
+    page = render_inline(Keystone::Ui::ActionListComponent.new(rows: [ { text: "Lower the price to $2,400.", button: { label: "Use", name: "price[price]", value: "2400" } } ]))
+
+    assert_equal [ "submit", "price[price]", "2400", nil ], %w[type name value formaction].map { |name| page.at_css("li button")&.[](name) }
+  end
 end
