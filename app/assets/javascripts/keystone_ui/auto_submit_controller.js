@@ -33,7 +33,7 @@ export default class extends Controller {
 
   remember() {
     const active = document.activeElement
-    this.focusedId = active?.id
+    this.focusedId = this.element.contains(active) ? active.id : null
     this.selection = [active?.selectionStart, active?.selectionEnd]
   }
 

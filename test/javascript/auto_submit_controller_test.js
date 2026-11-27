@@ -172,3 +172,14 @@ test("a refresh that replaces the field the person is in puts their caret back w
 
   assert.deepEqual(replacement.selection, [2, 2])
 })
+
+test("a refresh leaves alone the focus of a field outside the auto-submit form", () => {
+  const { controller } = formWith()
+  const { replacement, replace } = replacedWhileTyping({ inForm: false })
+
+  controller.remember()
+  replace()
+  controller.restore()
+
+  assert.equal(replacement.focused, false)
+})
