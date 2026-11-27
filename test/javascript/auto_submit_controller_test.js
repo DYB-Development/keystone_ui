@@ -67,3 +67,14 @@ test("each keystroke waits again before the form is submitted", (t) => {
 
   assert.equal(form.submitted, 0)
 })
+
+test("an input event from a select or checkbox leaves submitting to its change, so it is sent once", (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] })
+  const { controller, form } = formWith()
+
+  controller.typed({ target: field("select-one", "SELECT") })
+  controller.typed({ target: field("checkbox") })
+  t.mock.timers.tick(500)
+
+  assert.equal(form.submitted, 0)
+})

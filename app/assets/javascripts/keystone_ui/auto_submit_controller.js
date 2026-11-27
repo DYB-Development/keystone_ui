@@ -15,7 +15,9 @@ export default class extends Controller {
     this.submit()
   }
 
-  typed() {
+  typed(event) {
+    if (!TYPED_FIELDS.includes(event.target.type)) return
+
     clearTimeout(this.timer)
     this.timer = setTimeout(() => this.submit(), this.delayValue)
   }
