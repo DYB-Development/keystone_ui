@@ -13,7 +13,11 @@ module Keystone
       end
 
       def drawn_segments
-        segments.select { |segment| segment[:amount].positive? }
+        segments.select { |segment| size(segment).positive? }
+      end
+
+      def size(segment)
+        segment[:amount]
       end
     end
   end

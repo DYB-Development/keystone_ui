@@ -1,5 +1,5 @@
 <div class="<%= BAR_CLASSES %>">
   <% drawn_segments.each do |segment| %>
-    <div class="<%= SEGMENT_CLASSES %>"></div>
+    <div class="<%= SEGMENT_CLASSES %>" style="flex: <%= size(segment) %> 1 0%"></div>
   <% end %>
 </div>
