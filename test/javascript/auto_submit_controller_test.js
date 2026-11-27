@@ -55,3 +55,15 @@ test("typing in a number field submits the form once the typing pauses", (t) => 
 
   assert.equal(form.submitted, 1)
 })
+
+test("each keystroke waits again before the form is submitted", (t) => {
+  t.mock.timers.enable({ apis: ["setTimeout"] })
+  const { controller, form } = formWith()
+
+  controller.typed({ target: field("text") })
+  t.mock.timers.tick(400)
+  controller.typed({ target: field("text") })
+  t.mock.timers.tick(400)
+
+  assert.equal(form.submitted, 0)
+})

@@ -16,6 +16,7 @@ export default class extends Controller {
   }
 
   typed() {
+    clearTimeout(this.timer)
     this.timer = setTimeout(() => this.submit(), this.delayValue)
   }
 }
