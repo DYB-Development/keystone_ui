@@ -25,6 +25,10 @@ module KeystoneUiHelper
     render Keystone::Ui::BarChartComponent.new(**args)
   end
 
+  def ui_stacked_bar(**args)
+    render Keystone::Ui::StackedBarComponent.new(**args)
+  end
+
   def ui_timeline(**args)
     render Keystone::Ui::TimelineComponent.new(**args)
   end
@@ -141,6 +145,10 @@ module KeystoneUiHelper
     render Keystone::Ui::LinkListComponent.new(**args)
   end
 
+  def ui_action_list(**args)
+    render Keystone::Ui::ActionListComponent.new(**args)
+  end
+
   def ui_form_page(**args)
     render Keystone::Ui::FormPageComponent.new(**args)
   end
@@ -223,6 +231,10 @@ module KeystoneUiHelper
 
   def ui_status_dot(**args)
     render Keystone::Ui::StatusDotComponent.new(**args)
+  end
+
+  def ui_status_line(**args)
+    render Keystone::Ui::StatusLineComponent.new(**args)
   end
 
   def ui_settings_link(**args)

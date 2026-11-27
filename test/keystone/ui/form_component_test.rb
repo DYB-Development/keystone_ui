@@ -46,4 +46,29 @@ class Keystone::Ui::FormComponentTest < Minitest::Test
   def test_form_classes_hold_no_visual_utility
     refute_match VISUAL_UTILITY, Keystone::Ui::FormComponent::FORM_CLASSES
   end
+
+  def test_an_auto_submit_form_runs_the_auto_submit_controller
+    component = Keystone::Ui::FormComponent.new(action: "/offers/1", method: :patch, auto_submit: true)
+
+    assert_equal "auto-submit", component.form_options[:data][:controller]
+  end
+
+  def test_an_auto_submit_form_sends_its_changes_and_typing_and_keeps_the_persons_field_through_a_refresh
+    component = Keystone::Ui::FormComponent.new(action: "/offers/1", method: :patch, auto_submit: true)
+
+    assert_equal %w[
+      change->auto-submit#changed
+      input->auto-submit#typed
+      turbo:before-morph-attribute->auto-submit#keep
+      turbo:before-render@document->auto-submit#remember
+      turbo:render@document->auto-submit#restore
+    ], component.form_options[:data][:action].split
+  end
+
+  def test_an_auto_submit_form_keeps_the_controller_and_actions_it_is_given
+    component = Keystone::Ui::FormComponent.new(action: "/offers/1", data: { controller: "avatar-picker", action: "click->avatar-picker#open" }, auto_submit: true)
+    data = component.form_options[:data]
+
+    assert_equal [ "avatar-picker auto-submit", "click->avatar-picker#open" ], [ data[:controller], data[:action].split.first ]
+  end
 end

@@ -13,7 +13,7 @@ module Keystone
       CHECKBOX_CLASSES = "ks-checkbox"
       CHECKBOX_WRAPPER_CLASSES = "ks-form-field-checkbox flex items-center"
 
-      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [], autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil)
+      def initialize(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [], autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, prefix: nil, suffix: nil)
         @attribute = attribute
         @label = label
         @type = type
@@ -33,6 +33,14 @@ module Keystone
         @autocomplete = autocomplete
         @autocapitalize = autocapitalize
         @inputmode = inputmode
+        @prefix = prefix
+        @suffix = suffix
+      end
+
+      attr_reader :prefix, :suffix
+
+      def grouped?
+        !(@prefix.nil? && @suffix.nil?)
       end
 
       def label_text
@@ -80,7 +88,7 @@ module Keystone
       end
 
       def input_options
-        options = { name: @attribute.to_s, id: field_id, class: Keystone::Ui::InputComponent::BASE_CLASSES }
+        options = { name: @attribute.to_s, id: field_id, class: grouped? ? Keystone::Ui::InputComponent::GROUPED_CLASSES : Keystone::Ui::InputComponent::BASE_CLASSES }
         unless textarea?
           options[:type] = Keystone::Ui::InputComponent::TYPE_MAP.fetch(@type)
         end

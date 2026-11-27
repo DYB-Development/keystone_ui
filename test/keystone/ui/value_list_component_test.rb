@@ -27,4 +27,8 @@ class Keystone::Ui::ValueListComponentTest < Minitest::Test
   def test_with_label_caps_draws_each_label_in_the_small_capital_style
     assert_equal "ks-value-list-label ks-label-caps", Keystone::Ui::ValueListComponent.new(rows: [], label_caps: true).label_classes
   end
+
+  def test_draws_a_row_marked_as_a_key_line_larger_than_the_others
+    assert_equal "ks-value-list-row ks-value-list-key", Keystone::Ui::ValueListComponent.new(rows: []).row_classes({ key: true })
+  end
 end

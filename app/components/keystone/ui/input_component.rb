@@ -7,6 +7,10 @@ module Keystone
 
       DISABLED_CLASSES = "ks-input-disabled"
 
+      GROUP_CLASSES = "ks-input-group flex items-center"
+      GROUPED_CLASSES = "ks-input ks-input-grouped min-w-0 flex-1"
+      ADDON_CLASSES = "ks-input-addon shrink-0 whitespace-nowrap"
+
       TYPE_MAP = {
         text: "text",
         number: "number",
@@ -24,7 +28,7 @@ module Keystone
         value.strftime(DATETIME_FORMAT)
       end
 
-      def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, required: false)
+      def initialize(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, required: false, prefix: nil, suffix: nil)
         @name = name
         @type = type
         @value = value
@@ -38,10 +42,18 @@ module Keystone
         @autocapitalize = autocapitalize
         @inputmode = inputmode
         @required = required
+        @prefix = prefix
+        @suffix = suffix
+      end
+
+      attr_reader :prefix, :suffix
+
+      def grouped?
+        !(@prefix.nil? && @suffix.nil?)
       end
 
       def classes
-        tokens = [ BASE_CLASSES ]
+        tokens = [ grouped? ? GROUPED_CLASSES : BASE_CLASSES ]
         tokens << DISABLED_CLASSES if @disabled
         tokens.join(" ")
       end

@@ -21,7 +21,15 @@
       <% end %>
     </select>
   <% else %>
-    <%= tag.input(**input_options) %>
+    <% if grouped? %>
+      <div class="<%= Keystone::Ui::InputComponent::GROUP_CLASSES %>">
+        <% if prefix %><span class="<%= Keystone::Ui::InputComponent::ADDON_CLASSES %>"><%= prefix %></span><% end %>
+        <%= tag.input(**input_options) %>
+        <% if suffix %><span class="<%= Keystone::Ui::InputComponent::ADDON_CLASSES %>"><%= suffix %></span><% end %>
+      </div>
+    <% else %>
+      <%= tag.input(**input_options) %>
+    <% end %>
     <% if suggestions? %>
       <datalist id="<%= suggestions_id %>">
         <% suggestions.each do |suggestion| %>

@@ -32,7 +32,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_section` — a titled block of content with an optional link, action menu and short aside such as a badge in its header.
 - `ui_grid` — a responsive grid with a column count per breakpoint up to `xl`, and two columns of unequal width when asked.
 - `ui_list_detail` — a list beside the detail of the item picked from it, with the detail above the list below `lg:`.
-- `ui_panel` — a bordered card surface holding any content.
+- `ui_panel` — a bordered card surface holding any content, optionally shaded as a result box, outlined as the option in use, or headed by a title with a short note at its right.
 - `ui_card_link` — a panel that is one link as a whole.
 - `ui_card` — a fixed card of title, summary and call-to-action link.
 - `ui_review_card` — a card for one reviewed item: id and score, title, text, call-to-action line, meta line, finding note and equal-width buttons.
@@ -52,9 +52,9 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_action_menu_item` — one action in an action menu, as a link or a button sending a method.
 - `ui_settings_link` — a full-width settings row with a chevron.
 - `ui_theme_toggle` — Light, Dark and System buttons that switch and remember the page's theme.
-- `ui_form` — the form element wrapping a form's fields.
-- `ui_form_field` — a labelled input, textarea, checkbox or select with hint and error text.
-- `ui_input` — a bare styled input with no label.
+- `ui_form` — the form element wrapping a form's fields, optionally sending itself when a choice changes or the person stops typing.
+- `ui_form_field` — a labelled input, textarea, checkbox or select with hint and error text, and short text such as `$` or `hours` inside a text or number input's border.
+- `ui_input` — a bare styled input with no label, optionally with short text inside its border before or after it.
 - `ui_textarea` — a bare styled textarea with no label.
 - `ui_select` — a bare styled select with no label.
 - `ui_multi_select` — a dropdown of checkboxes posting every checked value.
@@ -72,6 +72,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_button_row` — a row of buttons that wraps onto further lines, optionally giving each button an equal share of its width at every width or on a phone only.
 - `ui_badge` — a coloured pill holding a short label.
 - `ui_status_dot` — a small dot coloured by state, with its label read only by screen readers.
+- `ui_status_line` — a sentence after a round green check for a pass or red cross for a fail, the icon labelled for screen readers.
 - `ui_figure` — one amount or short result as inline text, coloured as a gain, a loss, a warning or information.
 - `ui_chip_row` — a row of summary chips, each a label and value in a tone's colour on a tinted background, three across on a phone.
 - `ui_picture` — an image never taller than half the screen, optionally opening its full-size file.
@@ -83,8 +84,9 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_value_list` — labelled values, as rows of a label beside its value, such as a ledger or a byline, or as columns of a label above its value.
 - `ui_alert` — a banner message, optionally dismissible.
 - `ui_link_list` — a list of links, each row with a label, an optional subtitle, badge, value and top line, an optional current-row mark, and a chevron that can be left off, with every link opening in a new tab when asked.
+- `ui_action_list` — rows of sentences, each with an optional small button at its right that sends its own request or submits the form around the list, stacked on a phone.
 - `ui_empty_state` — what a list or section shows when it has nothing in it, with an optional message and action.
-- `ui_progress` — a labelled progress bar.
+- `ui_progress` — a labelled progress bar, or a thin share meter in a fill tone's colour.
 - `ui_stat_card` — a single metric tile with optional change, link and info button, or a compact tile for a small grid of figures inside a panel.
 - `ui_copy_button` — a button that copies text to the clipboard.
 - `ui_code` — a block of code with an optional caption.
@@ -100,6 +102,7 @@ not available in the app yet, that is `keystone_ui-install`'s job.
 - `ui_swipe_deck` — a stack of cards accepted or rejected by button or swipe.
 - `ui_chart_card` — a titled card holding a chart.
 - `ui_line_chart` — a line chart with one line per series, over labels or dates.
+- `ui_stacked_bar` — one bar split into coloured segments sized by amount, each with its amount inside when it fits and a tooltip of its name, amount and share, with a legend under it.
 - `ui_bar_chart` — a bar chart drawn on the server, which needs no JavaScript and prints, with bars optionally grouped into tones from oldest to newest and one label per group, and optionally drawn as a short strip with no value axis.
 - `ui_funnel` — a conversion funnel drawn as bars or one joined shape.
 - `ui_bucket` — an upright container filled toward a goal.
@@ -269,8 +272,15 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      width and the detail the other two thirds beside it. Below `lg:` the detail
      is drawn above the list. With no detail the list takes the full width at
      every size. Write no Tailwind classes of your own to get either order.
-   - `ui_panel(padding: :md, radius: :lg, shadow: true)` — `padding:` is `:sm`
-     `:md` `:lg` and `radius:` is `:md` `:lg` `:xl`.
+   - `ui_panel(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil, selected_marker: nil, aside: nil)`
+     — `padding:` is `:sm` `:md` `:lg` and `radius:` is `:md` `:lg` `:xl`.
+     `shaded: true` fills the panel with a shaded background and drops its
+     shadow, for the result box under a form. `selected: true` outlines it as
+     the option in use, such as the price picked among several. `title:` draws
+     a heading above the block, `aside:` a short note such as an amount at the
+     right end of that line, and `selected_marker:`, such as `"(in use)"`, is
+     written after the title only while `selected: true`, so the choice is not
+     told by the outline alone.
    - `ui_card_link(href:, padding: :md, shadow: true)` — `padding:` is `:sm`
      `:md` `:lg`.
    - `ui_card(title:, summary:, link:, cta: "Read more", edge_to_edge: false, class: nil)`
@@ -448,10 +458,25 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 6. Build forms.
 
-   - `ui_form(action:, method: :post, multipart: false, data: nil)` takes a
+   - `ui_form(action:, method: :post, multipart: false, data: nil, auto_submit: false)` takes a
      block. `method:` may be `:patch`, `:put` or `:delete`, sent as Rails
      expects. Set `multipart: true` when the form holds a file upload.
-   - `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [], autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil)`
+   - `auto_submit: true` sends the form with `requestSubmit`, so Turbo handles
+     it, as soon as a select, checkbox or radio button changes, and half a
+     second after the person stops typing in a text or number field, or at
+     once when they leave it. Use it for a calculator whose page recalculates
+     on every change, with the controller redirecting back to the same page so
+     Turbo morphs it. Through that morph the field the person is in keeps what
+     they typed, and when the morph replaced that field, focus and the caret go
+     back to it by its `id`, so give every field an `id`, as `ui_form_field`
+     does. A `controller` or `action` already in `data:` is kept. A form built
+     with Rails' own helpers gets the same with `data: { controller:
+     "auto-submit", action: "change->auto-submit#changed input->auto-submit#typed
+     turbo:before-morph-attribute->auto-submit#keep
+     turbo:before-render@document->auto-submit#remember
+     turbo:render@document->auto-submit#restore" }`, and
+     `data-auto-submit-delay-value` sets the wait in milliseconds.
+   - `ui_form_field(attribute:, label: nil, type: :text, required: false, hint: nil, placeholder: nil, min: nil, max: nil, step: nil, value: nil, options: [], errors: [], include_blank: nil, disabled: false, suggestions: [], autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, prefix: nil, suffix: nil)`
      is the default way to render a field. `type:` is `:text` `:number`
      `:email` `:password` `:date` `:datetime` `:textarea` `:checkbox` `:select`.
    - A `:datetime` field is a `datetime-local` input for a date and a time of
@@ -494,13 +519,18 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `autofocus:`, `autocomplete:`, `autocapitalize:` and `inputmode:` apply to
      the same types as `suggestions:` and are ignored by `:textarea`
      `:checkbox` and `:select`.
+   - `prefix:` and `suffix:` draw short text inside the input's border before
+     or after it, such as `prefix: "$"` for money or `suffix: "hours"` or
+     `suffix: "%"` for a unit, on a `:text` or `:number` field. Use them in
+     place of writing the unit into the label.
    - A value that must be one of a fixed list is a `:select`, and a free value
      with common choices is a text field with `suggestions:`. Ask the developer
      which a field is and which values it offers.
-   - `ui_input(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, required: false)`
+   - `ui_input(name:, type: :text, value: nil, placeholder: nil, disabled: false, min: nil, max: nil, step: nil, autofocus: false, autocomplete: nil, autocapitalize: nil, inputmode: nil, required: false, prefix: nil, suffix: nil)`
      takes `:text` `:number` `:email` `:password` `:date` `:datetime`. Its
-     `autofocus:` `autocomplete:` `autocapitalize:` and `inputmode:` work as on
-     `ui_form_field`, and `required: true` sets the `required` attribute.
+     `autofocus:` `autocomplete:` `autocapitalize:`, `inputmode:`, `prefix:`
+     and `suffix:` work as on `ui_form_field`, and `required: true` sets the
+     `required` attribute.
      `ui_textarea(name:, value: nil, rows: 3, placeholder: nil, disabled: false)`
      and `ui_select(name:, options: [], selected: nil, include_blank: nil, disabled: false)`
      are the bare forms of the other two. Use them only where a label does not
@@ -690,8 +720,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 9. Show content and status.
 
-   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil, disabled: false, formaction: nil)`
-     renders a link with `href:` and a button without it. `variant:` is
+   - `ui_button(label:, href: nil, method: :get, variant: :primary, size: :md, full_width: false, type: :submit, data: nil, name: nil, value: nil, hidden: false, confirm: nil, disabled: false, formaction: nil, params: {})`
+     renders a link with `href:` and a button without it. With `href:` and a
+     method other than `:get`, `params:` is sent with the request as hidden
+     fields, such as `{ "price[price]" => 2400 }`. `variant:` is
      `:primary` `:secondary` `:danger` `:text`, `size:` is `:sm` `:md` `:lg`,
      and `type:`, `name:` and `value:` apply only to the button.
    - `variant: :text` draws the button as small, underlined, muted text, such
@@ -752,6 +784,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      passed to either one unchanged. Use it where a badge's words
      would crowd the row, such as beside a name in a list, and ask the
      developer which states a record has and what each one means.
+   - `ui_status_line(passed:, text:)` draws `text:` after a round icon, a
+     green check labelled "Pass" for screen readers when `passed:` is true and
+     a red cross labelled "Fail" when it is false. Use it for a check a page
+     works out, such as whether a price is within its ceiling, and write the
+     sentence so it says the result with its numbers.
    - `ui_alert(message:, type: :info, title: nil, dismissible: false, class: nil)`
      — `type:` is `:info` `:success` `:warning` `:error`, and `dismissible: true`
      adds a close button.
@@ -774,11 +811,22 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      the form open. Ask the developer which row is current on each page.
      Use it for a list of records that each open their own page, in place of a
      hand-written `<ul>` of links.
+   - `ui_action_list(rows:)` — each row is `{ text:, button: nil }`, where
+     `text:` is a sentence and `button:` takes `ui_button`'s keywords, small
+     and secondary unless it says otherwise. A button with `href:`, a method
+     such as `:patch` and `params:` sends its own request, and one with `name:`
+     and `value:` and no `href:` submits the form the list sits in, such as a
+     Use button that sets a price. The button sits at the right of its
+     sentence and under it on a phone. Use it for a list of suggested fixes or
+     next steps, each of which can be applied in one press.
    - `ui_empty_state(title:, message: nil, action: nil)` — `action:` is
      `{ label:, href: }` and draws a secondary button. Use it in place of a bare
      "Nothing yet" paragraph wherever a list or section can be empty.
-   - `ui_progress(value:, max:, label: nil)` shows `value / max` as a percent,
-     rounded and capped at 100.
+   - `ui_progress(value:, max:, label: nil, thin: false, tone: nil)` shows
+     `value / max` as a percent, rounded and capped at 100. `thin: true` draws
+     the bar 4 pixels tall, as a share meter under a row card, and `tone:`
+     fills it with one of `ui_stacked_bar`'s fill tones, so a meter matches
+     the segment it stands for.
    - `ui_copy_button(text:, label: "Copy", success_message: "Copied!", error_message: "Failed!")`.
    - `ui_code(language: nil, caption: nil)` takes a block holding the code.
      `caption:` is a strip above it and `language:` sets the `language-*`
@@ -841,8 +889,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      box with the count in bold beside its label, in a row that wraps.
    - `ui_paragraph(text:)` shows running text.
    - `ui_value_list(rows:, align: :start, columns: false, label_caps: false, value_mono: false)` — each row is
-     `{ label:, value: }` with optional `note:`, `total: true`, `right: true`
-     and `fallback:`, shown when the value is `nil` or empty. `right: true`
+     `{ label:, value: }` with optional `note:`, `total: true`, `key: true`,
+     `right: true` and `fallback:`, shown when the value is `nil` or empty.
+     `key: true` draws the row larger than the others, for a key figure in a
+     result box that is not a total. `right: true`
      draws a green check mark after the value, read out as "Right", for an
      answer that was right. `align: :end` pushes values to the right, as in a
      ledger. `label_caps: true` draws the labels in small capitals and
@@ -912,6 +962,23 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
     - `ui_chart_card(title:, height: :md)` takes a block holding a chart, with
       `height:` `:sm` `:md` `:lg`.
+    - `ui_stacked_bar(segments:, total: nil, total_label: "the total")` —
+      `segments:` is `[{ label:, amount:, tone:, value: nil, size: nil }, ...]`.
+      Each segment is as wide as its share of the bar, the bar is 28 pixels
+      tall with a 2 pixel gap between segments, and a legend under it lists
+      every segment's colour, name and `value:`. `value:` is the amount as it
+      is shown, such as `"$1,800"`, so format it in the app, and the amount
+      itself is shown without it. A segment prints `value:` inside it when it
+      is wide enough. Hovering over a segment, tapping it or reaching it with
+      the keyboard shows a tooltip of its name, `value:` and share of
+      `total:`, named by `total_label:`, such as `"40% of actual value"`, and a
+      screen reader hears the same. `total:` is the sum of the drawn amounts
+      when left out, and a total of zero shows no share. `size:` draws the
+      segment at that width in place of its amount. A segment whose `size:`,
+      or `amount:` without one, is zero or negative is not drawn and is still
+      in the legend. `tone:` is `:teal` `:orange` `:blue` or `:amber`, each
+      with its own light and dark colour, and any other raises
+      `ArgumentError` naming it. It needs no JavaScript.
     - `ui_bar_chart(bars:, show_values: false, strip: false)` — `bars:` is
       `[{ label:, value:, shaded:, group: }, ...]`, where `shaded: true` draws
       a bar faded. A negative `value:` raises `ArgumentError` naming it. It

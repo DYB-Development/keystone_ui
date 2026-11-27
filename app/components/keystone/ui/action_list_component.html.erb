@@ -1,0 +1,10 @@
+<ul>
+  <% rows.each do |row| %>
+    <li class="<%= ROW_CLASSES %>">
+      <span class="<%= TEXT_CLASSES %>"><%= row[:text] %></span>
+      <% if row[:button] %>
+        <div class="<%= BUTTON_CLASSES %>"><%= render button(row) %></div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
