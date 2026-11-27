@@ -45,4 +45,10 @@ class Keystone::Ui::ButtonComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "/approvals/7", page.at_css("button")&.[]("formaction")
   end
+
+  def test_a_button_sending_a_request_sends_its_params_with_it
+    page = render_inline(Keystone::Ui::ButtonComponent.new(label: "Use", href: "/offers/1/price", method: :patch, params: { "price[mode]" => "custom", "price[price]" => 2400 }))
+
+    assert_equal({ "price[mode]" => "custom", "price[price]" => "2400" }, page.css("form input[type=hidden]").to_h { |input| [ input["name"], input["value"] ] }.except("_method", "authenticity_token"))
+  end
 end
