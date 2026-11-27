@@ -16,6 +16,9 @@ All notable changes to this project will be documented in this file.
 - `ui_progress` takes `thin: true` for a share meter 4 pixels tall and `tone:` to fill it with a fill tone's colour.
 - `ui_button` takes `params:` to send with a request it makes.
 
+### Changed
+- keystone_ui requires keystone_ui-styles 0.46.0 or later, for the fill tone, stacked bar, status line, shaded and selected panel, key value row and input group classes.
+
 ## [0.106.0] - 2026-11-23
 
 ### Changed
