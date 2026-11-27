@@ -37,3 +37,11 @@ test("ticking a checkbox or choosing a radio button submits the form at once", (
 
   assert.equal(form.submitted, 2)
 })
+
+test("leaving a text field with nothing new typed sends nothing", () => {
+  const { controller, form } = formWith()
+
+  controller.changed({ target: field("text") })
+
+  assert.equal(form.submitted, 0)
+})
