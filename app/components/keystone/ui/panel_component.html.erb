@@ -1,6 +1,9 @@
 <div class="<%= classes %>">
   <% if title %>
-    <h3 class="<%= TITLE_CLASSES %>"><%= title %><% if marker %> <%= marker %><% end %></h3>
+    <div class="<%= HEADER_CLASSES %>">
+      <h3 class="<%= TITLE_CLASSES %>"><%= title %><% if marker %> <%= marker %><% end %></h3>
+      <% if aside %><span class="<%= ASIDE_CLASSES %>"><%= aside %></span><% end %>
+    </div>
   <% end %>
   <%= content %>
 </div>
