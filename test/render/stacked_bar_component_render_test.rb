@@ -20,4 +20,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "flex: 1800 1 0%", "flex: 600 1 0%" ], page.css(".ks-stacked-bar-segment").map { |segment| segment["style"] }
   end
+
+  def test_draws_a_segment_given_a_size_at_that_size_in_place_of_its_amount
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "Customer net value", amount: 1200, size: 900, tone: :teal } ]))
+
+    assert_equal "flex: 900 1 0%", page.at_css(".ks-stacked-bar-segment")&.[]("style")
+  end
 end

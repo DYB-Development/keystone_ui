@@ -17,7 +17,7 @@ module Keystone
       end
 
       def size(segment)
-        segment[:amount]
+        segment.fetch(:size, segment[:amount])
       end
     end
   end
