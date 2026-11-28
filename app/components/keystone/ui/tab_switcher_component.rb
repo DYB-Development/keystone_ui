@@ -18,10 +18,11 @@ module Keystone
 
       attr_reader :tabs
 
-      def initialize(tabs:, align: :center, shape: nil)
+      def initialize(tabs:, align: :center, shape: nil, id: nil)
         @tabs = tabs
         @align = align
         @shape = shape
+        @id = id
       end
 
       def link_tabs?

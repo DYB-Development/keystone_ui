@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_tab_switcher` takes `id:` to put an id on its tab row, so a Turbo Stream can replace the row with fresh labels and counts.
+
+### Changed
+- `ui_form(auto_submit: true)` holds a change made while the form's last submission is still being sent, and sends the held changes as one submission once that submission has finished and its Turbo Stream answer has been drawn, so the held submission carries the values the answer put in the form.
+
 ## [0.108.0] - 2026-11-27
 
 ### Added

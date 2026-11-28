@@ -840,7 +840,7 @@ Wraps content in a `<form>` tag with proper method handling. For non-GET/POST me
 - `method:` (`:get | :post | :patch | :put | :delete`, default `:post`) — HTTP method. Non-native methods use a hidden `_method` field.
 - `multipart:` (Boolean, default `false`) — sets `enctype="multipart/form-data"` for file uploads
 - `data:` (Hash) — data attributes for the form element
-- `auto_submit:` (Boolean, default `false`) — sends the form, through `requestSubmit` so Turbo handles it, when a select, checkbox or radio button changes, and half a second after the person stops typing in a text or number field, or at once when they leave it. When Turbo morphs the page after the submit, the field the person is in keeps what they typed, and if the morph replaced that field, focus and the caret go back to it by its `id`. A `controller` or `action` already in `data:` is kept alongside it.
+- `auto_submit:` (Boolean, default `false`) — sends the form, through `requestSubmit` so Turbo handles it, when a select, checkbox or radio button changes, and half a second after the person stops typing in a text or number field, or at once when they leave it. When Turbo morphs the page after the submit, the field the person is in keeps what they typed, and if the morph replaced that field, focus and the caret go back to it by its `id`. While a submission from the form is still being sent, a new change is held, and once that submission has finished and any Turbo Stream answer to it has been drawn, the held changes are sent as one submission with the form's values at that moment, so a hidden field the answer replaced, such as a `lock_version`, goes out with its new value. A submission that fails or never reaches the server releases the hold too. A `controller` or `action` already in `data:` is kept alongside it.
 
 ```erb
 <%= ui_form(action: offer_path(@offer), method: :patch, auto_submit: true) do %>
@@ -848,7 +848,7 @@ Wraps content in a `<form>` tag with proper method handling. For non-GET/POST me
 <% end %>
 ```
 
-A form built with Rails' own form helpers gets the same behaviour from `data: { controller: "auto-submit", action: "change->auto-submit#changed input->auto-submit#typed turbo:before-morph-attribute->auto-submit#keep turbo:before-render@document->auto-submit#remember turbo:render@document->auto-submit#restore" }`, and `data-auto-submit-delay-value` sets the wait after typing in milliseconds.
+A form built with Rails' own form helpers gets the same behaviour from `data: { controller: "auto-submit", action: "change->auto-submit#changed input->auto-submit#typed turbo:submit-start->auto-submit#started turbo:submit-end->auto-submit#finished turbo:before-morph-attribute->auto-submit#keep turbo:before-render@document->auto-submit#remember turbo:render@document->auto-submit#restore" }`, and `data-auto-submit-delay-value` sets the wait after typing in milliseconds.
 
 ```erb
 <%= ui_form(action: items_path, method: :post) do %>
@@ -1699,6 +1699,7 @@ Renders a tab bar with active state indicator. Uses Stimulus `tab-switcher` cont
 
 - `align:` (Symbol, default `:center`) — `:start` starts the tab row at the left edge on every width instead of centring it from `sm` up
 - `shape:` (Symbol, default `nil`) — `:pills` draws each tab as an outlined pill and `:underline` draws the tabs on a line with the chosen tab underlined, and with no shape the tabs are drawn as before
+- `id:` (String, default `nil`) — the `id` of the tab row, so a Turbo Stream can replace the row, with its labels and counts, without redrawing the content under it
 
 ```erb
 <%= ui_tab_switcher(tabs: ["Overview", "Details", "History"]) do %>
@@ -1726,6 +1727,17 @@ A link tab's count is drawn in an info badge, as a navigation item draws its cou
   { label: "Approvals", href: inbox_path(filter: "approvals"), count: 4, current: filter == "approvals" }
 ]) do %>
   <%= render "inbox/items", items: @items %>
+<% end %>
+```
+
+A link tab row given an `id:` is replaced on its own by a fresh render with no block, since a tab switcher with no block, summary or panels draws only its row.
+
+```erb
+<%= turbo_stream.replace "offer_tabs" do %>
+  <%= ui_tab_switcher(id: "offer_tabs", tabs: [
+    { label: "Offer", href: offer_path(@offer, tab: "offer"), current: tab == "offer" },
+    { label: "Problems", href: offer_path(@offer, tab: "problems"), count: @offer.problems.count, current: tab == "problems" }
+  ]) %>
 <% end %>
 ```
 

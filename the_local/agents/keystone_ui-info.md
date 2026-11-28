@@ -111,7 +111,8 @@ One decision: is keystone_ui set up in the app?
   on wider screens, or starts at the left edge when asked. It can be drawn as
   plain tabs, as outlined pills such as a row of filters, or as tabs on a line
   with the chosen one underlined. On a phone every row stays on one line and
-  scrolls sideways.
+  scrolls sideways. A tab row can carry an id, so a Turbo Stream
+  can replace the row with fresh labels and counts.
 - **Bar chart groups.** A bar chart's bars can be put in groups, such as one
   group per version of what produced them. Groups count from oldest to newest
   in the order they first appear. Every bar of a group shares one tone, and

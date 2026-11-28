@@ -39,6 +39,8 @@ module Keystone
         [
           "change->auto-submit#changed",
           "input->auto-submit#typed",
+          "turbo:submit-start->auto-submit#started",
+          "turbo:submit-end->auto-submit#finished",
           "turbo:before-morph-attribute->auto-submit#keep",
           "turbo:before-render@document->auto-submit#remember",
           "turbo:render@document->auto-submit#restore"

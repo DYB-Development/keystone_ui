@@ -469,9 +469,18 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      Turbo morphs it. Through that morph the field the person is in keeps what
      they typed, and when the morph replaced that field, focus and the caret go
      back to it by its `id`, so give every field an `id`, as `ui_form_field`
-     does. A `controller` or `action` already in `data:` is kept. A form built
-     with Rails' own helpers gets the same with `data: { controller:
-     "auto-submit", action: "change->auto-submit#changed input->auto-submit#typed
+     does. While a submission from the form is still being sent, a new change
+     is held, and once that submission has finished and any Turbo Stream
+     answer to it has been drawn, the held changes go out as one submission
+     with the form's values at that moment. So a page answering with Turbo
+     Streams that replace a hidden `lock_version` field never sends the old
+     value, and the app adds no queue of its own. A submission that fails or
+     never reaches the server releases the hold too. A `controller` or
+     `action` already in `data:` is kept. A form built with Rails' own helpers
+     gets the same with `data: { controller: "auto-submit", action:
+     "change->auto-submit#changed input->auto-submit#typed
+     turbo:submit-start->auto-submit#started
+     turbo:submit-end->auto-submit#finished
      turbo:before-morph-attribute->auto-submit#keep
      turbo:before-render@document->auto-submit#remember
      turbo:render@document->auto-submit#restore" }`, and
@@ -1163,6 +1172,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       `Input 0`.
     - `align: :start` starts the tab row at the left edge on every width
       instead of centring it from `sm` up.
+    - `id:` puts an `id` on the tab row, so a Turbo Stream can redraw the
+      row's labels and counts, such as a problem count, without redrawing the
+      content. With link tabs, answer with `turbo_stream.replace "offer_tabs"`
+      holding `ui_tab_switcher(id: "offer_tabs", tabs: [...])` with no block,
+      which draws only the row. Do not add an id with a wrapping `div`.
     - `shape: :pills` draws each tab as an outlined pill, such as a row of
       filters, and `shape: :underline` draws the tabs on a line with the
       chosen tab underlined. In either shape a count is drawn as plain muted

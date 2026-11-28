@@ -53,12 +53,14 @@ class Keystone::Ui::FormComponentTest < Minitest::Test
     assert_equal "auto-submit", component.form_options[:data][:controller]
   end
 
-  def test_an_auto_submit_form_sends_its_changes_and_typing_and_keeps_the_persons_field_through_a_refresh
+  def test_an_auto_submit_form_sends_its_changes_and_typing_one_submission_at_a_time_and_keeps_the_persons_field_through_a_refresh
     component = Keystone::Ui::FormComponent.new(action: "/offers/1", method: :patch, auto_submit: true)
 
     assert_equal %w[
       change->auto-submit#changed
       input->auto-submit#typed
+      turbo:submit-start->auto-submit#started
+      turbo:submit-end->auto-submit#finished
       turbo:before-morph-attribute->auto-submit#keep
       turbo:before-render@document->auto-submit#remember
       turbo:render@document->auto-submit#restore

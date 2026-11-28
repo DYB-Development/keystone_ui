@@ -1,6 +1,6 @@
 <% if link_tabs? %>
 <% tab_row = capture do %>
-<nav class="<%= classes %>">
+<nav<% if @id %> id="<%= @id %>"<% end %> class="<%= classes %>">
   <% tabs.each do |tab| %>
     <a href="<%= tab[:href] %>" data-turbo-action="replace" class="<%= tab[:current] ? tab_classes : base_tab_classes %>"<% if tab[:current] %> aria-current="page" data-active<% end %>><%= tab[:label] %><% if count?(tab) %> <%= count_mark(tab[:count]) %><% end %></a>
   <% end %>
@@ -26,7 +26,7 @@
   <% if summary? %>
   <div class="<%= SUMMARY_CLASSES %>"><%= summary %></div>
   <% end %>
-  <div class="<%= classes %>">
+  <div<% if @id %> id="<%= @id %>"<% end %> class="<%= classes %>">
     <% tabs.each_with_index do |tab, index| %>
       <button
         type="button"

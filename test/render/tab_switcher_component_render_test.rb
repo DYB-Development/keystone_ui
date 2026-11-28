@@ -152,6 +152,18 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal [ true, true ], page.css("fieldset[data-tab-switcher-target=panel]").map { |panel| panel["class"].to_s.split.include?("min-w-0") }
   end
 
+  def test_link_tabs_given_an_id_put_it_on_the_tab_row_so_a_turbo_stream_can_replace_the_row
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: LINK_TABS, id: "offer_tabs"))
+
+    assert_equal "offer_tabs", page.at_css("nav.ks-tab-bar")["id"]
+  end
+
+  def test_label_tabs_given_an_id_put_it_on_the_row_of_tab_buttons
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], id: "sign_in_tabs"))
+
+    assert_equal "sign_in_tabs", page.at_css("div.ks-tab-bar")["id"]
+  end
+
   private
 
   def render_with_summary

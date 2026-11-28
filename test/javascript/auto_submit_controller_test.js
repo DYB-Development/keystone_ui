@@ -195,3 +195,94 @@ test("a refresh that kept the person's field in place leaves their caret alone",
 
   assert.equal(replacement.selection, undefined)
 })
+
+test("a change made while the form's last submission is still being sent waits for it to finish", () => {
+  const { controller, form } = formWith()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(form.submitted, 0)
+})
+
+function streamsOnPage(streams = []) {
+  globalThis.document = { querySelectorAll: (selector) => (selector === "turbo-stream" ? streams : []) }
+}
+
+test("a change held while the last submission was sent is sent once that submission finishes", async () => {
+  const { controller, form } = formWith()
+  streamsOnPage()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  await controller.finished({ detail: { success: true } })
+
+  assert.equal(form.submitted, 1)
+})
+
+test("several changes held while the last submission was sent are sent together as one submission", async () => {
+  const { controller, form } = formWith()
+  streamsOnPage()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  controller.changed({ target: field("checkbox") })
+  controller.changed({ target: field("radio") })
+  await controller.finished({ detail: { success: true } })
+
+  assert.equal(form.submitted, 1)
+})
+
+function streamRendering() {
+  let finishRendering
+  const drawn = new Promise((resolve) => { finishRendering = resolve })
+  return { stream: { render: () => drawn }, finishRendering }
+}
+
+test("a held change waits until the Turbo Stream answer to the last submission has been drawn", async () => {
+  const { controller, form } = formWith()
+  const { stream, finishRendering } = streamRendering()
+  streamsOnPage([ stream ])
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  const finishing = controller.finished({ detail: { success: true, fetchResponse: { responseHTML: Promise.resolve("<turbo-stream></turbo-stream>") } } })
+  await new Promise((resolve) => setTimeout(resolve, 10))
+  const sentBeforeDrawn = form.submitted
+  finishRendering()
+  await finishing
+
+  assert.deepEqual([sentBeforeDrawn, form.submitted], [0, 1])
+})
+
+test("a held change is still sent when the answer to the last submission cannot be read", async () => {
+  const { controller, form } = formWith()
+  streamsOnPage()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  await controller.finished({ detail: { success: false, fetchResponse: { responseHTML: Promise.reject(new Error("connection lost")) } } }).catch(() => {})
+
+  assert.equal(form.submitted, 1)
+})
+
+test("a held change is still sent when the last submission failed to reach the server", async () => {
+  const { controller, form } = formWith()
+  streamsOnPage()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  await controller.finished({ detail: { success: false, error: new TypeError("Failed to fetch") } })
+
+  assert.equal(form.submitted, 1)
+})
+
+test("a form taken off the page while sending, then put back, sends its next change at once", () => {
+  const { controller, form } = formWith()
+
+  controller.started()
+  controller.disconnect()
+  controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(form.submitted, 1)
+})

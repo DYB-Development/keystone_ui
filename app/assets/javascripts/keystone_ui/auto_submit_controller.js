@@ -8,10 +8,37 @@ export default class extends Controller {
   disconnect() {
     clearTimeout(this.timer)
     this.timer = null
+    this.sending = false
+    this.held = false
   }
 
   submit() {
+    if (this.sending) {
+      this.held = true
+      return
+    }
+
     this.element.requestSubmit()
+  }
+
+  started() {
+    this.sending = true
+  }
+
+  async finished(event) {
+    try {
+      await this.answerDrawn(event.detail.fetchResponse)
+    } finally {
+      this.release()
+    }
+  }
+
+  release() {
+    this.sending = false
+    if (!this.held) return
+
+    this.held = false
+    this.submit()
   }
 
   changed(event) {
@@ -43,6 +70,12 @@ export default class extends Controller {
     const field = document.getElementById(this.focusedId)
     field?.focus()
     if (Number.isInteger(this.selection[0])) field?.setSelectionRange(...this.selection)
+  }
+
+  async answerDrawn(fetchResponse) {
+    await fetchResponse?.responseHTML
+    await new Promise((resolve) => setTimeout(resolve))
+    await Promise.allSettled(Array.from(document.querySelectorAll("turbo-stream"), (stream) => stream.render()))
   }
 
   submitNow() {
