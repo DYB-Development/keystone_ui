@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class SectionComponent < ViewComponent::Base
-      SPACING_CLASSES = { sm: "ks-section-sm", md: "ks-section-md", lg: "ks-section-lg" }.freeze
+      SPACING_CLASSES = { none: nil, sm: "ks-section-sm", md: "ks-section-md", lg: "ks-section-lg" }.freeze
       GAP_CLASSES = { sm: "flex flex-col ks-grid-gap-sm", md: "flex flex-col ks-grid-gap-md", lg: "flex flex-col ks-grid-gap-lg", xl: "flex flex-col ks-grid-gap-xl" }.freeze
       HEADER_CLASSES = "ks-section-header"
       HEADER_WITH_ASIDE_CLASSES = "ks-section-header ks-grid-gap-sm max-sm:flex-wrap"
