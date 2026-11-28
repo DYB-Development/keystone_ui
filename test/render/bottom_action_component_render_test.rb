@@ -97,6 +97,12 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     refute_includes bottom_bar(page)&.[]("class").to_s.split, "hotwire-native:hidden"
   end
 
+  def test_shown_in_native_apps_sits_at_the_bottom_of_the_web_view_where_the_bottom_nav_is_hidden
+    page = render_after_page_header(bottom_action: { native: true }, title: "Offer", action_url: "/offers/1/save", action_label: "Save")
+
+    assert_includes bottom_bar(page)&.[]("class").to_s.split, "hotwire-native:bottom-0"
+  end
+
   private
 
   def render_after_page_header(bottom_action: {}, **header)

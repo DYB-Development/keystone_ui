@@ -4,7 +4,7 @@ module Keystone
   module Ui
     class BottomActionComponent < ViewComponent::Base
       BAR_CLASSES = "ks-bottom-action sm:hidden hotwire-native:hidden print:hidden"
-      NATIVE_BAR_CLASSES = "ks-bottom-action sm:hidden print:hidden"
+      NATIVE_BAR_CLASSES = "ks-bottom-action sm:hidden hotwire-native:bottom-0 print:hidden"
       SPACER_CLASSES = "sm:hidden hotwire-native:hidden print:hidden"
       BAR_COPY_CLASSES = "!static invisible"
       TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [body:has(.ks-bottom-nav)_&]:block"
