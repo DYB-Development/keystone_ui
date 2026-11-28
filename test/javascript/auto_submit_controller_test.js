@@ -1,11 +1,18 @@
-import { test } from "node:test"
+import { test, afterEach } from "node:test"
 import assert from "node:assert/strict"
 import AutoSubmitController from "../../app/assets/javascripts/keystone_ui/auto_submit_controller.js"
+
+const connected = []
+
+afterEach(() => {
+  connected.splice(0).forEach((controller) => controller.disconnect())
+})
 
 function formWith() {
   const form = { submitted: 0, requestSubmit() { this.submitted += 1 }, contains(node) { return node?.inForm === true } }
   const controller = new AutoSubmitController({ scope: { element: form } })
   Object.defineProperty(controller, "delayValue", { value: 500 })
+  connected.push(controller)
   return { controller, form }
 }
 
@@ -285,4 +292,14 @@ test("a form taken off the page while sending, then put back, sends its next cha
   controller.changed({ target: field("select-one", "SELECT") })
 
   assert.equal(form.submitted, 1)
+})
+
+test("a change in one auto-submit form waits while another auto-submit form's submission is still being sent", () => {
+  const first = formWith()
+  const second = formWith()
+
+  first.controller.started()
+  second.controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(second.form.submitted, 0)
 })
