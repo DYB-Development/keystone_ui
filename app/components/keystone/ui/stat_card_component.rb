@@ -12,6 +12,7 @@ module Keystone
       COMPACT_LABEL_CLASSES = "ks-stat-card-label text-xs"
       CAPS_LABEL_CLASSES = "ks-stat-card-label ks-label-caps"
       VALUE_BASE_CLASSES = "ks-stat-card-value text-3xl"
+      VALUE_SIZE_CLASSES = { lg: VALUE_BASE_CLASSES, sm: "ks-stat-card-value ks-stat-card-value-sm whitespace-nowrap" }.freeze
       COMPACT_VALUE_CLASSES = "ks-stat-card-value ks-stat-card-value-compact flex flex-wrap items-baseline text-lg leading-6"
       SUFFIX_CLASSES = "ks-stat-card-suffix text-lg"
       DISCLOSURE_CLASSES = "ks-stat-card-disclosure hidden peer-hover:block peer-focus-visible:block absolute inset-x-0 top-full z-10 text-sm"
@@ -31,7 +32,8 @@ module Keystone
 
       attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href, :note
 
-      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false)
+      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false, value_size: :lg)
+        @value_size = value_size
         @compact = compact
         @label_caps = label_caps
         @label = label
@@ -68,7 +70,7 @@ module Keystone
       end
 
       def value_classes
-        "#{@compact ? COMPACT_VALUE_CLASSES : VALUE_BASE_CLASSES} #{VARIANT_CLASSES.fetch(@variant)}"
+        "#{@compact ? COMPACT_VALUE_CLASSES : VALUE_SIZE_CLASSES.fetch(@value_size)} #{VARIANT_CLASSES.fetch(@variant)}"
       end
 
       def suffix_classes
