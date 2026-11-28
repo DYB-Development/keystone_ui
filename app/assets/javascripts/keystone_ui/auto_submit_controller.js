@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 const TYPED_FIELDS = ["text", "number", "search", "email", "tel", "url"]
 const sending = new Set()
+const waiting = []
 
 export default class extends Controller {
   static values = { delay: { type: Number, default: 500 } }
@@ -10,12 +11,11 @@ export default class extends Controller {
     clearTimeout(this.timer)
     this.timer = null
     sending.delete(this)
-    this.held = false
   }
 
   submit() {
     if (sending.size > 0) {
-      this.held = true
+      if (!waiting.includes(this)) waiting.push(this)
       return
     }
 
@@ -36,10 +36,9 @@ export default class extends Controller {
 
   release() {
     sending.delete(this)
-    if (!this.held) return
+    if (sending.size > 0) return
 
-    this.held = false
-    this.submit()
+    waiting.splice(0).forEach((form) => form.submit())
   }
 
   changed(event) {

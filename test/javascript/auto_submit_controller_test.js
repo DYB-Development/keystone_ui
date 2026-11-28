@@ -303,3 +303,15 @@ test("a change in one auto-submit form waits while another auto-submit form's su
 
   assert.equal(second.form.submitted, 0)
 })
+
+test("a change held behind another auto-submit form's submission is sent once that submission finishes", async () => {
+  const first = formWith()
+  const second = formWith()
+  streamsOnPage()
+
+  first.controller.started()
+  second.controller.changed({ target: field("select-one", "SELECT") })
+  await first.controller.finished({ detail: { success: true } })
+
+  assert.equal(second.form.submitted, 1)
+})
