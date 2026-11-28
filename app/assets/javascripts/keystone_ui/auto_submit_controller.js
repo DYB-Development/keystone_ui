@@ -11,13 +11,24 @@ export default class extends Controller {
   }
 
   submit() {
-    if (this.sending) return
+    if (this.sending) {
+      this.held = true
+      return
+    }
 
     this.element.requestSubmit()
   }
 
   started() {
     this.sending = true
+  }
+
+  async finished() {
+    this.sending = false
+    if (!this.held) return
+
+    this.held = false
+    this.submit()
   }
 
   changed(event) {

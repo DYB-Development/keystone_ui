@@ -204,3 +204,18 @@ test("a change made while the form's last submission is still being sent waits f
 
   assert.equal(form.submitted, 0)
 })
+
+function streamsOnPage(streams = []) {
+  globalThis.document = { querySelectorAll: (selector) => (selector === "turbo-stream" ? streams : []) }
+}
+
+test("a change held while the last submission was sent is sent once that submission finishes", async () => {
+  const { controller, form } = formWith()
+  streamsOnPage()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  await controller.finished({ detail: { success: true } })
+
+  assert.equal(form.submitted, 1)
+})
