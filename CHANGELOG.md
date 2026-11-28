@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.112.0] - 2026-11-28
+
 ### Added
 - `ui_stat_card` takes `tight: true` to draw its figure with no padding, border or background and no empty change line, so summary figures in a grid sit only the grid's gap apart.
 - `ui_panel` takes `title_size: :sm` to draw its title at 15px with its aside in bold beside it.
