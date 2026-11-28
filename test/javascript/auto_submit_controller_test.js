@@ -265,3 +265,14 @@ test("a held change is still sent when the answer to the last submission cannot 
 
   assert.equal(form.submitted, 1)
 })
+
+test("a held change is still sent when the last submission failed to reach the server", async () => {
+  const { controller, form } = formWith()
+  streamsOnPage()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  await controller.finished({ detail: { success: false, error: new TypeError("Failed to fetch") } })
+
+  assert.equal(form.submitted, 1)
+})
