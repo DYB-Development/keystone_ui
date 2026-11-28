@@ -219,3 +219,16 @@ test("a change held while the last submission was sent is sent once that submiss
 
   assert.equal(form.submitted, 1)
 })
+
+test("several changes held while the last submission was sent are sent together as one submission", async () => {
+  const { controller, form } = formWith()
+  streamsOnPage()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  controller.changed({ target: field("checkbox") })
+  controller.changed({ target: field("radio") })
+  await controller.finished({ detail: { success: true } })
+
+  assert.equal(form.submitted, 1)
+})
