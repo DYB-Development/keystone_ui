@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.111.0] - 2026-11-28
+
 ### Added
 - `ui_value_list` takes `compact: true` for a compact result list whose labels keep their natural width and whose values sit at the right in bold, with no line between rows.
 - `ui_section` takes `title_caps: true` to draw its title as a heading in small grey capitals.
