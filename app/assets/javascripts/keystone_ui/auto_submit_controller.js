@@ -11,7 +11,13 @@ export default class extends Controller {
   }
 
   submit() {
+    if (this.sending) return
+
     this.element.requestSubmit()
+  }
+
+  started() {
+    this.sending = true
   }
 
   changed(event) {

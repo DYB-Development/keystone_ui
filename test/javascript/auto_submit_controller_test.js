@@ -195,3 +195,12 @@ test("a refresh that kept the person's field in place leaves their caret alone",
 
   assert.equal(replacement.selection, undefined)
 })
+
+test("a change made while the form's last submission is still being sent waits for it to finish", () => {
+  const { controller, form } = formWith()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(form.submitted, 0)
+})
