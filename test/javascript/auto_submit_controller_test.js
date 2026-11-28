@@ -254,3 +254,14 @@ test("a held change waits until the Turbo Stream answer to the last submission h
 
   assert.deepEqual([sentBeforeDrawn, form.submitted], [0, 1])
 })
+
+test("a held change is still sent when the answer to the last submission cannot be read", async () => {
+  const { controller, form } = formWith()
+  streamsOnPage()
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  await controller.finished({ detail: { success: false, fetchResponse: { responseHTML: Promise.reject(new Error("connection lost")) } } }).catch(() => {})
+
+  assert.equal(form.submitted, 1)
+})

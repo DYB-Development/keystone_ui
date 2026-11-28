@@ -24,7 +24,14 @@ export default class extends Controller {
   }
 
   async finished(event) {
-    await this.answerDrawn(event.detail.fetchResponse)
+    try {
+      await this.answerDrawn(event.detail.fetchResponse)
+    } finally {
+      this.release()
+    }
+  }
+
+  release() {
     this.sending = false
     if (!this.held) return
 
