@@ -115,6 +115,14 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert spacer(page)&.css("div")&.any? { |block| block[:class].to_s.split.include?("[html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block") }
   end
 
+  def test_ui_bottom_action_passes_native_on_to_the_bottom_action
+    page = render_in_view_context do
+      safe_join([ render(Keystone::Ui::PageHeaderComponent.new(title: "Offer", action_url: "/offers/1/save", action_label: "Save")), ui_bottom_action(native: true) ])
+    end
+
+    assert_includes bottom_bar(page)&.[]("class").to_s.split, "hotwire-native:bottom-0"
+  end
+
   private
 
   def render_after_page_header(bottom_action: {}, **header)
