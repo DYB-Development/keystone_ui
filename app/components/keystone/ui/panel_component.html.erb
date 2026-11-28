@@ -4,6 +4,8 @@
       <h3 class="<%= TITLE_CLASSES %>"><%= title %><% if marker %> <%= marker %><% end %></h3>
       <% if aside %><span class="<%= ASIDE_CLASSES %>"><%= aside %></span><% end %>
     </div>
+  <% elsif action? %>
+    <div class="<%= ACTION_ROW_CLASSES %>"><%= render action_button %></div>
   <% end %>
   <%= content %>
 </div>
