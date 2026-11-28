@@ -4,8 +4,10 @@ module Keystone
   module Ui
     class FormComponent < ViewComponent::Base
       FORM_CLASSES = "ks-form"
+      DENSITY_CLASSES = { compact: "ks-form ks-form-compact" }.freeze
 
-      def initialize(action:, method: :post, multipart: false, data: nil, auto_submit: false)
+      def initialize(action:, method: :post, multipart: false, data: nil, auto_submit: false, density: nil)
+        @density = density
         @action = action
         @method = method.to_sym
         @multipart = multipart
@@ -17,7 +19,7 @@ module Keystone
         options = {
           url: @action,
           method: @method,
-          class: FORM_CLASSES,
+          class: @density ? DENSITY_CLASSES.fetch(@density) : FORM_CLASSES,
           multipart: @multipart
         }
         options[:data] = @data if @data
