@@ -21,10 +21,17 @@ export default class extends Controller {
     }
 
     sending.add(this)
+    this.turboStarted = false
     this.element.requestSubmit()
+    setTimeout(() => this.releaseUnstarted())
+  }
+
+  releaseUnstarted() {
+    if (!this.turboStarted && sending.has(this)) this.release()
   }
 
   started() {
+    this.turboStarted = true
     sending.add(this)
   }
 

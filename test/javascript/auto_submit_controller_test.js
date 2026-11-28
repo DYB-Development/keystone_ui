@@ -389,3 +389,14 @@ test("a change made after an auto-submit form is sent and before Turbo starts it
 
   assert.equal(second.form.submitted, 0)
 })
+
+test("a send that Turbo does not start in the same task lets the next held form be sent", async () => {
+  const first = formWith()
+  const second = formWith()
+
+  first.controller.changed({ target: field("select-one", "SELECT") })
+  second.controller.changed({ target: field("select-one", "SELECT") })
+  await new Promise((resolve) => setTimeout(resolve))
+
+  assert.equal(second.form.submitted, 1)
+})
