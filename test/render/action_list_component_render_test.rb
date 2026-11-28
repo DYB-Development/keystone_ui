@@ -32,4 +32,16 @@ class Keystone::Ui::ActionListComponentRenderTest < ViewComponent::TestCase
 
     assert_equal [ "submit", "price[price]", "2400", nil ], %w[type name value formaction].map { |name| page.at_css("li button")&.[](name) }
   end
+
+  def test_a_compact_list_draws_each_row_in_small_text
+    page = render_inline(Keystone::Ui::ActionListComponent.new(rows: [ { text: "Lower the price to $2,400." } ], compact: true))
+
+    assert_includes page.at_css("li")&.[]("class")&.split, "text-sm"
+  end
+
+  def test_a_compact_list_keeps_each_rows_button_at_the_right_of_its_sentence_on_a_phone
+    page = render_inline(Keystone::Ui::ActionListComponent.new(rows: [ { text: "Lower the price to $2,400." } ], compact: true))
+
+    assert_equal [ false, true ], [ page.at_css("li")&.[]("class")&.split&.include?("max-sm:flex-col"), page.at_css("li")&.[]("class")&.split&.include?("items-center") ]
+  end
 end

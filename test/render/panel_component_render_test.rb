@@ -38,4 +38,10 @@ class Keystone::Ui::PanelComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Remove", page.css(".ks-panel > div:first-child > *").last&.text&.strip
   end
+
+  def test_a_small_title_draws_its_title_and_aside_in_the_small_header_look
+    page = render_inline(Keystone::Ui::PanelComponent.new(title: "Same value per dollar", aside: "$3,000", title_size: :sm)) { "The working" }
+
+    assert_equal "$3,000", page.at_css(".ks-panel-header-sm h3 + .ks-heading-note")&.text&.strip
+  end
 end

@@ -5,6 +5,7 @@ module Keystone
     class StackedBarComponent < ViewComponent::Base
       BAR_CLASSES = "ks-stacked-bar flex h-7"
       LEGEND_CLASSES = "ks-stacked-bar-legend flex flex-wrap"
+      LEGEND_ABOVE_CLASSES = "ks-stacked-bar-legend ks-stacked-bar-legend-above flex flex-wrap"
       LEGEND_ITEM_CLASSES = "ks-stacked-bar-legend-item flex items-center"
       LEGEND_VALUE_CLASSES = "ks-stacked-bar-legend-value"
       AMOUNT_CLASSES = {
@@ -42,13 +43,22 @@ module Keystone
 
       attr_reader :segments
 
-      def initialize(segments:, total: nil, total_label: "the total")
+      def initialize(segments:, total: nil, total_label: "the total", legend: :below)
         unknown = segments.map { |segment| segment[:tone] }.reject { |tone| SEGMENT_CLASSES.key?(tone) }
         raise ArgumentError, "Unknown stacked bar tone #{unknown.first.inspect}, expected one of #{SEGMENT_CLASSES.keys.join(', ')}" if unknown.any?
 
         @segments = segments
         @total = total
         @total_label = total_label
+        @legend = legend
+      end
+
+      def legend_above?
+        @legend == :above
+      end
+
+      def legend_classes
+        legend_above? ? LEGEND_ABOVE_CLASSES : LEGEND_CLASSES
       end
 
       def drawn_segments

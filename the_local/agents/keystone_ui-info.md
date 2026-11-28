@@ -132,7 +132,8 @@ One decision: is keystone_ui set up in the app?
   each label in small text directly above its value, a long value wrapping
   inside its own column, and no line between pairs. A value list can also be
   drawn compact, as a result box's lines: small text, each label at its
-  natural width, each value at the right in bold, and no line between rows.
+  natural width, each value at the right in bold on one line, and no line
+  between rows.
 - **Section headers.** A section's header holds its title and optional
   subtitle, then an optional action link and action menu. A section can also
   carry an aside, a short piece of text or a badge drawn in the header's note
@@ -220,10 +221,19 @@ One decision: is keystone_ui set up in the app?
 - **Compact stat cards.** A stat card can be drawn compact, a small tile with
   an extra small label and a smaller value, its change or note beside the
   value, for a small grid of figures inside a panel. A stat card's value can
-  also be drawn smaller on one line, so a figure never breaks on a phone.
+  also be drawn smaller on one line, so a figure never breaks on a phone. A
+  stat card can be drawn tight, with no padding and no empty change line, so
+  summary figures in a grid sit only the grid's gap apart.
 - **Panel actions.** A panel can carry one small text button at its top
   right that sends its own request, such as Remove on a row card, with or
-  without a title.
+  without a title. A panel's title can be drawn small, with its aside in bold
+  beside it, for an option card titled with its name and its amount.
+- **Compact action lists.** An action list can be drawn compact, with smaller
+  text and each button kept at the right of its sentence on a phone.
+- **Result lines.** A caption can be drawn as a result line, slightly larger
+  and darker than a muted caption, with bold amounts inside it.
+- **Legend above a stacked bar.** A stacked bar can draw its legend above the
+  bar instead of below it.
 - **Compact forms.** A form can be drawn compact, with smaller labels and
   fields.
 - **Small capitals and fixed width.** A stat card's label, a data table's

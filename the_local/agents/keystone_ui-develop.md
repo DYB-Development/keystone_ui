@@ -278,7 +278,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      width and the detail the other two thirds beside it. Below `lg:` the detail
      is drawn above the list. With no detail the list takes the full width at
      every size. Write no Tailwind classes of your own to get either order.
-   - `ui_panel(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil, selected_marker: nil, aside: nil, action: nil)`
+   - `ui_panel(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil, selected_marker: nil, aside: nil, action: nil, title_size: :lg)`
      — `padding:` is `:sm` `:md` `:lg` and `radius:` is `:md` `:lg` `:xl`.
      `shaded: true` fills the panel with a shaded background and drops its
      shadow, for the result box under a form. `selected: true` outlines it as
@@ -291,7 +291,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      the panel's top right that sends its own request, such as Remove on a row
      card. It needs no `title:`, and with one it sits at the end of the title
      line. The button sends its own form, so a panel with an `action:` that
-     sends a method other than `:get` cannot sit inside another form.
+     sends a method other than `:get` cannot sit inside another form. With no
+     `title:` the button is plain muted text with no underline.
+     `title_size: :sm` draws the title at 15px and the `aside:` at 15px in the
+     text colour and bold, for an option card titled with its name and its
+     amount.
    - `ui_card_link(href:, padding: :md, shadow: true)` — `padding:` is `:sm`
      `:md` `:lg`.
    - `ui_card(title:, summary:, link:, cta: "Read more", edge_to_edge: false, class: nil)`
@@ -857,14 +861,16 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      the form open. Ask the developer which row is current on each page.
      Use it for a list of records that each open their own page, in place of a
      hand-written `<ul>` of links.
-   - `ui_action_list(rows:)` — each row is `{ text:, button: nil }`, where
+   - `ui_action_list(rows:, compact: false)` — each row is `{ text:, button: nil }`, where
      `text:` is a sentence and `button:` takes `ui_button`'s keywords, small
      and secondary unless it says otherwise. A button with `href:`, a method
      such as `:patch` and `params:` sends its own request, and one with `name:`
      and `value:` and no `href:` submits the form the list sits in, such as a
      Use button that sets a price. The button sits at the right of its
-     sentence and under it on a phone. Use it for a list of suggested fixes or
-     next steps, each of which can be applied in one press.
+     sentence and under it on a phone. `compact: true` draws each sentence in
+     14px text and keeps its button at the right of the sentence on a phone
+     too. Use it for a list of suggested fixes or next steps, each of which
+     can be applied in one press.
    - `ui_empty_state(title:, message: nil, action: nil)` — `action:` is
      `{ label:, href: }` and draws a secondary button. Use it in place of a bare
      "Nothing yet" paragraph wherever a list or section can be empty.
@@ -926,6 +932,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_caption(text: nil, tone: :muted, normal_case: false)` shows small
      uppercase muted text above a title or a figure. `tone: :link` draws it in
      the link colour with space under it, as the label above a quiz question.
+     `tone: :result` draws a result line in the case it was written, at 13px
+     and darker than `:muted`, and each `<b>` in it, such as an amount, in the
+     text colour and bold. Pass the line as a block holding the `<b>` tags,
+     such as `Covers <b>48%</b> of the price at <b>$1,900</b>`, for the line
+     under a row card or a field.
      `normal_case: true` draws a small muted line in the case it was written,
      such as a note under a step's details or a key under a chart. A block
      given to it is drawn in place of `text:`, so the line can hold links, and
@@ -945,8 +956,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      `value_mono: true` draws the values in a fixed-width font, as for ids,
      model names and run numbers. `compact: true` draws a compact result
      list in 14px text, each label at its natural width and each value at the
-     right in bold, with no line between rows and a `key: true` value at 18px,
-     for a result box in a shaded `ui_panel`.
+     right in bold on one line, so a narrow row wraps its label and never its
+     value, with no line between rows and a `key: true` value at 18px, for a
+     result box in a shaded `ui_panel`.
    - With the default `columns: false`, each pair is one row with its label
      beside its value and a line between rows. `columns: true` draws each pair
      as its label in small text directly above its value, with no line between
@@ -957,7 +969,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 10. Explain figures.
 
-    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false, value_size: :lg)`
+    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false, value_size: :lg, tight: false)`
       — `variant:` is `:neutral` `:success` `:danger` `:warning` `:info` and
       colours the value. `change:` is a signed number shown as `▲ 4.2%` in
       green, `▼` in red, or plain at zero. `href:` links the value only, so
@@ -970,7 +982,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       sit two across and stack on a phone. `label_caps: true` draws the label
       in small capitals. `value_size: :sm` draws the value at 22px on one line
       and the label in 12px text, so a figure such as `$14,885` never breaks on
-      a phone in a row of stat cards two across.
+      a phone in a row of stat cards two across. `tight: true` draws the
+      figure with no padding, border or background and with no empty change
+      line under it when there is no `change:`, so summary figures in a
+      `ui_grid(gap: :sm)` sit only the grid's gap apart.
     - `ui_figure(text:, tone: :neutral)` prints one amount or short result
       inline. `tone:` `:neutral` uses the surrounding text colour, `:success`
       green, `:danger` red, `:warning` amber and `:info` blue, such as
@@ -1013,7 +1028,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
     - `ui_chart_card(title:, height: :md)` takes a block holding a chart, with
       `height:` `:sm` `:md` `:lg`.
-    - `ui_stacked_bar(segments:, total: nil, total_label: "the total")` —
+    - `ui_stacked_bar(segments:, total: nil, total_label: "the total", legend: :below)` —
       `segments:` is `[{ label:, amount:, tone:, value: nil, size: nil }, ...]`.
       Each segment is as wide as its share of the bar, the bar is 28 pixels
       tall with a 2 pixel gap between segments, and a legend under it lists
@@ -1029,7 +1044,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       or `amount:` without one, is zero or negative is not drawn and is still
       in the legend. `tone:` is `:teal` `:orange` `:blue` or `:amber`, each
       with its own light and dark colour, and any other raises
-      `ArgumentError` naming it. It needs no JavaScript.
+      `ArgumentError` naming it. It needs no JavaScript. `legend: :above`
+      draws the legend above the bar, before it in the page.
     - `ui_bar_chart(bars:, show_values: false, strip: false)` — `bars:` is
       `[{ label:, value:, shaded:, group: }, ...]`, where `shaded: true` draws
       a bar faded. A negative `value:` raises `ArgumentError` naming it. It
@@ -1215,7 +1231,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       filters, and `shape: :underline` draws the tabs on a line with the
       chosen tab underlined. `shape: :text_underline` draws them as
       `:underline` does in 14px text, with the chosen tab's label and underline
-      in the text colour and the heading weight. In any shape a count is drawn as plain muted
+      in the text colour and the heading weight, and no tab's label is
+      underlined as a link. In any shape a count is drawn as plain muted
       text after the label, and the shape sets the tabs' text size, so do not
       add a text size class.
     - Below `sm` every tab switcher's tab row stays on one line, starts at
