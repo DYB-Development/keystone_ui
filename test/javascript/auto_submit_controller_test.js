@@ -1,11 +1,18 @@
-import { test } from "node:test"
+import { test, afterEach } from "node:test"
 import assert from "node:assert/strict"
 import AutoSubmitController from "../../app/assets/javascripts/keystone_ui/auto_submit_controller.js"
+
+const connected = []
+
+afterEach(() => {
+  connected.splice(0).forEach((controller) => controller.disconnect())
+})
 
 function formWith() {
   const form = { submitted: 0, requestSubmit() { this.submitted += 1 }, contains(node) { return node?.inForm === true } }
   const controller = new AutoSubmitController({ scope: { element: form } })
   Object.defineProperty(controller, "delayValue", { value: 500 })
+  connected.push(controller)
   return { controller, form }
 }
 
@@ -29,13 +36,20 @@ test("choosing an option in a select submits the form at once", () => {
   assert.equal(form.submitted, 1)
 })
 
-test("ticking a checkbox or choosing a radio button submits the form at once", () => {
+test("ticking a checkbox submits the form at once", () => {
   const { controller, form } = formWith()
 
   controller.changed({ target: field("checkbox") })
+
+  assert.equal(form.submitted, 1)
+})
+
+test("choosing a radio button submits the form at once", () => {
+  const { controller, form } = formWith()
+
   controller.changed({ target: field("radio") })
 
-  assert.equal(form.submitted, 2)
+  assert.equal(form.submitted, 1)
 })
 
 test("leaving a text field with nothing new typed sends nothing", () => {
@@ -285,4 +299,104 @@ test("a form taken off the page while sending, then put back, sends its next cha
   controller.changed({ target: field("select-one", "SELECT") })
 
   assert.equal(form.submitted, 1)
+})
+
+test("a change in one auto-submit form waits while another auto-submit form's submission is still being sent", () => {
+  const first = formWith()
+  const second = formWith()
+
+  first.controller.started()
+  second.controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(second.form.submitted, 0)
+})
+
+test("a change held behind another auto-submit form's submission is sent once that submission finishes", async () => {
+  const first = formWith()
+  const second = formWith()
+  streamsOnPage()
+
+  first.controller.started()
+  second.controller.changed({ target: field("select-one", "SELECT") })
+  await first.controller.finished({ detail: { success: true } })
+
+  assert.equal(second.form.submitted, 1)
+})
+
+test("forms held behind a submission are sent one at a time, the first held going first", async () => {
+  const sent = formWith()
+  const firstHeld = formWith()
+  const secondHeld = formWith()
+  streamsOnPage()
+
+  sent.controller.started()
+  firstHeld.controller.changed({ target: field("select-one", "SELECT") })
+  secondHeld.controller.changed({ target: field("select-one", "SELECT") })
+  firstHeld.controller.changed({ target: field("checkbox") })
+  await sent.controller.finished({ detail: { success: true } })
+
+  assert.deepEqual([firstHeld.form.submitted, secondHeld.form.submitted], [1, 0])
+})
+
+test("a held form taken off the page is not sent once the submission it waited behind finishes", async () => {
+  const sent = formWith()
+  const held = formWith()
+  streamsOnPage()
+
+  sent.controller.started()
+  held.controller.changed({ target: field("select-one", "SELECT") })
+  held.controller.disconnect()
+  await sent.controller.finished({ detail: { success: true } })
+
+  assert.equal(held.form.submitted, 0)
+})
+
+test("a form taken off the page while its submission is being sent lets the next held form be sent", () => {
+  const sent = formWith()
+  const held = formWith()
+
+  sent.controller.started()
+  held.controller.changed({ target: field("select-one", "SELECT") })
+  sent.controller.disconnect()
+
+  assert.equal(held.form.submitted, 1)
+})
+
+test("a form replaced by the Turbo Stream answer to its own submission holds the next form until that answer has been drawn", async () => {
+  const sent = formWith()
+  const held = formWith()
+  const { stream, finishRendering } = streamRendering()
+  streamsOnPage([ stream ])
+
+  sent.controller.started()
+  held.controller.changed({ target: field("select-one", "SELECT") })
+  const finishing = sent.controller.finished({ detail: { success: true, fetchResponse: { responseHTML: Promise.resolve("<turbo-stream></turbo-stream>") } } })
+  await new Promise((resolve) => setTimeout(resolve, 10))
+  sent.controller.disconnect()
+  const sentBeforeDrawn = held.form.submitted
+  finishRendering()
+  await finishing
+
+  assert.deepEqual([sentBeforeDrawn, held.form.submitted], [0, 1])
+})
+
+test("a change made after an auto-submit form is sent and before Turbo starts its submission is held", () => {
+  const first = formWith()
+  const second = formWith()
+
+  first.controller.changed({ target: field("select-one", "SELECT") })
+  second.controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(second.form.submitted, 0)
+})
+
+test("a send that Turbo does not start in the same task lets the next held form be sent", async () => {
+  const first = formWith()
+  const second = formWith()
+
+  first.controller.changed({ target: field("select-one", "SELECT") })
+  second.controller.changed({ target: field("select-one", "SELECT") })
+  await new Promise((resolve) => setTimeout(resolve))
+
+  assert.equal(second.form.submitted, 1)
 })

@@ -469,13 +469,21 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      Turbo morphs it. Through that morph the field the person is in keeps what
      they typed, and when the morph replaced that field, focus and the caret go
      back to it by its `id`, so give every field an `id`, as `ui_form_field`
-     does. While a submission from the form is still being sent, a new change
-     is held, and once that submission has finished and any Turbo Stream
-     answer to it has been drawn, the held changes go out as one submission
-     with the form's values at that moment. So a page answering with Turbo
-     Streams that replace a hidden `lock_version` field never sends the old
-     value, and the app adds no queue of its own. A submission that fails or
-     never reaches the server releases the hold too. A `controller` or
+     does. Every auto-submit form on the page sends one submission at a time.
+     While a submission from any of them is still being sent, a change in any
+     auto-submit form is held, and once that submission has finished and any
+     Turbo Stream answer to it has been drawn, the held forms go out one after
+     another in the order they were first held, each with its values at the
+     moment it is sent, and several changes held in one form go out as one
+     submission. So a page of several auto-submit forms, such as one per row
+     card and one per section, that all carry the same hidden `lock_version`
+     replaced by each Turbo Stream answer never sends the old value, and the
+     app adds no queue of its own. A submission that fails or never reaches
+     the server releases the hold too, and so does a send that browser
+     validation blocks before Turbo starts it. A held form taken off the page is not
+     sent, and a form taken off the page while sending lets the next held
+     form go, unless it was replaced by its own answer, which holds the next
+     form until that answer has been drawn. A `controller` or
      `action` already in `data:` is kept. A form built with Rails' own helpers
      gets the same with `data: { controller: "auto-submit", action:
      "change->auto-submit#changed input->auto-submit#typed

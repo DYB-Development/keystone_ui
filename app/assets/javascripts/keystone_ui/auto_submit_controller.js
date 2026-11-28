@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 const TYPED_FIELDS = ["text", "number", "search", "email", "tel", "url"]
+const sending = new Set()
+const waiting = []
 
 export default class extends Controller {
   static values = { delay: { type: Number, default: 500 } }
@@ -8,24 +10,33 @@ export default class extends Controller {
   disconnect() {
     clearTimeout(this.timer)
     this.timer = null
-    this.sending = false
-    this.held = false
+    if (waiting.includes(this)) waiting.splice(waiting.indexOf(this), 1)
+    if (sending.has(this) && !this.answering) this.release()
   }
 
   submit() {
-    if (this.sending) {
-      this.held = true
+    if (sending.size > 0) {
+      if (!waiting.includes(this)) waiting.push(this)
       return
     }
 
+    sending.add(this)
+    this.turboStarted = false
     this.element.requestSubmit()
+    setTimeout(() => this.releaseUnstarted())
+  }
+
+  releaseUnstarted() {
+    if (!this.turboStarted && sending.has(this)) this.release()
   }
 
   started() {
-    this.sending = true
+    this.turboStarted = true
+    sending.add(this)
   }
 
   async finished(event) {
+    this.answering = true
     try {
       await this.answerDrawn(event.detail.fetchResponse)
     } finally {
@@ -34,11 +45,11 @@ export default class extends Controller {
   }
 
   release() {
-    this.sending = false
-    if (!this.held) return
+    this.answering = false
+    sending.delete(this)
+    if (sending.size > 0) return
 
-    this.held = false
-    this.submit()
+    waiting.shift()?.submit()
   }
 
   changed(event) {
