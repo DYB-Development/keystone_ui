@@ -315,3 +315,18 @@ test("a change held behind another auto-submit form's submission is sent once th
 
   assert.equal(second.form.submitted, 1)
 })
+
+test("forms held behind a submission are sent one at a time, the first held going first", async () => {
+  const sent = formWith()
+  const firstHeld = formWith()
+  const secondHeld = formWith()
+  streamsOnPage()
+
+  sent.controller.started()
+  firstHeld.controller.changed({ target: field("select-one", "SELECT") })
+  secondHeld.controller.changed({ target: field("select-one", "SELECT") })
+  firstHeld.controller.changed({ target: field("checkbox") })
+  await sent.controller.finished({ detail: { success: true } })
+
+  assert.deepEqual([firstHeld.form.submitted, secondHeld.form.submitted], [1, 0])
+})

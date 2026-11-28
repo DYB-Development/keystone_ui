@@ -38,7 +38,7 @@ export default class extends Controller {
     sending.delete(this)
     if (sending.size > 0) return
 
-    waiting.splice(0).forEach((form) => form.submit())
+    waiting.shift()?.submit()
   }
 
   changed(event) {
