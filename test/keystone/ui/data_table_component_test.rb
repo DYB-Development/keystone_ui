@@ -641,4 +641,8 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
       "ks-table-header ks-table-header-last text-right ks-label-caps ks-table-compact"
     ], component.header_cells.map { |cell| cell[:classes] }
   end
+
+  def test_keeping_whole_words_breaks_no_heading_or_cell_in_the_middle_of_a_word
+    assert_equal "ks-table overflow-x-auto wrap-break-word", klass.new(items: [], columns: [ Keystone::Ui::Column.new(:name, "Name") ], whole_words: true).wrapper_classes
+  end
 end

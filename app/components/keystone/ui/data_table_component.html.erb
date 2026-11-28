@@ -3,7 +3,7 @@
     <%= render column_picker %>
   </div>
 <% end %>
-<div class="<%= Keystone::Ui::DataTableComponent::WRAPPER_CLASSES %>">
+<div class="<%= wrapper_classes %>">
   <table class="<%= table_classes %> divide-y divide-gray-300 dark:divide-white/15">
     <% if header? %>
       <thead class="<%= head_classes %>">
