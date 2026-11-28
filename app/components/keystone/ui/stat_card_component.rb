@@ -66,7 +66,7 @@ module Keystone
       def label_classes
         return CAPS_LABEL_CLASSES if @label_caps
 
-        @compact ? COMPACT_LABEL_CLASSES : LABEL_CLASSES
+        @compact || @value_size == :sm ? COMPACT_LABEL_CLASSES : LABEL_CLASSES
       end
 
       def value_classes

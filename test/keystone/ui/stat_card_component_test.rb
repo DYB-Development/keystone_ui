@@ -272,4 +272,8 @@ class Keystone::Ui::StatCardComponentTest < Minitest::Test
   def test_with_a_small_value_draws_the_value_at_the_small_size_on_one_line
     assert_equal "ks-stat-card-value ks-stat-card-value-sm whitespace-nowrap ks-tone-neutral", Keystone::Ui::StatCardComponent.new(label: "Price", value: "$14,885", value_size: :sm).value_classes
   end
+
+  def test_with_a_small_value_draws_the_label_in_extra_small_text
+    assert_equal "ks-stat-card-label text-xs", Keystone::Ui::StatCardComponent.new(label: "Price", value: "$14,885", value_size: :sm).label_classes
+  end
 end
