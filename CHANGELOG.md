@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_value_list` takes `compact: true` for a compact result list whose labels keep their natural width and whose values sit at the right in bold, with no line between rows.
+- `ui_section` takes `title_caps: true` to draw its title as a heading in small grey capitals.
+- `ui_section` takes `gap:` to stack its content with that grid gap between each piece.
+- `ui_section` takes `spacing: :none` to add no space above it, for the first section inside a panel.
+- `ui_tab_switcher` takes `wrap: true` to wrap its tab row onto more lines on a phone in place of scrolling sideways.
+- `ui_tab_switcher` takes `shape: :text_underline` to mark the chosen tab with its label and underline in the text colour.
+- `ui_panel` takes `action:` to draw a small text button at its top right that sends its own request, with or without a title.
+- `ui_stat_card` takes `value_size: :sm` to draw its value at 22px on one line, so a figure never breaks on a phone.
+- `ui_data_table` takes `whole_words: true` to break no heading or cell in the middle of a word and to hold a wrapping column at least 7rem wide.
+- `ui_bottom_action` takes `native: true` to stay shown inside a Hotwire Native web view, at the bottom of the web view.
+- `ui_form` takes `density: :compact` to draw its labels and fields smaller.
+
 ## [0.110.0] - 2026-11-28
 
 ### Changed
