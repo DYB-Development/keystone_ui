@@ -804,7 +804,8 @@ Renders a bordered, rounded container with padding and optional shadow.
 - `title:` (String) — a heading above the content
 - `selected_marker:` (String) — written after the title, such as `"(in use)"`, only while the panel is `selected:`
 - `aside:` (String) — a short note, such as an amount, at the right end of the title line
-- `action:` (Hash) — `ui_button` keywords for a small text button at the panel's top right, usually `label:`, `href:`, `method:` and `params:`. With a `method:` other than `:get` the button sends that request in its own form. Without a `title:` it sits on its own row at the top right, reaching into the panel's padding, and with a `title:` it sits at the end of the title line
+- `action:` (Hash) — `ui_button` keywords for a small text button at the panel's top right, usually `label:`, `href:`, `method:` and `params:`. With a `method:` other than `:get` the button sends that request in its own form. Without a `title:` it sits on its own row at the top right, reaching into the panel's padding, with no underline, and with a `title:` it sits at the end of the title line
+- `title_size:` (`:lg | :sm`, default `:lg`) — `:sm` draws the title at 15px and the `aside:` at 15px in the text colour and the strong weight, for an option card titled with its name and its amount
 
 ```erb
 <%= ui_panel(padding: :lg) do %>
@@ -1196,11 +1197,15 @@ Documents linked beside a form, opened in a new tab so the form keeps what was t
 
 ### `ui_action_list`
 
-Shows rows that are each a sentence, with an optional small button at the right of the sentence. On a phone the button sits under its sentence.
+Shows rows that are each a sentence, with an optional small button at the right of the sentence. On a phone the button sits under its sentence unless the list is `compact:`.
 
 **Required props**
 
 - `rows:` (Array of Hashes) — each is `{ text: }`, with optional `button:`, the keywords of a `ui_button`. The button is small and secondary unless `button:` says otherwise. With `href:` and a method such as `:post` it sends its own request, with `params:` as hidden fields, and with `name:` and `value:` and no `href:` it submits the form around the list.
+
+**Optional props**
+
+- `compact:` (Boolean, default `false`) — draws each sentence in 14px text and keeps each button at the right of its sentence at every width, centred against it
 
 ```erb
 <%= ui_action_list(rows: [
@@ -1361,16 +1366,21 @@ Shows small, uppercase, muted text for placing above a title or a figure.
 **Optional props**
 
 - `text:` (String) — the caption's text, left out when the caption is given a block
-- `tone:` (`:muted | :link`, default `:muted`) — `:link` draws the caption in the link colour with space under it, as the label above a quiz question
+- `tone:` (`:muted | :link | :result`, default `:muted`) — `:link` draws the caption in the link colour with space under it, as the label above a quiz question, and `:result` draws a result line, described below
 - `normal_case:` (Boolean, default `false`) — draws a small muted line in the case it was written, in the normal weight, with any links in it in the link colour, such as a note under a step's details
 
-A block given to the caption is shown in place of `text:`, so the line can hold links.
+`tone: :result` draws a result line under a row card or a field in the case it was written, at 13px in the secondary text colour, darker than `:muted`, with each `<b>` in it, such as an amount, in the text colour and the strong weight. Pass the line as a block to hold the `<b>` tags.
+
+A block given to the caption is shown in place of `text:`, so the line can hold links and bold amounts.
 
 ```erb
 <%= ui_caption(text: "Work report") %>
 <%= ui_caption(text: "Geography", tone: :link) %>
 <%= ui_caption(normal_case: true) do %>
   <%= link_to request.code, request_path(request) %> · <%= link_to run.code, run_path(run) %>
+<% end %>
+<%= ui_caption(tone: :result) do %>
+  Covers <b>48%</b> of the price at <b><%= number_to_currency(1900, precision: 0) %></b>
 <% end %>
 ```
 
@@ -1430,7 +1440,7 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
 - `columns:` (Boolean, default `false`) — shows each label in small text with its value directly below it, and lays the pairs in one column on a phone and two columns from `sm` up, with a long value wrapping inside its own column
 - `label_caps:` (Boolean, default `false`) — draws each label in small capitals
 - `value_mono:` (Boolean, default `false`) — draws each value in a fixed-width font
-- `compact:` (Boolean, default `false`) — a compact result list in 14px text: each label takes its natural width and stays on one line where it fits, each value sits at the right end of its row in bold with digits of equal width, and no line is drawn between rows. A `key: true` row draws its value at 18px
+- `compact:` (Boolean, default `false`) — a compact result list in 14px text: each label takes its natural width and stays on one line where it fits, each value sits at the right end of its row in bold with digits of equal width, on one line and never narrowed, so a narrow row wraps its label rather than its value, and no line is drawn between rows. A `key: true` row draws its value at 18px
 
 ```erb
 <%= ui_panel(shaded: true, shadow: false, padding: :sm) do %>
@@ -1471,6 +1481,7 @@ Draws one horizontal bar 28 pixels tall split into segments, each as wide as its
 
 - `total:` (Number) — the total each share is worked out against, the sum of the drawn amounts when left out. A total of zero shows no share.
 - `total_label:` (String, default `"the total"`) — what the total is called, as in "40% of actual value"
+- `legend:` (`:below | :above`, default `:below`) — `:above` draws the legend above the bar, before it in the page, with 2 spacing units between them
 
 The fill tones, each with a light and a dark colour, are `:teal` (#00b894 / #00a888), `:orange` (#f47230 / #e76624), `:blue` (#257de0 / #338ced) and `:amber` (#f2a600 / #d28e05), listed in `Keystone::Ui::Fills::CLASSES`.
 
@@ -1613,6 +1624,7 @@ Renders a metric card for dashboards.
 - `compact:` (Boolean, default `false`) — a small tile with an extra small label and a smaller value, with its change or note beside the value, about 58px tall against a default card's 134px. Placed in `ui_grid(cols: { default: 1, sm: 2 }, gap: :sm)` inside a panel, compact cards sit two across and stack one across on a phone
 - `label_caps:` (Boolean, default `false`) — draws the label in small capitals
 - `value_size:` (`:lg | :sm`, default `:lg`) — `:sm` draws the value at 22px in the heading weight and the label in 12px text, and keeps the value on one line so a figure such as `$14,885` never breaks across lines on a phone
+- `tight:` (Boolean, default `false`) — draws the figure with no padding, card border or background, and with no empty change line under the value when `change:` is not given, so summary figures in a `ui_grid(gap: :sm)` sit as close as the grid's gap
 
 When `definition:` or `calculation:` is given, an info button appears. Hovering or focusing it shows the details in a panel floating below the card, and tapping it toggles the panel on touch screens. The card never changes size.
 
@@ -1734,7 +1746,7 @@ Renders a tab bar with active state indicator. Uses Stimulus `tab-switcher` cont
 **Optional props**
 
 - `align:` (Symbol, default `:center`) — `:start` starts the tab row at the left edge on every width instead of centring it from `sm` up
-- `shape:` (Symbol, default `nil`) — `:pills` draws each tab as an outlined pill and `:underline` draws the tabs on a line with the chosen tab underlined, and with no shape the tabs are drawn as before. `:text_underline` draws the tabs as `:underline` does in 14px text, with the chosen tab's label and underline in the text colour and the heading weight
+- `shape:` (Symbol, default `nil`) — `:pills` draws each tab as an outlined pill and `:underline` draws the tabs on a line with the chosen tab underlined, and with no shape the tabs are drawn as before. `:text_underline` draws the tabs as `:underline` does in 14px text, with the chosen tab's label and underline in the text colour and the heading weight, and no text underline under any tab's label even in an app that underlines every link
 - `id:` (String, default `nil`) — the `id` of the tab row, so a Turbo Stream can replace the row, with its labels and counts, without redrawing the content under it
 - `wrap:` (Boolean, default `false`) — below `sm` the tab row wraps onto more lines when its tabs do not fit, in place of scrolling sideways, and it starts at the left edge. Each tab label stays on one line. It works with `id:`, `align:` and `shape:`
 
