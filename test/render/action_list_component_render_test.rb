@@ -38,4 +38,10 @@ class Keystone::Ui::ActionListComponentRenderTest < ViewComponent::TestCase
 
     assert_includes page.at_css("li")&.[]("class")&.split, "text-sm"
   end
+
+  def test_a_compact_list_keeps_each_rows_button_at_the_right_of_its_sentence_on_a_phone
+    page = render_inline(Keystone::Ui::ActionListComponent.new(rows: [ { text: "Lower the price to $2,400." } ], compact: true))
+
+    assert_equal [ false, true ], [ page.at_css("li")&.[]("class")&.split&.include?("max-sm:flex-col"), page.at_css("li")&.[]("class")&.split&.include?("items-center") ]
+  end
 end
