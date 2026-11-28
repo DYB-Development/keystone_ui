@@ -11,7 +11,7 @@ export default class extends Controller {
     clearTimeout(this.timer)
     this.timer = null
     if (waiting.includes(this)) waiting.splice(waiting.indexOf(this), 1)
-    if (sending.has(this)) this.release()
+    if (sending.has(this) && !this.answering) this.release()
   }
 
   submit() {
@@ -28,6 +28,7 @@ export default class extends Controller {
   }
 
   async finished(event) {
+    this.answering = true
     try {
       await this.answerDrawn(event.detail.fetchResponse)
     } finally {
@@ -36,6 +37,7 @@ export default class extends Controller {
   }
 
   release() {
+    this.answering = false
     sending.delete(this)
     if (sending.size > 0) return
 

@@ -354,3 +354,21 @@ test("a form taken off the page while its submission is being sent lets the next
 
   assert.equal(held.form.submitted, 1)
 })
+
+test("a form replaced by the Turbo Stream answer to its own submission holds the next form until that answer has been drawn", async () => {
+  const sent = formWith()
+  const held = formWith()
+  const { stream, finishRendering } = streamRendering()
+  streamsOnPage([ stream ])
+
+  sent.controller.started()
+  held.controller.changed({ target: field("select-one", "SELECT") })
+  const finishing = sent.controller.finished({ detail: { success: true, fetchResponse: { responseHTML: Promise.resolve("<turbo-stream></turbo-stream>") } } })
+  await new Promise((resolve) => setTimeout(resolve, 10))
+  sent.controller.disconnect()
+  const sentBeforeDrawn = held.form.submitted
+  finishRendering()
+  await finishing
+
+  assert.deepEqual([sentBeforeDrawn, held.form.submitted], [0, 1])
+})
