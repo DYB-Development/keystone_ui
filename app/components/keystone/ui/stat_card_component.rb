@@ -7,6 +7,7 @@ module Keystone
       HEADER_CLASSES = "ks-stat-card-header flex items-start justify-between"
       CARD_CLASSES = "ks-metric-card relative"
       PLAIN_CLASSES = "ks-metric-plain relative"
+      TIGHT_CLASSES = "relative"
       COMPACT_CLASSES = "ks-metric-card ks-metric-card-compact relative"
       LABEL_CLASSES = "ks-stat-card-label text-sm"
       COMPACT_LABEL_CLASSES = "ks-stat-card-label text-xs"
@@ -32,7 +33,8 @@ module Keystone
 
       attr_reader :label, :value, :suffix, :definition, :calculation, :change, :href, :note
 
-      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false, value_size: :lg)
+      def initialize(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false, value_size: :lg, tight: false)
+        @tight = tight
         @value_size = value_size
         @compact = compact
         @label_caps = label_caps
@@ -59,6 +61,7 @@ module Keystone
 
       def classes
         return COMPACT_CLASSES if @compact
+        return TIGHT_CLASSES if @tight
 
         @plain ? PLAIN_CLASSES : CARD_CLASSES
       end
