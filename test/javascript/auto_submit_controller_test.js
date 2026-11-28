@@ -36,13 +36,20 @@ test("choosing an option in a select submits the form at once", () => {
   assert.equal(form.submitted, 1)
 })
 
-test("ticking a checkbox or choosing a radio button submits the form at once", () => {
+test("ticking a checkbox submits the form at once", () => {
   const { controller, form } = formWith()
 
   controller.changed({ target: field("checkbox") })
+
+  assert.equal(form.submitted, 1)
+})
+
+test("choosing a radio button submits the form at once", () => {
+  const { controller, form } = formWith()
+
   controller.changed({ target: field("radio") })
 
-  assert.equal(form.submitted, 2)
+  assert.equal(form.submitted, 1)
 })
 
 test("leaving a text field with nothing new typed sends nothing", () => {
@@ -371,4 +378,14 @@ test("a form replaced by the Turbo Stream answer to its own submission holds the
   await finishing
 
   assert.deepEqual([sentBeforeDrawn, held.form.submitted], [0, 1])
+})
+
+test("a change made after an auto-submit form is sent and before Turbo starts its submission is held", () => {
+  const first = formWith()
+  const second = formWith()
+
+  first.controller.changed({ target: field("select-one", "SELECT") })
+  second.controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(second.form.submitted, 0)
 })

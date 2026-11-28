@@ -20,6 +20,7 @@ export default class extends Controller {
       return
     }
 
+    sending.add(this)
     this.element.requestSubmit()
   }
 
