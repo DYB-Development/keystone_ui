@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- `ui_stat_card` takes `tight: true` to draw its figure with no padding, border or background and no empty change line, so summary figures in a grid sit only the grid's gap apart.
+- `ui_panel` takes `title_size: :sm` to draw its title at 15px with its aside in bold beside it.
+- `ui_action_list` takes `compact: true` to draw its sentences in 14px text and keep each button at the right of its sentence on a phone.
+- `ui_caption` takes `tone: :result` to draw a result line at 13px, darker than a muted caption, with each `<b>` in its block drawn in the text colour and bold.
+- `ui_stacked_bar` takes `legend: :above` to draw its legend above the bar.
+
+### Changed
+- keystone_ui requires keystone_ui-styles 0.48.0 or later, for the small panel header, result caption and legend-above classes and the fixes below.
+
+### Fixed
+- A `ui_value_list(compact: true)` value stays on one line at its full width, so a narrow row wraps its label instead of breaking a number.
+- A `ui_tab_switcher(shape: :text_underline)` tab draws no text underline under its label in an app that underlines every link, so only the chosen tab is underlined.
+- A `ui_panel` action with no title is drawn as plain muted text with no underline.
+- A `ui_select` or select `ui_form_field` keeps room on its right for its dropdown arrow, so its text stops before the arrow on a narrow screen.
+
 ## [0.111.0] - 2026-11-28
 
 ### Added
