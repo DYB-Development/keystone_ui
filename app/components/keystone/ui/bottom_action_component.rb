@@ -9,6 +9,7 @@ module Keystone
       NATIVE_SPACER_CLASSES = "sm:hidden print:hidden"
       BAR_COPY_CLASSES = "!static invisible"
       TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [body:has(.ks-bottom-nav)_&]:block"
+      NATIVE_TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block"
 
       def initialize(native: false)
         @native = native
@@ -30,7 +31,7 @@ module Keystone
 
       def spacer
         tag.div(class: @native ? NATIVE_SPACER_CLASSES : SPACER_CLASSES, inert: true, data: { bottom_action_spacer: true }) do
-          safe_join([ tag.div(class: "#{bar_classes} #{BAR_COPY_CLASSES}") { render button }, tag.div(class: TAB_BAR_ROOM_CLASSES) ])
+          safe_join([ tag.div(class: "#{bar_classes} #{BAR_COPY_CLASSES}") { render button }, tag.div(class: @native ? NATIVE_TAB_BAR_ROOM_CLASSES : TAB_BAR_ROOM_CLASSES) ])
         end
       end
 

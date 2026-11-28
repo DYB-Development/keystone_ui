@@ -109,6 +109,12 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     refute_includes spacer(page)&.[]("class").to_s.split, "hotwire-native:hidden"
   end
 
+  def test_shown_in_native_apps_keeps_no_room_for_the_bottom_nav_a_hotwire_native_web_view_hides
+    page = render_after_page_header(bottom_action: { native: true }, title: "Offer", action_url: "/offers/1/save", action_label: "Save")
+
+    assert spacer(page)&.css("div")&.any? { |block| block[:class].to_s.split.include?("[html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block") }
+  end
+
   private
 
   def render_after_page_header(bottom_action: {}, **header)
