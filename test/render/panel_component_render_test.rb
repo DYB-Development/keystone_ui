@@ -32,4 +32,10 @@ class Keystone::Ui::PanelComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "Remove", page.at_css(".ks-panel-action.flex.justify-end form[action='/lines/1'] button.ks-text-button")&.text&.strip
   end
+
+  def test_given_an_action_and_a_title_draws_the_action_at_the_end_of_the_title_line
+    page = render_inline(Keystone::Ui::PanelComponent.new(title: "Time saved", action: { label: "Remove", href: "/lines/1", method: :delete })) { "Line" }
+
+    assert_equal "Remove", page.css(".ks-panel > div:first-child > *").last&.text&.strip
+  end
 end

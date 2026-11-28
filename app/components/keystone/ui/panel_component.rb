@@ -26,6 +26,7 @@ module Keystone
       TITLE_CLASSES = "ks-card-title min-w-0"
       ASIDE_CLASSES = "ks-heading-note shrink-0"
       ACTION_ROW_CLASSES = "ks-panel-action flex justify-end"
+      TITLED_ACTION_CLASSES = "shrink-0"
 
       attr_reader :title, :aside
 
