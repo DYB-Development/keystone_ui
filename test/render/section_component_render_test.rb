@@ -88,6 +88,12 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_includes aside_classes(render_with_aside(action: { label: "Add", href: "/inbox/new" })), "max-sm:order-last"
   end
 
+  def test_given_title_caps_draws_its_title_as_a_heading_in_small_grey_capitals
+    page = render_inline(Keystone::Ui::SectionComponent.new(title: "Inputs", title_caps: true)) { "" }
+
+    assert_equal "ks-section-title ks-label-caps", page.at_css(".ks-section-header h2")["class"]
+  end
+
   private
 
   def render_with_aside(**args)

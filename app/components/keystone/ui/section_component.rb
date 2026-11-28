@@ -7,6 +7,7 @@ module Keystone
       HEADER_CLASSES = "ks-section-header"
       HEADER_WITH_ASIDE_CLASSES = "ks-section-header ks-grid-gap-sm max-sm:flex-wrap"
       TITLE_CLASSES = "ks-section-title"
+      CAPS_TITLE_CLASSES = "ks-section-title ks-label-caps"
       TITLE_WRAPPER_CLASSES = "min-w-0"
       SUBTITLE_CLASSES = "ks-section-subtitle"
       ACTION_CLASSES = "ks-section-action"
@@ -15,8 +16,9 @@ module Keystone
 
       renders_one :aside
 
-      def initialize(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil)
+      def initialize(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil, title_caps: false)
         @title = title
+        @title_caps = title_caps
         @subtitle = subtitle
         @action = action
         @menu = menu
@@ -38,6 +40,10 @@ module Keystone
 
       def action_classes
         ACTION_CLASSES
+      end
+
+      def title_classes
+        @title_caps ? CAPS_TITLE_CLASSES : TITLE_CLASSES
       end
 
       def header_classes
