@@ -42,17 +42,18 @@ module Keystone
 
       attr_reader :segments
 
-      def initialize(segments:, total: nil, total_label: "the total")
+      def initialize(segments:, total: nil, total_label: "the total", legend: :below)
         unknown = segments.map { |segment| segment[:tone] }.reject { |tone| SEGMENT_CLASSES.key?(tone) }
         raise ArgumentError, "Unknown stacked bar tone #{unknown.first.inspect}, expected one of #{SEGMENT_CLASSES.keys.join(', ')}" if unknown.any?
 
         @segments = segments
         @total = total
         @total_label = total_label
+        @legend = legend
       end
 
       def legend_above?
-        false
+        @legend == :above
       end
 
       def legend_classes
