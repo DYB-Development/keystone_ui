@@ -158,6 +158,12 @@ class Keystone::Ui::TabSwitcherComponentRenderTest < ViewComponent::TestCase
     assert_equal "offer_tabs", page.at_css("nav.ks-tab-bar")["id"]
   end
 
+  def test_label_tabs_given_an_id_put_it_on_the_row_of_tab_buttons
+    page = render_inline(Keystone::Ui::TabSwitcherComponent.new(tabs: [ "One", "Two" ], id: "sign_in_tabs"))
+
+    assert_equal "sign_in_tabs", page.at_css("div.ks-tab-bar")["id"]
+  end
+
   private
 
   def render_with_summary
