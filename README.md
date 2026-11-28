@@ -485,6 +485,7 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 - `header:` (Boolean, default `true`) — `false` draws no heading row, and with `phone_list: true` no column heading label on any cell, subtotal or total, for a table of labels and their values
 - `heading_caps:` (Boolean, default `false`) — draws each column heading in small capitals
 - `density:` (Symbol, default `nil`) — `:compact` draws every heading and cell in extra small text with keystone_ui-styles' `ks-table-compact` padding of 10px on each side and 8px above and below, so a wide table such as a nine-column versions table fits an 805px panel with every value on one line
+- `whole_words:` (Boolean, default `false`) — breaks no heading or cell in the middle of a word, even inside a panel, which otherwise lets long text break anywhere, and holds each `wrap: true` column at least 7rem wide, so a locked first column that wraps keeps whole words on each line in place of one letter per line. A table too wide for its space scrolls sideways
 
 **Column options**
 
@@ -502,6 +503,13 @@ Renders a responsive data table. Accepts a collection of items (ActiveRecord obj
 **Mobile-hidden columns**
 
 Use `Keystone::Ui::Column` objects to hide columns on mobile. Columns with `mobile_hidden: true` receive `hidden sm:table-cell` classes, hiding them on small screens and showing them from the `sm` breakpoint up. Columns are visible on mobile by default.
+
+```erb
+<%= ui_data_table(whole_words: true, items: @avatars, columns: [
+  Keystone::Ui::Column.new(:measure, "", locked: true, wrap: true),
+  Keystone::Ui::Column.new(:current, "Current avatar (being worked on)", align: :end)
+]) %>
+```
 
 ```erb
 <%= ui_data_table(
@@ -709,8 +717,10 @@ Groups related content with an optional header (title, subtitle, action) and ver
 - `subtitle:` (String) — secondary text below the title
 - `action:` — slot for a trailing action (e.g. a button)
 - `menu:` — a list of `{ label:, href:, method: }` items shown in an action menu in the header, such as Edit and Delete
-- `spacing:` (`:sm | :md | :lg`, default `:md`) — top margin between sections
+- `spacing:` (`:none | :sm | :md | :lg`, default `:md`) — top margin between sections, where `:none` adds none, for the first section inside a panel
 - `class:` (String) — extra classes added to the component's outer element for this one use
+- `title_caps:` (Boolean, default `false`) — draws the title in small grey capitals, still as a heading, with the subtitle under it as before
+- `gap:` (`:sm | :md | :lg | :xl`, default `nil`) — stacks the section's content in one column with that grid gap between each piece, such as 12px for `:sm`, so fields, panels and result boxes do not touch
 
 **Slots**
 
@@ -719,6 +729,15 @@ Groups related content with an optional header (title, subtitle, action) and ver
 ```erb
 <%= ui_section(title: "Products", subtitle: "All active items", spacing: :lg) do %>
   <!-- section content -->
+<% end %>
+
+<%= ui_panel do %>
+  <%= ui_section(title: "Value the customer gets", spacing: :none, gap: :sm) do %>
+    <!-- fields, row cards and a result box, 12px apart -->
+  <% end %>
+  <%= ui_section(title: "Inputs", title_caps: true, gap: :sm) do %>
+    <!-- section content -->
+  <% end %>
 <% end %>
 
 <%= ui_section(title: "Inbox") do |section| %>
@@ -785,6 +804,7 @@ Renders a bordered, rounded container with padding and optional shadow.
 - `title:` (String) — a heading above the content
 - `selected_marker:` (String) — written after the title, such as `"(in use)"`, only while the panel is `selected:`
 - `aside:` (String) — a short note, such as an amount, at the right end of the title line
+- `action:` (Hash) — `ui_button` keywords for a small text button at the panel's top right, usually `label:`, `href:`, `method:` and `params:`. With a `method:` other than `:get` the button sends that request in its own form. Without a `title:` it sits on its own row at the top right, reaching into the panel's padding, and with a `title:` it sits at the end of the title line
 
 ```erb
 <%= ui_panel(padding: :lg) do %>
@@ -795,6 +815,10 @@ Renders a bordered, rounded container with padding and optional shadow.
 ```erb
 <%= ui_panel(title: "Same value per dollar", aside: "$2,400", selected: @price_mode == "same", selected_marker: "(in use)") do %>
   <%= ui_caption(text: "The customer gets back the same multiple of price from us as from the market offer.", normal_case: true) %>
+<% end %>
+
+<%= ui_panel(padding: :sm, action: { label: "Remove", href: offer_value_line_path(@offer, line), method: :delete }) do %>
+  <%= ui_form_field(attribute: "line[hours]", label: "Time saved per month", type: :number, value: line.hours) %>
 <% end %>
 
 <%= ui_panel(shaded: true, shadow: false, padding: :sm) do %>
@@ -840,6 +864,7 @@ Wraps content in a `<form>` tag with proper method handling. For non-GET/POST me
 - `method:` (`:get | :post | :patch | :put | :delete`, default `:post`) — HTTP method. Non-native methods use a hidden `_method` field.
 - `multipart:` (Boolean, default `false`) — sets `enctype="multipart/form-data"` for file uploads
 - `data:` (Hash) — data attributes for the form element
+- `density:` (Symbol, default `nil`) — `:compact` draws the form's field labels in 12px text and its inputs, selects and input groups with 7px above and below the text, 8px on each side and corners at seven eighths of the control radius, 7px by default
 - `auto_submit:` (Boolean, default `false`) — sends the form, through `requestSubmit` so Turbo handles it, when a select, checkbox or radio button changes, and half a second after the person stops typing in a text or number field, or at once when they leave it. When Turbo morphs the page after the submit, the field the person is in keeps what they typed, and if the morph replaced that field, focus and the caret go back to it by its `id`. Every auto-submit form on the page sends one submission at a time. From the moment one of them sends itself until its submission has finished, a change in any auto-submit form is held, and once that submission has finished and any Turbo Stream answer to it has been drawn, the held forms are sent one after another in the order they were first held, each waiting for the one before it and each with its values at the moment it is sent, so a hidden field an answer replaced, such as a `lock_version` that every form on the page carries, goes out with its new value. Several changes held in one form are sent as one submission. A submission that fails or never reaches the server releases the hold too, and so does a send Turbo does not start in the same task, such as one browser validation blocked. A held form taken off the page is not sent, and a form taken off the page before its submission finished lets the next held form be sent, unless it was replaced while its own answer was being drawn, in which case the next form waits for that answer. A `controller` or `action` already in `data:` is kept alongside it.
 
 ```erb
@@ -1405,6 +1430,16 @@ Shows rows of a label and its value, such as a ledger, a byline beside a title, 
 - `columns:` (Boolean, default `false`) — shows each label in small text with its value directly below it, and lays the pairs in one column on a phone and two columns from `sm` up, with a long value wrapping inside its own column
 - `label_caps:` (Boolean, default `false`) — draws each label in small capitals
 - `value_mono:` (Boolean, default `false`) — draws each value in a fixed-width font
+- `compact:` (Boolean, default `false`) — a compact result list in 14px text: each label takes its natural width and stays on one line where it fits, each value sits at the right end of its row in bold with digits of equal width, and no line is drawn between rows. A `key: true` row draws its value at 18px
+
+```erb
+<%= ui_panel(shaded: true, shadow: false, padding: :sm) do %>
+  <%= ui_value_list(compact: true, rows: [
+    { label: "Perceived value", value: "$3,650" },
+    { label: "Customer price ceiling", value: "$4,362.50", key: true }
+  ]) %>
+<% end %>
+```
 
 ```erb
 <%= ui_value_list(align: :end, rows: [
@@ -1577,6 +1612,7 @@ Renders a metric card for dashboards.
 - `fallback:` (String) — shown in a muted colour when the value is missing, such as `"N/A"`
 - `compact:` (Boolean, default `false`) — a small tile with an extra small label and a smaller value, with its change or note beside the value, about 58px tall against a default card's 134px. Placed in `ui_grid(cols: { default: 1, sm: 2 }, gap: :sm)` inside a panel, compact cards sit two across and stack one across on a phone
 - `label_caps:` (Boolean, default `false`) — draws the label in small capitals
+- `value_size:` (`:lg | :sm`, default `:lg`) — `:sm` draws the value at 22px in the heading weight and the label in 12px text, and keeps the value on one line so a figure such as `$14,885` never breaks across lines on a phone
 
 When `definition:` or `calculation:` is given, an info button appears. Hovering or focusing it shows the details in a panel floating below the card, and tapping it toggles the panel on touch screens. The card never changes size.
 
@@ -1698,8 +1734,9 @@ Renders a tab bar with active state indicator. Uses Stimulus `tab-switcher` cont
 **Optional props**
 
 - `align:` (Symbol, default `:center`) — `:start` starts the tab row at the left edge on every width instead of centring it from `sm` up
-- `shape:` (Symbol, default `nil`) — `:pills` draws each tab as an outlined pill and `:underline` draws the tabs on a line with the chosen tab underlined, and with no shape the tabs are drawn as before
+- `shape:` (Symbol, default `nil`) — `:pills` draws each tab as an outlined pill and `:underline` draws the tabs on a line with the chosen tab underlined, and with no shape the tabs are drawn as before. `:text_underline` draws the tabs as `:underline` does in 14px text, with the chosen tab's label and underline in the text colour and the heading weight
 - `id:` (String, default `nil`) — the `id` of the tab row, so a Turbo Stream can replace the row, with its labels and counts, without redrawing the content under it
+- `wrap:` (Boolean, default `false`) — below `sm` the tab row wraps onto more lines when its tabs do not fit, in place of scrolling sideways, and it starts at the left edge. Each tab label stays on one line. It works with `id:`, `align:` and `shape:`
 
 ```erb
 <%= ui_tab_switcher(tabs: ["Overview", "Details", "History"]) do %>
@@ -1741,7 +1778,13 @@ A link tab row given an `id:` is replaced on its own by a fresh render with no b
 <% end %>
 ```
 
-Below `sm` the tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line. From `sm` up it wraps and is centred, or starts at the left edge with `align: :start`.
+Below `sm` the tab row stays on one line, starts at the left edge and scrolls sideways when its tabs do not fit, and no tab label wraps onto a second line, unless it is given `wrap: true`. From `sm` up it wraps and is centred, or starts at the left edge with `align: :start`.
+
+```erb
+<%= ui_tab_switcher(wrap: true, shape: :text_underline, align: :start, id: "offer_tabs", tabs: tabs) do %>
+  <%= render "offers/#{tab}", offer: @offer %>
+<% end %>
+```
 
 **Slots**
 
@@ -2140,11 +2183,22 @@ No props. Call it from the layout's top bar, which is rendered after the screen.
 
 Draws the action a screen gives `ui_page_header` through `action_url:` as a full-width button fixed to the bottom of a phone screen, labelled with `action_label:`. When the screen also gives `action_method:`, the button is a form that sends that method to the address. It draws nothing on a screen with no action. It is hidden from `sm` screens up, inside a Hotwire Native web view and when the page is printed, as `ui_mobile_action` is. On a page that shows the bottom nav it sits directly above the bottom nav. It also draws an invisible, inert copy of itself in the page's flow, plus the bottom nav's height when the page has one, so the page's last content can scroll clear of both.
 
-No props. Call it from the layout after the screen, in place of `ui_mobile_action` when the action should sit at the bottom rather than in the top bar. It needs keystone_ui-styles 0.34.0 or later.
+Call it from the layout after the screen, in place of `ui_mobile_action` when the action should sit at the bottom rather than in the top bar. It needs keystone_ui-styles 0.34.0 or later.
+
+**Optional props**
+
+- `native:` (Boolean, default `false`) — keeps the bar shown inside a Hotwire Native web view, at the bottom of the web view since the bottom nav is hidden there, as `ui_decision_bar` does. Its copy in the page's flow stays too, without the bottom nav's height, so the page's last content scrolls clear of the bar
 
 ```erb
 <%= yield %>
 <%= ui_bottom_action %>
+```
+
+keystone_ui has no Hotwire Native bridge component or native button for a page's main action. An app whose native users need the action on a phone screen calls `ui_bottom_action(native: true)` in place of `ui_bottom_action`, so the action shows as the full-width button at the bottom of the web view.
+
+```erb
+<%= yield %>
+<%= ui_bottom_action(native: true) %>
 ```
 
 ### `ui_decision_bar`
