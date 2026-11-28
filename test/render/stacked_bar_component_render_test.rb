@@ -119,4 +119,10 @@ class Keystone::Ui::StackedBarComponentRenderTest < ViewComponent::TestCase
 
     assert_equal %w[ul div], page.at_css("div").element_children.map(&:name)
   end
+
+  def test_a_legend_above_the_bar_carries_the_spacing_for_sitting_above_it
+    page = render_inline(Keystone::Ui::StackedBarComponent.new(segments: [ { label: "COGS", amount: 600, tone: :blue } ], legend: :above))
+
+    assert_includes page.at_css("ul")["class"].split, "ks-stacked-bar-legend-above"
+  end
 end

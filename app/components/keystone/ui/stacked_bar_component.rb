@@ -5,6 +5,7 @@ module Keystone
     class StackedBarComponent < ViewComponent::Base
       BAR_CLASSES = "ks-stacked-bar flex h-7"
       LEGEND_CLASSES = "ks-stacked-bar-legend flex flex-wrap"
+      LEGEND_ABOVE_CLASSES = "ks-stacked-bar-legend ks-stacked-bar-legend-above flex flex-wrap"
       LEGEND_ITEM_CLASSES = "ks-stacked-bar-legend-item flex items-center"
       LEGEND_VALUE_CLASSES = "ks-stacked-bar-legend-value"
       AMOUNT_CLASSES = {
@@ -57,7 +58,7 @@ module Keystone
       end
 
       def legend_classes
-        LEGEND_CLASSES
+        legend_above? ? LEGEND_ABOVE_CLASSES : LEGEND_CLASSES
       end
 
       def drawn_segments
