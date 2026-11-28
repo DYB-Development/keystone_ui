@@ -28,5 +28,9 @@
       <% end %>
     </div>
   <% end %>
-  <%= content %>
+  <% if gap_classes %>
+    <div class="<%= gap_classes %>"><%= content %></div>
+  <% else %>
+    <%= content %>
+  <% end %>
 </div>

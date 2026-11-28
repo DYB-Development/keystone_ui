@@ -94,6 +94,12 @@ class Keystone::Ui::SectionComponentRenderTest < ViewComponent::TestCase
     assert_equal "ks-section-title ks-label-caps", page.at_css(".ks-section-header h2")["class"]
   end
 
+  def test_given_a_gap_stacks_its_content_with_that_grid_gap_between_each_piece
+    page = render_inline(Keystone::Ui::SectionComponent.new(title: "Inputs", gap: :sm)) { "<p>Price</p><p>Result</p>".html_safe }
+
+    assert_equal "flex flex-col ks-grid-gap-sm", page.css("p").map { |piece| piece.parent["class"] }.uniq.join
+  end
+
   private
 
   def render_with_aside(**args)
