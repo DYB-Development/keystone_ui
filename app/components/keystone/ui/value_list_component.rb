@@ -12,11 +12,13 @@ module Keystone
       VALUE_CLASSES = "ks-value-list-value"
       MONO_VALUE_CLASSES = "ks-value-list-value font-mono"
       KEY_ROW_CLASSES = "ks-value-list-key"
+      COMPACT_CLASSES = "ks-value-list-compact text-sm"
 
       attr_reader :rows
 
-      def initialize(rows:, align: :start, columns: false, label_caps: false, value_mono: false)
+      def initialize(rows:, align: :start, columns: false, label_caps: false, value_mono: false, compact: false)
         @rows = rows
+        @compact = compact
         @value_mono = value_mono
         @label_caps = label_caps
         @align = align
@@ -24,7 +26,7 @@ module Keystone
       end
 
       def classes
-        [ "ks-value-list", ALIGN_CLASSES.fetch(@align), (COLUMNS_CLASSES if @columns) ].compact.join(" ")
+        [ "ks-value-list", ALIGN_CLASSES.fetch(@align), (COLUMNS_CLASSES if @columns), (COMPACT_CLASSES if @compact) ].compact.join(" ")
       end
 
       def shown_value(row)
