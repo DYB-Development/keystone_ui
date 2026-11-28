@@ -6,7 +6,8 @@ module Keystone
       PADDING_CLASSES = { sm: "ks-panel-padding-sm", md: "ks-panel-padding-md", lg: "ks-panel-padding-lg" }.freeze
       RADIUS_CLASSES = { md: "ks-panel-radius-md", lg: "ks-panel-radius-lg", xl: "ks-panel-radius-xl" }.freeze
 
-      def initialize(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil, selected_marker: nil, aside: nil, action: nil)
+      def initialize(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil, selected_marker: nil, aside: nil, action: nil, title_size: :lg)
+        @title_size = title_size
         @action = action
         @padding = padding
         @radius = radius
@@ -23,6 +24,7 @@ module Keystone
       SHADED_CLASS = "ks-panel-shaded"
       SELECTED_CLASS = "ks-panel-selected"
       HEADER_CLASSES = "flex items-baseline justify-between ks-grid-gap-sm"
+      HEADER_CLASSES_BY_TITLE_SIZE = { lg: HEADER_CLASSES, sm: "flex items-baseline justify-between ks-grid-gap-sm ks-panel-header-sm" }.freeze
       TITLE_CLASSES = "ks-card-title min-w-0"
       ASIDE_CLASSES = "ks-heading-note shrink-0"
       ACTION_ROW_CLASSES = "ks-panel-action flex justify-end"
@@ -36,6 +38,10 @@ module Keystone
 
       def action_button
         ButtonComponent.new(variant: :text, **@action)
+      end
+
+      def header_classes
+        HEADER_CLASSES_BY_TITLE_SIZE.fetch(@title_size)
       end
 
       def marker

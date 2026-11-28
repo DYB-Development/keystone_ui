@@ -48,4 +48,10 @@ class Keystone::Ui::PanelComponentTest < Minitest::Test
 
     assert_includes component.classes.split, "ks-panel-selected"
   end
+
+  def test_a_small_title_draws_its_title_row_with_the_small_header_look
+    component = Keystone::Ui::PanelComponent.new(title: "Same value per dollar", title_size: :sm)
+
+    assert_includes component.header_classes.split, "ks-panel-header-sm"
+  end
 end
