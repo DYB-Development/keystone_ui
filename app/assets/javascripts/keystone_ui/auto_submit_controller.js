@@ -10,8 +10,8 @@ export default class extends Controller {
   disconnect() {
     clearTimeout(this.timer)
     this.timer = null
-    sending.delete(this)
     if (waiting.includes(this)) waiting.splice(waiting.indexOf(this), 1)
+    if (sending.has(this)) this.release()
   }
 
   submit() {

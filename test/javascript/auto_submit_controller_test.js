@@ -343,3 +343,14 @@ test("a held form taken off the page is not sent once the submission it waited b
 
   assert.equal(held.form.submitted, 0)
 })
+
+test("a form taken off the page while its submission is being sent lets the next held form be sent", () => {
+  const sent = formWith()
+  const held = formWith()
+
+  sent.controller.started()
+  held.controller.changed({ target: field("select-one", "SELECT") })
+  sent.controller.disconnect()
+
+  assert.equal(held.form.submitted, 1)
+})
