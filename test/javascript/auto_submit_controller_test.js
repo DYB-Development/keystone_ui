@@ -276,3 +276,13 @@ test("a held change is still sent when the last submission failed to reach the s
 
   assert.equal(form.submitted, 1)
 })
+
+test("a form taken off the page while sending, then put back, sends its next change at once", () => {
+  const { controller, form } = formWith()
+
+  controller.started()
+  controller.disconnect()
+  controller.changed({ target: field("select-one", "SELECT") })
+
+  assert.equal(form.submitted, 1)
+})

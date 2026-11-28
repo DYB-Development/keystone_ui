@@ -8,6 +8,8 @@ export default class extends Controller {
   disconnect() {
     clearTimeout(this.timer)
     this.timer = null
+    this.sending = false
+    this.held = false
   }
 
   submit() {
