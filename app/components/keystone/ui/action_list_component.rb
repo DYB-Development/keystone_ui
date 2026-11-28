@@ -14,6 +14,10 @@ module Keystone
         @rows = rows
       end
 
+      def row_classes
+        ROW_CLASSES
+      end
+
       def button(row)
         Keystone::Ui::ButtonComponent.new(**BUTTON_DEFAULTS, **row[:button])
       end

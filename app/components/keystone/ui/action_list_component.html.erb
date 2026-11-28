@@ -1,6 +1,6 @@
 <ul>
   <% rows.each do |row| %>
-    <li class="<%= ROW_CLASSES %>">
+    <li class="<%= row_classes %>">
       <span class="<%= TEXT_CLASSES %>"><%= row[:text] %></span>
       <% if row[:button] %>
         <div class="<%= BUTTON_CLASSES %>"><%= render button(row) %></div>
