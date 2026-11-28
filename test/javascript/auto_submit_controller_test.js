@@ -330,3 +330,16 @@ test("forms held behind a submission are sent one at a time, the first held goin
 
   assert.deepEqual([firstHeld.form.submitted, secondHeld.form.submitted], [1, 0])
 })
+
+test("a held form taken off the page is not sent once the submission it waited behind finishes", async () => {
+  const sent = formWith()
+  const held = formWith()
+  streamsOnPage()
+
+  sent.controller.started()
+  held.controller.changed({ target: field("select-one", "SELECT") })
+  held.controller.disconnect()
+  await sent.controller.finished({ detail: { success: true } })
+
+  assert.equal(held.form.submitted, 0)
+})

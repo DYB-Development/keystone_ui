@@ -11,6 +11,7 @@ export default class extends Controller {
     clearTimeout(this.timer)
     this.timer = null
     sending.delete(this)
+    if (waiting.includes(this)) waiting.splice(waiting.indexOf(this), 1)
   }
 
   submit() {
