@@ -44,6 +44,12 @@ class Keystone::Ui::StatCardReportRenderTest < ViewComponent::TestCase
     assert_equal [ false, false ], [ page.css(".ks-metric-plain").any?, page.css(".ks-metric-card").any? ]
   end
 
+  def test_a_tight_figure_with_no_change_draws_no_empty_change_line
+    page = render_inline(Keystone::Ui::StatCardComponent.new(label: "Price", value: "$4,000", tight: true))
+
+    assert_empty page.css(".ks-stat-card-change")
+  end
+
   def test_shows_its_fallback_muted_when_its_value_is_missing
     page = render_inline(Keystone::Ui::StatCardComponent.new(label: "Reviews", value: "", fallback: "N/A"))
 
