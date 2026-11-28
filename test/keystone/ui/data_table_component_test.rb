@@ -645,4 +645,10 @@ class Keystone::Ui::DataTableComponentTest < Minitest::Test
   def test_keeping_whole_words_breaks_no_heading_or_cell_in_the_middle_of_a_word
     assert_equal "ks-table overflow-x-auto wrap-break-word", klass.new(items: [], columns: [ Keystone::Ui::Column.new(:name, "Name") ], whole_words: true).wrapper_classes
   end
+
+  def test_keeping_whole_words_holds_a_wrapping_column_at_least_seven_rem_wide
+    cols = [ Keystone::Ui::Column.new(:name, "Name", locked: true, wrap: true), Keystone::Ui::Column.new(:price, "Price") ]
+
+    assert_equal "ks-table-cell-first text-sm whitespace-normal min-w-28 ks-table-cell-locked sticky left-0", klass.new(items: [ hash_items.first ], columns: cols, whole_words: true).row_cells.first[0][:classes]
+  end
 end

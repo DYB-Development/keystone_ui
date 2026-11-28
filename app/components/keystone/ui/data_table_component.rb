@@ -19,6 +19,8 @@ module Keystone
       TABLE_CLASSES = "relative min-w-full"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
       WHOLE_WORDS_WRAPPER_CLASSES = "ks-table overflow-x-auto wrap-break-word"
+      WRAP_CLASSES = "whitespace-normal"
+      WHOLE_WORDS_WRAP_CLASSES = "whitespace-normal min-w-28"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
       HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
@@ -330,7 +332,7 @@ module Keystone
       def wrapped(classes, column)
         return classes unless column.wrap?
 
-        classes.sub("whitespace-nowrap", "whitespace-normal")
+        classes.sub("whitespace-nowrap", @whole_words ? WHOLE_WORDS_WRAP_CLASSES : WRAP_CLASSES)
       end
 
       def resolve_value(item, key)
