@@ -31,4 +31,8 @@ class Keystone::Ui::ValueListComponentTest < Minitest::Test
   def test_draws_a_row_marked_as_a_key_line_larger_than_the_others
     assert_equal "ks-value-list-row ks-value-list-key", Keystone::Ui::ValueListComponent.new(rows: []).row_classes({ key: true })
   end
+
+  def test_compact_draws_the_list_as_a_compact_result_list_in_small_text
+    assert_equal "ks-value-list ks-value-list-compact text-sm", Keystone::Ui::ValueListComponent.new(rows: [], compact: true).classes
+  end
 end

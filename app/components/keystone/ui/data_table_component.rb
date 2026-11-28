@@ -18,6 +18,9 @@ module Keystone
       HEAD_CLASSES = "ks-table-head"
       TABLE_CLASSES = "relative min-w-full"
       WRAPPER_CLASSES = "ks-table overflow-x-auto"
+      WHOLE_WORDS_WRAPPER_CLASSES = "ks-table overflow-x-auto wrap-break-word"
+      WRAP_CLASSES = "whitespace-normal"
+      WHOLE_WORDS_WRAP_CLASSES = "whitespace-normal min-w-28"
       TOOLBAR_CLASSES = "ks-table-toolbar flex justify-end"
       HEADER_CLASSES_FIRST = "ks-table-header ks-table-header-first text-left text-sm"
       HEADER_CLASSES_MIDDLE = "ks-table-header ks-table-header-middle text-left text-sm"
@@ -48,7 +51,8 @@ module Keystone
       SORT_DESC_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .75.75v10.638l3.96-4.158a.75.75 0 1 1 1.08 1.04l-5.25 5.5a.75.75 0 0 1-1.08 0l-5.25-5.5a.75.75 0 0 1 1.08-1.04l3.96 4.158V3.75A.75.75 0 0 1 10 3Z" clip-rule="evenodd" /></svg>'
       SORT_NEUTRAL_ICON = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 3a.75.75 0 0 1 .55.24l3.25 3.5a.75.75 0 1 1-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 0 1-1.1-1.02l3.25-3.5A.75.75 0 0 1 10 3Zm-3.76 9.2a.75.75 0 0 1 1.06.04l2.7 2.908 2.7-2.908a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 0 1 .04-1.06Z" clip-rule="evenodd" /></svg>'
 
-      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false, density: nil)
+      def initialize(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false, density: nil, whole_words: false)
+        @whole_words = whole_words
         @items = items.to_a
         @current_index = @items.index(current_row) unless current_row.nil?
         @group_by = group_by
@@ -152,6 +156,10 @@ module Keystone
         return unless @save_url
 
         @column_picker ||= ColumnPickerComponent.new(columns: @all_columns, layout: @layout, save_url: @save_url)
+      end
+
+      def wrapper_classes
+        @whole_words ? WHOLE_WORDS_WRAPPER_CLASSES : WRAPPER_CLASSES
       end
 
       def column_keys
@@ -324,7 +332,7 @@ module Keystone
       def wrapped(classes, column)
         return classes unless column.wrap?
 
-        classes.sub("whitespace-nowrap", "whitespace-normal")
+        classes.sub("whitespace-nowrap", @whole_words ? WHOLE_WORDS_WRAP_CLASSES : WRAP_CLASSES)
       end
 
       def resolve_value(item, key)

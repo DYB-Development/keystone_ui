@@ -181,8 +181,8 @@ module KeystoneUiHelper
     render Keystone::Ui::MobileActionComponent.new
   end
 
-  def ui_bottom_action
-    render Keystone::Ui::BottomActionComponent.new
+  def ui_bottom_action(**args)
+    render Keystone::Ui::BottomActionComponent.new(**args)
   end
 
   def ui_decision_bar(**args)

@@ -110,8 +110,9 @@ One decision: is keystone_ui set up in the app?
   tabs on a wider screen and below them on a phone. The row is centred
   on wider screens, or starts at the left edge when asked. It can be drawn as
   plain tabs, as outlined pills such as a row of filters, or as tabs on a line
-  with the chosen one underlined. On a phone every row stays on one line and
-  scrolls sideways. A tab row can carry an id, so a Turbo Stream
+  with the chosen one underlined, in the accent colour or in the text colour.
+  On a phone a row stays on one line and scrolls sideways, unless it is asked
+  to wrap onto more lines. A tab row can carry an id, so a Turbo Stream
   can replace the row with fresh labels and counts.
 - **Bar chart groups.** A bar chart's bars can be put in groups, such as one
   group per version of what produced them. Groups count from oldest to newest
@@ -129,7 +130,9 @@ One decision: is keystone_ui set up in the app?
   row with its label beside its value and a line between rows. A value list can
   lay its pairs in columns instead: one column on a phone and two from `sm:` up,
   each label in small text directly above its value, a long value wrapping
-  inside its own column, and no line between pairs.
+  inside its own column, and no line between pairs. A value list can also be
+  drawn compact, as a result box's lines: small text, each label at its
+  natural width, each value at the right in bold, and no line between rows.
 - **Section headers.** A section's header holds its title and optional
   subtitle, then an optional action link and action menu. A section can also
   carry an aside, a short piece of text or a badge drawn in the header's note
@@ -137,6 +140,9 @@ One decision: is keystone_ui set up in the app?
   The aside never breaks in the middle of a word, and on wider screens a long
   title wraps beside it while it keeps its full width. Below `sm:` the aside
   takes a line of its own under the title and the actions. A section given an aside and no title raises an error, since the header that shows the aside needs a title.
+  A section's title can be drawn in small grey capitals. A section can stack
+  its content with a gap between each piece, and can add no space above
+  itself, for the first section inside a panel.
 - **Going back.** A form or show page shell needs a way back: a back link, a
   trail of earlier pages shown as breadcrumbs, or a trail the app supplies for
   the request. A nav tab's own page passes an empty trail and shows no back
@@ -208,10 +214,18 @@ One decision: is keystone_ui set up in the app?
   A header can mark its action as belonging at the bottom, and then hides its
   own button below `sm:` so the action is not shown twice. Both forms show
   nothing when the header names no action, and both are hidden inside a
-  Hotwire Native web view and in print.
+  Hotwire Native web view and in print, unless the bottom bar is asked to
+  show in native apps, where it sits at the bottom of the web view.
+  keystone_ui has no native bridge button for the action.
 - **Compact stat cards.** A stat card can be drawn compact, a small tile with
   an extra small label and a smaller value, its change or note beside the
-  value, for a small grid of figures inside a panel.
+  value, for a small grid of figures inside a panel. A stat card's value can
+  also be drawn smaller on one line, so a figure never breaks on a phone.
+- **Panel actions.** A panel can carry one small text button at its top
+  right that sends its own request, such as Remove on a row card, with or
+  without a title.
+- **Compact forms.** A form can be drawn compact, with smaller labels and
+  fields.
 - **Small capitals and fixed width.** A stat card's label, a data table's
   column headings, a value list's labels and a link list row's type can be
   drawn in small capitals, and a value list's values, a timeline's step names
@@ -219,7 +233,9 @@ One decision: is keystone_ui set up in the app?
   option on its component, off by default.
 - **Compact data tables.** A data table can be drawn compact, with extra
   small text and smaller padding in every heading and cell, so a wide table
-  fits a narrow panel with every value on one line.
+  fits a narrow panel with every value on one line. A data table can also
+  keep every word whole, so no heading or cell breaks in the middle of a word
+  and a wrapping column is never narrower than 7rem.
 - **Summary chips.** A row of summary chips shows a few labelled values, each
   in a tone's colour on a tinted background, three across on a phone.
 - **Unequal grid columns.** A grid goes up to the `xl:` breakpoint, and a

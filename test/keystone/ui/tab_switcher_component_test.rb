@@ -81,4 +81,12 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
 
     assert_includes component.tab_classes, "ks-tab-active"
   end
+
+  def test_given_wrap_the_tab_row_wraps_onto_more_lines_below_sm_in_place_of_scrolling_sideways
+    refute_includes Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ], wrap: true).classes.split, "max-sm:flex-nowrap"
+  end
+
+  def test_shaped_as_text_underlined_tabs_the_tab_row_carries_the_underlined_and_text_underlined_row_classes
+    assert_equal "ks-tab-bar-underline ks-tab-bar-text-underline", Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ], shape: :text_underline).classes.split.last(2).join(" ")
+  end
 end

@@ -28,4 +28,8 @@ class Keystone::Ui::SectionComponentTest < Minitest::Test
   def test_adds_the_classes_passed_for_one_use
     assert_equal "ks-section-md px-2", Keystone::Ui::SectionComponent.new(class: "px-2").classes
   end
+
+  def test_with_no_spacing_adds_no_space_above_the_section
+    assert_equal "", Keystone::Ui::SectionComponent.new(spacing: :none).classes
+  end
 end

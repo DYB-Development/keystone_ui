@@ -91,11 +91,43 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "Stop the run?", bottom_bar(page)&.at_css("form")&.[]("data-turbo-confirm")
   end
 
+  def test_shown_in_native_apps_stays_shown_inside_a_hotwire_native_web_view
+    page = render_after_page_header(bottom_action: { native: true }, title: "Offer", action_url: "/offers/1/save", action_label: "Save")
+
+    refute_includes bottom_bar(page)&.[]("class").to_s.split, "hotwire-native:hidden"
+  end
+
+  def test_shown_in_native_apps_sits_at_the_bottom_of_the_web_view_where_the_bottom_nav_is_hidden
+    page = render_after_page_header(bottom_action: { native: true }, title: "Offer", action_url: "/offers/1/save", action_label: "Save")
+
+    assert_includes bottom_bar(page)&.[]("class").to_s.split, "hotwire-native:bottom-0"
+  end
+
+  def test_shown_in_native_apps_keeps_its_copy_in_the_pages_flow_inside_a_hotwire_native_web_view
+    page = render_after_page_header(bottom_action: { native: true }, title: "Offer", action_url: "/offers/1/save", action_label: "Save")
+
+    refute_includes spacer(page)&.[]("class").to_s.split, "hotwire-native:hidden"
+  end
+
+  def test_shown_in_native_apps_keeps_no_room_for_the_bottom_nav_a_hotwire_native_web_view_hides
+    page = render_after_page_header(bottom_action: { native: true }, title: "Offer", action_url: "/offers/1/save", action_label: "Save")
+
+    assert spacer(page)&.css("div")&.any? { |block| block[:class].to_s.split.include?("[html:not(.hotwire-native)_body:has(.ks-bottom-nav)_&]:block") }
+  end
+
+  def test_ui_bottom_action_passes_native_on_to_the_bottom_action
+    page = render_in_view_context do
+      safe_join([ render(Keystone::Ui::PageHeaderComponent.new(title: "Offer", action_url: "/offers/1/save", action_label: "Save")), ui_bottom_action(native: true) ])
+    end
+
+    assert_includes bottom_bar(page)&.[]("class").to_s.split, "hotwire-native:bottom-0"
+  end
+
   private
 
-  def render_after_page_header(**header)
+  def render_after_page_header(bottom_action: {}, **header)
     render_in_view_context do
-      safe_join([ render(Keystone::Ui::PageHeaderComponent.new(**header)), render(Keystone::Ui::BottomActionComponent.new) ])
+      safe_join([ render(Keystone::Ui::PageHeaderComponent.new(**header)), render(Keystone::Ui::BottomActionComponent.new(**bottom_action)) ])
     end
   end
 

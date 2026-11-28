@@ -3,10 +3,12 @@
 module Keystone
   module Ui
     class SectionComponent < ViewComponent::Base
-      SPACING_CLASSES = { sm: "ks-section-sm", md: "ks-section-md", lg: "ks-section-lg" }.freeze
+      SPACING_CLASSES = { none: nil, sm: "ks-section-sm", md: "ks-section-md", lg: "ks-section-lg" }.freeze
+      GAP_CLASSES = { sm: "flex flex-col ks-grid-gap-sm", md: "flex flex-col ks-grid-gap-md", lg: "flex flex-col ks-grid-gap-lg", xl: "flex flex-col ks-grid-gap-xl" }.freeze
       HEADER_CLASSES = "ks-section-header"
       HEADER_WITH_ASIDE_CLASSES = "ks-section-header ks-grid-gap-sm max-sm:flex-wrap"
       TITLE_CLASSES = "ks-section-title"
+      CAPS_TITLE_CLASSES = "ks-section-title ks-label-caps"
       TITLE_WRAPPER_CLASSES = "min-w-0"
       SUBTITLE_CLASSES = "ks-section-subtitle"
       ACTION_CLASSES = "ks-section-action"
@@ -15,8 +17,10 @@ module Keystone
 
       renders_one :aside
 
-      def initialize(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil)
+      def initialize(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil, title_caps: false, gap: nil)
+        @gap = gap
         @title = title
+        @title_caps = title_caps
         @subtitle = subtitle
         @action = action
         @menu = menu
@@ -38,6 +42,14 @@ module Keystone
 
       def action_classes
         ACTION_CLASSES
+      end
+
+      def title_classes
+        @title_caps ? CAPS_TITLE_CLASSES : TITLE_CLASSES
+      end
+
+      def gap_classes
+        GAP_CLASSES.fetch(@gap) if @gap
       end
 
       def header_classes

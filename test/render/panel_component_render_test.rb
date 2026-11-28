@@ -26,4 +26,16 @@ class Keystone::Ui::PanelComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "$3,000", page.at_css(".ks-panel h3 + .ks-heading-note")&.text&.strip
   end
+
+  def test_given_an_action_and_no_title_draws_it_as_a_text_button_sending_its_request_at_the_top_right
+    page = render_inline(Keystone::Ui::PanelComponent.new(action: { label: "Remove", href: "/lines/1", method: :delete })) { "Line" }
+
+    assert_equal "Remove", page.at_css(".ks-panel-action.flex.justify-end form[action='/lines/1'] button.ks-text-button")&.text&.strip
+  end
+
+  def test_given_an_action_and_a_title_draws_the_action_at_the_end_of_the_title_line
+    page = render_inline(Keystone::Ui::PanelComponent.new(title: "Time saved", action: { label: "Remove", href: "/lines/1", method: :delete })) { "Line" }
+
+    assert_equal "Remove", page.css(".ks-panel > div:first-child > *").last&.text&.strip
+  end
 end

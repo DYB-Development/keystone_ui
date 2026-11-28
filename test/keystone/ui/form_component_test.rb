@@ -73,4 +73,8 @@ class Keystone::Ui::FormComponentTest < Minitest::Test
 
     assert_equal [ "avatar-picker auto-submit", "click->avatar-picker#open" ], [ data[:controller], data[:action].split.first ]
   end
+
+  def test_with_compact_density_draws_smaller_labels_and_fields
+    assert_equal "ks-form ks-form-compact", Keystone::Ui::FormComponent.new(action: "/offers/1", density: :compact).form_options[:class]
+  end
 end
