@@ -3,7 +3,7 @@
 module Keystone
   module Ui
     class CaptionComponent < ViewComponent::Base
-      TONE_CLASSES = { muted: "ks-caption", link: "ks-caption ks-caption-link" }.freeze
+      TONE_CLASSES = { muted: "ks-caption", link: "ks-caption ks-caption-link", result: "ks-caption ks-caption-normal-case ks-caption-result" }.freeze
       NORMAL_CASE_CLASSES = "ks-caption-normal-case"
 
       attr_reader :text

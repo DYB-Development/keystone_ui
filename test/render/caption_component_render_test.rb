@@ -26,4 +26,10 @@ class Keystone::Ui::CaptionComponentRenderTest < ViewComponent::TestCase
 
     assert_equal "ks-caption ks-caption-link", page.at_css("p")["class"]
   end
+
+  def test_a_result_toned_caption_draws_a_result_line_in_the_case_it_was_written
+    page = render_inline(Keystone::Ui::CaptionComponent.new(tone: :result)) { "Covers 48% of the price at <b>$1,900</b>".html_safe }
+
+    assert_equal [ "ks-caption ks-caption-normal-case ks-caption-result", "$1,900" ], [ page.at_css("p")["class"], page.at_css("p b")&.text ]
+  end
 end
