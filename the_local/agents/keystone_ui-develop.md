@@ -479,7 +479,8 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      card and one per section, that all carry the same hidden `lock_version`
      replaced by each Turbo Stream answer never sends the old value, and the
      app adds no queue of its own. A submission that fails or never reaches
-     the server releases the hold too. A held form taken off the page is not
+     the server releases the hold too, and so does a send that browser
+     validation blocks before Turbo starts it. A held form taken off the page is not
      sent, and a form taken off the page while sending lets the next held
      form go, unless it was replaced by its own answer, which holds the next
      form until that answer has been drawn. A `controller` or
