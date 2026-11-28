@@ -91,11 +91,17 @@ class Keystone::Ui::BottomActionComponentRenderTest < ViewComponent::TestCase
     assert_equal "Stop the run?", bottom_bar(page)&.at_css("form")&.[]("data-turbo-confirm")
   end
 
+  def test_shown_in_native_apps_stays_shown_inside_a_hotwire_native_web_view
+    page = render_after_page_header(bottom_action: { native: true }, title: "Offer", action_url: "/offers/1/save", action_label: "Save")
+
+    refute_includes bottom_bar(page)&.[]("class").to_s.split, "hotwire-native:hidden"
+  end
+
   private
 
-  def render_after_page_header(**header)
+  def render_after_page_header(bottom_action: {}, **header)
     render_in_view_context do
-      safe_join([ render(Keystone::Ui::PageHeaderComponent.new(**header)), render(Keystone::Ui::BottomActionComponent.new) ])
+      safe_join([ render(Keystone::Ui::PageHeaderComponent.new(**header)), render(Keystone::Ui::BottomActionComponent.new(**bottom_action)) ])
     end
   end
 

@@ -4,23 +4,32 @@ module Keystone
   module Ui
     class BottomActionComponent < ViewComponent::Base
       BAR_CLASSES = "ks-bottom-action sm:hidden hotwire-native:hidden print:hidden"
+      NATIVE_BAR_CLASSES = "ks-bottom-action sm:hidden print:hidden"
       SPACER_CLASSES = "sm:hidden hotwire-native:hidden print:hidden"
       BAR_COPY_CLASSES = "!static invisible"
       TAB_BAR_ROOM_CLASSES = "hidden h-(--ks-bottom-nav-height) [body:has(.ks-bottom-nav)_&]:block"
+
+      def initialize(native: false)
+        @native = native
+      end
 
       def render?
         content_for?(:mobile_action_url)
       end
 
       def call
-        safe_join([ tag.div(class: BAR_CLASSES) { render button }, spacer ])
+        safe_join([ tag.div(class: bar_classes) { render button }, spacer ])
       end
 
       private
 
+      def bar_classes
+        @native ? NATIVE_BAR_CLASSES : BAR_CLASSES
+      end
+
       def spacer
         tag.div(class: SPACER_CLASSES, inert: true, data: { bottom_action_spacer: true }) do
-          safe_join([ tag.div(class: "#{BAR_CLASSES} #{BAR_COPY_CLASSES}") { render button }, tag.div(class: TAB_BAR_ROOM_CLASSES) ])
+          safe_join([ tag.div(class: "#{bar_classes} #{BAR_COPY_CLASSES}") { render button }, tag.div(class: TAB_BAR_ROOM_CLASSES) ])
         end
       end
 
