@@ -51,6 +51,14 @@ module Keystone
         @total_label = total_label
       end
 
+      def legend_above?
+        false
+      end
+
+      def legend_classes
+        LEGEND_CLASSES
+      end
+
       def drawn_segments
         segments.select { |segment| size(segment).positive? }
       end

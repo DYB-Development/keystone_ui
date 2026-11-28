@@ -1,4 +1,12 @@
+<% legend = capture do %>
+<ul class="<%= legend_classes %>">
+  <% segments.each do |segment| %>
+    <li class="<%= LEGEND_ITEM_CLASSES %>"><span class="<%= swatch_classes(segment) %>" aria-hidden="true"></span><span><%= segment[:label] %></span><span class="<%= LEGEND_VALUE_CLASSES %>"><%= shown_amount(segment) %></span></li>
+  <% end %>
+</ul>
+<% end %>
 <div>
+  <% if legend_above? %><%= legend %><% end %>
   <div class="<%= BAR_CLASSES %>">
     <% drawn_segments.each do |segment| %>
       <div class="<%= segment_classes(segment) %>" style="flex: <%= size(segment) %> 1 0%" tabindex="0" role="img" aria-label="<%= spoken(segment) %>">
@@ -7,9 +15,5 @@
       </div>
     <% end %>
   </div>
-  <ul class="<%= LEGEND_CLASSES %>">
-    <% segments.each do |segment| %>
-      <li class="<%= LEGEND_ITEM_CLASSES %>"><span class="<%= swatch_classes(segment) %>" aria-hidden="true"></span><span><%= segment[:label] %></span><span class="<%= LEGEND_VALUE_CLASSES %>"><%= shown_amount(segment) %></span></li>
-    <% end %>
-  </ul>
+  <% unless legend_above? %><%= legend %><% end %>
 </div>
