@@ -6,6 +6,7 @@ module Keystone
       TAB_BAR_CLASSES = "ks-tab-bar flex flex-wrap justify-center max-sm:flex-nowrap max-sm:overflow-x-auto max-sm:justify-start"
       START_TAB_BAR_CLASSES = "ks-tab-bar flex flex-wrap justify-start max-sm:flex-nowrap max-sm:overflow-x-auto"
       TAB_BAR_CLASSES_BY_ALIGN = { center: TAB_BAR_CLASSES, start: START_TAB_BAR_CLASSES }.freeze
+      WRAPPING_TAB_BAR_CLASSES_BY_ALIGN = { center: "ks-tab-bar flex flex-wrap justify-center max-sm:justify-start", start: "ks-tab-bar flex flex-wrap justify-start" }.freeze
       SHAPE_CLASSES = { pills: "ks-tab-bar-pills", underline: "ks-tab-bar-underline" }.freeze
       TAB_BASE_CLASSES = "ks-tab text-sm transition max-sm:shrink-0 max-sm:whitespace-nowrap"
       SHAPED_TAB_BASE_CLASSES = "ks-tab transition max-sm:shrink-0 max-sm:whitespace-nowrap"
@@ -18,8 +19,9 @@ module Keystone
 
       attr_reader :tabs
 
-      def initialize(tabs:, align: :center, shape: nil, id: nil)
+      def initialize(tabs:, align: :center, shape: nil, id: nil, wrap: false)
         @tabs = tabs
+        @wrap = wrap
         @align = align
         @shape = shape
         @id = id
@@ -30,7 +32,7 @@ module Keystone
       end
 
       def classes
-        [ TAB_BAR_CLASSES_BY_ALIGN.fetch(@align), SHAPE_CLASSES[@shape] ].compact.join(" ")
+        [ (@wrap ? WRAPPING_TAB_BAR_CLASSES_BY_ALIGN : TAB_BAR_CLASSES_BY_ALIGN).fetch(@align), SHAPE_CLASSES[@shape] ].compact.join(" ")
       end
 
       def base_tab_classes

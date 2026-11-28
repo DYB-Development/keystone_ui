@@ -81,4 +81,8 @@ class Keystone::Ui::TabSwitcherComponentTest < Minitest::Test
 
     assert_includes component.tab_classes, "ks-tab-active"
   end
+
+  def test_given_wrap_the_tab_row_wraps_onto_more_lines_below_sm_in_place_of_scrolling_sideways
+    refute_includes Keystone::Ui::TabSwitcherComponent.new(tabs: [ "A" ], wrap: true).classes.split, "max-sm:flex-nowrap"
+  end
 end
