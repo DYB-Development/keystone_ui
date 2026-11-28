@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.109.0] - 2026-11-28
+
 ### Added
 - `ui_tab_switcher` takes `id:` to put an id on its tab row, so a Turbo Stream can replace the row with fresh labels and counts.
 
