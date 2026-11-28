@@ -232,3 +232,25 @@ test("several changes held while the last submission was sent are sent together 
 
   assert.equal(form.submitted, 1)
 })
+
+function streamRendering() {
+  let finishRendering
+  const drawn = new Promise((resolve) => { finishRendering = resolve })
+  return { stream: { render: () => drawn }, finishRendering }
+}
+
+test("a held change waits until the Turbo Stream answer to the last submission has been drawn", async () => {
+  const { controller, form } = formWith()
+  const { stream, finishRendering } = streamRendering()
+  streamsOnPage([ stream ])
+
+  controller.started()
+  controller.changed({ target: field("select-one", "SELECT") })
+  const finishing = controller.finished({ detail: { success: true, fetchResponse: { responseHTML: Promise.resolve("<turbo-stream></turbo-stream>") } } })
+  await new Promise((resolve) => setTimeout(resolve, 10))
+  const sentBeforeDrawn = form.submitted
+  finishRendering()
+  await finishing
+
+  assert.deepEqual([sentBeforeDrawn, form.submitted], [0, 1])
+})

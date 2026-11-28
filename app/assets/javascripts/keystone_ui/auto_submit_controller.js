@@ -23,7 +23,8 @@ export default class extends Controller {
     this.sending = true
   }
 
-  async finished() {
+  async finished(event) {
+    await this.answerDrawn(event.detail.fetchResponse)
     this.sending = false
     if (!this.held) return
 
@@ -60,6 +61,12 @@ export default class extends Controller {
     const field = document.getElementById(this.focusedId)
     field?.focus()
     if (Number.isInteger(this.selection[0])) field?.setSelectionRange(...this.selection)
+  }
+
+  async answerDrawn(fetchResponse) {
+    await fetchResponse?.responseHTML
+    await new Promise((resolve) => setTimeout(resolve))
+    await Promise.allSettled(Array.from(document.querySelectorAll("turbo-stream"), (stream) => stream.render()))
   }
 
   submitNow() {
