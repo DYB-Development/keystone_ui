@@ -235,12 +235,18 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 4. Lay out the body. Each of these takes a block and they nest.
 
-   - `ui_section(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil)`
+   - `ui_section(title: nil, subtitle: nil, action: nil, menu: [], spacing: :md, class: nil, title_caps: false, gap: nil)`
      — `action:` is `{ label:, href: }` and renders a link.
      `menu:` is `[{ label:, href:, method: }, ...]`, each hash taking the
      keywords of `ui_action_menu_item`, and renders an action menu. The link
      and the menu sit side by side at the right edge of the header, the link
-     first, at every width. `spacing:` is `:sm` `:md` `:lg`. The header, with its
+     first, at every width. `spacing:` is `:none` `:sm` `:md` `:lg`, and `:none`
+     adds no space above the section, for the first section inside a
+     `ui_panel`. `title_caps: true` draws the title in small grey capitals,
+     still as a heading, with the subtitle under it. `gap:` is `:sm` `:md`
+     `:lg` `:xl` and stacks the block's content with that gap between each
+     piece, such as fields, row cards and a result box, so add no margins of
+     your own between them. The header, with its
      `action:`, `menu:` and aside, renders only when `title:` is given, and an
      aside given with no `title:` raises `ArgumentError`.
    - The block yields the section, and `section.with_aside { ... }` in it puts
@@ -272,7 +278,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      width and the detail the other two thirds beside it. Below `lg:` the detail
      is drawn above the list. With no detail the list takes the full width at
      every size. Write no Tailwind classes of your own to get either order.
-   - `ui_panel(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil, selected_marker: nil, aside: nil)`
+   - `ui_panel(padding: :md, radius: :lg, shadow: true, shaded: false, selected: false, title: nil, selected_marker: nil, aside: nil, action: nil)`
      — `padding:` is `:sm` `:md` `:lg` and `radius:` is `:md` `:lg` `:xl`.
      `shaded: true` fills the panel with a shaded background and drops its
      shadow, for the result box under a form. `selected: true` outlines it as
@@ -280,7 +286,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      a heading above the block, `aside:` a short note such as an amount at the
      right end of that line, and `selected_marker:`, such as `"(in use)"`, is
      written after the title only while `selected: true`, so the choice is not
-     told by the outline alone.
+     told by the outline alone. `action:` takes `ui_button` keywords, usually
+     `{ label:, href:, method:, params: }`, and draws a small text button at
+     the panel's top right that sends its own request, such as Remove on a row
+     card. It needs no `title:`, and with one it sits at the end of the title
+     line. The button sends its own form, so a panel with an `action:` that
+     sends a method other than `:get` cannot sit inside another form.
    - `ui_card_link(href:, padding: :md, shadow: true)` — `padding:` is `:sm`
      `:md` `:lg`.
    - `ui_card(title:, summary:, link:, cta: "Read more", edge_to_edge: false, class: nil)`
@@ -391,7 +402,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      action, such as `ui_mobile_actions`. It never asks `action_confirm:`. The
      layout must also write the `hotwire-native` class on `<html>` and declare
      that Tailwind variant.
-   - `ui_bottom_action` takes no keywords and no block. It draws the
+   - `ui_bottom_action(native: false)` takes no block. It draws the
      `action_url:` a screen gives `ui_page_header` as a full-width `ui_button`
      labelled with its `action_label:`, in a bar fixed to the bottom of the
      screen, above `ui_bottom_nav` on a page that has one. With
@@ -406,7 +417,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      page has a `ui_bottom_nav`, so the page's last content scrolls clear of
      both. Add no padding of your own for them. It and `ui_mobile_action`
      draw the same action, so ask the developer which one a screen shows on a
-     phone.
+     phone. `native: true` keeps the bar shown inside a Hotwire Native web
+     view, at the bottom of the web view, with its copy in the page's flow and
+     no room for the bottom nav, which the web view hides. keystone_ui has no
+     bridge component or native button for a page's action, so this is the
+     way to show a page's main action to native users on a phone.
    - `ui_decision_bar(url:, primary:, actions: [], note: nil, hint: nil, method: :post, breakpoint: :sm)`
      draws one form sending to `url:` with `method:`. `primary:` and each hash
      in `actions:` are `ui_button` keywords, usually `label:`, `name:` and
@@ -458,9 +473,12 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 6. Build forms.
 
-   - `ui_form(action:, method: :post, multipart: false, data: nil, auto_submit: false)` takes a
+   - `ui_form(action:, method: :post, multipart: false, data: nil, auto_submit: false, density: nil)` takes a
      block. `method:` may be `:patch`, `:put` or `:delete`, sent as Rails
      expects. Set `multipart: true` when the form holds a file upload.
+     `density: :compact` draws the form's labels in 12px text and its inputs,
+     selects and input groups with less padding and smaller corners, for a
+     calculator with many fields on a phone.
    - `auto_submit: true` sends the form with `requestSubmit`, so Turbo handles
      it, as soon as a select, checkbox or radio button changes, and half a
      second after the person stops typing in a text or number field, or at
@@ -642,8 +660,11 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 8. Build tables.
 
-   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false, density: nil)`
-     takes a block yielding the table. `heading_caps: true` draws the column
+   - `ui_data_table(items:, columns:, empty_message: nil, sort: nil, sort_direction: nil, sort_url: nil, hidden_columns: [], key: nil, group_by: nil, group_totals: {}, total: nil, current_row: nil, phone_list: false, header: true, heading_caps: false, density: nil, whole_words: false)`
+     takes a block yielding the table. `whole_words: true` breaks no heading or
+     cell in the middle of a word, even inside a `ui_panel`, and holds each
+     `wrap: true` column at least 7rem wide, so a locked first column of labels
+     wraps between words. `heading_caps: true` draws the column
      headings in small capitals. `density: :compact` draws every heading and
      cell in extra small text with smaller padding, for a wide table in a
      narrow panel, and works with `heading_caps: true`. `items:` are records or hashes, and a
@@ -913,7 +934,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
    - `ui_facts(facts:)` — each fact is `{ value:, label: }`, drawn as a small
      box with the count in bold beside its label, in a row that wraps.
    - `ui_paragraph(text:)` shows running text.
-   - `ui_value_list(rows:, align: :start, columns: false, label_caps: false, value_mono: false)` — each row is
+   - `ui_value_list(rows:, align: :start, columns: false, label_caps: false, value_mono: false, compact: false)` — each row is
      `{ label:, value: }` with optional `note:`, `total: true`, `key: true`,
      `right: true` and `fallback:`, shown when the value is `nil` or empty.
      `key: true` draws the row larger than the others, for a key figure in a
@@ -922,7 +943,10 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
      answer that was right. `align: :end` pushes values to the right, as in a
      ledger. `label_caps: true` draws the labels in small capitals and
      `value_mono: true` draws the values in a fixed-width font, as for ids,
-     model names and run numbers.
+     model names and run numbers. `compact: true` draws a compact result
+     list in 14px text, each label at its natural width and each value at the
+     right in bold, with no line between rows and a `key: true` value at 18px,
+     for a result box in a shaded `ui_panel`.
    - With the default `columns: false`, each pair is one row with its label
      beside its value and a line between rows. `columns: true` draws each pair
      as its label in small text directly above its value, with no line between
@@ -933,7 +957,7 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
 
 10. Explain figures.
 
-    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false)`
+    - `ui_stat_card(label:, value:, variant: :neutral, suffix: nil, definition: nil, calculation: nil, change: nil, href: nil, note: nil, plain: false, fallback: nil, compact: false, label_caps: false, value_size: :lg)`
       — `variant:` is `:neutral` `:success` `:danger` `:warning` `:info` and
       colours the value. `change:` is a signed number shown as `▲ 4.2%` in
       green, `▼` in red, or plain at zero. `href:` links the value only, so
@@ -944,7 +968,9 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       the value, under half a default card's height. Put compact cards in
       `ui_grid(cols: { default: 1, sm: 2 }, gap: :sm)` inside a panel so they
       sit two across and stack on a phone. `label_caps: true` draws the label
-      in small capitals.
+      in small capitals. `value_size: :sm` draws the value at 22px on one line
+      and the label in 12px text, so a figure such as `$14,885` never breaks on
+      a phone in a row of stat cards two across.
     - `ui_figure(text:, tone: :neutral)` prints one amount or short result
       inline. `tone:` `:neutral` uses the surrounding text colour, `:success`
       green, `:danger` red, `:warning` amber and `:info` blue, such as
@@ -1187,12 +1213,16 @@ two exceptions: `ui_page`'s `padding:` treats any value other than `:none` as
       which draws only the row. Do not add an id with a wrapping `div`.
     - `shape: :pills` draws each tab as an outlined pill, such as a row of
       filters, and `shape: :underline` draws the tabs on a line with the
-      chosen tab underlined. In either shape a count is drawn as plain muted
+      chosen tab underlined. `shape: :text_underline` draws them as
+      `:underline` does in 14px text, with the chosen tab's label and underline
+      in the text colour and the heading weight. In any shape a count is drawn as plain muted
       text after the label, and the shape sets the tabs' text size, so do not
       add a text size class.
     - Below `sm` every tab switcher's tab row stays on one line, starts at
       the left edge and scrolls sideways, and from `sm` up it wraps and is
-      centred unless `align: :start` is given.
+      centred unless `align: :start` is given. `wrap: true` lets the row wrap
+      onto more lines below `sm` too, starting at the left edge, and works with
+      `id:`.
     - `ui_swipe_deck(items:, empty_title: "All done!", empty_subtitle: nil)`
       takes a block yielding the deck, where `deck.item { |item| ... }` renders
       one card's face. Accepting sends a bubbling `swipe-deck:complete` event
