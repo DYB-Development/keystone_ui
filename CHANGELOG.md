@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.110.0] - 2026-11-28
+
 ### Changed
 - `ui_form(auto_submit: true)` holds a change made while a submission from any auto-submit form on the page is still being sent, and once that submission's Turbo Stream answer has been drawn sends the held forms one after another in the order they were held, so each carries the values, such as a shared `lock_version`, the answer before it put on the page.
 
